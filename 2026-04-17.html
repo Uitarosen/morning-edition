@@ -175,21 +175,39 @@
       transition: opacity 0.2s, transform 0.15s;
     }
     .story-link:hover { opacity: 0.75; transform: translateY(-1px); }
-    .dislike-btn {
+    /* ─── FEEDBACK BUTTONS ──────────────────────────────────── */
+    .feedback-buttons { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .flag-btn {
       background: none;
       border: 1px solid currentColor;
+      color: inherit;
       font-family: var(--font);
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       font-weight: 700;
-      letter-spacing: 0.08em;
-      padding: 0.55em 1.2em;
+      letter-spacing: 0.05em;
+      padding: 0.5em 1em;
       border-radius: 3px;
       cursor: pointer;
-      opacity: 0.4;
-      transition: opacity 0.2s, transform 0.15s;
+      opacity: 0.32;
+      transition: opacity 0.2s, background 0.2s, color 0.2s, border-color 0.2s, transform 0.15s;
     }
-    .dislike-btn:hover { opacity: 0.8; transform: translateY(-1px); }
-    .dislike-btn.disliked { opacity: 1; background: rgba(255,255,255,0.15); }
+    .flag-btn:hover { opacity: 0.72; transform: translateY(-1px); }
+    .flag-btn.like-btn.active  { opacity: 1; background: rgba(255,215,0,0.15); border-color: #FFD700; color: #FFD700 !important; }
+    .flag-btn.dislike-btn.active { opacity: 1; background: rgba(255,60,60,0.12); border-color: #FF4444; color: #FF4444 !important; }
+
+    /* ─── TOAST ──────────────────────────────────────────────── */
+    .toast {
+      position: fixed; bottom: 2rem; right: 2rem;
+      background: #1a1a1a; color: #fff;
+      font-family: var(--font); font-size: 0.82rem; font-weight: 700;
+      padding: 0.75em 1.4em; border-radius: 4px;
+      border-left: 3px solid #00C853;
+      z-index: 9999; opacity: 0; transform: translateY(10px);
+      transition: opacity 0.25s, transform 0.25s;
+      pointer-events: none; box-shadow: 0 4px 24px rgba(0,0,0,0.45);
+    }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    .toast.error { border-left-color: #FF5252; }
 
     /* ─── STORY 1: HERO CLAUDE ──────────────────────────────── */
     .story-1 {
@@ -207,7 +225,7 @@
     .story-1 .story-meta { color: #000; }
     .story-1 .story-link.primary { background: #000; color: #fff; }
     .story-1 .story-link.secondary { background: #f0f0f0; color: #000; }
-    .story-1 .dislike-btn { color: #000; border-color: #999; }
+    .story-1 .flag-btn { color: #000; }
     .story-1-accent {
       position: absolute;
       bottom: 0; left: 0;
@@ -285,7 +303,7 @@
     .story-3 .story-meta { color: #00ff41; opacity: 0.4; }
     .story-3 .story-link.primary { background: #00ff41; color: #000; font-family: 'Courier New', monospace; }
     .story-3 .story-link.secondary { background: rgba(0,255,65,0.08); color: #00ff41; border: 1px solid rgba(0,255,65,0.3); font-family: 'Courier New', monospace; }
-    .story-3 .dislike-btn { color: #00ff41; border-color: #00ff41; font-family: 'Courier New', monospace; }
+    .story-3 .flag-btn { font-family: 'Courier New', monospace; }
     .terminal-prompt { font-size: 0.85rem; opacity: 0.5; margin-bottom: 1rem; }
     .terminal-prompt::before { content: '$ '; color: #00ff41; }
     .feature-grid {
@@ -317,7 +335,7 @@
     .story-4 .story-meta { color: #1a1a1a; }
     .story-4 .story-link.primary { background: #1a1a1a; color: #f5f0e8; }
     .story-4 .story-link.secondary { background: rgba(0,0,0,0.07); color: #333; }
-    .story-4 .dislike-btn { color: #333; border-color: #999; }
+    .story-4 .flag-btn { color: #333; }
     .drop-cap::first-letter {
       font-size: 4.5rem;
       font-weight: 900;
@@ -465,7 +483,7 @@
     .story-8 .story-meta { color: #1a1008; }
     .story-8 .story-link.primary { background: #1a1008; color: #e8e0d0; }
     .story-8 .story-link.secondary { background: rgba(0,0,0,0.08); color: #333; }
-    .story-8 .dislike-btn { color: #333; border-color: #888; }
+    .story-8 .flag-btn { color: #333; }
     .mac-specs {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
@@ -693,7 +711,10 @@
     <div class="story-links">
       <a class="story-link primary" href="https://www.anthropic.com/news/claude-opus-4-7" target="_blank">記事を読む →</a>
       <a class="story-link secondary" href="https://news.ycombinator.com/item?id=47793411" target="_blank">HN議論 (942)</a>
-      <button class="dislike-btn" onclick="toggleDislike(this,'claude-opus-4-7')">興味なし</button>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="claude-opus-4-7" data-type="like" onclick="toggleFlag('claude-opus-4-7','Claude Opus 4.7','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="claude-opus-4-7" data-type="dislike" onclick="toggleFlag('claude-opus-4-7','Claude Opus 4.7','dislike')">✕ 興味なし</button>
+      </div>
     </div>
   </div>
   <div class="story-1-accent"></div>
@@ -750,7 +771,10 @@
     <div class="story-links">
       <a class="story-link primary" href="https://huggingface.co/Qwen/Qwen3.6-35B-A3B" target="_blank">HuggingFaceで見る →</a>
       <a class="story-link secondary" href="https://news.ycombinator.com/item?id=47792764" target="_blank">HN議論 (381)</a>
-      <button class="dislike-btn" onclick="toggleDislike(this,'qwen3-6')">興味なし</button>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="qwen3-6" data-type="like" onclick="toggleFlag('qwen3-6','Qwen3.6-35B-A3B','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="qwen3-6" data-type="dislike" onclick="toggleFlag('qwen3-6','Qwen3.6-35B-A3B','dislike')">✕ 興味なし</button>
+      </div>
     </div>
   </div>
 </section>
@@ -797,7 +821,10 @@
     <div class="story-links">
       <a class="story-link primary" href="https://openai.com/index/codex-for-almost-everything/" target="_blank">記事を読む →</a>
       <a class="story-link secondary" href="https://news.ycombinator.com/item?id=47796469" target="_blank">HN議論 (308)</a>
-      <button class="dislike-btn" onclick="toggleDislike(this,'codex-everything')">興味なし</button>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="codex-everything" data-type="like" onclick="toggleFlag('codex-everything','Codex for Everything','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="codex-everything" data-type="dislike" onclick="toggleFlag('codex-everything','Codex for Everything','dislike')">✕ 興味なし</button>
+      </div>
     </div>
   </div>
 </section>
@@ -824,7 +851,10 @@
     <div class="story-links">
       <a class="story-link primary" href="https://aphyr.com/posts/420-the-future-of-everything-is-lies-i-guess-where-do-we-go-from-here" target="_blank">記事を読む →</a>
       <a class="story-link secondary" href="https://news.ycombinator.com/item?id=47792718" target="_blank">HN議論 (475)</a>
-      <button class="dislike-btn" onclick="toggleDislike(this,'aphyr-lies')">興味なし</button>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="aphyr-lies" data-type="like" onclick="toggleFlag('aphyr-lies','すべてが嘘の未来','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="aphyr-lies" data-type="dislike" onclick="toggleFlag('aphyr-lies','すべてが嘘の未来','dislike')">✕ 興味なし</button>
+      </div>
     </div>
   </div>
 </section>
@@ -855,7 +885,10 @@
     <div class="story-links">
       <a class="story-link primary" href="https://blog.cloudflare.com/ai-platform/" target="_blank">記事を読む →</a>
       <a class="story-link secondary" href="https://news.ycombinator.com/item?id=47792538" target="_blank">HN議論 (54)</a>
-      <button class="dislike-btn" onclick="toggleDislike(this,'cloudflare-ai')">興味なし</button>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="cloudflare-ai" data-type="like" onclick="toggleFlag('cloudflare-ai','Cloudflare AI Platform','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="cloudflare-ai" data-type="dislike" onclick="toggleFlag('cloudflare-ai','Cloudflare AI Platform','dislike')">✕ 興味なし</button>
+      </div>
     </div>
   </div>
 </section>
@@ -894,7 +927,10 @@
     <div class="story-links">
       <a class="story-link primary" href="https://blog.calif.io/p/codex-hacked-a-samsung-tv" target="_blank">記事を読む →</a>
       <a class="story-link secondary" href="https://news.ycombinator.com/item?id=47791212" target="_blank">HN議論 (106)</a>
-      <button class="dislike-btn" onclick="toggleDislike(this,'codex-samsung-hack')">興味なし</button>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="codex-samsung-hack" data-type="like" onclick="toggleFlag('codex-samsung-hack','CodexがSamsung TVをハック','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="codex-samsung-hack" data-type="dislike" onclick="toggleFlag('codex-samsung-hack','CodexがSamsung TVをハック','dislike')">✕ 興味なし</button>
+      </div>
     </div>
   </div>
 </section>
@@ -922,7 +958,10 @@
     <div class="story-links">
       <a class="story-link primary" href="https://antirez.com/news/163" target="_blank">記事を読む →</a>
       <a class="story-link secondary" href="https://news.ycombinator.com/item?id=47791236" target="_blank">HN議論 (77)</a>
-      <button class="dislike-btn" onclick="toggleDislike(this,'antirez-cybersecurity')">興味なし</button>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="antirez-cybersecurity" data-type="like" onclick="toggleFlag('antirez-cybersecurity','AIセキュリティはPoWではない','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="antirez-cybersecurity" data-type="dislike" onclick="toggleFlag('antirez-cybersecurity','AIセキュリティはPoWではない','dislike')">✕ 興味なし</button>
+      </div>
     </div>
   </div>
 </section>
@@ -964,7 +1003,10 @@
     <div class="story-links">
       <a class="story-link primary" href="https://github.com/SeanFDZ/macmind" target="_blank">GitHubで見る →</a>
       <a class="story-link secondary" href="https://news.ycombinator.com/item?id=47792525" target="_blank">HN議論 (30)</a>
-      <button class="dislike-btn" onclick="toggleDislike(this,'macmind')">興味なし</button>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="macmind" data-type="like" onclick="toggleFlag('macmind','MacMind','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="macmind" data-type="dislike" onclick="toggleFlag('macmind','MacMind','dislike')">✕ 興味なし</button>
+      </div>
     </div>
   </div>
 </section>
@@ -1009,7 +1051,10 @@
     <div class="story-links">
       <a class="story-link primary" href="https://github.com/AgentSeal/codeburn" target="_blank">GitHubで見る →</a>
       <a class="story-link secondary" href="https://news.ycombinator.com/item?id=47759035" target="_blank">HN議論 (13)</a>
-      <button class="dislike-btn" onclick="toggleDislike(this,'codeburn')">興味なし</button>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="codeburn" data-type="like" onclick="toggleFlag('codeburn','CodeBurn','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="codeburn" data-type="dislike" onclick="toggleFlag('codeburn','CodeBurn','dislike')">✕ 興味なし</button>
+      </div>
     </div>
   </div>
 </section>
@@ -1044,7 +1089,10 @@
     <div class="story-links">
       <a class="story-link primary" href="https://www.politico.eu/article/european-civil-servants-new-messaging-services/" target="_blank">記事を読む →</a>
       <a class="story-link secondary" href="https://news.ycombinator.com/item?id=47798456" target="_blank">HN議論 (37)</a>
-      <button class="dislike-btn" onclick="toggleDislike(this,'eu-whatsapp-ban')">興味なし</button>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="eu-whatsapp-ban" data-type="like" onclick="toggleFlag('eu-whatsapp-ban','欧州公務員WhatsApp離脱','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="eu-whatsapp-ban" data-type="dislike" onclick="toggleFlag('eu-whatsapp-ban','欧州公務員WhatsApp離脱','dislike')">✕ 興味なし</button>
+      </div>
     </div>
   </div>
 </section>
@@ -1057,7 +1105,8 @@
   </div>
   <div class="footer-meta">
     2026年4月17日 — Hacker Newsから厳選した10本。AI・開発ツール・プライバシー・サイエンスにフォーカス。<br>
-    「興味なし」を押した記事は次回のキュレーションに反映されます。エクスポートしてfeedback.jsonとして保存してください。
+    ⭐ 興味あり / ✕ 興味なし を押すと <strong>feedback.json が自動保存</strong>され、次回のキュレーションに反映されます。<br>
+    <span style="opacity:.6;font-size:0.68rem;">Chrome/Edge: 初回クリック時に Daily News フォルダを選択 → 以降は自動。Firefox/Safari: 下のエクスポートボタンをご利用ください。</span>
   </div>
   <div class="footer-note">
     Generated by Claude Code · Powered by Hacker News · Published on GitHub Pages
@@ -1065,53 +1114,156 @@
 </footer>
 
 <script>
-  // ─── DISLIKE / FEEDBACK SYSTEM ───────────────────────────
-  const STORAGE_KEY = 'morning-edition-feedback';
+  // ─── FEEDBACK v2: 自動保存 + 双方向フラグ ────────────────
+  const FEEDBACK_KEY = 'morning-edition-feedback-v2';
+  const TODAY = '2026-04-17';
+  const IDB_DB = 'morning-edition', IDB_STORE = 'handles', IDB_VER = 1;
 
-  function getDislikedTopics() {
-    try {
-      return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
-    } catch { return {}; }
+  // ── IndexedDB helpers (ディレクトリハンドルを永続化) ──────
+  function openIDB() {
+    return new Promise((res, rej) => {
+      const r = indexedDB.open(IDB_DB, IDB_VER);
+      r.onupgradeneeded = e => e.target.result.createObjectStore(IDB_STORE);
+      r.onsuccess = e => res(e.target.result);
+      r.onerror = e => rej(e.target.error);
+    });
   }
-
-  function toggleDislike(btn, topicId) {
-    const feedback = getDislikedTopics();
-    if (feedback[topicId]) {
-      delete feedback[topicId];
-      btn.textContent = '興味なし';
-      btn.classList.remove('disliked');
-    } else {
-      feedback[topicId] = { disliked: true, date: '2026-04-17' };
-      btn.textContent = '✓ フラグ済み';
-      btn.classList.add('disliked');
-    }
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(feedback));
+  async function idbGet(key) {
+    const db = await openIDB();
+    return new Promise(res => {
+      const tx = db.transaction(IDB_STORE, 'readonly');
+      const r = tx.objectStore(IDB_STORE).get(key);
+      r.onsuccess = () => res(r.result ?? null);
+      r.onerror = () => res(null);
+    });
   }
-
-  function exportFeedback() {
-    const feedback = getDislikedTopics();
-    const json = JSON.stringify({ disliked: feedback, exportedAt: new Date().toISOString() }, null, 2);
-    navigator.clipboard.writeText(json).then(() => {
-      alert('フィードバックをクリップボードにコピーしました。\nfeedback.json として Daily News/ フォルダに保存してください。');
-    }).catch(() => {
-      const el = document.createElement('textarea');
-      el.value = json;
-      document.body.appendChild(el);
-      el.select();
-      document.execCommand('copy');
-      document.body.removeChild(el);
-      alert('フィードバックをクリップボードにコピーしました。');
+  async function idbPut(key, val) {
+    const db = await openIDB();
+    return new Promise((res, rej) => {
+      const tx = db.transaction(IDB_STORE, 'readwrite');
+      tx.objectStore(IDB_STORE).put(val, key);
+      tx.oncomplete = res; tx.onerror = rej;
     });
   }
 
-  // Restore disliked state on load
+  // ── File System Access API ────────────────────────────────
+  async function getDir(forceNew = false) {
+    if (!window.showDirectoryPicker) return null;          // 非対応ブラウザ
+    if (!forceNew) {
+      const stored = await idbGet('dir');
+      if (stored) {
+        const perm = await stored.queryPermission({ mode: 'readwrite' });
+        if (perm === 'granted') return stored;
+        const req = await stored.requestPermission({ mode: 'readwrite' });
+        if (req === 'granted') return stored;
+      }
+    }
+    try {
+      const dir = await window.showDirectoryPicker({ mode: 'readwrite', id: 'daily-news' });
+      await idbPut('dir', dir);
+      return dir;
+    } catch { return null; }
+  }
+
+  async function writeJSON(dir, fb) {
+    const fh = await dir.getFileHandle('feedback.json', { create: true });
+    const w = await fh.createWritable();
+    await w.write(JSON.stringify({ ...fb, updatedAt: new Date().toISOString() }, null, 2));
+    await w.close();
+  }
+
+  // ── Toast ─────────────────────────────────────────────────
+  function showToast(msg, isErr = false) {
+    let el = document.querySelector('.toast');
+    if (!el) { el = document.createElement('div'); el.className = 'toast'; document.body.appendChild(el); }
+    el.textContent = msg;
+    el.className = 'toast' + (isErr ? ' error' : '');
+    requestAnimationFrame(() => el.classList.add('show'));
+    clearTimeout(el._timer);
+    el._timer = setTimeout(() => el.classList.remove('show'), 3000);
+  }
+
+  // ── LocalStorage helpers ──────────────────────────────────
+  function getFeedback() {
+    try { return JSON.parse(localStorage.getItem(FEEDBACK_KEY) || '{"liked":{},"disliked":{}}'); }
+    catch { return { liked: {}, disliked: {} }; }
+  }
+  function saveFeedback(fb) { localStorage.setItem(FEEDBACK_KEY, JSON.stringify(fb)); }
+
+  // ── Auto-save to feedback.json (File System Access API) ───
+  async function autoSave(fb) {
+    let dir = await getDir();
+    if (!dir) {
+      // 初回: フォルダを選んでもらう
+      showToast('📁 Daily News フォルダを選択してください', true);
+      dir = await getDir(true);
+      if (!dir) { showToast('保存をキャンセルしました', true); return; }
+    }
+    try {
+      await writeJSON(dir, fb);
+      showToast('✓ feedback.json を自動保存しました（次回キュレーションに反映）');
+    } catch (e) {
+      showToast('保存エラー: ' + e.message, true);
+    }
+  }
+
+  // ── Toggle ────────────────────────────────────────────────
+  async function toggleFlag(storyId, title, type) {
+    const fb = getFeedback();
+    fb.liked = fb.liked || {};
+    fb.disliked = fb.disliked || {};
+
+    const likeBtn    = document.querySelector(`.flag-btn.like-btn[data-story="${storyId}"]`);
+    const dislikeBtn = document.querySelector(`.flag-btn.dislike-btn[data-story="${storyId}"]`);
+
+    if (type === 'like') {
+      if (fb.liked[storyId]) {
+        delete fb.liked[storyId];
+        likeBtn?.classList.remove('active');
+      } else {
+        fb.liked[storyId] = { title, date: TODAY };
+        delete fb.disliked[storyId];
+        likeBtn?.classList.add('active');
+        dislikeBtn?.classList.remove('active');
+      }
+    } else {
+      if (fb.disliked[storyId]) {
+        delete fb.disliked[storyId];
+        dislikeBtn?.classList.remove('active');
+      } else {
+        fb.disliked[storyId] = { title, date: TODAY };
+        delete fb.liked[storyId];
+        dislikeBtn?.classList.add('active');
+        likeBtn?.classList.remove('active');
+      }
+    }
+
+    saveFeedback(fb);
+    await autoSave(fb);
+  }
+
+  // ── 手動エクスポート (非対応ブラウザ向けフォールバック) ───
+  function exportFeedback() {
+    const fb = getFeedback();
+    const json = JSON.stringify({ ...fb, exportedAt: new Date().toISOString() }, null, 2);
+    navigator.clipboard.writeText(json)
+      .then(() => showToast('📋 クリップボードにコピーしました'))
+      .catch(() => {
+        const el = document.createElement('textarea');
+        el.value = json; document.body.appendChild(el); el.select();
+        document.execCommand('copy'); document.body.removeChild(el);
+        showToast('📋 クリップボードにコピーしました');
+      });
+  }
+
+  // ── 起動時にフラグ状態を復元 ──────────────────────────────
   document.addEventListener('DOMContentLoaded', () => {
-    const feedback = getDislikedTopics();
-    document.querySelectorAll('.dislike-btn').forEach(btn => {
-      const topicId = btn.getAttribute('onclick').match(/'([^']+)'\)/)[1];
-      if (feedback[topicId]) {
-        btn.textContent = '✓ フラグ済み';
-        btn.classList.add('disliked');
+    const fb = getFeedback();
+    document.querySelectorAll('.flag-btn').forEach(btn => {
+      const id   = btn.dataset.story;
+      const type = btn.dataset.type;
+      if ((type === 'like' && fb.liked?.[id]) || (type === 'dislike' && fb.disliked?.[id])) {
+        btn.classList.add('active');
       }
     });
   });
