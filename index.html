@@ -1,11 +1,735 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8">
-<meta http-equiv="refresh" content="0; url=2026-04-19.html">
-<title>Morning Edition</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Morning Edition — アーカイブ</title>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --font: 'M PLUS Rounded 1c', 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+      --bg: #f4f5f7;
+      --surface: #ffffff;
+      --surface2: #f0f1f4;
+      --border: #dde0e8;
+      --accent: #2563eb;
+      --accent2: #7c3aed;
+      --accent-glow: rgba(37, 99, 235, 0.08);
+      --text: #111827;
+      --text-dim: #6b7280;
+      --text-muted: #9ca3af;
+      --badge: #ef4444;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── HEADER ─────────────────────────────────────────────── */
+    .site-header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(12px);
+    }
+    .header-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    .logo {
+      font-size: 1.15rem;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-shrink: 0;
+    }
+    .logo-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      display: inline-block;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.6; transform: scale(0.85); }
+    }
+    .header-divider {
+      width: 1px;
+      height: 20px;
+      background: var(--border);
+    }
+    .header-tagline {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      font-weight: 500;
+      letter-spacing: 0.05em;
+    }
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .live-badge {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(255, 95, 95, 0.1);
+      border: 1px solid rgba(255, 95, 95, 0.3);
+      color: #ff5f5f;
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.6rem;
+      border-radius: 4px;
+    }
+    .live-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #ff5f5f;
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+    #current-date-header {
+      font-size: 0.78rem;
+      color: var(--text-dim);
+      font-weight: 500;
+    }
+
+    /* ── HERO / LATEST ──────────────────────────────────────── */
+    .hero {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 2.5rem 2rem 2rem;
+    }
+
+    .section-label {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-bottom: 1.2rem;
+    }
+    .section-label-line {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+    .section-label-text {
+      font-size: 0.68rem;
+      font-weight: 800;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      white-space: nowrap;
+    }
+
+    .featured-grid {
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: 1.5rem;
+      align-items: start;
+    }
+    @media (max-width: 900px) {
+      .featured-grid { grid-template-columns: 1fr; }
+    }
+
+    /* iframe card */
+    .frame-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 0 60px rgba(79, 143, 255, 0.06);
+      position: relative;
+    }
+    .frame-card-header {
+      background: var(--surface2);
+      border-bottom: 1px solid var(--border);
+      padding: 0.8rem 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+    .chrome-dots {
+      display: flex;
+      gap: 6px;
+    }
+    .chrome-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+    .chrome-dot:nth-child(1) { background: #ff5f57; }
+    .chrome-dot:nth-child(2) { background: #febc2e; }
+    .chrome-dot:nth-child(3) { background: #28c840; }
+    .frame-url {
+      flex: 1;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 0.3rem 0.8rem;
+      font-size: 0.73rem;
+      color: var(--text-dim);
+      font-weight: 500;
+      letter-spacing: 0.01em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .latest-frame {
+      width: 100%;
+      height: 680px;
+      border: none;
+      display: block;
+      transform-origin: top left;
+    }
+    .frame-footer {
+      background: var(--surface2);
+      border-top: 1px solid var(--border);
+      padding: 0.6rem 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .open-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: var(--accent);
+      color: #fff;
+      text-decoration: none;
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 0.45rem 1rem;
+      border-radius: 6px;
+      transition: all 0.2s;
+      letter-spacing: 0.02em;
+    }
+    .open-btn:hover { background: #3a75e8; transform: translateY(-1px); }
+    .frame-date-label {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    /* latest info panel */
+    .latest-info {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .latest-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .latest-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+    }
+    .latest-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      background: rgba(79, 143, 255, 0.1);
+      border: 1px solid rgba(79, 143, 255, 0.25);
+      color: var(--accent);
+      font-size: 0.65rem;
+      font-weight: 800;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      margin-bottom: 1rem;
+    }
+    .latest-date-display {
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--text);
+      line-height: 1.1;
+      margin-bottom: 0.4rem;
+      letter-spacing: -0.03em;
+    }
+    .latest-weekday {
+      font-size: 0.85rem;
+      color: var(--text-dim);
+      font-weight: 500;
+      margin-bottom: 1.2rem;
+    }
+    .stat-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.8rem;
+    }
+    .stat-box {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.8rem;
+      text-align: center;
+    }
+    .stat-num {
+      font-size: 1.6rem;
+      font-weight: 900;
+      color: var(--text);
+      display: block;
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-top: 0.3rem;
+      display: block;
+    }
+
+    /* scroll hint card */
+    .scroll-hint {
+      background: linear-gradient(135deg, rgba(79,143,255,0.08), rgba(124,95,255,0.08));
+      border: 1px solid rgba(79,143,255,0.15);
+      border-radius: 12px;
+      padding: 1.2rem;
+      text-align: center;
+    }
+    .scroll-hint p {
+      font-size: 0.78rem;
+      color: var(--text-dim);
+      line-height: 1.6;
+      font-weight: 500;
+    }
+    .scroll-hint strong {
+      color: var(--accent);
+    }
+
+    /* ── ARCHIVE SECTION ────────────────────────────────────── */
+    .archive-section {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 1rem 2rem 4rem;
+    }
+
+    .archive-controls {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .archive-count {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+    .archive-count strong {
+      color: var(--text);
+      font-weight: 800;
+    }
+
+    .archive-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1rem;
+    }
+
+    .archive-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.2rem;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+      transition: all 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+    .archive-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(79,143,255,0.12);
+      background: var(--surface2);
+    }
+    .archive-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, var(--accent-glow), transparent);
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    .archive-card:hover::after { opacity: 1; }
+
+    .card-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+    .card-num {
+      font-size: 0.65rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+    .card-arrow {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      transition: color 0.2s, transform 0.2s;
+    }
+    .archive-card:hover .card-arrow {
+      color: var(--accent);
+      transform: translateX(3px);
+    }
+    .card-date {
+      font-size: 1.45rem;
+      font-weight: 900;
+      color: var(--text);
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+    }
+    .card-weekday {
+      font-size: 0.72rem;
+      color: var(--text-dim);
+      font-weight: 500;
+    }
+    .card-bar {
+      height: 2px;
+      background: var(--border);
+      border-radius: 2px;
+      overflow: hidden;
+      margin-top: auto;
+    }
+    .card-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      width: 0%;
+      transition: width 0.4s ease;
+    }
+    .archive-card:hover .card-bar-fill { width: 100%; }
+
+    /* ── LOADING / EMPTY ────────────────────────────────────── */
+    .loading-state {
+      text-align: center;
+      padding: 4rem 2rem;
+    }
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid var(--border);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto 1rem;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .loading-state p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    /* ── FOOTER ─────────────────────────────────────────────── */
+    .site-footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem;
+      text-align: center;
+    }
+    .footer-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    .footer-logo {
+      font-size: 1.1rem;
+      font-weight: 900;
+      color: var(--text-muted);
+      letter-spacing: -0.02em;
+      margin-bottom: 0.5rem;
+    }
+    .footer-copy {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      font-weight: 400;
+    }
+
+    /* ── SEPARATOR ──────────────────────────────────────────── */
+    .section-sep {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+    .sep-line {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 0 0 2rem;
+    }
+
+    /* scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: #3a3a50; }
+  </style>
 </head>
 <body>
-<p><a href="2026-04-19.html">最新号へ →</a></p>
+
+  <!-- ── HEADER ─────────────────────────────────────────── -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="/" class="logo">
+        <span class="logo-dot"></span>
+        MORNING EDITION
+      </a>
+      <div class="header-divider"></div>
+      <span class="header-tagline">Tech &amp; Dev News Archive</span>
+      <div class="header-right">
+        <span class="live-badge"><span class="live-dot"></span> LIVE</span>
+        <span id="current-date-header"></span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── HERO: LATEST EDITION ───────────────────────────── -->
+  <main>
+    <section class="hero">
+      <div class="section-label">
+        <span class="section-label-text">最新号</span>
+        <span class="section-label-line"></span>
+      </div>
+
+      <div class="featured-grid">
+
+        <!-- iframe preview -->
+        <div class="frame-card">
+          <div class="frame-card-header">
+            <div class="chrome-dots">
+              <div class="chrome-dot"></div>
+              <div class="chrome-dot"></div>
+              <div class="chrome-dot"></div>
+            </div>
+            <div class="frame-url" id="frame-url-bar">読み込み中…</div>
+          </div>
+          <iframe
+            id="latest-frame"
+            class="latest-frame"
+            title="最新号プレビュー"
+            scrolling="yes"
+          ></iframe>
+          <div class="frame-footer">
+            <span class="frame-date-label" id="frame-date-label">—</span>
+            <a href="#" id="open-latest-btn" class="open-btn" target="_blank">
+              全画面で開く
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                <path d="M2 2h8v8M10 2 2 10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- info panel -->
+        <aside class="latest-info">
+          <div class="latest-card">
+            <span class="latest-badge">
+              <span style="width:5px;height:5px;border-radius:50%;background:currentColor;display:inline-block;"></span>
+              Latest Issue
+            </span>
+            <div class="latest-date-display" id="latest-date-big">—</div>
+            <div class="latest-weekday" id="latest-weekday">—</div>
+            <div class="stat-row">
+              <div class="stat-box">
+                <span class="stat-num" id="total-count">—</span>
+                <span class="stat-label">総号数</span>
+              </div>
+              <div class="stat-box">
+                <span class="stat-num" id="days-since">—</span>
+                <span class="stat-label">日前</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="scroll-hint">
+            <p>
+              下のアーカイブから<strong>過去のMorning Edition</strong>を選んで読むことができます。<br>
+              毎朝、厳選したTech &amp; Devニュースをお届けしています。
+            </p>
+          </div>
+        </aside>
+
+      </div>
+    </section>
+
+    <!-- ── ARCHIVE ─────────────────────────────────────────── -->
+    <div class="section-sep"><hr class="sep-line"></div>
+
+    <section class="archive-section">
+      <div class="section-label">
+        <span class="section-label-text">バックナンバー</span>
+        <span class="section-label-line"></span>
+      </div>
+
+      <div class="archive-controls">
+        <p class="archive-count">
+          <strong id="archive-count-num">—</strong> 号のアーカイブ
+        </p>
+      </div>
+
+      <div id="archive-grid" class="archive-grid">
+        <div class="loading-state">
+          <div class="spinner"></div>
+          <p>アーカイブを読み込み中…</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ── FOOTER ─────────────────────────────────────────────── -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-logo">MORNING EDITION</div>
+      <p class="footer-copy">毎朝のTech &amp; Devニュースキュレーション</p>
+    </div>
+  </footer>
+
+  <script>
+    const WEEKDAYS = ['日', '月', '火', '水', '木', '金', '土'];
+    const REPO = 'Uitarosen/morning-edition';
+    const API  = `https://api.github.com/repos/${REPO}/contents/`;
+
+    function parseDate(name) {
+      const m = name.match(/^(\d{4})-(\d{2})-(\d{2})\.html$/);
+      if (!m) return null;
+      return new Date(+m[1], +m[2] - 1, +m[3]);
+    }
+
+    function formatDateJa(d) {
+      return `${d.getFullYear()}年${d.getMonth() + 1}月${d.getDate()}日`;
+    }
+
+    function formatDateShort(d) {
+      const mm = String(d.getMonth() + 1).padStart(2, '0');
+      const dd = String(d.getDate()).padStart(2, '0');
+      return `${d.getFullYear()}/${mm}/${dd}`;
+    }
+
+    function daysDiff(d) {
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      d = new Date(d); d.setHours(0, 0, 0, 0);
+      return Math.round((today - d) / 86400000);
+    }
+
+    // Set header date
+    const now = new Date();
+    document.getElementById('current-date-header').textContent =
+      `${now.getFullYear()}/${String(now.getMonth()+1).padStart(2,'0')}/${String(now.getDate()).padStart(2,'0')}`;
+
+    async function loadArchive() {
+      let files;
+      try {
+        const res = await fetch(API);
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        files = await res.json();
+      } catch (e) {
+        // Fallback: try to infer files from known pattern
+        document.getElementById('archive-grid').innerHTML =
+          `<div class="loading-state"><p style="color:#ff5f5f">読み込みに失敗しました。<br>しばらく待ってから再読み込みしてください。</p></div>`;
+        return;
+      }
+
+      const dated = files
+        .filter(f => /^\d{4}-\d{2}-\d{2}\.html$/.test(f.name))
+        .map(f => ({ name: f.name, date: parseDate(f.name) }))
+        .filter(f => f.date)
+        .sort((a, b) => b.date - a.date);
+
+      if (!dated.length) {
+        document.getElementById('archive-grid').innerHTML =
+          `<div class="loading-state"><p>号が見つかりませんでした。</p></div>`;
+        return;
+      }
+
+      const latest = dated[0];
+      const archives = dated.slice(1);
+
+      // ── Populate latest section ──────────────────────────
+      const latestUrl = latest.name;
+      document.getElementById('latest-frame').src = latestUrl;
+      document.getElementById('frame-url-bar').textContent =
+        `morning-edition › ${latest.name}`;
+      document.getElementById('open-latest-btn').href = latestUrl;
+      document.getElementById('frame-date-label').textContent =
+        formatDateJa(latest.date);
+      document.getElementById('latest-date-big').textContent =
+        `${latest.date.getFullYear()}年\n${latest.date.getMonth()+1}月${latest.date.getDate()}日`;
+      document.getElementById('latest-weekday').textContent =
+        `${WEEKDAYS[latest.date.getDay()]}曜日`;
+      document.getElementById('total-count').textContent = dated.length;
+      document.getElementById('days-since').textContent = daysDiff(latest.date);
+      document.getElementById('archive-count-num').textContent = archives.length;
+
+      // ── Populate archive grid ────────────────────────────
+      if (!archives.length) {
+        document.getElementById('archive-grid').innerHTML =
+          `<p style="color:var(--text-muted);font-size:.85rem">バックナンバーはまだありません。</p>`;
+        return;
+      }
+
+      const grid = document.getElementById('archive-grid');
+      grid.innerHTML = '';
+
+      archives.forEach((f, i) => {
+        const d = f.date;
+        const wday = WEEKDAYS[d.getDay()];
+        const card = document.createElement('a');
+        card.href = f.name;
+        card.className = 'archive-card';
+        card.innerHTML = `
+          <div class="card-top">
+            <span class="card-num">No.${String(dated.length - 1 - i).padStart(3, '0')}</span>
+            <span class="card-arrow">→</span>
+          </div>
+          <div class="card-date">${formatDateJa(d)}</div>
+          <div class="card-weekday">${wday}曜日 · ${formatDateShort(d)}</div>
+          <div class="card-bar"><div class="card-bar-fill"></div></div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    loadArchive();
+  </script>
 </body>
 </html>
