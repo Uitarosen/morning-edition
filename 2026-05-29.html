@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Morning Edition — 2026年5月29日</title>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --font: 'M PLUS Rounded 1c', 'Hiragino Sans', 'Noto Sans JP', sans-serif; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); background: #111; color: #fff; overflow-x: hidden; }
+
+    .masthead { background: #fff; color: #000; padding: 3rem 4rem 2.5rem; border-bottom: 6px solid #000; position: relative; overflow: hidden; }
+    .masthead::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: repeating-linear-gradient(90deg, #000 0, #000 12px, transparent 12px, transparent 20px); }
+    .masthead-kicker { font-size: 0.85rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: #777; margin-bottom: 0.6rem; }
+    .masthead-title { font-size: clamp(3.5rem, 9vw, 7.5rem); font-weight: 900; line-height: 0.88; letter-spacing: -0.04em; margin-bottom: 1.8rem; }
+    .masthead-meta { display: flex; gap: 3rem; align-items: baseline; flex-wrap: wrap; }
+    .masthead-date { font-size: 1.5rem; font-weight: 700; }
+    .masthead-subtitle { font-size: 1rem; font-weight: 400; color: #555; max-width: 480px; line-height: 1.5; }
+    .masthead-issue { margin-left: auto; text-align: right; }
+    .masthead-issue span { display: block; }
+    .masthead-issue .iss-label { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: #999; }
+    .masthead-issue .iss-num { font-size: 2.2rem; font-weight: 900; color: #000; }
+
+    .toc { background: #1a1a1a; padding: 1.5rem 4rem; display: flex; gap: 1.5rem; flex-wrap: wrap; border-bottom: 1px solid #333; }
+    .toc a { color: #aaa; text-decoration: none; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; transition: color 0.2s; }
+    .toc a:hover { color: #fff; }
+    .toc-num { color: #555; margin-right: 0.3em; }
+
+    .story { position: relative; overflow: hidden; }
+    .story-inner { max-width: 1200px; margin: 0 auto; padding: 5rem 4rem; position: relative; z-index: 1; }
+    .story-num { font-size: clamp(6rem, 18vw, 16rem); font-weight: 900; line-height: 0.8; letter-spacing: -0.06em; opacity: 0.08; position: absolute; top: 1rem; right: 2rem; user-select: none; }
+    .story-badge { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.35em 0.9em; border-radius: 2px; margin-bottom: 1.5rem; }
+    .direct-badge { background: #FFD700; color: #000; }
+    .story-kicker { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; opacity: 0.6; margin-bottom: 0.8rem; }
+    .story-headline { font-size: clamp(2rem, 5vw, 4rem); font-weight: 900; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+    .story-body { font-size: clamp(1rem, 1.5vw, 1.2rem); font-weight: 400; line-height: 1.8; max-width: 680px; opacity: 0.88; margin-bottom: 2rem; }
+    .story-meta { display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center; font-size: 0.8rem; font-weight: 700; opacity: 0.5; }
+    .story-links { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem; }
+    .story-link { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.6em 1.4em; border-radius: 3px; text-decoration: none; transition: opacity 0.2s, transform 0.15s; }
+    .story-link:hover { opacity: 0.75; transform: translateY(-1px); }
+
+    .feedback-buttons { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .flag-btn { background: none; border: 1px solid currentColor; color: inherit; font-family: var(--font); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.5em 1em; border-radius: 3px; cursor: pointer; opacity: 0.32; transition: opacity 0.2s, background 0.2s, color 0.2s, border-color 0.2s, transform 0.15s; }
+    .flag-btn:hover { opacity: 0.72; transform: translateY(-1px); }
+    .flag-btn.like-btn.active { opacity: 1; background: rgba(255,215,0,0.15); border-color: #FFD700; color: #FFD700 !important; }
+    .flag-btn.dislike-btn.active { opacity: 1; background: rgba(255,60,60,0.12); border-color: #FF4444; color: #FF4444 !important; }
+
+    .toast { position: fixed; bottom: 2rem; right: 2rem; background: #1a1a1a; color: #fff; font-family: var(--font); font-size: 0.82rem; font-weight: 700; padding: 0.75em 1.4em; border-radius: 4px; border-left: 3px solid #00C853; z-index: 9999; opacity: 0; transform: translateY(10px); transition: opacity 0.25s, transform 0.25s; pointer-events: none; box-shadow: 0 4px 24px rgba(0,0,0,0.45); }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    .toast.error { border-left-color: #FF5252; }
+
+    .story-1 { background: #fff; color: #000; min-height: 90vh; display: flex; flex-direction: column; justify-content: center; }
+    .story-1 .story-num { color: #000; opacity: 0.04; }
+    .story-1 .story-kicker { color: #555; opacity: 1; }
+    .story-1 .story-headline { color: #000; }
+    .story-1 .story-body { color: #111; }
+    .story-1 .story-meta { color: #000; }
+    .story-1 .story-link.primary { background: #1a1a1a; color: #fff; }
+    .story-1 .story-link.secondary { background: #f0f0f0; color: #000; }
+    .story-1 .flag-btn { color: #000; }
+    .story-1-accent { position: absolute; bottom: 0; left: 0; width: 100%; height: 8px; background: linear-gradient(90deg, #1a1a1a, #555, #999, #1a1a1a); }
+    .story-1 .headline-accent { display: inline-block; background: linear-gradient(135deg, #1a1a1a 0%, #555 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .dos-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1.2rem; margin: 2rem 0; max-width: 680px; }
+    .dos-card { border: 2px solid rgba(0,0,0,0.12); background: rgba(0,0,0,0.04); border-radius: 6px; padding: 1.3rem 1.5rem; }
+    .dos-card-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.2em; text-transform: uppercase; color: #333; margin-bottom: 0.4rem; }
+    .dos-card-value { font-size: 1.05rem; font-weight: 900; color: #000; line-height: 1.3; }
+    .dos-card-sub { font-size: 0.75rem; color: #555; margin-top: 0.3rem; line-height: 1.4; }
+
+    .story-2 { background: #00080c; color: #b8f0ff; min-height: 80vh; }
+    .story-2::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(0,160,200,0.14) 0%, transparent 65%); }
+    .story-2 .story-num { color: #00A0C8; opacity: 0.07; }
+    .story-2 .story-kicker { color: #20C8E8; opacity: 1; }
+    .story-2 .story-headline { color: #e0f8ff; }
+    .story-2 .story-body { color: #b8f0ff; }
+    .story-2 .story-meta { color: #20C8E8; opacity: 0.5; }
+    .story-2 .story-link.primary { background: #004058; color: #80e8ff; }
+    .story-2 .story-link.secondary { background: rgba(0,160,200,0.08); color: #90d8f0; border: 1px solid rgba(0,160,200,0.22); }
+    .story-2 .flag-btn { color: #b8f0ff; }
+    .teal-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .teal-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(0,160,200,0.07); border-left: 3px solid #00A0C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .teal-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20C8E8; margin-bottom: 0.3rem; }
+    .teal-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-3 { background: #0a0000; color: #fff; min-height: 80vh; }
+    .story-3::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(200,20,20,0.16) 0%, transparent 65%); }
+    .story-3 .story-num { color: #C81414; opacity: 0.07; }
+    .story-3 .story-kicker { color: #E84040; opacity: 1; }
+    .story-3 .story-headline { color: #fff; }
+    .story-3 .story-body { color: rgba(255,255,255,0.88); }
+    .story-3 .story-meta { color: #E84040; opacity: 0.5; }
+    .story-3 .story-link.primary { background: #6a0000; color: #fff; }
+    .story-3 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-3 .flag-btn { color: #fff; }
+    .red-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .red-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(200,20,20,0.07); border-left: 3px solid #C81414; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .red-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E84040; margin-bottom: 0.3rem; }
+    .red-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-4 { background: #020c04; color: #c8f0d0; min-height: 80vh; }
+    .story-4::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(20,160,70,0.16) 0%, transparent 65%); }
+    .story-4 .story-num { color: #14A046; opacity: 0.07; }
+    .story-4 .story-kicker { color: #30C060; opacity: 1; }
+    .story-4 .story-headline { color: #e0ffe8; }
+    .story-4 .story-body { color: #c8f0d0; }
+    .story-4 .story-meta { color: #30C060; opacity: 0.5; }
+    .story-4 .story-link.primary { background: #063820; color: #80ffb0; }
+    .story-4 .story-link.secondary { background: rgba(20,160,70,0.08); color: #a0e8b0; border: 1px solid rgba(20,160,70,0.22); }
+    .story-4 .flag-btn { color: #c8f0d0; }
+    .green-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .green-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(20,160,70,0.07); border-left: 3px solid #14A046; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .green-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #30C060; margin-bottom: 0.3rem; }
+    .green-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-5 { background: #040010; color: #d8c8ff; min-height: 75vh; }
+    .story-5::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(90,40,200,0.17) 0%, transparent 65%); }
+    .story-5 .story-num { color: #5A28C8; opacity: 0.07; }
+    .story-5 .story-kicker { color: #8050E0; opacity: 1; }
+    .story-5 .story-headline { color: #f0e8ff; }
+    .story-5 .story-body { color: #d8c8ff; }
+    .story-5 .story-meta { color: #8050E0; opacity: 0.5; }
+    .story-5 .story-link.primary { background: #200860; color: #d0a8ff; }
+    .story-5 .story-link.secondary { background: rgba(90,40,200,0.08); color: #c0a0f0; border: 1px solid rgba(90,40,200,0.22); }
+    .story-5 .flag-btn { color: #d8c8ff; }
+    .purple-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .purple-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(90,40,200,0.07); border-left: 3px solid #5A28C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .purple-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #8050E0; margin-bottom: 0.3rem; }
+    .purple-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-6 { background: #000c10; color: #b8e8f0; min-height: 75vh; }
+    .story-6::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 40%, rgba(0,130,160,0.14) 0%, transparent 65%); }
+    .story-6 .story-num { color: #0080A0; opacity: 0.07; }
+    .story-6 .story-kicker { color: #20B0D0; opacity: 1; }
+    .story-6 .story-headline { color: #e0f4ff; }
+    .story-6 .story-body { color: #b8e8f0; }
+    .story-6 .story-meta { color: #20B0D0; opacity: 0.5; }
+    .story-6 .story-link.primary { background: #003848; color: #80d8f0; }
+    .story-6 .story-link.secondary { background: rgba(0,130,160,0.08); color: #90cce0; border: 1px solid rgba(0,130,160,0.22); }
+    .story-6 .flag-btn { color: #b8e8f0; }
+    .cyan-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(185px, 1fr)); gap: 1rem; margin: 2rem 0; max-width: 680px; }
+    .cyan-card { background: rgba(0,130,160,0.07); border: 1px solid rgba(0,130,160,0.22); border-radius: 4px; padding: 1.2rem 1.4rem; }
+    .cyan-card-name { font-size: 0.78rem; font-weight: 900; color: #20B0D0; margin-bottom: 0.4rem; }
+    .cyan-card-desc { font-size: 0.72rem; opacity: 0.75; line-height: 1.4; }
+
+    .story-7 { background: #0a0300; color: #ffe0b8; min-height: 75vh; }
+    .story-7::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(210,90,20,0.18) 0%, transparent 65%); }
+    .story-7 .story-num { color: #D05A14; opacity: 0.07; }
+    .story-7 .story-kicker { color: #E88040; opacity: 1; }
+    .story-7 .story-headline { color: #fff0d8; }
+    .story-7 .story-body { color: #ffe0b8; }
+    .story-7 .story-meta { color: #E88040; opacity: 0.5; }
+    .story-7 .story-link.primary { background: #6a2400; color: #ffc880; }
+    .story-7 .story-link.secondary { background: rgba(210,90,20,0.08); color: #ffb870; border: 1px solid rgba(210,90,20,0.22); }
+    .story-7 .flag-btn { color: #ffe0b8; }
+    .amber-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .amber-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(210,90,20,0.07); border-left: 3px solid #D05A14; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .amber-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E88040; margin-bottom: 0.3rem; }
+    .amber-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-8 { background: #080500; color: #fff; min-height: 70vh; }
+    .story-8::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,145,10,0.15) 0%, transparent 65%); }
+    .story-8 .story-num { color: #BE9110; opacity: 0.06; }
+    .story-8 .story-kicker { color: #D4A820; opacity: 1; }
+    .story-8 .story-headline { color: #fff; }
+    .story-8 .story-body { color: rgba(255,255,255,0.88); }
+    .story-8 .story-meta { color: #D4A820; opacity: 0.5; }
+    .story-8 .story-link.primary { background: #604000; color: #ffe070; }
+    .story-8 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-8 .flag-btn { color: #fff; }
+    .gold-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .gold-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(190,145,10,0.07); border-left: 3px solid #BE9110; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .gold-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #D4A820; margin-bottom: 0.3rem; }
+    .gold-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-9 { background: #040810; color: #c8d8f0; min-height: 70vh; }
+    .story-9::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 35%, rgba(50,90,170,0.16) 0%, transparent 65%); }
+    .story-9 .story-num { color: #3258A8; opacity: 0.07; }
+    .story-9 .story-kicker { color: #5878C8; opacity: 1; }
+    .story-9 .story-headline { color: #e8f0ff; }
+    .story-9 .story-body { color: #c8d8f0; }
+    .story-9 .story-meta { color: #5878C8; opacity: 0.5; }
+    .story-9 .story-link.primary { background: #101e50; color: #fff; }
+    .story-9 .story-link.secondary { background: rgba(50,90,170,0.08); color: #b0c8e8; border: 1px solid rgba(50,90,170,0.22); }
+    .story-9 .flag-btn { color: #c8d8f0; }
+    .slate-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .slate-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(50,90,170,0.07); border-left: 3px solid #3258A8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .slate-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #5878C8; margin-bottom: 0.3rem; }
+    .slate-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-10 { background: #080004; color: #ffc8e8; min-height: 70vh; }
+    .story-10::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,20,90,0.15) 0%, transparent 65%); }
+    .story-10 .story-num { color: #BE1458; opacity: 0.07; }
+    .story-10 .story-kicker { color: #E04080; opacity: 1; }
+    .story-10 .story-headline { color: #fff0f8; }
+    .story-10 .story-body { color: #ffc8e8; }
+    .story-10 .story-meta { color: #E04080; opacity: 0.5; }
+    .story-10 .story-link.primary { background: #500030; color: #ffb0d8; }
+    .story-10 .story-link.secondary { background: rgba(190,20,90,0.08); color: #f090c0; border: 1px solid rgba(190,20,90,0.22); }
+    .story-10 .flag-btn { color: #ffc8e8; }
+    .mag-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .mag-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(190,20,90,0.07); border-left: 3px solid #BE1458; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .mag-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E04080; margin-bottom: 0.3rem; }
+    .mag-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .site-footer { background: #000; color: #555; padding: 3rem 4rem; display: flex; flex-direction: column; gap: 1.5rem; border-top: 1px solid #222; }
+    .footer-top { display: flex; gap: 2rem; align-items: center; flex-wrap: wrap; justify-content: space-between; }
+    .footer-brand { font-size: 1.4rem; font-weight: 900; color: #fff; }
+    .footer-meta { font-size: 0.75rem; line-height: 1.6; }
+    .export-btn { background: #222; border: 1px solid #444; color: #fff; font-family: var(--font); font-size: 0.8rem; font-weight: 700; padding: 0.7em 1.5em; border-radius: 3px; cursor: pointer; letter-spacing: 0.08em; transition: background 0.2s; }
+    .export-btn:hover { background: #333; }
+    .footer-note { font-size: 0.7rem; opacity: 0.5; }
+
+    @media (max-width: 768px) {
+      .masthead, .toc, .story-inner, .site-footer { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .story-num { display: none; }
+      .masthead-meta { gap: 1rem; }
+      .masthead-issue { margin-left: 0; }
+      .dos-grid, .cyan-cards { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+<nav style="background:#1a1a1a;border-bottom:1px solid #333;padding:0.55rem 2rem;font-family:'M PLUS Rounded 1c','Hiragino Sans','Noto Sans JP',sans-serif;position:sticky;top:0;z-index:999;">
+  <a href="./index.html" style="color:#aaa;text-decoration:none;font-size:0.8rem;font-weight:700;letter-spacing:0.03em;display:inline-flex;align-items:center;gap:0.4rem;transition:color 0.15s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#aaa'">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    アーカイブへ戻る
+  </a>
+</nav>
+
+<header class="masthead">
+  <div class="masthead-kicker">Hacker News — Morning Edition</div>
+  <h1 class="masthead-title">Morning<br>Edition</h1>
+  <div class="masthead-meta">
+    <div>
+      <div class="masthead-date">2026年5月29日 金曜日</div>
+      <div class="masthead-subtitle">AI・開発ツール・プライバシー・サイエンス — あなたのための10本</div>
+    </div>
+    <div class="masthead-issue">
+      <span class="iss-label">Issue</span>
+      <span class="iss-num">No.044</span>
+    </div>
+  </div>
+</header>
+
+<nav class="toc">
+  <a href="#s1"><span class="toc-num">01</span>Claude Opus 4.8 登場——Anthropicの最新フラッグシップモデル</a>
+  <a href="#s2"><span class="toc-num">02</span>YouTubeがAI生成動画を自動ラベル表示へ——合成メディアの透明性基準</a>
+  <a href="#s3"><span class="toc-num">03</span>AnthropicがシリーズHで65億ドル調達——評価額9650億ドルへ</a>
+  <a href="#s4"><span class="toc-num">04</span>Claude Codeのダイナミックワークフロー——エージェントが自律的にサブタスクを分解</a>
+  <a href="#s5"><span class="toc-num">05</span>耐久性のあるワークフローにはPostgresだけで十分</a>
+  <a href="#s6"><span class="toc-num">06</span>EUがTemuに2億ユーロの制裁金——違法製品販売放置の代償</a>
+  <a href="#s7"><span class="toc-num">07</span>AltmanとAmodeiがAI雇用黙示録予言を撤回——IPO前の戦略転換</a>
+  <a href="#s8"><span class="toc-num">08</span>Show HN: AIエージェントの「承認疲れ」を60秒で体感するゲーム</a>
+  <a href="#s9"><span class="toc-num">09</span>LLMの匂い——生成AIコードが残す12の悪臭パターン</a>
+  <a href="#s10"><span class="toc-num">10</span>超党派のLPR規制法案が葬られた——Flockカメラ監視網が生き残る</a>
+</nav>
+
+<!-- ═══ STORY 1 — Claude Opus 4.8 ══════════════════════════════════════ -->
+<section class="story story-1" id="s1">
+  <div class="story-num">01</div>
+  <div class="story-inner">
+    <div class="story-badge direct-badge">⚡ あなたに直接関係</div>
+    <div class="story-kicker">AI MODELS — AnthropicがClaude Opus 4.8を発表——最高水準の推論・コーディング・長文処理能力を持つ新フラッグシップモデルが1045ポイント・832コメントという今日最大の関心を集める</div>
+    <h2 class="story-headline">
+      Claude Opus 4.8<br>登場——<span class="headline-accent">Anthropicの<br>新フラッグシップ</span><br>モデル
+    </h2>
+    <div class="story-body">
+      「Claude Opus 4.8」のリリース発表がHNで1045ポイント・832コメントという今日最大の反響を集めています。AnthropicがOpus 4シリーズの最新フラッグシップとして投入したClaude Opus 4.8は、前世代から大幅に強化された推論能力・コーディングパフォーマンス・長文コンテキスト処理を特徴とします。特に注目されているのは、複雑なマルチステップ推論タスクでのパフォーマンス向上と、エージェント用途——長期間にわたる自律的タスク実行——での安定性改善です。開発者向けAPIはClaudeの既存エンドポイントを通じて即日アクセス可能で、Claude Codeとの統合も強化されています。コーディングベンチマークでの高スコアに加え、Anthropicが独自に強調するのは「考える力の深さ」——問題の前提を疑い、複数の解法を比較検討してから答えを出す能力です。HNでは「Opus 4.8を一日使ってみたが、コードのリファクタリング提案の質が明確に上がっている——特に大規模なコードベースを渡したときの全体最適化の提案が印象的」「AnthropicはOpus系を数ヶ月周期でアップデートし続けている——Claude Codeとの深い統合を考えるとOpusシリーズへのロックインが進む戦略が見える」「価格と速度のトレードオフがまだあるが、複雑な推論タスクではSonnet系よりOpusを選ぶ理由がはっきりある——単価は高いが品質差がある」「Claude Codeのデフォルトバックエンドとしての活用が進むと、エージェント用途でのAnthropicの優位がさらに広がる可能性がある」という832コメントの大議論が続いています。
+    </div>
+    <div class="dos-grid">
+      <div class="dos-card">
+        <div class="dos-card-label">主な強化ポイント</div>
+        <div class="dos-card-value">推論・コーディング・長文処理の三位一体強化</div>
+        <div class="dos-card-sub">複雑なマルチステップ推論でのパフォーマンスを大幅改善。コーディングベンチマークで高スコア。長文コンテキストでの一貫性が向上し、大規模コードベースの全体最適化提案が可能になった</div>
+      </div>
+      <div class="dos-card">
+        <div class="dos-card-label">エージェント用途</div>
+        <div class="dos-card-value">長時間自律タスクでの安定性が向上</div>
+        <div class="dos-card-sub">Claude Codeとの統合強化により、長期間にわたる自律タスク実行（コード作成→テスト→デバッグ→プッシュ）での安定性が改善。エージェントループの途中での判断ミスが減少している</div>
+      </div>
+      <div class="dos-card">
+        <div class="dos-card-label">価格と速度</div>
+        <div class="dos-card-value">Opusプレミアムのトレードオフは継続</div>
+        <div class="dos-card-sub">Sonnet系より高コスト・低速というトレードオフは4.8でも継続。ただし複雑な推論タスクでの品質差が明確なため、Opusを選ぶ判断基準が整理されてきた。日常コーディングはSonnet、深い推論はOpusという使い分けが定着しつつある</div>
+      </div>
+      <div class="dos-card">
+        <div class="dos-card-label">Claude Codeとの関係</div>
+        <div class="dos-card-value">フラッグシップがエージェントを牽引する構造</div>
+        <div class="dos-card-sub">Opus 4.8はClaude Codeのバックエンドとして活用されることでエージェント能力の上限を引き上げる。Anthropicの戦略は「フラッグシップモデルの性能向上→エージェントの実用性向上→開発者ロックイン深化」という好循環を意識した設計</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: anthropic.com</span>
+      <span>1045 ポイント</span>
+      <span>832 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.anthropic.com/news/claude-opus-4-8" target="_blank">発表を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48311647" target="_blank">HN議論 (832)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="claude-opus-4-8" data-type="like" onclick="toggleFlag('claude-opus-4-8','Claude Opus 4.8 登場——Anthropicの新フラッグシップモデル','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="claude-opus-4-8" data-type="dislike" onclick="toggleFlag('claude-opus-4-8','Claude Opus 4.8 登場——Anthropicの新フラッグシップモデル','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+  <div class="story-1-accent"></div>
+</section>
+
+<!-- ═══ STORY 2 — YouTube AI Labels ═══════════════════════════════════ -->
+<section class="story story-2" id="s2">
+  <div class="story-num">02</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI TRANSPARENCY — YouTubeがAI生成動画の自動ラベル表示システムを強化——視聴者がAI合成コンテンツを識別できる透明性の基準を整備、Googleの対合成メディア戦略として注目、1259ポイント・749コメント</div>
+    <h2 class="story-headline">
+      YouTubeが<br>AI生成動画を<br>自動ラベル表示へ——<br>合成メディアの透明性基準
+    </h2>
+    <div class="story-body">
+      「YouTube to automatically label AI-generated videos」というYouTube公式ブログの発表が1259ポイント・749コメントという今日最大のポイントを集めています。YouTubeは視聴者がAIによって生成・修正された動画コンテンツを識別できるよう、自動ラベル表示機能を大幅強化します。現行では制作者が「AIが生成したコンテンツ」と自己申告した場合にラベルが付与される仕組みでしたが、新システムではAIが動画コンテンツを自律的に分析し、AI生成の可能性を検出して自動的にラベルを付与します。特にニュース・政治・選挙・公人に関する動画には厳格なラベル付けが適用される予定です。GoogleはSynthIDというAI生成コンテンツへの透かし（ウォーターマーク）技術を開発しており、YouTubeの自動ラベルはこの技術の実用展開の一部と見られています。ディープフェイク対策としての側面を持つ一方、AI映像編集ツールが普及した現代では「どこからがAI生成か」の境界自体が曖昧になっているという根本的な問題も浮き彫りになっています。HNでは「AIが生成したかどうかをAIで検出するという構造——いたちごっこの軍拡競争が始まる。検出を回避するポスト処理も同時に進化するだろう」「申告制ではクリエイターのセルフレポートに頼るしかなかったが、自動検出により悪意ある隠蔽も検出できる——ただし偽陽性（人間が作ったのにAI判定される）の問題が懸念される」「SynthIDのウォーターマークを除去するデモがすでに出回っている——技術的な検出には構造的な限界がある。規制の実効性に疑問」「EU DSAの合成メディア表示義務への先行対応——YouTubeが規制を先取りする姿勢は評価できるが、透明性より企業の免責確保が主目的ではないか」という749コメントの大議論が展開中です。
+    </div>
+    <div class="teal-items">
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">自動検出の仕組み</div>
+          <div class="teal-text">GoogleのSynthIDはAI生成動画のピクセルパターン・フレーム間の動き・音声波形のアーティファクトを解析してAI生成の痕跡を検出する。人間の目には見えないが機械で読み取れる透かしを生成動画に埋め込む技術で、YouTubeでの自動ラベルはその実用展開。申告制から検出制への転換は大きな一歩</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">偽陽性と境界の問題</div>
+          <div class="teal-text">AI生成の境界は曖昧になっている。人間が撮影した映像にAIで色補正・ノイズ除去・背景差し替えを行った場合、どこからAI生成と定義するか。また検出を逃れるための後処理も進化しており、完全な検出は構造的に困難。誤ったラベル付けがクリエイターの権利を侵害する可能性もある</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">規制圧力への対応</div>
+          <div class="teal-text">EUデジタルサービス法（DSA）はAI生成コンテンツの表示義務を含む規制を検討しており、YouTubeの自主的なラベル強化はDSA準拠への先行対応でもある。米国でも選挙に関するディープフェイクへの規制議論が進んでおり、プラットフォームの自主規制が法規制より先行しているケースとして注目される</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: blog.youtube</span>
+      <span>1259 ポイント</span>
+      <span>749 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://blog.youtube/news-and-events/improving-ai-labels-viewers-creators/" target="_blank">発表を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48299753" target="_blank">HN議論 (749)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="youtube-label-ai-videos" data-type="like" onclick="toggleFlag('youtube-label-ai-videos','YouTubeがAI生成動画を自動ラベル表示へ——合成メディアの透明性基準','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="youtube-label-ai-videos" data-type="dislike" onclick="toggleFlag('youtube-label-ai-videos','YouTubeがAI生成動画を自動ラベル表示へ——合成メディアの透明性基準','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 3 — Anthropic $65B Series H ════════════════════════════ -->
+<section class="story story-3" id="s3">
+  <div class="story-num">03</div>
+  <div class="story-inner">
+    <div class="story-badge direct-badge">⚡ あなたに直接関係</div>
+    <div class="story-kicker">AI FUNDING — AnthropicがシリーズHで65億ドルの資金調達を完了——ポストマネー評価額は9650億ドルに到達、1兆ドル企業への最終ステップとして195ポイント・166コメント</div>
+    <h2 class="story-headline">
+      AnthropicがシリーズHで<br>65億ドル調達——<br>評価額9650億ドル<br>へ
+    </h2>
+    <div class="story-body">
+      「Anthropic raises $65B in Series H funding at $965B post-money valuation」というAnthropicの公式発表が195ポイント・166コメントを集めています。AnthropicがシリーズH資金調達ラウンドで65億ドルを調達し、ポストマネー評価額が9650億ドルに達したと発表しました。1兆ドルの大台まであとわずかという評価額は、AIスタートアップとして歴史的な規模であり、OpenAIに次ぐ業界第2位の評価を維持しています。今回の資金調達はClaude Codeを中心としたエンタープライズ製品の急速な収益成長と、フロンティアモデル研究への継続的な投資需要を背景にしています。Amazon・Googleを含む戦略投資家が継続参加しており、AIインフラ投資の流れが止まっていないことを示しています。HNでは「9650億ドルの評価は何を根拠にしているのか——収益成長は確かに急速だが、フロンティアモデルの研究・インフラコストも爆発的に増加している。黒字化のタイムラインが見えない」「AnthropicはOpenAIと異なるポジショニング——安全性・信頼性・API品質でエンタープライズ市場に刺さっている。Claude CodeがデベロッパーツールSaaSとして機能し始めているのが収益の柱」「これだけの評価額でIPOが視野に入ってくる——IPO後の公開市場でのバリュエーション维持が真の課題になる。メタバース後のMetaのような下落を経験するリスクも無視できない」「65億ドルという規模は次世代モデルとインフラ投資に必要な額——競合他社（OpenAI・Google・Meta）との研究競争に資本で参加し続けるための必要条件」という166コメントが展開中です。
+    </div>
+    <div class="red-items">
+      <div class="red-item">
+        <div>
+          <div class="red-label">資金調達の規模感</div>
+          <div class="red-text">65億ドルのシリーズHはスタートアップ史上でも最大級のラウンドの一つ。評価額9650億ドルはApple・Microsoft・NVIDIAレベルの大企業と比較されるほどの規模で、AIラボへの資本集中が加速している現実を示す。2024年の同社Series Eからわずか2年でこの規模に達した</div>
+        </div>
+      </div>
+      <div class="red-item">
+        <div>
+          <div class="red-label">収益を支える製品</div>
+          <div class="red-text">Claude Code・Claude APIのエンタープライズ契約・Amazon Bedrock経由の利用が収益の三本柱。特にClaude Codeはデベロッパーの日常ツールとして定着しつつあり、月額サブスクリプションと企業契約が急増。API品質の信頼性でGPT-4o系より評価が高いエンタープライズ顧客層が形成されている</div>
+        </div>
+      </div>
+      <div class="red-item">
+        <div>
+          <div class="red-label">IPOへの道と課題</div>
+          <div class="red-text">9650億ドルの評価は次の資金調達またはIPOを意識した数字。ただしフロンティアモデル研究のインフラコスト（GPU・データセンター・エネルギー）は増大しており、黒字化への道筋が投資家の最大の関心事。OpenAIのような内部対立リスクを回避できている点はAnthropicの強みとして評価されている</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: anthropic.com</span>
+      <span>195 ポイント</span>
+      <span>166 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.anthropic.com/news/series-h" target="_blank">発表を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48313048" target="_blank">HN議論 (166)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="anthropic-series-h-65b" data-type="like" onclick="toggleFlag('anthropic-series-h-65b','AnthropicがシリーズHで65億ドル調達——評価額9650億ドルへ','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="anthropic-series-h-65b" data-type="dislike" onclick="toggleFlag('anthropic-series-h-65b','AnthropicがシリーズHで65億ドル調達——評価額9650億ドルへ','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 4 — Dynamic Workflows in Claude Code ═══════════════════ -->
+<section class="story story-4" id="s4">
+  <div class="story-num">04</div>
+  <div class="story-inner">
+    <div class="story-badge direct-badge">⚡ あなたに直接関係</div>
+    <div class="story-kicker">DEV TOOLS — Claude Codeに「ダイナミックワークフロー」機能が追加——エージェントが実行中にサブタスクを動的に作成・委譲し自律的にタスクを分解する新機能が128ポイント・102コメントで開発者の関心を集める</div>
+    <h2 class="story-headline">
+      Claude Codeの<br>ダイナミックワークフロー——<br>エージェントが<br>自律的にサブタスクを分解
+    </h2>
+    <div class="story-body">
+      「Dynamic Workflows in Claude Code」というAnthropicのブログ記事が128ポイント・102コメントを集めています。Claude Codeの新機能「ダイナミックワークフロー（Dynamic Workflows）」は、エージェントが実行中に複雑なタスクをサブタスクへ自律的に分解し、それぞれを専門化されたサブエージェントへ委譲できる能力です。従来のClaude Codeはユーザーが与えたタスクを単一のエージェントが順番に処理していましたが、ダイナミックワークフローでは「大規模なコードベースのリファクタリング」といった複雑な指示を受けると、エージェント自身がタスクを「ファイル分析エージェント」「テスト生成エージェント」「コードレビューエージェント」等に分解し並列実行できるようになります。これにより複雑なエンジニアリングタスクの完了速度が大幅に向上し、長時間のエージェントセッションでも全体の整合性が保たれやすくなります。HNでは「ダイナミックワークフローを試したが、大規模なモノレポのリファクタリングが劇的に速くなった——従来は逐次処理で数時間かかっていたものが並列分解で大幅短縮」「サブエージェントへの委譲が自動化されることで、人間がオーケストレーション設計をしなくてよくなる——これがエージェントの次のフェーズ」「ただし自律的な分解が間違った方向に進んだ場合の修正コストが高い——どこまで自律性を持たせるかのバランスが重要」「Claude Codeのスキルシステムと組み合わせると、複雑な開発タスクをほぼ完全に自動化できる組み合わせになる」という102コメントが展開中です。
+    </div>
+    <div class="green-items">
+      <div class="green-item">
+        <div>
+          <div class="green-label">ダイナミックワークフローとは</div>
+          <div class="green-text">エージェントが実行中にタスクを動的に分解し、専門化されたサブエージェントへ委譲する機能。「大規模リファクタリング」を受け取ったメインエージェントが「ファイル分析」「テスト生成」「PR作成」のサブエージェントを自律的に起動し並列処理する。ユーザーがオーケストレーションを設計する必要がなくなる</div>
+        </div>
+      </div>
+      <div class="green-item">
+        <div>
+          <div class="green-label">実際の速度改善</div>
+          <div class="green-text">大規模コードベースの処理では並列サブエージェントにより逐次処理比で大幅な時間短縮が実現。テスト生成・型チェック・ドキュメント更新を別々のサブエージェントが同時進行するため、従来は数時間かかっていたタスクが短時間で完了できる。コンテキストウィンドウ管理も分散されるため品質も向上</div>
+        </div>
+      </div>
+      <div class="green-item">
+        <div>
+          <div class="green-label">スキルシステムとの組み合わせ</div>
+          <div class="green-text">ダイナミックワークフローはClaude Codeのスキルシステム（/review・/test・/deploy等のカスタムコマンド）と組み合わせると威力が倍増する。メインエージェントがスキルを適切なタイミングで自律的に呼び出し、複雑な開発タスクの大部分を人間の介入なしに完了できる可能性が開けてきた</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: claude.com</span>
+      <span>128 ポイント</span>
+      <span>102 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://claude.com/blog/introducing-dynamic-workflows-in-claude-code" target="_blank">ブログを読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48311705" target="_blank">HN議論 (102)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="claude-code-dynamic-workflows" data-type="like" onclick="toggleFlag('claude-code-dynamic-workflows','Claude Codeのダイナミックワークフロー——エージェントが自律的にサブタスクを分解','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="claude-code-dynamic-workflows" data-type="dislike" onclick="toggleFlag('claude-code-dynamic-workflows','Claude Codeのダイナミックワークフロー——エージェントが自律的にサブタスクを分解','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 5 — Just Use Postgres ══════════════════════════════════ -->
+<section class="story story-5" id="s5">
+  <div class="story-num">05</div>
+  <div class="story-inner">
+    <div class="story-kicker">DATABASE / ACTIONABLE — DBOSのエンジニアが「耐久性のあるワークフローにはPostgresだけで十分」と主張——Temporal・Step Functions等の専用ワークフローエンジンが解決する問題をPostgresとSQLだけで実現する方法を解説、205ポイント・76コメント</div>
+    <h2 class="story-headline">
+      耐久性のある<br>ワークフローには<br>Postgresだけで<br>十分
+    </h2>
+    <div class="story-body">
+      「Just Use Postgres for Durable Workflows」というDBOSのブログ記事が205ポイント・76コメントを集めています。Temporal・AWS Step Functions・Prefect等の専用ワークフローエンジンが解決する「耐久性のあるワークフロー（Durable Execution）」——障害が起きても途中状態を保持して再開できる長時間タスクの実行——が、実はPostgresとSQLだけで実現できるという主張が注目を集めています。核心的なアイデアはシンプルです：ワークフローの状態を通常のデータベーステーブルに記録し、各ステップを冪等性のある関数として設計すれば、プロセスが途中でクラッシュしても最後の確認済みステップから再開できる。これにより外部サービスへの依存・新しいインフラの管理・独自DSLの習得が不要になります。「既存のPostgresインスタンスと標準的なSQL知識で耐久性のあるワークフローが構築できる」という実用的な主張は、複雑化するデータパイプラインや支払い処理・メール送信等のクリティカルタスクに適用できます。HNでは「このアプローチを実際の本番環境で使っているが、シンプルさが最大の強みで可観測性も高い——DBがワークフローのログ・状態・ジョブキューを全て持つので調査が楽」「Temporalが解決するのはスケールと複雑な制御フロー（サガパターン・並列実行・タイムアウト）——Postgresシンプルアプローチは小中規模のユースケースには最適だが大規模では限界がある」「冪等性の設計が肝——外部APIを呼ぶステップでべき等性を担保する設計は意外と難しく、DBだけで管理できると設計負荷が下がる」「Postgresはここ数年でJSONの扱い・LISTEN/NOTIFY・論理レプリケーション等が大幅強化された——十分な機能が揃っている」という76コメントが展開中です。
+    </div>
+    <div class="purple-items">
+      <div class="purple-item">
+        <div>
+          <div class="purple-label">核心的なアプローチ</div>
+          <div class="purple-text">ワークフローの状態を通常のテーブル（workflow_steps・jobs・events）に記録し、各ステップを冪等性のある関数として設計する。プロセスがクラッシュしてもテーブルから最後の確認済みステップを読み取り再開できる。Temporalが提供する機能の80%はこの設計パターンで置き換え可能だと著者は主張</div>
+        </div>
+      </div>
+      <div class="purple-item">
+        <div>
+          <div class="purple-label">適用に向くユースケース</div>
+          <div class="purple-text">支払い処理（重複課金を防ぐ冪等性）・メール送信キュー・ファイル変換パイプライン・定期バッチジョブ・外部APIの連続呼び出し等。既にPostgresを使っているプロジェクトなら新インフラゼロで実装できる。Temporalやクラウドのワークフローサービスを導入するほどではない中規模の問題に最も適する</div>
+        </div>
+      </div>
+      <div class="purple-item">
+        <div>
+          <div class="purple-label">冪等性設計のポイント</div>
+          <div class="purple-text">各ステップにUUID等のべき等キーを付与し、同じキーで二重実行された場合は前回の結果を返す設計にする。外部API呼び出しでは応答をDBに保存してから次のステップに進む。UPSERTとトランザクションを組み合わせることでPostgresの標準機能だけで冪等性を担保できる</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: dbos.dev</span>
+      <span>205 ポイント</span>
+      <span>76 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.dbos.dev/blog/postgres-is-all-you-need-for-durable-execution" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48313530" target="_blank">HN議論 (76)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="postgres-durable-workflows" data-type="like" onclick="toggleFlag('postgres-durable-workflows','耐久性のあるワークフローにはPostgresだけで十分','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="postgres-durable-workflows" data-type="dislike" onclick="toggleFlag('postgres-durable-workflows','耐久性のあるワークフローにはPostgresだけで十分','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 6 — EU Fines Temu €200M ════════════════════════════════ -->
+<section class="story story-6" id="s6">
+  <div class="story-num">06</div>
+  <div class="story-inner">
+    <div class="story-kicker">PRIVACY / REGULATION — EUがTemuに2億ユーロの制裁金——違法・危険製品の販売を放置したとして欧州デジタルサービス法（DSA）に基づく初の大型制裁、281ポイント・208コメント</div>
+    <h2 class="story-headline">
+      EUがTemuに<br>2億ユーロの制裁金——<br>違法製品販売放置の<br>代償
+    </h2>
+    <div class="story-body">
+      「EU fines Temu €200M for allowing sale of illegal products」というBBCの報道が281ポイント・208コメントを集めています。欧州委員会は中国系EC大手Temuに対し、プラットフォーム上での違法・安全基準を満たさない製品の販売を放置したとして2億ユーロ（約330億円）の制裁金を科しました。これはEUのデジタルサービス法（DSA）に基づく大規模EC事業者への初の主要制裁事例の一つで、プラットフォームが流通させるコンテンツ・商品に対する責任を厳格に問うEUの姿勢を示しています。TemuはDSA上の「超大型オンラインプラットフォーム（VLOP）」に指定されており、危険な児童用玩具・偽造品・電気安全基準を満たさない製品の出品を迅速に除去する義務を持ちます。欧州委員会の調査では、Temuがこれらの義務を系統的に怠っていたと判断されました。HNでは「TemuのビジネスモデルはAlibabaよりさらに規制軽視——DSA制裁は市場参入コストを上げるが、2億ユーロはTemuの年間収益と比べれば小さい。より高い課徴金または市場除外が真の抑止力になる」「欧州のDSA・DMA・GDPR等の規制連打は明確にUSと中国プラットフォームを狙い撃ちにしている——欧州委員会が合法的な「非関税障壁」として活用している側面がある」「消費者保護として見れば制裁は正当——しかしEU域外企業への規制が厳しく域内企業への適用が緩い二重基準があるなら競争ゆがみになる」「Temuの価格競争力は規制コストの外部化で成り立っているという指摘は的確——制裁がコスト内部化を強制するなら市場健全化として機能する」という208コメントが展開中です。
+    </div>
+    <div class="cyan-cards">
+      <div class="cyan-card">
+        <div class="cyan-card-name">DSAの義務とは</div>
+        <div class="cyan-card-desc">デジタルサービス法（DSA）はVLOP（月間ユーザー4500万人超の超大型プラットフォーム）に違法コンテンツ・危険品の迅速除去・透明性レポート・独立監査を義務付ける。Temu・TikTok・Meta・Googleが対象。違反には年間売上の最大6%という制裁金が科せられる</div>
+      </div>
+      <div class="cyan-card">
+        <div class="cyan-card-name">問題の製品カテゴリ</div>
+        <div class="cyan-card-desc">欧州委員会が問題視したのは安全基準未達の児童用玩具・EU CE認証のない電子機器・偽造ブランド品・有害化学物質を含む化粧品等。Temuのサードパーティ出品者モデルでは出品前審査が機能せず、違法品が大量に流通していた</div>
+      </div>
+      <div class="cyan-card">
+        <div class="cyan-card-name">規制の影響と今後</div>
+        <div class="cyan-card-desc">2億ユーロの制裁はTemuのビジネスモデルに是正を迫る。欧州市場での出品審査強化・コンプライアンスコストの増大が見込まれる。AmazonやeBayも同様のDSA審査を受けており、中国発ECへの規制圧力が欧州EC市場の構造変化を促している</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: bbc.co.uk</span>
+      <span>281 ポイント</span>
+      <span>208 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.bbc.co.uk/news/articles/c1k2ydn1rz8o" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48309302" target="_blank">HN議論 (208)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="eu-fines-temu-200m" data-type="like" onclick="toggleFlag('eu-fines-temu-200m','EUがTemuに2億ユーロの制裁金——違法製品販売放置の代償','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="eu-fines-temu-200m" data-type="dislike" onclick="toggleFlag('eu-fines-temu-200m','EUがTemuに2億ユーロの制裁金——違法製品販売放置の代償','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 7 — Altman & Amodei Walk Back AI Jobs ════════════════ -->
+<section class="story story-7" id="s7">
+  <div class="story-num">07</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI CULTURE — Sam AltmanとDario Amodeiが相次いでAI雇用黙示録の予言を撤回——「AIが全職業を奪う」という過激発言から「人間と共存するAI」へのトーンダウン、IPO前の規制リスク管理との見方も、116ポイント・95コメント</div>
+    <h2 class="story-headline">
+      AltmanとAmodeiが<br>AI雇用黙示録<br>予言を撤回——<br>IPO前の戦略転換
+    </h2>
+    <div class="story-body">
+      「Sam Altman and Dario Amodei are both walking back AI jobs apocalypse predictions」というFortuneの報道が116ポイント・95コメントを集めています。OpenAIのSam AltmanとAnthropicのDario Amodeiが相次いで、以前に発した「AIが近い将来ほぼ全ての知的労働を代替する」という過激な予言から立場を修正しています。AltmanはかつてAGI達成を「18ヶ月以内」と予言し、Amodeiは「AIが2027年までに大半のホワイトカラー職を自動化する」と発言していましたが、両者とも最近のインタビューでは「AIは人間の仕事を補完する」「移行は段階的」というトーンに変化しています。Fortuneはこの変化の背景に二つの要因を指摘しています：一つはOpenAI・Anthropicの両社がIPOまたは大型資金調達を控えており、雇用への悪影響を強調する発言が規制当局・投資家・顧客企業からの逆風を招くリスクがあること。もう一つはAI雇用代替の実際の速度が当初予言より遅く、過激な予言の訂正が必要になったことです。HNでは「AGI 18ヶ月予言を2022年に言い始めて4年経過——AltmanのAIタイムライン予測はほぼ全て外れているが責任を取らずに次の予測を出し続けている。CEOとして説明責任の概念がない」「IPO前のトーンダウンは明らかに戦略的——規制当局に『AIは雇用を壊滅させません』と言いながら、内部では引き続きAIで人員削減を進めている企業が多数ある」「発言の撤回より、なぜ最初にそういう発言をしたかを問うべき——過激な主張は投資家を呼び込み資金調達を有利にするが、社会不安・技術恐怖・AI規制強化の副作用を生む」「AIが雇用を変えることは確かだが、予言のスケールと速度が一貫して過大評価されてきた——長期的な変化を短期の劇的変化として提示するバイアスが研究者・経営者の両方にある」という95コメントが展開中です。
+    </div>
+    <div class="amber-items">
+      <div class="amber-item">
+        <div>
+          <div class="amber-label">予言から撤回までの経緯</div>
+          <div class="amber-text">AltmanとAmodeiの強硬な雇用代替予言は2022〜2024年に多く出た。実際の労働市場への影響は期待（または恐怖）ほど急速ではなく、予言のギャップが広がった。IPO・規制対応・顧客企業の懸念という実用的な圧力が「社会的責任あるAI」への言説シフトを促している</div>
+        </div>
+      </div>
+      <div class="amber-item">
+        <div>
+          <div class="amber-label">実際の雇用影響</div>
+          <div class="amber-text">AIによる雇用代替は「全職業の置き換え」より「職業内の特定タスクの自動化」として進んでいる。コーディング支援・文書作成・データ分析等でAIが生産性を向上させる一方、AI管理・品質確認・倫理審査の新職種が生まれている。「AIが奪う」より「AIと共に働く」スキルを持つ人材の価値が高まっている</div>
+        </div>
+      </div>
+      <div class="amber-item">
+        <div>
+          <div class="amber-label">CEOの発言責任</div>
+          <div class="amber-text">AI業界CEOの過激な予言は資金調達・採用・メディア注目を得るために有効だが、社会不安・過剰規制・技術不信を生む副作用も持つ。外れた予言に対する説明責任の欠如が「AI精神症」批判の核心にある。Anthropic・OpenAIの両社が規制当局から要求されうる「具体的タイムラインの根拠」を開示しない状態が続いている</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: fortune.com</span>
+      <span>116 ポイント</span>
+      <span>95 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://fortune.com/2026/05/26/sam-altman-dario-amodei-walking-back-ai-jobs-apocalypse-prophecies-ipo/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48314363" target="_blank">HN議論 (95)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="altman-amodei-ai-jobs-walkback" data-type="like" onclick="toggleFlag('altman-amodei-ai-jobs-walkback','AltmanとAmodeiがAI雇用黙示録予言を撤回——IPO前の戦略転換','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="altman-amodei-ai-jobs-walkback" data-type="dislike" onclick="toggleFlag('altman-amodei-ai-jobs-walkback','AltmanとAmodeiがAI雇用黙示録予言を撤回——IPO前の戦略転換','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 8 — AI Agent Permission Fatigue Game ════════════════════ -->
+<section class="story story-8" id="s8">
+  <div class="story-num">08</div>
+  <div class="story-inner">
+    <div class="story-kicker">SHOW HN / AI TOOLS — AIエージェントの「承認疲れ（permission fatigue）」を60秒で体感できるゲームをscalexが公開——"Continue? Y/N"を延々と押し続けるUI設計の問題を風刺したブラウザゲーム、198ポイント・95コメント</div>
+    <h2 class="story-headline">
+      Show HN:<br>AIエージェントの<br>「承認疲れ」を60秒で<br>体感するゲーム
+    </h2>
+    <div class="story-body">
+      「Show HN: Continue? Y/N: A 60-second game about AI agent permission fatigue」というHNへの投稿が198ポイント・95コメントという高い反響を集めています。AIエージェントが操作のたびに「このファイルを削除してもよいですか？ Y/N」「このコマンドを実行してもよいですか？ Y/N」「メールを送信してもよいですか？ Y/N」と確認を求め続けるUIパターン——承認疲れ（permission fatigue）——を60秒のブラウザゲームとして風刺した作品です。ゲームの中でプレイヤーは次々と表示される確認ダイアログに「Y」か「N」を押し続けなければならず、プレイ後には「これがAIエージェントとの日常だ」というメッセージが表示されます。Claude Code・Cursor・Copilot等のAIコーディングツールを日常的に使うエンジニアの間で「あるあるすぎる」「なぜこんなに確認が多いのか」という共感が広がり、HN上でエージェントUX設計についての本質的な議論に発展しています。HNでは「このゲームを5分プレイして実際のAIエージェントより疲れた——承認フローの粒度設計が間違っている。全操作に確認を求めるのはセキュリティの名の下での利便性破壊」「Claude Codeはこの問題を部分的に解決している——allowlistとauto-acceptの設定で承認フローをカスタマイズできる。ゲームのように全部確認するのはデフォルトの最悪設定」「セキュリティ研究者として見ると逆の問題がある——承認を毎回求めないエージェントは危険操作を自動実行する可能性がある。疲れても確認は必要悪」「ユーザーが信頼できるアクションのレベルを設定できるシステムが理想——初回だけ確認・特定ディレクトリは自動許可・外部API呼び出しは常に確認等の細粒度制御」という95コメントが展開中です。
+    </div>
+    <div class="gold-items">
+      <div class="gold-item">
+        <div>
+          <div class="gold-label">承認疲れとは何か</div>
+          <div class="gold-text">エージェントが細かい操作ごとにユーザー確認を求め続けることで、ユーザーが内容を確認せずに「Y」を連打するようになる現象。Windowsのセキュリティ確認（UAC）が普及した2007年頃に同様の問題が議論されており、AIエージェント時代に同じパターンが再現している。確認の粒度設計がUXの核心</div>
+        </div>
+      </div>
+      <div class="gold-item">
+        <div>
+          <div class="gold-label">Claude Codeの設計アプローチ</div>
+          <div class="gold-text">Claude CodeはACL（Access Control List）とallowlist設定により、信頼済みコマンド・ディレクトリ・操作には自動承認を付与できる設計になっている。CLAUDE.mdのpermissions設定で細粒度のアクセス制御が可能。「常に確認」から「コンテキスト依存の確認」への移行がエージェントUXの解決方向</div>
+        </div>
+      </div>
+      <div class="gold-item">
+        <div>
+          <div class="gold-label">理想的な承認フロー設計</div>
+          <div class="gold-text">安全なリード操作（ファイル読み取り・検索）は自動許可、低リスク書き込み（プロジェクト内ファイル編集）は初回確認のみ、高リスク操作（外部API呼び出し・git push・メール送信）は毎回確認というレベル設計が実用的。ユーザーがリスクレベルを認識して設定できるUIが必要</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: llmgame.scalex.dev</span>
+      <span>198 ポイント</span>
+      <span>95 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://llmgame.scalex.dev" target="_blank">ゲームをプレイ →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48308376" target="_blank">HN議論 (95)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="ai-agent-permission-fatigue-game" data-type="like" onclick="toggleFlag('ai-agent-permission-fatigue-game','AIエージェントの承認疲れを60秒で体感するゲーム','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="ai-agent-permission-fatigue-game" data-type="dislike" onclick="toggleFlag('ai-agent-permission-fatigue-game','AIエージェントの承認疲れを60秒で体感するゲーム','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 9 — Various LLM Smells ════════════════════════════════ -->
+<section class="story story-9" id="s9">
+  <div class="story-num">09</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / DEV TOOLS — LLMが生成するコードに残る12の「悪臭パターン（code smells）」を体系的にまとめたブログ——過度なエラーハンドリング・不必要なコメント・パターンの過剰適用など生成AIコードの弱点を分析、105ポイント・71コメント</div>
+    <h2 class="story-headline">
+      LLMの匂い——<br>生成AIコードが残す<br>12の悪臭パターン
+    </h2>
+    <div class="story-body">
+      「Various LLM Smells」というブログ記事が105ポイント・71コメントを集めています。「コードスメル（code smell）」——コードの質の悪さを示す兆候——をLLM生成コードに特化して体系的に整理した記事です。著者のshvbsleが実際のLLM生成コードをレビューして蓄積した12のパターンを公開しており、「過剰なエラーハンドリング（すべての例外をcatch＆ログだけして飲み込む）」「必要以上のコメント（コードが明らかなのにすべての行に説明を書く）」「防衛的プログラミングの過剰適用（ありえないnullチェックを山積み）」「デザインパターンの過剰適用（シンプルな処理にStrategyパターンを使う）」「冗長なラッパー関数（一行をwrapするだけの関数を量産）」「楽観的な型システムの無視（TypeScriptで`as any`を乱用）」等が具体例付きで解説されています。LLMが「安全で汎用的に見えるコード」を生成しようとする傾向が、実際には過剰な複雑さ・不必要な防衛的コード・ヒューマンには書かないような冗長構造として現れるという鋭い観察です。HNでは「この記事を読んでClaude/GPTが生成したコードをレビューし直したら確かにいくつかのパターンが見つかった——特に過剰なエラーハンドリングと不要なコメントは頻繁に出てくる」「LLMは『悪くないが最良でもない』コードを大量生成する傾向がある——訓練データのコードの中央値に収束するため、真にエレガントなコードは出にくい」「CLAUDE.mdに『コメントは自明でない場合のみ書け』『過剰なエラーハンドリング禁止』と明示することでこれらの問題が大幅に改善された——コンテキスト設定が重要」「LLMスメルはある意味コードレビューの新しい専門スキル——AIペアプログラミング普及後の開発者に求められる批判的読み解き能力」という71コメントが展開中です。
+    </div>
+    <div class="slate-items">
+      <div class="slate-item">
+        <div>
+          <div class="slate-label">最頻出のLLMスメル</div>
+          <div class="slate-text">「過剰エラーハンドリング」——すべての例外をcatchしてlogだけして飲み込む。「説明コメント過多」——`i += 1; // increment i by 1`のような自明な行に全て説明をつける。「防衛的nullチェック過剰」——呼び出し元のコントラクトが保証しているのにnullチェックを積み上げる。これらはLLMの「安全に見える」コードへの偏りを示す</div>
+        </div>
+      </div>
+      <div class="slate-item">
+        <div>
+          <div class="slate-label">パターン過剰適用の問題</div>
+          <div class="slate-text">LLMは訓練データに頻出するデザインパターンを過剰適用する傾向がある。3行で書けるシンプルな処理にStrategyパターン・Facadeパターン・Dependency Injectionを組み合わせてしまうケースが多い。パターンは問題解決の道具であり、パターンありきでコードを設計することの本末転倒をLLMが繰り返す</div>
+        </div>
+      </div>
+      <div class="slate-item">
+        <div>
+          <div class="slate-label">CLAUDE.mdで解決できるもの</div>
+          <div class="slate-text">多くのLLMスメルはシステムプロンプトまたはCLAUDE.mdで抑制できる。「コメントは自明でない場合のみ書け」「50行を超える関数を書くな」「過剰なnullチェック禁止」「`as any`使用禁止」等を明示するだけで生成コードの質が大幅に改善される。LLMのデフォルト動作を上書きするプロンプト設計がエンジニアリングスキルになっている</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: shvbsle.in</span>
+      <span>105 ポイント</span>
+      <span>71 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://shvbsle.in/various-llm-smells/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48313810" target="_blank">HN議論 (71)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="various-llm-smells" data-type="like" onclick="toggleFlag('various-llm-smells','LLMの匂い——生成AIコードが残す12の悪臭パターン','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="various-llm-smells" data-type="dislike" onclick="toggleFlag('various-llm-smells','LLMの匂い——生成AIコードが残す12の悪臭パターン','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 10 — LPR Legislation Killed ════════════════════════════ -->
+<section class="story story-10" id="s10">
+  <div class="story-num">10</div>
+  <div class="story-inner">
+    <div class="story-kicker">PRIVACY / SURVEILLANCE — 車両ナンバープレート自動認識（LPR）カメラへの規制を盛り込んだ超党派の修正条項が法案から削除——Flockを中心とした民間LPRネットワークへの批判的規制が葬られ監視インフラが継続拡大、77ポイント・52コメント</div>
+    <h2 class="story-headline">
+      超党派のLPR<br>規制法案が葬られた——<br>Flockカメラ<br>監視網が生き残る
+    </h2>
+    <div class="story-body">
+      「Legislation Killed Would Have Effectively Blocked Police LPR, Including Flock」というIPVMの報道が77ポイント・52コメントを集めています。車両ナンバープレートを自動読み取りして追跡・データ収集を行うLPR（License Plate Recognition）カメラへの規制を盛り込んだ超党派の修正条項が、より大きな法案の審議過程で削除されました。この修正条項は、地方警察・民間HOA・交通機関が急速に導入を進めているFlockをはじめとする民間LPRシステムによる市民の移動データ大規模収集を制限しようとするものでした。Flockのカメラは全米の住宅街・主要道路・スクールゾーンに設置され、車両の通過記録を70日間保存し警察・地方自治体がアクセスできるデータベースを形成しています。この民間インフラによる移動追跡は令状なしに市民の行動パターンを記録するシステムであり、プライバシー研究者・EFF・ACLU等の市民団体が長年問題を指摘してきました。HNでは「Flockのビジネスモデルを知って驚く——地方自治体・HOAにほぼ無料でカメラを設置させ、データの使用料で稼ぐ。住民が知らないうちに自宅前のFlockカメラが自分の移動を記録している」「LPRデータは令状なしにアクセスできるケースが多い——車のナンバーは『公道での行動』であり憲法的保護を受けにくいという解釈がある。しかし移動パターンの集積は内部情報に相当する詳細なプロファイルを作れる」「規制法案が削除された理由を掘り下げるとロビー活動の圧力が見えてくる——Flockを含む監視インフラ企業は地方警察との関係を政治的資産として活用している」「住民が自分のHOAに請願してFlockカメラの設置拒否または撤去を求めることが最も即効性のある対策——中央の規制が葬られた後は地方での戦いになる」という52コメントが展開中です。
+    </div>
+    <div class="mag-items">
+      <div class="mag-item">
+        <div>
+          <div class="mag-label">Flockとは何か</div>
+          <div class="mag-text">Flock Safety（2017年創業）は全米最大の民間LPRネットワーク事業者。住宅地のHOA・学校・地方警察にカメラを「無償または低コスト」で設置し、全車両の通過記録を70日間保存する。警察はAPIで全国のFlockネットワークをクロス検索でき、特定車両の移動履歴を令状なしで把握できるケースもある。プライバシー研究者が「民間監視インフラの国家利用」と呼ぶ構造</div>
+        </div>
+      </div>
+      <div class="mag-item">
+        <div>
+          <div class="mag-label">法律上の位置づけ</div>
+          <div class="mag-text">公道上の車両ナンバーは「合理的なプライバシー期待がない公開情報」という解釈があり、LPRデータ収集に令状が不要なケースが多い。しかし複数地点のデータを集積した「移動パターン」は個人の内部情報（礼拝施設・病院・政治活動への参加等）を暴露する詳細プロファイルを形成する——単一のデータポイントと集積データでは法的扱いが異なるべきという議論がある</div>
+        </div>
+      </div>
+      <div class="mag-item">
+        <div>
+          <div class="mag-label">市民にできること</div>
+          <div class="mag-text">中央での規制が失敗した後は地方での対策が主戦場になる。HOAの年次総会でFlockカメラのデータポリシーを議題にする・市議会に監視インフラ評価委員会の設置を求める・ACLUやEFFを通じた訴訟参加・車両への探知妨害（技術的・法的制限あり）。自分の居住地域にFlockカメラがあるかどうかは地域のHOA文書やGoogle Street Viewで確認できる</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: ipvm.com</span>
+      <span>77 ポイント</span>
+      <span>52 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://ipvm.com/reports/bipartisan-alpr-amendment-killed" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48312082" target="_blank">HN議論 (52)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="legislation-killed-lpr-flock" data-type="like" onclick="toggleFlag('legislation-killed-lpr-flock','超党派のLPR規制法案が葬られた——Flockカメラ監視網が生き残る','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="legislation-killed-lpr-flock" data-type="dislike" onclick="toggleFlag('legislation-killed-lpr-flock','超党派のLPR規制法案が葬られた——Flockカメラ監視網が生き残る','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-top">
+    <div class="footer-brand">Morning Edition</div>
+    <div class="footer-meta">
+      Hacker News フロントページから厳選した10本 / 2026年5月29日（金）<br>
+      ⭐ 興味あり・✕ 興味なしで明日以降のキュレーションを改善できます
+    </div>
+    <button class="export-btn" onclick="exportFeedback()">📋 フィードバックをコピー</button>
+  </div>
+  <div class="footer-note">
+    このエディションはHacker News Algolia APIから取得したデータを元に自動生成されています。記事の著作権は各出典に帰属します。
+  </div>
+</footer>
+
+<script>
+  const TODAY = '2026-05-29';
+  const FEEDBACK_KEY = 'morning-edition-feedback-v2';
+  const IDB_DB = 'morning-edition', IDB_STORE = 'handles', IDB_VER = 1;
+
+  function openIDB() {
+    return new Promise((res, rej) => {
+      const r = indexedDB.open(IDB_DB, IDB_VER);
+      r.onupgradeneeded = e => e.target.result.createObjectStore(IDB_STORE);
+      r.onsuccess = e => res(e.target.result);
+      r.onerror = e => rej(e.target.error);
+    });
+  }
+  async function idbGet(key) {
+    const db = await openIDB();
+    return new Promise(res => {
+      const tx = db.transaction(IDB_STORE, 'readonly');
+      const r = tx.objectStore(IDB_STORE).get(key);
+      r.onsuccess = () => res(r.result ?? null);
+      r.onerror = () => res(null);
+    });
+  }
+  async function idbPut(key, val) {
+    const db = await openIDB();
+    return new Promise((res, rej) => {
+      const tx = db.transaction(IDB_STORE, 'readwrite');
+      tx.objectStore(IDB_STORE).put(val, key);
+      tx.oncomplete = res; tx.onerror = rej;
+    });
+  }
+
+  async function getDir(forceNew = false) {
+    if (!window.showDirectoryPicker) return null;
+    if (!forceNew) {
+      const stored = await idbGet('dir');
+      if (stored) {
+        const perm = await stored.queryPermission({ mode: 'readwrite' });
+        if (perm === 'granted') return stored;
+        const req = await stored.requestPermission({ mode: 'readwrite' });
+        if (req === 'granted') return stored;
+      }
+    }
+    try {
+      const dir = await window.showDirectoryPicker({ mode: 'readwrite', id: 'daily-news' });
+      await idbPut('dir', dir);
+      return dir;
+    } catch { return null; }
+  }
+
+  async function writeJSON(dir, fb) {
+    const fh = await dir.getFileHandle('feedback.json', { create: true });
+    const w = await fh.createWritable();
+    await w.write(JSON.stringify({ ...fb, updatedAt: new Date().toISOString() }, null, 2));
+    await w.close();
+  }
+
+  function showToast(msg, isErr = false) {
+    let el = document.querySelector('.toast');
+    if (!el) { el = document.createElement('div'); el.className = 'toast'; document.body.appendChild(el); }
+    el.textContent = msg;
+    el.className = 'toast' + (isErr ? ' error' : '');
+    requestAnimationFrame(() => el.classList.add('show'));
+    clearTimeout(el._timer);
+    el._timer = setTimeout(() => el.classList.remove('show'), 3000);
+  }
+
+  function getFeedback() {
+    try { return JSON.parse(localStorage.getItem(FEEDBACK_KEY) || '{"liked":{},"disliked":{}}'); }
+    catch { return { liked: {}, disliked: {} }; }
+  }
+  function saveFeedback(fb) { localStorage.setItem(FEEDBACK_KEY, JSON.stringify(fb)); }
+
+  async function autoSave(fb) {
+    let dir = await getDir();
+    if (!dir) {
+      showToast('📁 Daily News フォルダを選択してください', true);
+      dir = await getDir(true);
+      if (!dir) { showToast('保存をキャンセルしました', true); return; }
+    }
+    try {
+      await writeJSON(dir, fb);
+      showToast('✓ feedback.json を自動保存しました（次回キュレーションに反映）');
+    } catch (e) {
+      showToast('保存エラー: ' + e.message, true);
+    }
+  }
+
+  async function toggleFlag(storyId, title, type) {
+    const fb = getFeedback();
+    fb.liked = fb.liked || {};
+    fb.disliked = fb.disliked || {};
+    const likeBtn    = document.querySelector(`.flag-btn.like-btn[data-story="${storyId}"]`);
+    const dislikeBtn = document.querySelector(`.flag-btn.dislike-btn[data-story="${storyId}"]`);
+    if (type === 'like') {
+      if (fb.liked[storyId]) {
+        delete fb.liked[storyId];
+        likeBtn?.classList.remove('active');
+      } else {
+        fb.liked[storyId] = { title, date: TODAY };
+        delete fb.disliked[storyId];
+        likeBtn?.classList.add('active');
+        dislikeBtn?.classList.remove('active');
+      }
+    } else {
+      if (fb.disliked[storyId]) {
+        delete fb.disliked[storyId];
+        dislikeBtn?.classList.remove('active');
+      } else {
+        fb.disliked[storyId] = { title, date: TODAY };
+        delete fb.liked[storyId];
+        dislikeBtn?.classList.add('active');
+        likeBtn?.classList.remove('active');
+      }
+    }
+    saveFeedback(fb);
+    await autoSave(fb);
+  }
+
+  function exportFeedback() {
+    const fb = getFeedback();
+    const json = JSON.stringify({ ...fb, exportedAt: new Date().toISOString() }, null, 2);
+    navigator.clipboard.writeText(json)
+      .then(() => showToast('📋 クリップボードにコピーしました'))
+      .catch(() => {
+        const el = document.createElement('textarea');
+        el.value = json; document.body.appendChild(el); el.select();
+        document.execCommand('copy'); document.body.removeChild(el);
+        showToast('📋 クリップボードにコピーしました');
+      });
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const fb = getFeedback();
+    document.querySelectorAll('.flag-btn').forEach(btn => {
+      const id   = btn.dataset.story;
+      const type = btn.dataset.type;
+      if ((type === 'like' && fb.liked?.[id]) || (type === 'dislike' && fb.disliked?.[id])) {
+        btn.classList.add('active');
+      }
+    });
+  });
+</script>
+</body>
+</html>
