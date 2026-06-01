@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Morning Edition — 2026年6月2日</title>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --font: 'M PLUS Rounded 1c', 'Hiragino Sans', 'Noto Sans JP', sans-serif; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); background: #111; color: #fff; overflow-x: hidden; }
+
+    .masthead { background: #fff; color: #000; padding: 3rem 4rem 2.5rem; border-bottom: 6px solid #000; position: relative; overflow: hidden; }
+    .masthead::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: repeating-linear-gradient(90deg, #000 0, #000 12px, transparent 12px, transparent 20px); }
+    .masthead-kicker { font-size: 0.85rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: #777; margin-bottom: 0.6rem; }
+    .masthead-title { font-size: clamp(3.5rem, 9vw, 7.5rem); font-weight: 900; line-height: 0.88; letter-spacing: -0.04em; margin-bottom: 1.8rem; }
+    .masthead-meta { display: flex; gap: 3rem; align-items: baseline; flex-wrap: wrap; }
+    .masthead-date { font-size: 1.5rem; font-weight: 700; }
+    .masthead-subtitle { font-size: 1rem; font-weight: 400; color: #555; max-width: 480px; line-height: 1.5; }
+    .masthead-issue { margin-left: auto; text-align: right; }
+    .masthead-issue span { display: block; }
+    .masthead-issue .iss-label { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: #999; }
+    .masthead-issue .iss-num { font-size: 2.2rem; font-weight: 900; color: #000; }
+
+    .toc { background: #1a1a1a; padding: 1.5rem 4rem; display: flex; gap: 1.5rem; flex-wrap: wrap; border-bottom: 1px solid #333; }
+    .toc a { color: #aaa; text-decoration: none; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; transition: color 0.2s; }
+    .toc a:hover { color: #fff; }
+    .toc-num { color: #555; margin-right: 0.3em; }
+
+    .story { position: relative; overflow: hidden; }
+    .story-inner { max-width: 1200px; margin: 0 auto; padding: 5rem 4rem; position: relative; z-index: 1; }
+    .story-num { font-size: clamp(6rem, 18vw, 16rem); font-weight: 900; line-height: 0.8; letter-spacing: -0.06em; opacity: 0.08; position: absolute; top: 1rem; right: 2rem; user-select: none; }
+    .story-badge { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.35em 0.9em; border-radius: 2px; margin-bottom: 1.5rem; }
+    .direct-badge { background: #FFD700; color: #000; }
+    .story-kicker { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; opacity: 0.6; margin-bottom: 0.8rem; }
+    .story-headline { font-size: clamp(2rem, 5vw, 4rem); font-weight: 900; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+    .story-body { font-size: clamp(1rem, 1.5vw, 1.2rem); font-weight: 400; line-height: 1.8; max-width: 680px; opacity: 0.88; margin-bottom: 2rem; }
+    .story-meta { display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center; font-size: 0.8rem; font-weight: 700; opacity: 0.5; }
+    .story-links { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem; }
+    .story-link { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.6em 1.4em; border-radius: 3px; text-decoration: none; transition: opacity 0.2s, transform 0.15s; }
+    .story-link:hover { opacity: 0.75; transform: translateY(-1px); }
+
+    .feedback-buttons { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .flag-btn { background: none; border: 1px solid currentColor; color: inherit; font-family: var(--font); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.5em 1em; border-radius: 3px; cursor: pointer; opacity: 0.32; transition: opacity 0.2s, background 0.2s, color 0.2s, border-color 0.2s, transform 0.15s; }
+    .flag-btn:hover { opacity: 0.72; transform: translateY(-1px); }
+    .flag-btn.like-btn.active { opacity: 1; background: rgba(255,215,0,0.15); border-color: #FFD700; color: #FFD700 !important; }
+    .flag-btn.dislike-btn.active { opacity: 1; background: rgba(255,60,60,0.12); border-color: #FF4444; color: #FF4444 !important; }
+
+    .toast { position: fixed; bottom: 2rem; right: 2rem; background: #1a1a1a; color: #fff; font-family: var(--font); font-size: 0.82rem; font-weight: 700; padding: 0.75em 1.4em; border-radius: 4px; border-left: 3px solid #00C853; z-index: 9999; opacity: 0; transform: translateY(10px); transition: opacity 0.25s, transform 0.25s; pointer-events: none; box-shadow: 0 4px 24px rgba(0,0,0,0.45); }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    .toast.error { border-left-color: #FF5252; }
+
+    .story-1 { background: #fff; color: #000; min-height: 90vh; display: flex; flex-direction: column; justify-content: center; }
+    .story-1 .story-num { color: #000; opacity: 0.04; }
+    .story-1 .story-kicker { color: #555; opacity: 1; }
+    .story-1 .story-headline { color: #000; }
+    .story-1 .story-body { color: #111; }
+    .story-1 .story-meta { color: #000; }
+    .story-1 .story-link.primary { background: #1a1a1a; color: #fff; }
+    .story-1 .story-link.secondary { background: #f0f0f0; color: #000; }
+    .story-1 .flag-btn { color: #000; }
+    .story-1-accent { position: absolute; bottom: 0; left: 0; width: 100%; height: 8px; background: linear-gradient(90deg, #1a1a1a, #555, #999, #1a1a1a); }
+    .story-1 .headline-accent { display: inline-block; background: linear-gradient(135deg, #1a1a1a 0%, #555 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .dos-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1.2rem; margin: 2rem 0; max-width: 680px; }
+    .dos-card { border: 2px solid rgba(0,0,0,0.12); background: rgba(0,0,0,0.04); border-radius: 6px; padding: 1.3rem 1.5rem; }
+    .dos-card-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.2em; text-transform: uppercase; color: #333; margin-bottom: 0.4rem; }
+    .dos-card-value { font-size: 1.05rem; font-weight: 900; color: #000; line-height: 1.3; }
+    .dos-card-sub { font-size: 0.75rem; color: #555; margin-top: 0.3rem; line-height: 1.4; }
+
+    .story-2 { background: #00080c; color: #b8f0ff; min-height: 80vh; }
+    .story-2::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(0,160,200,0.14) 0%, transparent 65%); }
+    .story-2 .story-num { color: #00A0C8; opacity: 0.07; }
+    .story-2 .story-kicker { color: #20C8E8; opacity: 1; }
+    .story-2 .story-headline { color: #e0f8ff; }
+    .story-2 .story-body { color: #b8f0ff; }
+    .story-2 .story-meta { color: #20C8E8; opacity: 0.5; }
+    .story-2 .story-link.primary { background: #004058; color: #80e8ff; }
+    .story-2 .story-link.secondary { background: rgba(0,160,200,0.08); color: #90d8f0; border: 1px solid rgba(0,160,200,0.22); }
+    .story-2 .flag-btn { color: #b8f0ff; }
+    .teal-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .teal-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(0,160,200,0.07); border-left: 3px solid #00A0C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .teal-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20C8E8; margin-bottom: 0.3rem; }
+    .teal-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-3 { background: #0a0000; color: #fff; min-height: 80vh; }
+    .story-3::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(200,20,20,0.16) 0%, transparent 65%); }
+    .story-3 .story-num { color: #C81414; opacity: 0.07; }
+    .story-3 .story-kicker { color: #E84040; opacity: 1; }
+    .story-3 .story-headline { color: #fff; }
+    .story-3 .story-body { color: rgba(255,255,255,0.88); }
+    .story-3 .story-meta { color: #E84040; opacity: 0.5; }
+    .story-3 .story-link.primary { background: #6a0000; color: #fff; }
+    .story-3 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-3 .flag-btn { color: #fff; }
+    .red-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .red-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(200,20,20,0.07); border-left: 3px solid #C81414; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .red-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E84040; margin-bottom: 0.3rem; }
+    .red-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-4 { background: #020c04; color: #c8f0d0; min-height: 80vh; }
+    .story-4::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(20,160,70,0.16) 0%, transparent 65%); }
+    .story-4 .story-num { color: #14A046; opacity: 0.07; }
+    .story-4 .story-kicker { color: #30C060; opacity: 1; }
+    .story-4 .story-headline { color: #e0ffe8; }
+    .story-4 .story-body { color: #c8f0d0; }
+    .story-4 .story-meta { color: #30C060; opacity: 0.5; }
+    .story-4 .story-link.primary { background: #063820; color: #80ffb0; }
+    .story-4 .story-link.secondary { background: rgba(20,160,70,0.08); color: #a0e8b0; border: 1px solid rgba(20,160,70,0.22); }
+    .story-4 .flag-btn { color: #c8f0d0; }
+    .green-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .green-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(20,160,70,0.07); border-left: 3px solid #14A046; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .green-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #30C060; margin-bottom: 0.3rem; }
+    .green-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-5 { background: #040010; color: #d8c8ff; min-height: 75vh; }
+    .story-5::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(90,40,200,0.17) 0%, transparent 65%); }
+    .story-5 .story-num { color: #5A28C8; opacity: 0.07; }
+    .story-5 .story-kicker { color: #8050E0; opacity: 1; }
+    .story-5 .story-headline { color: #f0e8ff; }
+    .story-5 .story-body { color: #d8c8ff; }
+    .story-5 .story-meta { color: #8050E0; opacity: 0.5; }
+    .story-5 .story-link.primary { background: #200860; color: #d0a8ff; }
+    .story-5 .story-link.secondary { background: rgba(90,40,200,0.08); color: #c0a0f0; border: 1px solid rgba(90,40,200,0.22); }
+    .story-5 .flag-btn { color: #d8c8ff; }
+    .purple-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .purple-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(90,40,200,0.07); border-left: 3px solid #5A28C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .purple-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #8050E0; margin-bottom: 0.3rem; }
+    .purple-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-6 { background: #000c10; color: #b8e8f0; min-height: 75vh; }
+    .story-6::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 40%, rgba(0,130,160,0.14) 0%, transparent 65%); }
+    .story-6 .story-num { color: #0080A0; opacity: 0.07; }
+    .story-6 .story-kicker { color: #20B0D0; opacity: 1; }
+    .story-6 .story-headline { color: #e0f4ff; }
+    .story-6 .story-body { color: #b8e8f0; }
+    .story-6 .story-meta { color: #20B0D0; opacity: 0.5; }
+    .story-6 .story-link.primary { background: #003848; color: #80d8f0; }
+    .story-6 .story-link.secondary { background: rgba(0,130,160,0.08); color: #90cce0; border: 1px solid rgba(0,130,160,0.22); }
+    .story-6 .flag-btn { color: #b8e8f0; }
+    .cyan-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(185px, 1fr)); gap: 1rem; margin: 2rem 0; max-width: 680px; }
+    .cyan-card { background: rgba(0,130,160,0.07); border: 1px solid rgba(0,130,160,0.22); border-radius: 4px; padding: 1.2rem 1.4rem; }
+    .cyan-card-name { font-size: 0.78rem; font-weight: 900; color: #20B0D0; margin-bottom: 0.4rem; }
+    .cyan-card-desc { font-size: 0.72rem; opacity: 0.75; line-height: 1.4; }
+
+    .story-7 { background: #0a0300; color: #ffe0b8; min-height: 75vh; }
+    .story-7::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(210,90,20,0.18) 0%, transparent 65%); }
+    .story-7 .story-num { color: #D05A14; opacity: 0.07; }
+    .story-7 .story-kicker { color: #E88040; opacity: 1; }
+    .story-7 .story-headline { color: #fff0d8; }
+    .story-7 .story-body { color: #ffe0b8; }
+    .story-7 .story-meta { color: #E88040; opacity: 0.5; }
+    .story-7 .story-link.primary { background: #6a2400; color: #ffc880; }
+    .story-7 .story-link.secondary { background: rgba(210,90,20,0.08); color: #ffb870; border: 1px solid rgba(210,90,20,0.22); }
+    .story-7 .flag-btn { color: #ffe0b8; }
+    .amber-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .amber-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(210,90,20,0.07); border-left: 3px solid #D05A14; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .amber-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E88040; margin-bottom: 0.3rem; }
+    .amber-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-8 { background: #080500; color: #fff; min-height: 70vh; }
+    .story-8::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,145,10,0.15) 0%, transparent 65%); }
+    .story-8 .story-num { color: #BE9110; opacity: 0.06; }
+    .story-8 .story-kicker { color: #D4A820; opacity: 1; }
+    .story-8 .story-headline { color: #fff; }
+    .story-8 .story-body { color: rgba(255,255,255,0.88); }
+    .story-8 .story-meta { color: #D4A820; opacity: 0.5; }
+    .story-8 .story-link.primary { background: #604000; color: #ffe070; }
+    .story-8 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-8 .flag-btn { color: #fff; }
+    .gold-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .gold-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(190,145,10,0.07); border-left: 3px solid #BE9110; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .gold-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #D4A820; margin-bottom: 0.3rem; }
+    .gold-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-9 { background: #040810; color: #c8d8f0; min-height: 70vh; }
+    .story-9::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 35%, rgba(50,90,170,0.16) 0%, transparent 65%); }
+    .story-9 .story-num { color: #3258A8; opacity: 0.07; }
+    .story-9 .story-kicker { color: #5878C8; opacity: 1; }
+    .story-9 .story-headline { color: #e8f0ff; }
+    .story-9 .story-body { color: #c8d8f0; }
+    .story-9 .story-meta { color: #5878C8; opacity: 0.5; }
+    .story-9 .story-link.primary { background: #101e50; color: #fff; }
+    .story-9 .story-link.secondary { background: rgba(50,90,170,0.08); color: #b0c8e8; border: 1px solid rgba(50,90,170,0.22); }
+    .story-9 .flag-btn { color: #c8d8f0; }
+    .slate-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .slate-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(50,90,170,0.07); border-left: 3px solid #3258A8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .slate-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #5878C8; margin-bottom: 0.3rem; }
+    .slate-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-10 { background: #080004; color: #ffc8e8; min-height: 70vh; }
+    .story-10::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,20,90,0.15) 0%, transparent 65%); }
+    .story-10 .story-num { color: #BE1458; opacity: 0.07; }
+    .story-10 .story-kicker { color: #E04080; opacity: 1; }
+    .story-10 .story-headline { color: #fff0f8; }
+    .story-10 .story-body { color: #ffc8e8; }
+    .story-10 .story-meta { color: #E04080; opacity: 0.5; }
+    .story-10 .story-link.primary { background: #500030; color: #ffb0d8; }
+    .story-10 .story-link.secondary { background: rgba(190,20,90,0.08); color: #f090c0; border: 1px solid rgba(190,20,90,0.22); }
+    .story-10 .flag-btn { color: #ffc8e8; }
+    .mag-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .mag-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(190,20,90,0.07); border-left: 3px solid #BE1458; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .mag-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E04080; margin-bottom: 0.3rem; }
+    .mag-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .site-footer { background: #000; color: #555; padding: 3rem 4rem; display: flex; flex-direction: column; gap: 1.5rem; border-top: 1px solid #222; }
+    .footer-top { display: flex; gap: 2rem; align-items: center; flex-wrap: wrap; justify-content: space-between; }
+    .footer-brand { font-size: 1.4rem; font-weight: 900; color: #fff; }
+    .footer-meta { font-size: 0.75rem; line-height: 1.6; }
+    .export-btn { background: #222; border: 1px solid #444; color: #fff; font-family: var(--font); font-size: 0.8rem; font-weight: 700; padding: 0.7em 1.5em; border-radius: 3px; cursor: pointer; letter-spacing: 0.08em; transition: background 0.2s; }
+    .export-btn:hover { background: #333; }
+    .footer-note { font-size: 0.7rem; opacity: 0.5; }
+
+    @media (max-width: 768px) {
+      .masthead, .toc, .story-inner, .site-footer { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .story-num { display: none; }
+      .masthead-meta { gap: 1rem; }
+      .masthead-issue { margin-left: 0; }
+      .dos-grid, .cyan-cards { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+<nav style="background:#1a1a1a;border-bottom:1px solid #333;padding:0.55rem 2rem;font-family:'M PLUS Rounded 1c','Hiragino Sans','Noto Sans JP',sans-serif;position:sticky;top:0;z-index:999;">
+  <a href="./index.html" style="color:#aaa;text-decoration:none;font-size:0.8rem;font-weight:700;letter-spacing:0.03em;display:inline-flex;align-items:center;gap:0.4rem;transition:color 0.15s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#aaa'">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    アーカイブへ戻る
+  </a>
+</nav>
+
+<header class="masthead">
+  <div class="masthead-kicker">Hacker News — Morning Edition</div>
+  <h1 class="masthead-title">Morning<br>Edition</h1>
+  <div class="masthead-meta">
+    <div>
+      <div class="masthead-date">2026年6月2日 火曜日</div>
+      <div class="masthead-subtitle">AI・開発ツール・プライバシー・サイエンス — あなたのための10本</div>
+    </div>
+    <div class="masthead-issue">
+      <span class="iss-label">Issue</span>
+      <span class="iss-num">No.046</span>
+    </div>
+  </div>
+</header>
+
+<nav class="toc">
+  <a href="#s1"><span class="toc-num">01</span>AnthropicがSECに機密でS-1提出——IPOへの道が動き出した</a>
+  <a href="#s2"><span class="toc-num">02</span>史上最もおかしなInstagramアカウント乗っ取り脆弱性の全貌</a>
+  <a href="#s3"><span class="toc-num">03</span>Red Hat Cloudサービスで悪意あるnpmパッケージが検出された</a>
+  <a href="#s4"><span class="toc-num">04</span>10年前のXeonがあれば十分——Gemma 4を2016年製サーバーで動かす</a>
+  <a href="#s5"><span class="toc-num">05</span>StanfordのCS336にAIエージェントガイドライン——CLAUDE.mdが公開</a>
+  <a href="#s6"><span class="toc-num">06</span>CS336: スタンフォードの「ゼロからLLMを作る」公開講座</a>
+  <a href="#s7"><span class="toc-num">07</span>64ビット整数のたった17%しか2つの32ビット整数の積ではない</a>
+  <a href="#s8"><span class="toc-num">08</span>「生化学的プロセス」に見えるものが地質学の自然現象かもしれない</a>
+  <a href="#s9"><span class="toc-num">09</span>GitHubとソフトウェアへの犯罪——批判的考察</a>
+  <a href="#s10"><span class="toc-num">10</span>わざとスマホを遅くした——デジタルウェルネスの実験</a>
+</nav>
+
+<!-- ═══ STORY 1 — Anthropic S-1 ══════════════════════════════════════════ -->
+<section class="story story-1" id="s1">
+  <div class="story-num">01</div>
+  <div class="story-inner">
+    <div class="story-badge direct-badge">⚡ あなたに直接関係</div>
+    <div class="story-kicker">ANTHROPIC IPO — Claude・Claude Codeを開発するAnthropicが米SECに機密扱いでS-1草案を提出——株式公開準備の開始を公式発表、392ポイント・305コメント</div>
+    <h2 class="story-headline">
+      Anthropicが<br>SECに機密で<br>S-1提出——<span class="headline-accent">IPOへの<br>道が動き出した</span>
+    </h2>
+    <div class="story-body">
+      Anthropic（ClaudeシリーズおよびClaude Codeを開発するAI安全研究企業）が米証券取引委員会（SEC）に機密扱いでS-1草案を提出したことを公式ブログで発表しました。392ポイント・305コメントという高い関心を集めています。機密提出（Confidential Filing）はJOBS法に基づく制度で、上場前の企業が財務データを一般公開せずSECと審査プロセスを進められるもの。AmazonやGoogleから巨額の戦略的投資を受けながら急成長してきたAnthropicが、独立した資金調達手段としての株式公開に向けて具体的に動き始めた歴史的な瞬間です。S-1提出はIPO（新規株式公開）の直前に行われる法的手続きであり、通常はその後数ヶ月以内に上場が実現します。Anthropicの評価額は直近ラウンドで600億ドルを超えるとも報じられており、AI企業として最大級のIPOの一つになる可能性があります。創業者のDario Amodei・Daniela Amodei兄妹がOpenAIから独立して設立したAnthropicは「Constitutional AI」によるAI安全性を中核ミッションに掲げ、商業的競争力と安全性研究の両立を追求してきました。HNでは「OpenAIがMicrosoftと複雑に絡み合った構造とは対照的に、AnthropicはAIセーフティをミッションに据えたまま上場するという業界的試金石——安全性重視の企業が市場圧力に耐えながら競争できるかを証明できるか」「IPO後は四半期ごとの業績開示が必要になる。研究型AI企業として長期投資を優先するサイクルと、短期利益を求める株主の期待のバランスが難題」「AmazonとGoogleの戦略的投資家としての立場がIPO後の独立性に影響するか——AWS・GCPへのAI統合でAnthropicと深く連携しており、上場後のガバナンス構造が注目点」「Claude Codeが企業向けソフトウェア開発ツール市場で急速にシェアを拡大しており、コーディングエージェント領域が収益化の最重要ドライバーになっている」という305コメントが展開中です。
+    </div>
+    <div class="dos-grid">
+      <div class="dos-card">
+        <div class="dos-card-label">機密S-1提出とは</div>
+        <div class="dos-card-value">JOBS法に基づく非公開での上場前審査</div>
+        <div class="dos-card-sub">2012年成立のJOBS法により、年間売上10億ドル未満の「新興成長企業」は財務情報を公開前にSECと非公開で審査できる。一般公開前に投資家向けロードショーを行う段階でS-1が公開される。通常は提出から上場まで3〜6ヶ月</div>
+      </div>
+      <div class="dos-card">
+        <div class="dos-card-label">Anthropicの財務背景</div>
+        <div class="dos-card-value">Amazon・Google合計で100億ドル超の戦略投資</div>
+        <div class="dos-card-sub">AmazonがAWS統合を条件に最大40億ドル、GoogleがGCP統合を条件に最大20億ドルの戦略的投資を実施。上場で独立した資本調達手段を確保し、特定クラウドへの依存を緩和する意図もあると見られる</div>
+      </div>
+      <div class="dos-card">
+        <div class="dos-card-label">AIセーフティとIPOの矛盾</div>
+        <div class="dos-card-value">安全ミッションと株主圧力の両立が最大の課題</div>
+        <div class="dos-card-sub">Anthropicは長期的な安全性研究への投資を優先するため、短期収益を犠牲にした判断をしてきた。上場後は株主からの四半期収益プレッシャーが加わり、研究と商業化のバランス維持が問われる</div>
+      </div>
+      <div class="dos-card">
+        <div class="dos-card-label">Claude Codeの重要性</div>
+        <div class="dos-card-value">エンタープライズ向けコーディングエージェントが収益柱</div>
+        <div class="dos-card-sub">Claude Codeは開発者向けCLIツールおよびIDEプラグインとして急速に採用が進み、企業向けAPIと合わせてAnthropicの主要収益源になっている。投資家向けS-1でのコーディング市場でのシェアと成長率が注目される</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: anthropic.com</span>
+      <span>392 ポイント</span>
+      <span>305 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.anthropic.com/news/confidential-draft-s1-sec" target="_blank">発表を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48358646" target="_blank">HN議論 (305)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="anthropic-s1-sec-filing" data-type="like" onclick="toggleFlag('anthropic-s1-sec-filing','AnthropicがSECに機密でS-1提出——IPOへの道が動き出した','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="anthropic-s1-sec-filing" data-type="dislike" onclick="toggleFlag('anthropic-s1-sec-filing','AnthropicがSECに機密でS-1提出——IPOへの道が動き出した','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+  <div class="story-1-accent"></div>
+</section>
+
+<!-- ═══ STORY 2 — Instagram Exploit ══════════════════════════════════════ -->
+<section class="story story-2" id="s2">
+  <div class="story-num">02</div>
+  <div class="story-inner">
+    <div class="story-kicker">SECURITY — セキュリティ研究者が「史上最もおかしな」Instagramのアカウント乗っ取り脆弱性を発見・報告——Metaの杜撰な認証フローがバグバウンティで明らかに、1068ポイント・256コメント</div>
+    <h2 class="story-headline">
+      史上最もおかしな<br>Instagramの<br>アカウント乗っ取り<br>脆弱性の全貌
+    </h2>
+    <div class="story-body">
+      セキュリティ研究者のSiddharth（0xsid）が書いた「The newest Instagram 'exploit' is the goofiest I've seen」というブログ記事が1068ポイント・256コメントという圧倒的な注目を集めています。Metaのアカウント乗っ取り脆弱性（Account Takeover）を報告したこの記事は、脆弱性の技術的深刻さよりも「なぜこんな初歩的なバグが存在できたのか」という呆れと驚きでHNコミュニティを席捲しました。著者が発見したのはInstagramのパスワードリセットフローにおける認証の欠陥で、本来は正規ユーザーだけが使える操作を特定の操作シーケンスで第三者が実行できてしまうというものでした。「goofy（おかしい・間抜けな）」という表現が示すように、複雑なゼロデイエクスプロイトではなく、ちょっとした認証状態の確認漏れというシンプルな原因でした。著者はMetaのバグバウンティプログラムに報告し、修正完了後に詳細を公開しています。10億人超のユーザーを抱えるInstagramでこの種の脆弱性が存在していたという事実は、大規模サービスのセキュリティレビューの難しさを示すと同時に、バグバウンティの有効性を証明しています。HNでは「大規模システムでは絶対に存在してはいけない基礎的なバグが生き残っている理由の一つ——コードレビューは新規コードを対象とするが、認証フローのステートマシン全体を網羅的にテストする仕組みが壊れやすい」「Metaは毎週何十億行のコードを変更しており、一つの変更が遠く離れた認証フローに影響するという状況が発生しやすい。巨大なコードベースの怖さ」「バグバウンティは有効だが報酬体系次第で研究者の動機が変わる——Metaは主要脆弱性への報酬が相対的に低いという批判があり、今回の発見者がどれほど報酬を受けたかに注目」「このレベルの脆弱性が自社のシステムに存在するとしたら？というセキュリティ担当者の自問が最も重要なポイント」という256コメントが展開中です。
+    </div>
+    <div class="teal-items">
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">アカウント乗っ取り脆弱性とは</div>
+          <div class="teal-text">Account Takeover（ATO）は攻撃者が被害者のアカウントを不正に制御できる脆弱性の総称。パスワードリセットフローの認証欠陥・セッション管理の不備・OAuth実装ミス等が原因となる。今回はパスワードリセット時の状態管理に欠陥があり、本来必要な検証を迂回できた。ユーザー認証フローは特に攻撃者にとって魅力的なターゲット</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">バグバウンティの意義</div>
+          <div class="teal-text">バグバウンティ（脆弱性報奨金制度）は、外部の研究者が発見した脆弱性を企業に報告する代わりに報酬を受け取る制度。Metaは2011年から運営し、これまでに数万件以上の脆弱性報告に対し数千万ドルの報奨金を支払っている。重大な脆弱性の公開前修正に有効な手段として業界標準になっている</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">大規模システムでの認証テスト</div>
+          <div class="teal-text">Instagramのような億単位のユーザーを持つサービスでは、認証フローの変更が頻繁に行われるため状態マシン全体の網羅的テストが困難。自動化されたセキュリティテスト（SAST・DAST）と手動のペネトレーションテストを組み合わせても、全ての状態遷移を網羅するのは現実的に難しく、バグバウンティが補完的な防衛手段として重要な役割を果たす</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: 0xsid.com</span>
+      <span>1068 ポイント</span>
+      <span>256 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.0xsid.com/blog/meta-account-takeover-fiasco" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48359102" target="_blank">HN議論 (256)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="instagram-account-takeover-exploit" data-type="like" onclick="toggleFlag('instagram-account-takeover-exploit','史上最もおかしなInstagramアカウント乗っ取り脆弱性の全貌','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="instagram-account-takeover-exploit" data-type="dislike" onclick="toggleFlag('instagram-account-takeover-exploit','史上最もおかしなInstagramアカウント乗っ取り脆弱性の全貌','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 3 — Malicious npm at Red Hat ════════════════════════════ -->
+<section class="story story-3" id="s3">
+  <div class="story-num">03</div>
+  <div class="story-inner">
+    <div class="story-kicker">SUPPLY CHAIN SECURITY — Red Hat Cloud ServicesのJavaScriptクライアントリポジトリで悪意あるnpmパッケージが発見——オープンソースのサプライチェーン攻撃として深刻な事例、700ポイント・391コメント</div>
+    <h2 class="story-headline">
+      Red Hat Cloud<br>サービスで<br>悪意あるnpm<br>パッケージが検出
+    </h2>
+    <div class="story-body">
+      Red HatのCloudサービス向けJavaScriptクライアントライブラリのGitHubリポジトリ「RedHatInsights/javascript-clients」のIssueとして投稿された「Malicious npm packages detected」という報告が700ポイント・391コメントという大きな反響を呼んでいます。Red HatはRHEL（Red Hat Enterprise Linux）・OpenShift・HybridCloud等のエンタープライズ製品で世界中の企業インフラを支える主要ベンダーであり、その公式Cloudサービス向けJavaScriptクライアントに悪意あるコードが含まれていたという報告は、ソフトウェアサプライチェーンセキュリティの問題として深刻に受け止められました。npmのサプライチェーン攻撃は2021年のua-parser-jsや2022年のnode-ipあ等の事例で繰り返し問題になっており、今回はエンタープライズレベルのベンダーが管理するパッケージが標的になったという点で特に注目されています。悪意あるパッケージの典型的な動作は：インストール時のpostinstallスクリプト実行による環境情報の外部送信、秘密鍵・環境変数の窃取、バックドアのインストールなどです。HNでは「npmのパッケージ名を数文字ずらしてタイポスクワットする攻撃から、正規リポジトリ自体を侵害するより高度な攻撃へと手口が進化している——CI/CDパイプラインに直接悪意あるコードが流れ込む事態を防ぐロックファイルの厳格な管理が必須」「pnpmのchecksums機能・Yarn Berry の--frozen-lockfile・npm audit signatureは最低限のスタートライン——さらにsigstoreやSSLAによるパッケージ署名検証の採用が本格的な対策になる」「企業のセキュリティチームはnpmの依存グラフ全体のSBOM（Software Bill of Materials）作成を急ぐ必要がある——どのパッケージのどのバージョンが本番環境で動いているかを把握していない状態ではインシデント対応が遅れる」「Red Hatのような大ベンダーがこの問題に直面しているという事実は、サプライチェーン攻撃が小規模プロジェクトだけの問題ではないことを示す——全てのnpm依存を0-trustで扱う設計思想への転換が必要」という391コメントが展開中です。
+    </div>
+    <div class="red-items">
+      <div class="red-item">
+        <div>
+          <div class="red-label">npmサプライチェーン攻撃の手口</div>
+          <div class="red-text">正規パッケージに酷似した名前のパッケージを公開するタイポスクワット・正規メンテナのアカウントを乗っ取りマルウェアを注入するアカウント侵害・依存パッケージ経由で悪意あるコードを流すTransitive Dependency攻撃の3種が主流。今回のRed Hatケースはリポジトリ・パッケージが正規のものである点で特に深刻</div>
+        </div>
+      </div>
+      <div class="red-item">
+        <div>
+          <div class="red-label">サプライチェーン攻撃への防衛</div>
+          <div class="red-text">npm auditの定期実行・lockfileの厳格管理（--frozen-lockfile）・Sigstoreによるパッケージ署名検証・SBOM（ソフトウェア部品表）の作成と管理・Socket.devやSnykによる依存関係の継続的スキャン。CI/CDパイプラインでのパッケージ整合性チェックの自動化が現実的な防衛ライン</div>
+        </div>
+      </div>
+      <div class="red-item">
+        <div>
+          <div class="red-label">インシデント対応の優先事項</div>
+          <div class="red-text">悪意あるパッケージを使用した可能性がある場合の対応手順：（1）影響範囲の特定（どのバージョンを・いつから使っていたか）（2）本番環境のシークレット・APIキーの全ローテーション（3）実行ログの分析（外部への不審な通信の有無）（4）クリーンなバージョンへの差し替えと依存ツリー全体の再スキャン</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: github.com/RedHatInsights</span>
+      <span>700 ポイント</span>
+      <span>391 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://github.com/RedHatInsights/javascript-clients/issues/492" target="_blank">報告を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48356625" target="_blank">HN議論 (391)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="malicious-npm-packages-red-hat" data-type="like" onclick="toggleFlag('malicious-npm-packages-red-hat','Red Hat Cloudサービスで悪意あるnpmパッケージが検出された','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="malicious-npm-packages-red-hat" data-type="dislike" onclick="toggleFlag('malicious-npm-packages-red-hat','Red Hat Cloudサービスで悪意あるnpmパッケージが検出された','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 4 — 10yo Xeon runs Gemma 4 ═════════════════════════════ -->
+<section class="story story-4" id="s4">
+  <div class="story-num">04</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / HARDWARE — 2016年製のXeonサーバーでGoogleの最新Gemma 4モデルを動かした実験レポート——「最新AIに最新ハードウェアは不要」という実用的な結論、649ポイント・262コメント</div>
+    <h2 class="story-headline">
+      10年前のXeonが<br>あれば十分——<br>Gemma 4を<br>旧サーバーで動かす
+    </h2>
+    <div class="story-body">
+      「A 10 year old Xeon is all you need」というpoint.freeのブログ記事が649ポイント・262コメントを集めています。著者のcafkafkは2016年製のIntel Xeon（DDR4 RAM搭載のサーバーグレードCPU）を使って、Googleが公開した最新の小型LLMシリーズ「Gemma 4」を実際に動かした実験を詳細にレポートしています。GPU不要・クラウド不要で、10年前の旧式サーバーハードウェアだけでローカルAI推論が実現できるという実証実験です。現在のLLMブームにおいてNvidiaのGPUが品薄・高騰を続け、クラウドAIのコストも膨らむ中、量子化（Quantization）技術の進歩により高品質なモデルが低スペックのCPUでも動作するようになったことが背景にあります。著者はGemma 4の4-bit量子化バージョンをllama.cpp経由で動かし、実用的な応答速度（数秒以内のトークン生成）を旧式Xeonで達成したと報告しています。推論速度はGPUに比べて大幅に遅いものの、プライベートなドキュメント処理・バッチ翻訳・コードレビューなど速度よりプライバシーや自律性を重視するユースケースでは十分実用的だと結論付けています。HNでは「llama.cppの最適化は本当に素晴らしい——AVX-512命令セット対応のXeonであれば想像以上のCPU推論速度が出る。旧式サーバーのメモリバンド幅が推論の実質的なボトルネックになる」「企業のデータセンターには数年前に役目を終えたXeonサーバーが大量に眠っている——これをAI推論ファームとして再活用するという選択肢はコスト面で非常に魅力的。Nvidia GPUへの高い初期投資なしにAI機能を追加できる」「モデルの量子化による品質劣化がどの程度かが実用上の最重要ポイント——Q4_K_Mよりも高精度の量子化でどこまで品質を維持できるか、特定ユースケースでのベンチマーク比較が参考になる」「CPU推論の真のメリットはプライバシー——インターネット接続なし・外部サーバーへのデータ送信なしで完全ローカル推論が実現できる。医療・法務・金融データを扱う企業にとってクラウドAIの代替として検討に値する」という262コメントが展開中です。
+    </div>
+    <div class="green-items">
+      <div class="green-item">
+        <div>
+          <div class="green-label">量子化技術とは</div>
+          <div class="green-text">量子化（Quantization）はLLMの重みパラメータの精度を32ビット浮動小数点（FP32）から4ビット整数（INT4）等に圧縮する技術。モデルサイズと必要メモリを劇的に削減し（FP32比で約8倍）、CPU推論を実用的な速度で可能にする。4-bit量子化（Q4）でも多くのタスクで元のFP32モデルの95%以上の品質を維持できるとされる</div>
+        </div>
+      </div>
+      <div class="green-item">
+        <div>
+          <div class="green-label">llama.cppとは</div>
+          <div class="green-text">Georgi Gerganovが開発したCPU推論に特化したオープンソースフレームワーク。AVX・AVX2・AVX-512等のCPU命令セットを最大限活用し、GPUなしでLLMを動かすデファクトスタンダードとなっている。MacのApple Silicon（Metal）・CUDA（Nvidia GPU）・CPU（x86・ARM）を同じコードベースでサポートする。毎週更新されており量子化品質と推論速度が継続的に向上</div>
+        </div>
+      </div>
+      <div class="green-item">
+        <div>
+          <div class="green-label">旧ハードウェアでの推奨構成</div>
+          <div class="green-text">Xeonサーバーでの実用的なローカルAI推論には：（1）DDR4 ECC RAM 32GB以上（Gemma 4 Q4_K_Mで推奨）（2）AVX2以上対応のCPU（2015年以降のXeonは概ね対応）（3）高速NVMe SSD（モデルのロード時間短縮）。速度は最新GPU比で20〜50倍遅いが、バッチ処理・非リアルタイム用途なら十分実用的</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: point.free</span>
+      <span>649 ポイント</span>
+      <span>262 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://point.free/blog/gemma-4-on-a-2016-xeon/" target="_blank">実験レポートを読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48353348" target="_blank">HN議論 (262)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="gemma4-ten-year-old-xeon" data-type="like" onclick="toggleFlag('gemma4-ten-year-old-xeon','10年前のXeonがあれば十分——Gemma 4を旧サーバーで動かす','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="gemma4-ten-year-old-xeon" data-type="dislike" onclick="toggleFlag('gemma4-ten-year-old-xeon','10年前のXeonがあれば十分——Gemma 4を旧サーバーで動かす','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 5 — AI Agent Guidelines CS336 ══════════════════════════ -->
+<section class="story story-5" id="s5">
+  <div class="story-num">05</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI AGENTS / EDUCATION — スタンフォードCS336コースのGitHubリポジトリにCLAUDE.mdが公開——LLM構築を学ぶ学生向けのAIエージェントガイドラインとして注目、251ポイント・102コメント</div>
+    <h2 class="story-headline">
+      StanfordのCS336に<br>AIエージェント<br>ガイドライン——<br>CLAUDE.mdが公開
+    </h2>
+    <div class="story-body">
+      「AI Agent Guidelines for CS336 at Stanford」というHNポストが251ポイント・102コメントを集めています。スタンフォード大学の「CS336: Language Modeling from Scratch」コースのGitHubリポジトリ（assignment1-basics）に、Claude Codeをはじめとするコーディングエージェントの使用ルールを定めた「CLAUDE.md」ファイルが存在することが発見・共有されました。CLAUDE.mdはAnthropic社が推奨するClaude Codeとのコラボレーション設定ファイルで、リポジトリにこのファイルを置くことでAIエージェントがプロジェクトのコーディング規約・禁止事項・推奨アプローチを学習するよう設計されています。LLMを一から構築することを学ぶコースで、そのコース自体がAIエージェントの使用ガイドラインをCLAUDE.mdで管理しているというメタな構造が面白いと話題になっています。CS336のガイドラインは学生がどこまでAIを使っていいか・どの課題でAI補助は不可かを明示しており、学術的誠実さとAIツールの共存という教育現場の最前線の課題を扱っています。HNでは「LLMを勉強するコースでClaude Codeを使ったコーディングをガイドラインで管理するという状況は数年前なら想像もできなかった——AIが教育の道具であり同時に学習対象であるという二重の関係が面白い」「CLAUDE.mdの内容が気になる——どの課題でAI使用可で、どれが禁止か。LLM構築の基礎課題（Attention・バックプロパゲーション等）でAIを使って実装すると理解が得られないため禁止しているのでは」「大学のコースがAIの使用を禁止するのではなくガイドラインで管理しようとしている姿勢は健全——現実の仕事でもAIを使うのだから、学術環境でどう使うかを学ぶ機会になる」「CLAUDE.mdはAnthropic独自フォーマットだが、事実上のAIエージェント設定標準になっている——GitHub上でCLAUDE.mdをGrepすると数万のリポジトリにあり、プロジェクトのAIコラボレーション文化が可視化されている」という102コメントが展開中です。
+    </div>
+    <div class="purple-items">
+      <div class="purple-item">
+        <div>
+          <div class="purple-label">CLAUDE.mdとは</div>
+          <div class="purple-text">AnthropicのClaude Codeがリポジトリのルートに置かれたCLAUDE.mdファイルを読み込み、プロジェクト固有のコーディング規約・禁止事項・推奨アプローチを文脈として取り込む仕組み。「このプロジェクトではTypeScriptを使う」「テストはJestで書く」「直接DBを操作しない」等のルールを自然言語で記述でき、Claude Codeがセッション開始時に参照する</div>
+        </div>
+      </div>
+      <div class="purple-item">
+        <div>
+          <div class="purple-label">CS336コースの概要</div>
+          <div class="purple-text">CS336「Language Modeling from Scratch」はスタンフォード大学のLLM構築を一から学ぶ実践的なコース。Transformerアーキテクチャの実装・事前学習・ファインチューニング・評価までを手を動かして学ぶ。2024年の開設以来、LLMの内部構造を理解したいエンジニア・研究者に人気の公開講座で、スライド・課題・コードが公開されている</div>
+        </div>
+      </div>
+      <div class="purple-item">
+        <div>
+          <div class="purple-label">AIと学術的誠実さの共存</div>
+          <div class="purple-text">教育機関がAI使用を全面禁止から「ガイドライン管理」にシフトする傾向が強まっている。CS336の方針は「AIでコードを書くことを禁止するのではなく、どの課題でどう使うかを明示し理解の深まる使い方を促す」という方向。企業でもAIコーディングポリシーの策定が重要課題になっており、CLAUDE.mdのような設定ファイルがその実装手段として機能する</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: github.com/stanford-cs336</span>
+      <span>251 ポイント</span>
+      <span>102 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://github.com/stanford-cs336/assignment1-basics/blob/main/CLAUDE.md" target="_blank">CLAUDE.mdを読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48359232" target="_blank">HN議論 (102)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="ai-agent-guidelines-cs336-stanford" data-type="like" onclick="toggleFlag('ai-agent-guidelines-cs336-stanford','StanfordのCS336にAIエージェントガイドライン——CLAUDE.mdが公開','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="ai-agent-guidelines-cs336-stanford" data-type="dislike" onclick="toggleFlag('ai-agent-guidelines-cs336-stanford','StanfordのCS336にAIエージェントガイドライン——CLAUDE.mdが公開','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 6 — CS336 Stanford ══════════════════════════════════════ -->
+<section class="story story-6" id="s6">
+  <div class="story-num">06</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI EDUCATION — スタンフォード大学「CS336: Language Modeling from Scratch」公開講座——Transformerから事前学習・ファインチューニングまでLLMを一から構築する実践コース、294ポイント・38コメント</div>
+    <h2 class="story-headline">
+      CS336:<br>スタンフォードの<br>「ゼロからLLMを<br>作る」公開講座
+    </h2>
+    <div class="story-body">
+      「CS336: Language Modeling from Scratch」というスタンフォード大学の公開講座が294ポイント・38コメントを集めています。cs336.stanford.eduで公開されているこのコースは、LLM（大規模言語モデル）の内部構造をブラックボックスとして扱うのではなく、Transformerアーキテクチャの実装から事前学習・スケーリング則・ファインチューニング・RLHF（人間のフィードバックによる強化学習）まで一から手を動かして実装し理解することを目的にしています。APIを通じてLLMを使うだけでなく「どうやって作るか」を深く理解したいエンジニア・研究者向けの実践的なカリキュラムです。課題はPyTorchによる実装を中心に組まれており、Attention機構・Positional Encoding・Layer Normalization・KVキャッシュ・Rotary Embeddings（RoPE）等の現代LLMの核心コンポーネントを実際にコードとして実装します。スタンフォードのコースながらスライド・課題・コードベースが全て公開されており、世界中の独学者がアクセスできます。HNでは「このコースが評価される最大の理由は『論文を読んで理解したつもりになる』ではなく『コードを書いて動かして初めて理解する』というアプローチ——Attentionのコードを自分で書いて初めて行列演算の次元が直感的に分かった」「RoPE（Rotary Position Embedding）の課題が特に良い——現代LLMのほぼ全てがRoPEを採用しているが、数学的な直感を実装で確認できる機会は少ない」「スケーリング則の実験課題が実践的——小さいモデルでの実験でChincillaスケーリングがどう機能するか体験できる」「課題の実装をAIに全部書かせると何も身につかない——CLAUDE.mdで一部課題のAI使用を制限しているのは教育的に正しい判断」という38コメントが展開中です。
+    </div>
+    <div class="cyan-cards">
+      <div class="cyan-card">
+        <div class="cyan-card-name">コースの主要トピック</div>
+        <div class="cyan-card-desc">Transformer実装（Multi-head Attention・FFN・Layer Norm）、BPEトークナイザー、事前学習ループ、スケーリング則・Chinchilla最適化、RoPE、KVキャッシュ最適化、ファインチューニング・RLHF、評価ベンチマーク設計</div>
+      </div>
+      <div class="cyan-card">
+        <div class="cyan-card-name">前提知識</div>
+        <div class="cyan-card-desc">Pythonとnumpy/PyTorchの基礎・線形代数（行列演算）・確率統計の基礎・機械学習の基礎（勾配降下・バックプロパゲーション）。CS229（Machine Learning）レベルの知識が目安</div>
+      </div>
+      <div class="cyan-card">
+        <div class="cyan-card-name">公開リソース</div>
+        <div class="cyan-card-desc">cs336.stanford.eduに全スライド・課題・コードテンプレートが公開。GitHubのstanford-cs336組織に課題リポジトリあり。動画講義は一部公開。自習者向けのDiscussionフォーラムも活発</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: cs336.stanford.edu</span>
+      <span>294 ポイント</span>
+      <span>38 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://cs336.stanford.edu/" target="_blank">コースを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48357075" target="_blank">HN議論 (38)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="cs336-language-modeling-from-scratch" data-type="like" onclick="toggleFlag('cs336-language-modeling-from-scratch','CS336: スタンフォードのゼロからLLMを作る公開講座','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="cs336-language-modeling-from-scratch" data-type="dislike" onclick="toggleFlag('cs336-language-modeling-from-scratch','CS336: スタンフォードのゼロからLLMを作る公開講座','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 7 — 17% of 64-bit Integers ═════════════════════════════ -->
+<section class="story story-7" id="s7">
+  <div class="story-num">07</div>
+  <div class="story-inner">
+    <div class="story-kicker">MATH / WEIRD — Daniel Lemireが証明した直感に反する整数論の事実——全64ビット整数のうちたった17%しか2つの32ビット整数の積で表せない、175ポイント・85コメント</div>
+    <h2 class="story-headline">
+      64ビット整数の<br>たった17%しか<br>2つの32ビット整数の<br>積ではない
+    </h2>
+    <div class="story-body">
+      「Only 17% of all 64-bit integers are products of two 32-bit integers」というDaniel Lemireのブログ記事が175ポイント・85コメントを集めています。数値計算・ビット操作の専門家として知られるカナダのコンピュータサイエンス研究者Lemireが、一見シンプルで直感に反する整数論の事実を証明した記事です。2つの32ビット符号なし整数（それぞれ0から4,294,967,295まで）の組み合わせは4,294,967,296²≈18.4×10¹⁸通り存在しますが、その積として生成できる64ビット整数は全64ビット整数空間の約17%しかカバーしないという事実です。直感的には32bit×32bit=64bitなのだから全ての64ビット整数を表現できそうに思えますが、実際には積で生成できる数は整数論的に制約を受けており、非常に疎な集合しかカバーできません。これはハッシュ関数設計・乱数生成・暗号学的アルゴリズムの設計において重要な含意を持ちます。HNでは「積で生成できる整数が疎になる理由の直感的な説明——大きな64ビット整数（例えば2^63付近）を2つの32ビット整数の積で表すには、少なくとも一方が2^31以上である必要があり、そのような積は少ない組み合わせしか生まれない」「ハッシュ関数でa*bのような乗算を使うときにこの事実を考慮していないと期待した均一分布が得られない——実際のハッシュ関数設計では加算・XOR・シフトを組み合わせる理由の一つ」「暗号学的にも興味深い——RSAの素因数分解困難性とは別の意味で、整数の積空間が全体に対して疎であることが特定の攻撃に対する自然な障壁になる場合がある」「Lemireのブログはこういうニッチだが実装に直結する数学的洞察の宝庫——低レイヤー最適化に興味があるなら定期購読必須」という85コメントが展開中です。
+    </div>
+    <div class="amber-items">
+      <div class="amber-item">
+        <div>
+          <div class="amber-label">なぜ17%なのか（直感的説明）</div>
+          <div class="amber-text">64ビット整数全体（0〜2^64-1）は均一に分布しているが、2つの32ビット整数の積が作れる数は「高度に合成された数」に偏る。素数・素数に近い数・大きな素因数を持つ数は2つの32ビット以下の整数の積として表せない。整数が大きくなるほど「積で表せる密度」は下がり、全体でカウントすると約17%に収束する</div>
+        </div>
+      </div>
+      <div class="amber-item">
+        <div>
+          <div class="amber-label">ハッシュ関数への影響</div>
+          <div class="amber-text">乗算ベースのハッシュ関数（a*bの形式）はその積空間の疎性から出力の均一性が損なわれる可能性がある。高品質なハッシュ関数（MurmurHash・xxHash・FNV等）はこの問題を回避するため加算・XOR・ビットシフト・大きな素数との乗算を組み合わせた設計になっている</div>
+        </div>
+      </div>
+      <div class="amber-item">
+        <div>
+          <div class="amber-label">実装への含意</div>
+          <div class="amber-text">整数の乗算結果を一様乱数として扱う実装は誤り。特にゲームのシード値生成・暗号化キー生成・ハッシュマップの実装では、積のみに依存した実装で予期しない衝突・偏りが発生しうる。Lemireが開発したFast Rangeのような技法は乗算の特性を理解した上で設計されている</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: lemire.me</span>
+      <span>175 ポイント</span>
+      <span>85 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://lemire.me/blog/2026/05/22/only-17-of-all-64-bit-integers-are-products-of-two-32-bit-integers/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48311003" target="_blank">HN議論 (85)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="17-percent-64bit-integers-product" data-type="like" onclick="toggleFlag('17-percent-64bit-integers-product','64ビット整数のたった17%しか2つの32ビット整数の積ではない','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="17-percent-64bit-integers-product" data-type="dislike" onclick="toggleFlag('17-percent-64bit-integers-product','64ビット整数のたった17%しか2つの32ビット整数の積ではない','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 8 — Biochemistry is Geology ════════════════════════════ -->
+<section class="story story-8" id="s8">
+  <div class="story-num">08</div>
+  <div class="story-inner">
+    <div class="story-kicker">WEIRD SCIENCE — Quanta Magazine の衝撃レポート——「生化学的プロセス」と思われていた土壌の化学反応が実は地質学的な自然現象だった可能性、163ポイント・47コメント</div>
+    <h2 class="story-headline">
+      「生化学的プロセス」<br>に見えるものが<br>地質学の<br>自然現象かもしれない
+    </h2>
+    <div class="story-body">
+      「What appear to be biochemical processes may be a natural feature of geology」というQuanta Magazineの記事「The Dirt That Refused to Die」が163ポイント・47コメントを集めています。生命科学と地球科学の境界を揺るがす可能性のある研究を紹介しており、これまで微生物などの生化学的活動によるものと考えられていた土壌中の特定の化学反応が、実際には非生物的な地質学的プロセスによっても生成されることが研究によって示されたというものです。この発見の含意は幅広く、生命の痕跡を示すバイオマーカーと見なされてきた化学的シグネチャの一部が、実は生命なしの地質化学的プロセスで作られる可能性があることを意味します。これは火星や他の惑星・衛星の表面・地下で「生命の証拠」を探す宇宙生物学（アストロバイオロジー）にとって重大な含意を持ちます。「生命を示す化学的証拠」の解釈に根本的な再考を迫る可能性があります。HNでは「これは宇宙生物学にとって非常に重要な発見——NASAのパーサヴィアランスローバーや将来のエウロパ探査機が探しているバイオシグネチャーの解釈基準を見直す必要があるかもしれない」「生命の定義問題に関わる話——非生物的プロセスがこれほど複雑な化学的シグネチャを生成できるなら、地球初期の生命の起源の証拠として解釈されている化学的記録の再検証が必要になる」「誤陽性のリスクを具体的に示した研究として重要——科学のプロセスが自己修正的に機能している良い例。以前の解釈が間違っていた可能性を正直に認める論文の価値」「土壌科学は派手さはないが農業・炭素循環・気候変動の理解に直結する基礎科学として重要——こういう研究がさらっと地球外生命体探査に影響するという面白さ」という47コメントが展開中です。
+    </div>
+    <div class="gold-items">
+      <div class="gold-item">
+        <div>
+          <div class="gold-label">バイオシグネチャーの誤陽性問題</div>
+          <div class="gold-text">バイオシグネチャー（生命の化学的証拠）は、有機分子・特定の同位体比・特徴的な化学パターン等を指す。問題はこれらの一部が非生物的（アビオティック）な地質化学プロセスでも生成されること。今回の研究は「生化学的」と思われた反応の非生物的メカニズムを示しており、宇宙生物学での証拠解釈の慎重さを求める</div>
+        </div>
+      </div>
+      <div class="gold-item">
+        <div>
+          <div class="gold-label">宇宙生物学への影響</div>
+          <div class="gold-text">火星探査でパーサヴィアランスが発見した有機分子・特定の炭素同位体比等は生命の証拠候補として議論されてきた。この研究は「地質化学的プロセスの模倣」という代替説明の範囲を広げる。エウロパ・エンケラドゥス等の氷衛星での生命探査でも同様の解釈の難しさが生じる</div>
+        </div>
+      </div>
+      <div class="gold-item">
+        <div>
+          <div class="gold-label">生命の起源研究への示唆</div>
+          <div class="gold-text">生命が誕生する前の地球初期の化学的記録（太古代の岩石中のバイオシグネチャー）の再解釈が必要になる可能性がある。非生物的化学反応がどこまで「生命らしい」シグネチャを作れるかを理解することは、生命の起源（化学進化から生物進化へのトランジション）の理解を深める逆説的な知見になる</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: quantamagazine.org</span>
+      <span>163 ポイント</span>
+      <span>47 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.quantamagazine.org/the-dirt-that-refused-to-die-20260601/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48357905" target="_blank">HN議論 (47)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="biochemical-processes-geology" data-type="like" onclick="toggleFlag('biochemical-processes-geology','生化学的プロセスに見えるものが地質学の自然現象かもしれない','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="biochemical-processes-geology" data-type="dislike" onclick="toggleFlag('biochemical-processes-geology','生化学的プロセスに見えるものが地質学の自然現象かもしれない','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 9 — GitHub Crime Against Software ══════════════════════ -->
+<section class="story story-9" id="s9">
+  <div class="story-num">09</div>
+  <div class="story-inner">
+    <div class="story-kicker">DEV TOOLS / DEBATE — GitHubがソフトウェア開発文化に与えた悪影響を批判的に考察するエッセイ——「コード検索の劣化・IssueトラッカーのSNS化・依存性地獄」が論点、158ポイント・60コメント</div>
+    <h2 class="story-headline">
+      GitHubと<br>ソフトウェアへの<br>犯罪——<br>批判的考察
+    </h2>
+    <div class="story-body">
+      「GitHub and the crime against software」というeblog.fly.devのエッセイが158ポイント・60コメントを集めています。GitHubはオープンソース開発の中心インフラとして不可欠な存在ですが、著者は「GitHubの支配的地位がソフトウェア開発の文化・品質・自律性に悪影響を与えている」という批判的な論考を展開しています。論点は複数にわたりますが、核心は「GitHubが単なるGitホスティングを超えてソーシャルメディア的な要素（Star・フォロワー・トレンド）をOSS開発に持ち込んだ結果、プロジェクトの品質より人気・バイラル性が重視されるようになった」という問題提起です。また「npm/PyPI等のパッケージレジストリとGitHubの一体化により、浅い依存関係のチェーンが膨大に積み上がり、npmの悪名高いnode_modulesの巨大化問題が象徴するサプライチェーンの脆弱性が構造化した」「GitHubのコード検索は以前のGitHub Searchに比べて機能退化しており、開発者の生産性に悪影響を与えている」等の具体的な批判も含まれています。HNでは「Gitの分散型という特性とGitHubの中央集権的インフラの矛盾——Gitはあらゆる場所に複数のリモートを持てる分散システムなのに、実際はGitHubへの集中が進みGitLab・Sourcehut等の代替が育たない」「StarとContributor数を履歴書に書く文化がOSSの『マーケティング優先・コード品質後回し』を促進している——実際のコード品質より見かけの人気でツール選択が行われる問題」「GitHubがMicrosoftに買収されて以来、リポジトリのデータが競合他社の製品開発（Copilot等）に使われることへの正当な懸念——OSSライセンスの解釈と実際の使われ方のギャップ」「代替を使いたくても生態系がGitHub前提になっている——GitHub Actions・GitHub Packages・GitHub Pages等の統合が外部サービスとの連携を困難にし、乗り換えコストが高い」という60コメントが展開中です。
+    </div>
+    <div class="slate-items">
+      <div class="slate-item">
+        <div>
+          <div class="slate-label">GitHubの中央集権化問題</div>
+          <div class="slate-text">Gitは本来分散型バージョン管理システムだが、実際のOSS開発はGitHub一極集中が進んでいる。SourceHut・GitLab・Codeberg・Forgejo等の代替が存在するが生態系のネットワーク効果がGitHubを優位にし続ける。プラットフォームリスク（GitHubの障害・ポリシー変更・買収）への依存度を減らす分散化の必要性が繰り返し議論されている</div>
+        </div>
+      </div>
+      <div class="slate-item">
+        <div>
+          <div class="slate-label">OSS文化のゲーミフィケーション</div>
+          <div class="slate-text">GitHubのStar・Watch・Fork数・コントリビューター数がOSSプロジェクトの「価値指標」として機能するようになった結果、人気を獲得するためのマーケティング活動（HNへの投稿・Twitter宣伝・リードマグネット化）が重視される傾向がある。地味だが重要な基盤ライブラリより派手なアプリケーションフレームワークが注目を集めやすい構造的偏り</div>
+        </div>
+      </div>
+      <div class="slate-item">
+        <div>
+          <div class="slate-label">代替の検討</div>
+          <div class="slate-text">GitHubへの依存を減らすための実践的な選択肢：SourceHut（シンプル・プライバシー重視・メーリングリストベース）・Forgejo（GitHubクローンの完全セルフホスト可能版）・GitLab（フルフィーチャー・エンタープライズ向け）・Bitbucket（Atlassian製品との連携）。個人プロジェクトはセルフホストGiteaという選択も</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: eblog.fly.dev</span>
+      <span>158 ポイント</span>
+      <span>60 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://eblog.fly.dev/githubbad.html" target="_blank">エッセイを読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48361064" target="_blank">HN議論 (60)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="github-crime-against-software" data-type="like" onclick="toggleFlag('github-crime-against-software','GitHubとソフトウェアへの犯罪——批判的考察','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="github-crime-against-software" data-type="dislike" onclick="toggleFlag('github-crime-against-software','GitHubとソフトウェアへの犯罪——批判的考察','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 10 — Made My Phone Slow ════════════════════════════════ -->
+<section class="story story-10" id="s10">
+  <div class="story-num">10</div>
+  <div class="story-inner">
+    <div class="story-kicker">ACTIONABLE / DIGITAL WELLNESS — 開発者がスマートフォンを意図的に遅く設定した実験——アニメーション無効化・アプリ削除・通知ゼロで何が変わったかを報告、141ポイント・129コメント</div>
+    <h2 class="story-headline">
+      わざとスマホを<br>遅くした——<br>デジタル<br>ウェルネスの実験
+    </h2>
+    <div class="story-body">
+      「I made my phone slow on purpose」というvinewallapp.comのブログが141ポイント・129コメントを集めています。著者のgcamposは自身のスマートフォンを意図的に「遅く」使いにくくする実験を実施しました。具体的な設定変更は：アニメーション速度をゼロに設定（画面切り替えが瞬時になり「使っている感覚」が消える）・ホーム画面をシンプルな白黒一色に変更・全ての通知をオフ・SNSアプリをアンインストールして代わりにブラウザのみからアクセス・画面の色彩を彩度ゼロのグレースケールに。目的は「ドーパミンで動くUI設計」から意図的に距離を置き、スマートフォンを能動的な道具として使えるようにすること。著者は数週間の実験を経て「スマホを開く回数が大幅に減り、開いたときに目的を持ったアクションをするようになった」という変化を報告しています。スマートフォンの注意経済的設計（無限スクロール・カラフルな通知バッジ・アニメーション）が人間の行動を受動的にする仕組みへの実践的な反抗です。HNでは「グレースケールの効果は科学的に研究されており、色彩を取り除くだけで画面への引力が大きく減る——iOSはアクセシビリティ設定からグレースケールをショートカット設定でき、Androidもtweakerモードから設定可能」「通知ゼロにする勇気が一番の壁——最初は不安だが3日で慣れて『みんなが即レスを期待しているという幻想』が崩れる。実際に即レスを本当に必要とするメッセージはほぼない」「アニメーション無効化は開発者オプションからできる——速度が上がるだけでなく『高速操作をしている感覚』がなくなりスマホが地味なツールになる。これが目的」「子供のスマホにも適用したいが、グレースケールをそもそも好むようになる子供もいるという逸話がある——デジタルウェルネスをゲーミフィケーションで解決しようとする試みの失敗と対照的なアプローチ」という129コメントが展開中です。
+    </div>
+    <div class="mag-items">
+      <div class="mag-item">
+        <div>
+          <div class="mag-label">今日から試せる設定</div>
+          <div class="mag-text">iPhone：設定→アクセシビリティ→画面表示とテキストサイズ→カラーフィルタでグレースケール。設定→アクセシビリティ→アクセシビリティショートカットに追加するとトリプルクリックで切り替え可。Android：開発者オプション→アニメーション速度を0.5xに・設定→ユーザー補助→色と動作→色補正→グレースケール</div>
+        </div>
+      </div>
+      <div class="mag-item">
+        <div>
+          <div class="mag-label">ドーパミンUI設計とは</div>
+          <div class="mag-text">InstagramのLike数表示・Twitterの赤い通知バッジ・TikTokの無限スクロール等は、人間のドーパミン報酬系を活用したUI設計。カラフルな配色・アニメーション・可変的な報酬（いつLikeが来るかわからない）が脳の報酬系を刺激し依存性を高める。Tristan Harrisらが「注意経済」として批判してきた設計哲学</div>
+        </div>
+      </div>
+      <div class="mag-item">
+        <div>
+          <div class="mag-label">段階的に試すアプローチ</div>
+          <div class="mag-text">一度に全部変えるのが難しければ段階的に：Week 1 – 全SNSアプリ通知をオフ、Week 2 – ホーム画面からSNSアプリを削除してブラウザ経由のみに、Week 3 – グレースケールを就寝前2時間のみに設定、Week 4 – アニメーション速度を0.5xに。効果を実感しながら自分に合う設定を見つける</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: vinewallapp.com</span>
+      <span>141 ポイント</span>
+      <span>129 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://vinewallapp.com/notes/i-made-my-phone-slow-on-purpose/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48312443" target="_blank">HN議論 (129)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="made-my-phone-slow-on-purpose" data-type="like" onclick="toggleFlag('made-my-phone-slow-on-purpose','わざとスマホを遅くした——デジタルウェルネスの実験','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="made-my-phone-slow-on-purpose" data-type="dislike" onclick="toggleFlag('made-my-phone-slow-on-purpose','わざとスマホを遅くした——デジタルウェルネスの実験','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-top">
+    <div class="footer-brand">Morning Edition</div>
+    <div class="footer-meta">
+      Hacker News フロントページから厳選した10本 / 2026年6月2日（火）<br>
+      ⭐ 興味あり・✕ 興味なしで明日以降のキュレーションを改善できます
+    </div>
+    <button class="export-btn" onclick="exportFeedback()">📋 フィードバックをコピー</button>
+  </div>
+  <div class="footer-note">
+    このエディションはHacker News Algolia APIから取得したデータを元に自動生成されています。記事の著作権は各出典に帰属します。
+  </div>
+</footer>
+
+<script>
+  const TODAY = '2026-06-02';
+  const FEEDBACK_KEY = 'morning-edition-feedback-v2';
+  const IDB_DB = 'morning-edition', IDB_STORE = 'handles', IDB_VER = 1;
+
+  function openIDB() {
+    return new Promise((res, rej) => {
+      const r = indexedDB.open(IDB_DB, IDB_VER);
+      r.onupgradeneeded = e => e.target.result.createObjectStore(IDB_STORE);
+      r.onsuccess = e => res(e.target.result);
+      r.onerror = e => rej(e.target.error);
+    });
+  }
+  async function idbGet(key) {
+    const db = await openIDB();
+    return new Promise(res => {
+      const tx = db.transaction(IDB_STORE, 'readonly');
+      const r = tx.objectStore(IDB_STORE).get(key);
+      r.onsuccess = () => res(r.result ?? null);
+      r.onerror = () => res(null);
+    });
+  }
+  async function idbPut(key, val) {
+    const db = await openIDB();
+    return new Promise((res, rej) => {
+      const tx = db.transaction(IDB_STORE, 'readwrite');
+      tx.objectStore(IDB_STORE).put(val, key);
+      tx.oncomplete = res; tx.onerror = rej;
+    });
+  }
+
+  async function getDir(forceNew = false) {
+    if (!window.showDirectoryPicker) return null;
+    if (!forceNew) {
+      const stored = await idbGet('dir');
+      if (stored) {
+        const perm = await stored.queryPermission({ mode: 'readwrite' });
+        if (perm === 'granted') return stored;
+        const req = await stored.requestPermission({ mode: 'readwrite' });
+        if (req === 'granted') return stored;
+      }
+    }
+    try {
+      const dir = await window.showDirectoryPicker({ mode: 'readwrite', id: 'daily-news' });
+      await idbPut('dir', dir);
+      return dir;
+    } catch { return null; }
+  }
+
+  async function writeJSON(dir, fb) {
+    const fh = await dir.getFileHandle('feedback.json', { create: true });
+    const w = await fh.createWritable();
+    await w.write(JSON.stringify({ ...fb, updatedAt: new Date().toISOString() }, null, 2));
+    await w.close();
+  }
+
+  function showToast(msg, isErr = false) {
+    let el = document.querySelector('.toast');
+    if (!el) { el = document.createElement('div'); el.className = 'toast'; document.body.appendChild(el); }
+    el.textContent = msg;
+    el.className = 'toast' + (isErr ? ' error' : '');
+    requestAnimationFrame(() => el.classList.add('show'));
+    clearTimeout(el._timer);
+    el._timer = setTimeout(() => el.classList.remove('show'), 3000);
+  }
+
+  function getFeedback() {
+    try { return JSON.parse(localStorage.getItem(FEEDBACK_KEY) || '{"liked":{},"disliked":{}}'); }
+    catch { return { liked: {}, disliked: {} }; }
+  }
+  function saveFeedback(fb) { localStorage.setItem(FEEDBACK_KEY, JSON.stringify(fb)); }
+
+  async function autoSave(fb) {
+    let dir = await getDir();
+    if (!dir) {
+      showToast('📁 Daily News フォルダを選択してください', true);
+      dir = await getDir(true);
+      if (!dir) { showToast('保存をキャンセルしました', true); return; }
+    }
+    try {
+      await writeJSON(dir, fb);
+      showToast('✓ feedback.json を自動保存しました（次回キュレーションに反映）');
+    } catch (e) {
+      showToast('保存エラー: ' + e.message, true);
+    }
+  }
+
+  async function toggleFlag(storyId, title, type) {
+    const fb = getFeedback();
+    fb.liked = fb.liked || {};
+    fb.disliked = fb.disliked || {};
+    const likeBtn    = document.querySelector(`.flag-btn.like-btn[data-story="${storyId}"]`);
+    const dislikeBtn = document.querySelector(`.flag-btn.dislike-btn[data-story="${storyId}"]`);
+    if (type === 'like') {
+      if (fb.liked[storyId]) {
+        delete fb.liked[storyId];
+        likeBtn?.classList.remove('active');
+      } else {
+        fb.liked[storyId] = { title, date: TODAY };
+        delete fb.disliked[storyId];
+        likeBtn?.classList.add('active');
+        dislikeBtn?.classList.remove('active');
+      }
+    } else {
+      if (fb.disliked[storyId]) {
+        delete fb.disliked[storyId];
+        dislikeBtn?.classList.remove('active');
+      } else {
+        fb.disliked[storyId] = { title, date: TODAY };
+        delete fb.liked[storyId];
+        dislikeBtn?.classList.add('active');
+        likeBtn?.classList.remove('active');
+      }
+    }
+    saveFeedback(fb);
+    await autoSave(fb);
+  }
+
+  function exportFeedback() {
+    const fb = getFeedback();
+    const json = JSON.stringify({ ...fb, exportedAt: new Date().toISOString() }, null, 2);
+    navigator.clipboard.writeText(json)
+      .then(() => showToast('📋 クリップボードにコピーしました'))
+      .catch(() => {
+        const el = document.createElement('textarea');
+        el.value = json; document.body.appendChild(el); el.select();
+        document.execCommand('copy'); document.body.removeChild(el);
+        showToast('📋 クリップボードにコピーしました');
+      });
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const fb = getFeedback();
+    document.querySelectorAll('.flag-btn').forEach(btn => {
+      const id   = btn.dataset.story;
+      const type = btn.dataset.type;
+      if ((type === 'like' && fb.liked?.[id]) || (type === 'dislike' && fb.disliked?.[id])) {
+        btn.classList.add('active');
+      }
+    });
+  });
+</script>
+</body>
+</html>
