@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Morning Edition — 2026年6月4日</title>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --font: 'M PLUS Rounded 1c', 'Hiragino Sans', 'Noto Sans JP', sans-serif; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); background: #111; color: #fff; overflow-x: hidden; }
+
+    .masthead { background: #fff; color: #000; padding: 3rem 4rem 2.5rem; border-bottom: 6px solid #000; position: relative; overflow: hidden; }
+    .masthead::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: repeating-linear-gradient(90deg, #000 0, #000 12px, transparent 12px, transparent 20px); }
+    .masthead-kicker { font-size: 0.85rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: #777; margin-bottom: 0.6rem; }
+    .masthead-title { font-size: clamp(3.5rem, 9vw, 7.5rem); font-weight: 900; line-height: 0.88; letter-spacing: -0.04em; margin-bottom: 1.8rem; }
+    .masthead-meta { display: flex; gap: 3rem; align-items: baseline; flex-wrap: wrap; }
+    .masthead-date { font-size: 1.5rem; font-weight: 700; }
+    .masthead-subtitle { font-size: 1rem; font-weight: 400; color: #555; max-width: 480px; line-height: 1.5; }
+    .masthead-issue { margin-left: auto; text-align: right; }
+    .masthead-issue span { display: block; }
+    .masthead-issue .iss-label { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: #999; }
+    .masthead-issue .iss-num { font-size: 2.2rem; font-weight: 900; color: #000; }
+
+    .toc { background: #1a1a1a; padding: 1.5rem 4rem; display: flex; gap: 1.5rem; flex-wrap: wrap; border-bottom: 1px solid #333; }
+    .toc a { color: #aaa; text-decoration: none; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; transition: color 0.2s; }
+    .toc a:hover { color: #fff; }
+    .toc-num { color: #555; margin-right: 0.3em; }
+
+    .story { position: relative; overflow: hidden; }
+    .story-inner { max-width: 1200px; margin: 0 auto; padding: 5rem 4rem; position: relative; z-index: 1; }
+    .story-num { font-size: clamp(6rem, 18vw, 16rem); font-weight: 900; line-height: 0.8; letter-spacing: -0.06em; opacity: 0.08; position: absolute; top: 1rem; right: 2rem; user-select: none; }
+    .story-badge { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.35em 0.9em; border-radius: 2px; margin-bottom: 1.5rem; }
+    .direct-badge { background: #FFD700; color: #000; }
+    .story-kicker { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; opacity: 0.6; margin-bottom: 0.8rem; }
+    .story-headline { font-size: clamp(2rem, 5vw, 4rem); font-weight: 900; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+    .story-body { font-size: clamp(1rem, 1.5vw, 1.2rem); font-weight: 400; line-height: 1.8; max-width: 680px; opacity: 0.88; margin-bottom: 2rem; }
+    .story-meta { display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center; font-size: 0.8rem; font-weight: 700; opacity: 0.5; }
+    .story-links { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem; }
+    .story-link { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.6em 1.4em; border-radius: 3px; text-decoration: none; transition: opacity 0.2s, transform 0.15s; }
+    .story-link:hover { opacity: 0.75; transform: translateY(-1px); }
+
+    .feedback-buttons { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .flag-btn { background: none; border: 1px solid currentColor; color: inherit; font-family: var(--font); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.5em 1em; border-radius: 3px; cursor: pointer; opacity: 0.32; transition: opacity 0.2s, background 0.2s, color 0.2s, border-color 0.2s, transform 0.15s; }
+    .flag-btn:hover { opacity: 0.72; transform: translateY(-1px); }
+    .flag-btn.like-btn.active { opacity: 1; background: rgba(255,215,0,0.15); border-color: #FFD700; color: #FFD700 !important; }
+    .flag-btn.dislike-btn.active { opacity: 1; background: rgba(255,60,60,0.12); border-color: #FF4444; color: #FF4444 !important; }
+
+    .toast { position: fixed; bottom: 2rem; right: 2rem; background: #1a1a1a; color: #fff; font-family: var(--font); font-size: 0.82rem; font-weight: 700; padding: 0.75em 1.4em; border-radius: 4px; border-left: 3px solid #00C853; z-index: 9999; opacity: 0; transform: translateY(10px); transition: opacity 0.25s, transform 0.25s; pointer-events: none; box-shadow: 0 4px 24px rgba(0,0,0,0.45); }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    .toast.error { border-left-color: #FF5252; }
+
+    .story-1 { background: #fff; color: #000; min-height: 90vh; display: flex; flex-direction: column; justify-content: center; }
+    .story-1 .story-num { color: #000; opacity: 0.04; }
+    .story-1 .story-kicker { color: #555; opacity: 1; }
+    .story-1 .story-headline { color: #000; }
+    .story-1 .story-body { color: #111; }
+    .story-1 .story-meta { color: #000; }
+    .story-1 .story-link.primary { background: #1a1a1a; color: #fff; }
+    .story-1 .story-link.secondary { background: #f0f0f0; color: #000; }
+    .story-1 .flag-btn { color: #000; }
+    .story-1-accent { position: absolute; bottom: 0; left: 0; width: 100%; height: 8px; background: linear-gradient(90deg, #1a1a1a, #555, #999, #1a1a1a); }
+    .story-1 .headline-accent { display: inline-block; background: linear-gradient(135deg, #1a1a1a 0%, #555 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .dos-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1.2rem; margin: 2rem 0; max-width: 680px; }
+    .dos-card { border: 2px solid rgba(0,0,0,0.12); background: rgba(0,0,0,0.04); border-radius: 6px; padding: 1.3rem 1.5rem; }
+    .dos-card-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.2em; text-transform: uppercase; color: #333; margin-bottom: 0.4rem; }
+    .dos-card-value { font-size: 1.05rem; font-weight: 900; color: #000; line-height: 1.3; }
+    .dos-card-sub { font-size: 0.75rem; color: #555; margin-top: 0.3rem; line-height: 1.4; }
+
+    .story-2 { background: #00080c; color: #b8f0ff; min-height: 80vh; }
+    .story-2::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(0,160,200,0.14) 0%, transparent 65%); }
+    .story-2 .story-num { color: #00A0C8; opacity: 0.07; }
+    .story-2 .story-kicker { color: #20C8E8; opacity: 1; }
+    .story-2 .story-headline { color: #e0f8ff; }
+    .story-2 .story-body { color: #b8f0ff; }
+    .story-2 .story-meta { color: #20C8E8; opacity: 0.5; }
+    .story-2 .story-link.primary { background: #004058; color: #80e8ff; }
+    .story-2 .story-link.secondary { background: rgba(0,160,200,0.08); color: #90d8f0; border: 1px solid rgba(0,160,200,0.22); }
+    .story-2 .flag-btn { color: #b8f0ff; }
+    .teal-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .teal-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(0,160,200,0.07); border-left: 3px solid #00A0C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .teal-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20C8E8; margin-bottom: 0.3rem; }
+    .teal-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-3 { background: #0a0000; color: #fff; min-height: 80vh; }
+    .story-3::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(200,20,20,0.16) 0%, transparent 65%); }
+    .story-3 .story-num { color: #C81414; opacity: 0.07; }
+    .story-3 .story-kicker { color: #E84040; opacity: 1; }
+    .story-3 .story-headline { color: #fff; }
+    .story-3 .story-body { color: rgba(255,255,255,0.88); }
+    .story-3 .story-meta { color: #E84040; opacity: 0.5; }
+    .story-3 .story-link.primary { background: #6a0000; color: #fff; }
+    .story-3 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-3 .flag-btn { color: #fff; }
+    .red-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .red-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(200,20,20,0.07); border-left: 3px solid #C81414; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .red-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E84040; margin-bottom: 0.3rem; }
+    .red-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-4 { background: #020c04; color: #c8f0d0; min-height: 80vh; }
+    .story-4::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(20,160,70,0.16) 0%, transparent 65%); }
+    .story-4 .story-num { color: #14A046; opacity: 0.07; }
+    .story-4 .story-kicker { color: #30C060; opacity: 1; }
+    .story-4 .story-headline { color: #e0ffe8; }
+    .story-4 .story-body { color: #c8f0d0; }
+    .story-4 .story-meta { color: #30C060; opacity: 0.5; }
+    .story-4 .story-link.primary { background: #063820; color: #80ffb0; }
+    .story-4 .story-link.secondary { background: rgba(20,160,70,0.08); color: #a0e8b0; border: 1px solid rgba(20,160,70,0.22); }
+    .story-4 .flag-btn { color: #c8f0d0; }
+    .green-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .green-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(20,160,70,0.07); border-left: 3px solid #14A046; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .green-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #30C060; margin-bottom: 0.3rem; }
+    .green-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-5 { background: #040010; color: #d8c8ff; min-height: 75vh; }
+    .story-5::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(90,40,200,0.17) 0%, transparent 65%); }
+    .story-5 .story-num { color: #5A28C8; opacity: 0.07; }
+    .story-5 .story-kicker { color: #8050E0; opacity: 1; }
+    .story-5 .story-headline { color: #f0e8ff; }
+    .story-5 .story-body { color: #d8c8ff; }
+    .story-5 .story-meta { color: #8050E0; opacity: 0.5; }
+    .story-5 .story-link.primary { background: #200860; color: #d0a8ff; }
+    .story-5 .story-link.secondary { background: rgba(90,40,200,0.08); color: #c0a0f0; border: 1px solid rgba(90,40,200,0.22); }
+    .story-5 .flag-btn { color: #d8c8ff; }
+    .purple-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .purple-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(90,40,200,0.07); border-left: 3px solid #5A28C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .purple-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #8050E0; margin-bottom: 0.3rem; }
+    .purple-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-6 { background: #000c10; color: #b8e8f0; min-height: 75vh; }
+    .story-6::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 40%, rgba(0,130,160,0.14) 0%, transparent 65%); }
+    .story-6 .story-num { color: #0080A0; opacity: 0.07; }
+    .story-6 .story-kicker { color: #20B0D0; opacity: 1; }
+    .story-6 .story-headline { color: #e0f4ff; }
+    .story-6 .story-body { color: #b8e8f0; }
+    .story-6 .story-meta { color: #20B0D0; opacity: 0.5; }
+    .story-6 .story-link.primary { background: #003848; color: #80d8f0; }
+    .story-6 .story-link.secondary { background: rgba(0,130,160,0.08); color: #90cce0; border: 1px solid rgba(0,130,160,0.22); }
+    .story-6 .flag-btn { color: #b8e8f0; }
+    .cyan-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(185px, 1fr)); gap: 1rem; margin: 2rem 0; max-width: 680px; }
+    .cyan-card { background: rgba(0,130,160,0.07); border: 1px solid rgba(0,130,160,0.22); border-radius: 4px; padding: 1.2rem 1.4rem; }
+    .cyan-card-name { font-size: 0.78rem; font-weight: 900; color: #20B0D0; margin-bottom: 0.4rem; }
+    .cyan-card-desc { font-size: 0.72rem; opacity: 0.75; line-height: 1.4; }
+
+    .story-7 { background: #0a0300; color: #ffe0b8; min-height: 75vh; }
+    .story-7::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(210,90,20,0.18) 0%, transparent 65%); }
+    .story-7 .story-num { color: #D05A14; opacity: 0.07; }
+    .story-7 .story-kicker { color: #E88040; opacity: 1; }
+    .story-7 .story-headline { color: #fff0d8; }
+    .story-7 .story-body { color: #ffe0b8; }
+    .story-7 .story-meta { color: #E88040; opacity: 0.5; }
+    .story-7 .story-link.primary { background: #6a2400; color: #ffc880; }
+    .story-7 .story-link.secondary { background: rgba(210,90,20,0.08); color: #ffb870; border: 1px solid rgba(210,90,20,0.22); }
+    .story-7 .flag-btn { color: #ffe0b8; }
+    .amber-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .amber-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(210,90,20,0.07); border-left: 3px solid #D05A14; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .amber-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E88040; margin-bottom: 0.3rem; }
+    .amber-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-8 { background: #080500; color: #fff; min-height: 70vh; }
+    .story-8::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,145,10,0.15) 0%, transparent 65%); }
+    .story-8 .story-num { color: #BE9110; opacity: 0.06; }
+    .story-8 .story-kicker { color: #D4A820; opacity: 1; }
+    .story-8 .story-headline { color: #fff; }
+    .story-8 .story-body { color: rgba(255,255,255,0.88); }
+    .story-8 .story-meta { color: #D4A820; opacity: 0.5; }
+    .story-8 .story-link.primary { background: #604000; color: #ffe070; }
+    .story-8 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-8 .flag-btn { color: #fff; }
+    .gold-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .gold-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(190,145,10,0.07); border-left: 3px solid #BE9110; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .gold-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #D4A820; margin-bottom: 0.3rem; }
+    .gold-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-9 { background: #040810; color: #c8d8f0; min-height: 70vh; }
+    .story-9::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 35%, rgba(50,90,170,0.16) 0%, transparent 65%); }
+    .story-9 .story-num { color: #3258A8; opacity: 0.07; }
+    .story-9 .story-kicker { color: #5878C8; opacity: 1; }
+    .story-9 .story-headline { color: #e8f0ff; }
+    .story-9 .story-body { color: #c8d8f0; }
+    .story-9 .story-meta { color: #5878C8; opacity: 0.5; }
+    .story-9 .story-link.primary { background: #101e50; color: #fff; }
+    .story-9 .story-link.secondary { background: rgba(50,90,170,0.08); color: #b0c8e8; border: 1px solid rgba(50,90,170,0.22); }
+    .story-9 .flag-btn { color: #c8d8f0; }
+    .slate-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .slate-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(50,90,170,0.07); border-left: 3px solid #3258A8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .slate-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #5878C8; margin-bottom: 0.3rem; }
+    .slate-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-10 { background: #080004; color: #ffc8e8; min-height: 70vh; }
+    .story-10::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,20,90,0.15) 0%, transparent 65%); }
+    .story-10 .story-num { color: #BE1458; opacity: 0.07; }
+    .story-10 .story-kicker { color: #E04080; opacity: 1; }
+    .story-10 .story-headline { color: #fff0f8; }
+    .story-10 .story-body { color: #ffc8e8; }
+    .story-10 .story-meta { color: #E04080; opacity: 0.5; }
+    .story-10 .story-link.primary { background: #500030; color: #ffb0d8; }
+    .story-10 .story-link.secondary { background: rgba(190,20,90,0.08); color: #f090c0; border: 1px solid rgba(190,20,90,0.22); }
+    .story-10 .flag-btn { color: #ffc8e8; }
+    .mag-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .mag-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(190,20,90,0.07); border-left: 3px solid #BE1458; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .mag-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E04080; margin-bottom: 0.3rem; }
+    .mag-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .site-footer { background: #000; color: #555; padding: 3rem 4rem; display: flex; flex-direction: column; gap: 1.5rem; border-top: 1px solid #222; }
+    .footer-top { display: flex; gap: 2rem; align-items: center; flex-wrap: wrap; justify-content: space-between; }
+    .footer-brand { font-size: 1.4rem; font-weight: 900; color: #fff; }
+    .footer-meta { font-size: 0.75rem; line-height: 1.6; }
+    .export-btn { background: #222; border: 1px solid #444; color: #fff; font-family: var(--font); font-size: 0.8rem; font-weight: 700; padding: 0.7em 1.5em; border-radius: 3px; cursor: pointer; letter-spacing: 0.08em; transition: background 0.2s; }
+    .export-btn:hover { background: #333; }
+    .footer-note { font-size: 0.7rem; opacity: 0.5; }
+
+    @media (max-width: 768px) {
+      .masthead, .toc, .story-inner, .site-footer { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .story-num { display: none; }
+      .masthead-meta { gap: 1rem; }
+      .masthead-issue { margin-left: 0; }
+      .dos-grid, .cyan-cards { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+<nav style="background:#1a1a1a;border-bottom:1px solid #333;padding:0.55rem 2rem;font-family:'M PLUS Rounded 1c','Hiragino Sans','Noto Sans JP',sans-serif;position:sticky;top:0;z-index:999;">
+  <a href="./index.html" style="color:#aaa;text-decoration:none;font-size:0.8rem;font-weight:700;letter-spacing:0.03em;display:inline-flex;align-items:center;gap:0.4rem;transition:color 0.15s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#aaa'">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    アーカイブへ戻る
+  </a>
+</nav>
+
+<header class="masthead">
+  <div class="masthead-kicker">Hacker News — Morning Edition</div>
+  <h1 class="masthead-title">Morning<br>Edition</h1>
+  <div class="masthead-meta">
+    <div>
+      <div class="masthead-date">2026年6月4日 木曜日</div>
+      <div class="masthead-subtitle">AI・開発ツール・プライバシー・サイエンス — あなたのための10本</div>
+    </div>
+    <div class="masthead-issue">
+      <span class="iss-label">Issue</span>
+      <span class="iss-num">No.048</span>
+    </div>
+  </div>
+</header>
+
+<nav class="toc">
+  <a href="#s1"><span class="toc-num">01</span>Meta従業員が職場追跡をオプトアウト——30分限定の「プライバシータイム」</a>
+  <a href="#s2"><span class="toc-num">02</span>スピーカーでPCをハック——音響BadUSB攻撃「Pwnd Blaster」の衝撃</a>
+  <a href="#s3"><span class="toc-num">03</span>Google Gemma 4 12B登場——encoder-freeの統合マルチモーダルモデル</a>
+  <a href="#s4"><span class="toc-num">04</span>Elixir v1.20リリース——段階的型付き言語へ進化</a>
+  <a href="#s5"><span class="toc-num">05</span>DaVinci Resolve 21登場——AI強化されたプロ動画編集の最前線</a>
+  <a href="#s6"><span class="toc-num">06</span>UberのAI利用上限月$1,500——AIツール価格設計への示唆</a>
+  <a href="#s7"><span class="toc-num">07</span>reMarkable 2で動く手書きClojure REPL「Edsger」</a>
+  <a href="#s8"><span class="toc-num">08</span>全てのバイトが重要——パフォーマンス最適化の哲学と実践</a>
+  <a href="#s9"><span class="toc-num">09</span>Let's Encryptの耐量子暗号への移行——ポスト量子の未来</a>
+  <a href="#s10"><span class="toc-num">10</span>数学者たちがAIに警鐘——急速なAI進出で数学の未来は</a>
+</nav>
+
+<!-- ═══ STORY 1 — Meta Workplace Tracking ════════════════════════════════ -->
+<section class="story story-1" id="s1">
+  <div class="story-num">01</div>
+  <div class="story-inner">
+    <div class="story-kicker">PRIVACY / WORKPLACE — Meta従業員が職場での位置情報・アクティビティ追跡を最大30分間オプトアウトできる新ポリシーをBBCが報道——633ポイント・604コメント</div>
+    <h2 class="story-headline">
+      Meta従業員が<br>職場追跡を<br><span class="headline-accent">オプトアウト——<br>30分限定の<br>「プライバシータイム」</span>
+    </h2>
+    <div class="story-body">
+      Meta（旧Facebook）が職場での従業員追跡に関する新しいポリシーを導入し、633ポイント・604コメントという本日最多の反響を集めています。BBCが報じたこのポリシーでは、Meta従業員が最大30分間、職場での位置情報やアクティビティの追跡をオプトアウトできるようになります。Metaはオフィス内の従業員の動きを追跡する「ウェルネス」システムを導入しており、トイレ休憩の頻度・社内移動パターン・デスクからの離席時間なども記録されていると報じられています。30分という上限は批判的にも捉えられており、「30分という時間は実質的なプライバシー保護にはならない——本当のプライバシーへの敬意があるなら追跡自体を任意にすべき」という声が多く上がっています。HNでは「Metaの本業はデータ収集で、それが従業員にも向いている。職場でのプライバシーは法的に弱く、多くの国でこのような追跡は合法」「30分のオプトアウトは心理的な意味がある——生理的なニーズや機密会話の間だけでも追跡から外れられることは、従業員の尊厳に関わる」「テック企業が個人データの収集・活用を主張しながら、自社従業員には最低限のプライバシーも与えないという皮肉」「このポリシーが公になったことで、他の企業でも同様の追跡が行われているという認識が広まるかもしれない——透明性という意味では公開に意義がある」という604コメントが展開中です。
+    </div>
+    <div class="dos-grid">
+      <div class="dos-card">
+        <div class="dos-card-label">職場追跡の実態</div>
+        <div class="dos-card-value">位置情報・離席時間・移動パターンを常時記録</div>
+        <div class="dos-card-sub">Metaのシステムはオフィス内のバッジスキャン・WiFi接続・カレンダーデータを統合して行動パターンを分析。「ウェルネス」名目で導入されたが、実質的な監視インフラとして機能している。対象は主にRTOポリシー（週3日出社義務）への準拠確認に使われているとされる</div>
+      </div>
+      <div class="dos-card">
+        <div class="dos-card-label">30分上限の意味</div>
+        <div class="dos-card-value">トイレ・機密会話・個人的用事の間に限定</div>
+        <div class="dos-card-sub">30分という時間設定は、長時間の業務から外れることを許可せず、あくまで「生理的なニーズ」の範囲内だという会社側のメッセージ。欧州労働法では従業員の包括的な職場追跡に制限があり、GDPRとの整合性が問われる可能性がある</div>
+      </div>
+      <div class="dos-card">
+        <div class="dos-card-label">テック企業の職場監視動向</div>
+        <div class="dos-card-value">Amazon・Google・Microsoftも類似の追跡を実施</div>
+        <div class="dos-card-sub">Amazonは倉庫スキャン・トイレ休憩の頻度を管理システムで追跡。GoogleはRTO遵守のためにバッジデータを集計。Microsoftは「Productivity Score」でTeams・Outlook活動量を部門別に可視化（後に廃止）。大規模テック企業での職場監視は業界横断的な問題になっている</div>
+      </div>
+      <div class="dos-card">
+        <div class="dos-card-label">従業員にできること</div>
+        <div class="dos-card-value">権利確認・オプトアウト行使・集団交渉</div>
+        <div class="dos-card-sub">米国ではNLRA（全国労働関係法）が一部の職場監視に制限を設けるが、多くの追跡は合法。欧州では個人データ処理への同意と目的制限が必要。オプトアウトを積極的に行使することで、「30分では足りない」という集団的なメッセージを会社側に示せる</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: bbc.com</span>
+      <span>633 ポイント</span>
+      <span>604 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.bbc.com/news/articles/c93x0k194yno" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48383220" target="_blank">HN議論 (604)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="meta-workers-opt-out-tracking" data-type="like" onclick="toggleFlag('meta-workers-opt-out-tracking','Meta従業員が職場追跡をオプトアウト——30分限定のプライバシータイム','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="meta-workers-opt-out-tracking" data-type="dislike" onclick="toggleFlag('meta-workers-opt-out-tracking','Meta従業員が職場追跡をオプトアウト——30分限定のプライバシータイム','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+  <div class="story-1-accent"></div>
+</section>
+
+<!-- ═══ STORY 2 — Pwnd Blaster Speaker Hack ═════════════════════════════ -->
+<section class="story story-2" id="s2">
+  <div class="story-num">02</div>
+  <div class="story-inner">
+    <div class="story-kicker">SECURITY / WEIRD SCIENCE — スピーカーから音波を発するだけでPCを攻撃できる音響BadUSB攻撃「Pwnd Blaster」を研究者が公開——物理接触ゼロで不正アクセスが可能、615ポイント・97コメント</div>
+    <h2 class="story-headline">
+      スピーカーで<br>PCをハック——<br>音響BadUSB攻撃<br>「Pwnd Blaster」の衝撃
+    </h2>
+    <div class="story-body">
+      エストニアのセキュリティ研究者による「Pwnd Blaster: Hacking your PC using your speaker without ever touching it」が615ポイント・97コメントを集めています。この攻撃は「音響BadUSB」——PCのスピーカーから特定の音波を発することで、USBコントローラが音響信号をUSBデバイスとして認識してしまう脆弱性を利用し、物理的な接触なしにコマンドを実行する手法です。「Katana BadUSB」プロジェクトの一部として公開されており、デモ動画ではスピーカーから音を流すだけでターゲットPCでシェルコードが実行されています。Bluetooth経由でスピーカーをコントロールできる攻撃者が近くにいれば、物理的なエアギャップも突破できる可能性があります。HNでは「音響攻撃がここまで現実的なレベルに達したことに驚いた——BadUSBは物理的なアクセスが必要というセキュリティ前提が崩れる」「攻撃の前提条件（特定のスピーカー・音量・距離）を整理すると実際のリスクは限定的——研究として面白いが、実際の脅威モデルではリスクが低い場面も多い」「マイクのないデバイスが増える中で、スピーカーが入力デバイスとして機能する攻撃面は見逃されやすい」「ファラデーケージに加えて音響絶縁も必要になる時代か——物理セキュリティの定義が変わる」という97コメントが展開中です。
+    </div>
+    <div class="teal-items">
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">攻撃の仕組み</div>
+          <div class="teal-text">音波がUSBプロトコルを模倣する電気信号をスピーカーケーブル経由で伝達し、USBコントローラが音響信号をUSBデバイスとして認識する。BadUSBはもともとUSBファームウェアを書き換えて悪意のあるコマンドを実行する攻撃手法で、Pwnd Blasterはその音響版。特定の周波数・振幅・タイミングで音波を生成することでUSB通信を模倣する</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">実際の攻撃シナリオ</div>
+          <div class="teal-text">Bluetooth接続されたスピーカーをターゲットのPCに接続させた後、攻撃者がBluetooth経由でスピーカーに悪意のある音波を送信——近距離での物理アクセス不要の攻撃が成立。オープンオフィス・共用会議室・カフェ等でターゲットがスピーカーを使う環境が前提。エアギャップされたシステムへの侵入ベクターとして研究者が注目している</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">防御策と現実的なリスク評価</div>
+          <div class="teal-text">USBポートの無効化・ホワイトリスト制御（USBGuard等）が最も有効。BIOSレベルでのUSB制限も有効。現実のリスクは標的型攻撃に限られ、無差別攻撃への悪用は現状難しい。ただしセキュリティ研究として重要で、スピーカーをセキュリティ境界の一部として考慮する必要性を示している</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: blog.nns.ee</span>
+      <span>615 ポイント</span>
+      <span>97 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://blog.nns.ee/2026/06/03/katana-badusb/" target="_blank">研究を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48382310" target="_blank">HN議論 (97)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="pwnd-blaster-speaker-hack" data-type="like" onclick="toggleFlag('pwnd-blaster-speaker-hack','スピーカーでPCをハック——音響BadUSB攻撃Pwnd Blasterの衝撃','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="pwnd-blaster-speaker-hack" data-type="dislike" onclick="toggleFlag('pwnd-blaster-speaker-hack','スピーカーでPCをハック——音響BadUSB攻撃Pwnd Blasterの衝撃','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 3 — Gemma 4 12B ═══════════════════════════════════════════ -->
+<section class="story story-3" id="s3">
+  <div class="story-num">03</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / DEV TOOLS — GoogleがGemma 4 12Bを発表——エンコーダー不要の統合型マルチモーダルアーキテクチャを採用したオープンウェイトモデル、597ポイント・236コメント</div>
+    <h2 class="story-headline">
+      Google Gemma 4<br>12B登場——<br>encoder-freeの<br>統合マルチモーダル
+    </h2>
+    <div class="story-body">
+      Googleが「Gemma 4 12B: A unified, encoder-free multimodal model」を発表し、597ポイント・236コメントを集めています。Gemmaシリーズの最新モデルで、12Bパラメータながらエンコーダー不要の統合型マルチモーダルアーキテクチャを採用した点が技術的な注目ポイントです。従来のマルチモーダルモデルは視覚情報を処理するための別エンコーダー（CLIPなど）を持つ構造が一般的でしたが、Gemma 4 12Bはエンコーダーなしに画像・テキスト・コードを統一的に処理します。Google AI StudioおよびKaggle経由でオープンウェイトとして公開されており、商用利用も可能です。MMLU・HumanEval・VQA各種ベンチマークで同規模モデルの中で高いスコアを示しており、オープンソースマルチモーダルモデルとしては最高水準に位置付けられています。HNでは「12Bパラメータでencoder-freeのマルチモーダルを実現したアーキテクチャは純粋に技術的な進歩——エッジデバイスでの実行可能性を高める」「オープンウェイトの12Bマルチモーダルモデルが実用レベルに達したことで、ローカルLLMの使い方が変わる——llama.cpp対応が待ち遠しい」「GoogleがGemmaをオープンソースとして積極的に出してくる戦略——研究・開発者コミュニティにベースモデルを提供することで生態系を育てる」「encoder-freeのアーキテクチャの詳細が気になる——画像トークン化をどのように行っているか、論文で明らかになることを期待」という236コメントが展開中です。
+    </div>
+    <div class="red-items">
+      <div class="red-item">
+        <div>
+          <div class="red-label">encoder-freeアーキテクチャとは</div>
+          <div class="red-text">従来のマルチモーダルモデル（LLaVA・GPT-4V等）はCLIPなどの視覚エンコーダーで画像を特徴ベクトルに変換してからLLMに渡す二段階構造。Gemma 4 12Bは画像を直接トークンとして扱い、単一のTransformerで画像・テキストを統合処理。モデルの複雑さが減り、訓練・推論パイプラインがシンプルになる</div>
+        </div>
+      </div>
+      <div class="red-item">
+        <div>
+          <div class="red-label">オープンウェイトとしての意義</div>
+          <div class="red-text">Gemma 4 12Bはgemma.google.com・Kaggle・Hugging Face経由で重みが公開されており、ローカル実行・Fine-tuning・商用利用が可能。12BはM3 Pro搭載MacBook ProのRAM（18-36GB）で量子化版が動作するサイズ。研究者・スタートアップがGemini Proの高コストなAPIを使わずにマルチモーダルアプリを作れる</div>
+        </div>
+      </div>
+      <div class="red-item">
+        <div>
+          <div class="red-label">競合との位置付け</div>
+          <div class="red-text">オープンウェイトマルチモーダルモデル市場：LLaMA 3.2 Vision（11B・90B）・Qwen2.5-VL（7B・72B）・Phi-4 Multimodal（14B）・Pixtral（12B）が主要競合。Gemma 4 12Bはこれらと直接競合し、Googleブランドと最適化されたTPU訓練が強み。llama.cppやOllamaへの対応が速まれば、ローカルLLMコミュニティで主流になる可能性がある</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: blog.google</span>
+      <span>597 ポイント</span>
+      <span>236 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://blog.google/innovation-and-ai/technology/developers-tools/introducing-gemma-4-12b/" target="_blank">発表を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48385906" target="_blank">HN議論 (236)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="gemma-4-12b-google" data-type="like" onclick="toggleFlag('gemma-4-12b-google','Google Gemma 4 12B登場——encoder-freeの統合マルチモーダルモデル','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="gemma-4-12b-google" data-type="dislike" onclick="toggleFlag('gemma-4-12b-google','Google Gemma 4 12B登場——encoder-freeの統合マルチモーダルモデル','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 4 — Elixir v1.20 ══════════════════════════════════════════ -->
+<section class="story story-4" id="s4">
+  <div class="story-num">04</div>
+  <div class="story-inner">
+    <div class="story-kicker">PROGRAMMING LANGUAGES / DEV TOOLS — Elixir v1.20が正式リリース——待望の段階的型システム（Gradual Typing）を導入し、集合論的型で既存コードとの共存を実現、376ポイント・121コメント</div>
+    <h2 class="story-headline">
+      Elixir v1.20<br>リリース——<br>段階的型付き<br>言語へ進化
+    </h2>
+    <div class="story-body">
+      「Elixir v1.20: Now a gradually typed language」という公式ブログが376ポイント・121コメントを集めています。Elixirが待望の段階的型システム（Gradual Typing）を1.20リリースで正式導入しました。これはElixirコミュニティが数年間取り組んできた「Set-Theoretic Types」（集合論的型）アプローチの成果で、既存の動的型付けコードと共存しながら徐々に型注釈を追加していける仕組みです。Python（mypy）・Ruby（Sorbet/RBS）・JavaScript（TypeScript）で成功を収めた段階的型付けの潮流に、ElixirもErlang VMの制約の中で独自の形で加わります。型チェックはコンパイル時に行われ、型推論と組み合わせることで既存コードの多くは注釈なしでも恩恵を受けられます。HNでは「ElixirのGradual Typingは後付け型システムの中でも特に良い設計——集合論的型はPythonのProtocolより表現力が高く、Union型・Intersection型・Negation型を自然に扱える」「José Valimはここ数年の型システム開発を丁寧に進めてきた——Erlang VMの制約の中で型理論的に正しい実装をしたことは称賛に値する」「Phoenix・LiveViewでElixirを使っている開発者には待望のリリース——大規模なコードベースで型チェックが走ることでリファクタリングの安全性が大幅に向上する」「HEEx（Phoenixテンプレート）の型安全性も将来的に向上する——LiveViewのコールバック関数に型注釈が付けられるようになることを期待」という121コメントが展開中です。
+    </div>
+    <div class="green-items">
+      <div class="green-item">
+        <div>
+          <div class="green-label">集合論的型（Set-Theoretic Types）とは</div>
+          <div class="green-text">集合論を使って型を定義するアプローチ。Union型（A | B）・Intersection型（A & B）・Negation型（not A）を数学的に一貫した方法で扱える。ElixirはErlangのパターンマッチング・プロセスモデルとの相性が良い型理論として採用。従来のHindley-Milner型推論より動的型付け言語への後付けに適している</div>
+        </div>
+      </div>
+      <div class="green-item">
+        <div>
+          <div class="green-label">段階的型付けの実践</div>
+          <div class="green-text">v1.20からは`@spec`アノテーションの代わりに新しい型注釈構文が使える。既存コードは型注釈なしでもコンパイルでき、型推論でカバーできる範囲は自動的に恩恵を受ける。新機能から型を付け始め、段階的に全体をカバーするPhoenixプロジェクトのマイグレーションガイドがElixir公式から提供される予定</div>
+        </div>
+      </div>
+      <div class="green-item">
+        <div>
+          <div class="green-label">他言語との比較</div>
+          <div class="green-text">TypeScript：完全なGradual Typingの成功例・ランタイムは型消去・コンパイル時検査。Python（mypy）：型ヒントは完全任意・pylsp等のLanguage Server統合が充実。Ruby（Sorbet）：段階的だが導入コスト高め・RBSによる宣言的型定義。Elixirは集合論的型という理論的に優れた基盤を持ちながら、Erlang VMの信頼性を維持する点で差別化</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: elixir-lang.org</span>
+      <span>376 ポイント</span>
+      <span>121 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://elixir-lang.org/blog/2026/06/03/elixir-v1-20-0-released/" target="_blank">リリースノートを読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48388324" target="_blank">HN議論 (121)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="elixir-v1-20-gradually-typed" data-type="like" onclick="toggleFlag('elixir-v1-20-gradually-typed','Elixir v1.20リリース——段階的型付き言語へ進化','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="elixir-v1-20-gradually-typed" data-type="dislike" onclick="toggleFlag('elixir-v1-20-gradually-typed','Elixir v1.20リリース——段階的型付き言語へ進化','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 5 — DaVinci Resolve 21 ════════════════════════════════════ -->
+<section class="story story-5" id="s5">
+  <div class="story-num">05</div>
+  <div class="story-inner">
+    <div class="story-kicker">CREATIVE TOOLS / DEV TOOLS — Blackmagic DesignがDaVinci Resolve 21を発表——AI機能を大幅強化した無料の業界標準プロ動画編集ツールの最新メジャーバージョン、339ポイント・159コメント</div>
+    <h2 class="story-headline">
+      DaVinci Resolve<br>21登場——AI強化<br>されたプロ動画<br>編集の最前線
+    </h2>
+    <div class="story-body">
+      Blackmagic DesignがDaVinci Resolve 21を発表し、339ポイント・159コメントを集めています。業界標準のプロフェッショナル動画編集・カラーグレーディング・音響・視覚効果ツールの最新メジャーバージョンで、無料版が提供されていることでも知られています。今回の主要な新機能には「Resolve AI」機能群の大幅強化が含まれており、自動シーン検出・オブジェクトトラッキング・スピーチからキャプションへの自動変換・AI駆動のカラーグレーディング提案などが改善されています。また新しいメディア管理システム・音声から動画への同期機能強化も含まれています。HNでは「DaVinci Resolveが無料で使える時代にAdobe Premiereに高額を払う理由がなくなってきている——カラーグレーディングの品質は業界トップレベルで、インディフィルム・YouTubeクリエーターの標準ツールになっている」「今回のAI機能強化はPremiere・Final Cut Proへの対抗を意識したもの——AppleのFinal Cut Pro AIとどちらが実用的かが気になる」「Blackmagicのビジネスモデル（ソフトウェアを無料・格安で提供してハードウェアで稼ぐ）は本当によく機能している——DaVinci Micro Panelを買う動機になる」「Linux版が公式提供されているのが嬉しい——Adobe製品がLinuxに来ることはないが、DaVinciはLinux映像制作者のワークフローを支えている」という159コメントが展開中です。
+    </div>
+    <div class="purple-items">
+      <div class="purple-item">
+        <div>
+          <div class="purple-label">主要な新機能</div>
+          <div class="purple-text">Resolve AI強化：自動シーン検出の精度向上・AI駆動のカラーグレーディング提案・顔認識を使ったキャラクタートラッキング・スピーチからキャプションへの自動変換（多言語対応）。新メディア管理：プロジェクト間のメディア共有・クラウドストレージとの統合が改善。音声同期：マルチカメラ編集でのオーディオ波形ベース同期が強化</div>
+        </div>
+      </div>
+      <div class="purple-item">
+        <div>
+          <div class="purple-label">無料版と有料版（Studio）の違い</div>
+          <div class="purple-text">無料版：ほぼ全機能が利用可能・最大UHD解像度・コラボレーション機能なし・一部AI機能制限あり。Studio版（$295一括）：ノイズリダクション・モーションブラー・顔認識・DolbyVision等のプロ機能・4K以上のDCI解像度。多くのインディクリエーターは無料版で十分で、コスト対効果でAdobeCreative Cloudより圧倒的に有利</div>
+        </div>
+      </div>
+      <div class="purple-item">
+        <div>
+          <div class="purple-label">Adobe Premiereからの移行</div>
+          <div class="purple-text">移行コスト：キーボードショートカット・UI思想が異なり学習コストは2〜4週間程度。Premiere Proのプロジェクトは直接インポート不可だが、XML経由でシーケンスを移行可能。プラグインエコシステムはPremiere優位だが、DaVinciのネイティブ機能で大半はカバーできる。Blackmagicのリソースとして無料のYouTubeトレーニングが充実</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: blackmagicdesign.com</span>
+      <span>339 ポイント</span>
+      <span>159 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.blackmagicdesign.com/products/davinciresolve/whatsnew" target="_blank">新機能を見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48384482" target="_blank">HN議論 (159)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="davinci-resolve-21" data-type="like" onclick="toggleFlag('davinci-resolve-21','DaVinci Resolve 21登場——AI強化されたプロ動画編集の最前線','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="davinci-resolve-21" data-type="dislike" onclick="toggleFlag('davinci-resolve-21','DaVinci Resolve 21登場——AI強化されたプロ動画編集の最前線','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 6 — Uber AI $1,500/month ══════════════════════════════════ -->
+<section class="story story-6" id="s6">
+  <div class="story-num">06</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / DEV TOOLS / ACTIONABLE — Simon WillisonがUberの月$1,500のAIツール上限を分析——企業のAI投資許容水準を示すシグナルとして読み解く、285ポイント・354コメント</div>
+    <h2 class="story-headline">
+      UberのAI利用<br>上限月$1,500——<br>AIツール価格<br>設計への示唆
+    </h2>
+    <div class="story-body">
+      Simon Willison氏のブログ「Uber's $1,500/month AI limit is a useful signal for AI tool pricing」が285ポイント・354コメントという大きな議論を呼んでいます。UberがAIツールの社内利用に従業員一人あたり月$1,500の上限を設けたという報告を元に、Simon WillisonはこれがAIツールの適切な価格水準・費用対効果を示すシグナルとして読み取れると分析しています。月$1,500は、AIアシスタントを使う開発者・アナリスト・マネージャーにとって「許容できる生産性向上への投資」として会社が認める水準であり、逆に言えばこれを超えるAIツール費用は多くの企業が許容しにくいという示唆があります。HNでは「$1,500/月は開発者へのAIツール予算として見るとAPIアクセス込みでかなり余裕がある——Claude Pro（$20）・GitHub Copilot（$19）・Cursor（$20）を合算しても$60以下で済む。上限に達する場合はAPIを直接叩いているか、非常にヘビーなユースケース」「この上限が実際に機能するのは、AIを使って大量のデータ処理・自動化・大規模なコード生成を行う部門——月$1,500を超えるということは相当なROIがなければおかしい」「AIツール費用の透明化は健全——多くの企業でシャドーITとしてAIが使われており、上限設定と可視化は適切な管理の第一歩」「Simon WillisonはLLMの実際の活用コストを考える上での必読ブロガー——彼の分析は常にground truthに基づいている」という354コメントが展開中です。
+    </div>
+    <div class="cyan-cards">
+      <div class="cyan-card">
+        <div class="cyan-card-name">$1,500/月の内訳を考える</div>
+        <div class="cyan-card-desc">Claude Pro $20・Copilot $19・Cursor $20・その他ツール$50程度 = 月$110前後が一般的開発者の費用。APIを直接使う場合：GPT-4oで月$1,500分のトークンは約750万入力トークン。相当な自動化・バッチ処理をしている部門が上限に達する水準</div>
+      </div>
+      <div class="cyan-card">
+        <div class="cyan-card-name">企業AIツール管理の課題</div>
+        <div class="cyan-card-desc">シャドーIT問題：個人クレジットカードでAIサービスを契約し経費申請する従業員が多数。データセキュリティ：社内機密情報をSaaS AIに入力するリスク。コスト管理：部門ごとの使用量可視化とROI測定が困難。Uberの上限設定はこれらへの実践的な回答</div>
+      </div>
+      <div class="cyan-card">
+        <div class="cyan-card-name">AIツール予算設定のベストプラクティス</div>
+        <div class="cyan-card-desc">役割別の上限設定（エンジニア・データサイエンティストは高め）・使用量ダッシュボードの導入（AWS Cost Explorer的なAI版）・ROI測定指標の設定（コード生成量・チケット解決時間等）・四半期ごとの見直し。固定SaaSより従量課金APIの方が管理しやすい場合が多い</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: simonwillison.net</span>
+      <span>285 ポイント</span>
+      <span>354 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://simonwillison.net/2026/Jun/3/uber-caps-usage/" target="_blank">分析を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48383056" target="_blank">HN議論 (354)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="uber-ai-limit-1500-month" data-type="like" onclick="toggleFlag('uber-ai-limit-1500-month','UberのAI利用上限月1500ドル——AIツール価格設計への示唆','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="uber-ai-limit-1500-month" data-type="dislike" onclick="toggleFlag('uber-ai-limit-1500-month','UberのAI利用上限月1500ドル——AIツール価格設計への示唆','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 7 — Edsger Clojure REPL ═══════════════════════════════════ -->
+<section class="story story-7" id="s7">
+  <div class="story-num">07</div>
+  <div class="story-inner">
+    <div class="story-kicker">DEV TOOLS / WEIRD — reMarkable 2の電子ペーパー上で手書きClojureコードを実行できるREPL「Edsger」をDaniel Janusが公開——ハッカー精神の結晶、230ポイント・32コメント</div>
+    <h2 class="story-headline">
+      reMarkable 2で<br>動く手書き<br>Clojure REPL<br>「Edsger」
+    </h2>
+    <div class="story-body">
+      「Show HN: Edsger – A handwritten Clojure REPL for the reMarkable 2」というポストが230ポイント・32コメントを集めています。Daniel Janusが作成したEdsgerは、reMarkable 2というE-inkタブレット上でClojureのREPLを手書き入力で操作できるツールです。reMarkable 2はE-inkディスプレイを持つ電子ペーパーノートで、PDF閲覧や手書きノート用途に特化したデバイスですが、EdsgerはそのLinuxベースのシステムを活用してプログラミング環境に変えました。ユーザーが手書きでClojureコードを書くと、OCR（光学文字認識）でテキストに変換されてClojure REPLで実行・評価されます。E-inkの落ち着いた画面でコードを書くという独特な体験が注目を集めています。HNでは「このプロジェクトはハッカーの精神そのもの——reMarkableをプログラミング環境に変えようとするのは、『できるからやってみた』という探求心の結晶」「Lispのような括弧の多い言語を手書きで入力するのは大変そう——でもEdsgerという名前（Dijkstra経由）とClojureの組み合わせはエレガント」「reMarkable 2のLinux環境はかなり開かれており、SSH接続・独自アプリのサイドロードが可能——このような実験的プロジェクトが生まれる土台がある」「E-inkスクリーンのリフレッシュレートでREPLを使うのは、スローコーディングの極致——思考を整理しながら書くというフローに合っているかもしれない」という32コメントが展開中です。
+    </div>
+    <div class="amber-items">
+      <div class="amber-item">
+        <div>
+          <div class="amber-label">Edsgerの仕組み</div>
+          <div class="amber-text">reMarkable 2のLinux環境でClojure JVMを動かし、ディスプレイ描画にreMarkableのネイティブAPIを使用。手書き認識はreMarkableの内蔵OCRエンジンを利用してClojureコードをテキスト変換。REPLの出力をE-inkスクリーンに表示。全体がClojure自体で書かれており、「手書きClojureでClojure REPLを動かす」自己参照的な設計</div>
+        </div>
+      </div>
+      <div class="amber-item">
+        <div>
+          <div class="amber-label">reMarkable 2のハックシーン</div>
+          <div class="amber-text">reMarkable 2はARM Linuxが動いており、SSHでrootアクセスが公式に許可されている。コミュニティ「Awesome reMarkable」にはカスタムスクリーンセーバー・Webブラウザ・vim・独自テンプレートなど多数のハックが集まる。reMarkable社も公式にLinuxアクセスを推奨しており、開発者フレンドリーなデバイスとして知られている</div>
+        </div>
+      </div>
+      <div class="amber-item">
+        <div>
+          <div class="amber-label">E-inkでのコーディング体験</div>
+          <div class="amber-text">E-inkのリフレッシュレートは通常0.5〜1秒と遅く、高速タイピングには不向き。しかし手書きのペースと相性が良く、「書いて考える」スタイルのコーディングに合う。目への負担が少なく、屋外でも見やすい。「スローコーディング」という逆張りのエルゴノミクスとして、特定の探索的プログラミングには価値があるという意見もある</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: handwritten.danieljanus.pl</span>
+      <span>230 ポイント</span>
+      <span>32 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://handwritten.danieljanus.pl/2026-06-01-edsger.html" target="_blank">プロジェクトを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48374552" target="_blank">HN議論 (32)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="edsger-handwritten-clojure-repl-remarkable" data-type="like" onclick="toggleFlag('edsger-handwritten-clojure-repl-remarkable','reMarkable 2で動く手書きClojure REPLエドスガー','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="edsger-handwritten-clojure-repl-remarkable" data-type="dislike" onclick="toggleFlag('edsger-handwritten-clojure-repl-remarkable','reMarkable 2で動く手書きClojure REPLエドスガー','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 8 — Every Byte Matters ════════════════════════════════════ -->
+<section class="story story-8" id="s8">
+  <div class="story-num">08</div>
+  <div class="story-inner">
+    <div class="story-kicker">PERFORMANCE / ACTIONABLE — 「全てのバイトが重要」——現代の「ストレージは安い」思想に反論し、バイト単位の最適化が品質・セキュリティ・包括性に与える価値を論じる、218ポイント・108コメント</div>
+    <h2 class="story-headline">
+      全てのバイトが<br>重要——パフォーマンス<br>最適化の哲学と<br>実践
+    </h2>
+    <div class="story-body">
+      「Every Byte Matters」というfzakaria.comのブログが218ポイント・108コメントを集めています。著者はソフトウェアのバイナリサイズ・メモリ使用量・ネットワーク転送量における「全てのバイト」への配慮の哲学と実践を語ります。現代のソフトウェア開発では「ストレージは安い」「メモリは豊富にある」「回線は速い」という前提で開発されることが多く、最適化は軽視されがちです。しかし著者は、バイト単位での最適化が単なる効率化以上の価値を持つと主張します：組み込みシステム・IoT・途上国のモバイルユーザー・コスト意識の高いインフラ運用において、バイトへの注意は直接的な価値になります。また「小さいコードは読みやすく、セキュリティ上の攻撃面も小さく、デバッグしやすい」という品質面での論点も展開されています。HNでは「Java・Electronなどの『バイトを気にしない』エコシステムへのカウンターとして読めるが、実用的には用途による——RTOSやWebAssembly・モバイルアプリでは今でも重要な最適化指針」「ネットワークの話が一番actionable——gzip/Brotli圧縮の徹底・画像最適化・不要なJSの除去は今日から実践できる。Core Web Vitalsの改善に直結する」「Linuxカーネル・SQLiteのソースコードはバイト単位の配慮が感じられる作品——特にSQLiteの驚くべき小ささ（500KBのシングルファイル）はこの哲学の結晶」「small is beautiful——このフィロソフィーはUNIX的なモジュール設計とも共鳴する」という108コメントが展開中です。
+    </div>
+    <div class="gold-items">
+      <div class="gold-item">
+        <div>
+          <div class="gold-label">バイナリサイズ最適化の実践</div>
+          <div class="gold-text">Go/Rustバイナリ：`-ldflags="-s -w"`でシンボルテーブル・デバッグ情報を除去（30〜50%削減）・UPXで実行ファイルを圧縮。WebAssembly：wasm-opt（Binaryenツール）で最適化・テキストフォーマットより数十%小さくなる。Dockerイメージ：Alpine Linux・distrolessベースイメージ・multi-stage buildで100MB→10MB以下も可能</div>
+        </div>
+      </div>
+      <div class="gold-item">
+        <div>
+          <div class="gold-label">ネットワーク帯域の最適化</div>
+          <div class="gold-text">HTTP圧縮：gzip（汎用）よりBrotli（静的コンテンツ）の方が20〜30%小さい——nginxでは`brotli on`一行追加。画像：WebP（JPEGより30%小）→AVIFへの移行で更に削減。JSバンドル：Tree shakingの徹底・dynamic import()でコード分割・不要なpolyfillの除去。Core Web VitalsのLCP改善に最も効く項目</div>
+        </div>
+      </div>
+      <div class="gold-item">
+        <div>
+          <div class="gold-label">「小さいコード」の品質上の価値</div>
+          <div class="gold-text">セキュリティ：依存関係の削減は攻撃面（アタックサーフェス）の削減。未使用の依存パッケージがあるだけでCVEリスクが高まる。デバッグ：小さなコードは問題の所在が特定しやすい。読みやすさ：SQLiteの500KBシングルファイル・Redis・Nginx等のコードベースは「全部読める」レベルに保たれている。small is beautifulの哲学的実践</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: fzakaria.com</span>
+      <span>218 ポイント</span>
+      <span>108 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://fzakaria.com/2026/06/01/every-byte-matters" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48382382" target="_blank">HN議論 (108)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="every-byte-matters-performance" data-type="like" onclick="toggleFlag('every-byte-matters-performance','全てのバイトが重要——パフォーマンス最適化の哲学と実践','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="every-byte-matters-performance" data-type="dislike" onclick="toggleFlag('every-byte-matters-performance','全てのバイトが重要——パフォーマンス最適化の哲学と実践','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 9 — Post-Quantum Let's Encrypt ════════════════════════════ -->
+<section class="story story-9" id="s9">
+  <div class="story-num">09</div>
+  <div class="story-inner">
+    <div class="story-kicker">SECURITY / ACTIONABLE — Let's Encryptが耐量子暗号（PQC）への移行計画を発表——毎日4億枚以上のTLS証明書を発行する最大の認証局がポスト量子時代へ、195ポイント・104コメント</div>
+    <h2 class="story-headline">
+      Let's Encryptの<br>耐量子暗号への<br>移行——ポスト<br>量子の未来
+    </h2>
+    <div class="story-body">
+      「A Post-Quantum Future for Let's Encrypt」というletsencrypt.orgの記事が195ポイント・104コメントを集めています。Let's Encryptが耐量子暗号（Post-Quantum Cryptography, PQC）への移行計画を発表しました。量子コンピュータの発展により、現在のRSA・ECDSAなどの公開鍵暗号が将来的に解読される可能性があり、NISTが標準化した耐量子暗号アルゴリズム（ML-KEM・ML-DSA・SLH-DSA）への移行が世界的な課題となっています。Let's Encryptは現在毎日4億枚以上のTLS証明書を発行する最大の認証局（CA）であり、その移行は実質的にインターネットのTLS基盤全体への影響を持ちます。HNでは「Let's Encryptの規模でのPQC移行はインターネット史上最大の暗号インフラアップグレードの一つになる——4億枚以上の証明書の置き換えは技術的にも運用的にも巨大なチャレンジ」「Harvest Now, Decrypt Later攻撃（今のTLS通信を記録しておき、量子コンピュータが実用化したときに解読する）への対策として、PQC移行は10年先を見据えた必須作業——政府・金融・医療データはすでに標的になっているかもしれない」「ML-KEM・ML-DSAの実装がOpenSSL・BoringSSL・TLS 1.3に統合されていく過程が重要——ブラウザとサーバーの両方が対応しないとハンドシェイクが成立しない」「証明書サイズがPQCで大きくなる問題——ECDSA証明書は数百バイトだが、PQC署名は数KB以上になる可能性があり、TLSハンドシェイクの遅延増加が懸念される」という104コメントが展開中です。
+    </div>
+    <div class="slate-items">
+      <div class="slate-item">
+        <div>
+          <div class="slate-label">NISTのPQC標準アルゴリズム</div>
+          <div class="slate-text">2024年8月に最終標準化：ML-KEM（CRYSTALS-Kyber、鍵交換・暗号化）・ML-DSA（CRYSTALS-Dilithium、デジタル署名）・SLH-DSA（SPHINCS+、ハッシュベース署名）。現在のRSA・ECDHを段階的に置き換える。PQCアルゴリズムはハイブリッドモード（従来アルゴリズム+PQC）で最初は組み合わせて使われる——どちらか一方が破られても安全を保つ</div>
+        </div>
+      </div>
+      <div class="slate-item">
+        <div>
+          <div class="slate-label">Harvest Now, Decrypt Laterとは</div>
+          <div class="slate-text">今日の暗号化された通信を記録・保存しておき、将来量子コンピュータが実用化された時点で解読する攻撃手法。国家レベルの攻撃者は現在この手法を実施していると考えられており、機密性の高いデータ（政府文書・医療記録・金融データ）の通信は今すぐPQCへの移行が重要。Let's Encrypt証明書はWebサイト認証用だが、TLSセッション暗号化全体の安全性に関わる</div>
+        </div>
+      </div>
+      <div class="slate-item">
+        <div>
+          <div class="slate-label">Web開発者が今すべきこと</div>
+          <div class="slate-text">（1）サーバーのOpenSSLバージョン確認（3.2+でML-KEM試験的対応）（2）ChromeのKyber有効化状況確認（設定→プライバシーとセキュリティ→セキュリティ→Kyber鍵合意を使用TLS1.3）（3）使用している暗号ライブラリのPQCロードマップを確認（4）証明書サイズの増大に備えてTLSハンドシェイクのタイムアウト設定を見直す。本格移行は2〜3年後だが、今から準備が重要</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: letsencrypt.org</span>
+      <span>195 ポイント</span>
+      <span>104 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://letsencrypt.org/2026/06/03/pq-certs" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48385114" target="_blank">HN議論 (104)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="post-quantum-future-lets-encrypt" data-type="like" onclick="toggleFlag('post-quantum-future-lets-encrypt','LetsEncryptの耐量子暗号への移行——ポスト量子の未来','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="post-quantum-future-lets-encrypt" data-type="dislike" onclick="toggleFlag('post-quantum-future-lets-encrypt','LetsEncryptの耐量子暗号への移行——ポスト量子の未来','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 10 — Mathematicians warn AI ═══════════════════════════════ -->
+<section class="story story-10" id="s10">
+  <div class="story-num">10</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / SCIENCE — Science誌が数学者たちのAIへの警鐘を報道——AIが数学の難問を次々と解き、「人間が追えない証明」が生まれる可能性に数学界が危機感、135ポイント・164コメント</div>
+    <h2 class="story-headline">
+      数学者たちが<br>AIに警鐘——<br>急速なAI進出で<br>数学の未来は
+    </h2>
+    <div class="story-body">
+      「Mathematicians issue warning as AI rapidly gains ground」というScience誌の記事が135ポイント・164コメントを集めています。数学者たちが、AIが数学の分野で急速に進歩していることに対して警鐘を鳴らしています。AIは今やInternational Mathematical Olympiad（IMO）の問題を解いたり、形式的証明検証ツール（Lean・Coq）と組み合わせて数学的証明を自動生成したりするレベルに達しています。数学者たちが懸念するのは、（1）AIが生成した証明の正しさを人間が検証できなくなる可能性、（2）数学の「発見の喜び」「理解の深まり」というプロセスがAIに置き換えられることへの懸念、（3）AIが正しそうに見えるが間違っている証明を生成するリスクです。HNでは「数学者の懸念は哲学的に深い——証明の正しさをAIが主張し、人間が追えない論理ステップで構成されている場合、それは数学的真実と言えるのか。証明は『説得』のプロセスであり、人間が理解できない証明は証明と呼べるのか」「Lean・Coqなどの形式的証明検証器を使えばAI生成の証明も機械的に検証できる——実はこちらの方が人間のレビューより信頼性が高い。問題は人間の直観的理解が追いつかないこと」「IMOでAIが金メダルを取っても、真に新しい数学的概念の発明は別の話——AIは既知の技法の組み合わせが得意で、新しい公理系の提案や革命的な抽象化はまだ人間の領域」「数学教育への影響が最も深刻——学生がAIで宿題・証明を解くことを防ぐのはほぼ不可能で、数学教育の方法論そのものの見直しが必要」という164コメントが展開中です。
+    </div>
+    <div class="mag-items">
+      <div class="mag-item">
+        <div>
+          <div class="mag-label">AIの数学的進歩の現状</div>
+          <div class="mag-text">AlphaProof（DeepMind）：2024年にIMO6問中4問を解き銀メダル相当を達成。GPT-4o・Claude 3.5 Sonnet：AIME（米国数学招待試験）でトップ高校生レベルの成績。LeanCopilot：Lean証明補助システムにLLMを統合してインタラクティブな証明支援。Mathlib：HNコミュニティが貢献する形式数学ライブラリで、AIとの協働が加速している</div>
+        </div>
+      </div>
+      <div class="mag-item">
+        <div>
+          <div class="mag-label">形式的証明検証の重要性</div>
+          <div class="mag-text">Lean・Coq・Isabelle等の証明アシスタントは、数学的証明を機械検証可能な形式に変換する。AIが生成した証明をこれらのシステムで検証すれば、人間が全ステップを理解しなくても正しさを保証できる。ケプラー予想（Flyspeck）・フォー色定理がコンピュータ検証済みの証明を持つ実績がある。「理解できないが正しい証明」は数学として認められるかが今後の議論の核心</div>
+        </div>
+      </div>
+      <div class="mag-item">
+        <div>
+          <div class="mag-label">数学教育への影響と対応</div>
+          <div class="mag-text">問題：学生がAIで証明問題を解くことが容易になり、従来の試験・宿題の意味が失われる。対応の方向性：（1）口頭試問重視——証明のステップを自分の言葉で説明させる（2）発見プロセスを評価——答えより「どう考えたか」を重視（3）形式検証ツールを教育に組み込む——Leanを使って証明を書く授業の導入（4）AIを「証明スケッチ」として使いながら、人間が肉付けするハイブリッドアプローチ</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: science.org</span>
+      <span>135 ポイント</span>
+      <span>164 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.science.org/content/article/mathematicians-issue-warning-ai-rapidly-gains-ground" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48382052" target="_blank">HN議論 (164)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="mathematicians-warning-ai" data-type="like" onclick="toggleFlag('mathematicians-warning-ai','数学者たちがAIに警鐘——急速なAI進出で数学の未来は','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="mathematicians-warning-ai" data-type="dislike" onclick="toggleFlag('mathematicians-warning-ai','数学者たちがAIに警鐘——急速なAI進出で数学の未来は','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-top">
+    <div class="footer-brand">Morning Edition</div>
+    <div class="footer-meta">
+      Hacker News フロントページから厳選した10本 / 2026年6月4日（木）<br>
+      ⭐ 興味あり・✕ 興味なしで明日以降のキュレーションを改善できます
+    </div>
+    <button class="export-btn" onclick="exportFeedback()">📋 フィードバックをコピー</button>
+  </div>
+  <div class="footer-note">
+    このエディションはHacker News Algolia APIから取得したデータを元に自動生成されています。記事の著作権は各出典に帰属します。
+  </div>
+</footer>
+
+<script>
+  const TODAY = '2026-06-04';
+  const FEEDBACK_KEY = 'morning-edition-feedback-v2';
+  const IDB_DB = 'morning-edition', IDB_STORE = 'handles', IDB_VER = 1;
+
+  function openIDB() {
+    return new Promise((res, rej) => {
+      const r = indexedDB.open(IDB_DB, IDB_VER);
+      r.onupgradeneeded = e => e.target.result.createObjectStore(IDB_STORE);
+      r.onsuccess = e => res(e.target.result);
+      r.onerror = e => rej(e.target.error);
+    });
+  }
+  async function idbGet(key) {
+    const db = await openIDB();
+    return new Promise(res => {
+      const tx = db.transaction(IDB_STORE, 'readonly');
+      const r = tx.objectStore(IDB_STORE).get(key);
+      r.onsuccess = () => res(r.result ?? null);
+      r.onerror = () => res(null);
+    });
+  }
+  async function idbPut(key, val) {
+    const db = await openIDB();
+    return new Promise((res, rej) => {
+      const tx = db.transaction(IDB_STORE, 'readwrite');
+      tx.objectStore(IDB_STORE).put(val, key);
+      tx.oncomplete = res; tx.onerror = rej;
+    });
+  }
+
+  async function getDir(forceNew = false) {
+    if (!window.showDirectoryPicker) return null;
+    if (!forceNew) {
+      const stored = await idbGet('dir');
+      if (stored) {
+        const perm = await stored.queryPermission({ mode: 'readwrite' });
+        if (perm === 'granted') return stored;
+        const req = await stored.requestPermission({ mode: 'readwrite' });
+        if (req === 'granted') return stored;
+      }
+    }
+    try {
+      const dir = await window.showDirectoryPicker({ mode: 'readwrite', id: 'daily-news' });
+      await idbPut('dir', dir);
+      return dir;
+    } catch { return null; }
+  }
+
+  async function writeJSON(dir, fb) {
+    const fh = await dir.getFileHandle('feedback.json', { create: true });
+    const w = await fh.createWritable();
+    await w.write(JSON.stringify({ ...fb, updatedAt: new Date().toISOString() }, null, 2));
+    await w.close();
+  }
+
+  function showToast(msg, isErr = false) {
+    let el = document.querySelector('.toast');
+    if (!el) { el = document.createElement('div'); el.className = 'toast'; document.body.appendChild(el); }
+    el.textContent = msg;
+    el.className = 'toast' + (isErr ? ' error' : '');
+    requestAnimationFrame(() => el.classList.add('show'));
+    clearTimeout(el._timer);
+    el._timer = setTimeout(() => el.classList.remove('show'), 3000);
+  }
+
+  function getFeedback() {
+    try { return JSON.parse(localStorage.getItem(FEEDBACK_KEY) || '{"liked":{},"disliked":{}}'); }
+    catch { return { liked: {}, disliked: {} }; }
+  }
+  function saveFeedback(fb) { localStorage.setItem(FEEDBACK_KEY, JSON.stringify(fb)); }
+
+  async function autoSave(fb) {
+    let dir = await getDir();
+    if (!dir) {
+      showToast('📁 Daily News フォルダを選択してください', true);
+      dir = await getDir(true);
+      if (!dir) { showToast('保存をキャンセルしました', true); return; }
+    }
+    try {
+      await writeJSON(dir, fb);
+      showToast('✓ feedback.json を自動保存しました（次回キュレーションに反映）');
+    } catch (e) {
+      showToast('保存エラー: ' + e.message, true);
+    }
+  }
+
+  async function toggleFlag(storyId, title, type) {
+    const fb = getFeedback();
+    fb.liked = fb.liked || {};
+    fb.disliked = fb.disliked || {};
+    const likeBtn    = document.querySelector(`.flag-btn.like-btn[data-story="${storyId}"]`);
+    const dislikeBtn = document.querySelector(`.flag-btn.dislike-btn[data-story="${storyId}"]`);
+    if (type === 'like') {
+      if (fb.liked[storyId]) {
+        delete fb.liked[storyId];
+        likeBtn?.classList.remove('active');
+      } else {
+        fb.liked[storyId] = { title, date: TODAY };
+        delete fb.disliked[storyId];
+        likeBtn?.classList.add('active');
+        dislikeBtn?.classList.remove('active');
+      }
+    } else {
+      if (fb.disliked[storyId]) {
+        delete fb.disliked[storyId];
+        dislikeBtn?.classList.remove('active');
+      } else {
+        fb.disliked[storyId] = { title, date: TODAY };
+        delete fb.liked[storyId];
+        dislikeBtn?.classList.add('active');
+        likeBtn?.classList.remove('active');
+      }
+    }
+    saveFeedback(fb);
+    await autoSave(fb);
+  }
+
+  function exportFeedback() {
+    const fb = getFeedback();
+    const json = JSON.stringify({ ...fb, exportedAt: new Date().toISOString() }, null, 2);
+    navigator.clipboard.writeText(json)
+      .then(() => showToast('📋 クリップボードにコピーしました'))
+      .catch(() => {
+        const el = document.createElement('textarea');
+        el.value = json; document.body.appendChild(el); el.select();
+        document.execCommand('copy'); document.body.removeChild(el);
+        showToast('📋 クリップボードにコピーしました');
+      });
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const fb = getFeedback();
+    document.querySelectorAll('.flag-btn').forEach(btn => {
+      const id   = btn.dataset.story;
+      const type = btn.dataset.type;
+      if ((type === 'like' && fb.liked?.[id]) || (type === 'dislike' && fb.disliked?.[id])) {
+        btn.classList.add('active');
+      }
+    });
+  });
+</script>
+</body>
+</html>
