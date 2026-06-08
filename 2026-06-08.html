@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Morning Edition — 2026年6月8日</title>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --font: 'M PLUS Rounded 1c', 'Hiragino Sans', 'Noto Sans JP', sans-serif; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); background: #111; color: #fff; overflow-x: hidden; }
+
+    .masthead { background: #fff; color: #000; padding: 3rem 4rem 2.5rem; border-bottom: 6px solid #000; position: relative; overflow: hidden; }
+    .masthead::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: repeating-linear-gradient(90deg, #000 0, #000 12px, transparent 12px, transparent 20px); }
+    .masthead-kicker { font-size: 0.85rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: #777; margin-bottom: 0.6rem; }
+    .masthead-title { font-size: clamp(3.5rem, 9vw, 7.5rem); font-weight: 900; line-height: 0.88; letter-spacing: -0.04em; margin-bottom: 1.8rem; }
+    .masthead-meta { display: flex; gap: 3rem; align-items: baseline; flex-wrap: wrap; }
+    .masthead-date { font-size: 1.5rem; font-weight: 700; }
+    .masthead-subtitle { font-size: 1rem; font-weight: 400; color: #555; max-width: 480px; line-height: 1.5; }
+    .masthead-issue { margin-left: auto; text-align: right; }
+    .masthead-issue span { display: block; }
+    .masthead-issue .iss-label { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: #999; }
+    .masthead-issue .iss-num { font-size: 2.2rem; font-weight: 900; color: #000; }
+
+    .toc { background: #1a1a1a; padding: 1.5rem 4rem; display: flex; gap: 1.5rem; flex-wrap: wrap; border-bottom: 1px solid #333; }
+    .toc a { color: #aaa; text-decoration: none; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; transition: color 0.2s; }
+    .toc a:hover { color: #fff; }
+    .toc-num { color: #555; margin-right: 0.3em; }
+
+    .story { position: relative; overflow: hidden; }
+    .story-inner { max-width: 1200px; margin: 0 auto; padding: 5rem 4rem; position: relative; z-index: 1; }
+    .story-num { font-size: clamp(6rem, 18vw, 16rem); font-weight: 900; line-height: 0.8; letter-spacing: -0.06em; opacity: 0.08; position: absolute; top: 1rem; right: 2rem; user-select: none; }
+    .story-badge { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.35em 0.9em; border-radius: 2px; margin-bottom: 1.5rem; }
+    .direct-badge { background: #FFD700; color: #000; }
+    .story-kicker { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; opacity: 0.6; margin-bottom: 0.8rem; }
+    .story-headline { font-size: clamp(2rem, 5vw, 4rem); font-weight: 900; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+    .story-body { font-size: clamp(1rem, 1.5vw, 1.2rem); font-weight: 400; line-height: 1.8; max-width: 680px; opacity: 0.88; margin-bottom: 2rem; }
+    .story-meta { display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center; font-size: 0.8rem; font-weight: 700; opacity: 0.5; }
+    .story-links { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem; }
+    .story-link { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.6em 1.4em; border-radius: 3px; text-decoration: none; transition: opacity 0.2s, transform 0.15s; }
+    .story-link:hover { opacity: 0.75; transform: translateY(-1px); }
+
+    .feedback-buttons { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .flag-btn { background: none; border: 1px solid currentColor; color: inherit; font-family: var(--font); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.5em 1em; border-radius: 3px; cursor: pointer; opacity: 0.32; transition: opacity 0.2s, background 0.2s, color 0.2s, border-color 0.2s, transform 0.15s; }
+    .flag-btn:hover { opacity: 0.72; transform: translateY(-1px); }
+    .flag-btn.like-btn.active { opacity: 1; background: rgba(255,215,0,0.15); border-color: #FFD700; color: #FFD700 !important; }
+    .flag-btn.dislike-btn.active { opacity: 1; background: rgba(255,60,60,0.12); border-color: #FF4444; color: #FF4444 !important; }
+
+    .toast { position: fixed; bottom: 2rem; right: 2rem; background: #1a1a1a; color: #fff; font-family: var(--font); font-size: 0.82rem; font-weight: 700; padding: 0.75em 1.4em; border-radius: 4px; border-left: 3px solid #00C853; z-index: 9999; opacity: 0; transform: translateY(10px); transition: opacity 0.25s, transform 0.25s; pointer-events: none; box-shadow: 0 4px 24px rgba(0,0,0,0.45); }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    .toast.error { border-left-color: #FF5252; }
+
+    .story-1 { background: #fff; color: #000; min-height: 90vh; display: flex; flex-direction: column; justify-content: center; }
+    .story-1 .story-num { color: #000; opacity: 0.04; }
+    .story-1 .story-kicker { color: #555; opacity: 1; }
+    .story-1 .story-headline { color: #000; }
+    .story-1 .story-body { color: #111; }
+    .story-1 .story-meta { color: #000; }
+    .story-1 .story-link.primary { background: #1a1a1a; color: #fff; }
+    .story-1 .story-link.secondary { background: #f0f0f0; color: #000; }
+    .story-1 .flag-btn { color: #000; }
+    .story-1-accent { position: absolute; bottom: 0; left: 0; width: 100%; height: 8px; background: linear-gradient(90deg, #1a1a1a, #555, #999, #1a1a1a); }
+    .story-1 .headline-accent { display: inline-block; background: linear-gradient(135deg, #1a1a1a 0%, #555 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .dos-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1.2rem; margin: 2rem 0; max-width: 680px; }
+    .dos-card { border: 2px solid rgba(0,0,0,0.12); background: rgba(0,0,0,0.04); border-radius: 6px; padding: 1.3rem 1.5rem; }
+    .dos-card-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.2em; text-transform: uppercase; color: #333; margin-bottom: 0.4rem; }
+    .dos-card-value { font-size: 1.05rem; font-weight: 900; color: #000; line-height: 1.3; }
+    .dos-card-sub { font-size: 0.75rem; color: #555; margin-top: 0.3rem; line-height: 1.4; }
+
+    .story-2 { background: #00080c; color: #b8f0ff; min-height: 80vh; }
+    .story-2::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(0,160,200,0.14) 0%, transparent 65%); }
+    .story-2 .story-num { color: #00A0C8; opacity: 0.07; }
+    .story-2 .story-kicker { color: #20C8E8; opacity: 1; }
+    .story-2 .story-headline { color: #e0f8ff; }
+    .story-2 .story-body { color: #b8f0ff; }
+    .story-2 .story-meta { color: #20C8E8; opacity: 0.5; }
+    .story-2 .story-link.primary { background: #004058; color: #80e8ff; }
+    .story-2 .story-link.secondary { background: rgba(0,160,200,0.08); color: #90d8f0; border: 1px solid rgba(0,160,200,0.22); }
+    .story-2 .flag-btn { color: #b8f0ff; }
+    .teal-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .teal-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(0,160,200,0.07); border-left: 3px solid #00A0C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .teal-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20C8E8; margin-bottom: 0.3rem; }
+    .teal-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-3 { background: #0a0000; color: #fff; min-height: 80vh; }
+    .story-3::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(200,20,20,0.16) 0%, transparent 65%); }
+    .story-3 .story-num { color: #C81414; opacity: 0.07; }
+    .story-3 .story-kicker { color: #E84040; opacity: 1; }
+    .story-3 .story-headline { color: #fff; }
+    .story-3 .story-body { color: rgba(255,255,255,0.88); }
+    .story-3 .story-meta { color: #E84040; opacity: 0.5; }
+    .story-3 .story-link.primary { background: #6a0000; color: #fff; }
+    .story-3 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-3 .flag-btn { color: #fff; }
+    .red-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .red-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(200,20,20,0.07); border-left: 3px solid #C81414; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .red-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E84040; margin-bottom: 0.3rem; }
+    .red-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-4 { background: #020c04; color: #c8f0d0; min-height: 80vh; }
+    .story-4::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(20,160,70,0.16) 0%, transparent 65%); }
+    .story-4 .story-num { color: #14A046; opacity: 0.07; }
+    .story-4 .story-kicker { color: #30C060; opacity: 1; }
+    .story-4 .story-headline { color: #e0ffe8; }
+    .story-4 .story-body { color: #c8f0d0; }
+    .story-4 .story-meta { color: #30C060; opacity: 0.5; }
+    .story-4 .story-link.primary { background: #063820; color: #80ffb0; }
+    .story-4 .story-link.secondary { background: rgba(20,160,70,0.08); color: #a0e8b0; border: 1px solid rgba(20,160,70,0.22); }
+    .story-4 .flag-btn { color: #c8f0d0; }
+    .green-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .green-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(20,160,70,0.07); border-left: 3px solid #14A046; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .green-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #30C060; margin-bottom: 0.3rem; }
+    .green-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-5 { background: #040010; color: #d8c8ff; min-height: 75vh; }
+    .story-5::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(90,40,200,0.17) 0%, transparent 65%); }
+    .story-5 .story-num { color: #5A28C8; opacity: 0.07; }
+    .story-5 .story-kicker { color: #8050E0; opacity: 1; }
+    .story-5 .story-headline { color: #f0e8ff; }
+    .story-5 .story-body { color: #d8c8ff; }
+    .story-5 .story-meta { color: #8050E0; opacity: 0.5; }
+    .story-5 .story-link.primary { background: #200860; color: #d0a8ff; }
+    .story-5 .story-link.secondary { background: rgba(90,40,200,0.08); color: #c0a0f0; border: 1px solid rgba(90,40,200,0.22); }
+    .story-5 .flag-btn { color: #d8c8ff; }
+    .purple-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .purple-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(90,40,200,0.07); border-left: 3px solid #5A28C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .purple-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #8050E0; margin-bottom: 0.3rem; }
+    .purple-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-6 { background: #000c10; color: #b8e8f0; min-height: 75vh; }
+    .story-6::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 40%, rgba(0,130,160,0.14) 0%, transparent 65%); }
+    .story-6 .story-num { color: #0080A0; opacity: 0.07; }
+    .story-6 .story-kicker { color: #20B0D0; opacity: 1; }
+    .story-6 .story-headline { color: #e0f4ff; }
+    .story-6 .story-body { color: #b8e8f0; }
+    .story-6 .story-meta { color: #20B0D0; opacity: 0.5; }
+    .story-6 .story-link.primary { background: #003848; color: #80d8f0; }
+    .story-6 .story-link.secondary { background: rgba(0,130,160,0.08); color: #90cce0; border: 1px solid rgba(0,130,160,0.22); }
+    .story-6 .flag-btn { color: #b8e8f0; }
+    .cyan-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(185px, 1fr)); gap: 1rem; margin: 2rem 0; max-width: 680px; }
+    .cyan-card { background: rgba(0,130,160,0.07); border: 1px solid rgba(0,130,160,0.22); border-radius: 4px; padding: 1.2rem 1.4rem; }
+    .cyan-card-name { font-size: 0.78rem; font-weight: 900; color: #20B0D0; margin-bottom: 0.4rem; }
+    .cyan-card-desc { font-size: 0.72rem; opacity: 0.75; line-height: 1.4; }
+
+    .story-7 { background: #0a0300; color: #ffe0b8; min-height: 75vh; }
+    .story-7::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(210,90,20,0.18) 0%, transparent 65%); }
+    .story-7 .story-num { color: #D05A14; opacity: 0.07; }
+    .story-7 .story-kicker { color: #E88040; opacity: 1; }
+    .story-7 .story-headline { color: #fff0d8; }
+    .story-7 .story-body { color: #ffe0b8; }
+    .story-7 .story-meta { color: #E88040; opacity: 0.5; }
+    .story-7 .story-link.primary { background: #6a2400; color: #ffc880; }
+    .story-7 .story-link.secondary { background: rgba(210,90,20,0.08); color: #ffb870; border: 1px solid rgba(210,90,20,0.22); }
+    .story-7 .flag-btn { color: #ffe0b8; }
+    .amber-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .amber-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(210,90,20,0.07); border-left: 3px solid #D05A14; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .amber-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E88040; margin-bottom: 0.3rem; }
+    .amber-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-8 { background: #080500; color: #fff; min-height: 70vh; }
+    .story-8::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,145,10,0.15) 0%, transparent 65%); }
+    .story-8 .story-num { color: #BE9110; opacity: 0.06; }
+    .story-8 .story-kicker { color: #D4A820; opacity: 1; }
+    .story-8 .story-headline { color: #fff; }
+    .story-8 .story-body { color: rgba(255,255,255,0.88); }
+    .story-8 .story-meta { color: #D4A820; opacity: 0.5; }
+    .story-8 .story-link.primary { background: #604000; color: #ffe070; }
+    .story-8 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-8 .flag-btn { color: #fff; }
+    .gold-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .gold-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(190,145,10,0.07); border-left: 3px solid #BE9110; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .gold-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #D4A820; margin-bottom: 0.3rem; }
+    .gold-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-9 { background: #040810; color: #c8d8f0; min-height: 70vh; }
+    .story-9::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 35%, rgba(50,90,170,0.16) 0%, transparent 65%); }
+    .story-9 .story-num { color: #3258A8; opacity: 0.07; }
+    .story-9 .story-kicker { color: #5878C8; opacity: 1; }
+    .story-9 .story-headline { color: #e8f0ff; }
+    .story-9 .story-body { color: #c8d8f0; }
+    .story-9 .story-meta { color: #5878C8; opacity: 0.5; }
+    .story-9 .story-link.primary { background: #101e50; color: #fff; }
+    .story-9 .story-link.secondary { background: rgba(50,90,170,0.08); color: #b0c8e8; border: 1px solid rgba(50,90,170,0.22); }
+    .story-9 .flag-btn { color: #c8d8f0; }
+    .slate-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .slate-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(50,90,170,0.07); border-left: 3px solid #3258A8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .slate-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #5878C8; margin-bottom: 0.3rem; }
+    .slate-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-10 { background: #080004; color: #ffc8e8; min-height: 70vh; }
+    .story-10::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,20,90,0.15) 0%, transparent 65%); }
+    .story-10 .story-num { color: #BE1458; opacity: 0.07; }
+    .story-10 .story-kicker { color: #E04080; opacity: 1; }
+    .story-10 .story-headline { color: #fff0f8; }
+    .story-10 .story-body { color: #ffc8e8; }
+    .story-10 .story-meta { color: #E04080; opacity: 0.5; }
+    .story-10 .story-link.primary { background: #500030; color: #ffb0d8; }
+    .story-10 .story-link.secondary { background: rgba(190,20,90,0.08); color: #f090c0; border: 1px solid rgba(190,20,90,0.22); }
+    .story-10 .flag-btn { color: #ffc8e8; }
+    .mag-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .mag-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(190,20,90,0.07); border-left: 3px solid #BE1458; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .mag-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E04080; margin-bottom: 0.3rem; }
+    .mag-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .site-footer { background: #000; color: #555; padding: 3rem 4rem; display: flex; flex-direction: column; gap: 1.5rem; border-top: 1px solid #222; }
+    .footer-top { display: flex; gap: 2rem; align-items: center; flex-wrap: wrap; justify-content: space-between; }
+    .footer-brand { font-size: 1.4rem; font-weight: 900; color: #fff; }
+    .footer-meta { font-size: 0.75rem; line-height: 1.6; }
+    .export-btn { background: #222; border: 1px solid #444; color: #fff; font-family: var(--font); font-size: 0.8rem; font-weight: 700; padding: 0.7em 1.5em; border-radius: 3px; cursor: pointer; letter-spacing: 0.08em; transition: background 0.2s; }
+    .export-btn:hover { background: #333; }
+    .footer-note { font-size: 0.7rem; opacity: 0.5; }
+
+    @media (max-width: 768px) {
+      .masthead, .toc, .story-inner, .site-footer { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .story-num { display: none; }
+      .masthead-meta { gap: 1rem; }
+      .masthead-issue { margin-left: 0; }
+      .dos-grid, .cyan-cards { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+<nav style="background:#1a1a1a;border-bottom:1px solid #333;padding:0.55rem 2rem;font-family:'M PLUS Rounded 1c','Hiragino Sans','Noto Sans JP',sans-serif;position:sticky;top:0;z-index:999;">
+  <a href="./index.html" style="color:#aaa;text-decoration:none;font-size:0.8rem;font-weight:700;letter-spacing:0.03em;display:inline-flex;align-items:center;gap:0.4rem;transition:color 0.15s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#aaa'">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    アーカイブへ戻る
+  </a>
+</nav>
+
+<header class="masthead">
+  <div class="masthead-kicker">Hacker News — Morning Edition</div>
+  <h1 class="masthead-title">Morning<br>Edition</h1>
+  <div class="masthead-meta">
+    <div>
+      <div class="masthead-date">2026年6月8日 月曜日</div>
+      <div class="masthead-subtitle">AI・開発ツール・プライバシー・サイエンス — あなたのための10本</div>
+    </div>
+    <div class="masthead-issue">
+      <span class="iss-label">Issue</span>
+      <span class="iss-num">No.049</span>
+    </div>
+  </div>
+</header>
+
+<nav class="toc">
+  <a href="#s1"><span class="toc-num">01</span>⚡ AnthropicにLinux版Claude Desktopを求める声——GitHub Issueに446票</a>
+  <a href="#s2"><span class="toc-num">02</span>⚡ FigmaよりClaudeでデザインする——Jane Streetエンジニアの証言</a>
+  <a href="#s3"><span class="toc-num">03</span>LLMが私のエンジニアキャリアを蝕んでいる——786票の本日最大議論</a>
+  <a href="#s4"><span class="toc-num">04</span>LinearはなぜあんなにUIが速いのか——技術的内幕を徹底解説</a>
+  <a href="#s5"><span class="toc-num">05</span>第29回IOCCC 2025入賞作品公開——難読化Cコードの結晶</a>
+  <a href="#s6"><span class="toc-num">06</span>Show HN: Lathe——新分野をスキップせず、LLMで本当に学ぶツール</a>
+  <a href="#s7"><span class="toc-num">07</span>10万ワットFM局の送電線が白昼堂々切断——オハイオ州で謎の事件</a>
+  <a href="#s8"><span class="toc-num">08</span>Win16のメモリ管理——Windows 3.xが限られたRAMで動いた仕組み</a>
+  <a href="#s9"><span class="toc-num">09</span>Show HN: パンケーキを「導出」した——数学的最適化の産物</a>
+  <a href="#s10"><span class="toc-num">10</span>航空工学の基本原理が覆された——東北大学が新現象を発見</a>
+</nav>
+
+<!-- ═══ STORY 1 — Anthropic Claude Desktop for Linux ════════════════════ -->
+<section class="story story-1" id="s1">
+  <div class="story-num">01</div>
+  <div class="story-inner">
+    <div class="story-badge direct-badge">⚡ あなたに直接関係</div>
+    <div class="story-kicker">ANTHROPIC / CLAUDE / DEV TOOLS — AnthropicのGitHub Issueに「Linux版Claude Desktopを出してほしい」という要望が446ポイント・254コメントを集め、開発者コミュニティの強い需要を示している</div>
+    <h2 class="story-headline">
+      Anthropicに<br>Linux版<br><span class="headline-accent">Claude Desktop<br>を求める声——<br>446票の訴え</span>
+    </h2>
+    <div class="story-body">
+      AnthropicのClaude CodeリポジトリのGitHub Issue #65697「Please ship an official Claude Desktop for Linux」が446ポイント・254コメントを集めています。現在、ClaudeのデスクトップアプリはmacOSとWindowsのみに対応しており、Linux上のユーザーはブラウザ版またはCLI（Claude Code）しか選択肢がありません。このIssueはClaude Codeのリポジトリに投稿されており、LinuxはAI開発・サーバー管理・研究用途のメイン環境としてシェアが高く、それらのユーザーからの切実な声が集まっています。HNでは「LinuxはAI開発者・研究者・エンジニアの主要プラットフォームで、Anthropicがここを無視しているのは市場機会の損失」「Claude CodeというCLIツールはあるが、デスクトップアプリ特有のMCPサーバー統合・GUI通知・バックグラウンド動作は別物——CLI代替では済まない用途がある」「AnthropicはElectronアプリを作ることを嫌っているのか、それとも単純にリソース配分の問題か——どちらかを明言してほしい」「Flathub経由で出せばLinux全ディストリビューションに一発で配布できる——技術的ハードルは低いはず」という254コメントが展開中です。
+    </div>
+    <div class="dos-grid">
+      <div class="dos-card">
+        <div class="dos-card-label">現在Linuxで使える方法</div>
+        <div class="dos-card-value">ブラウザ版・Claude Code CLI・非公式Electronラッパー</div>
+        <div class="dos-card-sub">claude.ai はブラウザで全機能利用可能。Claude Codeは`npm install -g @anthropic-ai/claude-code`でLinuxにも導入可能。GitHub上には非公式のElectronラッパー（anthropic-claude-desktop等）が存在するが、公式サポートなし</div>
+      </div>
+      <div class="dos-card">
+        <div class="dos-card-label">デスクトップアプリでしかできないこと</div>
+        <div class="dos-card-value">MCPサーバー統合・OS通知・ファイルシステム連携</div>
+        <div class="dos-card-sub">公式デスクトップアプリはMCP（Model Context Protocol）サーバーをGUIで管理・設定できる。Filesystem MCP・database MCP等をブラウザ版より安全かつ簡単に統合できる点が開発者に特に需要がある。OS通知や自動起動もブラウザでは難しい</div>
+      </div>
+      <div class="dos-card">
+        <div class="dos-card-label">Linux AIエコシステムの現状</div>
+        <div class="dos-card-value">Ollamaとopen-webui が先行、商用AI各社は遅れ</div>
+        <div class="dos-card-sub">ローカルLLMツール（Ollama・LM Studio）はLinux対応を優先しており、オープンソースAIコミュニティのLinux率は高い。OpenAIもChatGPT Desktopはmacを先行、LinuxはChromeアプリのみ。Anthropicにはここで差別化できる機会がある</div>
+      </div>
+      <div class="dos-card">
+        <div class="dos-card-label">Anthropicがとれる選択肢</div>
+        <div class="dos-card-value">Electron / Flatpak / AppImage / Snap</div>
+        <div class="dos-card-sub">macOS・Windows版がElectronベースであればLinuxポートは比較的容易。FlathubへのFlatpak配布が最も標準的なLinuxデスクトップアプリ配布手段。AppImageはインストール不要で単一ファイル実行。Snapはsandbox付き配布。いずれも技術的ハードルは低い</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: github.com/anthropics/claude-code</span>
+      <span>446 ポイント</span>
+      <span>254 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://github.com/anthropics/claude-code/issues/65697" target="_blank">Issueを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48434436" target="_blank">HN議論 (254)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="anthropic-claude-desktop-linux" data-type="like" onclick="toggleFlag('anthropic-claude-desktop-linux','AnthropicにLinux版Claude Desktopを求める声——GitHub Issueに446票','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="anthropic-claude-desktop-linux" data-type="dislike" onclick="toggleFlag('anthropic-claude-desktop-linux','AnthropicにLinux版Claude Desktopを求める声——GitHub Issueに446票','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+  <div class="story-1-accent"></div>
+</section>
+
+<!-- ═══ STORY 2 — Design with Claude more than Figma ═══════════════════ -->
+<section class="story story-2" id="s2">
+  <div class="story-num">02</div>
+  <div class="story-inner">
+    <div class="story-badge direct-badge">⚡ あなたに直接関係</div>
+    <div class="story-kicker">CLAUDE / AI TOOLS / DESIGN — Jane StreetのエンジニアがUIデザインにFigmaよりClaudeを多用するようになった体験談が258ポイント・231コメントを集め、AIによるデザインワークフロー変革を示す</div>
+    <h2 class="story-headline">
+      FigmaよりClaudeで<br>デザインする——<br>Jane Street<br>エンジニアの証言
+    </h2>
+    <div class="story-body">
+      Jane StreetエンジニアによるブログポストがHNで258ポイント・231コメントを集めています。著者はUIデザインのワークフローが「まずFigmaでモックアップ→コーディング」から「ClaudeとHTMLで直接反復」へと移行したと述べています。Figmaでのピクセルパーフェクトなデザインより、Claudeに「こんな感じのレイアウトで」と会話しながらHTMLを直接生成・修正する方が速く、最終アウトプットに近いとのこと。特にJane Streetのような内部ツール・データ可視化が多い環境では、複雑なインタラクションをFigmaで表現するより、動くプロトタイプをClaudeで素早く作る方が実用的だと主張しています。HNでは「デザイナー不在の小チームではこのワークフローは理にかなっている——Figmaは大チームでの共同作業・デザインシステム管理に真価がある」「FigmaとClaudeは競合ではなく、利用層が違う——完成形のプロダクトデザインはFigmaが必要だが、探索段階のラフスケッチはClaudeの方が速い」「Jane Streetのような金融テック企業ではUI/UXよりデータと機能性が優先される——その文脈では特に正しい」「DesignツールとしてのLLM利用はまだ発展途上——Adobe・Figmaも自社AI機能を強化しているが、Claude Code的なアプローチは破壊的な可能性がある」という231コメントが展開中です。
+    </div>
+    <div class="teal-items">
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">ClaudeでのデザインワークフローのTips</div>
+          <div class="teal-text">「Tailwind CSSを使って、以下のレイアウトを作って」→HTMLをそのままコピペが最速。スクリーンショットを貼り付けて「これに似たUIで」も有効。「このコンポーネントを現在のデザインシステムのカラーパレットに合わせて」でブランドの一貫性を保てる。Claude Codeならファイルシステムと連携してプロジェクト内に直接保存可能</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">FigmaとClaudeを使い分けるとき</div>
+          <div class="teal-text">Figmaが有利：デザインシステム管理・デザイナーと開発者の共同作業・クライアントへのデザインレビュー・複雑なアニメーション定義。Claudeが有利：内部ツール・プロトタイプ・単独開発者のスピード重視の場面・データ可視化・フォームUIのような機能優先のUI。両者を組み合わせるハイブリッド利用も有効</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">AIデザインツールの競争地図</div>
+          <div class="teal-text">Figma AI：FigmaのネイティブAI機能が強化中——「Figma Make」でテキストからUIを生成可能。v0 by Vercel：シャドウCNコンポーネントベースのUI生成でReactアプリに特化。bolt.new：フルスタックアプリをチャットから生成。Claude Code：最も汎用的でコードベース全体を把握した上でUIを生成できる強み。どのツールを選ぶかはプロジェクトのスタック次第</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: blog.janestreet.com</span>
+      <span>258 ポイント</span>
+      <span>231 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://blog.janestreet.com/i-design-with-claude-code-more-than-figma-now-index/" target="_blank">ブログを読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48431981" target="_blank">HN議論 (231)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="design-with-claude-more-than-figma" data-type="like" onclick="toggleFlag('design-with-claude-more-than-figma','FigmaよりClaudeでデザインする——Jane Streetエンジニアの証言','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="design-with-claude-more-than-figma" data-type="dislike" onclick="toggleFlag('design-with-claude-more-than-figma','FigmaよりClaudeでデザインする——Jane Streetエンジニアの証言','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 3 — LLMs Eroding Software Engineering Career ══════════════ -->
+<section class="story story-3" id="s3">
+  <div class="story-num">03</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / CAREER / SOCIETY — 「LLMが私のソフトウェアエンジニアキャリアを侵食している——どうすればいいかわからない」というブログが786ポイント・765コメントという本日最多の反響を集める</div>
+    <h2 class="story-headline">
+      LLMが私の<br>エンジニアキャリアを<br>蝕んでいる——<br>786票の叫び
+    </h2>
+    <div class="story-body">
+      「LLMs are eroding my software engineering career and I don't know what to do」というブログが786ポイント・765コメントを集め、本日のHNで最大の議論を呼んでいます。著者は中堅のソフトウェアエンジニアで、採用市場の変化・チームでのAIツール普及による役割の変容・「LLMで簡単にコードが書ける」という理由で新規採用が減る現実に直面していると述べています。単なる悲観論ではなく、具体的な仕事の変化（「前は3日かかったものを後輩がClaude Codeで半日で作った」「コードレビューの重要性が落ちてきた」「ジュニアからシニアへの成長ラダーが崩れつつある」）を記録した誠実なレポートです。HNでは「これはパニックではなく、正当な懸念——ただし歴史を見ると、より高生産性なツールは仕事を減らすのではなく、より高いレベルの問題に取り組む機会を増やしてきた」「若いエンジニアが一番影響を受けているという逆説——LLMで経験なしに成果が出せる一方、深い理解なしに積み上がった技術的負債が後で問題になる」「採用側の視点：コードが書けることより、問題設定・システム設計・レビューができるかどうかが今後の価値になる——それはLLMが苦手な領域」「正直に書いてくれていることに感謝する——同じことを感じているエンジニアは多いはずで、この会話は必要だった」という765コメントが展開中です。
+    </div>
+    <div class="red-items">
+      <div class="red-item">
+        <div>
+          <div class="red-label">LLM時代に価値が高まるスキル</div>
+          <div class="red-text">問題の正確な定義・スコープ設定：LLMは曖昧な指示を「それらしい答え」に変換するが、何を作るべきかを判断するのはまだ人間。システムアーキテクチャ設計：複数サービス・チームにわたる設計判断はLLMには難しい。コードの批判的レビュー：LLMが生成したコードの品質・セキュリティ・保守性を評価するには深い経験が必要。ステークホルダー管理・技術的コミュニケーション</div>
+        </div>
+      </div>
+      <div class="red-item">
+        <div>
+          <div class="red-label">採用市場で実際に起きていること</div>
+          <div class="red-text">複数のHNコメントが採用担当として報告：「ジュニア採用が20〜40%減った——AIで既存チームのアウトプットが上がったため」「採用基準が変わった——以前は『〇〇言語が書けるか』、今は『LLMを使いこなした上でどれだけ速く・正確に問題を解けるか』」「コーディング試験にAI使用禁止条件がなくなりつつある——禁止しても意味がないと判断した企業が増えた」</div>
+        </div>
+      </div>
+      <div class="red-item">
+        <div>
+          <div class="red-label">エンジニアリングの「学習ラダー」崩壊問題</div>
+          <div class="red-text">従来のキャリアパスはジュニアが小さなタスクをこなしながら基礎を積み上げるものだったが、LLMがそのタスクを自動化することでジュニアの仕事が減り、深い理解なしに成果を出せる状況が生まれている。これは短期的には生産性に見えるが、5年後に「なぜこのコードがこうなっているか誰もわからない」という組織的知識の劣化リスクがある——複数のシニアエンジニアが懸念を表明している</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: human-in-the-loop.bearblog.dev</span>
+      <span>786 ポイント</span>
+      <span>765 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://human-in-the-loop.bearblog.dev/llms-are-eroding-my-software-engineering-career-and-i-dont-know-what-to-do/" target="_blank">ブログを読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48434312" target="_blank">HN議論 (765)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="llms-eroding-software-engineering-career" data-type="like" onclick="toggleFlag('llms-eroding-software-engineering-career','LLMが私のエンジニアキャリアを蝕んでいる——786票の叫び','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="llms-eroding-software-engineering-career" data-type="dislike" onclick="toggleFlag('llms-eroding-software-engineering-career','LLMが私のエンジニアキャリアを蝕んでいる——786票の叫び','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 4 — How's Linear So Fast ════════════════════════════════════ -->
+<section class="story story-4" id="s4">
+  <div class="story-num">04</div>
+  <div class="story-inner">
+    <div class="story-kicker">PERFORMANCE / DEV TOOLS — プロジェクト管理ツールLinearがなぜ他の競合（Jira・Asana）と比べて圧倒的にUIが速いのかを技術的に解説した記事が276ポイント・148コメントを集める</div>
+    <h2 class="story-headline">
+      LinearはなぜUIが<br>速いのか——<br>技術的内幕を<br>徹底解説
+    </h2>
+    <div class="story-body">
+      「How's Linear so fast? A technical breakdown」という記事がHNで276ポイント・148コメントを集めています。Linearは「速さ」をコアバリューに掲げるプロジェクト管理ツールで、JiraやAsanaと比べて体感速度が圧倒的に速いという評価が定着しています。この記事はそのパフォーマンスの技術的背景を解剖しています。主なポイントは：(1) ローカルファーストアーキテクチャ——全データをIndexedDBにキャッシュし、サーバーへのラウンドトリップなしにUIが即座に更新される。(2) 楽観的更新（Optimistic UI）——ユーザーのアクション（チケット移動・ステータス更新）をサーバー確認前にUIに即座に反映し、後でサーバーと同期。(3) ElectricSQLベースのリアルタイム同期プロトコル。(4) React以外のカスタムレンダリングの部分的採用。HNでは「Linearのアーキテクチャはオフライン対応のメモアプリ（Notion・Obsidian）のアプローチをプロジェクト管理に持ち込んだもの——サーバーを信頼の源ではなくバックグラウンド同期先として扱う」「楽観的更新は実装が難しい——競合更新・同期失敗時のロールバック・コンフリクト解決のロジックが複雑になる。Linearがここをうまくやっているのが真の技術力」「JiraはEnterprise向けに機能を積み上げた結果、速さを犠牲にした——Linearは意図的にエンタープライズ機能を削ってパフォーマンスを保っている」という148コメントが展開中です。
+    </div>
+    <div class="green-items">
+      <div class="green-item">
+        <div>
+          <div class="green-label">ローカルファーストアーキテクチャとは</div>
+          <div class="green-text">データをサーバーではなくクライアント（ブラウザのIndexedDB）に主として保存し、サーバーはバックグラウンドで同期するアーキテクチャ。Inkandswitch Researchが提唱した「Local-first software」の概念。メリット：ネットワーク遅延ゼロのUI応答・オフライン動作・リアルタイムコラボレーション。デメリット：実装の複雑さ・デバイス間同期のコンフリクト解決。NotionやFigmaも部分的に採用</div>
+        </div>
+      </div>
+      <div class="green-item">
+        <div>
+          <div class="green-label">Linearのアーキテクチャ選択が示す教訓</div>
+          <div class="green-text">「速さはフィーチャーである」——Linearは速さをUXの最優先に置き、設計上の全ての判断がそこに収束している。楽観的更新の徹底：全ての操作（作成・更新・削除）でサーバー確認前にUIを先行更新。差分同期：全データではなく変更差分のみを送受信してネットワーク帯域を最小化。仮想スクロール：大量チケットリストでも画面内の要素のみをDOMに保持</div>
+        </div>
+      </div>
+      <div class="green-item">
+        <div>
+          <div class="green-label">自分のアプリに活かせるポイント</div>
+          <div class="green-text">すぐ使える改善：楽観的更新（react-queryのoptimisticUpdates・SWRのmutate）・リスト仮想化（react-window・tanstack virtual）・Service WorkerによるAPIレスポンスのキャッシュ。より根本的な改善：IndexedDBを使ったオフラインファーストアーキテクチャ（Dexie.js・RxDB）。まずはCore Web VitalsのINP（Interaction to Next Paint）を測定し、ボトルネックを特定することが第一歩</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: performance.dev</span>
+      <span>276 ポイント</span>
+      <span>148 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://performance.dev/how-is-linear-so-fast-a-technical-breakdown" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48437609" target="_blank">HN議論 (148)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="linear-app-performance-breakdown" data-type="like" onclick="toggleFlag('linear-app-performance-breakdown','LinearはなぜUIが速いのか——技術的内幕を徹底解説','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="linear-app-performance-breakdown" data-type="dislike" onclick="toggleFlag('linear-app-performance-breakdown','LinearはなぜUIが速いのか——技術的内幕を徹底解説','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 5 — IOCCC 2025 Winners ══════════════════════════════════════ -->
+<section class="story story-5" id="s5">
+  <div class="story-num">05</div>
+  <div class="story-inner">
+    <div class="story-kicker">PROGRAMMING / CULTURE — 第29回国際難読化Cコードコンテスト（IOCCC）2025年度受賞作品が公開——人間には読めない、しかし動くCコードの傑作集が359ポイント・88コメントを集める</div>
+    <h2 class="story-headline">
+      第29回IOCCC<br>2025入賞作品——<br>難読化Cコードの<br>結晶
+    </h2>
+    <div class="story-body">
+      「The 29th International Obfuscated C Code Contest (IOCCC) 2025 Winners」がHNで359ポイント・88コメントを集めています。IOCCCは1984年から続く「最も難読化されたCコード」のコンテストで、コンパイル・実行は可能だが人間が読めないコードを競います。2025年の入賞作品には、絵文字を巧みに使ったC11プログラム・数学的なアート生成コード・テキストから自分自身を生成するquineの変種・ゲームのロジックをASCIIアートとして表現したコードなどが含まれています。HNでは「IOCCCはCの仕様・コンパイラの挙動・UBの境界を知り尽くした職人技——単なる悪趣味ではなく、Cを本当に理解していないと書けない」「入賞作の一つがCコードの見た目がCのロゴそのものになっており、それが正しくコンパイルされる——メタなユーモアが秀逸」「現代のコンパイラ（GCC・Clang）最適化との戦いでもある——UBを使った古いトリックが新しいコンパイラで動かなくなる問題がある」「IOCCCのソースを読み解こうとすること自体がCの深い学習になる——逆引きでCを学ぶ奇妙な教材」という88コメントが展開中です。
+    </div>
+    <div class="purple-items">
+      <div class="purple-item">
+        <div>
+          <div class="purple-label">IOCCCの歴史と文化的意義</div>
+          <div class="purple-text">1984年にLandon Curt Noll・Larry Bassel・Ronald Guildが始めた歴史あるコンテスト。Cが制定された時代から続く、プログラミング文化の生きた博物館。「難読化」はセキュリティ研究・コンパイラ理論・言語仕様の理解を深める側面がある。受賞作のサイズはキャラクター数で制限されており、最小のコードで最大の機能を実現するパズルでもある</div>
+        </div>
+      </div>
+      <div class="purple-item">
+        <div>
+          <div class="purple-label">2025年のハイライト作品</div>
+          <div class="purple-text">詳細は公式サイト(ioccc.org/2025/)に掲載。過去の例として：コードを90度回転させると別のプログラムになる作品・実行するとCコード自体をC++として解釈できるポリグロット・空白だけで動作するbrainfuckインタープリタが内包されたCコードなど。2025年作品もこれらに匹敵する創造的なトリックが含まれている模様</div>
+        </div>
+      </div>
+      <div class="purple-item">
+        <div>
+          <div class="purple-label">IOCCCから学べるCの深い知識</div>
+          <div class="purple-text">演算子の優先順位と結合規則の細部・三項演算子とカンマ演算子の組み合わせ・マクロ展開とトークンの結合（##演算子）・Cの未定義動作（UB）の境界・コンパイラの最適化が変える挙動・Cのキーワードを識別子として使うテクニック（_Atomic等の新しいキーワード）。難読化コードを読み解くことでこれらが体験的に理解できる</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: ioccc.org</span>
+      <span>359 ポイント</span>
+      <span>88 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.ioccc.org/2025/" target="_blank">受賞作を見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48432199" target="_blank">HN議論 (88)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="ioccc-2025-winners" data-type="like" onclick="toggleFlag('ioccc-2025-winners','第29回IOCCC 2025入賞作品——難読化Cコードの結晶','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="ioccc-2025-winners" data-type="dislike" onclick="toggleFlag('ioccc-2025-winners','第29回IOCCC 2025入賞作品——難読化Cコードの結晶','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 6 — Lathe: LLM Learning Tool ════════════════════════════════ -->
+<section class="story story-6" id="s6">
+  <div class="story-num">06</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI TOOLS / LEARNING / ACTIONABLE — LLMで新分野をスキップするのではなく「本当に学ぶ」ことを目的としたCLIツール「Lathe」がShow HNで236ポイント・43コメントを集める</div>
+    <h2 class="story-headline">
+      Show HN: Lathe——<br>新分野をスキップ<br>せず、LLMで<br>本当に学ぶ
+    </h2>
+    <div class="story-body">
+      「Show HN: Lathe – Use LLMs to learn a new domain, not skip past it」がHNで236ポイント・43コメントを集めています。開発者のDevin Jarvisが作成したLatheは、LLMを「答えを出してもらうツール」ではなく「深く理解するための対話相手」として使うことを設計思想とするCLIツールです。Latheは新しいトピックを学ぶ際に、単にWikipediaやチュートリアルを読む代わりに、Claudeなどの LLMと段階的に対話しながら概念を積み上げる体験を提供します。「ソクラテス式問答」スタイルで、ユーザーが答えを求めるのではなく、LLMがユーザーの理解を確認しながら次の概念へ誘導する構造になっています。HNでは「LLMを使うと『理解した気になる』問題がある——Latheはその罠を回避しようとしているのが面白い」「ソクラテス式メソッドはLLMと相性が良い——LLMは無限の忍耐で繰り返し質問に答えられるが、Latheはその利点を学習設計に組み込んでいる」「CLIという選択が渋い——ブラウザのdistraction（SNS等）なしに学習に集中できる環境として意図的にCLIにしたのかもしれない」「プロンプトエンジニアリングとしても参考になる——『教えるLLM』のシステムプロンプトの設計が公開されているなら読みたい」という43コメントが展開中です。
+    </div>
+    <div class="cyan-cards">
+      <div class="cyan-card">
+        <div class="cyan-card-name">Latheの基本的な使い方</div>
+        <div class="cyan-card-desc">GitHubからクローンしてインストール。`lathe learn "Rust ownership model"` のように学びたいトピックを指定。LLMが概念の前提知識を確認してから段階的に説明を展開。各ステップで理解確認の質問を受け、答えられなければ補足説明が入る。`--model claude-3-7-sonnet`でモデルを指定可能</div>
+      </div>
+      <div class="cyan-card">
+        <div class="cyan-card-name">LLMで「学習スキップ」してしまう罠</div>
+        <div class="cyan-card-desc">「Rustの所有権を説明して」→LLMが完璧な説明を返す→「理解した」と感じる→実際に書くと理解できていない、という現象が頻発。LLMの答えは「消費コンテンツ」になりやすく、能動的な理解につながりにくい。Latheは答えを得るのではなく説明することを強制することでこれを防ぐ</div>
+      </div>
+      <div class="cyan-card">
+        <div class="cyan-card-name">同様のアプローチを自前で実装</div>
+        <div class="cyan-card-desc">システムプロンプトで「あなたはソクラテス式教師です。答えを直接教えず、質問で理解を確認しながら導いてください」を指定するだけでも似た体験が作れる。Claudeのシステムプロンプトに「ユーザーが答えられなかった場合のみ説明してください」を追加するのも有効</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: github.com/devenjarvis/lathe</span>
+      <span>236 ポイント</span>
+      <span>43 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://github.com/devenjarvis/lathe" target="_blank">GitHubを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48433756" target="_blank">HN議論 (43)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="lathe-llm-learning-tool" data-type="like" onclick="toggleFlag('lathe-llm-learning-tool','Show HN: Lathe——新分野をスキップせず、LLMで本当に学ぶ','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="lathe-llm-learning-tool" data-type="dislike" onclick="toggleFlag('lathe-llm-learning-tool','Show HN: Lathe——新分野をスキップせず、LLMで本当に学ぶ','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 7 — Ohio Valley FM Signal Severed ══════════════════════════ -->
+<section class="story story-7" id="s7">
+  <div class="story-num">07</div>
+  <div class="story-inner">
+    <div class="story-kicker">WEIRD / INFRASTRUCTURE — オハイオバレーの10万ワットFM局（WKRC-FM等）の送電線が昼間に切断されるという奇妙な事件が141ポイント・137コメントを集め、物理インフラへの攻撃を巡る議論に</div>
+    <h2 class="story-headline">
+      10万ワットFM局の<br>送電線が白昼堂々<br>切断——オハイオ州<br>の謎の事件
+    </h2>
+    <div class="story-body">
+      「An Ohio Valley 100k-watt FM signal is severed in broad daylight」というRadio Worldの記事がHNで141ポイント・137コメントを集めています。オハイオバレー地域の大手FM局の送電線が昼間に物理的に切断され、放送が突然停止するという事件が発生しました。10万ワット（100kW）という最大級の出力を持つ局で、送電インフラへの物理的な破壊行為が原因とみられています。犯人・動機は現時点で不明で、地元警察が捜査中です。HNでは「物理インフラへの攻撃が増えている——光ファイバーケーブルの切断・変電所への攻撃・通信タワーへの破壊行為が米国で報告が続いている。ラジオ局もその延長上にある」「100kWのFMタワー周辺は電気的に危険——絶縁保護なしに送電線に触れることはほぼ不可能。熟練した人間が意図的にやった可能性が高い」「デジタルメディア全盛の時代にも、ラジオは緊急通知・デジタルデバイドの高齢者・電源不要受信として重要なインフラ——攻撃の影響は軽視できない」「米国のラジオタワーの多くは山頂などに孤立して設置されており、物理的セキュリティが脆弱——この事件を機にインフラ保護の議論が必要」という137コメントが展開中です。
+    </div>
+    <div class="amber-items">
+      <div class="amber-item">
+        <div>
+          <div class="amber-label">FM放送インフラの仕組み</div>
+          <div class="amber-text">100kWのFM局は送信機・アンテナ・送電設備が通常は山頂や高所の送信所に設置され、スタジオとは専用回線（STL: Studio Transmitter Link）でつながっている。送電線（電力会社からの商用電源）・STLケーブル・バックアップ発電機が主要インフラ。送電線切断はその中で最も物理的にアクセスしやすい攻撃対象</div>
+        </div>
+      </div>
+      <div class="amber-item">
+        <div>
+          <div class="amber-label">米国での物理インフラ攻撃の増加</div>
+          <div class="amber-text">2023年以降、米国で光ファイバーケーブルの意図的切断が複数発生（カリフォルニア・バンダービルト地区等）。変電所への銃撃事件（ノースカロライナ州、2022年）は広域停電を引き起こした。通信タワーへの放火・送電線の金属窃盗（銅線の窃盗が原因のケースも）も増加。物理インフラのセキュリティ強化が連邦議会で議論されている</div>
+        </div>
+      </div>
+      <div class="amber-item">
+        <div>
+          <div class="amber-label">ラジオが今でも重要なインフラである理由</div>
+          <div class="amber-text">緊急放送システム（EAS）：竜巻警報・Amber Alert・テロ警報はラジオを通じて届く。電源不要受信：スマホが使えない大規模停電時にも電池式ラジオで情報が得られる。デジタルデバイド：高齢者・低所得層・農村部ではラジオが主要メディア。自動車：米国の乗用車のラジオ受信率はほぼ100%で移動中の緊急情報収集に不可欠</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: radioworld.com</span>
+      <span>141 ポイント</span>
+      <span>137 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.radioworld.com/news-and-business/headlines/an-ohio-valley-100000-watt-fm-signal-is-severed-in-broad-daylight" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48430860" target="_blank">HN議論 (137)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="ohio-valley-fm-signal-severed" data-type="like" onclick="toggleFlag('ohio-valley-fm-signal-severed','10万ワットFM局の送電線が白昼堂々切断——オハイオ州の謎の事件','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="ohio-valley-fm-signal-severed" data-type="dislike" onclick="toggleFlag('ohio-valley-fm-signal-severed','10万ワットFM局の送電線が白昼堂々切断——オハイオ州の謎の事件','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 8 — Win16 Memory Management ════════════════════════════════ -->
+<section class="story story-8" id="s8">
+  <div class="story-num">08</div>
+  <div class="story-inner">
+    <div class="story-kicker">RETRO COMPUTING / DEEP DIVE — Windows 3.xが640KBのリアルモードRAMと640KB以上のメモリをどう管理していたかを詳解した技術記事が129ポイント・67コメントを集める</div>
+    <h2 class="story-headline">
+      Win16の<br>メモリ管理——<br>Windows 3.xが<br>640KBを超えた方法
+    </h2>
+    <div class="story-body">
+      「Win16 Memory Management」というos2museum.comのブログがHNで129ポイント・67コメントを集めています。Windows 3.xの時代（1990〜1994年）に、Intelの16ビットリアルモード・プロテクトモードの制約の中でどのようにメモリを管理していたかを詳細に解説しています。IBMのPC-DOSが有名にした「640KBの壁」を超えるために、Win16はXMS（Extended Memory Specification）・EMS（Expanded Memory Specification）・セグメント:オフセットのメモリアーキテクチャを組み合わせた複雑な仕組みを使っていました。ヒープ・スタック・DLLの共有メモリ・Globalアロケータの設計まで踏み込んだ深い内容です。HNでは「Win16のメモリ管理は現代のOS設計から見ると信じられないほど複雑——仮想メモリ・プロセス分離なしでマルチタスキングを実現しようとした涙ぐましい努力の記録」「セグメント:オフセットアドレッシングが16ビット時代のCプログラマを苦しめた理由がよくわかる——farポインタとnearポインタの違いを若い世代に説明するのは難しい」「このような歴史的技術記事がos2museumから定期的に出てくることが本当に嬉しい——Raymond Chenのブログと並ぶWindowsの深い歴史の一次資料」「64ビット時代の当たり前となった仮想メモリ・プロセス独立アドレス空間がどれほどありがたいものか、Win16の歴史を知ると改めて実感する」という67コメントが展開中です。
+    </div>
+    <div class="gold-items">
+      <div class="gold-item">
+        <div>
+          <div class="gold-label">640KBの壁とは</div>
+          <div class="gold-text">Intel 8086/8088のリアルモードは最大1MBのアドレス空間を持つが、DOS・BIOS・ビデオメモリが上位384KBを占有するため、アプリケーションが使えるメモリは640KB（= 0xA0000まで）に制限された。Bill Gatesの「640KBあれば十分」という（おそらく誤解された）言葉で有名。この制限を超えるためにEMS・XMSという拡張方式が生まれた</div>
+        </div>
+      </div>
+      <div class="gold-item">
+        <div>
+          <div class="gold-label">Win16がとった解決策</div>
+          <div class="gold-text">Standard Mode：80286のプロテクトモードでアドレス空間を16MBに拡張。386 Enhanced Mode：80386の仮想8086モードで複数のDOSセッションを分離実行。Global Heap：全アプリが共有するメモリプール（セグメント単位で管理）。Local Heap：各アプリのプライベートメモリ。DLL共有：同じDLL（USER.EXE・GDI.EXE・KERNEL.EXE）を全アプリが共有してメモリを節約</div>
+        </div>
+      </div>
+      <div class="gold-item">
+        <div>
+          <div class="gold-label">Win16がWin32開発に与えた遺産</div>
+          <div class="gold-text">Windows 95/NT以降のWin32はプロセスごとの仮想アドレス空間・ページング・プロセス分離を実現。しかしWin16の設計は互換性のためにWOW（Windows on Windows）として32ビット・64ビットWindowsに引き継がれた。16ビットアプリは今でもWOW64（64ビットWindowsの32ビットサブシステム）の前身として実行可能。レガシーシステムのサポートコストは数十年スパンで続いている</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: os2museum.com</span>
+      <span>129 ポイント</span>
+      <span>67 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="http://www.os2museum.com/wp/win16-memory-management/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48410844" target="_blank">HN議論 (67)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="win16-memory-management" data-type="like" onclick="toggleFlag('win16-memory-management','Win16のメモリ管理——Windows 3.xが640KBを超えた方法','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="win16-memory-management" data-type="dislike" onclick="toggleFlag('win16-memory-management','Win16のメモリ管理——Windows 3.xが640KBを超えた方法','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 9 — I Derived a Pancake ════════════════════════════════════ -->
+<section class="story story-9" id="s9">
+  <div class="story-num">09</div>
+  <div class="story-inner">
+    <div class="story-kicker">WEIRD SCIENCE / HUMOR — 「数学的最適化によってパンケーキのレシピを導出した」というShow HNが99ポイント・33コメントを集め、笑いと真面目な議論の両方を呼ぶ</div>
+    <h2 class="story-headline">
+      Show HN:<br>パンケーキを<br>「導出」した——<br>数学的最適化の産物
+    </h2>
+    <div class="story-body">
+      「Show HN: I Derived a Pancake」というabsurdlyoptimized.comのポストがHNで99ポイント・33コメントを集めています。著者はパンケーキのレシピを直感や伝承から学ぶのではなく、材料の化学・物性・加熱の物理・食感の最適化という観点から「数学的に導出」するというアプローチを取っています。グルテン形成・でんぷんのゲル化・卵白の泡・バタミルクの酸とベーキングパウダーの反応といった化学的プロセスを方程式で表現し、最適なレシピに到達するというコンテンツです。HNでは「これは純粋に楽しい——absurdly optimizedというブログ名の通り、役に立たないことを最大限に最適化するというコンセプトが好き」「実際に試した人のコメント：膨らみが非常に良く、食感も柔らかい——ちゃんと機能するレシピになっている模様」「こういうプロジェクトは計算科学を身近にする——材料科学・流体力学・熱力学が一枚のパンケーキに凝縮されているというのは本当のこと」「absurdly optimizedというアプローチはコード最適化と同じ思考法——まず全体を計測して、どの変数が一番効くかを特定してから弄る。レシピ開発に適用すると面白い」という33コメントが展開中です。
+    </div>
+    <div class="slate-items">
+      <div class="slate-item">
+        <div>
+          <div class="slate-label">パンケーキの科学：主要な化学反応</div>
+          <div class="slate-text">グルテン形成：小麦粉中のグルテニンとグリアジンが水と混合することでグルテンネットワークを形成——過剰な混ぜは硬い食感に。CO2生成：ベーキングパウダー（重曹+酸）がバタミルクの乳酸・クエン酸と反応してCO2を放出——これが膨らみの主因。卵の役割：卵白（アルブミン）が泡立ちで空気を取り込み・加熱で固まることで構造を作る。卵黄のレシチンが乳化剤として油と水を均一に混合</div>
+        </div>
+      </div>
+      <div class="slate-item">
+        <div>
+          <div class="slate-label">「導出する」アプローチの実際の応用</div>
+          <div class="slate-text">Modernist Cuisine（Nathan Myhrvold・Chris Young）：400ドル超の6巻本で、同様の科学的アプローチを料理全般に適用した先例。Kenji Lopez-AltのFood Lab：統計的アプローチで複数の変数を独立に変えてレシピを最適化。分子ガストロノミー（フェラン・アドリア等）：食品科学をハイエンド料理に応用。absurdly optimizedのアプローチはその一般人版として好評</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: absurdlyoptimized.com</span>
+      <span>99 ポイント</span>
+      <span>33 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.absurdlyoptimized.com/recipes/pancakes/" target="_blank">導出を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48408854" target="_blank">HN議論 (33)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="derived-a-pancake-optimization" data-type="like" onclick="toggleFlag('derived-a-pancake-optimization','Show HN: パンケーキを導出した——数学的最適化の産物','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="derived-a-pancake-optimization" data-type="dislike" onclick="toggleFlag('derived-a-pancake-optimization','Show HN: パンケーキを導出した——数学的最適化の産物','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 10 — Aeronautical Engineering Principle Overturned ══════════ -->
+<section class="story story-10" id="s10">
+  <div class="story-num">10</div>
+  <div class="story-inner">
+    <div class="story-kicker">WEIRD SCIENCE / AEROSPACE — 東北大学の研究チームが航空工学の基本原理「DMR（Discrete Moment Reversal）効果」に関する新発見を発表——教科書に載る定説を覆す実験結果</div>
+    <h2 class="story-headline">
+      航空工学の<br>基本原理が<br>覆された——<br>東北大学の新発見
+    </h2>
+    <div class="story-body">
+      「A Fundamental Principle of Aeronautical Engineering Has Been Overturned」というHNのポストが東北大学の研究発表を紹介しています。東北大学の研究チームが、航空工学における従来の基本原理に反する新しい現象「DMR（Discrete Moment Reversal）」を実験的に確認したという内容で、2026年5月に東北大学のプレスリリースとして発表されました。従来の理論では特定の条件下での流体挙動が一定の方向性を持つとされていましたが、DMR効果ではその逆転が観察されたとのことです。HNコミュニティからは「発表の詳細を見ないと評価が難しい——『基本原理が覆された』という表現は過大広告か本当の革命かで全く意味が違う」「東北大学の航空宇宙工学は世界的に評価が高い——JAXAとの連携研究も多く、この発見が査読を通れば本物の発見」「DMRが何を意味するのか論文を読んでから判断が必要——翼の揚力計算・乱流モデルのどこに影響するのかによって実用的重要性が大きく変わる」「日本語の発表を機械翻訳で読んだが、翼端渦に関連した効果らしい——航空機の燃費改善に応用できる可能性があるという」というコメントが寄せられています。
+    </div>
+    <div class="mag-items">
+      <div class="mag-item">
+        <div>
+          <div class="mag-label">航空工学における「基本原理」とは</div>
+          <div class="mag-text">航空工学の基礎はナビエ=ストークス方程式（流体の運動方程式）とベルヌーイの定理（揚力の基本原理）。翼の揚力は「翼の上面と下面での気流速度差→圧力差」として説明される。翼端渦（後流乱流）は燃費・騒音・後方機への危険性に影響する実用的重要問題。DMR効果がこのどこに影響するかによって実用的重要性が決まる</div>
+        </div>
+      </div>
+      <div class="mag-item">
+        <div>
+          <div class="mag-label">航空工学の最近の革新的発見</div>
+          <div class="mag-text">スーパーソニック飛行での低ソニックブーム実現（NASA X-59）：機体形状の工夫でソニックブームを大幅削減。翼端小翼（ウィングレット）の改良：航空燃料消費1〜2%削減という地味だが巨大なインパクト。電動推進（SAF・水素）：環境負荷低減のため推進系の根本変革が進行中。DMR効果が実用化されれば、翼設計・乱流制御の新しいアプローチが開かれる可能性</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: tohoku.ac.jp</span>
+      <span>25 ポイント</span>
+      <span>18 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.tohoku.ac.jp/japanese/2026/05/press20260512-02-DMR.html" target="_blank">発表を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48369703" target="_blank">HN議論 (18)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="aeronautical-engineering-principle-overturned" data-type="like" onclick="toggleFlag('aeronautical-engineering-principle-overturned','航空工学の基本原理が覆された——東北大学の新発見','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="aeronautical-engineering-principle-overturned" data-type="dislike" onclick="toggleFlag('aeronautical-engineering-principle-overturned','航空工学の基本原理が覆された——東北大学の新発見','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ══════════════════════════════════════════════════════════════ -->
+<footer class="site-footer">
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand">Morning Edition</div>
+      <div class="footer-meta">
+        Hacker News キュレーション · 2026年6月8日 · Issue No.049<br>
+        毎朝、厳選10本をお届け
+      </div>
+    </div>
+    <button class="export-btn" onclick="exportFeedback()">📋 フィードバックをコピー</button>
+  </div>
+  <div class="footer-note">
+    ⭐ 興味あり / ✕ 興味なし ボタンで次回のキュレーションが改善されます。Chrome/Edgeでは自動保存、その他ではボタンでクリップボードにコピーしてください。
+  </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  const FEEDBACK_KEY = 'morning-edition-feedback-v2';
+  const TODAY = '2026-06-08';
+  let _dirHandle = null;
+
+  async function getDir(forcePrompt) {
+    if (_dirHandle && !forcePrompt) return _dirHandle;
+    if (!window.showDirectoryPicker) return null;
+    try {
+      _dirHandle = await window.showDirectoryPicker({ mode: 'readwrite', id: 'morning-edition', startIn: 'documents' });
+      return _dirHandle;
+    } catch { return null; }
+  }
+
+  async function writeJSON(dirHandle, fb) {
+    const fileHandle = await dirHandle.getFileHandle('feedback.json', { create: true });
+    const writable = await fileHandle.createWritable();
+    await writable.write(JSON.stringify({ ...fb, updatedAt: new Date().toISOString() }, null, 2));
+    await writable.close();
+  }
+
+  function showToast(msg, isErr) {
+    const el = document.getElementById('toast');
+    el.textContent = msg;
+    el.className = 'toast' + (isErr ? ' error' : '');
+    requestAnimationFrame(() => el.classList.add('show'));
+    clearTimeout(el._timer);
+    el._timer = setTimeout(() => el.classList.remove('show'), 3000);
+  }
+
+  function getFeedback() {
+    try { return JSON.parse(localStorage.getItem(FEEDBACK_KEY) || '{"liked":{},"disliked":{}}'); }
+    catch { return { liked: {}, disliked: {} }; }
+  }
+  function saveFeedback(fb) { localStorage.setItem(FEEDBACK_KEY, JSON.stringify(fb)); }
+
+  async function autoSave(fb) {
+    let dir = await getDir();
+    if (!dir) {
+      showToast('📁 Daily News フォルダを選択してください', true);
+      dir = await getDir(true);
+      if (!dir) { showToast('保存をキャンセルしました', true); return; }
+    }
+    try {
+      await writeJSON(dir, fb);
+      showToast('✓ feedback.json を自動保存しました（次回キュレーションに反映）');
+    } catch (e) {
+      showToast('保存エラー: ' + e.message, true);
+    }
+  }
+
+  async function toggleFlag(storyId, title, type) {
+    const fb = getFeedback();
+    fb.liked = fb.liked || {};
+    fb.disliked = fb.disliked || {};
+    const likeBtn    = document.querySelector(`.flag-btn.like-btn[data-story="${storyId}"]`);
+    const dislikeBtn = document.querySelector(`.flag-btn.dislike-btn[data-story="${storyId}"]`);
+    if (type === 'like') {
+      if (fb.liked[storyId]) {
+        delete fb.liked[storyId];
+        likeBtn?.classList.remove('active');
+      } else {
+        fb.liked[storyId] = { title, date: TODAY };
+        delete fb.disliked[storyId];
+        likeBtn?.classList.add('active');
+        dislikeBtn?.classList.remove('active');
+      }
+    } else {
+      if (fb.disliked[storyId]) {
+        delete fb.disliked[storyId];
+        dislikeBtn?.classList.remove('active');
+      } else {
+        fb.disliked[storyId] = { title, date: TODAY };
+        delete fb.liked[storyId];
+        dislikeBtn?.classList.add('active');
+        likeBtn?.classList.remove('active');
+      }
+    }
+    saveFeedback(fb);
+    await autoSave(fb);
+  }
+
+  function exportFeedback() {
+    const fb = getFeedback();
+    const json = JSON.stringify({ ...fb, exportedAt: new Date().toISOString() }, null, 2);
+    navigator.clipboard.writeText(json)
+      .then(() => showToast('📋 クリップボードにコピーしました'))
+      .catch(() => {
+        const el = document.createElement('textarea');
+        el.value = json; document.body.appendChild(el); el.select();
+        document.execCommand('copy'); document.body.removeChild(el);
+        showToast('📋 クリップボードにコピーしました');
+      });
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const fb = getFeedback();
+    document.querySelectorAll('.flag-btn').forEach(btn => {
+      const id   = btn.dataset.story;
+      const type = btn.dataset.type;
+      if ((type === 'like' && fb.liked?.[id]) || (type === 'dislike' && fb.disliked?.[id])) {
+        btn.classList.add('active');
+      }
+    });
+  });
+</script>
+</body>
+</html>
