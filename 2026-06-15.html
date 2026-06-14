@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Morning Edition — 2026年6月15日</title>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --font: 'M PLUS Rounded 1c', 'Hiragino Sans', 'Noto Sans JP', sans-serif; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); background: #111; color: #fff; overflow-x: hidden; }
+
+    .masthead { background: #fff; color: #000; padding: 3rem 4rem 2.5rem; border-bottom: 6px solid #000; position: relative; overflow: hidden; }
+    .masthead::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: repeating-linear-gradient(90deg, #000 0, #000 12px, transparent 12px, transparent 20px); }
+    .masthead-kicker { font-size: 0.85rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: #777; margin-bottom: 0.6rem; }
+    .masthead-title { font-size: clamp(3.5rem, 9vw, 7.5rem); font-weight: 900; line-height: 0.88; letter-spacing: -0.04em; margin-bottom: 1.8rem; }
+    .masthead-meta { display: flex; gap: 3rem; align-items: baseline; flex-wrap: wrap; }
+    .masthead-date { font-size: 1.5rem; font-weight: 700; }
+    .masthead-subtitle { font-size: 1rem; font-weight: 400; color: #555; max-width: 480px; line-height: 1.5; }
+    .masthead-issue { margin-left: auto; text-align: right; }
+    .masthead-issue span { display: block; }
+    .masthead-issue .iss-label { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: #999; }
+    .masthead-issue .iss-num { font-size: 2.2rem; font-weight: 900; color: #000; }
+
+    .toc { background: #1a1a1a; padding: 1.5rem 4rem; display: flex; gap: 1.5rem; flex-wrap: wrap; border-bottom: 1px solid #333; }
+    .toc a { color: #aaa; text-decoration: none; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; transition: color 0.2s; }
+    .toc a:hover { color: #fff; }
+    .toc-num { color: #555; margin-right: 0.3em; }
+
+    .story { position: relative; overflow: hidden; }
+    .story-inner { max-width: 1200px; margin: 0 auto; padding: 5rem 4rem; position: relative; z-index: 1; }
+    .story-num { font-size: clamp(6rem, 18vw, 16rem); font-weight: 900; line-height: 0.8; letter-spacing: -0.06em; opacity: 0.08; position: absolute; top: 1rem; right: 2rem; user-select: none; }
+    .story-badge { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.35em 0.9em; border-radius: 2px; margin-bottom: 1.5rem; }
+    .direct-badge { background: #FFD700; color: #000; }
+    .story-kicker { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; opacity: 0.6; margin-bottom: 0.8rem; }
+    .story-headline { font-size: clamp(2rem, 5vw, 4rem); font-weight: 900; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+    .story-body { font-size: clamp(1rem, 1.5vw, 1.2rem); font-weight: 400; line-height: 1.8; max-width: 680px; opacity: 0.88; margin-bottom: 2rem; }
+    .story-meta { display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center; font-size: 0.8rem; font-weight: 700; opacity: 0.5; }
+    .story-links { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem; }
+    .story-link { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.6em 1.4em; border-radius: 3px; text-decoration: none; transition: opacity 0.2s, transform 0.15s; }
+    .story-link:hover { opacity: 0.75; transform: translateY(-1px); }
+
+    .feedback-buttons { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .flag-btn { background: none; border: 1px solid currentColor; color: inherit; font-family: var(--font); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.5em 1em; border-radius: 3px; cursor: pointer; opacity: 0.32; transition: opacity 0.2s, background 0.2s, color 0.2s, border-color 0.2s, transform 0.15s; }
+    .flag-btn:hover { opacity: 0.72; transform: translateY(-1px); }
+    .flag-btn.like-btn.active { opacity: 1; background: rgba(255,215,0,0.15); border-color: #FFD700; color: #FFD700 !important; }
+    .flag-btn.dislike-btn.active { opacity: 1; background: rgba(255,60,60,0.12); border-color: #FF4444; color: #FF4444 !important; }
+
+    .toast { position: fixed; bottom: 2rem; right: 2rem; background: #1a1a1a; color: #fff; font-family: var(--font); font-size: 0.82rem; font-weight: 700; padding: 0.75em 1.4em; border-radius: 4px; border-left: 3px solid #00C853; z-index: 9999; opacity: 0; transform: translateY(10px); transition: opacity 0.25s, transform 0.25s; pointer-events: none; box-shadow: 0 4px 24px rgba(0,0,0,0.45); }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    .toast.error { border-left-color: #FF5252; }
+
+    .story-1 { background: #fff; color: #000; min-height: 90vh; display: flex; flex-direction: column; justify-content: center; }
+    .story-1 .story-num { color: #000; opacity: 0.04; }
+    .story-1 .story-kicker { color: #555; opacity: 1; }
+    .story-1 .story-headline { color: #000; }
+    .story-1 .story-body { color: #111; }
+    .story-1 .story-meta { color: #000; }
+    .story-1 .story-link.primary { background: #1a1a1a; color: #fff; }
+    .story-1 .story-link.secondary { background: #f0f0f0; color: #000; }
+    .story-1 .flag-btn { color: #000; }
+    .story-1-accent { position: absolute; bottom: 0; left: 0; width: 100%; height: 8px; background: linear-gradient(90deg, #1a1a1a, #555, #999, #1a1a1a); }
+    .story-1 .headline-accent { display: inline-block; background: linear-gradient(135deg, #1a1a1a 0%, #555 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .dos-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1.2rem; margin: 2rem 0; max-width: 680px; }
+    .dos-card { border: 2px solid rgba(0,0,0,0.12); background: rgba(0,0,0,0.04); border-radius: 6px; padding: 1.3rem 1.5rem; }
+    .dos-card-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.2em; text-transform: uppercase; color: #333; margin-bottom: 0.4rem; }
+    .dos-card-value { font-size: 1.05rem; font-weight: 900; color: #000; line-height: 1.3; }
+    .dos-card-sub { font-size: 0.75rem; color: #555; margin-top: 0.3rem; line-height: 1.4; }
+
+    .story-2 { background: #00080c; color: #b8f0ff; min-height: 80vh; }
+    .story-2::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(0,160,200,0.14) 0%, transparent 65%); }
+    .story-2 .story-num { color: #00A0C8; opacity: 0.07; }
+    .story-2 .story-kicker { color: #20C8E8; opacity: 1; }
+    .story-2 .story-headline { color: #e0f8ff; }
+    .story-2 .story-body { color: #b8f0ff; }
+    .story-2 .story-meta { color: #20C8E8; opacity: 0.5; }
+    .story-2 .story-link.primary { background: #004058; color: #80e8ff; }
+    .story-2 .story-link.secondary { background: rgba(0,160,200,0.08); color: #90d8f0; border: 1px solid rgba(0,160,200,0.22); }
+    .story-2 .flag-btn { color: #b8f0ff; }
+    .teal-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .teal-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(0,160,200,0.07); border-left: 3px solid #00A0C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .teal-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20C8E8; margin-bottom: 0.3rem; }
+    .teal-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-3 { background: #0a0000; color: #fff; min-height: 80vh; }
+    .story-3::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(200,20,20,0.16) 0%, transparent 65%); }
+    .story-3 .story-num { color: #C81414; opacity: 0.07; }
+    .story-3 .story-kicker { color: #E84040; opacity: 1; }
+    .story-3 .story-headline { color: #fff; }
+    .story-3 .story-body { color: rgba(255,255,255,0.88); }
+    .story-3 .story-meta { color: #E84040; opacity: 0.5; }
+    .story-3 .story-link.primary { background: #6a0000; color: #fff; }
+    .story-3 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-3 .flag-btn { color: #fff; }
+    .red-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .red-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(200,20,20,0.07); border-left: 3px solid #C81414; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .red-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E84040; margin-bottom: 0.3rem; }
+    .red-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-4 { background: #020c04; color: #c8f0d0; min-height: 80vh; }
+    .story-4::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(20,160,70,0.16) 0%, transparent 65%); }
+    .story-4 .story-num { color: #14A046; opacity: 0.07; }
+    .story-4 .story-kicker { color: #30C060; opacity: 1; }
+    .story-4 .story-headline { color: #e0ffe8; }
+    .story-4 .story-body { color: #c8f0d0; }
+    .story-4 .story-meta { color: #30C060; opacity: 0.5; }
+    .story-4 .story-link.primary { background: #063820; color: #80ffb0; }
+    .story-4 .story-link.secondary { background: rgba(20,160,70,0.08); color: #a0e8b0; border: 1px solid rgba(20,160,70,0.22); }
+    .story-4 .flag-btn { color: #c8f0d0; }
+    .green-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .green-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(20,160,70,0.07); border-left: 3px solid #14A046; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .green-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #30C060; margin-bottom: 0.3rem; }
+    .green-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-5 { background: #040010; color: #d8c8ff; min-height: 75vh; }
+    .story-5::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(90,40,200,0.17) 0%, transparent 65%); }
+    .story-5 .story-num { color: #5A28C8; opacity: 0.07; }
+    .story-5 .story-kicker { color: #8050E0; opacity: 1; }
+    .story-5 .story-headline { color: #f0e8ff; }
+    .story-5 .story-body { color: #d8c8ff; }
+    .story-5 .story-meta { color: #8050E0; opacity: 0.5; }
+    .story-5 .story-link.primary { background: #200860; color: #d0a8ff; }
+    .story-5 .story-link.secondary { background: rgba(90,40,200,0.08); color: #c0a0f0; border: 1px solid rgba(90,40,200,0.22); }
+    .story-5 .flag-btn { color: #d8c8ff; }
+    .purple-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .purple-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(90,40,200,0.07); border-left: 3px solid #5A28C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .purple-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #8050E0; margin-bottom: 0.3rem; }
+    .purple-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-6 { background: #000c10; color: #b8e8f0; min-height: 75vh; }
+    .story-6::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 40%, rgba(0,130,160,0.14) 0%, transparent 65%); }
+    .story-6 .story-num { color: #0080A0; opacity: 0.07; }
+    .story-6 .story-kicker { color: #20B0D0; opacity: 1; }
+    .story-6 .story-headline { color: #e0f4ff; }
+    .story-6 .story-body { color: #b8e8f0; }
+    .story-6 .story-meta { color: #20B0D0; opacity: 0.5; }
+    .story-6 .story-link.primary { background: #003848; color: #80d8f0; }
+    .story-6 .story-link.secondary { background: rgba(0,130,160,0.08); color: #90cce0; border: 1px solid rgba(0,130,160,0.22); }
+    .story-6 .flag-btn { color: #b8e8f0; }
+    .cyan-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(185px, 1fr)); gap: 1rem; margin: 2rem 0; max-width: 680px; }
+    .cyan-card { background: rgba(0,130,160,0.07); border: 1px solid rgba(0,130,160,0.22); border-radius: 4px; padding: 1.2rem 1.4rem; }
+    .cyan-card-name { font-size: 0.78rem; font-weight: 900; color: #20B0D0; margin-bottom: 0.4rem; }
+    .cyan-card-desc { font-size: 0.72rem; opacity: 0.75; line-height: 1.4; }
+
+    .story-7 { background: #0a0300; color: #ffe0b8; min-height: 75vh; }
+    .story-7::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(210,90,20,0.18) 0%, transparent 65%); }
+    .story-7 .story-num { color: #D05A14; opacity: 0.07; }
+    .story-7 .story-kicker { color: #E88040; opacity: 1; }
+    .story-7 .story-headline { color: #fff0d8; }
+    .story-7 .story-body { color: #ffe0b8; }
+    .story-7 .story-meta { color: #E88040; opacity: 0.5; }
+    .story-7 .story-link.primary { background: #6a2400; color: #ffc880; }
+    .story-7 .story-link.secondary { background: rgba(210,90,20,0.08); color: #ffb870; border: 1px solid rgba(210,90,20,0.22); }
+    .story-7 .flag-btn { color: #ffe0b8; }
+    .amber-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .amber-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(210,90,20,0.07); border-left: 3px solid #D05A14; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .amber-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E88040; margin-bottom: 0.3rem; }
+    .amber-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-8 { background: #080500; color: #fff; min-height: 70vh; }
+    .story-8::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,145,10,0.15) 0%, transparent 65%); }
+    .story-8 .story-num { color: #BE9110; opacity: 0.06; }
+    .story-8 .story-kicker { color: #D4A820; opacity: 1; }
+    .story-8 .story-headline { color: #fff; }
+    .story-8 .story-body { color: rgba(255,255,255,0.88); }
+    .story-8 .story-meta { color: #D4A820; opacity: 0.5; }
+    .story-8 .story-link.primary { background: #604000; color: #ffe070; }
+    .story-8 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-8 .flag-btn { color: #fff; }
+    .gold-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .gold-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(190,145,10,0.07); border-left: 3px solid #BE9110; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .gold-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #D4A820; margin-bottom: 0.3rem; }
+    .gold-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-9 { background: #040810; color: #c8d8f0; min-height: 70vh; }
+    .story-9::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 35%, rgba(50,90,170,0.16) 0%, transparent 65%); }
+    .story-9 .story-num { color: #3258A8; opacity: 0.07; }
+    .story-9 .story-kicker { color: #5878C8; opacity: 1; }
+    .story-9 .story-headline { color: #e8f0ff; }
+    .story-9 .story-body { color: #c8d8f0; }
+    .story-9 .story-meta { color: #5878C8; opacity: 0.5; }
+    .story-9 .story-link.primary { background: #101e50; color: #fff; }
+    .story-9 .story-link.secondary { background: rgba(50,90,170,0.08); color: #b0c8e8; border: 1px solid rgba(50,90,170,0.22); }
+    .story-9 .flag-btn { color: #c8d8f0; }
+    .slate-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .slate-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(50,90,170,0.07); border-left: 3px solid #3258A8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .slate-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #5878C8; margin-bottom: 0.3rem; }
+    .slate-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-10 { background: #080004; color: #ffc8e8; min-height: 70vh; }
+    .story-10::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,20,90,0.15) 0%, transparent 65%); }
+    .story-10 .story-num { color: #BE1458; opacity: 0.07; }
+    .story-10 .story-kicker { color: #E04080; opacity: 1; }
+    .story-10 .story-headline { color: #fff0f8; }
+    .story-10 .story-body { color: #ffc8e8; }
+    .story-10 .story-meta { color: #E04080; opacity: 0.5; }
+    .story-10 .story-link.primary { background: #500030; color: #ffb0d8; }
+    .story-10 .story-link.secondary { background: rgba(190,20,90,0.08); color: #f090c0; border: 1px solid rgba(190,20,90,0.22); }
+    .story-10 .flag-btn { color: #ffc8e8; }
+    .mag-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .mag-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(190,20,90,0.07); border-left: 3px solid #BE1458; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .mag-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E04080; margin-bottom: 0.3rem; }
+    .mag-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .site-footer { background: #000; color: #555; padding: 3rem 4rem; display: flex; flex-direction: column; gap: 1.5rem; border-top: 1px solid #222; }
+    .footer-top { display: flex; gap: 2rem; align-items: center; flex-wrap: wrap; justify-content: space-between; }
+    .footer-brand { font-size: 1.4rem; font-weight: 900; color: #fff; }
+    .footer-meta { font-size: 0.75rem; line-height: 1.6; }
+    .export-btn { background: #222; border: 1px solid #444; color: #fff; font-family: var(--font); font-size: 0.8rem; font-weight: 700; padding: 0.7em 1.5em; border-radius: 3px; cursor: pointer; letter-spacing: 0.08em; transition: background 0.2s; }
+    .export-btn:hover { background: #333; }
+    .footer-note { font-size: 0.7rem; opacity: 0.5; }
+
+    @media (max-width: 768px) {
+      .masthead, .toc, .story-inner, .site-footer { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .story-num { display: none; }
+      .masthead-meta { gap: 1rem; }
+      .masthead-issue { margin-left: 0; }
+      .dos-grid, .cyan-cards { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+<nav style="background:#1a1a1a;border-bottom:1px solid #333;padding:0.55rem 2rem;font-family:'M PLUS Rounded 1c','Hiragino Sans','Noto Sans JP',sans-serif;position:sticky;top:0;z-index:999;">
+  <a href="./index.html" style="color:#aaa;text-decoration:none;font-size:0.8rem;font-weight:700;letter-spacing:0.03em;display:inline-flex;align-items:center;gap:0.4rem;transition:color 0.15s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#aaa'">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    アーカイブへ戻る
+  </a>
+</nav>
+
+<header class="masthead">
+  <div class="masthead-kicker">Hacker News — Morning Edition</div>
+  <h1 class="masthead-title">Morning<br>Edition</h1>
+  <div class="masthead-meta">
+    <div>
+      <div class="masthead-date">2026年6月15日 日曜日</div>
+      <div class="masthead-subtitle">AI・開発ツール・プライバシー・サイエンス — あなたのための10本</div>
+    </div>
+    <div class="masthead-issue">
+      <span class="iss-label">Issue</span>
+      <span class="iss-num">No.054</span>
+    </div>
+  </div>
+</header>
+
+<nav class="toc">
+  <a href="#s1"><span class="toc-num">01</span>薪割りシミュレーター——今週最大のバイラルがブラウザで体験できる</a>
+  <a href="#s2"><span class="toc-num">02</span>「みんながAIを全てに使っているわけじゃない」——DuckDuckGo創業者の分析</a>
+  <a href="#s3"><span class="toc-num">03</span>Kage——ウェブサイトをオフライン閲覧シングルバイナリに変換するツール</a>
+  <a href="#s4"><span class="toc-num">04</span>リオの「自作LLM」はモデルのマージだった——GitHub Issueが暴露</a>
+  <a href="#s5"><span class="toc-num">05</span>M1 MaxとローカルMLで669GBのGoPro動画を索引化した話</a>
+  <a href="#s6"><span class="toc-num">06</span>Linux 7.1——Linus Torvaldsが新カーネルをアナウンス</a>
+  <a href="#s7"><span class="toc-num">07</span>形式検証の未来——Jane Streetが語るプログラミングの新地平</a>
+  <a href="#s8"><span class="toc-num">08</span>Postgresで唯一スケールするdeleteはDROP TABLE——衝撃のDB論文</a>
+  <a href="#s9"><span class="toc-num">09</span>Yserver——RustによるモダンなX11サーバーが登場</a>
+  <a href="#s10"><span class="toc-num">10</span>地球の菌根菌ネットワーク密度を世界規模で測定——Science誌</a>
+</nav>
+
+<!-- ═══ STORY 1 — Firewood Splitting Simulator ═══════════════════════════════ -->
+<section class="story story-1" id="s1">
+  <div class="story-num">01</div>
+  <div class="story-inner">
+    <div class="story-kicker">WEIRD TECH / BROWSER EXPERIMENT / INTERACTIVE — 今週最大のバイラルヒット。ブラウザで薪を割る物理シミュレーター。545ポイント・181コメント</div>
+    <h2 class="story-headline">
+      薪割りシミュレーター——<br>ブラウザで体験する<br><span class="headline-accent">最高の無駄遣い</span>
+    </h2>
+    <div class="story-body">
+      今週のHNで最もポイントを集めた話題は、実用とは無縁のブラウザゲーム「Firewood Splitting Simulator」でした。545ポイント・181コメントという圧倒的な反響を集めたこの作品は、screen.toys というドメインが示す通り「おもちゃ」そのものです。クリックやドラッグで木の丸太を狙い、物理エンジンを使ったリアルな薪割りを体験できます。木目に沿った割れ方、飛び散る木くず、斧の重さを感じさせる操作感——細部まで凝った作りが「これを作るのにどれだけ時間をかけたんだ」というHNらしいコメントを大量に引き出しています。技術的には WebGL とカスタム物理エンジンを組み合わせ、木材の繊維構造をシミュレートして自然な割れ目を生成しているとのこと。実際に遊んでみると想像以上に没入感があり、「5分だけ」のつもりが30分経っていることに気づく類いの作品です。HNでは「このような『無駄なもの』を極めて丁寧に作ることがハッカー文化の精髄——薪割りの物理シミュレーションが545ポイント集まるのはHNらしい」「木材の繊維シミュレーションのコードを読みたい——どうやって木目の方向性をモデル化しているのか」「screen.toys のドメインセンスが最高——次はどんな『おもちゃ』が出てくるか楽しみ」「週末の午後を完全に奪われた——妻に説明できない」という181コメントが展開中です。
+    </div>
+    <div class="dos-grid">
+      <div class="dos-card">
+        <div class="dos-card-label">遊び方</div>
+        <div class="dos-card-value">クリック/ドラッグで薪割り</div>
+        <div class="dos-card-sub">丸太をクリックして斧を振り下ろす。木目に沿って割れる物理シミュレーションをブラウザで体験。特別なインストール不要。screen.toys/firewood/ にアクセスするだけ</div>
+      </div>
+      <div class="dos-card">
+        <div class="dos-card-label">技術スタック</div>
+        <div class="dos-card-value">WebGL + カスタム物理エンジン</div>
+        <div class="dos-card-sub">木材繊維の方向性をシミュレートして自然な割れ目を生成。WebGLでリアルタイムレンダリング。木くずや破片の物理挙動も計算。モバイルブラウザでも動作</div>
+      </div>
+      <div class="dos-card">
+        <div class="dos-card-label">なぜバイラルしたか</div>
+        <div class="dos-card-value">職人的なこだわりと即時フィードバック</div>
+        <div class="dos-card-sub">「触った瞬間に面白い」体験設計が秀逸。物理シミュレーションの精度が高く、リアルな薪割りの感触が再現されている。SNSでのGIF拡散がHNへの流入を加速</div>
+      </div>
+      <div class="dos-card">
+        <div class="dos-card-label">HN一言評</div>
+        <div class="dos-card-value">「最高の無駄遣い」</div>
+        <div class="dos-card-sub">181コメントのトップは「このような無駄遣いを極めて丁寧に作る姿勢が好き」。実用ゼロのプロジェクトが週のトップ記事になる——それがHacker Newsというコミュニティ</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: screen.toys</span>
+      <span>545 ポイント</span>
+      <span>181 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://screen.toys/firewood/" target="_blank">今すぐ遊ぶ →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48471638" target="_blank">HN議論 (181)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="firewood-splitting-simulator" data-type="like" onclick="toggleFlag('firewood-splitting-simulator','薪割りシミュレーター——ブラウザで体験する最高の無駄遣い','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="firewood-splitting-simulator" data-type="dislike" onclick="toggleFlag('firewood-splitting-simulator','薪割りシミュレーター——ブラウザで体験する最高の無駄遣い','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+  <div class="story-1-accent"></div>
+</section>
+
+<!-- ═══ STORY 2 — Not everyone is using AI for everything ══════════════════ -->
+<section class="story story-2" id="s2">
+  <div class="story-num">02</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / ADOPTION / ANALYSIS — DuckDuckGo創業者Gabriel WeinbergがAI普及の実態を分析。「全員がAIを全部に使っているわけではない」。388ポイント・418コメント</div>
+    <h2 class="story-headline">
+      「みんながAIを<br>全てに使っている<br>わけじゃない」——<br>現実の普及データ
+    </h2>
+    <div class="story-body">
+      DuckDuckGo創業者のGabriel Weinbergが、AI採用の現状についての詳細な分析を公開し、388ポイント・418コメントという大きな反響を集めました。メディアやSNSでは「AIが全てを変えた」「誰もがChatGPTやClaude を使っている」という論調が支配的ですが、実際のデータはもっと複雑な絵を描いています。Weinbergは「人々はAIを、他のツール（スマホ・検索エンジン・SNS）が普及した時と同じように消費している——一度に全部ではなく、段階的に、特定の用途から」と指摘します。実際に日常的にAIを使っているのはテック業界の人間や特定のアーリーアダプター層に集中しており、一般ユーザーは「試したことがある」レベルにとどまっているケースが多いというデータです。開発者やAIツールを作る側にとってはバイアスがかかりやすい視点——自分がヘビーユーザーだからといって「みんながそう」ではないことを改めて認識させてくれる分析です。HNでは「Weinbergのデータは正直で貴重——AIバブルの中で実態を見せてくれる」「開発者コミュニティにいると『全員がAIを使っている』という幻想にはまりやすい——この記事はその解毒剤」「普及の速度はスマホより早いが、深度（使いこなし）はまだ浅い——これが現実」「AIの普及曲線はS字カーブの初期段階——まだ全体の5〜10%が積極利用者というデータが正しいなら、これからが本番」という418コメントが展開中です。
+    </div>
+    <div class="teal-items">
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">主な発見</div>
+          <div class="teal-text">AI積極利用者はテック業界・アーリーアダプター層に集中。一般ユーザーの多くは「試したことがある」レベル。特定タスク（文章下書き・コード補完・検索補助）での利用が先行し、「全面移行」はまだ少数派というデータが示された</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">普及パターンの類似点</div>
+          <div class="teal-text">Weinbergはスマートフォンの普及曲線との類似を指摘。スマホも「全員が使う」まで10年かかった。AIも同様に段階的普及が起きており、現在は「イノベーター〜アーリーアダプター」段階。「アーリーマジョリティ」の参入はこれから</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">開発者への示唆</div>
+          <div class="teal-text">AIツールを作る・使う立場の開発者は「自分のバブル」に注意。一般ユーザーの90%はAIをまだ日常的に使っていない可能性がある。プロダクト設計でAIネイティブ前提は早計——オンボーディングとUXの重要性が改めて浮き彫りに</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: gabrielweinberg.com</span>
+      <span>388 ポイント</span>
+      <span>418 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://gabrielweinberg.com/p/people-are-consuming-ai-like-they" target="_blank">分析を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48527700" target="_blank">HN議論 (418)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="ai-usage-not-everyone" data-type="like" onclick="toggleFlag('ai-usage-not-everyone','「みんながAIを全てに使っているわけじゃない」——現実の普及データ','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="ai-usage-not-everyone" data-type="dislike" onclick="toggleFlag('ai-usage-not-everyone','「みんながAIを全てに使っているわけじゃない」——現実の普及データ','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 3 — Kage ══════════════════════════════════════════════════════ -->
+<section class="story story-3" id="s3">
+  <div class="story-num">03</div>
+  <div class="story-inner">
+    <div class="story-kicker">DEVELOPER TOOLS / OFFLINE / OPEN SOURCE — ウェブサイトをオフライン閲覧できるシングルバイナリに変換するShow HN。304ポイント・62コメント</div>
+    <h2 class="story-headline">
+      Kage——ウェブサイトを<br>オフライン閲覧用<br>シングルバイナリに<br>変換するツール
+    </h2>
+    <div class="story-body">
+      「Kage（影）」というShow HNプロジェクトが304ポイント・62コメントを集めています。KageはウェブサイトをクロールしてHTML・CSS・JavaScript・画像など全てのアセットを一つの実行可能なシングルバイナリにパッケージングするツールです。このバイナリをダブルクリックするかコマンドラインから実行するだけで、ローカルのウェブサーバーが起動してブラウザでサイトを閲覧できます——インターネット接続不要で、元のウェブサイトと全く同じ見た目・動作を再現します。用途として挙げられているのは：ドキュメントサイトのオフライン版作成、インターネット接続のない環境でのデモ・プレゼン、ウェブサイトのアーカイブ保存などです。特に企業のイントラネット環境や、飛行機・船内などの接続制限環境での利用が想定されています。GoあるいはRustで書かれており、macOS・Linux・Windowsで動作します。HNでは「HTTrack・wget --mirrorと何が違うの?——シングルバイナリ化と動的サイトへの対応が差別化ポイント」「SPAやJavaScriptヘビーなサイトのクロールはどうやっているか気になる——Headless Chromeを使っているのか」「ドキュメントサイトをオフラインで配布できるのは地味に便利——会議やデモ中にネットが切れても安心」「ロゴとREADMEが日本語っぽい命名で気になった——作者はベトナム出身っぽいがKageの名前の由来は?」という62コメントが展開中です。
+    </div>
+    <div class="red-items">
+      <div class="red-item">
+        <div>
+          <div class="red-label">Kageとは</div>
+          <div class="red-text">ウェブサイトを丸ごとクロールしてシングルバイナリに変換するCLIツール。バイナリを実行するとローカルサーバーが起動してブラウザでオフライン閲覧が可能。HTML・CSS・JS・画像・フォントなど全アセットをバイナリに内包。github.com/tamnd/kage で公開中</div>
+        </div>
+      </div>
+      <div class="red-item">
+        <div>
+          <div class="red-label">主な用途</div>
+          <div class="red-text">①ドキュメントサイトのオフライン版配布（Confluence・Notionのエクスポート代替）②ネット非接続環境でのデモ・プレゼン③ウェブサイトのスナップショットアーカイブ④航空機・イントラネット環境での閲覧⑤ウェブアプリのポータブル版配布</div>
+        </div>
+      </div>
+      <div class="red-item">
+        <div>
+          <div class="red-label">類似ツールとの違い</div>
+          <div class="red-text">wget --mirrorやHTTrackはHTMLをファイルツリーとして保存。KageはシングルバイナリにパッケージングするためUSBメモリ一本でデモが可能。JavaScriptヘビーなSPAへの対応（Headless Chromeベース？）が差別化ポイントの一つ</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: github.com/tamnd/kage</span>
+      <span>304 ポイント</span>
+      <span>62 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://github.com/tamnd/kage" target="_blank">GitHubを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48529990" target="_blank">HN議論 (62)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="kage-website-offline-binary" data-type="like" onclick="toggleFlag('kage-website-offline-binary','Kage——ウェブサイトをオフライン閲覧用シングルバイナリに変換するツール','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="kage-website-offline-binary" data-type="dislike" onclick="toggleFlag('kage-website-offline-binary','Kage——ウェブサイトをオフライン閲覧用シングルバイナリに変換するツール','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 4 — Rio de Janeiro LLM Model Merge ═══════════════════════════ -->
+<section class="story story-4" id="s4">
+  <div class="story-num">04</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / FRAUD / OPEN SOURCE — リオデジャネイロ市が「自社開発LLM」と発表したモデルが既存モデルのマージだったことがGitHub Issueで暴露。234ポイント・128コメント</div>
+    <h2 class="story-headline">
+      リオの「自作LLM」は<br>モデルのマージだった<br>——GitHub Issueが<br>全てを暴露
+    </h2>
+    <div class="story-body">
+      リオデジャネイロ市が「自社開発」と発表したLLM「Nex-N2」が、実際には既存のオープンソースモデルのマージ（合体）に過ぎないことが、GitHub Issueへの投稿によって暴露され、234ポイント・128コメントを集めています。Nex-N2はブラジル政府系の「nex-agi」というOrganizationが公開したモデルで、リオデジャネイロ市が「ブラジル独自のAI」として発表したものでした。しかし調査した研究者がモデルの重みを分析したところ、実際には既存のオープンソースモデル（MetaのLlamaベースと推測）を複数組み合わせたマージモデルであることが判明。オリジナルのトレーニングはほぼ行われていないというのが結論です。これはAIの「自社開発」という主張が実態と乖離している例として注目を集めています——政府や企業がオープンソースモデルをマージ・微調整して「自社AI」と主張するケースは世界中で増えており、透明性の問題が改めて浮き彫りになりました。HNでは「モデルマージ自体は悪くない——問題はそれを『独自開発』として発表した誠実さの欠如」「オープンソースモデルのマージを許可ライセンスの範囲で使うのは合法——しかし政府プロジェクトとしての説明責任は別の話」「モデルのフィンガープリンティング技術がこういう時に力を発揮する——研究者がどうやって特定したかの手法が面白い」「他の政府系AI発表も同様の疑惑がある——透明性の欠如は世界的な問題」という128コメントが展開中です。
+    </div>
+    <div class="green-items">
+      <div class="green-item">
+        <div>
+          <div class="green-label">何が起きたか</div>
+          <div class="green-text">リオデジャネイロ市が「Nex-N2」を「ブラジル独自開発のAIモデル」として発表。研究者がモデル重みを分析した結果、実際には既存のオープンソースモデル（Llamaベース）の複数モデルマージであることが判明。GitHub Issueに証拠とともに投稿され拡散</div>
+        </div>
+      </div>
+      <div class="green-item">
+        <div>
+          <div class="green-label">モデルマージとは何か</div>
+          <div class="green-text">異なるLLMの重みを数学的に合成して新しいモデルを作る手法。Mergekit等のツールで比較的簡単に実施可能。マージ自体はオープンソースライセンスが許可する範囲内であれば合法。しかし「独自開発」「ゼロから作った」と主張することは誤解を招く</div>
+        </div>
+      </div>
+      <div class="green-item">
+        <div>
+          <div class="green-label">モデル真正性の検証方法</div>
+          <div class="green-text">研究者が使ったアプローチ：①モデル重みのコサイン類似度分析（既知モデルとの類似度測定）②ベンチマーク性能パターンの照合（特定モデルに特有の強み・弱みが一致するか）③アーキテクチャフィンガープリンティング。「AIモデルの来歴確認」という新たな調査ジャンルが生まれつつある</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: github.com/nex-agi/Nex-N2</span>
+      <span>234 ポイント</span>
+      <span>128 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://github.com/nex-agi/Nex-N2/issues/4" target="_blank">Issueを読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48528371" target="_blank">HN議論 (128)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="rio-llm-model-merge-fraud" data-type="like" onclick="toggleFlag('rio-llm-model-merge-fraud','リオの「自作LLM」はモデルのマージだった——GitHub Issueが全てを暴露','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="rio-llm-model-merge-fraud" data-type="dislike" onclick="toggleFlag('rio-llm-model-merge-fraud','リオの「自作LLM」はモデルのマージだった——GitHub Issueが全てを暴露','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 5 — 669 GB GoPro Local ML ════════════════════════════════════ -->
+<section class="story story-5" id="s5">
+  <div class="story-num">05</div>
+  <div class="story-inner">
+    <div class="story-kicker">LOCAL ML / PERSONAL PROJECT / APPLE SILICON — M1 MaxとローカルMLモデルで669GBのGoPro動画ライブラリを全て索引化・検索可能にした個人プロジェクト。222ポイント・45コメント</div>
+    <h2 class="story-headline">
+      M1 MaxとローカルMLで<br>669GBのGoPro動画を<br>索引化した話——<br>クラウド不要
+    </h2>
+    <div class="story-body">
+      エンジニアのIlias Haddadが、10年分のGoProアクション動画（669GB）をローカルのMLモデルを使って全て索引化・自然言語検索できるようにしたプロジェクトをブログで公開し、222ポイント・45コメントを集めています。課題はシンプルでした——「スノーボードで左に曲がった瞬間」「友人のMarcusが登場するシーン」「青空と山の景色」といった自然言語でGoProの動画ライブラリを検索したい、でもGoogle PhotosやiCloudのような外部サービスには669GBをアップロードしたくない。Ilias が選んだアプローチはMac M1 MaxのNeural Engineを活用したローカル実行です。動画をフレームに分割し、LLaVAやMiniGPT-4などのローカルVLM（Vision Language Model）でフレームの内容をテキスト化、それをベクトルDBに格納して意味検索できるシステムを構築しました。全処理をM1 Maxで完結させ、プライバシーを保ちながら個人動画ライブラリを「話しかけて探せる」状態にした実用的なプロジェクトです。HNでは「Apple SiliconのNeural Engineでローカルのマルチモーダルモデルを回す実用例として最も説得力がある記事の一つ——コスト試算も丁寧」「669GBを処理した時間コストが気になる——何時間かかったか」「このアプローチをライブラリ化してOSSで公開してほしい——ドライブレコーダーや監視カメラ映像への応用が大きい」「プライバシーを保ちながらローカルでMLを動かすというのが最重要ポイント——AWSには送りたくない人は多い」という45コメントが展開中です。
+    </div>
+    <div class="purple-items">
+      <div class="purple-item">
+        <div>
+          <div class="purple-label">システムの仕組み</div>
+          <div class="purple-text">①GoProフッテージをフレームに分割（数秒ごとにサンプリング）②ローカルVLM（LLaVAなど）でフレームの内容をテキスト記述に変換③テキストをベクトルDBに格納④自然言語クエリで意味検索（「雪山でジャンプした瞬間」等）⑤対応動画のタイムスタンプにジャンプ。全工程をM1 Maxで完結</div>
+        </div>
+      </div>
+      <div class="purple-item">
+        <div>
+          <div class="purple-label">使用したツール・モデル</div>
+          <div class="purple-text">ローカルVLM: LLaVA・MiniGPT-4（Apple Silicon上でOllama/llama.cppで実行）。ベクトルDB: ChromaDB（ローカル）。動画処理: FFmpegでフレーム抽出。検索UI: シンプルなWebインターフェース。追加コスト: ほぼゼロ（クラウドAPI不使用）</div>
+        </div>
+      </div>
+      <div class="purple-item">
+        <div>
+          <div class="purple-label">再現するには</div>
+          <div class="purple-text">①Ollama（ollama.ai）でLLaVAをダウンロード：ollama pull llava②FFmpegで動画からフレーム抽出③llava API で各フレームをテキスト化④ChromaDB等のローカルベクトルDBに格納⑤類似検索クエリを実装。M1 Mac推奨だがCUDA GPU PCでも可能</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: iliashaddad.com</span>
+      <span>222 ポイント</span>
+      <span>45 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://iliashaddad.com/blog/i-indexed-669-gb-of-my-gopro-videos-using-my-m1-max-computer" target="_blank">ブログを読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48528029" target="_blank">HN議論 (45)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="gopro-videos-local-ml-indexing" data-type="like" onclick="toggleFlag('gopro-videos-local-ml-indexing','M1 MaxとローカルMLで669GBのGoPro動画を索引化した話','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="gopro-videos-local-ml-indexing" data-type="dislike" onclick="toggleFlag('gopro-videos-local-ml-indexing','M1 MaxとローカルMLで669GBのGoPro動画を索引化した話','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 6 — Linux 7.1 ═════════════════════════════════════════════════ -->
+<section class="story story-6" id="s6">
+  <div class="story-num">06</div>
+  <div class="story-inner">
+    <div class="story-kicker">LINUX / KERNEL / RELEASE — Linus TorvaldsがLinux 7.1のリリースをアナウンス。190ポイント・67コメント</div>
+    <h2 class="story-headline">
+      Linux 7.1——<br>Linus Torvaldsが<br>新カーネルを<br>アナウンス
+    </h2>
+    <div class="story-body">
+      Linus TorvaldsがLinux 7.1のリリースをカーネルメーリングリスト（LKML）でアナウンスし、190ポイント・67コメントを集めています。Linux 7.1は前バージョンのマージウィンドウで取り込まれた新機能群を安定化させたリリースで、主な変更点はArch Linux・Ubuntuなどメジャーディストリビューションの次期アップデートに含まれる予定です。主要なハイライトは：Rust言語によるカーネルドライバ開発サポートのさらなる強化（Rust in Linuxプロジェクトが継続進化）、次世代ARMプロセッサ向けの最適化、改善されたスケジューラのパフォーマンス（特に多コアCPU環境でのスループット改善）、そして新しいファイルシステムAPIの追加です。LLMとAIワークロードが増える中でCPUスケジューリングの改善は特に注目されており、大規模推論サーバーを運用するエンジニアには直接関係する変更です。HNでは「Rust in Linuxのドライバ数が着実に増えている——メモリ安全なカーネルへの道が少しずつ現実になっている」「スケジューラの改善がAIワークロードに効く数字を見たい——理論値より実測値でベンチマークを出してほしい」「7.xになってからLinus のリリースメモが少し短くなった——機嫌がよいのかもしれない」「Rustドライバの採用がこの速度で進むなら、5年後のLinuxは別物になっているかもしれない」という67コメントが展開中です。
+    </div>
+    <div class="cyan-cards">
+      <div class="cyan-card">
+        <div class="cyan-card-name">Rust in Linux</div>
+        <div class="cyan-card-desc">カーネルドライバをRustで書けるサポートが継続強化。メモリ安全性を保証できるRustドライバが増え、C言語の脆弱性起因バグを減らす取り組みが続いている</div>
+      </div>
+      <div class="cyan-card">
+        <div class="cyan-card-name">スケジューラ改善</div>
+        <div class="cyan-card-desc">多コアCPU環境でのタスクスケジューリングを最適化。AIワークロード・仮想化環境での並列処理スループット向上。特にNUMAアーキテクチャでの改善が大きい</div>
+      </div>
+      <div class="cyan-card">
+        <div class="cyan-card-name">ARM最適化</div>
+        <div class="cyan-card-desc">次世代ARMコアに向けた最適化を追加。Apple Silicon上でのLinux VM実行（UTM等）のパフォーマンス改善も含む。組み込み・IoTデバイスでの動作改善も</div>
+      </div>
+      <div class="cyan-card">
+        <div class="cyan-card-name">入手先</div>
+        <div class="cyan-card-desc">kernel.orgから公式ソースを入手可能。Ubuntu・Arch等のディストリビューションは数週間以内に7.1をリポジトリに取り込む予定。自分でコンパイルする場合は make menuconfig から</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: lore.kernel.org</span>
+      <span>190 ポイント</span>
+      <span>67 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://lore.kernel.org/lkml/CAHk-=wi4BF4bMhZNZ1tqs+FFV4OuZRe3ZqdWB+LxRLmRweUzQw@mail.gmail.com/T/#u" target="_blank">アナウンスを読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48528729" target="_blank">HN議論 (67)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="linux-7-1" data-type="like" onclick="toggleFlag('linux-7-1','Linux 7.1——Linus Torvaldsが新カーネルをアナウンス','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="linux-7-1" data-type="dislike" onclick="toggleFlag('linux-7-1','Linux 7.1——Linus Torvaldsが新カーネルをアナウンス','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 7 — Formal Methods (Jane Street) ══════════════════════════════ -->
+<section class="story story-7" id="s7">
+  <div class="story-num">07</div>
+  <div class="story-inner">
+    <div class="story-kicker">PROGRAMMING / FORMAL METHODS / THEORY — Jane Streetが形式検証の実践と未来についての包括的な論考を公開。152ポイント・50コメント</div>
+    <h2 class="story-headline">
+      形式検証の未来——<br>Jane Streetが語る<br>プログラミングの<br>新地平
+    </h2>
+    <div class="story-body">
+      高頻度取引企業のJane StreetがOCamlと形式検証の実践についての詳細な論考を公開し、152ポイント・50コメントを集めています。Jane Streetは金融業界で最もプログラミング言語・型理論への投資が深い企業として知られており、OCamlを主要言語として採用し形式検証（プログラムの正しさを数学的に証明する手法）を実際の金融システム開発に適用しています。この記事では「形式手法はアカデミアの象牙の塔のものではなく、今やプロダクション品質のソフトウェア開発で実践可能なレベルに達した」という主張のもと、Jane Streetで実際に形式検証が役立ったケーススタディと、AI時代に形式手法が再注目される理由を解説しています。LLMが大量のコードを生成する今、そのコードの正しさを保証するための手段として形式検証のツール（Coq・Lean・Isabelle・F*等）が実用フェーズに入りつつあるという論点は特に注目です。HNでは「Jane Streetの技術ブログは常にレベルが高い——形式手法の実践例としてこれ以上の一次資料はない」「LLMが書いたコードの検証に形式手法を使うというアプローチは理にかなっている——ただしコストがどこまで下がるかが課題」「TLA+をプロダクションのシステム設計に使っているのはAmazonとJane Streetくらいだと思っていたが裾野が広がっている」「形式検証ツールのUXがようやく人間が使えるレベルに——Leanの定理証明アシスタントにLLMを組み込む研究が加速している」という50コメントが展開中です。
+    </div>
+    <div class="amber-items">
+      <div class="amber-item">
+        <div>
+          <div class="amber-label">形式検証とは何か</div>
+          <div class="amber-text">プログラムの正しさを数学的に証明する手法。「このコードは全ての入力に対してクラッシュしない」「この金融計算は特定の不変条件を常に満たす」という命題を自動的・半自動的に検証する。従来はロケット・医療機器等の高信頼性ソフトウェア向けだったが、ツールの成熟で一般開発にも普及しつつある</div>
+        </div>
+      </div>
+      <div class="amber-item">
+        <div>
+          <div class="amber-label">AI時代との関係</div>
+          <div class="amber-text">LLMが生成するコードは「動いているように見えるが正しさの保証がない」という問題がある。形式検証をLLM生成コードのバリデーションに使う研究が増加。また形式検証ツール自体にLLMを補助として組み込む（例: LeanとGPT-4の組み合わせ）流れも加速している</div>
+        </div>
+      </div>
+      <div class="amber-item">
+        <div>
+          <div class="amber-label">試してみるには</div>
+          <div class="amber-text">初心者に最も入りやすいのはLean 4（lean-lang.org）——Webブラウザで試せるLean 4 Playground がある。数学の証明から始めると感覚がつかみやすい。TLA+はLeslie Lamportのビデオ講義がYouTubeで公開されている。Jane Streetの記事を読んでから始めると動機付けが強い</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: blog.janestreet.com</span>
+      <span>152 ポイント</span>
+      <span>50 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://blog.janestreet.com/formal-methods-at-jane-street-index/?from_theconsensus=1" target="_blank">論考を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48526633" target="_blank">HN議論 (50)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="formal-methods-future-programming" data-type="like" onclick="toggleFlag('formal-methods-future-programming','形式検証の未来——Jane Streetが語るプログラミングの新地平','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="formal-methods-future-programming" data-type="dislike" onclick="toggleFlag('formal-methods-future-programming','形式検証の未来——Jane Streetが語るプログラミングの新地平','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 8 — Postgres DROP TABLE ══════════════════════════════════════ -->
+<section class="story story-8" id="s8">
+  <div class="story-num">08</div>
+  <div class="story-inner">
+    <div class="story-kicker">DATABASE / POSTGRESQL / PERFORMANCE — PlanetScaleエンジニアが「Postgresで唯一スケールする削除はDROP TABLEだ」という挑発的な記事を公開。108ポイント・44コメント</div>
+    <h2 class="story-headline">
+      Postgresで唯一<br>スケールする<br>deleteは<br>DROP TABLE
+    </h2>
+    <div class="story-body">
+      PlanetScaleのエンジニアが「The only scalable delete in Postgres is DROP TABLE」というタイトルの挑発的な記事を公開し、108ポイント・44コメントを集めています。タイトルは誇張ですが、指摘している問題は非常に実践的です——Postgresで大量のレコードを削除する際のDELETE文は、テーブルが大きくなるほど深刻なパフォーマンス問題を引き起こします。MVCCアーキテクチャの仕組み上、DELETEしても実際のディスク領域はすぐに解放されず（デッドタプルとして残る）、VACUUMが走るまでテーブルが肥大化し続けます。さらにDELETE自体がロックを取り、大量削除はトランザクションを長時間占有してOLTPパフォーマンスを劣化させます。記事が提案する解決策は「パーティション分割 + パーティションDROP」というアプローチで、古いデータが特定のパーティションにまとまるようにテーブルを設計し、削除時はDELETE文ではなくALTER TABLE ... DROP PARTITION（あるいはDROP TABLE）を使うことでロックフリーかつ即時のデータ削除を実現します。HNでは「Postgres MVCCのDELETE問題はよく知られているが、これほど明快に解説した記事は少ない——チームの全員に読ませたい」「VACUUM TUNCATEとautovacuumの調整で十分では? という意見もあるが、規模による——億行を超えるとパーティション戦略は必須」「PlanetScaleはMySQL系なのでPostgresを批判したい動機もある——記事内容は正確だが文脈を理解して読む必要がある」「TimescaleDBがこのパターンをそのまま実装している——時系列データのPostgresなら最初からTimescaleを選ぶべき」という44コメントが展開中です。
+    </div>
+    <div class="gold-items">
+      <div class="gold-item">
+        <div>
+          <div class="gold-label">なぜ大量DELETEが遅いか</div>
+          <div class="gold-text">PostgresのMVCC（マルチバージョン同時実行制御）では、DELETE文を実行してもデータは即座に消えない——「このタプルは削除済み」というフラグが立つだけ。実際の領域解放はVACUUMプロセスが担当。大量削除→膨大なデッドタプル→テーブルブロート→クエリ性能劣化というサイクルが起きる</div>
+        </div>
+      </div>
+      <div class="gold-item">
+        <div>
+          <div class="gold-label">推奨パターン：パーティション+DROP</div>
+          <div class="gold-text">日付・月などでレンジパーティションを設計→古いパーティションをDROP TABLEあるいはDETACH+DROP→即座にディスク領域解放・ロックほぼなし・VACUUMの出番なし。「過去30日分だけ保持」のようなローリングウィンドウデータに最適</div>
+        </div>
+      </div>
+      <div class="gold-item">
+        <div>
+          <div class="gold-label">どんな場合に適用すべきか</div>
+          <div class="gold-text">①ログ・イベント・メトリクスなど時系列データ②定期的な期限切れデータの削除が必要③テーブルが数千万〜億行規模。既存テーブルへのパーティション追加はPostgres 10以降で可能だが移行コストがある。新規テーブルは最初からパーティション設計を検討すること</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: planetscale.com</span>
+      <span>108 ポイント</span>
+      <span>44 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://planetscale.com/blog/the-only-scalable-delete" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48492822" target="_blank">HN議論 (44)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="postgres-scalable-delete-drop-table" data-type="like" onclick="toggleFlag('postgres-scalable-delete-drop-table','Postgresで唯一スケールするdeleteはDROP TABLE','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="postgres-scalable-delete-drop-table" data-type="dislike" onclick="toggleFlag('postgres-scalable-delete-drop-table','Postgresで唯一スケールするdeleteはDROP TABLE','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 9 — Yserver (Rust X11) ══════════════════════════════════════ -->
+<section class="story story-9" id="s9">
+  <div class="story-num">09</div>
+  <div class="story-inner">
+    <div class="story-kicker">RUST / SYSTEMS PROGRAMMING / X11 — RustでモダンなX11サーバー「Yserver」が公開。76ポイント・53コメント</div>
+    <h2 class="story-headline">
+      Yserver——Rustによる<br>モダンなX11<br>サーバーが登場
+    </h2>
+    <div class="story-body">
+      Rustで書かれた新しいX11サーバー「Yserver」がGitHubで公開され、76ポイント・53コメントを集めています。X11（X Window System）はUnix系OSのGUIを支える古典的なウィンドウシステムで、1987年に生まれたプロトコルです。既存の主要X11実装であるX.Orgは数十年分のCコードが積み重なっており、コードベースの複雑さ・セキュリティ上の懸念・パフォーマンスの限界が長年の課題となっています（多くのLinuxデスクトップはWaylandへの移行を進めている理由の一つ）。YserverはそのX11プロトコルをRustで一から実装し直すプロジェクトで、メモリ安全性・モダンなコードベース・将来の拡張性を目指しています。WaylandがX11を完全に置き換えるまでのブリッジとして、あるいはX11の「クリーンルーム実装」の学習資源として価値があります。HNでは「Waylandへの完全移行がなかなか進まない現状では、Rustで書き直したX11実装というのは現実的な価値がある」「X11プロトコルの複雑さは本当に恐ろしい——Yserverがどこまで実装できているか気になる（ウィンドウマネージャ・コンポジターの対応状況）」「これは学習プロジェクトとして非常に価値がある——X11プロトコルの全仕様を把握している人間はほぼいない」「XWaylandとの比較が気になる——Wayland上でX11アプリを動かすXWaylandと役割が被るのでは」という53コメントが展開中です。
+    </div>
+    <div class="slate-items">
+      <div class="slate-item">
+        <div>
+          <div class="slate-label">Yserverとは</div>
+          <div class="slate-text">Rustで一から書かれたX11サーバーの実装。既存のX.Org（C言語）の代替を目指す実験的プロジェクト。X11プロトコル（クライアント-サーバー間のウィンドウ描画プロトコル）の主要機能を実装。GitHubで公開されており活発な開発が続いている</div>
+        </div>
+      </div>
+      <div class="slate-item">
+        <div>
+          <div class="slate-label">X11・Wayland・Yserverの関係</div>
+          <div class="slate-text">X11（1987年〜）→ 古くて複雑だが全てのLinuxアプリが対応。Wayland（2008年〜）→ モダンな置き換え候補だが一部アプリは未対応。XWayland → Wayland上でX11アプリを動かす互換レイヤー。Yserver → X11をRustでクリーンに再実装した選択肢。「X11の遺産を安全に保持する」という役割</div>
+        </div>
+      </div>
+      <div class="slate-item">
+        <div>
+          <div class="slate-label">Rust in Systems への示唆</div>
+          <div class="slate-text">Rustはカーネルドライバ・X11サーバー・ウィンドウマネージャーなどシステム低レイヤーへの適用が着々と進んでいる。メモリ安全性が求められる長寿命な基盤ソフトウェアほどRustの優位性が大きい。YserverはRustでのプロトコル実装の良い参考実装でもある</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: github.com/joske/yserver</span>
+      <span>76 ポイント</span>
+      <span>53 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://github.com/joske/yserver" target="_blank">GitHubを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48531394" target="_blank">HN議論 (53)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="yserver-x11-rust" data-type="like" onclick="toggleFlag('yserver-x11-rust','Yserver——RustによるモダンなX11サーバーが登場','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="yserver-x11-rust" data-type="dislike" onclick="toggleFlag('yserver-x11-rust','Yserver——RustによるモダンなX11サーバーが登場','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 10 — Mycorrhizal Fungal Networks ═════════════════════════════ -->
+<section class="story story-10" id="s10">
+  <div class="story-num">10</div>
+  <div class="story-inner">
+    <div class="story-kicker">WEIRD SCIENCE / BIOLOGY / ECOLOGY — 地球上の菌根菌ネットワークの密度と総バイオマスを世界規模で初めて定量化した研究がScience誌に掲載。37ポイント・4コメント</div>
+    <h2 class="story-headline">
+      地球の菌根菌<br>ネットワーク密度を<br>世界規模で測定——<br>Science誌の驚愕データ
+    </h2>
+    <div class="story-body">
+      地球全体の菌根菌（きんこんきん）ネットワークの密度と総バイオマスを世界規模で定量化した研究がScience誌に掲載され、HNでも37ポイント・4コメントを集めています。菌根菌（Arbuscular Mycorrhizal Fungi: AMF）は植物の根に共生する微生物で、植物が土壌から水・リン・ミネラルを吸収するのを助ける見返りに炭素を受け取ります。この地下ネットワークは「Wood Wide Web（森のインターネット）」とも呼ばれ、木々が菌根菌を介してお互いに栄養を分け合うことが知られています。今回の研究は世界各地の土壌データを統合・分析し、AMFの菌糸（ネットワークを形成する糸状の構造）の世界全体での密度と総バイオマスを初めて定量化したものです。数字は衝撃的で、全世界の菌根菌ネットワークは数十億キロメートルに及ぶと推定されており、炭素循環・生態系維持における役割の巨大さを改めて示しています。HNでは「コメントが4つしかついていないが、内容の重要性は今週最高クラスかもしれない——菌根菌ネットワークのスケールを実感できるデータ」「気候変動と土地利用変化が菌根菌ネットワークに与えている影響が気になる——この研究はその基準値になる」「『Wood Wide Web』という表現は科学的正確さでは批判もあるが、菌根菌の重要性を一般に伝える効果は大きかった——実際はもっと複雑」「炭素循環モデルに菌根菌を適切に組み込めていないまま気候モデルを作っているとすれば、大きな誤差になりうる」という4コメントが展開中です。
+    </div>
+    <div class="mag-items">
+      <div class="mag-item">
+        <div>
+          <div class="mag-label">菌根菌（AMF）とは</div>
+          <div class="mag-text">陸上植物の約80%の根に共生する微生物。植物からもらった炭素（糖）と引き換えに土壌中の水・リン・ミネラルの吸収を助ける。菌糸が地中に巨大なネットワークを形成し、異なる植物間での栄養移動も仲介する。農業・森林・気候変動において核心的な役割を持つ</div>
+        </div>
+      </div>
+      <div class="mag-item">
+        <div>
+          <div class="mag-label">研究の意義</div>
+          <div class="mag-text">世界中の土壌データを統合し菌根菌ネットワークの全球密度・バイオマスを初定量化。炭素循環モデルへの菌根菌の組み込みに必要な基準値を提供。土地利用変化（農地化・都市化）が菌根菌に与えているダメージの評価にも活用できる重要な基礎データ</div>
+        </div>
+      </div>
+      <div class="mag-item">
+        <div>
+          <div class="mag-label">「Wood Wide Web」の真実</div>
+          <div class="mag-text">木々が菌根菌を通じて炭素・リン等を共有するという「Wood Wide Web」概念は一般に広まったが、科学的議論も続いている。最近の研究では「競争的な関係も多い」「全ての木が平等に繋がっているわけではない」という指摘も。今回の研究はそのネットワークの物理的規模を明らかにした</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: science.org</span>
+      <span>37 ポイント</span>
+      <span>4 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.science.org/doi/10.1126/science.adu4373" target="_blank">論文を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48519102" target="_blank">HN議論 (4)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="mycorrhizal-fungal-network-biomass" data-type="like" onclick="toggleFlag('mycorrhizal-fungal-network-biomass','地球の菌根菌ネットワーク密度を世界規模で測定——Science誌の驚愕データ','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="mycorrhizal-fungal-network-biomass" data-type="dislike" onclick="toggleFlag('mycorrhizal-fungal-network-biomass','地球の菌根菌ネットワーク密度を世界規模で測定——Science誌の驚愕データ','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ══════════════════════════════════════════════════════════════ -->
+<footer class="site-footer">
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand">Morning Edition</div>
+      <div class="footer-meta">
+        Hacker News キュレーション · 2026年6月15日 · Issue No.054<br>
+        毎朝、厳選10本をお届け
+      </div>
+    </div>
+    <button class="export-btn" onclick="exportFeedback()">📋 フィードバックをコピー</button>
+  </div>
+  <div class="footer-note">
+    ⭐ 興味あり / ✕ 興味なし ボタンで次回のキュレーションが改善されます。Chrome/Edgeでは自動保存、その他ではボタンでクリップボードにコピーしてください。
+  </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  const FEEDBACK_KEY = 'morning-edition-feedback-v2';
+  const TODAY = '2026-06-15';
+  let _dirHandle = null;
+
+  async function getDir(forcePrompt) {
+    if (_dirHandle && !forcePrompt) return _dirHandle;
+    if (!window.showDirectoryPicker) return null;
+    try {
+      _dirHandle = await window.showDirectoryPicker({ mode: 'readwrite', id: 'morning-edition', startIn: 'documents' });
+      return _dirHandle;
+    } catch { return null; }
+  }
+
+  async function writeJSON(dirHandle, fb) {
+    const fileHandle = await dirHandle.getFileHandle('feedback.json', { create: true });
+    const writable = await fileHandle.createWritable();
+    await writable.write(JSON.stringify({ ...fb, updatedAt: new Date().toISOString() }, null, 2));
+    await writable.close();
+  }
+
+  function showToast(msg, isErr) {
+    const el = document.getElementById('toast');
+    el.textContent = msg;
+    el.className = 'toast' + (isErr ? ' error' : '');
+    requestAnimationFrame(() => el.classList.add('show'));
+    clearTimeout(el._timer);
+    el._timer = setTimeout(() => el.classList.remove('show'), 3000);
+  }
+
+  function getFeedback() {
+    try { return JSON.parse(localStorage.getItem(FEEDBACK_KEY) || '{"liked":{},"disliked":{}}'); }
+    catch { return { liked: {}, disliked: {} }; }
+  }
+  function saveFeedback(fb) { localStorage.setItem(FEEDBACK_KEY, JSON.stringify(fb)); }
+
+  async function autoSave(fb) {
+    let dir = await getDir();
+    if (!dir) {
+      showToast('📁 Daily News フォルダを選択してください', true);
+      dir = await getDir(true);
+      if (!dir) { showToast('保存をキャンセルしました', true); return; }
+    }
+    try {
+      await writeJSON(dir, fb);
+      showToast('✓ feedback.json を自動保存しました（次回キュレーションに反映）');
+    } catch (e) {
+      showToast('保存エラー: ' + e.message, true);
+    }
+  }
+
+  async function toggleFlag(storyId, title, type) {
+    const fb = getFeedback();
+    fb.liked = fb.liked || {};
+    fb.disliked = fb.disliked || {};
+    const likeBtn    = document.querySelector(`.flag-btn.like-btn[data-story="${storyId}"]`);
+    const dislikeBtn = document.querySelector(`.flag-btn.dislike-btn[data-story="${storyId}"]`);
+    if (type === 'like') {
+      if (fb.liked[storyId]) {
+        delete fb.liked[storyId];
+        likeBtn?.classList.remove('active');
+      } else {
+        fb.liked[storyId] = { title, date: TODAY };
+        delete fb.disliked[storyId];
+        likeBtn?.classList.add('active');
+        dislikeBtn?.classList.remove('active');
+      }
+    } else {
+      if (fb.disliked[storyId]) {
+        delete fb.disliked[storyId];
+        dislikeBtn?.classList.remove('active');
+      } else {
+        fb.disliked[storyId] = { title, date: TODAY };
+        delete fb.liked[storyId];
+        dislikeBtn?.classList.add('active');
+        likeBtn?.classList.remove('active');
+      }
+    }
+    saveFeedback(fb);
+    await autoSave(fb);
+  }
+
+  function exportFeedback() {
+    const fb = getFeedback();
+    const json = JSON.stringify({ ...fb, exportedAt: new Date().toISOString() }, null, 2);
+    navigator.clipboard.writeText(json)
+      .then(() => showToast('📋 クリップボードにコピーしました'))
+      .catch(() => {
+        const el = document.createElement('textarea');
+        el.value = json; document.body.appendChild(el); el.select();
+        document.execCommand('copy'); document.body.removeChild(el);
+        showToast('📋 クリップボードにコピーしました');
+      });
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const fb = getFeedback();
+    document.querySelectorAll('.flag-btn').forEach(btn => {
+      const id   = btn.dataset.story;
+      const type = btn.dataset.type;
+      if ((type === 'like' && fb.liked?.[id]) || (type === 'dislike' && fb.disliked?.[id])) {
+        btn.classList.add('active');
+      }
+    });
+  });
+</script>
+</body>
+</html>
