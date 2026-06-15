@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Morning Edition — 2026年6月16日</title>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --font: 'M PLUS Rounded 1c', 'Hiragino Sans', 'Noto Sans JP', sans-serif; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); background: #111; color: #fff; overflow-x: hidden; }
+
+    .masthead { background: #fff; color: #000; padding: 3rem 4rem 2.5rem; border-bottom: 6px solid #000; position: relative; overflow: hidden; }
+    .masthead::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: repeating-linear-gradient(90deg, #000 0, #000 12px, transparent 12px, transparent 20px); }
+    .masthead-kicker { font-size: 0.85rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: #777; margin-bottom: 0.6rem; }
+    .masthead-title { font-size: clamp(3.5rem, 9vw, 7.5rem); font-weight: 900; line-height: 0.88; letter-spacing: -0.04em; margin-bottom: 1.8rem; }
+    .masthead-meta { display: flex; gap: 3rem; align-items: baseline; flex-wrap: wrap; }
+    .masthead-date { font-size: 1.5rem; font-weight: 700; }
+    .masthead-subtitle { font-size: 1rem; font-weight: 400; color: #555; max-width: 480px; line-height: 1.5; }
+    .masthead-issue { margin-left: auto; text-align: right; }
+    .masthead-issue span { display: block; }
+    .masthead-issue .iss-label { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: #999; }
+    .masthead-issue .iss-num { font-size: 2.2rem; font-weight: 900; color: #000; }
+
+    .toc { background: #1a1a1a; padding: 1.5rem 4rem; display: flex; gap: 1.5rem; flex-wrap: wrap; border-bottom: 1px solid #333; }
+    .toc a { color: #aaa; text-decoration: none; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; transition: color 0.2s; }
+    .toc a:hover { color: #fff; }
+    .toc-num { color: #555; margin-right: 0.3em; }
+
+    .story { position: relative; overflow: hidden; }
+    .story-inner { max-width: 1200px; margin: 0 auto; padding: 5rem 4rem; position: relative; z-index: 1; }
+    .story-num { font-size: clamp(6rem, 18vw, 16rem); font-weight: 900; line-height: 0.8; letter-spacing: -0.06em; opacity: 0.08; position: absolute; top: 1rem; right: 2rem; user-select: none; }
+    .story-badge { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.35em 0.9em; border-radius: 2px; margin-bottom: 1.5rem; }
+    .direct-badge { background: #FFD700; color: #000; }
+    .story-kicker { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; opacity: 0.6; margin-bottom: 0.8rem; }
+    .story-headline { font-size: clamp(2rem, 5vw, 4rem); font-weight: 900; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+    .story-body { font-size: clamp(1rem, 1.5vw, 1.2rem); font-weight: 400; line-height: 1.8; max-width: 680px; opacity: 0.88; margin-bottom: 2rem; }
+    .story-meta { display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center; font-size: 0.8rem; font-weight: 700; opacity: 0.5; }
+    .story-links { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem; }
+    .story-link { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.6em 1.4em; border-radius: 3px; text-decoration: none; transition: opacity 0.2s, transform 0.15s; }
+    .story-link:hover { opacity: 0.75; transform: translateY(-1px); }
+
+    .feedback-buttons { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .flag-btn { background: none; border: 1px solid currentColor; color: inherit; font-family: var(--font); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.5em 1em; border-radius: 3px; cursor: pointer; opacity: 0.32; transition: opacity 0.2s, background 0.2s, color 0.2s, border-color 0.2s, transform 0.15s; }
+    .flag-btn:hover { opacity: 0.72; transform: translateY(-1px); }
+    .flag-btn.like-btn.active { opacity: 1; background: rgba(255,215,0,0.15); border-color: #FFD700; color: #FFD700 !important; }
+    .flag-btn.dislike-btn.active { opacity: 1; background: rgba(255,60,60,0.12); border-color: #FF4444; color: #FF4444 !important; }
+
+    .toast { position: fixed; bottom: 2rem; right: 2rem; background: #1a1a1a; color: #fff; font-family: var(--font); font-size: 0.82rem; font-weight: 700; padding: 0.75em 1.4em; border-radius: 4px; border-left: 3px solid #00C853; z-index: 9999; opacity: 0; transform: translateY(10px); transition: opacity 0.25s, transform 0.25s; pointer-events: none; box-shadow: 0 4px 24px rgba(0,0,0,0.45); }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    .toast.error { border-left-color: #FF5252; }
+
+    .story-1 { background: #fff; color: #000; min-height: 90vh; display: flex; flex-direction: column; justify-content: center; }
+    .story-1 .story-num { color: #000; opacity: 0.04; }
+    .story-1 .story-kicker { color: #555; opacity: 1; }
+    .story-1 .story-headline { color: #000; }
+    .story-1 .story-body { color: #111; }
+    .story-1 .story-meta { color: #000; }
+    .story-1 .story-link.primary { background: #1a1a1a; color: #fff; }
+    .story-1 .story-link.secondary { background: #f0f0f0; color: #000; }
+    .story-1 .flag-btn { color: #000; }
+    .story-1-accent { position: absolute; bottom: 0; left: 0; width: 100%; height: 8px; background: linear-gradient(90deg, #1a1a1a, #555, #999, #1a1a1a); }
+    .story-1 .headline-accent { display: inline-block; background: linear-gradient(135deg, #1a1a1a 0%, #555 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .dos-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1.2rem; margin: 2rem 0; max-width: 680px; }
+    .dos-card { border: 2px solid rgba(0,0,0,0.12); background: rgba(0,0,0,0.04); border-radius: 6px; padding: 1.3rem 1.5rem; }
+    .dos-card-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.2em; text-transform: uppercase; color: #333; margin-bottom: 0.4rem; }
+    .dos-card-value { font-size: 1.05rem; font-weight: 900; color: #000; line-height: 1.3; }
+    .dos-card-sub { font-size: 0.75rem; color: #555; margin-top: 0.3rem; line-height: 1.4; }
+
+    .story-2 { background: #00080c; color: #b8f0ff; min-height: 80vh; }
+    .story-2::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(0,160,200,0.14) 0%, transparent 65%); }
+    .story-2 .story-num { color: #00A0C8; opacity: 0.07; }
+    .story-2 .story-kicker { color: #20C8E8; opacity: 1; }
+    .story-2 .story-headline { color: #e0f8ff; }
+    .story-2 .story-body { color: #b8f0ff; }
+    .story-2 .story-meta { color: #20C8E8; opacity: 0.5; }
+    .story-2 .story-link.primary { background: #004058; color: #80e8ff; }
+    .story-2 .story-link.secondary { background: rgba(0,160,200,0.08); color: #90d8f0; border: 1px solid rgba(0,160,200,0.22); }
+    .story-2 .flag-btn { color: #b8f0ff; }
+    .teal-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .teal-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(0,160,200,0.07); border-left: 3px solid #00A0C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .teal-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20C8E8; margin-bottom: 0.3rem; }
+    .teal-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-3 { background: #0a0000; color: #fff; min-height: 80vh; }
+    .story-3::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(200,20,20,0.16) 0%, transparent 65%); }
+    .story-3 .story-num { color: #C81414; opacity: 0.07; }
+    .story-3 .story-kicker { color: #E84040; opacity: 1; }
+    .story-3 .story-headline { color: #fff; }
+    .story-3 .story-body { color: rgba(255,255,255,0.88); }
+    .story-3 .story-meta { color: #E84040; opacity: 0.5; }
+    .story-3 .story-link.primary { background: #6a0000; color: #fff; }
+    .story-3 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-3 .flag-btn { color: #fff; }
+    .red-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .red-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(200,20,20,0.07); border-left: 3px solid #C81414; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .red-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E84040; margin-bottom: 0.3rem; }
+    .red-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-4 { background: #020c04; color: #c8f0d0; min-height: 80vh; }
+    .story-4::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(20,160,70,0.16) 0%, transparent 65%); }
+    .story-4 .story-num { color: #14A046; opacity: 0.07; }
+    .story-4 .story-kicker { color: #30C060; opacity: 1; }
+    .story-4 .story-headline { color: #e0ffe8; }
+    .story-4 .story-body { color: #c8f0d0; }
+    .story-4 .story-meta { color: #30C060; opacity: 0.5; }
+    .story-4 .story-link.primary { background: #063820; color: #80ffb0; }
+    .story-4 .story-link.secondary { background: rgba(20,160,70,0.08); color: #a0e8b0; border: 1px solid rgba(20,160,70,0.22); }
+    .story-4 .flag-btn { color: #c8f0d0; }
+    .green-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .green-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(20,160,70,0.07); border-left: 3px solid #14A046; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .green-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #30C060; margin-bottom: 0.3rem; }
+    .green-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-5 { background: #040010; color: #d8c8ff; min-height: 75vh; }
+    .story-5::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(90,40,200,0.17) 0%, transparent 65%); }
+    .story-5 .story-num { color: #5A28C8; opacity: 0.07; }
+    .story-5 .story-kicker { color: #8050E0; opacity: 1; }
+    .story-5 .story-headline { color: #f0e8ff; }
+    .story-5 .story-body { color: #d8c8ff; }
+    .story-5 .story-meta { color: #8050E0; opacity: 0.5; }
+    .story-5 .story-link.primary { background: #200860; color: #d0a8ff; }
+    .story-5 .story-link.secondary { background: rgba(90,40,200,0.08); color: #c0a0f0; border: 1px solid rgba(90,40,200,0.22); }
+    .story-5 .flag-btn { color: #d8c8ff; }
+    .purple-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .purple-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(90,40,200,0.07); border-left: 3px solid #5A28C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .purple-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #8050E0; margin-bottom: 0.3rem; }
+    .purple-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-6 { background: #000c10; color: #b8e8f0; min-height: 75vh; }
+    .story-6::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 40%, rgba(0,130,160,0.14) 0%, transparent 65%); }
+    .story-6 .story-num { color: #0080A0; opacity: 0.07; }
+    .story-6 .story-kicker { color: #20B0D0; opacity: 1; }
+    .story-6 .story-headline { color: #e0f4ff; }
+    .story-6 .story-body { color: #b8e8f0; }
+    .story-6 .story-meta { color: #20B0D0; opacity: 0.5; }
+    .story-6 .story-link.primary { background: #003848; color: #80d8f0; }
+    .story-6 .story-link.secondary { background: rgba(0,130,160,0.08); color: #90cce0; border: 1px solid rgba(0,130,160,0.22); }
+    .story-6 .flag-btn { color: #b8e8f0; }
+    .cyan-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(185px, 1fr)); gap: 1rem; margin: 2rem 0; max-width: 680px; }
+    .cyan-card { background: rgba(0,130,160,0.07); border: 1px solid rgba(0,130,160,0.22); border-radius: 4px; padding: 1.2rem 1.4rem; }
+    .cyan-card-name { font-size: 0.78rem; font-weight: 900; color: #20B0D0; margin-bottom: 0.4rem; }
+    .cyan-card-desc { font-size: 0.72rem; opacity: 0.75; line-height: 1.4; }
+
+    .story-7 { background: #0a0300; color: #ffe0b8; min-height: 75vh; }
+    .story-7::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(210,90,20,0.18) 0%, transparent 65%); }
+    .story-7 .story-num { color: #D05A14; opacity: 0.07; }
+    .story-7 .story-kicker { color: #E88040; opacity: 1; }
+    .story-7 .story-headline { color: #fff0d8; }
+    .story-7 .story-body { color: #ffe0b8; }
+    .story-7 .story-meta { color: #E88040; opacity: 0.5; }
+    .story-7 .story-link.primary { background: #6a2400; color: #ffc880; }
+    .story-7 .story-link.secondary { background: rgba(210,90,20,0.08); color: #ffb870; border: 1px solid rgba(210,90,20,0.22); }
+    .story-7 .flag-btn { color: #ffe0b8; }
+    .amber-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .amber-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(210,90,20,0.07); border-left: 3px solid #D05A14; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .amber-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E88040; margin-bottom: 0.3rem; }
+    .amber-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-8 { background: #080500; color: #fff; min-height: 70vh; }
+    .story-8::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,145,10,0.15) 0%, transparent 65%); }
+    .story-8 .story-num { color: #BE9110; opacity: 0.06; }
+    .story-8 .story-kicker { color: #D4A820; opacity: 1; }
+    .story-8 .story-headline { color: #fff; }
+    .story-8 .story-body { color: rgba(255,255,255,0.88); }
+    .story-8 .story-meta { color: #D4A820; opacity: 0.5; }
+    .story-8 .story-link.primary { background: #604000; color: #ffe070; }
+    .story-8 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-8 .flag-btn { color: #fff; }
+    .gold-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .gold-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(190,145,10,0.07); border-left: 3px solid #BE9110; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .gold-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #D4A820; margin-bottom: 0.3rem; }
+    .gold-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-9 { background: #040810; color: #c8d8f0; min-height: 70vh; }
+    .story-9::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 35%, rgba(50,90,170,0.16) 0%, transparent 65%); }
+    .story-9 .story-num { color: #3258A8; opacity: 0.07; }
+    .story-9 .story-kicker { color: #5878C8; opacity: 1; }
+    .story-9 .story-headline { color: #e8f0ff; }
+    .story-9 .story-body { color: #c8d8f0; }
+    .story-9 .story-meta { color: #5878C8; opacity: 0.5; }
+    .story-9 .story-link.primary { background: #101e50; color: #fff; }
+    .story-9 .story-link.secondary { background: rgba(50,90,170,0.08); color: #b0c8e8; border: 1px solid rgba(50,90,170,0.22); }
+    .story-9 .flag-btn { color: #c8d8f0; }
+    .slate-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .slate-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(50,90,170,0.07); border-left: 3px solid #3258A8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .slate-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #5878C8; margin-bottom: 0.3rem; }
+    .slate-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-10 { background: #080004; color: #ffc8e8; min-height: 70vh; }
+    .story-10::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,20,90,0.15) 0%, transparent 65%); }
+    .story-10 .story-num { color: #BE1458; opacity: 0.07; }
+    .story-10 .story-kicker { color: #E04080; opacity: 1; }
+    .story-10 .story-headline { color: #fff0f8; }
+    .story-10 .story-body { color: #ffc8e8; }
+    .story-10 .story-meta { color: #E04080; opacity: 0.5; }
+    .story-10 .story-link.primary { background: #500030; color: #ffb0d8; }
+    .story-10 .story-link.secondary { background: rgba(190,20,90,0.08); color: #f090c0; border: 1px solid rgba(190,20,90,0.22); }
+    .story-10 .flag-btn { color: #ffc8e8; }
+    .mag-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .mag-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(190,20,90,0.07); border-left: 3px solid #BE1458; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .mag-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E04080; margin-bottom: 0.3rem; }
+    .mag-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .site-footer { background: #000; color: #555; padding: 3rem 4rem; display: flex; flex-direction: column; gap: 1.5rem; border-top: 1px solid #222; }
+    .footer-top { display: flex; gap: 2rem; align-items: center; flex-wrap: wrap; justify-content: space-between; }
+    .footer-brand { font-size: 1.4rem; font-weight: 900; color: #fff; }
+    .footer-meta { font-size: 0.75rem; line-height: 1.6; }
+    .export-btn { background: #222; border: 1px solid #444; color: #fff; font-family: var(--font); font-size: 0.8rem; font-weight: 700; padding: 0.7em 1.5em; border-radius: 3px; cursor: pointer; letter-spacing: 0.08em; transition: background 0.2s; }
+    .export-btn:hover { background: #333; }
+    .footer-note { font-size: 0.7rem; opacity: 0.5; }
+
+    @media (max-width: 768px) {
+      .masthead, .toc, .story-inner, .site-footer { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .story-num { display: none; }
+      .masthead-meta { gap: 1rem; }
+      .masthead-issue { margin-left: 0; }
+      .dos-grid, .cyan-cards { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+<nav style="background:#1a1a1a;border-bottom:1px solid #333;padding:0.55rem 2rem;font-family:'M PLUS Rounded 1c','Hiragino Sans','Noto Sans JP',sans-serif;position:sticky;top:0;z-index:999;">
+  <a href="./index.html" style="color:#aaa;text-decoration:none;font-size:0.8rem;font-weight:700;letter-spacing:0.03em;display:inline-flex;align-items:center;gap:0.4rem;transition:color 0.15s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#aaa'">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    アーカイブへ戻る
+  </a>
+</nav>
+
+<header class="masthead">
+  <div class="masthead-kicker">Hacker News — Morning Edition</div>
+  <h1 class="masthead-title">Morning<br>Edition</h1>
+  <div class="masthead-meta">
+    <div>
+      <div class="masthead-date">2026年6月16日 火曜日</div>
+      <div class="masthead-subtitle">AI・開発ツール・プライバシー・サイエンス — あなたのための10本</div>
+    </div>
+    <div class="masthead-issue">
+      <span class="iss-label">Issue</span>
+      <span class="iss-num">No.055</span>
+    </div>
+  </div>
+</header>
+
+<nav class="toc">
+  <a href="#s1"><span class="toc-num">01</span>⚡ ローカルモデルでClaude/GPTを置き換えた人はいる?——HN大討論</a>
+  <a href="#s2"><span class="toc-num">02</span>Iroh 1.0——P2Pネットワークライブラリが正式リリース</a>
+  <a href="#s3"><span class="toc-num">03</span>LinkedInの求人オファーに仕込まれたバックドア</a>
+  <a href="#s4"><span class="toc-num">04</span>Typst 0.15.0——次世代組版システムの最新版</a>
+  <a href="#s5"><span class="toc-num">05</span>銅輸送薬がアルツハイマーの記憶を回復——モナシュ大研究</a>
+  <a href="#s6"><span class="toc-num">06</span>ホームラボAI開発プラットフォームを自作した話</a>
+  <a href="#s7"><span class="toc-num">07</span>RustとC/C++のメモリ安全CVEはどう違うか</a>
+  <a href="#s8"><span class="toc-num">08</span>手作りの真空管のためにガラスと金属を封着する方法</a>
+  <a href="#s9"><span class="toc-num">09</span>TimescaleDBが時系列データを圧縮する仕組み</a>
+  <a href="#s10"><span class="toc-num">10</span>Fata——AIコーディングによるスキル劣化と戦う間隔反復ツール</a>
+</nav>
+
+<!-- ═══ STORY 1 — Ask HN: Local model vs Claude/GPT ════════════════════════ -->
+<section class="story story-1" id="s1">
+  <div class="story-num">01</div>
+  <div class="story-inner">
+    <div class="story-badge direct-badge">⚡ あなたに直接関係</div>
+    <div class="story-kicker">AI / DEVELOPER TOOLS / ASK HN — 「ローカルモデルで日常的なコーディングをClaude/GPTから置き換えた人はいるか?」 524ポイント・260コメントの大討論</div>
+    <h2 class="story-headline">
+      ローカルモデルで<br>Claude/GPTを<br><span class="headline-accent">置き換えられるか</span><br>——HN大討論
+    </h2>
+    <div class="story-body">
+      「日常のコーディングにClaude/GPTの代わりにローカルモデルを使っている人はいるか?」というAsk HNが524ポイント・260コメントを集め、今日の最大の議論となっています。スレッドを立てたcloudkingの問いはシンプルですが、回答は二極化しています。「完全移行できた」派はQwen2.5-Coder 32B、DeepSeek-Coder V2などをローカルで動かし、「クラウドAPIのコストが月額$50〜200の節約になった」「プライバシーが確保できる」「インターネット不要で使える」という利点を挙げます。一方「やはりClaudeには戻る」派は、「ローカルモデルは自動補完やシンプルなタスクには十分だが、複雑なリファクタリングや設計の議論ではClaude Sonnet/Opusの差が明らか」「コンテキストウィンドウの長さが決定的」と主張します。ハードウェア要件も議論の焦点で、Mac M3 Max（128GB RAM）やNVIDIA RTX 4090（24GB VRAM）を持つユーザーは高品質なローカル推論が可能ですが、そうでない場合は品質で妥協が必要となります。興味深いのは「ハイブリッド戦略」を取るユーザーが多いこと——自動補完と簡単なタスクはローカルのCodestralやQwen2.5-Coder、複雑な設計・バグ調査・コードレビューはClaudeというように使い分けているという報告が多数あります。HNでは「ローカルモデルは『コーディングアシスタント』として見れば十分——でもClaudeのような『思考パートナー』としての使い方は代替できない」「Ollamaでqwen2.5-coder:32bを動かしているが、既存コードの理解・変換・パターン適用はほぼ問題なし。新規設計の議論はClaudeが圧倒」「ハードウェアへの初期投資を回収するにはどれだけ使うか次第——月に$100以上使っているなら半年でペイアウトかも」「重要なのはtask selection——全部ローカルにしようとするから失敗する。80%の単純タスクをローカルで捌いてAPIコストを減らすという考え方が現実的」という260コメントが続いています。
+    </div>
+    <div class="dos-grid">
+      <div class="dos-card">
+        <div class="dos-card-label">完全移行できたモデル</div>
+        <div class="dos-card-value">Qwen2.5-Coder 32B / DeepSeek-Coder V2</div>
+        <div class="dos-card-sub">HNで最も多く名前が挙がったローカルコーディングモデル。32B以上のパラメータで自動補完・バグ修正・テスト生成は実用レベル。Ollamaで簡単に動かせる</div>
+      </div>
+      <div class="dos-card">
+        <div class="dos-card-label">必要ハードウェア</div>
+        <div class="dos-card-value">Mac M3 Max 128GB or RTX 4090 24GB</div>
+        <div class="dos-card-sub">32Bモデルをまともな速度で動かすには128GB統合メモリ（Apple Silicon）か24GB VRAM（NVIDIA RTX 4090）が現実的な最低ライン。それ以下では7B〜14Bで妥協</div>
+      </div>
+      <div class="dos-card">
+        <div class="dos-card-label">ハイブリッド戦略</div>
+        <div class="dos-card-value">ローカル80% + Claude20%</div>
+        <div class="dos-card-sub">最も多かった回答パターン。自動補完・単純変換・boilerplate生成はローカルモデル、複雑な設計・アーキテクチャ議論・難解バグはClaudeというタスク分担が合理的</div>
+      </div>
+      <div class="dos-card">
+        <div class="dos-card-label">Claudeが優位な領域</div>
+        <div class="dos-card-value">コンテキスト理解・設計議論・コードレビュー</div>
+        <div class="dos-card-sub">大きなコードベースを跨いだ理解、複数ファイルにまたがるリファクタリング、「なぜこう設計するか」の説明能力——260コメントの多数がここではClaudeが依然優位と認める</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: Hacker News (Ask HN)</span>
+      <span>524 ポイント</span>
+      <span>260 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://news.ycombinator.com/item?id=48542100" target="_blank">HN議論を読む →</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="local-model-vs-claude-coding" data-type="like" onclick="toggleFlag('local-model-vs-claude-coding','ローカルモデルでClaude/GPTを置き換えた人はいる?——HN大討論','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="local-model-vs-claude-coding" data-type="dislike" onclick="toggleFlag('local-model-vs-claude-coding','ローカルモデルでClaude/GPTを置き換えた人はいる?——HN大討論','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+  <div class="story-1-accent"></div>
+</section>
+
+<!-- ═══ STORY 2 — Iroh 1.0 ═══════════════════════════════════════════════════ -->
+<section class="story story-2" id="s2">
+  <div class="story-num">02</div>
+  <div class="story-inner">
+    <div class="story-kicker">DEVELOPER TOOLS / P2P / NETWORKING / OPEN SOURCE — P2Pネットワーキングライブラリ「Iroh」がv1.0に到達。822ポイント・261コメントの週最高スコア記事</div>
+    <h2 class="story-headline">
+      Iroh 1.0——<br>P2Pネットワークを<br>シンプルにする<br>ライブラリが正式版へ
+    </h2>
+    <div class="story-body">
+      Rustで書かれたP2P（ピアツーピア）ネットワーキングライブラリ「Iroh」がv1.0に到達し、今日のHNで822ポイント・261コメントという週最高スコアを記録しています。Irohは「P2Pを難しくしない」をミッションに開発されたオープンソースライブラリで、NATトラバーサル・エンドツーエンド暗号化・コネクションの確立を抽象化し、開発者がP2P機能をアプリケーションに組み込む際の複雑さを大幅に削減します。NAT越えのためのSTUN/TURNプロトコルの実装や、MagicSocketと呼ばれる独自のトランスポート層を持ち、UDP直接接続できない場合も中継サーバーを通じて接続を確立します。実用的な用途としてはファイル同期、ローカルネットワーク上のデバイス発見、オフラインファーストのコラボレーションアプリ、分散型のデータ共有などが挙げられており、実際にIrohを使ったアプリが既に存在します。v1.0では安定したAPIが約束され、本番環境での利用が現実的になりました。HNでは「IrohのMagicSocketの実装が天才的——NATトラバーサルとUDP/TCP/QUIC間の自動フォールバックを透過的に扱う」「LibreP2PやlibP2Pと何が違うのか——Irohは複雑さを減らすことに特化している点が差別化ポイント」「WireGuardのようにシンプルさを追求したP2Pライブラリが必要だった——Iroh 1.0はその答えかもしれない」「分散型AIエージェントのコミュニケーション基盤としてIrohを使う研究プロジェクトが増えそう」という261コメントが展開中です。
+    </div>
+    <div class="teal-items">
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">Irohが解決する問題</div>
+          <div class="teal-text">P2P通信の最大の障壁はNAT（ネットワークアドレス変換）——家庭やオフィスのルーターの背後にいる二台のデバイスが直接通信するのは難しい。Irohは複雑なNATトラバーサル・鍵交換・暗号化を全て抽象化し、「接続先のノードIDを知っていれば繋がれる」という直感的なAPIを提供</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">核心技術：MagicSocket</div>
+          <div class="teal-text">Irohの独自トランスポート層。①まずUDP直接接続を試みる②失敗したら中継サーバー（DERP）を経由③接続確立後も定期的に直接経路を再探索してレイテンシを改善。アプリ側から見ると単純なソケットAPIで、裏側の複雑さは完全に隠蔽されている</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">実用的な使い方</div>
+          <div class="teal-text">①オフラインファーストのファイル同期（同一LANでもインターネット経由でも同じAPI）②ローカルAIエージェント間の安全な通信③ゲームのP2Pマルチプレイヤー④リモートデバイス管理ツール。Rustクレートとして利用可能。Python・Node.jsバインディングも開発中</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: iroh.computer</span>
+      <span>822 ポイント</span>
+      <span>261 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.iroh.computer/blog/v1" target="_blank">リリースを読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48542480" target="_blank">HN議論 (261)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="iroh-1-0" data-type="like" onclick="toggleFlag('iroh-1-0','Iroh 1.0——P2Pネットワークをシンプルにするライブラリが正式版へ','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="iroh-1-0" data-type="dislike" onclick="toggleFlag('iroh-1-0','Iroh 1.0——P2Pネットワークをシンプルにするライブラリが正式版へ','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 3 — LinkedIn backdoor ════════════════════════════════════════ -->
+<section class="story story-3" id="s3">
+  <div class="story-num">03</div>
+  <div class="story-inner">
+    <div class="story-kicker">SECURITY / SOCIAL ENGINEERING / ACTIONABLE — LinkedInの偽の求人オファーに巧妙なバックドアが仕込まれていた実例報告。364ポイント・77コメント</div>
+    <h2 class="story-headline">
+      LinkedInの<br>求人オファーに<br>仕込まれた<br>バックドア
+    </h2>
+    <div class="story-body">
+      セキュリティ研究者のRomanが、LinkedInで受け取った「魅力的な求人メッセージ」に巧妙なバックドアが仕込まれていたという実例を詳細に報告し、364ポイント・77コメントを集めています。攻撃の手口はこうです——LinkedInで実在する企業を装った採用担当者から接触があり、技術評価（テクニカルアセスメント）として「GitHubにある私たちのプロジェクトをビルドして動かしてみてください」という依頼が来ます。リポジトリは一見普通のNode.jsプロジェクトですが、package.jsonのpostinstallスクリプトにマルウェアが仕込まれていました。npm installを実行した瞬間に、バックグラウンドで攻撃者のサーバーに接続するリバースシェルが起動します。被害者が気づかないうちに開発者マシン上の認証情報・SSHキー・環境変数・AWS/GCPのクレデンシャルが全て盗まれます。この攻撃手法は「VMware採用詐欺」「Lazarus Group（北朝鮮系APT）」など国家レベルの攻撃者が使うことで知られており、実際に過去の仮想通貨交換所ハックでも同じパターンが確認されています。Romanの記事は攻撃の具体的な証跡・コードの解析・防御策まで詳細にまとめており、開発者必読の内容です。HNでは「これは有名な北朝鮮のIT採用詐欺と全く同じパターン——VMwareやCoinbase関連の事例と酷似している」「『テクニカルアセスメントのリポジトリをローカルで動かして』というのはレッドフラグ——VMや使い捨て環境以外では絶対にやらない」「npm install一発でやられる——package.jsonのpostinstallは最初に確認すべき攻撃面」「LinkedInは採用プロセスを悪用した攻撃が増えており、ベクターとして成熟してしまっている——プラットフォーム側の対策が必要」という77コメントが展開中です。
+    </div>
+    <div class="red-items">
+      <div class="red-item">
+        <div>
+          <div class="red-label">攻撃の流れ</div>
+          <div class="red-text">①LinkedInで偽採用担当者から接触②「テクニカルアセスメントとしてこのリポジトリを動かしてみて」③被害者がリポジトリをクローンしnpm installを実行④postinstallスクリプトがバックグラウンドでリバースシェルを起動⑤SSHキー・環境変数・クレデンシャル・ブラウザの認証情報が全て流出</div>
+        </div>
+      </div>
+      <div class="red-item">
+        <div>
+          <div class="red-label">今すぐできる防衛策</div>
+          <div class="red-text">①知らないリポジトリは必ずVMか使い捨てのDocker環境でビルド——ホストマシンでは絶対にやらない②npm installの前にpackage.jsonの「scripts」セクションを確認——postinstall・preinstall・prepareが怪しい③採用プロセスの外部リポジトリ実行要求は即レッドフラグ④~/.ssh・.env・~/.awsに機密情報を置くなら暗号化を</div>
+        </div>
+      </div>
+      <div class="red-item">
+        <div>
+          <div class="red-label">背景：LinkedInを使ったAPT攻撃</div>
+          <div class="red-text">この手口はLazarus Group（北朝鮮系国家APT）がブロックチェーン・仮想通貨企業を狙う際に多用することで知られている。2022年のAxie Infinity（Ronin Bridge）ハックでは同様の手法でエンジニアのマシンを侵害し$625Mを盗んだ。開発者個人が標的になる時代——採用メッセージを受け取ったらまず疑うことが重要</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: roman.pt</span>
+      <span>364 ポイント</span>
+      <span>77 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://roman.pt/posts/linkedin-backdoor/" target="_blank">詳細を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48546294" target="_blank">HN議論 (77)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="linkedin-backdoor" data-type="like" onclick="toggleFlag('linkedin-backdoor','LinkedInの求人オファーに仕込まれたバックドア','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="linkedin-backdoor" data-type="dislike" onclick="toggleFlag('linkedin-backdoor','LinkedInの求人オファーに仕込まれたバックドア','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 4 — Typst 0.15.0 ════════════════════════════════════════════ -->
+<section class="story story-4" id="s4">
+  <div class="story-num">04</div>
+  <div class="story-inner">
+    <div class="story-kicker">DEVELOPER TOOLS / TYPESETTING / OPEN SOURCE — LaTeXの後継を目指すモダンな組版システム「Typst」がv0.15.0をリリース。238ポイント・59コメント</div>
+    <h2 class="story-headline">
+      Typst 0.15.0——<br>LaTeXを超えようとする<br>次世代組版システム<br>の最新版
+    </h2>
+    <div class="story-body">
+      LaTeXの後継を目指す次世代組版システム「Typst」がv0.15.0をリリースし、238ポイント・59コメントを集めています。Typstは2023年に登場し、LaTeXの強力な数式・図表組版能力を持ちながら、LaTeXの学習曲線の急峻さ・エラーメッセージの難解さ・コンパイルの遅さという三つの課題を解決しようとしています。Pythonに近い直感的な構文を採用し、Webブラウザ上でリアルタイムプレビューしながら編集できるオンラインエディターも提供しています。v0.15.0の主要な新機能はカスタムページレイアウトの大幅な改善（複雑な学術論文レイアウトへの対応強化）、新しい数式記述のシンタックス（LaTeX数式からの移行がより容易に）、そしてパッケージエコシステムの拡充です。学術論文・技術文書・プレゼンテーションのテンプレートが増え、卒論・修論でTypstを使う学生が増えているという報告もHNのスレッドで見られます。日本語組版の対応も着実に進んでおり、縦書き・ルビ・和文組版ルールへのサポートが改善されています。HNでは「Typstを使い始めて3ヶ月——LaTeXに戻れる気がしない。エラーメッセージが人間語で書いてあるだけで感動する」「数式表示はまだLaTeX/MathJaxが強いが、Typstの数式構文は概ね同じことができて直感的」「大学の授業資料を全部Typstで作っている——リアルタイムプレビューが作業効率を倍にした」「Typst Webエディターに共同編集が来たらOverleafからの大量移行が起きそう」という59コメントが展開中です。
+    </div>
+    <div class="green-items">
+      <div class="green-item">
+        <div>
+          <div class="green-label">LaTeXとの主な違い</div>
+          <div class="green-text">①構文：LaTeXは「\begin{document}」のような複雑なマークアップ、Typstは読みやすい独自構文②コンパイル：LaTeXは複数回コンパイルが必要でPDFが遅い、Typstはインクリメンタルコンパイルでリアルタイムプレビュー③エラー：LaTeXは難解なエラーメッセージ、Typstは行番号付きの明確なエラー④パッケージ：両者ともエコシステムあり、Typstは成長中</div>
+        </div>
+      </div>
+      <div class="green-item">
+        <div>
+          <div class="green-label">0.15.0の主要新機能</div>
+          <div class="green-text">カスタムページレイアウトの改善（ヘッダー・フッター・段組みの柔軟な制御）、数式構文の拡張（ベクトル・行列の新記法）、図表キャプションの配置制御、絵文字の正式サポート、パッケージシステムの改善（バージョン固定・ローカルキャッシュ）。全変更はtypst.app/docs/changelog/0.15.0/に詳細あり</div>
+        </div>
+      </div>
+      <div class="green-item">
+        <div>
+          <div class="green-label">始めるには</div>
+          <div class="green-text">①最速はtypst.appのWebエディター——インストール不要でブラウザ内でリアルタイム編集②ローカル：brew install typstでインストール後typst compile doc.typでPDF生成③VS Code拡張「Typst LSP」でシンタックスハイライトとリアルタイムプレビュー④日本語テンプレートはTypst Universe（packages.typst.app）で検索</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: typst.app</span>
+      <span>238 ポイント</span>
+      <span>59 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://typst.app/docs/changelog/0.15.0/" target="_blank">変更履歴を見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48544396" target="_blank">HN議論 (59)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="typst-0-15-0" data-type="like" onclick="toggleFlag('typst-0-15-0','Typst 0.15.0——LaTeXを超えようとする次世代組版システムの最新版','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="typst-0-15-0" data-type="dislike" onclick="toggleFlag('typst-0-15-0','Typst 0.15.0——LaTeXを超えようとする次世代組版システムの最新版','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 5 — Copper drug Alzheimer's ═════════════════════════════════ -->
+<section class="story story-5" id="s5">
+  <div class="story-num">05</div>
+  <div class="story-inner">
+    <div class="story-kicker">WEIRD SCIENCE / NEUROSCIENCE / MEDICINE — モナシュ大学の研究チームが銅輸送薬によりアルツハイマーの記憶を回復しアミロイドβを除去することを動物実験で実証。215ポイント・81コメント</div>
+    <h2 class="story-headline">
+      銅輸送薬が<br>アルツハイマーの<br>記憶を回復——<br>毒性タンパクも消去
+    </h2>
+    <div class="story-body">
+      オーストラリアのモナシュ大学の研究チームが、銅輸送薬（CuATSM）を使ってアルツハイマー病モデルマウスの記憶を回復させ、同時に脳内の有毒なアミロイドβタンパクを除去することに成功したと報告し、215ポイント・81コメントを集めています。アルツハイマー病の特徴的な病理である「アミロイドプラーク」と「タウタングル」の形成には、脳内の銅代謝の異常が関与しているという仮説は以前から存在していましたが、この研究はCuATSMという薬が脳血液関門を通過して銅の分布を正常化し、毒性タンパクの蓄積を逆転させるという作用機序を詳細に示した点が注目されています。実験ではアルツハイマーモデルマウスへのCuATSM投与後、認知テストで有意な改善が見られ、脳内のアミロイドβの量も測定可能なレベルで減少したとのことです。CuATSMは元々ALS（筋萎縮性側索硬化症）の治療薬として開発されており、既に人間での安全性データが存在するため、アルツハイマーへの転用（drug repurposing）の可能性という観点でも注目されています。HNでは「アルツハイマー研究の歴史は失敗の歴史——アミロイド仮説への多額の投資がことごとく臨床試験で失敗してきた。この研究が別のメカニズムを示している点が興味深い」「銅・亜鉛・鉄などの金属ホメオスタシスとアルツハイマーの関係は長年研究されているが、まだ未解明部分が多い」「マウスモデルで成功した治療法が人間で効かないケースが多い——これも同じ運命をたどる可能性があるが、CuATSMの既存安全性データは希望」「ALS患者向けに既に使われているなら臨床試験フェーズに移行するまでの時間が短縮できる可能性がある」という81コメントが展開中です。
+    </div>
+    <div class="purple-items">
+      <div class="purple-item">
+        <div>
+          <div class="purple-label">銅代謝とアルツハイマーの関係</div>
+          <div class="purple-text">脳内の銅は神経伝達・抗酸化防御・ミエリン合成に不可欠。アルツハイマー患者の脳では銅の分布が異常になり、本来必要な場所（ミトコンドリア等）から不適切な場所（アミロイドプラーク周辺）に偏ることが知られている。CuATSMは銅を本来あるべき場所に輸送することで神経保護効果を発揮すると考えられている</div>
+        </div>
+      </div>
+      <div class="purple-item">
+        <div>
+          <div class="purple-label">CuATSMとは</div>
+          <div class="purple-text">「Copper(II) diacetyl-bis(N4-methylthiosemicarbazone)」の略。脳血液関門（BBB）を通過できる低分子量の銅複合体で、ミトコンドリアに特異的に銅を届ける性質がある。元々はALSの神経変性を抑制する薬として開発。ALS患者での臨床試験でQOL改善の報告あり。既存の安全性データが転用研究の大きな強みになる</div>
+        </div>
+      </div>
+      <div class="purple-item">
+        <div>
+          <div class="purple-label">臨床応用までの道のり</div>
+          <div class="purple-text">動物実験での成功→ヒト臨床試験（Phase I/II/III）→承認という長い道のりがある。アミロイド除去薬（Lecanemab等）が近年承認されたが効果は限定的。CuATSMのアルツハイマーへの転用は現時点では研究段階だが、ALS試験での安全性データがあるため転用試験の開始が比較的早い可能性がある</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: monash.edu</span>
+      <span>215 ポイント</span>
+      <span>81 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.monash.edu/news/articles/copper-drug-restores-memory-and-clears-toxic-alzheimers-proteins" target="_blank">研究を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48542132" target="_blank">HN議論 (81)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="copper-drug-alzheimers-memory" data-type="like" onclick="toggleFlag('copper-drug-alzheimers-memory','銅輸送薬がアルツハイマーの記憶を回復——毒性タンパクも消去','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="copper-drug-alzheimers-memory" data-type="dislike" onclick="toggleFlag('copper-drug-alzheimers-memory','銅輸送薬がアルツハイマーの記憶を回復——毒性タンパクも消去','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 6 — Homelab AI Dev Platform ════════════════════════════════ -->
+<section class="story story-6" id="s6">
+  <div class="story-num">06</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / HOMELAB / DEVELOPER TOOLS / SELF-HOSTED — 自宅ホームラボに本格的なAI開発プラットフォームを構築した詳細レポート。192ポイント・39コメント</div>
+    <h2 class="story-headline">
+      ホームラボAI<br>開発プラットフォームを<br>自作した話——<br>クラウド依存からの脱却
+    </h2>
+    <div class="story-body">
+      エンジニアのrsgmが、自宅のホームラボにGPUサーバーを中心とした本格的なAI開発プラットフォームを構築した詳細なレポートを公開し、192ポイント・39コメントを集めています。単なる「ローカルモデルを動かしてみた」系の記事ではなく、CI/CD・モデルサービング・モニタリング・ベクトルDB・実験管理まで含んだ本格的な開発インフラの構築記録です。ハードウェア構成はNVIDIA RTX 3090 24GB × 2枚を搭載したサーバーにProxmox VEでVMを管理し、Kubernetes（k3s）上にサービスを展開するという構成です。ソフトウェアスタックはOllama（モデルサービング）+ Open WebUI（チャットUI）+ Chroma（ベクトルDB）+ MLflow（実験管理）+ Prometheus + Grafana（モニタリング）というフルスタック構成で、GitHubへのプッシュをトリガーにファインチューニングのパイプラインが自動実行される仕組みまで構築されています。月額コストはクラウドGPUインスタンスと比較して大幅に削減でき、初期投資を18ヶ月で回収できる試算だとのこと。HNでは「Proxmox + k3s + Ollama構成は自分も試している——GPUパススルーの設定が一番ハマった」「企業のMLOpsパイプラインと全く同じ構成をホームラボで再現できている——良い学習環境」「消費電力と冷却が気になる——RTX 3090×2枚はアイドル時でも相当な熱を出すはず」「初期投資$4000〜5000でAPI費用月$200なら25ヶ月で回収——でも楽しみのコストは別に換算すべき」という39コメントが展開中です。
+    </div>
+    <div class="cyan-cards">
+      <div class="cyan-card">
+        <div class="cyan-card-name">ハードウェア構成</div>
+        <div class="cyan-card-desc">RTX 3090（24GB VRAM）× 2枚を搭載したサーバー機。Proxmox VEでVM管理・GPUパススルー。総VRAM 48GBで70Bクラスのモデルを量子化なしで動かせる。冷却はタワー型クーラー + ケースファン強化</div>
+      </div>
+      <div class="cyan-card">
+        <div class="cyan-card-name">ソフトウェアスタック</div>
+        <div class="cyan-card-desc">k3s（軽量Kubernetes）+ Ollama（モデルサービング）+ Open WebUI（フロント）+ Chroma（ベクトルDB）+ MLflow（実験管理）+ Prometheus/Grafana（監視）。GitOpsでGitHubとCI/CD連携</div>
+      </div>
+      <div class="cyan-card">
+        <div class="cyan-card-name">コスト計算</div>
+        <div class="cyan-card-desc">初期投資: RTX 3090×2＋サーバー機で$4,000〜5,000相当。ランニングコスト: 電気代約$30〜40/月。クラウドGPU代替として月$150〜200節約想定。18〜25ヶ月で初期投資回収という試算</div>
+      </div>
+      <div class="cyan-card">
+        <div class="cyan-card-name">自動化パイプライン</div>
+        <div class="cyan-card-desc">GitHubプッシュ→GitHub Actions→ホームラボのk3sクラスターにJobを投入→Ollamaでモデル取得・ファインチューニング実行→MLflowに実験記録→Slackに通知。クラウドMLOpsと同じ体験をローカルで実現</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: rsgm.dev</span>
+      <span>192 ポイント</span>
+      <span>39 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://rsgm.dev/post/ai-dev-platform/" target="_blank">詳細を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48542433" target="_blank">HN議論 (39)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="homelab-ai-dev-platform" data-type="like" onclick="toggleFlag('homelab-ai-dev-platform','ホームラボAI開発プラットフォームを自作した話——クラウド依存からの脱却','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="homelab-ai-dev-platform" data-type="dislike" onclick="toggleFlag('homelab-ai-dev-platform','ホームラボAI開発プラットフォームを自作した話——クラウド依存からの脱却','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 7 — Rust vs C/C++ memory safety CVEs ═══════════════════════ -->
+<section class="story story-7" id="s7">
+  <div class="story-num">07</div>
+  <div class="story-inner">
+    <div class="story-kicker">RUST / SECURITY / SYSTEMS PROGRAMMING — RustとC/C++でメモリ安全性CVEの性質がどう異なるかを実データで分析した研究。89ポイント・87コメント</div>
+    <h2 class="story-headline">
+      RustとC/C++の<br>メモリ安全CVEは<br>どう違うか——<br>データが示す現実
+    </h2>
+    <div class="story-body">
+      Rustコントリビューターのkobzolが、RustとC/C++でメモリ安全性に関するCVE（脆弱性識別子）の性質がどのように異なるかを実データをもとに分析したブログ記事を公開し、89ポイント・87コメントを集めています。「RustはメモリセーフだからCVEがゼロ」という主張が正確かどうかを検証した記事で、結論は「Rustのメモリ安全CVEはゼロではないが、C/C++とは質的に全く異なる」というものです。C/C++のメモリ安全CVEの多くは「use-after-free（解放済みメモリへのアクセス）」「buffer overflow（バッファオーバーフロー）」「null pointer dereference（ヌルポインタ参照）」で、これらはRustのownership systemが静的にほぼ100%防ぐため、Rustコードではほとんど発生しません。一方Rustで見つかるメモリ安全CVEのほぼ全ては「unsafe」ブロック内のコードか、Rustコンパイラ自体のバグか、FFI（外部言語インターフェース）経由でC/C++ライブラリを呼び出す際のものです。実際のCVEデータを見ると、純粋なSafe Rustのコードではメモリ安全CVEはほぼゼロ——これはRustの安全性保証が実際に機能していることを示しています。HNでは「『Rustでもunsafeブロックがあれば同じじゃないか』という批判への最も詳細な反論記事——unsafeを最小化・局所化できることがポイント」「RustのCVEの大半がunsafeブロック起因というのは当然——unsafeを使う箇所を特定してレビューに集中できるという利点につながる」「Google・Microsoft・NSAがRustを推奨する理由が数字で示されている——Chromiumのメモリ安全バグが全バグの70%というデータと合わせて読むべき」「Rustのエコシステムでunsafeへの依存を減らす取り組み（miri、cargo-geiger等）も進んでいる」という87コメントが展開中です。
+    </div>
+    <div class="amber-items">
+      <div class="amber-item">
+        <div>
+          <div class="amber-label">C/C++のメモリ安全CVEの特徴</div>
+          <div class="amber-text">use-after-free・バッファオーバーフロー・ヌルポインタ参照が主要カテゴリ。Chromiumの分析では全セキュリティバグの約70%がメモリ安全問題。Microsoft Windowsでも同様に約70%。これらはRustのownership + borrowing systemが静的解析で防ぐタイプの問題</div>
+        </div>
+      </div>
+      <div class="amber-item">
+        <div>
+          <div class="amber-label">Rustでメモリ安全CVEが起きる場合</div>
+          <div class="amber-text">①「unsafe」ブロック内のコード（Rustがコンパイラチェックをオフにする）②RustコンパイラやSTDライブラリ自体のバグ（非常にまれ）③FFI（C/C++ライブラリの呼び出し）経由で外部の安全でないコードと繋がる部分。Safe Rustだけで書かれたコードのメモリ安全CVEは実質ゼロに近い</div>
+        </div>
+      </div>
+      <div class="amber-item">
+        <div>
+          <div class="amber-label">実践的な示唆</div>
+          <div class="amber-text">「全部Rustに書き換えれば安全」は過言だが「Rustはunsafeを明示的に局所化できるため、セキュリティレビューの集中先が明確になる」のは大きな利点。cargo-geigerでunsafeの場所を可視化、mirでunsafeのランタイム検証が可能。新プロジェクトの言語選定でRustを選ぶ根拠として有用なデータ</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: kobzol.github.io</span>
+      <span>89 ポイント</span>
+      <span>87 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://kobzol.github.io/rust/2026/06/15/how-memory-safety-cves-differ-between-rust-and-c-cpp.html" target="_blank">分析を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48543392" target="_blank">HN議論 (87)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="rust-vs-c-memory-safety-cves" data-type="like" onclick="toggleFlag('rust-vs-c-memory-safety-cves','RustとC/C++のメモリ安全CVEはどう違うか——データが示す現実','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="rust-vs-c-memory-safety-cves" data-type="dislike" onclick="toggleFlag('rust-vs-c-memory-safety-cves','RustとC/C++のメモリ安全CVEはどう違うか——データが示す現実','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 8 — Glass-to-metal seals vacuum tubes ══════════════════════ -->
+<section class="story story-8" id="s8">
+  <div class="story-num">08</div>
+  <div class="story-inner">
+    <div class="story-kicker">DIY / WEIRD SCIENCE / HARDWARE — 手作りの真空管を作るためにガラスと金属を封着する方法を詳細に解説した職人的な作業記録。116ポイント・35コメント</div>
+    <h2 class="story-headline">
+      手作りの真空管のために<br>ガラスと金属を<br>封着する——<br>究極のDIY
+    </h2>
+    <div class="story-body">
+      真空管の自作に挑戦しているmauryczがガラスと金属の封着（ガラス-金属シール）という極めて困難な工程を詳細に解説したブログを公開し、116ポイント・35コメントを集めています。真空管（electron tube/vacuum tube）は現代のトランジスタが登場する前の電子デバイスですが、オーディオ愛好家・アマチュア無線家・電子工作マニアの間で今も自作文化が生きています。真空管の自作における最大の技術的障壁の一つが「ガラスと金属の封着」——真空管は内部を真空（または不活性ガス）に保つ必要があるため、電極のリード線（金属）がガラス管を貫通する部分を完全に気密封着しなければなりません。ガラスと金属は熱膨張係数が大きく異なるため、単純に溶接しても温度変化で割れてしまいます。Kovar合金（ガラスに近い熱膨張係数を持つFe-Ni-Co合金）や鉛ガラスを使った封着、特殊なバーナーでのガラス加工技術など、現代のDIYerが古の職人技術を再現しようとする試行錯誤が詳細に記録されています。HNでは「Youtubeのhighvoltage氏の真空管自作動画を見て以来ずっと気になっていたが、ガラス封着の具体的な手順まで公開したのは貴重」「Kovar合金とボロシリケートガラス（パイレックス）の封着がスタンダード——ただし正確な温度管理が必要で難易度が高い」「このレベルの工作をやっている人がまだいるという事実が好き——インターネット以前の技術が形を変えて生き続けている」「真空引きポンプも自作しているのかが気になる——到達真空度によって使える用途が変わる」という35コメントが展開中です。
+    </div>
+    <div class="gold-items">
+      <div class="gold-item">
+        <div>
+          <div class="gold-label">ガラス-金属封着の基本問題</div>
+          <div class="gold-text">ガラスと金属の熱膨張係数（CTE）が大きく異なるため、単純に接合すると温度変化で応力が生じて割れる。解決策：①Kovar合金を使う（CTEがパイレックスガラスに近い）②低融点の封着用ガラスフリットを中間材として使う③段階的な冷却で残留応力を最小化。商業的な真空管製造では自動化されているが、DIYでは全て手作業</div>
+        </div>
+      </div>
+      <div class="gold-item">
+        <div>
+          <div class="gold-label">必要な材料と道具</div>
+          <div class="gold-text">①Kovar合金ロッド（電極リード線用）②ボロシリケートガラス管（パイレックス等）③プロパン・酸素バーナー（ガラス細工用）④徐冷炉またはバーミキュライトの箱（急冷防止）⑤真空ポンプ（ロータリーポンプ＋ディフュージョンポンプで10^-6 Torrクラスが理想）⑥各種金属電極材料（モリブデン・タングステン等）</div>
+        </div>
+      </div>
+      <div class="gold-item">
+        <div>
+          <div class="gold-label">この技術が面白い理由</div>
+          <div class="gold-text">真空管の自作は現代のICやトランジスタ技術の原点を体験できるほぼ唯一の趣味。ガラス細工・金属加工・真空技術・電子工学が交差する学際的な工作。自作したトライオードが実際に増幅動作する瞬間の達成感は唯一無二。mauryczのシリーズは1から追えば真空管がどのように作られるかを理解できる教育的内容</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: maurycyz.com</span>
+      <span>116 ポイント</span>
+      <span>35 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://maurycyz.com/projects/glass/1/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48528587" target="_blank">HN議論 (35)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="glass-metal-seals-vacuum-tubes" data-type="like" onclick="toggleFlag('glass-metal-seals-vacuum-tubes','手作りの真空管のためにガラスと金属を封着する——究極のDIY','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="glass-metal-seals-vacuum-tubes" data-type="dislike" onclick="toggleFlag('glass-metal-seals-vacuum-tubes','手作りの真空管のためにガラスと金属を封着する——究極のDIY','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 9 — TimescaleDB compression ════════════════════════════════ -->
+<section class="story story-9" id="s9">
+  <div class="story-num">09</div>
+  <div class="story-inner">
+    <div class="story-kicker">DATABASE / POSTGRESQL / TIME-SERIES / DEEP DIVE — TimescaleDBがHypercoreを使って時系列データを圧縮する仕組みを詳細に解説したエンジニアリング記事。94ポイント・14コメント</div>
+    <h2 class="story-headline">
+      TimescaleDBが<br>時系列データを<br>圧縮する仕組み——<br>Hypercoreの内部構造
+    </h2>
+    <div class="story-body">
+      TimescaleDBエンジニアのroszigitが、TimescaleDBの新しいカラム型ストレージエンジン「Hypercore」が時系列データをどのように圧縮・管理するかを詳細に解説したブログを公開し、94ポイント・14コメントを集めています。TimescaleDBはPostgreSQLの拡張として動作する時系列データベースで、センサーデータ・メトリクス・ログなどのユースケースで広く使われています。Hypercoreは行ストレージ（従来のPostgreSQLヒープ）とカラム型ストレージを組み合わせたハイブリッドアプローチで、最近のデータ（ホットデータ）は行ストレージに保持して高速な書き込みを実現し、古いデータ（コールドデータ）はカラム型ストレージに移してデルタ圧縮・配列圧縮・辞書圧縮の組み合わせで最大10〜20倍の圧縮率を達成します。カラム型ストレージのメリットはSELECTクエリでも発揮され、時系列の集計（平均・最大・最小・SUM）はカラム単位でバッチ処理できるためI/Oが大幅に削減されます。PostgreSQLの上に構築されているためJOIN・トランザクション・拡張機能はフル活用でき、TimescaleDB特有の機能（continuous aggregate・hypertable）も使えます。HNでは「DuckDB・ClickHouseとの比較が気になる——Timescaleはトランザクションが使えるのが差別化ポイント」「ハイブリッドストレージ（行+カラム）はHTAP系DBの標準的なアプローチになっている——BigQueryやSnowflakeも内部では似たことをしている」「Hypercoreが安定版になったらOSSで本番投入を検討する——現在はexperimental扱いだが」「PrometheusのリモートライトレシーバーとしてTimescaleを使っているが、圧縮設定を理解していなかった——この記事で設定見直しができる」という14コメントが展開中です。
+    </div>
+    <div class="slate-items">
+      <div class="slate-item">
+        <div>
+          <div class="slate-label">Hypercoreのハイブリッドストレージ</div>
+          <div class="slate-text">最近データ（設定可能な期間、例えば直近7日）→行ストレージ（PostgreSQLヒープ）で高速INSERT。古いデータ→カラム型ストレージ（Hypercore）で圧縮保存。切り替えはTimescaleDBが自動実行（Compression Policy）。ユーザーは意識せずに両方の利点を享受できる設計</div>
+        </div>
+      </div>
+      <div class="slate-item">
+        <div>
+          <div class="slate-label">圧縮アルゴリズムの詳細</div>
+          <div class="slate-text">時系列データの特性に最適化した複数アルゴリズムを値の型に応じて自動選択：①タイムスタンプ：デルタエンコーディング（差分値を保存）②整数メトリクス：デルタ+ゴロムライス圧縮③浮動小数点：Gorilla圧縮④文字列/カテゴリ：辞書圧縮。組み合わせで10〜20x圧縮率を実現</div>
+        </div>
+      </div>
+      <div class="slate-item">
+        <div>
+          <div class="slate-label">実践的な設定</div>
+          <div class="slate-text">TimescaleDBで圧縮を有効化する基本コマンド：ALTER TABLE metrics SET (timescaledb.compress); SELECT add_compression_policy('metrics', INTERVAL '7 days'); これで7日以上古いチャンクが自動圧縮される。compress_segmentby・compress_orderbyで圧縮効率を最適化可能。psql拡張のhypercore設定ガイドはTimescaleDBドキュメントに詳細あり</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: roszigit.com</span>
+      <span>94 ポイント</span>
+      <span>14 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://roszigit.com/en/blog/timescaledb-compression-hypercore" target="_blank">解説を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48544451" target="_blank">HN議論 (14)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="timescaledb-compression-hypercore" data-type="like" onclick="toggleFlag('timescaledb-compression-hypercore','TimescaleDBが時系列データを圧縮する仕組み——Hypercoreの内部構造','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="timescaledb-compression-hypercore" data-type="dislike" onclick="toggleFlag('timescaledb-compression-hypercore','TimescaleDBが時系列データを圧縮する仕組み——Hypercoreの内部構造','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 10 — Fata spaced repetition ════════════════════════════════ -->
+<section class="story story-10" id="s10">
+  <div class="story-num">10</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / DEVELOPER TOOLS / SHOW HN — AIコーディングによるスキル劣化（skill rot）に対抗するために間隔反復学習を使うShow HNツール「Fata」。64ポイント・38コメント</div>
+    <h2 class="story-headline">
+      Fata——AIコーディングで<br>失われていくスキルを<br>間隔反復で<br>守るツール
+    </h2>
+    <div class="story-body">
+      「AIコーディングによるスキル劣化（skill rot）と戦うための間隔反復ツール」というコンセプトのShow HN「Fata」が64ポイント・38コメントを集め、今日のHNで注目を集めています。Fatは開発者djoume氏が「AI補完に頼りすぎて自力でコードが書けなくなってきた」という実感から開発したツールで、Ankiに似た間隔反復（spaced repetition）の仕組みを使って、AIが自動補完してしまうようなコーディングスキル（アルゴリズム・データ構造・正規表現・SQL・シェルコマンド等）を意図的に練習させます。仕組みはシンプルです——Fatが「連結リストの逆順変換を書け」「このSQLをINDEXなしで最適化せよ」などのプロンプトを出し、開発者がAI補完なしで答えを書きます。答えに応じて次回出題間隔が調整され（Ankiと同様のSupermemoアルゴリズム）、苦手なスキルほど頻繁に出題されます。AIコーディングアシスタントが日常的になった今、「思考する力・基礎力の劣化」という問題は多くの開発者が感じており、このツールはその実感に正直に応えた珍しいプロダクトです。HNでは「『AIによるスキル劣化』を直接問題として扱ったプロダクトは初めて見た——需要があるかは分からないが問いかけ自体が面白い」「電卓が普及しても暗算能力は価値があると言われ続けた——AIコーディング時代の『暗算』は何かという問いに答えようとしている」「Anki + LeetCodeの組み合わせ——シンプルだが実際に続けられるかは習慣化の問題。UIが鍵」「逆にAIが生成したコードをレビューする能力の方が重要では——生成ではなく読解・批判的評価のトレーニングを加えてほしい」という38コメントが展開中です。
+    </div>
+    <div class="mag-items">
+      <div class="mag-item">
+        <div>
+          <div class="mag-label">AIによる「スキル劣化」とは</div>
+          <div class="mag-text">GitHub Copilot・Claude・Cursorなどのコーディングアシスタントを日常的に使う開発者が「自力でコードを書く力が落ちてきた」と感じる現象。具体的には：短い正規表現が思い出せない、ループの書き方をすぐ調べるようになった、SQLのJOINを手書きできない、など。AIが優秀なほど逆説的にスキルが落ちやすい</div>
+        </div>
+      </div>
+      <div class="mag-item">
+        <div>
+          <div class="mag-label">間隔反復（Spaced Repetition）の仕組み</div>
+          <div class="mag-text">忘却曲線（エビングハウス）に基づく記憶定着法。「覚えたばかりの知識は翌日・1週間後・1ヶ月後…と間隔を開けて復習すると長期記憶に定着する」という原理。Anki・Duolingoが採用。Fatはこれを「コーディングスキル練習」に適用し、各スキルの習熟度に応じて次回練習日を自動スケジュール</div>
+        </div>
+      </div>
+      <div class="mag-item">
+        <div>
+          <div class="mag-label">試してみるには</div>
+          <div class="mag-text">fata.devでアカウント作成後すぐ使える。対象スキルカテゴリ：アルゴリズム（ソート・探索・グラフ）、データ構造（ツリー・ヒープ・ハッシュ）、SQL、正規表現、Bashシェル、Gitコマンド等。回答時はAIアシスタントをオフにして取り組むのがルール。日本語UIは未対応だが問題文は平易な英語</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: fata.dev</span>
+      <span>64 ポイント</span>
+      <span>38 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://fata.dev" target="_blank">Fatを試す →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48489163" target="_blank">HN議論 (38)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="fata-spaced-repetition-ai-coding" data-type="like" onclick="toggleFlag('fata-spaced-repetition-ai-coding','Fata——AIコーディングで失われていくスキルを間隔反復で守るツール','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="fata-spaced-repetition-ai-coding" data-type="dislike" onclick="toggleFlag('fata-spaced-repetition-ai-coding','Fata——AIコーディングで失われていくスキルを間隔反復で守るツール','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ══════════════════════════════════════════════════════════════ -->
+<footer class="site-footer">
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand">Morning Edition</div>
+      <div class="footer-meta">
+        Hacker News キュレーション · 2026年6月16日 · Issue No.055<br>
+        毎朝、厳選10本をお届け
+      </div>
+    </div>
+    <button class="export-btn" onclick="exportFeedback()">📋 フィードバックをコピー</button>
+  </div>
+  <div class="footer-note">
+    ⭐ 興味あり / ✕ 興味なし ボタンで次回のキュレーションが改善されます。Chrome/Edgeでは自動保存、その他ではボタンでクリップボードにコピーしてください。
+  </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  const FEEDBACK_KEY = 'morning-edition-feedback-v2';
+  const TODAY = '2026-06-16';
+  let _dirHandle = null;
+
+  async function getDir(forcePrompt) {
+    if (_dirHandle && !forcePrompt) return _dirHandle;
+    if (!window.showDirectoryPicker) return null;
+    try {
+      _dirHandle = await window.showDirectoryPicker({ mode: 'readwrite', id: 'morning-edition', startIn: 'documents' });
+      return _dirHandle;
+    } catch { return null; }
+  }
+
+  async function writeJSON(dirHandle, fb) {
+    const fileHandle = await dirHandle.getFileHandle('feedback.json', { create: true });
+    const writable = await fileHandle.createWritable();
+    await writable.write(JSON.stringify({ ...fb, updatedAt: new Date().toISOString() }, null, 2));
+    await writable.close();
+  }
+
+  function showToast(msg, isErr) {
+    const el = document.getElementById('toast');
+    el.textContent = msg;
+    el.className = 'toast' + (isErr ? ' error' : '');
+    requestAnimationFrame(() => el.classList.add('show'));
+    clearTimeout(el._timer);
+    el._timer = setTimeout(() => el.classList.remove('show'), 3000);
+  }
+
+  function getFeedback() {
+    try { return JSON.parse(localStorage.getItem(FEEDBACK_KEY) || '{"liked":{},"disliked":{}}'); }
+    catch { return { liked: {}, disliked: {} }; }
+  }
+  function saveFeedback(fb) { localStorage.setItem(FEEDBACK_KEY, JSON.stringify(fb)); }
+
+  async function autoSave(fb) {
+    let dir = await getDir();
+    if (!dir) {
+      showToast('📁 Daily News フォルダを選択してください', true);
+      dir = await getDir(true);
+      if (!dir) { showToast('保存をキャンセルしました', true); return; }
+    }
+    try {
+      await writeJSON(dir, fb);
+      showToast('✓ feedback.json を自動保存しました（次回キュレーションに反映）');
+    } catch (e) {
+      showToast('保存エラー: ' + e.message, true);
+    }
+  }
+
+  async function toggleFlag(storyId, title, type) {
+    const fb = getFeedback();
+    fb.liked = fb.liked || {};
+    fb.disliked = fb.disliked || {};
+    const likeBtn    = document.querySelector(`.flag-btn.like-btn[data-story="${storyId}"]`);
+    const dislikeBtn = document.querySelector(`.flag-btn.dislike-btn[data-story="${storyId}"]`);
+    if (type === 'like') {
+      if (fb.liked[storyId]) {
+        delete fb.liked[storyId];
+        likeBtn?.classList.remove('active');
+      } else {
+        fb.liked[storyId] = { title, date: TODAY };
+        delete fb.disliked[storyId];
+        likeBtn?.classList.add('active');
+        dislikeBtn?.classList.remove('active');
+      }
+    } else {
+      if (fb.disliked[storyId]) {
+        delete fb.disliked[storyId];
+        dislikeBtn?.classList.remove('active');
+      } else {
+        fb.disliked[storyId] = { title, date: TODAY };
+        delete fb.liked[storyId];
+        dislikeBtn?.classList.add('active');
+        likeBtn?.classList.remove('active');
+      }
+    }
+    saveFeedback(fb);
+    await autoSave(fb);
+  }
+
+  function exportFeedback() {
+    const fb = getFeedback();
+    const json = JSON.stringify({ ...fb, exportedAt: new Date().toISOString() }, null, 2);
+    navigator.clipboard.writeText(json)
+      .then(() => showToast('📋 クリップボードにコピーしました'))
+      .catch(() => {
+        const el = document.createElement('textarea');
+        el.value = json; document.body.appendChild(el); el.select();
+        document.execCommand('copy'); document.body.removeChild(el);
+        showToast('📋 クリップボードにコピーしました');
+      });
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const fb = getFeedback();
+    document.querySelectorAll('.flag-btn').forEach(btn => {
+      const id   = btn.dataset.story;
+      const type = btn.dataset.type;
+      if ((type === 'like' && fb.liked?.[id]) || (type === 'dislike' && fb.disliked?.[id])) {
+        btn.classList.add('active');
+      }
+    });
+  });
+</script>
+</body>
+</html>
