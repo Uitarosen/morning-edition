@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Morning Edition — 2026年6月17日</title>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --font: 'M PLUS Rounded 1c', 'Hiragino Sans', 'Noto Sans JP', sans-serif; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); background: #111; color: #fff; overflow-x: hidden; }
+
+    .masthead { background: #fff; color: #000; padding: 3rem 4rem 2.5rem; border-bottom: 6px solid #000; position: relative; overflow: hidden; }
+    .masthead::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: repeating-linear-gradient(90deg, #000 0, #000 12px, transparent 12px, transparent 20px); }
+    .masthead-kicker { font-size: 0.85rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: #777; margin-bottom: 0.6rem; }
+    .masthead-title { font-size: clamp(3.5rem, 9vw, 7.5rem); font-weight: 900; line-height: 0.88; letter-spacing: -0.04em; margin-bottom: 1.8rem; }
+    .masthead-meta { display: flex; gap: 3rem; align-items: baseline; flex-wrap: wrap; }
+    .masthead-date { font-size: 1.5rem; font-weight: 700; }
+    .masthead-subtitle { font-size: 1rem; font-weight: 400; color: #555; max-width: 480px; line-height: 1.5; }
+    .masthead-issue { margin-left: auto; text-align: right; }
+    .masthead-issue span { display: block; }
+    .masthead-issue .iss-label { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: #999; }
+    .masthead-issue .iss-num { font-size: 2.2rem; font-weight: 900; color: #000; }
+
+    .toc { background: #1a1a1a; padding: 1.5rem 4rem; display: flex; gap: 1.5rem; flex-wrap: wrap; border-bottom: 1px solid #333; }
+    .toc a { color: #aaa; text-decoration: none; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; transition: color 0.2s; }
+    .toc a:hover { color: #fff; }
+    .toc-num { color: #555; margin-right: 0.3em; }
+
+    .story { position: relative; overflow: hidden; }
+    .story-inner { max-width: 1200px; margin: 0 auto; padding: 5rem 4rem; position: relative; z-index: 1; }
+    .story-num { font-size: clamp(6rem, 18vw, 16rem); font-weight: 900; line-height: 0.8; letter-spacing: -0.06em; opacity: 0.08; position: absolute; top: 1rem; right: 2rem; user-select: none; }
+    .story-badge { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.35em 0.9em; border-radius: 2px; margin-bottom: 1.5rem; }
+    .direct-badge { background: #FFD700; color: #000; }
+    .story-kicker { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; opacity: 0.6; margin-bottom: 0.8rem; }
+    .story-headline { font-size: clamp(2rem, 5vw, 4rem); font-weight: 900; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+    .story-body { font-size: clamp(1rem, 1.5vw, 1.2rem); font-weight: 400; line-height: 1.8; max-width: 680px; opacity: 0.88; margin-bottom: 2rem; }
+    .story-meta { display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center; font-size: 0.8rem; font-weight: 700; opacity: 0.5; }
+    .story-links { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem; }
+    .story-link { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.6em 1.4em; border-radius: 3px; text-decoration: none; transition: opacity 0.2s, transform 0.15s; }
+    .story-link:hover { opacity: 0.75; transform: translateY(-1px); }
+
+    .feedback-buttons { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .flag-btn { background: none; border: 1px solid currentColor; color: inherit; font-family: var(--font); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.5em 1em; border-radius: 3px; cursor: pointer; opacity: 0.32; transition: opacity 0.2s, background 0.2s, color 0.2s, border-color 0.2s, transform 0.15s; }
+    .flag-btn:hover { opacity: 0.72; transform: translateY(-1px); }
+    .flag-btn.like-btn.active { opacity: 1; background: rgba(255,215,0,0.15); border-color: #FFD700; color: #FFD700 !important; }
+    .flag-btn.dislike-btn.active { opacity: 1; background: rgba(255,60,60,0.12); border-color: #FF4444; color: #FF4444 !important; }
+
+    .toast { position: fixed; bottom: 2rem; right: 2rem; background: #1a1a1a; color: #fff; font-family: var(--font); font-size: 0.82rem; font-weight: 700; padding: 0.75em 1.4em; border-radius: 4px; border-left: 3px solid #00C853; z-index: 9999; opacity: 0; transform: translateY(10px); transition: opacity 0.25s, transform 0.25s; pointer-events: none; box-shadow: 0 4px 24px rgba(0,0,0,0.45); }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    .toast.error { border-left-color: #FF5252; }
+
+    .story-1 { background: #fff; color: #000; min-height: 90vh; display: flex; flex-direction: column; justify-content: center; }
+    .story-1 .story-num { color: #000; opacity: 0.04; }
+    .story-1 .story-kicker { color: #555; opacity: 1; }
+    .story-1 .story-headline { color: #000; }
+    .story-1 .story-body { color: #111; }
+    .story-1 .story-meta { color: #000; }
+    .story-1 .story-link.primary { background: #1a1a1a; color: #fff; }
+    .story-1 .story-link.secondary { background: #f0f0f0; color: #000; }
+    .story-1 .flag-btn { color: #000; }
+    .story-1-accent { position: absolute; bottom: 0; left: 0; width: 100%; height: 8px; background: linear-gradient(90deg, #1a1a1a, #555, #999, #1a1a1a); }
+    .story-1 .headline-accent { display: inline-block; background: linear-gradient(135deg, #1a1a1a 0%, #555 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .dos-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1.2rem; margin: 2rem 0; max-width: 680px; }
+    .dos-card { border: 2px solid rgba(0,0,0,0.12); background: rgba(0,0,0,0.04); border-radius: 6px; padding: 1.3rem 1.5rem; }
+    .dos-card-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.2em; text-transform: uppercase; color: #333; margin-bottom: 0.4rem; }
+    .dos-card-value { font-size: 1.05rem; font-weight: 900; color: #000; line-height: 1.3; }
+    .dos-card-sub { font-size: 0.75rem; color: #555; margin-top: 0.3rem; line-height: 1.4; }
+
+    .story-2 { background: #00080c; color: #b8f0ff; min-height: 80vh; }
+    .story-2::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(0,160,200,0.14) 0%, transparent 65%); }
+    .story-2 .story-num { color: #00A0C8; opacity: 0.07; }
+    .story-2 .story-kicker { color: #20C8E8; opacity: 1; }
+    .story-2 .story-headline { color: #e0f8ff; }
+    .story-2 .story-body { color: #b8f0ff; }
+    .story-2 .story-meta { color: #20C8E8; opacity: 0.5; }
+    .story-2 .story-link.primary { background: #004058; color: #80e8ff; }
+    .story-2 .story-link.secondary { background: rgba(0,160,200,0.08); color: #90d8f0; border: 1px solid rgba(0,160,200,0.22); }
+    .story-2 .flag-btn { color: #b8f0ff; }
+    .teal-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .teal-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(0,160,200,0.07); border-left: 3px solid #00A0C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .teal-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20C8E8; margin-bottom: 0.3rem; }
+    .teal-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-3 { background: #0a0000; color: #fff; min-height: 80vh; }
+    .story-3::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(200,20,20,0.16) 0%, transparent 65%); }
+    .story-3 .story-num { color: #C81414; opacity: 0.07; }
+    .story-3 .story-kicker { color: #E84040; opacity: 1; }
+    .story-3 .story-headline { color: #fff; }
+    .story-3 .story-body { color: rgba(255,255,255,0.88); }
+    .story-3 .story-meta { color: #E84040; opacity: 0.5; }
+    .story-3 .story-link.primary { background: #6a0000; color: #fff; }
+    .story-3 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-3 .flag-btn { color: #fff; }
+    .red-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .red-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(200,20,20,0.07); border-left: 3px solid #C81414; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .red-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E84040; margin-bottom: 0.3rem; }
+    .red-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-4 { background: #020c04; color: #c8f0d0; min-height: 80vh; }
+    .story-4::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(20,160,70,0.16) 0%, transparent 65%); }
+    .story-4 .story-num { color: #14A046; opacity: 0.07; }
+    .story-4 .story-kicker { color: #30C060; opacity: 1; }
+    .story-4 .story-headline { color: #e0ffe8; }
+    .story-4 .story-body { color: #c8f0d0; }
+    .story-4 .story-meta { color: #30C060; opacity: 0.5; }
+    .story-4 .story-link.primary { background: #063820; color: #80ffb0; }
+    .story-4 .story-link.secondary { background: rgba(20,160,70,0.08); color: #a0e8b0; border: 1px solid rgba(20,160,70,0.22); }
+    .story-4 .flag-btn { color: #c8f0d0; }
+    .green-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .green-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(20,160,70,0.07); border-left: 3px solid #14A046; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .green-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #30C060; margin-bottom: 0.3rem; }
+    .green-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-5 { background: #040010; color: #d8c8ff; min-height: 75vh; }
+    .story-5::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(90,40,200,0.17) 0%, transparent 65%); }
+    .story-5 .story-num { color: #5A28C8; opacity: 0.07; }
+    .story-5 .story-kicker { color: #8050E0; opacity: 1; }
+    .story-5 .story-headline { color: #f0e8ff; }
+    .story-5 .story-body { color: #d8c8ff; }
+    .story-5 .story-meta { color: #8050E0; opacity: 0.5; }
+    .story-5 .story-link.primary { background: #200860; color: #d0a8ff; }
+    .story-5 .story-link.secondary { background: rgba(90,40,200,0.08); color: #c0a0f0; border: 1px solid rgba(90,40,200,0.22); }
+    .story-5 .flag-btn { color: #d8c8ff; }
+    .purple-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .purple-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(90,40,200,0.07); border-left: 3px solid #5A28C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .purple-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #8050E0; margin-bottom: 0.3rem; }
+    .purple-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-6 { background: #000c10; color: #b8e8f0; min-height: 75vh; }
+    .story-6::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 40%, rgba(0,130,160,0.14) 0%, transparent 65%); }
+    .story-6 .story-num { color: #0080A0; opacity: 0.07; }
+    .story-6 .story-kicker { color: #20B0D0; opacity: 1; }
+    .story-6 .story-headline { color: #e0f4ff; }
+    .story-6 .story-body { color: #b8e8f0; }
+    .story-6 .story-meta { color: #20B0D0; opacity: 0.5; }
+    .story-6 .story-link.primary { background: #003848; color: #80d8f0; }
+    .story-6 .story-link.secondary { background: rgba(0,130,160,0.08); color: #90cce0; border: 1px solid rgba(0,130,160,0.22); }
+    .story-6 .flag-btn { color: #b8e8f0; }
+    .cyan-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(185px, 1fr)); gap: 1rem; margin: 2rem 0; max-width: 680px; }
+    .cyan-card { background: rgba(0,130,160,0.07); border: 1px solid rgba(0,130,160,0.22); border-radius: 4px; padding: 1.2rem 1.4rem; }
+    .cyan-card-name { font-size: 0.78rem; font-weight: 900; color: #20B0D0; margin-bottom: 0.4rem; }
+    .cyan-card-desc { font-size: 0.72rem; opacity: 0.75; line-height: 1.4; }
+
+    .story-7 { background: #0a0300; color: #ffe0b8; min-height: 75vh; }
+    .story-7::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(210,90,20,0.18) 0%, transparent 65%); }
+    .story-7 .story-num { color: #D05A14; opacity: 0.07; }
+    .story-7 .story-kicker { color: #E88040; opacity: 1; }
+    .story-7 .story-headline { color: #fff0d8; }
+    .story-7 .story-body { color: #ffe0b8; }
+    .story-7 .story-meta { color: #E88040; opacity: 0.5; }
+    .story-7 .story-link.primary { background: #6a2400; color: #ffc880; }
+    .story-7 .story-link.secondary { background: rgba(210,90,20,0.08); color: #ffb870; border: 1px solid rgba(210,90,20,0.22); }
+    .story-7 .flag-btn { color: #ffe0b8; }
+    .amber-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .amber-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(210,90,20,0.07); border-left: 3px solid #D05A14; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .amber-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E88040; margin-bottom: 0.3rem; }
+    .amber-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-8 { background: #080500; color: #fff; min-height: 70vh; }
+    .story-8::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,145,10,0.15) 0%, transparent 65%); }
+    .story-8 .story-num { color: #BE9110; opacity: 0.06; }
+    .story-8 .story-kicker { color: #D4A820; opacity: 1; }
+    .story-8 .story-headline { color: #fff; }
+    .story-8 .story-body { color: rgba(255,255,255,0.88); }
+    .story-8 .story-meta { color: #D4A820; opacity: 0.5; }
+    .story-8 .story-link.primary { background: #604000; color: #ffe070; }
+    .story-8 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-8 .flag-btn { color: #fff; }
+    .gold-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .gold-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(190,145,10,0.07); border-left: 3px solid #BE9110; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .gold-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #D4A820; margin-bottom: 0.3rem; }
+    .gold-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-9 { background: #040810; color: #c8d8f0; min-height: 70vh; }
+    .story-9::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 35%, rgba(50,90,170,0.16) 0%, transparent 65%); }
+    .story-9 .story-num { color: #3258A8; opacity: 0.07; }
+    .story-9 .story-kicker { color: #5878C8; opacity: 1; }
+    .story-9 .story-headline { color: #e8f0ff; }
+    .story-9 .story-body { color: #c8d8f0; }
+    .story-9 .story-meta { color: #5878C8; opacity: 0.5; }
+    .story-9 .story-link.primary { background: #101e50; color: #fff; }
+    .story-9 .story-link.secondary { background: rgba(50,90,170,0.08); color: #b0c8e8; border: 1px solid rgba(50,90,170,0.22); }
+    .story-9 .flag-btn { color: #c8d8f0; }
+    .slate-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .slate-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(50,90,170,0.07); border-left: 3px solid #3258A8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .slate-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #5878C8; margin-bottom: 0.3rem; }
+    .slate-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-10 { background: #080004; color: #ffc8e8; min-height: 70vh; }
+    .story-10::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,20,90,0.15) 0%, transparent 65%); }
+    .story-10 .story-num { color: #BE1458; opacity: 0.07; }
+    .story-10 .story-kicker { color: #E04080; opacity: 1; }
+    .story-10 .story-headline { color: #fff0f8; }
+    .story-10 .story-body { color: #ffc8e8; }
+    .story-10 .story-meta { color: #E04080; opacity: 0.5; }
+    .story-10 .story-link.primary { background: #500030; color: #ffb0d8; }
+    .story-10 .story-link.secondary { background: rgba(190,20,90,0.08); color: #f090c0; border: 1px solid rgba(190,20,90,0.22); }
+    .story-10 .flag-btn { color: #ffc8e8; }
+    .mag-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .mag-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(190,20,90,0.07); border-left: 3px solid #BE1458; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .mag-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E04080; margin-bottom: 0.3rem; }
+    .mag-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .site-footer { background: #000; color: #555; padding: 3rem 4rem; display: flex; flex-direction: column; gap: 1.5rem; border-top: 1px solid #222; }
+    .footer-top { display: flex; gap: 2rem; align-items: center; flex-wrap: wrap; justify-content: space-between; }
+    .footer-brand { font-size: 1.4rem; font-weight: 900; color: #fff; }
+    .footer-meta { font-size: 0.75rem; line-height: 1.6; }
+    .export-btn { background: #222; border: 1px solid #444; color: #fff; font-family: var(--font); font-size: 0.8rem; font-weight: 700; padding: 0.7em 1.5em; border-radius: 3px; cursor: pointer; letter-spacing: 0.08em; transition: background 0.2s; }
+    .export-btn:hover { background: #333; }
+    .footer-note { font-size: 0.7rem; opacity: 0.5; }
+
+    @media (max-width: 768px) {
+      .masthead, .toc, .story-inner, .site-footer { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .story-num { display: none; }
+      .masthead-meta { gap: 1rem; }
+      .masthead-issue { margin-left: 0; }
+      .dos-grid, .cyan-cards { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+<nav style="background:#1a1a1a;border-bottom:1px solid #333;padding:0.55rem 2rem;font-family:'M PLUS Rounded 1c','Hiragino Sans','Noto Sans JP',sans-serif;position:sticky;top:0;z-index:999;">
+  <a href="./index.html" style="color:#aaa;text-decoration:none;font-size:0.8rem;font-weight:700;letter-spacing:0.03em;display:inline-flex;align-items:center;gap:0.4rem;transition:color 0.15s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#aaa'">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    アーカイブへ戻る
+  </a>
+</nav>
+
+<header class="masthead">
+  <div class="masthead-kicker">Hacker News — Morning Edition</div>
+  <h1 class="masthead-title">Morning<br>Edition</h1>
+  <div class="masthead-meta">
+    <div>
+      <div class="masthead-date">2026年6月17日 水曜日</div>
+      <div class="masthead-subtitle">AI・開発ツール・プライバシー・サイエンス — あなたのための10本</div>
+    </div>
+    <div class="masthead-issue">
+      <span class="iss-label">Issue</span>
+      <span class="iss-num">No.056</span>
+    </div>
+  </div>
+</header>
+
+<nav class="toc">
+  <a href="#s1"><span class="toc-num">01</span>⚡ SpaceXがCursorを$60Bで買収——開発ツール史上最大の買収</a>
+  <a href="#s2"><span class="toc-num">02</span>⚡ ローカルモデルはもう十分に良い——Vicki Boykisが語る転換点</a>
+  <a href="#s3"><span class="toc-num">03</span>Appleが「Hide My Email」を事実上無効化しようとしている</a>
+  <a href="#s4"><span class="toc-num">04</span>機械式時計の仕組み——インタラクティブ解説の金字塔</a>
+  <a href="#s5"><span class="toc-num">05</span>Appleの「乗り物酔い対策ドット」が車酔いを本当に治した</a>
+  <a href="#s6"><span class="toc-num">06</span>Metaはエンジニアリング組織を壊しているのか</a>
+  <a href="#s7"><span class="toc-num">07</span>TIL: Bash /dev/TCPでcurlなしにHTTPリクエストを送る方法</a>
+  <a href="#s8"><span class="toc-num">08</span>JWTを使うのをやめろ——なぜJWTが間違った選択なのか</a>
+  <a href="#s9"><span class="toc-num">09</span>Perlinノイズフィールドでジェネレーティブアートを作る</a>
+  <a href="#s10"><span class="toc-num">10</span>GrapheneOSがAndroid 17に移植——公式リリース間近</a>
+</nav>
+
+<!-- ═══ STORY 1 — SpaceX buys Cursor ════════════════════════════════════════ -->
+<section class="story story-1" id="s1">
+  <div class="story-num">01</div>
+  <div class="story-inner">
+    <div class="story-badge direct-badge">⚡ あなたに直接関係</div>
+    <div class="story-kicker">AI / DEVELOPER TOOLS / M&A — SpaceXがAIコードエディタ「Cursor」の開発元Anysphereを約600億ドルで買収。760ポイント・1175コメントと今日のHNで最大の議論</div>
+    <h2 class="story-headline">
+      SpaceXが<br>Cursorを<br><span class="headline-accent">$60Bで買収</span><br>——開発ツール史に残る日
+    </h2>
+    <div class="story-body">
+      ロイターが報じたところによると、SpaceXがAIコードエディタ「Cursor」を開発するAnysphereを約600億ドル（約9兆円）で買収することで合意したとのことです。760ポイント・1175コメントという今日のHN最大のスレッドとなっており、開発者コミュニティに大きな衝撃を与えています。CursorはVS Codeベースのフォークで、AIによるコード補完・チャットベースの編集・コードベース全体の理解を統合したエディタとして急速に普及しました。2024年末から2025年にかけてGitHub CopilotやClaude Codeと並んで開発者の定番ツールとなり、ピーク時のARR（年間経常収益）は数億ドル規模と報じられていました。$60Bという評価額はその規模から見ると非常に高い倍率で、SpaceXとイーロン・マスクが開発者ツール領域への戦略的な投資と判断したことを示しています。SpaceXによる買収がCursorの独立性・プライバシーポリシー・GitHub/Microsoftとの関係にどう影響するかが今後の最大の焦点です。HNでは「これはMicrosoftがGitHubを$7.5Bで買ったのと同じ種類の動き——ただし倍率が8倍。AIコーディングへの賭けがいかに大きいかを示している」「CursorをSpaceXが持つ理由が分からない——エンジニア採用ツールとして使うのか、それともXAIとの連携を強化するのか」「独立した開発ツール会社として急成長していたのに——既存ユーザーとしては複雑な気持ち。VS Codeフォークの長期メンテが心配」「CursorはAnthropicのClaudeを大量に使っていた——買収後にモデルをGrokに乗り換えるかどうかで判断したい」「Claude CodeがAnthropicと直結しているのに対してCursorがSpaceX傘下に入る——AIコーディングの競争が一段と複雑になった」という1175コメントが継続中です。
+    </div>
+    <div class="dos-grid">
+      <div class="dos-card">
+        <div class="dos-card-label">買収規模</div>
+        <div class="dos-card-value">$60B（約9兆円）</div>
+        <div class="dos-card-sub">開発ツール企業としては史上最大規模の買収。GitHubの$7.5B（2018年、Microsoft）の8倍。AIコーディング市場へのSpaceXの巨大な賭け</div>
+      </div>
+      <div class="dos-card">
+        <div class="dos-card-label">Cursorとは</div>
+        <div class="dos-card-value">VS Codeフォーク・AIコードエディタ</div>
+        <div class="dos-card-sub">Anysphere社が開発。AIによる自動補完・チャット編集・コードベース全体の把握を統合。GitHub Copilot・Claude Codeと並ぶAIコーディングの三大ツールの一つ</div>
+      </div>
+      <div class="dos-card">
+        <div class="dos-card-label">最大の懸念点</div>
+        <div class="dos-card-value">モデル変更・プライバシー・独立性</div>
+        <div class="dos-card-sub">CursorはAnthropicのClaudeを多用していた。SpaceX傘下でGrokに乗り換えるか注目。コードデータのプライバシーポリシーの変化も懸念される</div>
+      </div>
+      <div class="dos-card">
+        <div class="dos-card-label">代替手段</div>
+        <div class="dos-card-value">Claude Code / Windsurf / Copilot</div>
+        <div class="dos-card-sub">Anthropicが開発・直接提供するClaude Codeは引き続き独立。Codeium社のWindsurf、GitHub Copilotも主要な代替。HNでは「これでClaude Codeに移行する理由ができた」という声も</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: Reuters</span>
+      <span>760 ポイント</span>
+      <span>1175 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.reuters.com/legal/transactional/spacex-buy-anysphere-60-billion-2026-06-16/" target="_blank">Reuters記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48553224" target="_blank">HN議論 (1175)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="spacex-buys-cursor" data-type="like" onclick="toggleFlag('spacex-buys-cursor','SpaceXがCursorを$60Bで買収——開発ツール史に残る日','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="spacex-buys-cursor" data-type="dislike" onclick="toggleFlag('spacex-buys-cursor','SpaceXがCursorを$60Bで買収——開発ツール史に残る日','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+  <div class="story-1-accent"></div>
+</section>
+
+<!-- ═══ STORY 2 — Running local models is good now ══════════════════════════ -->
+<section class="story story-2" id="s2">
+  <div class="story-num">02</div>
+  <div class="story-inner">
+    <div class="story-badge direct-badge">⚡ あなたに直接関係</div>
+    <div class="story-kicker">AI / LOCAL MODELS / DEVELOPER TOOLS — MLエンジニアVicki Boykisが「ローカルモデルは今や十分に良い」と論じた記事が871ポイント・369コメントでHNトップ</div>
+    <h2 class="story-headline">
+      ローカルモデルは<br>もう十分に<br>良い——<br>転換点を語る
+    </h2>
+    <div class="story-body">
+      元Redditのシニアデータサイエンティストであり、AI・MLコミュニティで広く読まれているVicki Boykis氏が「Running local models is good now（ローカルモデルで動かすことは今や良い選択になった）」というブログ記事を公開し、871ポイント・369コメントでHNのトップに立っています。Vicki氏の主張は「2年前はローカルモデルはただ悪かった。今は違う」という転換点の宣言です。具体的には、Qwen 3・Mistral・Gemma 3・LlamaシリーズなどのオープンソースモデルがGPT-4発売当時の能力に追いつき、コード補完・文書要約・翻訳・データ分析といった日常的なタスクでは実用十分なレベルに達したと論じています。Ollamaによる簡単なローカルセットアップ、llama.cppによるCPU推論の高速化、Apple Silicon（M4 Max 128GB）での実用的な速度など、インフラ側の整備も進みました。Vicki氏が強調するのはプライバシーとコスト——「ローカルで動かせばコードが外部に送られない、APIコストがゼロ」という現実的な価値です。ただし「クラウドモデルが不要になった」とは言っておらず、「コンテキストウィンドウが必要な大規模タスク、最高のコーディング能力が必要な場面では依然としてAPIモデルが優位」と明確に留保しています。HNでは「Vickiの記事が示すのはローカルモデルが良くなったというよりタスクの適切な選択の問題——何をローカルに任せるかを分かっていれば十分使える」「70Bクラスのモデルをローカルで動かすには相変わらず高いHWスペックが必要——Mac M4 Max 128GBかRTX 4090が現実的な最低ライン」「ローカルモデルのプライバシー優位性は過大評価されることがある——モデル自体がトレーニングデータに含んでいる情報は考慮しなくていいのか」「Qwen 3とGemma 3のコード品質が突然跳ね上がった——この半年で本当に転換点があった」という369コメントが展開中です。
+    </div>
+    <div class="teal-items">
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">転換点をもたらしたモデル</div>
+          <div class="teal-text">Qwen 3（Alibaba）、Gemma 3（Google）、Mistral Small/Medium（Mistral AI）、Llama 3.3（Meta）の4系統が「日常タスクで実用十分」のラインを突破。特にQwen 3 32BとGemma 3 27Bがコード品質で高評価。Ollamaでワンコマンド導入可能</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">ローカルが向いているタスク</div>
+          <div class="teal-text">①コード自動補完・小規模なリファクタリング②テキスト要約・翻訳③社内文書への質問応答（RAG）④プライバシーが重要なデータの処理⑤コスト最優先の高頻度タスク。逆にコードベース全体の理解・長いコンテキストが必要な作業・最高品質が必要な設計議論はAPIモデルが依然優位</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">今すぐ試すための最短ルート</div>
+          <div class="teal-text">①brew install ollama②ollama run qwen3:32b（または gemma3:27b）③VS Code拡張「Continue」でエディタに組み込み。Mac M3 Pro（36GB）以上なら実用速度で動作。CPUオンリー（llama.cpp）でも7B〜14Bモデルなら許容速度。コスト$0でプライバシーも確保</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: vickiboykis.com</span>
+      <span>871 ポイント</span>
+      <span>369 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://vickiboykis.com/2026/06/15/running-local-models-is-good-now/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48555993" target="_blank">HN議論 (369)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="running-local-models-now" data-type="like" onclick="toggleFlag('running-local-models-now','ローカルモデルはもう十分に良い——Vicki Boykisが語る転換点','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="running-local-models-now" data-type="dislike" onclick="toggleFlag('running-local-models-now','ローカルモデルはもう十分に良い——Vicki Boykisが語る転換点','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 3 — Apple Hide My Email useless ═══════════════════════════════ -->
+<section class="story story-3" id="s3">
+  <div class="story-num">03</div>
+  <div class="story-inner">
+    <div class="story-kicker">PRIVACY / APPLE / ACTIONABLE — Appleが「Hide My Email」機能を事実上無効化しようとしているという分析が295ポイント・171コメント</div>
+    <h2 class="story-headline">
+      Appleが<br>「Hide My Email」を<br>事実上<br>無効化しようとしている
+    </h2>
+    <div class="story-body">
+      エンジニアのArseniy Shestakov氏が「Appleは近く Hide My Email を無意味にしようとしている」という詳細な分析を公開し、295ポイント・171コメントを集めています。Hide My Emailは2021年にiCloud+の機能として登場したプライバシーツールで、サービスに登録する際に本物のメールアドレスを公開せず、ランダムなappleランダム@privaterelay.appleid.comアドレスを使うことで、スパムや個人情報の流出を防ぐ仕組みです。Arseniy氏の分析によると、Appleが計画しているとされる変更によってHide My Emailのアドレスが特定の状況下でサードパーティに推測・特定されやすくなる可能性があるとのことです。具体的には、メールリレーの仕組みに関する変更と、Apple Intelligence（AI機能）との統合に伴う新しいメタデータの取り扱いが問題の核心とされています。プライバシーをセールスポイントにしてきたAppleが、AI機能の拡充を優先してプライバシー保護を後退させているのではないかという批判がHNの議論の中心です。特にiCloud+の有料サービスとして提供されている機能が制限されることへの不満も強く出ています。HNでは「Appleのプライバシーへの姿勢が徐々に変わってきている——Apple IntelligenceとAI機能の拡充が優先されてプライバシーの純度が下がっている」「iCloud+の料金を払ってHide My Emailを使っているユーザーへの裏切りでは——機能を削るなら値下げするか機能を補完してほしい」「SimpleLoginやAnonAddyなどのサードパーティメールエイリアスサービスへの移行タイミングかもしれない」「Appleのプライバシーは常に"他社よりまし"という相対的なものだった——絶対的なプライバシー保証はもともと期待しすぎ」という171コメントが展開中です。
+    </div>
+    <div class="red-items">
+      <div class="red-item">
+        <div>
+          <div class="red-label">Hide My Emailとは</div>
+          <div class="red-text">iCloud+（有料）の機能として2021年に導入。サービス登録時に本物のメールアドレスの代わりにランダムなAppleリレーアドレスを使用。メッセージは実際の受信トレイに転送される。メールアドレスの流出・スパム・個人情報の横断的な追跡を防ぐプライバシー保護機能。月額130円〜のiCloud+に含まれる</div>
+        </div>
+      </div>
+      <div class="red-item">
+        <div>
+          <div class="red-label">何が変わろうとしているか</div>
+          <div class="red-text">Arseniy氏の分析によると、AppleのAI機能（Apple Intelligence）との統合に伴うメールリレーアーキテクチャの変更により、Hide My Emailのアドレスが特定の条件下でサードパーティに関連付けられやすくなる可能性。詳細はまだ技術的に不明な部分があるが、プライバシー保護の実効性が低下するリスクがある</div>
+        </div>
+      </div>
+      <div class="red-item">
+        <div>
+          <div class="red-label">代替手段：今すぐできる対策</div>
+          <div class="red-text">①SimpleLogin（Proton傘下・無料プランあり）——メールエイリアスの老舗。複数ドメイン対応②AnonAddy（オープンソース・セルフホスト可能）——プライバシー重視のエイリアスサービス③Fastmail + Masked Email——有料だが使いやすい。いずれもAppleと無関係に動作。依存を分散させる意味でも有益</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: arseniyshestakov.com</span>
+      <span>295 ポイント</span>
+      <span>171 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://arseniyshestakov.com/2026/06/16/apple-is-about-to-make-hide-my-email-useless/" target="_blank">分析を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48559935" target="_blank">HN議論 (171)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="apple-hide-my-email-useless" data-type="like" onclick="toggleFlag('apple-hide-my-email-useless','Appleが「Hide My Email」を事実上無効化しようとしている','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="apple-hide-my-email-useless" data-type="dislike" onclick="toggleFlag('apple-hide-my-email-useless','Appleが「Hide My Email」を事実上無効化しようとしている','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 4 — Mechanical Watch ════════════════════════════════════════ -->
+<section class="story story-4" id="s4">
+  <div class="story-num">04</div>
+  <div class="story-inner">
+    <div class="story-kicker">WEIRD SCIENCE / ENGINEERING / INTERACTIVE — Bartosz Ciechanowskiによる機械式時計の動作原理を完全インタラクティブで解説する傑作記事が591ポイント・113コメントで再浮上</div>
+    <h2 class="story-headline">
+      機械式時計の仕組み——<br>インタラクティブ解説の<br>金字塔が<br>またHNトップへ
+    </h2>
+    <div class="story-body">
+      Bartosz Ciechanowski氏による「Mechanical Watch」という2022年の記事が591ポイント・113コメントを集め、今日のHNフロントページに再浮上しています。Bartosz氏はアニメーション・インタラクティブ解説を極限まで磨き込んだことで知られるエンジニアで、このページは機械式時計の部品ひとつひとつ——ぜんまい・テンプ・脱進機・輪列・表示機構——を実際に動かせるシミュレーションと共に、どうして秒の刻みが生まれるかを最初の原理から説明します。ページを読み進めるだけで、自分が時計の中に入ったかのような理解が得られる体験は、HNでは定期的に「これは現代の最高のWebコンテンツの一つ」として再共有されています。機械式時計を動かす物理的な巧みさ——等時性を確保するための脱進機の設計、ぜんまいのトルク変化を一定に保つためのヒゲゼンマイの役割——は純粋に知的な驚きを与えてくれます。そしてこれらの複雑な機構が全て金属の小さな部品だけで実現されているという事実は、電子部品に慣れたソフトウェアエンジニアには特別な感動があります。HNでは「Bartoszのサイトは毎回HNに上がるたびに新しい人が発見して感動する——永遠に新鮮」「このレベルのインタラクティブ解説を作るのにどれだけの時間がかかるのか——本業はどうやって成り立っているのか気になる」「脱進機のアニメーションを見たとき初めてこの機構の天才さを理解できた——テキストと図だけでは絶対分からなかった」「ciechanow.skiのサイト全体が宝——GPSの仕組み・光の挙動・エンジンの動作も同じクオリティで解説されている」という113コメントが展開中です。
+    </div>
+    <div class="green-items">
+      <div class="green-item">
+        <div>
+          <div class="green-label">機械式時計の核心：脱進機（エスケープメント）</div>
+          <div class="green-text">時計が「カチカチ」と刻む音の正体が脱進機。ぜんまいのエネルギーをそのまま解放すると歯車が一気に回ってしまう。脱進機はアンクルとテンプ（バランスホイール）で構成され、テンプが一定のリズムで振動するたびに歯車を一歯ずつ解放する。この「等時性」がなければ時計は時間を正確に刻めない</div>
+        </div>
+      </div>
+      <div class="green-item">
+        <div>
+          <div class="green-label">Bartosz Ciechanowskiとは</div>
+          <div class="green-text">WebGLとSVGアニメーションを駆使してハードサイエンスをインタラクティブに解説するエンジニア。他の傑作：「GPS」「Lights and Shadows」「Internal Combustion Engine」「Bicycle」「Springs」。サイト全体がciechanow.skiで公開されており全て無料。Patreonで支援を受けながら制作</div>
+        </div>
+      </div>
+      <div class="green-item">
+        <div>
+          <div class="green-label">なぜ今日また浮上したか</div>
+          <div class="green-text">HNではこのクオリティの記事は定期的に再投稿・再浮上する。「HN Classics」とも呼べる記事群の一つ。ページのインタラクティブ性が高いため、初めて見た人には毎回新鮮な驚きを提供する。コメントを読むと「今日初めて見た」という感動と「また上がった！」という常連HNerの両方が混在している</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: ciechanow.ski (2022)</span>
+      <span>591 ポイント</span>
+      <span>113 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://ciechanow.ski/mechanical-watch/" target="_blank">インタラクティブ解説を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48553550" target="_blank">HN議論 (113)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="mechanical-watch-2022" data-type="like" onclick="toggleFlag('mechanical-watch-2022','機械式時計の仕組み——インタラクティブ解説の金字塔','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="mechanical-watch-2022" data-type="dislike" onclick="toggleFlag('mechanical-watch-2022','機械式時計の仕組み——インタラクティブ解説の金字塔','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 5 — Apple anti-nausea Motion Cues ═════════════════════════════ -->
+<section class="story story-5" id="s5">
+  <div class="story-num">05</div>
+  <div class="story-inner">
+    <div class="story-kicker">WEIRD SCIENCE / APPLE / HEALTH / ACTIONABLE — Appleの「Vehicle Motion Cues」機能が車酔いを本当に解消するという実体験レビューが459ポイント・143コメント</div>
+    <h2 class="story-headline">
+      Appleの<br>「乗り物酔い対策ドット」が<br>車酔いを<br>本当に治した
+    </h2>
+    <div class="story-body">
+      The Vergeのライターがレビューした「Appleの不思議な乗り物酔い対策ドットが実際に車酔いを治した」という記事が459ポイント・143コメントを集め、今日のHNで大きな反響を呼んでいます。これはiOS 18で追加された「Vehicle Motion Cues（乗り物の動きを示す合図）」という機能で、iPhoneやiPadを車内で使っているときに画面の端に小さなアニメーションの点が表示され、車の動きと視覚情報を同期させることで乗り物酔いを軽減するというものです。仕組みは感覚統合（sensory integration）の研究に基づいています——車酔いの原因は「体が動いているのに視覚が動いていない（または逆）」という感覚情報の矛盾。画面端のドットが車の加速・旋回・ブレーキに合わせて動くことで、視覚と前庭感覚のズレを埋め、脳が「今は乗り物に乗っている」と認識しやすくなります。The Vergeのレビュアーは「以前は15分で気持ち悪くなっていた助手席でのスマホ利用が、この機能をオンにしたら1時間以上問題なく使えた」と報告しています。設定は「設定→アクセシビリティ→動作→Vehicle Motion Cues」。HNでは「なぜこれがアクセシビリティ設定に埋まっているのか——もっとデフォルトでオンにすべき」「心理的なプラセボかと思ったが、感覚統合の研究は本物——前庭器と視覚の不一致が乗り物酔いの原因というのは確立した科学」「試したら実際に効いた——Androidで同じ機能を実装してほしい」「iOS 18で追加されたのに全然知られていない隠れた神機能——Appleのマーケティングはどこに行った」という143コメントが展開中です。
+    </div>
+    <div class="purple-items">
+      <div class="purple-item">
+        <div>
+          <div class="purple-label">Vehicle Motion Cuesの仕組み</div>
+          <div class="purple-text">iPhoneのモーションセンサー（加速度計・ジャイロスコープ）が車の動き（加速・減速・左右の旋回）をリアルタイムで検知し、画面の端に対応した方向に小さなドット群をアニメーション表示する。視覚（画面を見ている）と前庭感覚（体が感じる動き）のズレを埋めることで乗り物酔いを軽減する感覚統合の応用</div>
+        </div>
+      </div>
+      <div class="purple-item">
+        <div>
+          <div class="purple-label">今すぐオンにする方法</div>
+          <div class="purple-text">設定 → アクセシビリティ → 動作 → 「乗り物の動きを示す合図」をオン。iOS 18以降必須。カーモードで自動オンにする設定もある。ドットのサイズ・色は変更不可だが表示位置（全端 or 一部）は選べる。iPadでも有効——車内でiPadを使う家族がいる場合も設定してあげると喜ばれる</div>
+        </div>
+      </div>
+      <div class="purple-item">
+        <div>
+          <div class="purple-label">乗り物酔いの科学的背景</div>
+          <div class="purple-text">乗り物酔いは「視覚と前庭感覚（内耳）の不一致」が引き起こすとされる。スマホを見ていると目は静止した画面を認識するが、内耳は車の動きを感知する——この矛盾が脳に「毒を食べた」というシグナルを出させて吐き気を引き起こすという説が有力。外を見ると治るのはこの不一致が解消されるから。Vehicle Motion Cuesはこの原理に基づく</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: The Verge</span>
+      <span>459 ポイント</span>
+      <span>143 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.theverge.com/tech/942854/apple-vehicle-motion-cues-review-really-work" target="_blank">レビューを読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48557530" target="_blank">HN議論 (143)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="apple-anti-nausea-motion-cues" data-type="like" onclick="toggleFlag('apple-anti-nausea-motion-cues','Appleの「乗り物酔い対策ドット」が車酔いを本当に治した','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="apple-anti-nausea-motion-cues" data-type="dislike" onclick="toggleFlag('apple-anti-nausea-motion-cues','Appleの「乗り物酔い対策ドット」が車酔いを本当に治した','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 6 — Meta engineering org ═════════════════════════════════════ -->
+<section class="story story-6" id="s6">
+  <div class="story-num">06</div>
+  <div class="story-inner">
+    <div class="story-kicker">BIG TECH / ENGINEERING CULTURE / DEEP DIVE — The Pragmatic Engineerが「Metaはなぜエンジニアリング組織を壊しているのか」を詳細分析。301ポイント・260コメント</div>
+    <h2 class="story-headline">
+      Metaは<br>エンジニアリング<br>組織を<br>壊しているのか
+    </h2>
+    <div class="story-body">
+      エンジニアリング業界の著名ニュースレター「The Pragmatic Engineer」のGergely Oroszが「なぜMetaはエンジニアリング組織を壊しているのか」という深い分析記事を公開し、301ポイント・260コメントを集めています。Gergely氏はMetaでのE4〜E6エンジニアの大量解雇・AIエンジニアへの強制的な配置転換・「エフィシエンシー」の名の下での管理職削減が、表面上の生産性指標には現れない形でMetaのエンジニアリング組織を空洞化させているという仮説を展開しています。具体的には、①MLOps・インフラ・信頼性工学のような「守り」の専門家が AIの花形チームに移動させられることでサービスの安定性が長期的に低下する②中間管理職の削減によって個々のICが過剰な文脈切り替えを強いられる③Meta的な「強いエンジニア文化」が実は特定の問題解決スタイルに最適化されており、LLMを使ったアプリ開発には別のスキルセットが必要——という三点が議論の軸です。一方でHNの多くのコメントは「Metaの収益・ユーザー数は過去最高なのに何が壊れているのか」「エフィシエンシーによる構造改革は成功している——ただし測定できないコストがある」という反論も出しており、「壊れているのか成功しているのかは5年後にならないと分からない」という冷静な見方もあります。HNでは「Meta的なエンジニアリング文化——数値化・A/Bテスト・インパクト文化——はLLM時代に通用するか。プロトタイプを爆速で出す文化の方が今は正解では」「既存ユーザー維持コスト（SLO・インシデント対応・テクニカルデット返済）をAIに任せようとしているが、現時点ではそれは無理がある」「Gergely自身がMetaへの転職を断った経緯を持つ——ポジショントークの側面もある」という260コメントが展開中です。
+    </div>
+    <div class="cyan-cards">
+      <div class="cyan-card">
+        <div class="cyan-card-name">Gergely氏の主な論点</div>
+        <div class="cyan-card-desc">①MLOps・信頼性エンジニアのAIチームへの強制移動→サービス安定性の長期低下②管理職削減→ICの認知負荷過剰③Metaのエンジニア文化がLLMアプリ開発には最適でない可能性</div>
+      </div>
+      <div class="cyan-card">
+        <div class="cyan-card-name">反論：成功の指標</div>
+        <div class="cyan-card-desc">Metaの月間アクティブユーザー数・広告収益・時価総額は過去最高水準。「壊れている」という主張に対して「数字が全てを否定している」という反論が多数。ただし文化・人材の空洞化は遅効性のリスク</div>
+      </div>
+      <div class="cyan-card">
+        <div class="cyan-card-name">AI時代の組織設計問題</div>
+        <div class="cyan-card-desc">LLMアプリ開発に必要なスキル（プロンプト設計・評価・ファインチューニング・ガードレール）は従来のソフトウェアエンジニアリングと異なる。MetaがAI特化で組織を組み替えること自体は合理的だが、従来の守りの専門性をどこで確保するかが問題</div>
+      </div>
+      <div class="cyan-card">
+        <div class="cyan-card-name">他社との比較</div>
+        <div class="cyan-card-desc">GoogleもMicrosoftも似た「AI優先への組織転換」を行っているが、程度とやり方が異なる。Anthropicや小規模スタートアップへのシニアエンジニアの流出がどの程度起きているかが実際のダメージを測る指標になる</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: The Pragmatic Engineer</span>
+      <span>301 ポイント</span>
+      <span>260 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://newsletter.pragmaticengineer.com/p/why-is-meta-destroying-its-engineering" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48558045" target="_blank">HN議論 (260)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="meta-engineering-org" data-type="like" onclick="toggleFlag('meta-engineering-org','Metaはエンジニアリング組織を壊しているのか','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="meta-engineering-org" data-type="dislike" onclick="toggleFlag('meta-engineering-org','Metaはエンジニアリング組織を壊しているのか','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 7 — Bash /dev/TCP HTTP ════════════════════════════════════════ -->
+<section class="story story-7" id="s7">
+  <div class="story-num">07</div>
+  <div class="story-inner">
+    <div class="story-kicker">DEVELOPER TOOLS / BASH / ACTIONABLE / TIL — curlなしでBashの /dev/TCP を使ってHTTPリクエストを送る方法が189ポイント・109コメントを集める</div>
+    <h2 class="story-headline">
+      TIL: curlなしで<br>Bash /dev/TCPで<br>HTTPリクエストを<br>送る方法
+    </h2>
+    <div class="story-body">
+      エンジニアのMarek Suppaが「curlなしでBashの /dev/TCP を使ってHTTPリクエストを送る方法（TIL）」という短いテクニック記事を公開し、189ポイント・109コメントを集めています。/dev/TCPはLinuxおよびmacOSのBashが提供する擬似ファイルシステムで、/dev/tcp/HOST/PORTを介してTCPソケット接続をファイルのように扱えます。これを使えばcurlもwgetもNetcatもインストールされていない最小限のBashシェルだけの環境でもHTTP通信が可能です。基本的な使い方は exec 3<>/dev/tcp/example.com/80; printf "GET / HTTP/1.1\r\nHost: example.com\r\nConnection: close\r\n\r\n" >&3; cat <&3 というスクリプトです。これによりDockerコンテナの最小イメージ・Alpine Linuxのスクリプト・組み込みシステムのシェルスクリプトなど、外部ツールが使えない環境でもHTTP疎通確認やAPIの簡単な叩き方ができます。Marek氏の記事は HTTPSへの対応（openssl s_clientとの組み合わせ）、POSTリクエストの送り方、実際のユースケース例まで含んだ実用的な内容です。HNでは「これをYAMLの中でBashスクリプトに書いて使うのはCloudFormationやTerraformのユーザースクリプトでよくある——ブートストラップ時に何も入っていない環境でAPIを叩く必要があるとき」「知っていたが使い方を忘れていた——/dev/tcp/{host}/{port}の構文が直感的で覚えやすい」「/dev/udpも同様に使えることを覚えておくと役立つ——DNSクエリなどに」「Bashの隠れた機能として /dev/tcp はもっと知られるべき——外部依存なしでネットワーク疎通確認できるのは便利」という109コメントが展開中です。
+    </div>
+    <div class="amber-items">
+      <div class="amber-item">
+        <div>
+          <div class="amber-label">基本的な使い方</div>
+          <div class="amber-text">exec 3&lt;&gt;/dev/tcp/example.com/80<br>printf "GET / HTTP/1.1\r\nHost: example.com\r\nConnection: close\r\n\r\n" &gt;&amp;3<br>cat &lt;&amp;3<br>exec 3&gt;&amp;-<br>ファイルディスクリプタ3をTCPソケットとして開き、HTTPリクエストを書き込み、レスポンスを読み出す。exec 3&gt;&amp;- で接続クローズ</div>
+        </div>
+      </div>
+      <div class="amber-item">
+        <div>
+          <div class="amber-label">実際のユースケース</div>
+          <div class="amber-text">①Dockerの最小イメージ（alpine:latest、scratch等）でのヘルスチェックスクリプト②CloudFormation/Terraformのuser-dataスクリプトでAPIにBootstrap完了を通知③組み込みシステムのシェルでサービスの疎通確認④curlが禁止・削除されたセキュリティ強化環境での代替手段</div>
+        </div>
+      </div>
+      <div class="amber-item">
+        <div>
+          <div class="amber-label">HTTPSを使うには</div>
+          <div class="amber-text">TLSが必要なHTTPSは /dev/tcp だけでは不可。openssl s_client と組み合わせる：openssl s_client -connect example.com:443 -quiet &lt;&lt;&lt;$'GET / HTTP/1.1\r\nHost: example.com\r\nConnection: close\r\n\r\n'。これもcurlなしで使える代替手段。opensslはOpenSSH同様多くの最小環境でも利用可能</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: mareksuppa.com</span>
+      <span>189 ポイント</span>
+      <span>109 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://mareksuppa.com/til/bash-dev-tcp-http-without-curl/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48558018" target="_blank">HN議論 (109)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="bash-dev-tcp-http" data-type="like" onclick="toggleFlag('bash-dev-tcp-http','TIL: curlなしでBash /dev/TCPでHTTPリクエストを送る方法','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="bash-dev-tcp-http" data-type="dislike" onclick="toggleFlag('bash-dev-tcp-http','TIL: curlなしでBash /dev/TCPでHTTPリクエストを送る方法','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 8 — Stop Using JWTs ═══════════════════════════════════════════ -->
+<section class="story story-8" id="s8">
+  <div class="story-num">08</div>
+  <div class="story-inner">
+    <div class="story-kicker">SECURITY / AUTHENTICATION / ACTIONABLE — 「JWTを使うのをやめろ」という強い主張のGistが162ポイント・99コメントを集める。JWT vs セッションクッキーの根本論争</div>
+    <h2 class="story-headline">
+      JWTを<br>使うのをやめろ——<br>なぜJWTが<br>間違った選択なのか
+    </h2>
+    <div class="story-body">
+      エンジニアのSam Schが「Stop Using JWTs（JWTを使うのをやめろ）」というGistを公開し、162ポイント・99コメントを集めています。JWTはJSON Web Tokenの略で、APIの認証に広く使われているトークン形式ですが、Sam氏はその使われ方のほとんどが誤りだと主張します。Sam氏の核心的な論点は「JWTはStateless Authenticationに適しているという神話が広まっているが、実際にはほぼ全てのアプリケーションでSessionトークンの方が安全で適切」というものです。JWTの主な問題点として挙げられているのは：①ブラウザへの保存方法——LocalStorageに保存するとXSS攻撃でトークンが盗まれる。HttpOnlyクッキーなら防げるが、そうするとJWTの利点がほぼ消える②失効（revocation）の難しさ——JWTはサーバー側に状態を持たないため、ユーザーをログアウトさせたい場合にトークンを即座に無効化できない（有効期限まで有効なまま）。ブラックリストを導入すると結局DBが必要になる③alg:noneの罠——実装を誤るとアルゴリズムに「none」を指定することで署名検証をスキップされる脆弱性がある。記事ではSSO（シングルサインオン）・マイクロサービス間通信など「JWTが本当に適している場面」も説明しており、「全てのJWTが悪い」ではなく「ほとんどのWebアプリはセッションクッキーを使うべき」という主張です。HNでは「JWTが流行り始めた頃からずっと言われてきたことが一つのGistにまとまった——新人エンジニアに読ませるべき」「マイクロサービス間の認証・認可でJWTを使うのは正しい用途——問題はユーザーセッション管理に使うこと」「HttpOnly + Secure + SameSite=Strict のクッキーでセッションIDを渡すだけで99%のWebアプリの認証は解決できる」「JWTの問題よりJWT実装ライブラリの問題の方が多い——ライブラリが古いとalg混乱攻撃が刺さる」という99コメントが展開中です。
+    </div>
+    <div class="gold-items">
+      <div class="gold-item">
+        <div>
+          <div class="gold-label">JWTの主な問題点</div>
+          <div class="gold-text">①LocalStorage保存→XSSでトークン盗取可能②HttpOnlyクッキーで保存すればXSSは防げるが、そうするとStatelessの利点が消える（クッキー使うならセッションで十分）③失効が難しい——ログアウト時に即座に無効化できない④alg:none攻撃——実装を誤ると署名なしで認証通過の可能性</div>
+        </div>
+      </div>
+      <div class="gold-item">
+        <div>
+          <div class="gold-label">代わりに使うべきもの</div>
+          <div class="gold-text">ほとんどのWebアプリには「セッションクッキー」で十分：①サーバーでセッションIDを生成→DB or Redisに保存②HttpOnly+Secure+SameSite=Strictクッキーでブラウザに送る③リクエストごとにDBを引く。失効が即時、XSSに強い、実装がシンプル。パフォーマンス懸念はRedis + セッションキャッシュで解決</div>
+        </div>
+      </div>
+      <div class="gold-item">
+        <div>
+          <div class="gold-label">JWTが本当に適している場面</div>
+          <div class="gold-text">①SSO（OAuth/OIDC）——IdPが発行してサービス間でユーザー情報を受け渡す②マイクロサービス間の認可トークン——サービスAがサービスBを呼ぶ際の認証③短命の使い捨てトークン（パスワードリセットURL等）。これらは「サービスをまたいで状態を共有しない」という要件があるケースで、JWTが適している</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: GitHub Gist (samsch)</span>
+      <span>162 ポイント</span>
+      <span>99 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://gist.github.com/samsch/0d1f3d3b4745d778f78b230cf6061452" target="_blank">Gistを読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48558147" target="_blank">HN議論 (99)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="stop-using-jwts" data-type="like" onclick="toggleFlag('stop-using-jwts','JWTを使うのをやめろ——なぜJWTが間違った選択なのか','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="stop-using-jwts" data-type="dislike" onclick="toggleFlag('stop-using-jwts','JWTを使うのをやめろ——なぜJWTが間違った選択なのか','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 9 — Perlin Noise Fields ══════════════════════════════════════ -->
+<section class="story story-9" id="s9">
+  <div class="story-num">09</div>
+  <div class="story-inner">
+    <div class="story-kicker">CREATIVE SOFTWARE / GENERATIVE ART / TUTORIAL — Perlinノイズフィールドを使ってジェネレーティブアートを作るための実践的チュートリアルが163ポイント・23コメント</div>
+    <h2 class="story-headline">
+      Perlinノイズフィールドで<br>ジェネレーティブアートを<br>作る——<br>実践ガイド
+    </h2>
+    <div class="story-body">
+      「Getting Creative with Perlin Noise Fields（Perlinノイズフィールドでクリエイティブになろう）」というジェネレーティブアートの実践チュートリアルがSighack.comに公開され、163ポイント・23コメントを集めています。Perlinノイズはゲームや映像のCGでよく使われる「自然な見た目のランダム性」を生成するアルゴリズムで、雲・山の地形・木の幹のテクスチャーなどを数学的に生成するのに使われます。この記事ではProcessing（JavaベースのクリエイティブコーディングフレームワークだがPython版・JavaScript版p5.jsも存在）を使い、Perlinノイズをベクトルフィールドとして解釈して粒子（パーティクル）を流すことで有機的な曲線アートを生成する方法を、コード付きで段階的に解説しています。完成物はCurling smoke、草の流れ、星雲のような美しいビジュアルで、数百行のコードで再現可能です。Perlinノイズフィールドを使ったフロー・フィールドアニメーションはジェネレーティブアートの定番技法の一つですが、この記事はその原理から応用まで最も分かりやすく解説したリソースの一つとHNで評価されています。HNでは「p5.jsとProcessingの良い部分——プログラマでも数時間でこういった美しいビジュアルを作れる」「Perlinノイズを使ったフローフィールドは一度理解するとあらゆる生成アートの基礎になる——ポスター・NFTアート・ゲームの地形など」「このチュートリアルを参考にしたp5.jsのオンラインエディターでの試行錯誤がとても楽しい——p5.jsのeditor.p5js.orgですぐ試せる」「Noise2D vs Noise3D（時間軸）の違いと動くアートへの応用を次の記事でやってほしい」という23コメントが展開中です。
+    </div>
+    <div class="slate-items">
+      <div class="slate-item">
+        <div>
+          <div class="slate-label">Perlinノイズとは</div>
+          <div class="slate-text">Ken Perlinが1983年に映画「Tron」のためにつくったノイズ関数。完全なランダム（白色ノイズ）と違って、近くの点では滑らかに変化する「有機的なランダム性」を持つ。2D Perlinノイズは地形の高さマップ、3DはCGの煙や雲のシミュレーションに使われる。Processing/p5.jsではnoise(x, y)一発で利用可能</div>
+        </div>
+      </div>
+      <div class="slate-item">
+        <div>
+          <div class="slate-label">フローフィールドの仕組み</div>
+          <div class="slate-text">①2DグリッドのXY座標にPerlinノイズを適用②ノイズの値を角度（0〜360°）にマッピングして各グリッドセルにベクトルを割り当てる③多数のパーティクルをキャンバスにランダムに配置④各ステップでパーティクルをそのXY位置のベクトル方向に微小移動⑤軌跡を描画——数千回繰り返すと有機的な曲線アートが完成</div>
+        </div>
+      </div>
+      <div class="slate-item">
+        <div>
+          <div class="slate-label">今すぐ試す方法</div>
+          <div class="slate-text">①editor.p5js.orgにアクセス（無料・要アカウントなし）②p5.jsのSketchに記事のコードをコピペ③Playボタンで即実行。ノイズスケール・パーティクル数・色・アルファ値を変えるだけで全く異なるビジュアルに。最終的なビジュアルをそのままSVGや高解像度PNGで出力することも可能</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: sighack.com</span>
+      <span>163 ポイント</span>
+      <span>23 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://sighack.com/post/getting-creative-with-perlin-noise-fields" target="_blank">チュートリアルを読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48522316" target="_blank">HN議論 (23)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="perlin-noise-fields" data-type="like" onclick="toggleFlag('perlin-noise-fields','Perlinノイズフィールドでジェネレーティブアートを作る——実践ガイド','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="perlin-noise-fields" data-type="dislike" onclick="toggleFlag('perlin-noise-fields','Perlinノイズフィールドでジェネレーティブアートを作る——実践ガイド','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 10 — GrapheneOS Android 17 ════════════════════════════════════ -->
+<section class="story story-10" id="s10">
+  <div class="story-num">10</div>
+  <div class="story-inner">
+    <div class="story-kicker">PRIVACY / SECURITY / ANDROID — GrapheneOSがAndroid 17に移植され公式リリースが間近との報告。119ポイント・35コメント</div>
+    <h2 class="story-headline">
+      GrapheneOSが<br>Android 17に移植——<br>公式リリース<br>間近
+    </h2>
+    <div class="story-body">
+      プライバシー・セキュリティ重視のAndroidカスタムROM「GrapheneOS」の公式フォーラムに「Android 17への移植が完了し、公式リリースが近日中に来る」という投稿が掲載され、119ポイント・35コメントを集めています。GrapheneOSはGoogleのAndroidをベースにしながら、デフォルトのプライバシー設定を大幅に強化したオープンソースのモバイルOSで、Pixel端末専用ですが政府機関・セキュリティ研究者・プライバシー意識の高い一般ユーザーの間で広く使われています。主な特徴はサンドボックス化されたGoogle Playサービス（完全に隔離された環境でGoogle Playアプリを動かせる）、強化されたメモリ保護（ハードウェアレベルのセキュリティ機能の最大活用）、デフォルトでの権限最小化（全アプリのネットワーク・センサー・マイクアクセスをデフォルト拒否）、Vanadium（セキュリティ強化されたChromiumフォーク）の搭載、そしてコードの透明性（完全オープンソース・監査可能）です。Android 17への移植は比較的速いペースで完了したとのことで、GrapheneOSチームの技術力とAndroid 17との互換性の良さを示しています。HNでは「GrapheneOSのサンドボックス化Google Playは天才的な設計——ほとんどのAndroidアプリを使いながらGoogleへのデータ漏えいを最小化できる」「Pixel 9 ProへのGrapheneOSインストールガイドを見たが、2023年より格段に簡単になっている——1時間以内に終わる」「Android 17の新しいセキュリティ機能（特にプロセス分離の強化）はGrapheneOSの方向性と相性が良い」「日本語入力はどうするか——Googleからのデータ漏えいを防ぎながらまともな日本語IMEを使うのがGrapheneOS最大の課題」という35コメントが展開中です。
+    </div>
+    <div class="mag-items">
+      <div class="mag-item">
+        <div>
+          <div class="mag-label">GrapheneOSとは</div>
+          <div class="mag-text">Googleの公式Androidをベースにプライバシーとセキュリティをゼロから作り直したオープンソースOS。Pixel端末専用。政府機関・ジャーナリスト・セキュリティ研究者・高プライバシー需要の一般ユーザーが使用。Edward SnowdenやWhisper Systems（Signal創設者）チームも推奨</div>
+        </div>
+      </div>
+      <div class="mag-item">
+        <div>
+          <div class="mag-label">主な差別化機能</div>
+          <div class="mag-text">①サンドボックス化Google Play——Playアプリを使いつつGoogleへのアクセスを隔離②ハードウェアセキュリティの最大活用（Titan Mチップ・メモリタグ等）③デフォルト権限最小化（インターネット・センサーを明示的に許可するまで拒否）④Vanadium（セキュリティ強化Chromium）同梱⑤OTA更新の検証・ロールバック保護</div>
+        </div>
+      </div>
+      <div class="mag-item">
+        <div>
+          <div class="mag-label">試すための最初の一歩</div>
+          <div class="mag-text">①対応端末：Google Pixel 6以降（Pixel 9シリーズ推奨）②grapheneos.org/installのWeb Installerが最も簡単——ブラウザからGUIで30〜60分で完了③バックアップ推奨——インストールで全データ消去④サンドボックスGoogle Playで主要なAndroidアプリは動作する。日本語IMEはFSKAREN（オープンソース）またはGboard（サンドボックス内）が選択肢</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: discuss.grapheneos.org</span>
+      <span>119 ポイント</span>
+      <span>35 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://discuss.grapheneos.org/d/36469-grapheneos-has-been-ported-to-android-17-and-official-releases-are-coming-soon" target="_blank">発表を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48561654" target="_blank">HN議論 (35)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="grapheneos-android-17" data-type="like" onclick="toggleFlag('grapheneos-android-17','GrapheneOSがAndroid 17に移植——公式リリース間近','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="grapheneos-android-17" data-type="dislike" onclick="toggleFlag('grapheneos-android-17','GrapheneOSがAndroid 17に移植——公式リリース間近','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ══════════════════════════════════════════════════════════════ -->
+<footer class="site-footer">
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand">Morning Edition</div>
+      <div class="footer-meta">
+        Hacker News キュレーション · 2026年6月17日 · Issue No.056<br>
+        毎朝、厳選10本をお届け
+      </div>
+    </div>
+    <button class="export-btn" onclick="exportFeedback()">📋 フィードバックをコピー</button>
+  </div>
+  <div class="footer-note">
+    ⭐ 興味あり / ✕ 興味なし ボタンで次回のキュレーションが改善されます。Chrome/Edgeでは自動保存、その他ではボタンでクリップボードにコピーしてください。
+  </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  const FEEDBACK_KEY = 'morning-edition-feedback-v2';
+  const TODAY = '2026-06-17';
+  let _dirHandle = null;
+
+  async function getDir(forcePrompt) {
+    if (_dirHandle && !forcePrompt) return _dirHandle;
+    if (!window.showDirectoryPicker) return null;
+    try {
+      _dirHandle = await window.showDirectoryPicker({ mode: 'readwrite', id: 'morning-edition', startIn: 'documents' });
+      return _dirHandle;
+    } catch { return null; }
+  }
+
+  async function writeJSON(dirHandle, fb) {
+    const fileHandle = await dirHandle.getFileHandle('feedback.json', { create: true });
+    const writable = await fileHandle.createWritable();
+    await writable.write(JSON.stringify({ ...fb, updatedAt: new Date().toISOString() }, null, 2));
+    await writable.close();
+  }
+
+  function showToast(msg, isErr) {
+    const el = document.getElementById('toast');
+    el.textContent = msg;
+    el.className = 'toast' + (isErr ? ' error' : '');
+    requestAnimationFrame(() => el.classList.add('show'));
+    clearTimeout(el._timer);
+    el._timer = setTimeout(() => el.classList.remove('show'), 3000);
+  }
+
+  function getFeedback() {
+    try { return JSON.parse(localStorage.getItem(FEEDBACK_KEY) || '{"liked":{},"disliked":{}}'); }
+    catch { return { liked: {}, disliked: {} }; }
+  }
+  function saveFeedback(fb) { localStorage.setItem(FEEDBACK_KEY, JSON.stringify(fb)); }
+
+  async function autoSave(fb) {
+    let dir = await getDir();
+    if (!dir) {
+      showToast('📁 Daily News フォルダを選択してください', true);
+      dir = await getDir(true);
+      if (!dir) { showToast('保存をキャンセルしました', true); return; }
+    }
+    try {
+      await writeJSON(dir, fb);
+      showToast('✓ feedback.json を自動保存しました（次回キュレーションに反映）');
+    } catch (e) {
+      showToast('保存エラー: ' + e.message, true);
+    }
+  }
+
+  async function toggleFlag(storyId, title, type) {
+    const fb = getFeedback();
+    fb.liked = fb.liked || {};
+    fb.disliked = fb.disliked || {};
+    const likeBtn    = document.querySelector(`.flag-btn.like-btn[data-story="${storyId}"]`);
+    const dislikeBtn = document.querySelector(`.flag-btn.dislike-btn[data-story="${storyId}"]`);
+    if (type === 'like') {
+      if (fb.liked[storyId]) {
+        delete fb.liked[storyId];
+        likeBtn?.classList.remove('active');
+      } else {
+        fb.liked[storyId] = { title, date: TODAY };
+        delete fb.disliked[storyId];
+        likeBtn?.classList.add('active');
+        dislikeBtn?.classList.remove('active');
+      }
+    } else {
+      if (fb.disliked[storyId]) {
+        delete fb.disliked[storyId];
+        dislikeBtn?.classList.remove('active');
+      } else {
+        fb.disliked[storyId] = { title, date: TODAY };
+        delete fb.liked[storyId];
+        dislikeBtn?.classList.add('active');
+        likeBtn?.classList.remove('active');
+      }
+    }
+    saveFeedback(fb);
+    await autoSave(fb);
+  }
+
+  function exportFeedback() {
+    const fb = getFeedback();
+    const json = JSON.stringify({ ...fb, exportedAt: new Date().toISOString() }, null, 2);
+    navigator.clipboard.writeText(json)
+      .then(() => showToast('📋 クリップボードにコピーしました'))
+      .catch(() => {
+        const el = document.createElement('textarea');
+        el.value = json; document.body.appendChild(el); el.select();
+        document.execCommand('copy'); document.body.removeChild(el);
+        showToast('📋 クリップボードにコピーしました');
+      });
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const fb = getFeedback();
+    document.querySelectorAll('.flag-btn').forEach(btn => {
+      const id   = btn.dataset.story;
+      const type = btn.dataset.type;
+      if ((type === 'like' && fb.liked?.[id]) || (type === 'dislike' && fb.disliked?.[id])) {
+        btn.classList.add('active');
+      }
+    });
+  });
+</script>
+</body>
+</html>
