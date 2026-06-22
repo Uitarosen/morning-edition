@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Morning Edition — 2026年6月23日</title>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --font: 'M PLUS Rounded 1c', 'Hiragino Sans', 'Noto Sans JP', sans-serif; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); background: #111; color: #fff; overflow-x: hidden; }
+
+    .masthead { background: #fff; color: #000; padding: 3rem 4rem 2.5rem; border-bottom: 6px solid #000; position: relative; overflow: hidden; }
+    .masthead::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: repeating-linear-gradient(90deg, #000 0, #000 12px, transparent 12px, transparent 20px); }
+    .masthead-kicker { font-size: 0.85rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: #777; margin-bottom: 0.6rem; }
+    .masthead-title { font-size: clamp(3.5rem, 9vw, 7.5rem); font-weight: 900; line-height: 0.88; letter-spacing: -0.04em; margin-bottom: 1.8rem; }
+    .masthead-meta { display: flex; gap: 3rem; align-items: baseline; flex-wrap: wrap; }
+    .masthead-date { font-size: 1.5rem; font-weight: 700; }
+    .masthead-subtitle { font-size: 1rem; font-weight: 400; color: #555; max-width: 480px; line-height: 1.5; }
+    .masthead-issue { margin-left: auto; text-align: right; }
+    .masthead-issue span { display: block; }
+    .masthead-issue .iss-label { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: #999; }
+    .masthead-issue .iss-num { font-size: 2.2rem; font-weight: 900; color: #000; }
+
+    .toc { background: #1a1a1a; padding: 1.5rem 4rem; display: flex; gap: 1.5rem; flex-wrap: wrap; border-bottom: 1px solid #333; }
+    .toc a { color: #aaa; text-decoration: none; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; transition: color 0.2s; }
+    .toc a:hover { color: #fff; }
+    .toc-num { color: #555; margin-right: 0.3em; }
+
+    .story { position: relative; overflow: hidden; }
+    .story-inner { max-width: 1200px; margin: 0 auto; padding: 5rem 4rem; position: relative; z-index: 1; }
+    .story-num { font-size: clamp(6rem, 18vw, 16rem); font-weight: 900; line-height: 0.8; letter-spacing: -0.06em; opacity: 0.08; position: absolute; top: 1rem; right: 2rem; user-select: none; }
+    .story-badge { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.35em 0.9em; border-radius: 2px; margin-bottom: 1.5rem; }
+    .direct-badge { background: #FFD700; color: #000; }
+    .story-kicker { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; opacity: 0.6; margin-bottom: 0.8rem; }
+    .story-headline { font-size: clamp(2rem, 5vw, 4rem); font-weight: 900; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+    .story-body { font-size: clamp(1rem, 1.5vw, 1.2rem); font-weight: 400; line-height: 1.8; max-width: 680px; opacity: 0.88; margin-bottom: 2rem; }
+    .story-meta { display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center; font-size: 0.8rem; font-weight: 700; opacity: 0.5; }
+    .story-links { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem; }
+    .story-link { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.6em 1.4em; border-radius: 3px; text-decoration: none; transition: opacity 0.2s, transform 0.15s; }
+    .story-link:hover { opacity: 0.75; transform: translateY(-1px); }
+
+    .feedback-buttons { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .flag-btn { background: none; border: 1px solid currentColor; color: inherit; font-family: var(--font); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.5em 1em; border-radius: 3px; cursor: pointer; opacity: 0.32; transition: opacity 0.2s, background 0.2s, color 0.2s, border-color 0.2s, transform 0.15s; }
+    .flag-btn:hover { opacity: 0.72; transform: translateY(-1px); }
+    .flag-btn.like-btn.active { opacity: 1; background: rgba(255,215,0,0.15); border-color: #FFD700; color: #FFD700 !important; }
+    .flag-btn.dislike-btn.active { opacity: 1; background: rgba(255,60,60,0.12); border-color: #FF4444; color: #FF4444 !important; }
+
+    .toast { position: fixed; bottom: 2rem; right: 2rem; background: #1a1a1a; color: #fff; font-family: var(--font); font-size: 0.82rem; font-weight: 700; padding: 0.75em 1.4em; border-radius: 4px; border-left: 3px solid #00C853; z-index: 9999; opacity: 0; transform: translateY(10px); transition: opacity 0.25s, transform 0.25s; pointer-events: none; box-shadow: 0 4px 24px rgba(0,0,0,0.45); }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    .toast.error { border-left-color: #FF5252; }
+
+    .story-1 { background: #fff; color: #000; min-height: 90vh; display: flex; flex-direction: column; justify-content: center; }
+    .story-1 .story-num { color: #000; opacity: 0.04; }
+    .story-1 .story-kicker { color: #555; opacity: 1; }
+    .story-1 .story-headline { color: #000; }
+    .story-1 .story-body { color: #111; }
+    .story-1 .story-meta { color: #000; }
+    .story-1 .story-link.primary { background: #1a1a1a; color: #fff; }
+    .story-1 .story-link.secondary { background: #f0f0f0; color: #000; }
+    .story-1 .flag-btn { color: #000; }
+    .story-1-accent { position: absolute; bottom: 0; left: 0; width: 100%; height: 8px; background: linear-gradient(90deg, #1a1a1a, #555, #999, #1a1a1a); }
+    .story-1 .headline-accent { display: inline-block; background: linear-gradient(135deg, #1a1a1a 0%, #555 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .dos-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1.2rem; margin: 2rem 0; max-width: 680px; }
+    .dos-card { border: 2px solid rgba(0,0,0,0.12); background: rgba(0,0,0,0.04); border-radius: 6px; padding: 1.3rem 1.5rem; }
+    .dos-card-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.2em; text-transform: uppercase; color: #333; margin-bottom: 0.4rem; }
+    .dos-card-value { font-size: 1.05rem; font-weight: 900; color: #000; line-height: 1.3; }
+    .dos-card-sub { font-size: 0.75rem; color: #555; margin-top: 0.3rem; line-height: 1.4; }
+
+    .story-2 { background: #00080c; color: #b8f0ff; min-height: 80vh; }
+    .story-2::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(0,160,200,0.14) 0%, transparent 65%); }
+    .story-2 .story-num { color: #00A0C8; opacity: 0.07; }
+    .story-2 .story-kicker { color: #20C8E8; opacity: 1; }
+    .story-2 .story-headline { color: #e0f8ff; }
+    .story-2 .story-body { color: #b8f0ff; }
+    .story-2 .story-meta { color: #20C8E8; opacity: 0.5; }
+    .story-2 .story-link.primary { background: #004058; color: #80e8ff; }
+    .story-2 .story-link.secondary { background: rgba(0,160,200,0.08); color: #90d8f0; border: 1px solid rgba(0,160,200,0.22); }
+    .story-2 .flag-btn { color: #b8f0ff; }
+    .teal-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .teal-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(0,160,200,0.07); border-left: 3px solid #00A0C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .teal-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20C8E8; margin-bottom: 0.3rem; }
+    .teal-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-3 { background: #0a0000; color: #fff; min-height: 80vh; }
+    .story-3::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(200,20,20,0.16) 0%, transparent 65%); }
+    .story-3 .story-num { color: #C81414; opacity: 0.07; }
+    .story-3 .story-kicker { color: #E84040; opacity: 1; }
+    .story-3 .story-headline { color: #fff; }
+    .story-3 .story-body { color: rgba(255,255,255,0.88); }
+    .story-3 .story-meta { color: #E84040; opacity: 0.5; }
+    .story-3 .story-link.primary { background: #6a0000; color: #fff; }
+    .story-3 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-3 .flag-btn { color: #fff; }
+    .red-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .red-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(200,20,20,0.07); border-left: 3px solid #C81414; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .red-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E84040; margin-bottom: 0.3rem; }
+    .red-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-4 { background: #020c04; color: #c8f0d0; min-height: 80vh; }
+    .story-4::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(20,160,70,0.16) 0%, transparent 65%); }
+    .story-4 .story-num { color: #14A046; opacity: 0.07; }
+    .story-4 .story-kicker { color: #30C060; opacity: 1; }
+    .story-4 .story-headline { color: #e0ffe8; }
+    .story-4 .story-body { color: #c8f0d0; }
+    .story-4 .story-meta { color: #30C060; opacity: 0.5; }
+    .story-4 .story-link.primary { background: #063820; color: #80ffb0; }
+    .story-4 .story-link.secondary { background: rgba(20,160,70,0.08); color: #a0e8b0; border: 1px solid rgba(20,160,70,0.22); }
+    .story-4 .flag-btn { color: #c8f0d0; }
+    .green-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .green-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(20,160,70,0.07); border-left: 3px solid #14A046; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .green-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #30C060; margin-bottom: 0.3rem; }
+    .green-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-5 { background: #040010; color: #d8c8ff; min-height: 75vh; }
+    .story-5::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(90,40,200,0.17) 0%, transparent 65%); }
+    .story-5 .story-num { color: #5A28C8; opacity: 0.07; }
+    .story-5 .story-kicker { color: #8050E0; opacity: 1; }
+    .story-5 .story-headline { color: #f0e8ff; }
+    .story-5 .story-body { color: #d8c8ff; }
+    .story-5 .story-meta { color: #8050E0; opacity: 0.5; }
+    .story-5 .story-link.primary { background: #200860; color: #d0a8ff; }
+    .story-5 .story-link.secondary { background: rgba(90,40,200,0.08); color: #c0a0f0; border: 1px solid rgba(90,40,200,0.22); }
+    .story-5 .flag-btn { color: #d8c8ff; }
+    .purple-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .purple-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(90,40,200,0.07); border-left: 3px solid #5A28C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .purple-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #8050E0; margin-bottom: 0.3rem; }
+    .purple-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-6 { background: #000c10; color: #b8e8f0; min-height: 75vh; }
+    .story-6::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 40%, rgba(0,130,160,0.14) 0%, transparent 65%); }
+    .story-6 .story-num { color: #0080A0; opacity: 0.07; }
+    .story-6 .story-kicker { color: #20B0D0; opacity: 1; }
+    .story-6 .story-headline { color: #e0f4ff; }
+    .story-6 .story-body { color: #b8e8f0; }
+    .story-6 .story-meta { color: #20B0D0; opacity: 0.5; }
+    .story-6 .story-link.primary { background: #003848; color: #80d8f0; }
+    .story-6 .story-link.secondary { background: rgba(0,130,160,0.08); color: #90cce0; border: 1px solid rgba(0,130,160,0.22); }
+    .story-6 .flag-btn { color: #b8e8f0; }
+    .cyan-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(185px, 1fr)); gap: 1rem; margin: 2rem 0; max-width: 680px; }
+    .cyan-card { background: rgba(0,130,160,0.07); border: 1px solid rgba(0,130,160,0.22); border-radius: 4px; padding: 1.2rem 1.4rem; }
+    .cyan-card-name { font-size: 0.78rem; font-weight: 900; color: #20B0D0; margin-bottom: 0.4rem; }
+    .cyan-card-desc { font-size: 0.72rem; opacity: 0.75; line-height: 1.4; }
+
+    .story-7 { background: #0a0300; color: #ffe0b8; min-height: 75vh; }
+    .story-7::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(210,90,20,0.18) 0%, transparent 65%); }
+    .story-7 .story-num { color: #D05A14; opacity: 0.07; }
+    .story-7 .story-kicker { color: #E88040; opacity: 1; }
+    .story-7 .story-headline { color: #fff0d8; }
+    .story-7 .story-body { color: #ffe0b8; }
+    .story-7 .story-meta { color: #E88040; opacity: 0.5; }
+    .story-7 .story-link.primary { background: #6a2400; color: #ffc880; }
+    .story-7 .story-link.secondary { background: rgba(210,90,20,0.08); color: #ffb870; border: 1px solid rgba(210,90,20,0.22); }
+    .story-7 .flag-btn { color: #ffe0b8; }
+    .amber-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .amber-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(210,90,20,0.07); border-left: 3px solid #D05A14; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .amber-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E88040; margin-bottom: 0.3rem; }
+    .amber-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-8 { background: #080500; color: #fff; min-height: 70vh; }
+    .story-8::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,145,10,0.15) 0%, transparent 65%); }
+    .story-8 .story-num { color: #BE9110; opacity: 0.06; }
+    .story-8 .story-kicker { color: #D4A820; opacity: 1; }
+    .story-8 .story-headline { color: #fff; }
+    .story-8 .story-body { color: rgba(255,255,255,0.88); }
+    .story-8 .story-meta { color: #D4A820; opacity: 0.5; }
+    .story-8 .story-link.primary { background: #604000; color: #ffe070; }
+    .story-8 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-8 .flag-btn { color: #fff; }
+    .gold-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .gold-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(190,145,10,0.07); border-left: 3px solid #BE9110; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .gold-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #D4A820; margin-bottom: 0.3rem; }
+    .gold-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-9 { background: #040810; color: #c8d8f0; min-height: 70vh; }
+    .story-9::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 35%, rgba(50,90,170,0.16) 0%, transparent 65%); }
+    .story-9 .story-num { color: #3258A8; opacity: 0.07; }
+    .story-9 .story-kicker { color: #5878C8; opacity: 1; }
+    .story-9 .story-headline { color: #e8f0ff; }
+    .story-9 .story-body { color: #c8d8f0; }
+    .story-9 .story-meta { color: #5878C8; opacity: 0.5; }
+    .story-9 .story-link.primary { background: #101e50; color: #fff; }
+    .story-9 .story-link.secondary { background: rgba(50,90,170,0.08); color: #b0c8e8; border: 1px solid rgba(50,90,170,0.22); }
+    .story-9 .flag-btn { color: #c8d8f0; }
+    .slate-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .slate-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(50,90,170,0.07); border-left: 3px solid #3258A8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .slate-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #5878C8; margin-bottom: 0.3rem; }
+    .slate-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-10 { background: #080004; color: #ffc8e8; min-height: 70vh; }
+    .story-10::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,20,90,0.15) 0%, transparent 65%); }
+    .story-10 .story-num { color: #BE1458; opacity: 0.07; }
+    .story-10 .story-kicker { color: #E04080; opacity: 1; }
+    .story-10 .story-headline { color: #fff0f8; }
+    .story-10 .story-body { color: #ffc8e8; }
+    .story-10 .story-meta { color: #E04080; opacity: 0.5; }
+    .story-10 .story-link.primary { background: #500030; color: #ffb0d8; }
+    .story-10 .story-link.secondary { background: rgba(190,20,90,0.08); color: #f090c0; border: 1px solid rgba(190,20,90,0.22); }
+    .story-10 .flag-btn { color: #ffc8e8; }
+    .mag-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .mag-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(190,20,90,0.07); border-left: 3px solid #BE1458; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .mag-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E04080; margin-bottom: 0.3rem; }
+    .mag-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .site-footer { background: #000; color: #555; padding: 3rem 4rem; display: flex; flex-direction: column; gap: 1.5rem; border-top: 1px solid #222; }
+    .footer-top { display: flex; gap: 2rem; align-items: center; flex-wrap: wrap; justify-content: space-between; }
+    .footer-brand { font-size: 1.4rem; font-weight: 900; color: #fff; }
+    .footer-meta { font-size: 0.75rem; line-height: 1.6; }
+    .export-btn { background: #222; border: 1px solid #444; color: #fff; font-family: var(--font); font-size: 0.8rem; font-weight: 700; padding: 0.7em 1.5em; border-radius: 3px; cursor: pointer; letter-spacing: 0.08em; transition: background 0.2s; }
+    .export-btn:hover { background: #333; }
+    .footer-note { font-size: 0.7rem; opacity: 0.5; }
+
+    @media (max-width: 768px) {
+      .masthead, .toc, .story-inner, .site-footer { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .story-num { display: none; }
+      .masthead-meta { gap: 1rem; }
+      .masthead-issue { margin-left: 0; }
+      .dos-grid, .cyan-cards { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+<nav style="background:#1a1a1a;border-bottom:1px solid #333;padding:0.55rem 2rem;font-family:'M PLUS Rounded 1c','Hiragino Sans','Noto Sans JP',sans-serif;position:sticky;top:0;z-index:999;">
+  <a href="./index.html" style="color:#aaa;text-decoration:none;font-size:0.8rem;font-weight:700;letter-spacing:0.03em;display:inline-flex;align-items:center;gap:0.4rem;transition:color 0.15s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#aaa'">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    アーカイブへ戻る
+  </a>
+</nav>
+
+<header class="masthead">
+  <div class="masthead-kicker">Hacker News — Morning Edition</div>
+  <h1 class="masthead-title">Morning<br>Edition</h1>
+  <div class="masthead-meta">
+    <div>
+      <div class="masthead-date">2026年6月23日 月曜日</div>
+      <div class="masthead-subtitle">AI・開発ツール・プライバシー・サイエンス — あなたのための10本</div>
+    </div>
+    <div class="masthead-issue">
+      <span class="iss-label">Issue</span>
+      <span class="iss-num">No.059</span>
+    </div>
+  </div>
+</header>
+
+<nav class="toc">
+  <a href="#s1"><span class="toc-num">01</span>⚡ Claude Codeの「思考テキスト」は本物ではない？</a>
+  <a href="#s2"><span class="toc-num">02</span>⚡ GLM 5.2 vs Claude Opus——中国モデルの挑戦状</a>
+  <a href="#s3"><span class="toc-num">03</span>Deno Desktopが登場——JavaScriptランタイムがデスクトップへ</a>
+  <a href="#s4"><span class="toc-num">04</span>OpenAI Codexのログバグ——SSDにTB級データを書き込む</a>
+  <a href="#s5"><span class="toc-num">05</span>Oak——AIエージェントのために設計された新世代バージョン管理</a>
+  <a href="#s6"><span class="toc-num">06</span>警察署長がFlockで女性を追跡——令状なしLPRの闇</a>
+  <a href="#s7"><span class="toc-num">07</span>LGスマートTVアプリの半数に住宅用プロキシSDKが埋め込まれていた</a>
+  <a href="#s8"><span class="toc-num">08</span>Moebius——0.2Bで10B級の画像修復を実現した小さな巨人</a>
+  <a href="#s9"><span class="toc-num">09</span>Mitchell HashimotoがZig財団にさらに$400kを寄付</a>
+  <a href="#s10"><span class="toc-num">10</span>1980年代のBernoullディスクでWii Uを動かす男</a>
+</nav>
+
+<!-- ═══ STORY 1 — Claude Code Extended Thinking ══════════════════════════════ -->
+<section class="story story-1" id="s1">
+  <div class="story-num">01</div>
+  <div class="story-inner">
+    <div class="story-badge direct-badge">⚡ あなたに直接関係</div>
+    <div class="story-kicker">AI / CLAUDE CODE / TRANSPARENCY / ANTHROPIC — Patrick McCanna氏が「Claude Codeの拡張思考出力テキストは本物の内部推論ではない」と主張する記事を公開。253ポイント・179コメント</div>
+    <h2 class="story-headline">
+      Claude Codeの<br>「<span class="headline-accent">思考テキスト</span>」は<br>本物では<br>ない？
+    </h2>
+    <div class="story-body">
+      Patrick McCanna氏が「The text in Claude Code's "Extended Thinking" output is not authentic（Claude Codeの拡張思考出力テキストは本物ではない）」と題した記事を公開し、253ポイント・179コメントという大きな反響を呼んでいます。Claude Codeを日常的に使うユーザーにとって直接関係する主張であり、HNで活発な議論が続いています。
+
+      McCanna氏の主張の核心は「Claudeが思考中に表示される`&lt;thinking&gt;`タグ内のテキストは、モデルが内部で実際に処理している計算の忠実な記録ではなく、何らかの形でユーザーに見せるために生成された（あるいは後付けで整形された）テキストである可能性が高い」というものです。根拠として、モデルが複雑な判断をしている最中に思考テキストが突然切り替わったり、実際の出力と思考テキストの論理的整合性がとれていないケースを複数提示しています。
+
+      HN上では「これは確証がない主張だが、問いかけとして価値がある——LLMの内部状態を外部から観察することは原理的に不可能に近い」「AnthropicはExtended Thinkingを"モデルが問題を考える過程を見せる"と説明しているが、それがどの程度"本物"かの定義自体が難しい」「RLHFやフィードバック学習を経ると、ユーザーが見たいような思考テキストを生成するよう最適化される可能性は否定できない」「Claude Codeを使う上での実用的な影響は薄い——思考テキストの信頼性より出力の品質が重要」「Anthropicがこの問いに正面から答えるべき——透明性の問題はAIの信頼性の核心」という議論が展開されています。
+    </div>
+    <div class="dos-grid">
+      <div class="dos-card">
+        <div class="dos-card-label">主張の核心</div>
+        <div class="dos-card-value">思考テキストは後付け生成の可能性</div>
+        <div class="dos-card-sub">Extended Thinkingで表示される思考テキストが、モデルの実際の内部計算を反映していない可能性をMcCanna氏が複数の実例をもとに指摘</div>
+      </div>
+      <div class="dos-card">
+        <div class="dos-card-label">Anthropicの公式見解</div>
+        <div class="dos-card-value">「問題を考える過程を見せる」と説明</div>
+        <div class="dos-card-sub">Anthropicはドキュメントで拡張思考を「モデルが問題解決前に内部で推論するプロセス」と説明しているが、その正確な意味は公式には明確化されていない</div>
+      </div>
+      <div class="dos-card">
+        <div class="dos-card-label">ユーザーへの実用上の影響</div>
+        <div class="dos-card-value">出力品質には直接影響なし</div>
+        <div class="dos-card-sub">思考テキストが本物かどうかにかかわらず、Extended Thinkingを有効にした際の最終出力の品質向上効果は実測されている。デバッグの参考程度に使う分には問題ない</div>
+      </div>
+      <div class="dos-card">
+        <div class="dos-card-label">問うべき本質</div>
+        <div class="dos-card-value">AIの透明性の定義問題</div>
+        <div class="dos-card-sub">LLMの「思考」を外部から観察・検証する方法論が確立されていない中、表示される思考テキストをどう解釈すべきかは重要な研究課題。HNでは哲学的な議論にまで発展</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: patrickmccanna.net</span>
+      <span>253 ポイント</span>
+      <span>179 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://patrickmccanna.net/the-text-in-claude-codes-extended-thinking-output-is-not-authentic/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48630535" target="_blank">HN議論 (179)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="claude-code-extended-thinking-output" data-type="like" onclick="toggleFlag('claude-code-extended-thinking-output','⚡ Claude Codeの「思考テキスト」は本物ではない？','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="claude-code-extended-thinking-output" data-type="dislike" onclick="toggleFlag('claude-code-extended-thinking-output','⚡ Claude Codeの「思考テキスト」は本物ではない？','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+  <div class="story-1-accent"></div>
+</section>
+
+<!-- ═══ STORY 2 — GLM 5.2 vs Opus ════════════════════════════════════════════ -->
+<section class="story story-2" id="s2">
+  <div class="story-num">02</div>
+  <div class="story-inner">
+    <div class="story-badge direct-badge">⚡ あなたに直接関係</div>
+    <div class="story-kicker">AI / LLM BENCHMARK / CHINA / ANTHROPIC — 中国・清華大のGLM 5.2がClaude Opus 4と比較されたベンチマーク記事が474ポイント・314コメントで話題沸騰</div>
+    <h2 class="story-headline">
+      GLM 5.2<br>vs. Claude Opus——<br>中国モデルの<br>挑戦状
+    </h2>
+    <div class="story-body">
+      清華大学発のAIラボ「Zhipu AI」が開発するGLM 5.2と、AnthropicのClaude Opus 4を比較したベンチマーク記事「GLM 5.2 vs. Opus」が474ポイント・314コメントという大きな注目を集めています。Claude Opus（Anthropicのフラッグシップモデル）が直接名指しで比較対象になっているため、Claude Code日常ユーザーにとって直接関係するニュースです。
+
+      GLM（General Language Model）はGLM-4・ChatGLMシリーズとして知られる中国語・英語バイリンガル対応の大規模言語モデルで、5.2は最新世代にあたります。今回のベンチマークではコーディング・推論・数学・多言語理解の複数軸で比較が行われており、特定のタスクではGLM 5.2がClaude Opusに肉薄または上回るとする結果が報告されています。HN上では「ベンチマークはコンテキストを含めて解釈すべき——どのプロンプト設計・評価者の判断によって数値が大きく変わる」という懐疑論も強く出ています。
+
+      一方で「中国のAIラボがこの速度でフラッグシップ競争に参加してきていることが驚き——2年前のGPT-4水準に追いつくだけでなく、特定ドメインで超えるモデルが複数存在する」「Claudeの強みはベンチマーク数値より使いやすさ・安全性・長文理解にある——これらは簡単に数値化できない」「GLMはAPI経由で使えるが、利用規約・データ処理の透明性・セキュリティポリシーがAnthropicと大きく異なる——企業利用での採用には慎重な評価が必要」「オープンウェイトでローカル実行できる点はGLMの強み——プライバシー要件が高い用途で差別化できる」という議論が314コメントで展開中です。
+    </div>
+    <div class="teal-items">
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">GLM 5.2とは</div>
+          <div class="teal-text">清華大学系列のZhipu AIが開発する大規模言語モデルの最新版。中国語・英語バイリンガル対応で、コーディング・推論・数学に特化した学習が施されている。API提供に加え一部モデルはオープンウェイトとして公開されており、ローカル実行も可能</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">ベンチマーク結果の見方</div>
+          <div class="teal-text">特定タスクでGLM 5.2がClaude Opusに肉薄するという結果は、評価プロンプト設計・評価者の判断・テストセットの選択によって大きく変動する。「Claude Opusより優秀」と結論づける前に、使用目的・プロンプトスタイル・言語との相性を自分でテストすることが重要</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">Claude Codeユーザーが知るべきこと</div>
+          <div class="teal-text">Claude Opusの強みはベンチマーク外にある——長文コンテキストの精度・安全性設計・ユーザー体験・APIの信頼性。また企業利用では利用規約・データ処理・GDPR対応がAnthropicとGLM/Zhipuで大きく異なる。ユースケースと要件を明確にして比較することが重要</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: techstackups.com</span>
+      <span>474 ポイント</span>
+      <span>314 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://techstackups.com/comparisons/glm-5.2-vs-opus/" target="_blank">比較記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48626866" target="_blank">HN議論 (314)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="glm-52-vs-opus" data-type="like" onclick="toggleFlag('glm-52-vs-opus','⚡ GLM 5.2 vs Claude Opus——中国モデルの挑戦状','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="glm-52-vs-opus" data-type="dislike" onclick="toggleFlag('glm-52-vs-opus','⚡ GLM 5.2 vs Claude Opus——中国モデルの挑戦状','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 3 — Deno Desktop ═══════════════════════════════════════════════ -->
+<section class="story story-3" id="s3">
+  <div class="story-num">03</div>
+  <div class="story-inner">
+    <div class="story-kicker">DEVELOPER TOOLS / DENO / DESKTOP / JAVASCRIPT — Ryan Dahl氏のDenoがデスクトップアプリケーション機能を正式リリース。997ポイント・365コメントでHNトップ獲得</div>
+    <h2 class="story-headline">
+      Deno Desktop<br>が登場——<br>JavaScriptランタイムが<br>デスクトップへ
+    </h2>
+    <div class="story-body">
+      Node.jsの生みの親Ryan Dahl氏が作ったJavaScriptランタイム「Deno」が「Deno Desktop」機能を正式リリースし、997ポイント・365コメントとHNのフロントページ最大の注目を集めました。Deno Desktopは、DenoのJavaScript/TypeScript実行環境を使ってネイティブデスクトップアプリケーションを構築できるフレームワークです。ElectronやTauriが先行していたデスクトップアプリ開発の領域にDenoが本格参入した形で、開発者コミュニティに大きな衝撃を与えています。
+
+      Deno Desktopの特徴は「ブラウザ互換のWebAPIとDenoの安全なパーミッションモデルをそのままデスクトップアプリに持ち込める」点にあります。ElectronはChromiumとNode.jsを丸ごとバンドルするためアプリサイズが大きくなりがちで、TauriはRustベースのバックエンドとの組み合わせが必要でしたが、Deno Desktopはシームレスなデスクトップ統合を目指しています。DOMアクセス・ファイルシステム・ネットワークはDenoのパーミッションシステムで明示的に制御されるため、Electronより安全な設計が可能です。
+
+      HN上では「ElectronはやはりChromiumのおかげで完成度が高い——Deno Desktopがどこまでブラウザ互換を維持できるかが問われる」「TauriはRustで高速なバックエンドを書けるが、学習コストが高い——DenoならWebエンジニアが即座に使える」「Node.jsユーザーがDenoに移行しない最大の理由はエコシステムの差だが、Deno Desktopでユースケースが広がれば採用率が上がる可能性」「パーミッションモデルが厳格すぎて既存のnpmパッケージとの相性が気になる——Node互換モードとどう使い分けるか」「Claude CodeをDeno Desktopで包んだデスクトップアプリが作れると面白い——というコメントが複数ついている」という365コメントが展開中です。
+    </div>
+    <div class="red-items">
+      <div class="red-item">
+        <div>
+          <div class="red-label">Deno Desktopとは何か</div>
+          <div class="red-text">DenoのランタイムとWebAPIを使ってネイティブデスクトップアプリを構築できる新機能。ElectronやTauriと同じ市場を狙う。Denoのパーミッションモデルによりファイルシステムやネットワークへのアクセスを明示的に制御でき、Electronより安全なアプリ設計が可能</div>
+        </div>
+      </div>
+      <div class="red-item">
+        <div>
+          <div class="red-label">ElectronおよびTauriとの違い</div>
+          <div class="red-text">Electron：Chromium+Node.jsをバンドル、アプリサイズが大きい（100MB+）。Tauri：軽量だがRustバックエンドの知識が必要。Deno Desktop：WebAPIネイティブ+TypeScript、軽量かつWebエンジニアフレンドリーを目指す。エコシステム成熟度はElectronが圧倒的に優位</div>
+        </div>
+      </div>
+      <div class="red-item">
+        <div>
+          <div class="red-label">今すぐ試す方法</div>
+          <div class="red-text">公式ドキュメント（docs.deno.com/runtime/desktop/）にクイックスタートが用意されている。既存のDenoプロジェクトからデスクトップアプリへの移行方法も解説。まずはシンプルなGUIツールをDenoで作ってみることが推奨される</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: docs.deno.com</span>
+      <span>997 ポイント</span>
+      <span>365 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://docs.deno.com/runtime/desktop/" target="_blank">Deno Desktopを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48626137" target="_blank">HN議論 (365)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="deno-desktop" data-type="like" onclick="toggleFlag('deno-desktop','Deno Desktopが登場——JavaScriptランタイムがデスクトップへ','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="deno-desktop" data-type="dislike" onclick="toggleFlag('deno-desktop','Deno Desktopが登場——JavaScriptランタイムがデスクトップへ','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 4 — Codex logging bug ══════════════════════════════════════════ -->
+<section class="story story-4" id="s4">
+  <div class="story-num">04</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI TOOLS / OPENAI CODEX / BUG / ACTIONABLE — OpenAI Codex CLIのロギングバグが確認されたSSDにTB規模のログを書き込む可能性。457ポイント・250コメントで緊急の話題に</div>
+    <h2 class="story-headline">
+      OpenAI Codexの<br>ログバグ——<br>SSDに<br>TB級データを書く
+    </h2>
+    <div class="story-body">
+      OpenAIのAIコーディングツール「Codex CLI」に深刻なログバグが発見され、GitHubのissue #28224として報告、457ポイント・250コメントという大きな注目を集めています。このバグは、特定の条件下でCodexのverboseログモードが際限なくローカルSSDにデータを書き込み続け、テラバイト規模のストレージを消費する可能性があるというものです。Codex CLIはOpenAIが提供するターミナルベースのAIコーディングアシスタントで、Claude Codeと競合するポジションにある製品です。
+
+      バグの詳細は「Codexの特定モード（主に--verboseフラグ使用時またはデバッグモード）でセッションログが無制限に書き込まれ、セッションを終了しても増加が止まらないケースがある」というものです。報告者のなかには数時間の使用で500GB以上のログファイルが生成されたというケースも含まれており、SSDの寿命に直接影響する深刻な問題として注目されています。OpenAIはissueを確認したと応答していますが、修正版のリリース時期は本稿執筆時点では不明です。
+
+      HN上では「Codexを使っている人はすぐにログディレクトリを確認すべき——影響を受けているか確認してから使い続けるかを判断する」「AIコーディングツールがバックグラウンドで予期しない規模のファイルを書き込むというのはセキュリティ上の問題でもある——ログに何が記録されているかも精査が必要」「こういったバグが報告・修正されるのはオープンなissue trackerがある製品の強み——クローズドな製品ではユーザーは気づかないまま」「Claude CodeはAnthropicの管理下にある——ログの扱いやデータの保存ポリシーはClaude Code規約で確認できる」「ディスク容量が急減した場合のデバッグ方法が250コメントで共有されている——技術的に役立つスレッド」という議論が展開されています。
+    </div>
+    <div class="green-items">
+      <div class="green-item">
+        <div>
+          <div class="green-label">今すぐやるべき確認</div>
+          <div class="green-text">Codex CLIを使っている場合：①`~/.codex/`または`$TMPDIR`以下のログディレクトリのサイズを確認（`du -sh ~/.codex/` 等）②`--verbose`フラグを使っていた場合は特に要注意③ディスク使用量が急増していた場合はCodexのログが原因の可能性が高い④修正版リリースまでは--verboseフラグを避けるのが無難</div>
+        </div>
+      </div>
+      <div class="green-item">
+        <div>
+          <div class="green-label">バグの技術的背景</div>
+          <div class="green-text">ストリーミングレスポンスのバッファ管理またはセッション管理の実装に問題があり、ログローテーションが機能せずにファイルが無制限に肥大化する。AIコーディングツールは長時間セッションを前提とするため、ログ設計のバグが特に大きな影響を持つ</div>
+        </div>
+      </div>
+      <div class="green-item">
+        <div>
+          <div class="green-label">Claude Codeとの比較</div>
+          <div class="green-text">Claude Codeのローカルセッションデータの扱いはAnthropicのプライバシーポリシーに従う。大規模なローカルログ書き込みの問題はClaude Codeでは現時点で報告されていないが、AIコーディングツール全般でローカルデータの扱いを定期的に確認することが推奨される</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: github.com/openai/codex issues</span>
+      <span>457 ポイント</span>
+      <span>250 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://github.com/openai/codex/issues/28224" target="_blank">GitHubイシューを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48626930" target="_blank">HN議論 (250)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="codex-logging-bug-tbs-ssd" data-type="like" onclick="toggleFlag('codex-logging-bug-tbs-ssd','OpenAI Codexのログバグ——SSDにTB級データを書き込む','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="codex-logging-bug-tbs-ssd" data-type="dislike" onclick="toggleFlag('codex-logging-bug-tbs-ssd','OpenAI Codexのログバグ——SSDにTB級データを書き込む','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 5 — Oak – Git for agents ═══════════════════════════════════════ -->
+<section class="story story-5" id="s5">
+  <div class="story-num">05</div>
+  <div class="story-inner">
+    <div class="story-kicker">DEVELOPER TOOLS / AI AGENTS / VERSION CONTROL / SHOW HN — AIエージェントのために設計された新世代バージョン管理システム「Oak」がShow HNで125ポイント・126コメントを獲得</div>
+    <h2 class="story-headline">
+      Oak——<br>AIエージェントの<br>ための<br>新世代VCS
+    </h2>
+    <div class="story-body">
+      「Show HN: Oak – Git alternative designed for agents（エージェントのために設計されたGit代替）」がHNに登場し、125ポイント・126コメントを集めています。OakはGitの概念を刷新し、AIエージェントが多数並行して動作する開発環境に最適化されたバージョン管理システムです。Gitはもともと人間が手動でコードを書き、コミットメッセージを記述し、ブランチを管理するという前提で設計されましたが、AIエージェントが大量のコードを短時間で生成・変更する環境では、その設計がボトルネックになるケースが増えています。
+
+      Oakの主な特徴は「エージェントIDによる自動追跡」「コンフリクト解決の自動化支援」「エージェントのアクション履歴と意図を構造化して記録」「ブランチではなく"エージェントワークスペース"という概念でパラレル開発を管理」の4点です。複数のAIエージェントが同一リポジトリで並行して作業するシナリオ——たとえばClaude Codeセッションが複数立ち上がって同じコードベースを変更する場合——での使いやすさを設計の中心に置いています。
+
+      HN上では「Gitは人間のペースに合わせた設計——AIエージェントが1秒に何十回もコミットするならGitのオーバーヘッドは深刻な問題になりえる」「エージェントのアクション履歴を保存することはデバッグに役立つが、プライバシーとストレージコストが課題」「まだ実用段階には遠いが、問いかけ自体は正しい——GitをAI時代に向けて再設計する必要がある」「Claude Codeのようなツールがネイティブで使えるようになれば価値がある——エコシステムの採用が鍵」「コンフリクト解決の自動化はAIが得意なはず——Oakの方向性は正しいと思う」という126コメントが展開されています。
+    </div>
+    <div class="purple-items">
+      <div class="purple-item">
+        <div>
+          <div class="purple-label">Oakが解決しようとする問題</div>
+          <div class="purple-text">Gitは「人間が意図を持ってコミット」する前提で設計されている。AIエージェントが自律的に大量の変更を加える環境では、①コミット頻度が人間の数百倍になり得る②コンフリクトが人間には理解しにくい形で発生③エージェントのアクション意図が追跡しにくい——という問題が生じる</div>
+        </div>
+      </div>
+      <div class="purple-item">
+        <div>
+          <div class="purple-label">主な設計上の革新</div>
+          <div class="purple-text">「エージェントワークスペース」概念でブランチの代わりにエージェントIDを軸に並行開発を管理。コミットメッセージの代わりにエージェントのアクション意図（ツール呼び出し・変更理由）を構造化保存。コンフリクト解決ロジックにAI支援を内包している</div>
+        </div>
+      </div>
+      <div class="purple-item">
+        <div>
+          <div class="purple-label">現時点での評価</div>
+          <div class="purple-text">まだ初期段階のプロジェクトであり、実用的なプロダクション導入には時期尚早。ただし「AIエージェントがコードを書く時代のVCS」という問いかけは非常に重要。GitHubやGitLab等の既存エコシステムとの統合パスが今後の課題</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: oak.space</span>
+      <span>125 ポイント</span>
+      <span>126 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://oak.space/oak/oak" target="_blank">Oakを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48631726" target="_blank">HN議論 (126)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="oak-git-alternative-agents" data-type="like" onclick="toggleFlag('oak-git-alternative-agents','Oak——AIエージェントのために設計された新世代バージョン管理','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="oak-git-alternative-agents" data-type="dislike" onclick="toggleFlag('oak-git-alternative-agents','Oak——AIエージェントのために設計された新世代バージョン管理','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 6 — Flock police surveillance ══════════════════════════════════ -->
+<section class="story story-6" id="s6">
+  <div class="story-num">06</div>
+  <div class="story-inner">
+    <div class="story-kicker">PRIVACY / SURVEILLANCE / LAW ENFORCEMENT / LPR — Flock Safetyのナンバープレート読取システムを複数の警察署長が個人的な追跡に悪用。令状なし大量監視の危うさが露わに。203ポイント・66コメント</div>
+    <h2 class="story-headline">
+      警察署長が<br>Flockで<br>女性を追跡——<br>令状なしLPRの闇
+    </h2>
+    <div class="story-body">
+      監視技術専門メディアIPVMが「Flock-Powered Police Chiefs Stalking Women Shows Why Warrants Are Needed（Flockを使って警察署長が女性をストーキング——なぜ令状が必要かを示す事例）」と題した調査報道を公開し、203ポイント・66コメントを集めています。Flock SafetyはAIを活用したLPR（License Plate Reader、ナンバープレート読取）システムを全米数千の自治体・警察に提供しているセキュリティ企業で、犯罪捜査への活用が進む一方で、その強力な追跡能力が悪用されるリスクが問題視されてきました。
+
+      今回報道されたのは、少なくとも複数の警察署長がFlockのシステムを個人的な目的——元交際相手や知人の女性の移動を追跡する——に使用していたという事例です。Flockのシステムは車両のナンバープレートをリアルタイムで全米の検問所・交差点・駐車場で読み取り、移動履歴を生成します。正当な犯罪捜査では非常に有効なツールですが、令状なしでの大量データ収集と強力な個人追跡機能の組み合わせが、内部告発者なしには気づかれにくい形で個人の行動を監視できる環境を作り出しています。
+
+      HN上では「令状なしのLPRデータが警察内部で誰でも検索できる状態は根本的な問題——アクセスログの監査と令状要件の法制化が必要」「Flockは「犯罪を減らすツール」として普及しているが、同じシステムが内部の権力者による個人監視に使われる——技術の中立性という神話」「日本では同様のシステムが自動車ナンバー読取で使われており、運用の透明性が問われる可能性がある」「監視技術を提供する企業のコンプライアンス責任——Flockはアクセスログを自治体に提供・監査できる仕組みを持っているか」という議論が展開されています。
+    </div>
+    <div class="cyan-cards">
+      <div class="cyan-card">
+        <div class="cyan-card-name">Flock Safetyとは</div>
+        <div class="cyan-card-desc">AIベースのLPR（ナンバープレート読取）システムを全米数千の自治体・警察に提供するセキュリティ企業。車両の移動をリアルタイムで追跡し、犯罪捜査に活用される。急速に普及中</div>
+      </div>
+      <div class="cyan-card">
+        <div class="cyan-card-name">LPRの追跡能力</div>
+        <div class="cyan-card-desc">設置カメラがナンバーを読取→クラウドDBに蓄積→特定車両の過去数ヶ月の移動履歴が即座に検索可能。職場・自宅・医療機関などの訪問パターンも推定できる</div>
+      </div>
+      <div class="cyan-card">
+        <div class="cyan-card-name">問題の核心</div>
+        <div class="cyan-card-desc">令状なしで大量の市民の移動データが収集・保存され、権限を持つ警察官が個人的な目的に使用できる構造。内部監査なしには悪用を発見できない</div>
+      </div>
+      <div class="cyan-card">
+        <div class="cyan-card-name">何が必要か</div>
+        <div class="cyan-card-desc">LPRデータへのアクセスに令状要件を課す法制度、アクセスログの外部監査義務、データ保持期間の法的上限——技術的解決より政策・法整備が急務</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: ipvm.com</span>
+      <span>203 ポイント</span>
+      <span>66 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://ipvm.com/reports/police-chiefs-track" target="_blank">調査報道を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48634694" target="_blank">HN議論 (66)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="flock-police-chiefs-surveillance" data-type="like" onclick="toggleFlag('flock-police-chiefs-surveillance','警察署長がFlockで女性を追跡——令状なしLPRの闇','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="flock-police-chiefs-surveillance" data-type="dislike" onclick="toggleFlag('flock-police-chiefs-surveillance','警察署長がFlockで女性を追跡——令状なしLPRの闇','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 7 — LG Smart TV proxy SDKs ════════════════════════════════════ -->
+<section class="story story-7" id="s7">
+  <div class="story-num">07</div>
+  <div class="story-inner">
+    <div class="story-kicker">PRIVACY / SECURITY / SMART TV / RESIDENTIAL PROXY — セキュリティ研究者がLGスマートTVアプリの47%に住宅用プロキシSDKが埋め込まれていることを発見。知らぬ間にTVが他人の通信を中継している。103ポイント・53コメント</div>
+    <h2 class="story-headline">
+      LGスマートTVアプリの<br>半数に<br>住宅用プロキシ<br>SDKが潜伏
+    </h2>
+    <div class="story-body">
+      セキュリティ企業Spurが「Nearly Half of LG Smart TV Apps Contain Residential Proxy SDKs（LGスマートTVアプリの約半数に住宅用プロキシSDKが含まれている）」という調査報告を公開し、103ポイント・53コメントを集めています。住宅用プロキシ（Residential Proxy）とは、一般家庭のIPアドレスからインターネットアクセスを中継するサービスで、企業・詐欺師・スクレイパーが「本物のユーザーのように見える」アクセスを行うために利用されます。調査によれば、LGスマートTV上のアプリの約47%に、デバイスを住宅用プロキシノードとして機能させるSDKが組み込まれているとのことです。
+
+      これはユーザーの同意なしにスマートTVがVPNサービスのノードとして他人の通信を中継している状態を意味します。具体的には、第三者の通信があなたのIPアドレスとネットワーク帯域幅を使ってインターネットを通過します。利用者はそれを知らないまま、自分のネットワークが商業目的のプロキシとして売られています。SDKを組み込んでいるアプリ開発者はプロキシサービス事業者から報酬を受け取る仕組みになっており、これは「SDKマネタイゼーション」という手法として知られています。
+
+      HN上では「スマートTV、ルーター、IoTデバイスが意図せずプロキシノードになる問題は以前から指摘されていた——LGだけでなくSamsung・Rokuでも同様の事例が報告されている」「ISPがこれを検出して通知してくれるサービスが必要——ユーザーは知る術がない」「TVにインターネット接続させないという選択肢が最も確実——Kodi等のメディアサーバーをローカルで動かすか、TV本体のWi-FiをMACアドレス単位でブロックする」「SDKを組み込んだアプリ開発者への規制が必要——GoogleとAppleのモバイルアプリストアはこの種のSDKを規制しているが、TV OSはまだ規制が追いついていない」という議論が展開されています。
+    </div>
+    <div class="amber-items">
+      <div class="amber-item">
+        <div>
+          <div class="amber-label">何が起きているか</div>
+          <div class="amber-text">LGスマートTVに入れたアプリの約47%に、テレビを「住宅用プロキシノード」として動作させるSDKが含まれている。第三者の通信があなたのIPアドレスを経由してインターネットに出る。帯域幅の消費・法的リスク（通信の中継）・プライバシーリスクが発生する</div>
+        </div>
+      </div>
+      <div class="amber-item">
+        <div>
+          <div class="amber-label">今すぐできる対策</div>
+          <div class="amber-text">①スマートTVのWi-Fi接続を切断——動画はFireTV Stick・Apple TV・Chromecast等の別デバイスから使う②ルーターのMACアドレスフィルタリングでTV本体をブロック③TV OSのアプリはインストール最小限に④定期的にルーターのトラフィックログを確認する</div>
+        </div>
+      </div>
+      <div class="amber-item">
+        <div>
+          <div class="amber-label">業界・規制の課題</div>
+          <div class="amber-text">AndroidスマートフォンとiOSはこの種のSDKをアプリストアポリシーで規制しているが、スマートTV（WebOS・Tizen等）は規制が遅れている。欧州ではGDPR観点から問題になりうるが、日本・米国では規制の空白地帯。LGはSpurの報告に対してまだ公式コメントを出していない</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: spur.us</span>
+      <span>103 ポイント</span>
+      <span>53 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://spur.us/blog/smart-tv-apps-residential-proxy-sdks" target="_blank">調査報告を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48635954" target="_blank">HN議論 (53)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="lg-smart-tv-residential-proxy" data-type="like" onclick="toggleFlag('lg-smart-tv-residential-proxy','LGスマートTVアプリの半数に住宅用プロキシSDKが埋め込まれていた','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="lg-smart-tv-residential-proxy" data-type="dislike" onclick="toggleFlag('lg-smart-tv-residential-proxy','LGスマートTVアプリの半数に住宅用プロキシSDKが埋め込まれていた','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 8 — Moebius image inpainting ═══════════════════════════════════ -->
+<section class="story story-8" id="s8">
+  <div class="story-num">08</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / COMPUTER VISION / IMAGE INPAINTING / EFFICIENT MODELS — HUSTが発表した0.2Bパラメーターの画像修復モデルMoebiusが10Bレベルの性能を達成。効率的なAIモデル設計の新たな可能性。201ポイント・60コメント</div>
+    <h2 class="story-headline">
+      Moebius——<br>0.2Bで<br>10B級の<br>画像修復を実現
+    </h2>
+    <div class="story-body">
+      武漢大学（HUST）の研究チームが発表した画像修復（Image Inpainting）モデル「Moebius」が注目を集めています。201ポイント・60コメントを獲得したこのモデルの特徴は、わずか2億（0.2B）パラメーターという極めてコンパクトなアーキテクチャで、10Bパラメーター以上の大型モデルに匹敵する画像修復性能を達成したという点です。画像修復（Inpainting）は、画像の一部が欠けている・削除されている部分を自然に補完・再生成するタスクで、写真の背景除去後の補完・老朽化した写真の修復・プライバシー保護のためのオブジェクト除去などに使われます。
+
+      Moebiusの性能向上の鍵は「双方向注意機構（Bidirectional Attention）と自己参照修復（Self-Referential Inpainting）の組み合わせ」にあるとされています。画像の損傷部分を補完する際に、修復中の領域と既存の領域を相互に参照し合いながら整合性の高い補完を行うアプローチにより、大型モデルに頼らずとも高品質な結果を達成できるとしています。また論文ではモデルの重みが公開予定とされており、ローカル実行や商用利用の可能性も示されています。
+
+      HN上では「モデルサイズとコストの問題は常に重要——0.2Bで10B相当が本当なら、モバイル・エッジデバイスでのリアルタイム画像修復が現実的になる」「ベンチマーク上の数値と実際の使用感のギャップがどの程度あるか試してみたい——論文の主張が実用レベルで成立するかが問い」「Stable Diffusion系のinpaintingと比較してどうか——拡散モデルとアーキテクチャレベルで何が違うのかが面白い」「小型高性能モデルの登場はAI民主化の流れ——Googleの大型モデルが必ずしも必要ではない未来が見えてくる」という60コメントが展開中です。
+    </div>
+    <div class="gold-items">
+      <div class="gold-item">
+        <div>
+          <div class="gold-label">Moebiusの技術的革新</div>
+          <div class="gold-text">0.2Bパラメーターで10B級モデルに匹敵するInpainting性能を達成。双方向注意機構（Bidirectional Attention）と自己参照修復（Self-Referential Inpainting）により、修復領域と既存領域が相互参照しながら整合性の高い補完を生成する。アーキテクチャ効率の革新</div>
+        </div>
+      </div>
+      <div class="gold-item">
+        <div>
+          <div class="gold-label">実用的なユースケース</div>
+          <div class="gold-text">①写真のオブジェクト除去後の背景補完②プライバシー保護のための個人情報マスキングと自然な補完③古い写真・損傷した資料の修復④映像制作でのロゴ・ウォーターマーク除去。軽量モデルのためモバイルアプリへの組み込みが現実的</div>
+        </div>
+      </div>
+      <div class="gold-item">
+        <div>
+          <div class="gold-label">今後の展開</div>
+          <div class="gold-text">HUSTは論文とともにモデルウェイトの公開を予定。オープンウェイト公開後はHugging Face経由でのローカル実行が可能になる見込み。0.2BのサイズはM1 Macでもリアルタイム推論が現実的な範囲——画像編集ワークフローへの統合が期待される</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: hustvl.github.io/Moebius</span>
+      <span>201 ポイント</span>
+      <span>60 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://hustvl.github.io/Moebius/" target="_blank">論文プロジェクトページ →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48630171" target="_blank">HN議論 (60)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="moebius-inpainting-model" data-type="like" onclick="toggleFlag('moebius-inpainting-model','Moebius——0.2Bで10B級の画像修復を実現した小さな巨人','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="moebius-inpainting-model" data-type="dislike" onclick="toggleFlag('moebius-inpainting-model','Moebius——0.2Bで10B級の画像修復を実現した小さな巨人','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 9 — Zig $400k donation ════════════════════════════════════════ -->
+<section class="story story-9" id="s9">
+  <div class="story-num">09</div>
+  <div class="story-inner">
+    <div class="story-kicker">PROGRAMMING LANGUAGES / ZIG / OPEN SOURCE FUNDING / SYSTEMS — HashiCorp共同創業者Mitchell HashimotoがZigソフトウェア財団にさらに$400k（約6200万円）の寄付を表明。693ポイント・232コメント</div>
+    <h2 class="story-headline">
+      Mitchell Hashimotoが<br>Zig財団に<br>さらに<br>$400kを寄付
+    </h2>
+    <div class="story-body">
+      HashiCorp（TerraformやVaultで知られる）の共同創業者であり個人でZig言語に強い関心を持つMitchell Hashimoto氏が「Pledging another $400k to the Zig software foundation（Zigソフトウェア財団にさらに$400kを誓約する）」とブログで発表し、693ポイント・232コメントという大きな反響を集めています。Hashimoto氏がZig財団へ資金提供するのは今回が初めてではなく、過去にも複数回の寄付を行ってきた著名スポンサーのひとりです。
+
+      Zigはシステムプログラミング言語として、C言語の代替を目指して設計されており、手動メモリ管理・コンパイル時の計算（comptime）・クロスコンパイルの簡便さ・明示的なエラーハンドリングを特徴としています。RustほどメモリセーフではないもののCよりずっと安全で、ツールチェーンがシンプルなため組み込み・OS・コンパイラ開発などで採用が増えています。特にZigのCクロスコンパイルツールチェーンは他の言語からも使われており、`zig cc`はDropbox・Bun・tigerbeetleなどの著名プロジェクトで採用されています。
+
+      HN上では「オープンソース言語財団の資金調達モデルとして個人スポンサーへの依存は脆弱——Hashimoto氏なき後の持続可能性が課題」「Zigの開発速度は遅いが着実——1.0リリースがいつになるかが最大の関心事、この寄付がそれを早めるか」「RustとZigは競合ではなく補完関係にある——超低レベルCFF置き換えはZig、安全性最優先はRust」「BunがZigで書かれているのは驚きだった——パフォーマンス重視のJSランタイムにZigが選ばれた理由は`zig cc`クロスコンパイルの簡便さが大きい」「日本語Zigコミュニティがまだ小さい——英語圏に比べてリソースが限られているがゆっくり成長している」という232コメントが展開中です。
+    </div>
+    <div class="slate-items">
+      <div class="slate-item">
+        <div>
+          <div class="slate-label">Zigとはどんな言語か</div>
+          <div class="slate-text">C言語の置き換えを目指すシステムプログラミング言語。手動メモリ管理・コンパイル時計算（comptime）・クロスコンパイルの容易さが特徴。GCなし・隠れた制御フローなし・例外なし——全ての動作が明示的。BunJS・tigerbeetle・Ghosttyなどが採用</div>
+        </div>
+      </div>
+      <div class="slate-item">
+        <div>
+          <div class="slate-label">寄付の意義</div>
+          <div class="slate-text">Zig Software Foundationは非営利団体として開発者の給与・インフラコストを賄っている。$400kは中堅エンジニア数名の年俸相当——1.0リリースに向けたコア開発の加速が期待される。Mitchell Hashimoto氏は自身がZigで個人プロジェクトを開発しており、スポンサーとして最も影響力ある支持者のひとり</div>
+        </div>
+      </div>
+      <div class="slate-item">
+        <div>
+          <div class="slate-label">今注目すべきZigの使いどころ</div>
+          <div class="slate-text">`zig cc`はCプロジェクトのクロスコンパイルツールとして単体でも強力——既存CコードをmacOS/Linux/Windowsに向けてビルドするのに使える。Zigを「言語」として学ぶ前に「Cクロスコンパイラ」として触れるのがおすすめの入り口</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: mitchellh.com</span>
+      <span>693 ポイント</span>
+      <span>232 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://mitchellh.com/writing/zig-donation-2026" target="_blank">ブログを読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48630020" target="_blank">HN議論 (232)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="zig-foundation-400k" data-type="like" onclick="toggleFlag('zig-foundation-400k','Mitchell HashimotoがZig財団にさらに$400kを寄付','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="zig-foundation-400k" data-type="dislike" onclick="toggleFlag('zig-foundation-400k','Mitchell HashimotoがZig財団にさらに$400kを寄付','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 10 — Wii U on Bernoulli disk ═══════════════════════════════════ -->
+<section class="story story-10" id="s10">
+  <div class="story-num">10</div>
+  <div class="story-inner">
+    <div class="story-kicker">WEIRD TECH / RETRO COMPUTING / HARDWARE ARCHAEOLOGY — 1980年代のIomega Bernoullディスクシステムを使ってNintendo Wii Uのゲームを動かすという技術考古学的偉業の動画が81ポイント・31コメントで話題</div>
+    <h2 class="story-headline">
+      1980年代の<br>Bernoullディスクで<br>Wii Uを<br>動かす男
+    </h2>
+    <div class="story-body">
+      「Nintendo Wii U games running from a 1980's Bernoulli disk（1980年代のBernoullディスクからWii Uゲームを起動する）」というタイトルのYouTube動画が81ポイント・31コメントを集め、「週末に見る変な技術の話」として注目されています。Bernoulliディスクとは1980年代にIomega社が販売していた着脱可能な磁気ディスクシステムで、容量は初期製品で20MB（メガバイト）程度。現代のゲームが数十GBを必要とするのに対して、桁が9つ以上違います。
+
+      動画では、このBernoulliドライブをUSB変換アダプタ経由でWii Uに接続し、ゲームデータを複数のBernoulliディスクに分割して起動させるという、実用性ゼロながら技術的には非常に興味深いことを実演しています。当然、ゲームのロード時間は膨大になり（一部シーンのロードに何分もかかる）、ディスクの入れ替えが頻繁に必要になりますが、実際に動作していることが確認されています。技術的には複数の変換レイヤー（USBマスストレージ→古いインターフェース→磁気メディア）を重ねた末に動く様子が面白く、「なぜ？」という問いへの答えは「できるかどうかを確かめたかったから」です。
+
+      HN上では「これがハッカー精神——実用性とは無関係に"できるか"を試す衝動は技術者の本質」「Bernoulliディスクは信頼性が高くテープに比べてランダムアクセスが速いという評価があったが、ZIPドライブに市場を奪われた——この動画を見てBernoulliの存在を初めて知った人も多い」「容量20MBのディスクをWii Uゲームに使う場合、タイトルによっては数百〜千枚以上のディスクが必要——ディスク入れ替え文化が復活してしまう」「技術考古学として価値がある——こういった旧システムが動作する様子を記録・保存することは重要」「1980年代のストレージで2015年代のゲームが動く——そのギャップが笑えて泣けて感動する」という31コメントが展開されています。
+    </div>
+    <div class="mag-items">
+      <div class="mag-item">
+        <div>
+          <div class="mag-label">Bernoulliディスクとは</div>
+          <div class="mag-text">1982年にIomega社が発売した着脱可能磁気ディスクシステム。ベルヌーイの定理を利用して読取ヘッドを浮上させる仕組みから命名。初期容量は20MB程度、後期は230MB。テープに比べてランダムアクセスが速く信頼性が高いと評価されたが、ZIPドライブの普及により市場から消えた</div>
+        </div>
+      </div>
+      <div class="mag-item">
+        <div>
+          <div class="mag-label">実験の技術的概要</div>
+          <div class="mag-text">BernoulliドライブをUSBマスストレージ変換経由でWii Uに接続。ゲームデータを複数ディスクに分割して起動。ロード時間は通常の数十〜数百倍、ディスク入れ替えが頻繁に必要。「動作する」という事実の証明が目的で実用性は皆無——ハッカー的好奇心の純粋な結晶</div>
+        </div>
+      </div>
+      <div class="mag-item">
+        <div>
+          <div class="mag-label">技術考古学としての意義</div>
+          <div class="mag-text">こういった「なぜやる？やれるから」という実験は、旧技術の動作原理を記録・伝承する技術考古学として価値がある。Computer History MuseumやInternet Archiveが行う保存活動と同じ精神——現役を外れた技術を理解することは次世代の技術革新の基盤になる</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: YouTube</span>
+      <span>81 ポイント</span>
+      <span>31 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.youtube.com/watch?v=8GZDOpV2OXk" target="_blank">動画を見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48622241" target="_blank">HN議論 (31)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="wii-u-bernoulli-disk" data-type="like" onclick="toggleFlag('wii-u-bernoulli-disk','1980年代のBernoullディスクでWii Uを動かす男','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="wii-u-bernoulli-disk" data-type="dislike" onclick="toggleFlag('wii-u-bernoulli-disk','1980年代のBernoullディスクでWii Uを動かす男','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ══════════════════════════════════════════════════════════════ -->
+<footer class="site-footer">
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand">Morning Edition</div>
+      <div class="footer-meta">
+        Hacker News キュレーション · 2026年6月23日 · Issue No.059<br>
+        毎朝、厳選10本をお届け
+      </div>
+    </div>
+    <button class="export-btn" onclick="exportFeedback()">📋 フィードバックをコピー</button>
+  </div>
+  <div class="footer-note">
+    ⭐ 興味あり / ✕ 興味なし ボタンで次回のキュレーションが改善されます。Chrome/Edgeでは自動保存、その他ではボタンでクリップボードにコピーしてください。
+  </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  const FEEDBACK_KEY = 'morning-edition-feedback-v2';
+  const TODAY = '2026-06-23';
+  let _dirHandle = null;
+
+  async function getDir(forcePrompt) {
+    if (_dirHandle && !forcePrompt) return _dirHandle;
+    if (!window.showDirectoryPicker) return null;
+    try {
+      _dirHandle = await window.showDirectoryPicker({ mode: 'readwrite', id: 'morning-edition', startIn: 'documents' });
+      return _dirHandle;
+    } catch { return null; }
+  }
+
+  async function writeJSON(dirHandle, fb) {
+    const fileHandle = await dirHandle.getFileHandle('feedback.json', { create: true });
+    const writable = await fileHandle.createWritable();
+    await writable.write(JSON.stringify({ ...fb, updatedAt: new Date().toISOString() }, null, 2));
+    await writable.close();
+  }
+
+  function showToast(msg, isErr) {
+    const el = document.getElementById('toast');
+    el.textContent = msg;
+    el.className = 'toast' + (isErr ? ' error' : '');
+    requestAnimationFrame(() => el.classList.add('show'));
+    clearTimeout(el._timer);
+    el._timer = setTimeout(() => el.classList.remove('show'), 3000);
+  }
+
+  function getFeedback() {
+    try { return JSON.parse(localStorage.getItem(FEEDBACK_KEY) || '{"liked":{},"disliked":{}}'); }
+    catch { return { liked: {}, disliked: {} }; }
+  }
+  function saveFeedback(fb) { localStorage.setItem(FEEDBACK_KEY, JSON.stringify(fb)); }
+
+  async function autoSave(fb) {
+    let dir = await getDir();
+    if (!dir) {
+      showToast('📁 Daily News フォルダを選択してください', true);
+      dir = await getDir(true);
+      if (!dir) { showToast('保存をキャンセルしました', true); return; }
+    }
+    try {
+      await writeJSON(dir, fb);
+      showToast('✓ feedback.json を自動保存しました（次回キュレーションに反映）');
+    } catch (e) {
+      showToast('保存エラー: ' + e.message, true);
+    }
+  }
+
+  async function toggleFlag(storyId, title, type) {
+    const fb = getFeedback();
+    fb.liked = fb.liked || {};
+    fb.disliked = fb.disliked || {};
+    const likeBtn    = document.querySelector(`.flag-btn.like-btn[data-story="${storyId}"]`);
+    const dislikeBtn = document.querySelector(`.flag-btn.dislike-btn[data-story="${storyId}"]`);
+    if (type === 'like') {
+      if (fb.liked[storyId]) {
+        delete fb.liked[storyId];
+        likeBtn?.classList.remove('active');
+      } else {
+        fb.liked[storyId] = { title, date: TODAY };
+        delete fb.disliked[storyId];
+        likeBtn?.classList.add('active');
+        dislikeBtn?.classList.remove('active');
+      }
+    } else {
+      if (fb.disliked[storyId]) {
+        delete fb.disliked[storyId];
+        dislikeBtn?.classList.remove('active');
+      } else {
+        fb.disliked[storyId] = { title, date: TODAY };
+        delete fb.liked[storyId];
+        dislikeBtn?.classList.add('active');
+        likeBtn?.classList.remove('active');
+      }
+    }
+    saveFeedback(fb);
+    await autoSave(fb);
+  }
+
+  function exportFeedback() {
+    const fb = getFeedback();
+    const json = JSON.stringify({ ...fb, exportedAt: new Date().toISOString() }, null, 2);
+    navigator.clipboard.writeText(json)
+      .then(() => showToast('📋 クリップボードにコピーしました'))
+      .catch(() => {
+        const el = document.createElement('textarea');
+        el.value = json; document.body.appendChild(el); el.select();
+        document.execCommand('copy'); document.body.removeChild(el);
+        showToast('📋 クリップボードにコピーしました');
+      });
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const fb = getFeedback();
+    document.querySelectorAll('.flag-btn').forEach(btn => {
+      const id   = btn.dataset.story;
+      const type = btn.dataset.type;
+      if ((type === 'like' && fb.liked?.[id]) || (type === 'dislike' && fb.disliked?.[id])) {
+        btn.classList.add('active');
+      }
+    });
+  });
+</script>
+</body>
+</html>
