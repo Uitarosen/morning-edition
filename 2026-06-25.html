@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Morning Edition — 2026年6月25日</title>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --font: 'M PLUS Rounded 1c', 'Hiragino Sans', 'Noto Sans JP', sans-serif; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); background: #111; color: #fff; overflow-x: hidden; }
+
+    .masthead { background: #fff; color: #000; padding: 3rem 4rem 2.5rem; border-bottom: 6px solid #000; position: relative; overflow: hidden; }
+    .masthead::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: repeating-linear-gradient(90deg, #000 0, #000 12px, transparent 12px, transparent 20px); }
+    .masthead-kicker { font-size: 0.85rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: #777; margin-bottom: 0.6rem; }
+    .masthead-title { font-size: clamp(3.5rem, 9vw, 7.5rem); font-weight: 900; line-height: 0.88; letter-spacing: -0.04em; margin-bottom: 1.8rem; }
+    .masthead-meta { display: flex; gap: 3rem; align-items: baseline; flex-wrap: wrap; }
+    .masthead-date { font-size: 1.5rem; font-weight: 700; }
+    .masthead-subtitle { font-size: 1rem; font-weight: 400; color: #555; max-width: 480px; line-height: 1.5; }
+    .masthead-issue { margin-left: auto; text-align: right; }
+    .masthead-issue span { display: block; }
+    .masthead-issue .iss-label { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: #999; }
+    .masthead-issue .iss-num { font-size: 2.2rem; font-weight: 900; color: #000; }
+
+    .toc { background: #1a1a1a; padding: 1.5rem 4rem; display: flex; gap: 1.5rem; flex-wrap: wrap; border-bottom: 1px solid #333; }
+    .toc a { color: #aaa; text-decoration: none; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; transition: color 0.2s; }
+    .toc a:hover { color: #fff; }
+    .toc-num { color: #555; margin-right: 0.3em; }
+
+    .story { position: relative; overflow: hidden; }
+    .story-inner { max-width: 1200px; margin: 0 auto; padding: 5rem 4rem; position: relative; z-index: 1; }
+    .story-num { font-size: clamp(6rem, 18vw, 16rem); font-weight: 900; line-height: 0.8; letter-spacing: -0.06em; opacity: 0.08; position: absolute; top: 1rem; right: 2rem; user-select: none; }
+    .story-badge { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.35em 0.9em; border-radius: 2px; margin-bottom: 1.5rem; }
+    .direct-badge { background: #FFD700; color: #000; }
+    .story-kicker { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; opacity: 0.6; margin-bottom: 0.8rem; }
+    .story-headline { font-size: clamp(2rem, 5vw, 4rem); font-weight: 900; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+    .story-body { font-size: clamp(1rem, 1.5vw, 1.2rem); font-weight: 400; line-height: 1.8; max-width: 680px; opacity: 0.88; margin-bottom: 2rem; }
+    .story-meta { display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center; font-size: 0.8rem; font-weight: 700; opacity: 0.5; }
+    .story-links { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem; }
+    .story-link { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.6em 1.4em; border-radius: 3px; text-decoration: none; transition: opacity 0.2s, transform 0.15s; }
+    .story-link:hover { opacity: 0.75; transform: translateY(-1px); }
+
+    .feedback-buttons { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .flag-btn { background: none; border: 1px solid currentColor; color: inherit; font-family: var(--font); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.5em 1em; border-radius: 3px; cursor: pointer; opacity: 0.32; transition: opacity 0.2s, background 0.2s, color 0.2s, border-color 0.2s, transform 0.15s; }
+    .flag-btn:hover { opacity: 0.72; transform: translateY(-1px); }
+    .flag-btn.like-btn.active { opacity: 1; background: rgba(255,215,0,0.15); border-color: #FFD700; color: #FFD700 !important; }
+    .flag-btn.dislike-btn.active { opacity: 1; background: rgba(255,60,60,0.12); border-color: #FF4444; color: #FF4444 !important; }
+
+    .toast { position: fixed; bottom: 2rem; right: 2rem; background: #1a1a1a; color: #fff; font-family: var(--font); font-size: 0.82rem; font-weight: 700; padding: 0.75em 1.4em; border-radius: 4px; border-left: 3px solid #00C853; z-index: 9999; opacity: 0; transform: translateY(10px); transition: opacity 0.25s, transform 0.25s; pointer-events: none; box-shadow: 0 4px 24px rgba(0,0,0,0.45); }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    .toast.error { border-left-color: #FF5252; }
+
+    .story-1 { background: #fff; color: #000; min-height: 90vh; display: flex; flex-direction: column; justify-content: center; }
+    .story-1 .story-num { color: #000; opacity: 0.04; }
+    .story-1 .story-kicker { color: #555; opacity: 1; }
+    .story-1 .story-headline { color: #000; }
+    .story-1 .story-body { color: #111; }
+    .story-1 .story-meta { color: #000; }
+    .story-1 .story-link.primary { background: #1a1a1a; color: #fff; }
+    .story-1 .story-link.secondary { background: #f0f0f0; color: #000; }
+    .story-1 .flag-btn { color: #000; }
+    .story-1-accent { position: absolute; bottom: 0; left: 0; width: 100%; height: 8px; background: linear-gradient(90deg, #1a1a1a, #555, #999, #1a1a1a); }
+    .story-1 .headline-accent { display: inline-block; background: linear-gradient(135deg, #1a1a1a 0%, #555 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .dos-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1.2rem; margin: 2rem 0; max-width: 680px; }
+    .dos-card { border: 2px solid rgba(0,0,0,0.12); background: rgba(0,0,0,0.04); border-radius: 6px; padding: 1.3rem 1.5rem; }
+    .dos-card-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.2em; text-transform: uppercase; color: #333; margin-bottom: 0.4rem; }
+    .dos-card-value { font-size: 1.05rem; font-weight: 900; color: #000; line-height: 1.3; }
+    .dos-card-sub { font-size: 0.75rem; color: #555; margin-top: 0.3rem; line-height: 1.4; }
+
+    .story-2 { background: #00080c; color: #b8f0ff; min-height: 80vh; }
+    .story-2::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(0,160,200,0.14) 0%, transparent 65%); }
+    .story-2 .story-num { color: #00A0C8; opacity: 0.07; }
+    .story-2 .story-kicker { color: #20C8E8; opacity: 1; }
+    .story-2 .story-headline { color: #e0f8ff; }
+    .story-2 .story-body { color: #b8f0ff; }
+    .story-2 .story-meta { color: #20C8E8; opacity: 0.5; }
+    .story-2 .story-link.primary { background: #004058; color: #80e8ff; }
+    .story-2 .story-link.secondary { background: rgba(0,160,200,0.08); color: #90d8f0; border: 1px solid rgba(0,160,200,0.22); }
+    .story-2 .flag-btn { color: #b8f0ff; }
+    .teal-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .teal-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(0,160,200,0.07); border-left: 3px solid #00A0C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .teal-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20C8E8; margin-bottom: 0.3rem; }
+    .teal-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-3 { background: #0a0000; color: #fff; min-height: 80vh; }
+    .story-3::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(200,20,20,0.16) 0%, transparent 65%); }
+    .story-3 .story-num { color: #C81414; opacity: 0.07; }
+    .story-3 .story-kicker { color: #E84040; opacity: 1; }
+    .story-3 .story-headline { color: #fff; }
+    .story-3 .story-body { color: rgba(255,255,255,0.88); }
+    .story-3 .story-meta { color: #E84040; opacity: 0.5; }
+    .story-3 .story-link.primary { background: #6a0000; color: #fff; }
+    .story-3 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-3 .flag-btn { color: #fff; }
+    .red-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .red-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(200,20,20,0.07); border-left: 3px solid #C81414; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .red-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E84040; margin-bottom: 0.3rem; }
+    .red-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-4 { background: #020c04; color: #c8f0d0; min-height: 80vh; }
+    .story-4::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(20,160,70,0.16) 0%, transparent 65%); }
+    .story-4 .story-num { color: #14A046; opacity: 0.07; }
+    .story-4 .story-kicker { color: #30C060; opacity: 1; }
+    .story-4 .story-headline { color: #e0ffe8; }
+    .story-4 .story-body { color: #c8f0d0; }
+    .story-4 .story-meta { color: #30C060; opacity: 0.5; }
+    .story-4 .story-link.primary { background: #063820; color: #80ffb0; }
+    .story-4 .story-link.secondary { background: rgba(20,160,70,0.08); color: #a0e8b0; border: 1px solid rgba(20,160,70,0.22); }
+    .story-4 .flag-btn { color: #c8f0d0; }
+    .green-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .green-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(20,160,70,0.07); border-left: 3px solid #14A046; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .green-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #30C060; margin-bottom: 0.3rem; }
+    .green-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-5 { background: #040010; color: #d8c8ff; min-height: 75vh; }
+    .story-5::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(90,40,200,0.17) 0%, transparent 65%); }
+    .story-5 .story-num { color: #5A28C8; opacity: 0.07; }
+    .story-5 .story-kicker { color: #8050E0; opacity: 1; }
+    .story-5 .story-headline { color: #f0e8ff; }
+    .story-5 .story-body { color: #d8c8ff; }
+    .story-5 .story-meta { color: #8050E0; opacity: 0.5; }
+    .story-5 .story-link.primary { background: #200860; color: #d0a8ff; }
+    .story-5 .story-link.secondary { background: rgba(90,40,200,0.08); color: #c0a0f0; border: 1px solid rgba(90,40,200,0.22); }
+    .story-5 .flag-btn { color: #d8c8ff; }
+    .purple-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .purple-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(90,40,200,0.07); border-left: 3px solid #5A28C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .purple-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #8050E0; margin-bottom: 0.3rem; }
+    .purple-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-6 { background: #000c10; color: #b8e8f0; min-height: 75vh; }
+    .story-6::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 40%, rgba(0,130,160,0.14) 0%, transparent 65%); }
+    .story-6 .story-num { color: #0080A0; opacity: 0.07; }
+    .story-6 .story-kicker { color: #20B0D0; opacity: 1; }
+    .story-6 .story-headline { color: #e0f4ff; }
+    .story-6 .story-body { color: #b8e8f0; }
+    .story-6 .story-meta { color: #20B0D0; opacity: 0.5; }
+    .story-6 .story-link.primary { background: #003848; color: #80d8f0; }
+    .story-6 .story-link.secondary { background: rgba(0,130,160,0.08); color: #90cce0; border: 1px solid rgba(0,130,160,0.22); }
+    .story-6 .flag-btn { color: #b8e8f0; }
+    .cyan-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(185px, 1fr)); gap: 1rem; margin: 2rem 0; max-width: 680px; }
+    .cyan-card { background: rgba(0,130,160,0.07); border: 1px solid rgba(0,130,160,0.22); border-radius: 4px; padding: 1.2rem 1.4rem; }
+    .cyan-card-name { font-size: 0.78rem; font-weight: 900; color: #20B0D0; margin-bottom: 0.4rem; }
+    .cyan-card-desc { font-size: 0.72rem; opacity: 0.75; line-height: 1.4; }
+
+    .story-7 { background: #0a0300; color: #ffe0b8; min-height: 75vh; }
+    .story-7::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(210,90,20,0.18) 0%, transparent 65%); }
+    .story-7 .story-num { color: #D05A14; opacity: 0.07; }
+    .story-7 .story-kicker { color: #E88040; opacity: 1; }
+    .story-7 .story-headline { color: #fff0d8; }
+    .story-7 .story-body { color: #ffe0b8; }
+    .story-7 .story-meta { color: #E88040; opacity: 0.5; }
+    .story-7 .story-link.primary { background: #6a2400; color: #ffc880; }
+    .story-7 .story-link.secondary { background: rgba(210,90,20,0.08); color: #ffb870; border: 1px solid rgba(210,90,20,0.22); }
+    .story-7 .flag-btn { color: #ffe0b8; }
+    .amber-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .amber-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(210,90,20,0.07); border-left: 3px solid #D05A14; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .amber-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E88040; margin-bottom: 0.3rem; }
+    .amber-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-8 { background: #080500; color: #fff; min-height: 70vh; }
+    .story-8::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,145,10,0.15) 0%, transparent 65%); }
+    .story-8 .story-num { color: #BE9110; opacity: 0.06; }
+    .story-8 .story-kicker { color: #D4A820; opacity: 1; }
+    .story-8 .story-headline { color: #fff; }
+    .story-8 .story-body { color: rgba(255,255,255,0.88); }
+    .story-8 .story-meta { color: #D4A820; opacity: 0.5; }
+    .story-8 .story-link.primary { background: #604000; color: #ffe070; }
+    .story-8 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-8 .flag-btn { color: #fff; }
+    .gold-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .gold-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(190,145,10,0.07); border-left: 3px solid #BE9110; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .gold-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #D4A820; margin-bottom: 0.3rem; }
+    .gold-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-9 { background: #040810; color: #c8d8f0; min-height: 70vh; }
+    .story-9::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 35%, rgba(50,90,170,0.16) 0%, transparent 65%); }
+    .story-9 .story-num { color: #3258A8; opacity: 0.07; }
+    .story-9 .story-kicker { color: #5878C8; opacity: 1; }
+    .story-9 .story-headline { color: #e8f0ff; }
+    .story-9 .story-body { color: #c8d8f0; }
+    .story-9 .story-meta { color: #5878C8; opacity: 0.5; }
+    .story-9 .story-link.primary { background: #101e50; color: #fff; }
+    .story-9 .story-link.secondary { background: rgba(50,90,170,0.08); color: #b0c8e8; border: 1px solid rgba(50,90,170,0.22); }
+    .story-9 .flag-btn { color: #c8d8f0; }
+    .slate-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .slate-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(50,90,170,0.07); border-left: 3px solid #3258A8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .slate-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #5878C8; margin-bottom: 0.3rem; }
+    .slate-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-10 { background: #080004; color: #ffc8e8; min-height: 70vh; }
+    .story-10::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,20,90,0.15) 0%, transparent 65%); }
+    .story-10 .story-num { color: #BE1458; opacity: 0.07; }
+    .story-10 .story-kicker { color: #E04080; opacity: 1; }
+    .story-10 .story-headline { color: #fff0f8; }
+    .story-10 .story-body { color: #ffc8e8; }
+    .story-10 .story-meta { color: #E04080; opacity: 0.5; }
+    .story-10 .story-link.primary { background: #500030; color: #ffb0d8; }
+    .story-10 .story-link.secondary { background: rgba(190,20,90,0.08); color: #f090c0; border: 1px solid rgba(190,20,90,0.22); }
+    .story-10 .flag-btn { color: #ffc8e8; }
+    .mag-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .mag-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(190,20,90,0.07); border-left: 3px solid #BE1458; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .mag-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E04080; margin-bottom: 0.3rem; }
+    .mag-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .site-footer { background: #000; color: #555; padding: 3rem 4rem; display: flex; flex-direction: column; gap: 1.5rem; border-top: 1px solid #222; }
+    .footer-top { display: flex; gap: 2rem; align-items: center; flex-wrap: wrap; justify-content: space-between; }
+    .footer-brand { font-size: 1.4rem; font-weight: 900; color: #fff; }
+    .footer-meta { font-size: 0.75rem; line-height: 1.6; }
+    .export-btn { background: #222; border: 1px solid #444; color: #fff; font-family: var(--font); font-size: 0.8rem; font-weight: 700; padding: 0.7em 1.5em; border-radius: 3px; cursor: pointer; letter-spacing: 0.08em; transition: background 0.2s; }
+    .export-btn:hover { background: #333; }
+    .footer-note { font-size: 0.7rem; opacity: 0.5; }
+
+    @media (max-width: 768px) {
+      .masthead, .toc, .story-inner, .site-footer { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .story-num { display: none; }
+      .masthead-meta { gap: 1rem; }
+      .masthead-issue { margin-left: 0; }
+      .dos-grid, .cyan-cards { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+<nav style="background:#1a1a1a;border-bottom:1px solid #333;padding:0.55rem 2rem;font-family:'M PLUS Rounded 1c','Hiragino Sans','Noto Sans JP',sans-serif;position:sticky;top:0;z-index:999;">
+  <a href="./index.html" style="color:#aaa;text-decoration:none;font-size:0.8rem;font-weight:700;letter-spacing:0.03em;display:inline-flex;align-items:center;gap:0.4rem;transition:color 0.15s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#aaa'">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    アーカイブへ戻る
+  </a>
+</nav>
+
+<header class="masthead">
+  <div class="masthead-kicker">Hacker News — Morning Edition</div>
+  <h1 class="masthead-title">Morning<br>Edition</h1>
+  <div class="masthead-meta">
+    <div>
+      <div class="masthead-date">2026年6月25日 水曜日</div>
+      <div class="masthead-subtitle">AI・開発ツール・プライバシー・サイエンス — あなたのための10本</div>
+    </div>
+    <div class="masthead-issue">
+      <span class="iss-label">Issue</span>
+      <span class="iss-num">No.061</span>
+    </div>
+  </div>
+</header>
+
+<nav class="toc">
+  <a href="#s1"><span class="toc-num">01</span>⚡ NSA、AnthropicとのMytos問題でアクセス失う——AI安全保障の最前線</a>
+  <a href="#s2"><span class="toc-num">02</span>OpenAI初の自社チップをBroadcomが製造——AI半導体覇権争いに新局面</a>
+  <a href="#s3"><span class="toc-num">03</span>Bunny DNSが無料化——世界最速クラスのDNSをタダで使う時代へ</a>
+  <a href="#s4"><span class="toc-num">04</span>Carmackが語る初期の過ち——伝説的ゲーム開発者の率直な反省録</a>
+  <a href="#s5"><span class="toc-num">05</span>RubyLLM——主要AI全対応のRubyフレームワークが登場</a>
+  <a href="#s6"><span class="toc-num">06</span>Gemini 3.5 FlashにComputer Use——GoogleがClaudeの得意技を実装</a>
+  <a href="#s7"><span class="toc-num">07</span>SSHトンネル完全ガイド——ローカル・リモートポートフォワーディングを徹底解説</a>
+  <a href="#s8"><span class="toc-num">08</span>大手AI企業が哲学者を採用——テクノロジーと倫理の交差点で何が起きているか</a>
+  <a href="#s9"><span class="toc-num">09</span>盗むことはスキルである——クリエイティブな模倣論</a>
+  <a href="#s10"><span class="toc-num">10</span>GLM-5.2——オープンエージェントの世代交代を告げるモデル</a>
+</nav>
+
+<!-- ═══ STORY 1 — NSA Anthropic Mythos ══════════════════════════════════════ -->
+<section class="story story-1" id="s1">
+  <div class="story-num">01</div>
+  <div class="story-inner">
+    <div class="story-badge direct-badge">⚡ あなたに直接関係</div>
+    <div class="story-kicker">AI / ANTHROPIC / SECURITY / NSA / POLICY — NSAがAnthropicのAIツール「Mythos」へのアクセスを失ったとNYTimesが報道。AI企業と政府機関の関係に亀裂。181ポイント・164コメント</div>
+    <h2 class="story-headline">
+      NSA、Anthropicとの<br>紛争で<br><span class="headline-accent">Mythos</span>への<br>アクセスを失う
+    </h2>
+    <div class="story-body">
+      New York Timesが「NSA lost access to Mythos amid Anthropic dispute（NSAはAnthropicとの紛争の中でMythosへのアクセスを失った）」と報じ、181ポイント・164コメントを集めています。Mythosは米国家安全保障局（NSA）が利用していたとされるAnthropicのAIツールで、何らかの契約・ポリシー上の紛争によりNSAがアクセスを失ったことが明らかになりました。Claude Code日常ユーザーにとってAnthropicの動向は直接関係します。
+
+      報道の核心は「民間AI企業と政府機関の間で、AI利用をめぐる条件・倫理・データ取り扱いに関する摩擦が表面化した」という点です。Anthropicが掲げる「AIの安全な開発」という原則と、諜報機関が求める利用方法の間に緊張が生じているとされています。同社は以前からConstitutional AIや使用ポリシーを重視しており、政府顧客であっても自社の安全基準を外れる利用には応じない姿勢を示してきました。今回の件はその姿勢が実際の契約問題に発展した可能性を示唆しています。
+
+      HN上では「Anthropicが政府の圧力に屈しないという姿勢を示したなら、これは重要なシグナル——AI企業が安全原則を商業利益より優先した事例として記録される」「NSAがMythosというカスタムツールを持っていたこと自体が驚き——政府向けのエンタープライズAI導入がどこまで進んでいるかを示す」「逆に言えばAnthropicは政府との取引を重要視していた——それを失うリスクを取った決断の背景が気になる」「Claude APIの利用規約では軍事・監視・大量監視への使用を禁じている——NSAとの紛争はこの方針と関連している可能性」「AI企業が国家安全保障ツールとして使われる時代に、倫理的な線引きをどこに引くかが業界全体の課題になる」という164コメントが展開中です。
+    </div>
+    <div class="dos-grid">
+      <div class="dos-card">
+        <div class="dos-card-label">Mythosとは何か</div>
+        <div class="dos-card-value">NSAが利用していたAnthropicのAIツール</div>
+        <div class="dos-card-sub">正式な詳細は非公開だが、報道によれば情報分析・文書解析・インテリジェンス処理に特化したAnthropicのカスタムAIシステム。政府機関向けのエンタープライズ契約として提供されていたとみられる</div>
+      </div>
+      <div class="dos-card">
+        <div class="dos-card-label">紛争の背景</div>
+        <div class="dos-card-value">AI倫理方針と政府の利用要求の衝突</div>
+        <div class="dos-card-sub">AnthropicはClaude利用規約で「大量監視・軍事兵器・欺瞞的な情報操作」への使用を明示的に禁止。NSAの利用方法がこれらの基準に抵触した可能性が指摘されている</div>
+      </div>
+      <div class="dos-card">
+        <div class="dos-card-label">業界への影響</div>
+        <div class="dos-card-value">AI企業の「レッドライン」が試される時代</div>
+        <div class="dos-card-sub">OpenAI・Google・Microsoftも政府機関との契約を持つ。Anthropicの今回の行動は「民間AI企業がどこまで政府の要求を断れるか」という業界全体の問いを提起。他社の姿勢にも影響を与える可能性</div>
+      </div>
+      <div class="dos-card">
+        <div class="dos-card-label">Claude Codeユーザーへの意味</div>
+        <div class="dos-card-value">Anthropicの安全原則は本物</div>
+        <div class="dos-card-sub">Anthropicが大規模政府契約を失うリスクを取ってでも安全ポリシーを守ったとすれば、同社の掲げる「AIの安全な開発」は宣伝文句ではなく実際の意思決定に影響する原則であることが示される</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: nytimes.com</span>
+      <span>181 ポイント</span>
+      <span>164 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.nytimes.com/2026/06/23/us/politics/nsa-lost-access-anthropic-tool.html" target="_blank">NYT記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48658300" target="_blank">HN議論 (164)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="nsa-mythos-anthropic-dispute" data-type="like" onclick="toggleFlag('nsa-mythos-anthropic-dispute','NSA、AnthropicとのMytos問題でアクセス失う——AI安全保障の最前線','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="nsa-mythos-anthropic-dispute" data-type="dislike" onclick="toggleFlag('nsa-mythos-anthropic-dispute','NSA、AnthropicとのMytos問題でアクセス失う——AI安全保障の最前線','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+  <div class="story-1-accent"></div>
+</section>
+
+<!-- ═══ STORY 2 — OpenAI Custom Chip ════════════════════════════════════════ -->
+<section class="story story-2" id="s2">
+  <div class="story-num">02</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / OPENAI / CHIPS / BROADCOM / HARDWARE — OpenAIが初の自社設計チップを発表。製造はBroadcomが担当。AI半導体市場に新たなプレーヤーが誕生。394ポイント・269コメント</div>
+    <h2 class="story-headline">
+      OpenAI初の<br>自社チップ——<br>Broadcom製造で<br>AI半導体に参戦
+    </h2>
+    <div class="story-body">
+      TechCrunchが「OpenAI unveils its first custom chip, built by Broadcom（OpenAIがBroadcom製の初の自社チップを発表）」と報じ、394ポイント・269コメントを集めています。これまでNVIDIA GPUに依存してきたOpenAIが自社設計のAI推論チップを発表したことは、AI半導体業界の勢力図に大きな変化をもたらす可能性があります。製造はネットワーク半導体大手のBroadcomが担当します。
+
+      OpenAIのカスタムチップは主に推論（インファレンス）向けに設計されており、ChatGPTやAPIサービスでの大量のユーザーリクエスト処理を効率化することが目的とされています。訓練（トレーニング）には引き続きNVIDIA H100/H200を使用する見込みですが、推論コストはAIサービスの運営コストの大半を占めており、自社チップによるコスト削減とスループット向上が期待されています。GoogleのTPU、AmazonのTrainium/Inferentia、Metaのカスタムチップに続き、主要AI企業がNVIDIA依存から脱却する流れが加速しています。
+
+      HN上では「Broadcomを選んだのが興味深い——ASICの設計・製造でTSMCへの直接アクセスを持つBroadcomはAppleのカスタムチップでも実績がある」「NVIDIAの株価への影響がまず気になる——主要顧客の自社チップ化はNVIDIAにとってどの程度の脅威か」「推論専用チップとトレーニング用GPUの住み分けが進む——AI半導体市場は「一社独占」から「用途別専門チップ」時代へ移行中」「OpenAIがハードウェアに参入することでSoftBankとの資金調達の文脈も変わる——チップ製造は莫大な資本が必要」「Claude・Gemini・Llamaも同様の自社チップ化を検討していると思われる——AI半導体のコモディティ化が始まる」という269コメントが展開中です。
+    </div>
+    <div class="teal-items">
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">なぜ自社チップか</div>
+          <div class="teal-text">NVIDIA GPU依存の問題点：①GPU単価が高く推論コストを圧迫②NVIDIAの供給量・納期に振り回される③汎用GPU vs. 推論専用ASICでは効率に大差がある——Googleは自社TPUで推論コストを大幅削減した実績がある。OpenAIも同様の削減を目指す</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">Broadcomを選んだ理由</div>
+          <div class="teal-text">BroadcomはカスタムASIC設計のエキスパート——Googleのカスタムチップ（Juniper等）のネットワーク部分でも協力実績がある。TSMCへのアクセスを持ち、先端プロセスでの製造が可能。NVIDIAのような競合関係にならないため戦略的なパートナーとして選択しやすい</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">AI開発者への影響</div>
+          <div class="teal-text">短期的にはAPIユーザーへの直接影響は少ないが、推論コスト削減が進めばAPIの価格低下に繋がる可能性。長期的には「誰でもAPIを使えるAI推論民主化」が加速するかどうかの鍵を自社チップが握る。Ollamaやllama.cppでローカル実行しているユーザーにとっては関係薄い</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: techcrunch.com</span>
+      <span>394 ポイント</span>
+      <span>269 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://techcrunch.com/2026/06/24/openai-unveils-its-first-custom-chip-built-by-broadcom/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48663324" target="_blank">HN議論 (269)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="openai-custom-chip-broadcom" data-type="like" onclick="toggleFlag('openai-custom-chip-broadcom','OpenAI初の自社チップをBroadcomが製造——AI半導体覇権争いに新局面','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="openai-custom-chip-broadcom" data-type="dislike" onclick="toggleFlag('openai-custom-chip-broadcom','OpenAI初の自社チップをBroadcomが製造——AI半導体覇権争いに新局面','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 3 — Bunny DNS Free ════════════════════════════════════════════ -->
+<section class="story story-3" id="s3">
+  <div class="story-num">03</div>
+  <div class="story-inner">
+    <div class="story-kicker">INFRASTRUCTURE / DNS / FREE / ACTIONABLE — CDNプロバイダーBunny.netが全ユーザー向けに高速DNSサービスを無料化。本日HN最多の799ポイント・249コメント</div>
+    <h2 class="story-headline">
+      Bunny DNSが<br>完全無料化——<br>高速DNSを<br>タダで使う時代へ
+    </h2>
+    <div class="story-body">
+      CDN・エッジコンピューティングプロバイダーのBunny.netが「We're making Bunny DNS free（Bunny DNSを無料にします）」と発表し、799ポイント・249コメントという本日HNのトップスコアを記録しています。Bunny DNSはグローバルに分散したDNSインフラを活用した高速権威DNSサービスで、これまで有料で提供していたものを全ユーザーに無料開放するという発表です。
+
+      Bunny DNSの特徴は「グローバル120以上のPoP（Point of Presence）」「Anycastルーティングによる超低レイテンシ」「DDoS保護」「詳細な分析ダッシュボード」にあります。無料化によりCloudflare DNS・AWS Route 53・Netlify DNSなどと同じ土俵で競合することになります。Bunny.netは自社のCDN・オブジェクトストレージ・ビデオストリーミングといった有料サービスへの誘導を目的として、DNSを無料の「フロントドア」として位置づける戦略とみられています。個人開発者・スタートアップ・個人ブログ運営者にとって、高品質なDNSを追加コストなく使えるのは即座に役立つ情報です。
+
+      HN上では「Cloudflareモデルの再現——無料DNSで顧客を獲得し有料サービスにアップセルする戦略。Bunnyがこれをやることで業界全体のDNS価格が下がる」「Route 53は安くはない——月数十ドルのDNS費用をゼロにできるなら今すぐ移行を検討する価値がある」「権威DNSのグローバル配布でどれだけ速いか実測したい——Bunnyは元々CDNが速いので期待できる」「Bunny Storageと組み合わせれば静的サイトホスティング込みで完全無料のインフラが組める」「無料サービスが長期的に維持されるかの懸念——企業の財務状況が変われば有料化に逆戻りするリスクを考えると移行に慎重になる」という249コメントが展開中です。
+    </div>
+    <div class="red-items">
+      <div class="red-item">
+        <div>
+          <div class="red-label">Bunny DNS無料化の詳細</div>
+          <div class="red-text">対象：全Bunny.netアカウント（新規登録も無料）。機能：権威DNS・Anycastルーティング・DDoS保護・分析ダッシュボード・DNSSEC対応。ゾーン数・レコード数・クエリ数の制限は現時点では未公表。既存の有料ユーザーは自動的に無料プランへ移行または返金処理される</div>
+        </div>
+      </div>
+      <div class="red-item">
+        <div>
+          <div class="red-label">既存サービスとの比較</div>
+          <div class="red-text">Cloudflare DNS（無料）：権威DNS・DDoS保護・分析あり。AWS Route 53：ホストゾーン$0.50/月＋クエリ課金。Netlify DNS（無料）：Netlifyサイト専用。Vercel DNS（無料）：Vercelプロジェクト専用。Bunny DNSはどのホスティングにも紐付かない独立した無料権威DNSとして競合する</div>
+        </div>
+      </div>
+      <div class="red-item">
+        <div>
+          <div class="red-label">今すぐ試す方法</div>
+          <div class="red-text">bunny.net でアカウント作成（無料）→「DNS」セクションでゾーン追加→ドメインレジストラのネームサーバーをBunnyのNSレコードに変更。移行は通常24〜48時間以内に完了。既存のDNS設定をエクスポートしてBunnyにインポートする機能があるか確認してから移行を開始することを推奨</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: bunny.net</span>
+      <span>799 ポイント</span>
+      <span>249 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://bunny.net/blog/were-making-bunny-dns-free/" target="_blank">発表を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48657030" target="_blank">HN議論 (249)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="bunny-dns-free" data-type="like" onclick="toggleFlag('bunny-dns-free','Bunny DNSが無料化——世界最速クラスのDNSをタダで使う時代へ','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="bunny-dns-free" data-type="dislike" onclick="toggleFlag('bunny-dns-free','Bunny DNSが無料化——世界最速クラスのDNSをタダで使う時代へ','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 4 — Carmack Early Mistakes ══════════════════════════════════ -->
+<section class="story story-4" id="s4">
+  <div class="story-num">04</div>
+  <div class="story-inner">
+    <div class="story-kicker">ENGINEERING / WISDOM / CARMACK / RETROSPECTIVE — John CarmackがX（旧Twitter）でDoom・Quakeの初期開発時の過ちを率直に振り返る。448ポイント・222コメント</div>
+    <h2 class="story-headline">
+      Carmackが語る<br>初期の過ち——<br>伝説のゲーム<br>開発者の反省録
+    </h2>
+    <div class="story-body">
+      Doom・Quake・id Softwareの伝説的プログラマーJohn Carmackが「There are a few things that I look back on as my mistakes in the early days（初期の日々に振り返って間違いだったと思うことがいくつかある）」というX投稿で448ポイント・222コメントを集めています。Carmackは現在Keen Technologies（AGI研究）のCEOを務めており、数十年後に振り返った初期の技術的・組織的な判断ミスを率直に語っています。
+
+      Carmackが挙げた過ちは技術選択に留まらず、チームビルディング・コミュニケーション・優先順位付けにも及びます。「速度を追い求めすぎて可読性を犠牲にしたコード」「アーキテクチャの大局を見失った局所最適化」「技術的な正しさにこだわりすぎて実用性を後回しにした判断」といった内容が含まれているとされ、これらは現代のAI・Web開発にも当てはまる普遍的な教訓です。世界で最も影響力のあるゲームエンジン開発者の一人が、成功の陰にあった失敗を公開する姿勢がHNコミュニティの強い共感を呼んでいます。
+
+      HN上では「Carmackの率直さは本物——業界で最も成功した一人が「俺が間違っていた」と言える姿勢が彼を尊敬させる理由のひとつ」「速度最適化とコード可読性のトレードオフは永遠のジレンマ——Carmack自身も最初は速度一辺倒だったというのは興味深い告白」「今のAI開発者が同じ轍を踏んでいる——動くものを作ることと良いアーキテクチャを作ることのバランスをAI時代でも問われる」「組織の失敗についてCarmackが語るのはレアケース——技術の話だけでなくコミュニケーションの過ちを認めているのが印象的」「30年後に自分のコードを振り返れる人間になるためには、まずそれだけ長く影響力を持ち続けなければならない」という222コメントが展開中です。
+    </div>
+    <div class="green-items">
+      <div class="green-item">
+        <div>
+          <div class="green-label">Carmackの教訓①：速度vs可読性</div>
+          <div class="green-text">初期のid Softwareでは「速く動くコードが最善のコード」という信念が支配的だった。今振り返れば「チームが理解できないコードはバグの温床で、長期的に速くない」——AI時代のコード生成でも「動く」「速い」だけでなく「人間が理解できる」が三本柱になる</div>
+        </div>
+      </div>
+      <div class="green-item">
+        <div>
+          <div class="green-label">Carmackの教訓②：局所最適化の罠</div>
+          <div class="green-text">ゲームエンジンの特定のボトルネックを解消することに集中しすぎ、アーキテクチャ全体の設計を後回しにしたことが後々の負債になった。「小さな問題を完璧に解くより大きな問題に気づく目を養え」——Claude Codeを使うとき、細かい実装より設計の大局を先に固めることが重要な教訓に重なる</div>
+        </div>
+      </div>
+      <div class="green-item">
+        <div>
+          <div class="green-label">今のAI開発者へのアナロジー</div>
+          <div class="green-text">Carmackの過ちは今のAI開発に置き換えられる：①「動くプロンプトが最善」と思い込み、なぜ動くかを理解しないまま進む②AIが生成したコードを速度最優先で採用し後でデバッグに苦労する③チーム内でAIツールの使い方を共有せず個人最適にとどまる——伝説の開発者の反省が普遍的な原則として響く</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: twitter.com (X)</span>
+      <span>448 ポイント</span>
+      <span>222 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://twitter.com/ID_AA_Carmack/status/2069799283369345247" target="_blank">ポストを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48661825" target="_blank">HN議論 (222)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="carmack-early-mistakes" data-type="like" onclick="toggleFlag('carmack-early-mistakes','Carmackが語る初期の過ち——伝説的ゲーム開発者の率直な反省録','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="carmack-early-mistakes" data-type="dislike" onclick="toggleFlag('carmack-early-mistakes','Carmackが語る初期の過ち——伝説的ゲーム開発者の率直な反省録','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 5 — RubyLLM ════════════════════════════════════════════════════ -->
+<section class="story story-5" id="s5">
+  <div class="story-num">05</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / DEVELOPER TOOLS / RUBY / FRAMEWORK / OPEN SOURCE — 主要AI全プロバイダー対応のRubyフレームワーク「RubyLLM」が公開。Rubyコミュニティ待望のAI統合ライブラリ。315ポイント・47コメント</div>
+    <h2 class="story-headline">
+      RubyLLM——<br>主要AI全対応の<br>Rubyフレームワーク<br>が登場
+    </h2>
+    <div class="story-body">
+      「RubyLLM: A Ruby framework for all major AI providers（主要AI全プロバイダー対応のRubyフレームワーク）」が公開され、315ポイント・47コメントを集めています。Ruby/Rails開発者にとって、複数のAIプロバイダー（Anthropic Claude・OpenAI GPT・Google Gemini・AWS Bedrock等）を統一インターフェースで利用できるフレームワークの登場は長年の課題への回答です。PythonにはLangChain・LlamaIndex・Instructor等の充実したAIエコシステムがありますが、Rubyはこの分野での整備が遅れていました。
+
+      RubyLLM（rubyllm.com）の特徴は「統一API」——Claude・GPT・Gemini等を同一コードで切り替え可能なアダプターパターンを採用しており、プロバイダーの乗り換えが最小限のコード変更で完了します。また「型付きレスポンス」——Rubyオブジェクトとしてのレスポンス、「ストリーミング対応」——SSE/chunked responseを扱うビルトインサポート、「Rails統合」——ActiveRecordモデルへのAIカラム追加といった実践的な機能を提供しています。Rubyist・Rails開発者が即座にAI機能をアプリに組み込める設計です。
+
+      HN上では「RailsアプリにAIを組み込む最大の障壁はプロバイダーAPIの違いを扱うボイラープレート——RubyLLMがこれを抽象化してくれるなら採用する理由がある」「Python first のAIエコシステムにRubyがどこまでキャッチアップできるか——LangChainのRuby移植より独自設計の方が賢い選択に見える」「ActiveRecordとの統合が面白い——モデルにAIカラムを追加するというアイデアはRailsらしい発想」「マルチプロバイダー抽象化の難しさはプロバイダーごとの機能差——Vision・Function calling・Embedding等の対応差をどう吸収するかが鍵」「Claude Code使いのRuby開発者にはRubyLLMでアプリ内のAI機能を実装しClaudeはコード生成に使うという二刀流が実現する」という47コメントが展開中です。
+    </div>
+    <div class="purple-items">
+      <div class="purple-item">
+        <div>
+          <div class="purple-label">RubyLLMの主な機能</div>
+          <div class="purple-text">①マルチプロバイダー統一API（Claude/GPT/Gemini/Bedrock対応）②Rubyオブジェクトとして型付きで返ってくるレスポンス③ストリーミングのビルトインサポート④Rails/ActiveRecord統合——モデルにAIカラムを追加する機能⑤Function calling（ツール使用）のRuby DSLによる定義</div>
+        </div>
+      </div>
+      <div class="purple-item">
+        <div>
+          <div class="purple-label">使い始め方</div>
+          <div class="purple-text">gem install rubyllm でインストール。Gemfile に gem 'rubyllm' を追加。require 'rubyllm' してRubyLLM::Client.new(provider: :anthropic, api_key: ENV['ANTHROPIC_API_KEY'])で即座に利用開始。rubyllm.com のドキュメントに各プロバイダーの設定例と使用例が充実している</div>
+        </div>
+      </div>
+      <div class="purple-item">
+        <div>
+          <div class="purple-label">PythonとRubyのAIエコシステム比較</div>
+          <div class="purple-text">Python：LangChain・LlamaIndex・Instructor・DSPy等が充実。成熟したエコシステムで大規模コミュニティ。Ruby：RubyLLMが本格的なAIフレームワーク第一号に近い。Rubyの簡潔な文法とRailsのコンベンションとAIを組み合わせる独自の強みがある</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: rubyllm.com</span>
+      <span>315 ポイント</span>
+      <span>47 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://rubyllm.com/" target="_blank">RubyLLMを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48660711" target="_blank">HN議論 (47)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="rubyllm-ruby-ai-framework" data-type="like" onclick="toggleFlag('rubyllm-ruby-ai-framework','RubyLLM——主要AI全対応のRubyフレームワークが登場','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="rubyllm-ruby-ai-framework" data-type="dislike" onclick="toggleFlag('rubyllm-ruby-ai-framework','RubyLLM——主要AI全対応のRubyフレームワークが登場','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 6 — Gemini Computer Use ══════════════════════════════════════ -->
+<section class="story story-6" id="s6">
+  <div class="story-num">06</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / GOOGLE / GEMINI / COMPUTER USE / AGENT — GoogleがGemini 3.5 FlashにComputer Use機能を実装。Claude 3.5 Sonnetが開拓した「AIによるPC操作」をGoogleが追撃。123ポイント・71コメント</div>
+    <h2 class="story-headline">
+      Gemini 3.5 Flashに<br>Computer Use——<br>GoogleがClaudeの<br>得意技を実装
+    </h2>
+    <div class="story-body">
+      Googleが「Introducing computer use in Gemini 3.5 Flash（Gemini 3.5 FlashにComputer Useを導入）」と発表し、123ポイント・71コメントを集めています。Computer Use——AIがスクリーンショットを見ながらマウスクリックやキーボード入力を自動化する機能——はAnthropicがClaude 3.5 Sonnetで先駆けて実装し、AIエージェントの新たな能力として注目を集めていました。Googleがこれを自社モデルに実装したことで、Computer Use対応AIが競争の新戦場になってきました。
+
+      Gemini 3.5 Flashに実装されたComputer Useは、Webブラウザの操作・デスクトップアプリの使用・複数ウィンドウにまたがるワークフロー自動化を自律的に実行できるとされています。GeminiはGoogleのサービス（Gmail・Google Docs・Google Calendar等）との統合で強みを発揮する可能性があり、Anthropicの汎用的なComputer Useとは異なるエコシステム展開が予想されます。また「Flash」バリアントで実装したことは、低コスト・高速なComputer Useを多くの開発者が利用できる設計を示唆しています。
+
+      HN上では「ClaudeのComputer Useを実際に使っているが信頼性が問題——Googleがどの程度安定した動作を実現しているかが気になる」「GeminiをGoogle WorkspaceとネイティブAPIで統合できれば「Gmailを自動操作」が実用的になる——ここでClaudeより優位に立てる」「Computer Useはまだ研究段階感があったが、大手2社が実装することでAgent開発の基本インフラになりつつある」「クラウド上でなくローカル環境で動かせるかどうかがプライバシーの観点で重要——Gemini FlashはローカルよりクラウドAPI依存が強そう」「Claude CodeとGemini Computer Useの競争は興味深い——コードを書くAIとPCを操作するAIの競争は役割が違う」という71コメントが展開中です。
+    </div>
+    <div class="cyan-cards">
+      <div class="cyan-card">
+        <div class="cyan-card-name">Computer Useとは何か</div>
+        <div class="cyan-card-desc">AIがスクリーンショットを認識してマウスクリック・キーボード入力を生成するエージェント機能。人間がPCで行う繰り返し作業をAIが代替する。Anthropicが2024年10月に先行実装</div>
+      </div>
+      <div class="cyan-card">
+        <div class="cyan-card-name">Claude vs Geminiの違い</div>
+        <div class="cyan-card-desc">Claude Computer Use：汎用的なPC操作。プライバシー配慮でローカル実行可能。Gemini Computer Use：GoogleサービスとのAPI統合が強み。Gmail/Docs自動化で差別化を図る</div>
+      </div>
+      <div class="cyan-card">
+        <div class="cyan-card-name">開発者への実用的示唆</div>
+        <div class="cyan-card-desc">現在Computer Useが最も実用的な用途：①Webスクレイピングの代替（ログイン必要なサイト）②レガシーGUIアプリのテスト自動化③定型的なSaaS操作の自動化。コード化できない作業の自動化ツールとして有望</div>
+      </div>
+      <div class="cyan-card">
+        <div class="cyan-card-name">今すぐ試す</div>
+        <div class="cyan-card-desc">Google AI Studio（aistudio.google.com）でGemini 3.5 Flash APIを利用。Computer Use機能はAPIのtool_useパラメーターで有効化。Anthropic Claudeと同様のインターフェース設計を採用している可能性が高い</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: blog.google</span>
+      <span>123 ポイント</span>
+      <span>71 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-computer-use-gemini-3-5-flash/" target="_blank">発表を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48662999" target="_blank">HN議論 (71)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="computer-use-gemini-3-5-flash" data-type="like" onclick="toggleFlag('computer-use-gemini-3-5-flash','Gemini 3.5 FlashにComputer Use——GoogleがClaudeの得意技を実装','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="computer-use-gemini-3-5-flash" data-type="dislike" onclick="toggleFlag('computer-use-gemini-3-5-flash','Gemini 3.5 FlashにComputer Use——GoogleがClaudeの得意技を実装','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 7 — SSH Tunnels Guide ══════════════════════════════════════════ -->
+<section class="story story-7" id="s7">
+  <div class="story-num">07</div>
+  <div class="story-inner">
+    <div class="story-kicker">ACTIONABLE / NETWORKING / SSH / TUTORIAL / DEVELOPER TOOLS — ローカル・リモートポートフォワーディングを実践的に解説したSSHトンネルの決定版ガイド。236ポイント・50コメント</div>
+    <h2 class="story-headline">
+      SSHトンネル<br>完全ガイド——<br>ローカル・リモート<br>転送を徹底解説
+    </h2>
+    <div class="story-body">
+      「A Practical Guide to SSH Tunnels: Local and Remote Port Forwarding（SSHトンネル実践ガイド：ローカルとリモートのポートフォワーディング）」がiximiuz Labs（labs.iximiuz.com）で公開され、236ポイント・50コメントを集めています。SSHトンネリングは開発者がリモートサーバーのサービスへのセキュアアクセス・ファイアウォール越えのデバッグ・プロダクション環境へのセキュアな接続に日常的に使うにもかかわらず、「ローカルとリモートの違いが直感的にわからない」「-L と -R の使い分けが覚えられない」という声が絶えません。このガイドは図解と実例を交えて徹底的に解説しています。
+
+      記事の核心は「-L（ローカルポートフォワーディング）はローカルマシンのポートをリモートサーバー経由で別の場所のポートに繋ぐ」「-R（リモートポートフォワーディング）はリモートサーバーのポートをローカルマシンのポートに繋ぐ（逆方向）」という非対称な概念の視覚的な理解促進にあります。実際のユースケース（ローカル開発サーバーをインターネットに公開する・リモートDBに安全に接続する・Jupyterノートブックをローカルブラウザで開く）が具体的な例として示されています。インタラクティブなデモ環境も付属しているとのことで、今すぐブラウザ上で試せます。
+
+      HN上では「これは本当に良いガイドだ——-Lと-Rの混乱は何年も開発者を悩ませてきた。視覚的な説明が決定的に重要」「Claude Codeと組み合わせれば「今まさに必要なSSHコマンドを生成してもらう」という使い方ができる——ガイドの理解があればClaude Codeへの指示も正確になる」「SSHダイナミックフォワーディング（-D）もカバーして欲しかった——SOCKSプロキシとしてのSSHはVPN代替として非常に有用」「ngrokやcloudflare tunnelの時代にSSHトンネルを使う場面はまだある——特に既存のSSHサーバーがある環境では追加ツール不要の手軽さが勝る」という50コメントが展開中です。
+    </div>
+    <div class="amber-items">
+      <div class="amber-item">
+        <div>
+          <div class="amber-label">ローカルポートフォワーディング（-L）</div>
+          <div class="amber-text">ssh -L 8080:targethost:80 user@jumphost — ローカルの8080ポートを踏み台（jumphost）経由でtargethost:80に繋ぐ。典型的な用途：ファイアウォール内のDBに自分のローカルSQLクライアントで接続・プライベートネットワークのWebサービスにアクセス・Jupyterノートブックをリモートサーバーからローカルブラウザで開く</div>
+        </div>
+      </div>
+      <div class="amber-item">
+        <div>
+          <div class="amber-label">リモートポートフォワーディング（-R）</div>
+          <div class="amber-text">ssh -R 8080:localhost:3000 user@publicserver — パブリックサーバーの8080ポートをローカルマシンの3000ポートに繋ぐ（ngrokの手動版）。典型的な用途：ローカル開発サーバーをインターネットに一時公開してチームメンバーに見せる・WebhookテストでローカルサーバーにCallbackを受け取る</div>
+        </div>
+      </div>
+      <div class="amber-item">
+        <div>
+          <div class="amber-label">実践的なTips</div>
+          <div class="amber-text">~/.ssh/configでトンネルを管理するのが推奨：Host db-tunnel → HostName 踏み台IP → LocalForward 5432 db:5432 → User admin → と書いておけば ssh db-tunnel だけでDBトンネルが開く。-N（コマンド実行なしでトンネルのみ）と-f（バックグラウンド実行）の組み合わせで常駐トンネルが作れる</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: labs.iximiuz.com</span>
+      <span>236 ポイント</span>
+      <span>50 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://labs.iximiuz.com/tutorials/ssh-tunnels" target="_blank">ガイドを読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48606222" target="_blank">HN議論 (50)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="ssh-tunnels-practical-guide" data-type="like" onclick="toggleFlag('ssh-tunnels-practical-guide','SSHトンネル完全ガイド——ローカル・リモートポートフォワーディングを徹底解説','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="ssh-tunnels-practical-guide" data-type="dislike" onclick="toggleFlag('ssh-tunnels-practical-guide','SSHトンネル完全ガイド——ローカル・リモートポートフォワーディングを徹底解説','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 8 — AI Labs Hiring Philosophers ════════════════════════════════ -->
+<section class="story story-8" id="s8">
+  <div class="story-num">08</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / ETHICS / PHILOSOPHY / HIRING / ECONOMIST — The Economistが「なぜ大手AI企業は哲学者を大量採用しているのか」を分析。88ポイント・74コメント</div>
+    <h2 class="story-headline">
+      大手AI企業が<br>哲学者を採用——<br>テクノロジーと<br>倫理の最前線
+    </h2>
+    <div class="story-body">
+      The Economistが「Why big AI labs are hiring so many philosophers（なぜ大手AI企業は哲学者をこれほど多く採用しているのか）」と題した記事を公開し、88ポイント・74コメントを集めています。Anthropic・OpenAI・DeepMind・Google Geminiチームが倫理哲学者・認識論学者・政治哲学者を大量採用しているというトレンドは2025年以降に急加速しており、「AIの安全性と倫理」が単なるPRではなく組織の中核機能として機能し始めていることを示しています。
+
+      記事はなぜ「倫理担当者」ではなく「哲学者」なのかを問います。その答えは「AIが提起する問いが哲学の古典的な問い——意識とは何か・意図はどう定義されるか・害悪はどう測定されるか・どこまで自律性を認めてよいか——と深く重なるため、哲学的訓練を受けた思考者が最も適している」というものです。Anthropicが発表したModel SpecやコンスティテューショナルAIは、文字通り哲学的文書として機能しており、Claude自身の「価値観の文書化」を行うチームには哲学のバックグラウンドを持つ人材が多く関与していると報じられています。
+
+      HN上では「哲学者採用は正しい方向性——「AIは意識を持つか」「AGIが生まれたらどう扱うか」という問いには哲学的訓練が必要。工学だけでは答えられない」「AnthropicのModel Specを読んだが、確かにこれは哲学文書だ——AIの人格・価値観・利害関係者の定義を言語化する作業は倫理哲学そのもの」「懸念もある——哲学者がいても彼らの提言が実際の製品決定に影響するかどうかは別問題。倫理洗浄（ethics washing）に終わる可能性」「日本の企業でも同様の動きが必要では——AIの導入を進める際、倫理審査が法務部門の仕事になっている現状には限界がある」「Claude Codeのプロンプトを書く我々も、ある意味AIに「何を考えてほしいか」を哲学的に定義している——哲学者の仕事と地続き」という74コメントが展開中です。
+    </div>
+    <div class="gold-items">
+      <div class="gold-item">
+        <div>
+          <div class="gold-label">なぜ今、哲学者なのか</div>
+          <div class="gold-text">AIが従来の工学的手法では答えられない問いを生んでいるため：①「AIが行った決定の責任は誰にあるか」——法的帰属の概念の再定義②「AIの意図をどう定義するか」——意図という概念を工学的に操作化する作業③「どこまで自律性を許すか」——リスクと便益の哲学的比較衡量</div>
+        </div>
+      </div>
+      <div class="gold-item">
+        <div>
+          <div class="gold-label">AnthropicとModel Specの関係</div>
+          <div class="gold-text">Anthropicが公開したClaude Model Spec（Claudeの価値観・行動原則・境界線を定義する文書）は哲学者の関与なしには書けない文書。「Claudeはどのような存在であるべきか」「人間とAIの関係はどう定義されるべきか」という問いへの回答が含まれており、これが日々のClaude Code体験の基盤になっている</div>
+        </div>
+      </div>
+      <div class="gold-item">
+        <div>
+          <div class="gold-label">批判と懸念</div>
+          <div class="gold-text">哲学者採用が「倫理洗浄（Ethics Washing）」——外部向けの倫理的イメージ改善に止まり内部意思決定に影響しない——になるリスクへの批判もある。哲学者が実際に製品ロードマップや利用規約・安全ガイドラインの変更権限を持つかどうかが、真の統合か飾りかを分ける</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: economist.com</span>
+      <span>88 ポイント</span>
+      <span>74 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.economist.com/science-and-technology/2026/06/24/why-big-ai-labs-are-hiring-so-many-philosophers" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48662452" target="_blank">HN議論 (74)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="ai-labs-hiring-philosophers" data-type="like" onclick="toggleFlag('ai-labs-hiring-philosophers','大手AI企業が哲学者を採用——テクノロジーと倫理の交差点で何が起きているか','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="ai-labs-hiring-philosophers" data-type="dislike" onclick="toggleFlag('ai-labs-hiring-philosophers','大手AI企業が哲学者を採用——テクノロジーと倫理の交差点で何が起きているか','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 9 — Stealing Is a Skill ════════════════════════════════════════ -->
+<section class="story story-9" id="s9">
+  <div class="story-num">09</div>
+  <div class="story-inner">
+    <div class="story-kicker">CREATIVITY / ENGINEERING / PERSPECTIVE / LEARNING — 「盗むことはスキルである」——他者のアイデアを正しく「盗む」技法が創造性を育てるという逆説的論考。183ポイント・118コメント</div>
+    <h2 class="story-headline">
+      盗むことは<br>スキルである——<br>創造的な模倣の<br>技法論
+    </h2>
+    <div class="story-body">
+      「Stealing Is a Skill（盗むことはスキルである）」と題したブログ記事（ben-mini.com）が183ポイント・118コメントを集めています。Pablo Picassoの「Good artists copy; great artists steal（凡人は模倣し、天才は盗む）」という言葉に着想を得たとみられるこの記事は、ソフトウェア開発・デザイン・文章執筆において「適切に盗む技術」が独創性の前提条件になっているという主張を展開しています。単なる模倣論ではなく「何を・どこから・どう盗むかを見極めるスキル」の重要性を説いています。
+
+      記事の著者は「盗む」を表層的なコピーではなく「他者の問題解決の構造・発想の本質を自分のコンテキストに移植すること」として定義しています。優れたエンジニアは他者のコードをコピーするのではなく「なぜそう設計されているか」を理解した上で自分の問題に適用します。この「理解を伴う移植」こそが創造的な盗みであり、AIがコードを生成する時代において「AIの出力を理解なしに貼り付けるのは悪い盗みだが、AIの解法の本質を理解して自分の設計に取り込むのは良い盗みだ」という現代的な論点にも繋がります。
+
+      HN上では「ソフトウェア開発の世界では「盗む」は文化——スタックオーバーフローのコードをコピーすることから始まり、オープンソースはそれを制度化したもの」「AIとの関係でこの論点が面白い——Claude Codeが生成したコードを理解なしに使うのは「悪い盗み」、理解して自分の設計判断に使うのが「良い盗み」という区別は重要」「学習の観点では「まず良いものを模倣する」フェーズが不可欠——独創性は模倣の延長線上にある」「何が「良い盗みの対象」かを見極める審美眼が本当のスキル——それ自体がトレーニングが必要な能力」「著作権・特許との境界線をどう引くかという法的問題と、創造性の問題は分けて考える必要があるという指摘は正しい」という118コメントが展開中です。
+    </div>
+    <div class="slate-items">
+      <div class="slate-item">
+        <div>
+          <div class="slate-label">「良い盗み」vs「悪い盗み」</div>
+          <div class="slate-text">悪い盗み：表面的なコピー（なぜそうなっているかを理解せずにコードや設計を転用する）。良い盗み：本質の移植（問題解決の構造・設計の意図を理解した上で自分のコンテキストに適用する）。Claude Codeで言えば「AIの出力をそのまま貼る」が悪い盗みで「AIの解法を理解して自分の設計に取り込む」が良い盗み</div>
+        </div>
+      </div>
+      <div class="slate-item">
+        <div>
+          <div class="slate-label">開発者に適用する実践法</div>
+          <div class="slate-text">①GitHubで優れたOSSのコードを読む時、「このコードが解いている問題は何か」を問う②ライブラリのAPIデザインを参考にする時、「なぜこのインターフェースか」を問う③Claude Codeが生成したコードを使う前に「このアプローチの強みと限界は何か」を問う——理解を確認するステップを挟む習慣が良い盗みを習慣化する</div>
+        </div>
+      </div>
+      <div class="slate-item">
+        <div>
+          <div class="slate-label">AI時代における「盗みの審美眼」</div>
+          <div class="slate-text">AIが大量のコード・テキスト・デザインを生成できるようになった時代に、最も価値が上がるスキルは「何が良いか見極める審美眼」。生成されたものをふるいにかけ、本質的に良いものを選別・統合する能力がAI時代の「良い盗み手」を定義する。盲目的な受容ではなく批判的な評価が創造性の源泉になる</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: ben-mini.com</span>
+      <span>183 ポイント</span>
+      <span>118 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://ben-mini.com/2026/stealing-is-a-skill" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48659165" target="_blank">HN議論 (118)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="stealing-is-a-skill" data-type="like" onclick="toggleFlag('stealing-is-a-skill','盗むことはスキルである——クリエイティブな模倣論','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="stealing-is-a-skill" data-type="dislike" onclick="toggleFlag('stealing-is-a-skill','盗むことはスキルである——クリエイティブな模倣論','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 10 — GLM-5.2 Open Agents ════════════════════════════════════════ -->
+<section class="story story-10" id="s10">
+  <div class="story-num">10</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / OPEN SOURCE / AGENTS / GLM / CHINA — 中国発のオープンモデルGLM-5.2がオープンソースエージェント分野で世代交代をもたらすと分析。52ポイント・16コメント</div>
+    <h2 class="story-headline">
+      GLM-5.2——<br>オープンエージェントの<br>世代交代を<br>告げるモデル
+    </h2>
+    <div class="story-body">
+      「GLM-5.2 is a step change for open agents（GLM-5.2はオープンエージェントのステップチェンジだ）」という分析記事（interconnects.ai）が52ポイント・16コメントを集めています。GLM（General Language Model）は中国の清華大学と智谱AIが開発するオープンウェイトLLMシリーズです。GLM-5.2はエージェント的なタスク——ツール使用・複数ステップの推論・コード実行・Webブラウジング——において従来のオープンモデルを大幅に上回るパフォーマンスを示しており、プロプライエタリAPIなしでもローカル実行可能な高性能エージェントモデルとして注目されています。
+
+      記事の著者Nathan Lambertは「GLM-5.2がエージェント評価ベンチマークで示したパフォーマンスは、単なる点数の改善ではなく定性的なステップチェンジ——以前のオープンモデルでは失敗していたタスクが成功するようになった」と分析しています。特にFunction Calling・Code Interpreter・WebツールとのAPIインテグレーションにおいて実用水準に達したとされており、Claude・GPT-4に代表されるプロプライエタリAPIに依存せずに自社エージェントを構築したい開発者にとって有力な選択肢になりえます。
+
+      HN上では「GLMシリーズは以前から注目していたが、エージェント評価での性能向上は顕著——特にMulti-step tool useで以前のモデルとは明らかに違う」「ローカル実行可能なエージェントモデルはプライバシーとコストの両面で魅力的——医療・法律・金融のように外部APIに送れないデータを扱うケースで重要」「中国のAI研究力が本格的にオープンウェイト市場を牽引し始めた——Llama・Mistralと並ぶ第三の勢力が確立されつつある」「GLM-5.2でできることが増えたとしても「オープンソースエージェントを本番運用する」ための信頼性・モニタリング・コスト管理が次の課題」「Quantization（量子化）後のGLM-5.2がConsumer GPUでどれだけ動くかが実用化の鍵——VRAM要件次第で個人開発者の選択肢が変わる」という16コメントが展開中です。
+    </div>
+    <div class="mag-items">
+      <div class="mag-item">
+        <div>
+          <div class="mag-label">GLM-5.2が得意なエージェントタスク</div>
+          <div class="mag-text">①Function Calling：外部APIを呼び出すツール使用が安定②Code Interpreter：コードを実行して結果を評価し次のステップに活かす③Multi-step reasoning：複数ステップにわたる計画と実行④Web browsing：URLを叩いて情報収集するWebエージェント——これらを組み合わせた実用エージェントの構築が現実的になってきた</div>
+        </div>
+      </div>
+      <div class="mag-item">
+        <div>
+          <div class="mag-label">Claude/GPT vs GLM-5.2の住み分け</div>
+          <div class="mag-text">プロプライエタリAPI（Claude/GPT）の強み：安定した品質・充実したサポート・責任分担が明確。GLM-5.2（オープン）の強み：ローカル実行によるプライバシー保護・APIコストゼロ・カスタマイズ・オフライン動作。用途・予算・プライバシー要件で使い分ける時代が来ている</div>
+        </div>
+      </div>
+      <div class="mag-item">
+        <div>
+          <div class="mag-label">今すぐ試す方法</div>
+          <div class="mag-text">HuggingFace（huggingface.co/THUDM/GLM-5.2）からモデルをダウンロード。Ollamaまたはllama.cppで実行可能。推奨VRAM：GLM-5.2-9Bなら16GB GPU（RTX 4080相当）、量子化版なら8〜12GB。interconnects.aiの記事にある評価レポートで自分のユースケースとの適合性を確認してから試すことを推奨</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: interconnects.ai</span>
+      <span>52 ポイント</span>
+      <span>16 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.interconnects.ai/p/glm-52-is-the-step-change-for-open" target="_blank">分析を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48639840" target="_blank">HN議論 (16)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="glm-5-2-open-agents" data-type="like" onclick="toggleFlag('glm-5-2-open-agents','GLM-5.2——オープンエージェントの世代交代を告げるモデル','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="glm-5-2-open-agents" data-type="dislike" onclick="toggleFlag('glm-5-2-open-agents','GLM-5.2——オープンエージェントの世代交代を告げるモデル','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ══════════════════════════════════════════════════════════════ -->
+<footer class="site-footer">
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand">Morning Edition</div>
+      <div class="footer-meta">
+        Hacker News キュレーション · 2026年6月25日 · Issue No.061<br>
+        毎朝、厳選10本をお届け
+      </div>
+    </div>
+    <button class="export-btn" onclick="exportFeedback()">📋 フィードバックをコピー</button>
+  </div>
+  <div class="footer-note">
+    ⭐ 興味あり / ✕ 興味なし ボタンで次回のキュレーションが改善されます。Chrome/Edgeでは自動保存、その他ではボタンでクリップボードにコピーしてください。
+  </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  const FEEDBACK_KEY = 'morning-edition-feedback-v2';
+  const TODAY = '2026-06-25';
+  let _dirHandle = null;
+
+  async function getDir(forcePrompt) {
+    if (_dirHandle && !forcePrompt) return _dirHandle;
+    if (!window.showDirectoryPicker) return null;
+    try {
+      _dirHandle = await window.showDirectoryPicker({ mode: 'readwrite', id: 'morning-edition', startIn: 'documents' });
+      return _dirHandle;
+    } catch { return null; }
+  }
+
+  async function writeJSON(dirHandle, fb) {
+    const fileHandle = await dirHandle.getFileHandle('feedback.json', { create: true });
+    const writable = await fileHandle.createWritable();
+    await writable.write(JSON.stringify({ ...fb, updatedAt: new Date().toISOString() }, null, 2));
+    await writable.close();
+  }
+
+  function showToast(msg, isErr) {
+    const el = document.getElementById('toast');
+    el.textContent = msg;
+    el.className = 'toast' + (isErr ? ' error' : '');
+    requestAnimationFrame(() => el.classList.add('show'));
+    clearTimeout(el._timer);
+    el._timer = setTimeout(() => el.classList.remove('show'), 3000);
+  }
+
+  function getFeedback() {
+    try { return JSON.parse(localStorage.getItem(FEEDBACK_KEY) || '{"liked":{},"disliked":{}}'); }
+    catch { return { liked: {}, disliked: {} }; }
+  }
+  function saveFeedback(fb) { localStorage.setItem(FEEDBACK_KEY, JSON.stringify(fb)); }
+
+  async function autoSave(fb) {
+    let dir = await getDir();
+    if (!dir) {
+      showToast('📁 Daily News フォルダを選択してください', true);
+      dir = await getDir(true);
+      if (!dir) { showToast('保存をキャンセルしました', true); return; }
+    }
+    try {
+      await writeJSON(dir, fb);
+      showToast('✓ feedback.json を自動保存しました（次回キュレーションに反映）');
+    } catch (e) {
+      showToast('保存エラー: ' + e.message, true);
+    }
+  }
+
+  async function toggleFlag(storyId, title, type) {
+    const fb = getFeedback();
+    fb.liked = fb.liked || {};
+    fb.disliked = fb.disliked || {};
+    const likeBtn    = document.querySelector(`.flag-btn.like-btn[data-story="${storyId}"]`);
+    const dislikeBtn = document.querySelector(`.flag-btn.dislike-btn[data-story="${storyId}"]`);
+    if (type === 'like') {
+      if (fb.liked[storyId]) {
+        delete fb.liked[storyId];
+        likeBtn?.classList.remove('active');
+      } else {
+        fb.liked[storyId] = { title, date: TODAY };
+        delete fb.disliked[storyId];
+        likeBtn?.classList.add('active');
+        dislikeBtn?.classList.remove('active');
+      }
+    } else {
+      if (fb.disliked[storyId]) {
+        delete fb.disliked[storyId];
+        dislikeBtn?.classList.remove('active');
+      } else {
+        fb.disliked[storyId] = { title, date: TODAY };
+        delete fb.liked[storyId];
+        dislikeBtn?.classList.add('active');
+        likeBtn?.classList.remove('active');
+      }
+    }
+    saveFeedback(fb);
+    await autoSave(fb);
+  }
+
+  function exportFeedback() {
+    const fb = getFeedback();
+    const json = JSON.stringify({ ...fb, exportedAt: new Date().toISOString() }, null, 2);
+    navigator.clipboard.writeText(json)
+      .then(() => showToast('📋 クリップボードにコピーしました'))
+      .catch(() => {
+        const el = document.createElement('textarea');
+        el.value = json; document.body.appendChild(el); el.select();
+        document.execCommand('copy'); document.body.removeChild(el);
+        showToast('📋 クリップボードにコピーしました');
+      });
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const fb = getFeedback();
+    document.querySelectorAll('.flag-btn').forEach(btn => {
+      const id   = btn.dataset.story;
+      const type = btn.dataset.type;
+      if ((type === 'like' && fb.liked?.[id]) || (type === 'dislike' && fb.disliked?.[id])) {
+        btn.classList.add('active');
+      }
+    });
+  });
+</script>
+</body>
+</html>
