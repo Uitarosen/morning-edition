@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Morning Edition — 2026年6月26日</title>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --font: 'M PLUS Rounded 1c', 'Hiragino Sans', 'Noto Sans JP', sans-serif; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); background: #111; color: #fff; overflow-x: hidden; }
+
+    .masthead { background: #fff; color: #000; padding: 3rem 4rem 2.5rem; border-bottom: 6px solid #000; position: relative; overflow: hidden; }
+    .masthead::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: repeating-linear-gradient(90deg, #000 0, #000 12px, transparent 12px, transparent 20px); }
+    .masthead-kicker { font-size: 0.85rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: #777; margin-bottom: 0.6rem; }
+    .masthead-title { font-size: clamp(3.5rem, 9vw, 7.5rem); font-weight: 900; line-height: 0.88; letter-spacing: -0.04em; margin-bottom: 1.8rem; }
+    .masthead-meta { display: flex; gap: 3rem; align-items: baseline; flex-wrap: wrap; }
+    .masthead-date { font-size: 1.5rem; font-weight: 700; }
+    .masthead-subtitle { font-size: 1rem; font-weight: 400; color: #555; max-width: 480px; line-height: 1.5; }
+    .masthead-issue { margin-left: auto; text-align: right; }
+    .masthead-issue span { display: block; }
+    .masthead-issue .iss-label { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: #999; }
+    .masthead-issue .iss-num { font-size: 2.2rem; font-weight: 900; color: #000; }
+
+    .toc { background: #1a1a1a; padding: 1.5rem 4rem; display: flex; gap: 1.5rem; flex-wrap: wrap; border-bottom: 1px solid #333; }
+    .toc a { color: #aaa; text-decoration: none; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; transition: color 0.2s; }
+    .toc a:hover { color: #fff; }
+    .toc-num { color: #555; margin-right: 0.3em; }
+
+    .story { position: relative; overflow: hidden; }
+    .story-inner { max-width: 1200px; margin: 0 auto; padding: 5rem 4rem; position: relative; z-index: 1; }
+    .story-num { font-size: clamp(6rem, 18vw, 16rem); font-weight: 900; line-height: 0.8; letter-spacing: -0.06em; opacity: 0.08; position: absolute; top: 1rem; right: 2rem; user-select: none; }
+    .story-badge { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.35em 0.9em; border-radius: 2px; margin-bottom: 1.5rem; }
+    .direct-badge { background: #FFD700; color: #000; }
+    .story-kicker { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; opacity: 0.6; margin-bottom: 0.8rem; }
+    .story-headline { font-size: clamp(2rem, 5vw, 4rem); font-weight: 900; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+    .story-body { font-size: clamp(1rem, 1.5vw, 1.2rem); font-weight: 400; line-height: 1.8; max-width: 680px; opacity: 0.88; margin-bottom: 2rem; }
+    .story-meta { display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center; font-size: 0.8rem; font-weight: 700; opacity: 0.5; }
+    .story-links { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem; }
+    .story-link { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.6em 1.4em; border-radius: 3px; text-decoration: none; transition: opacity 0.2s, transform 0.15s; }
+    .story-link:hover { opacity: 0.75; transform: translateY(-1px); }
+
+    .feedback-buttons { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .flag-btn { background: none; border: 1px solid currentColor; color: inherit; font-family: var(--font); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.5em 1em; border-radius: 3px; cursor: pointer; opacity: 0.32; transition: opacity 0.2s, background 0.2s, color 0.2s, border-color 0.2s, transform 0.15s; }
+    .flag-btn:hover { opacity: 0.72; transform: translateY(-1px); }
+    .flag-btn.like-btn.active { opacity: 1; background: rgba(255,215,0,0.15); border-color: #FFD700; color: #FFD700 !important; }
+    .flag-btn.dislike-btn.active { opacity: 1; background: rgba(255,60,60,0.12); border-color: #FF4444; color: #FF4444 !important; }
+
+    .toast { position: fixed; bottom: 2rem; right: 2rem; background: #1a1a1a; color: #fff; font-family: var(--font); font-size: 0.82rem; font-weight: 700; padding: 0.75em 1.4em; border-radius: 4px; border-left: 3px solid #00C853; z-index: 9999; opacity: 0; transform: translateY(10px); transition: opacity 0.25s, transform 0.25s; pointer-events: none; box-shadow: 0 4px 24px rgba(0,0,0,0.45); }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    .toast.error { border-left-color: #FF5252; }
+
+    .story-1 { background: #fff; color: #000; min-height: 90vh; display: flex; flex-direction: column; justify-content: center; }
+    .story-1 .story-num { color: #000; opacity: 0.04; }
+    .story-1 .story-kicker { color: #555; opacity: 1; }
+    .story-1 .story-headline { color: #000; }
+    .story-1 .story-body { color: #111; }
+    .story-1 .story-meta { color: #000; }
+    .story-1 .story-link.primary { background: #1a1a1a; color: #fff; }
+    .story-1 .story-link.secondary { background: #f0f0f0; color: #000; }
+    .story-1 .flag-btn { color: #000; }
+    .story-1-accent { position: absolute; bottom: 0; left: 0; width: 100%; height: 8px; background: linear-gradient(90deg, #1a1a1a, #555, #999, #1a1a1a); }
+    .story-1 .headline-accent { display: inline-block; background: linear-gradient(135deg, #1a1a1a 0%, #555 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .dos-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1.2rem; margin: 2rem 0; max-width: 680px; }
+    .dos-card { border: 2px solid rgba(0,0,0,0.12); background: rgba(0,0,0,0.04); border-radius: 6px; padding: 1.3rem 1.5rem; }
+    .dos-card-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.2em; text-transform: uppercase; color: #333; margin-bottom: 0.4rem; }
+    .dos-card-value { font-size: 1.05rem; font-weight: 900; color: #000; line-height: 1.3; }
+    .dos-card-sub { font-size: 0.75rem; color: #555; margin-top: 0.3rem; line-height: 1.4; }
+
+    .story-2 { background: #00080c; color: #b8f0ff; min-height: 80vh; }
+    .story-2::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(0,160,200,0.14) 0%, transparent 65%); }
+    .story-2 .story-num { color: #00A0C8; opacity: 0.07; }
+    .story-2 .story-kicker { color: #20C8E8; opacity: 1; }
+    .story-2 .story-headline { color: #e0f8ff; }
+    .story-2 .story-body { color: #b8f0ff; }
+    .story-2 .story-meta { color: #20C8E8; opacity: 0.5; }
+    .story-2 .story-link.primary { background: #004058; color: #80e8ff; }
+    .story-2 .story-link.secondary { background: rgba(0,160,200,0.08); color: #90d8f0; border: 1px solid rgba(0,160,200,0.22); }
+    .story-2 .flag-btn { color: #b8f0ff; }
+    .teal-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .teal-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(0,160,200,0.07); border-left: 3px solid #00A0C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .teal-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20C8E8; margin-bottom: 0.3rem; }
+    .teal-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-3 { background: #0a0000; color: #fff; min-height: 80vh; }
+    .story-3::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(200,20,20,0.16) 0%, transparent 65%); }
+    .story-3 .story-num { color: #C81414; opacity: 0.07; }
+    .story-3 .story-kicker { color: #E84040; opacity: 1; }
+    .story-3 .story-headline { color: #fff; }
+    .story-3 .story-body { color: rgba(255,255,255,0.88); }
+    .story-3 .story-meta { color: #E84040; opacity: 0.5; }
+    .story-3 .story-link.primary { background: #6a0000; color: #fff; }
+    .story-3 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-3 .flag-btn { color: #fff; }
+    .red-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .red-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(200,20,20,0.07); border-left: 3px solid #C81414; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .red-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E84040; margin-bottom: 0.3rem; }
+    .red-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-4 { background: #020c04; color: #c8f0d0; min-height: 80vh; }
+    .story-4::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(20,160,70,0.16) 0%, transparent 65%); }
+    .story-4 .story-num { color: #14A046; opacity: 0.07; }
+    .story-4 .story-kicker { color: #30C060; opacity: 1; }
+    .story-4 .story-headline { color: #e0ffe8; }
+    .story-4 .story-body { color: #c8f0d0; }
+    .story-4 .story-meta { color: #30C060; opacity: 0.5; }
+    .story-4 .story-link.primary { background: #063820; color: #80ffb0; }
+    .story-4 .story-link.secondary { background: rgba(20,160,70,0.08); color: #a0e8b0; border: 1px solid rgba(20,160,70,0.22); }
+    .story-4 .flag-btn { color: #c8f0d0; }
+    .green-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .green-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(20,160,70,0.07); border-left: 3px solid #14A046; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .green-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #30C060; margin-bottom: 0.3rem; }
+    .green-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-5 { background: #040010; color: #d8c8ff; min-height: 75vh; }
+    .story-5::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(90,40,200,0.17) 0%, transparent 65%); }
+    .story-5 .story-num { color: #5A28C8; opacity: 0.07; }
+    .story-5 .story-kicker { color: #8050E0; opacity: 1; }
+    .story-5 .story-headline { color: #f0e8ff; }
+    .story-5 .story-body { color: #d8c8ff; }
+    .story-5 .story-meta { color: #8050E0; opacity: 0.5; }
+    .story-5 .story-link.primary { background: #200860; color: #d0a8ff; }
+    .story-5 .story-link.secondary { background: rgba(90,40,200,0.08); color: #c0a0f0; border: 1px solid rgba(90,40,200,0.22); }
+    .story-5 .flag-btn { color: #d8c8ff; }
+    .purple-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .purple-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(90,40,200,0.07); border-left: 3px solid #5A28C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .purple-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #8050E0; margin-bottom: 0.3rem; }
+    .purple-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-6 { background: #000c10; color: #b8e8f0; min-height: 75vh; }
+    .story-6::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 40%, rgba(0,130,160,0.14) 0%, transparent 65%); }
+    .story-6 .story-num { color: #0080A0; opacity: 0.07; }
+    .story-6 .story-kicker { color: #20B0D0; opacity: 1; }
+    .story-6 .story-headline { color: #e0f4ff; }
+    .story-6 .story-body { color: #b8e8f0; }
+    .story-6 .story-meta { color: #20B0D0; opacity: 0.5; }
+    .story-6 .story-link.primary { background: #003848; color: #80d8f0; }
+    .story-6 .story-link.secondary { background: rgba(0,130,160,0.08); color: #90cce0; border: 1px solid rgba(0,130,160,0.22); }
+    .story-6 .flag-btn { color: #b8e8f0; }
+    .cyan-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(185px, 1fr)); gap: 1rem; margin: 2rem 0; max-width: 680px; }
+    .cyan-card { background: rgba(0,130,160,0.07); border: 1px solid rgba(0,130,160,0.22); border-radius: 4px; padding: 1.2rem 1.4rem; }
+    .cyan-card-name { font-size: 0.78rem; font-weight: 900; color: #20B0D0; margin-bottom: 0.4rem; }
+    .cyan-card-desc { font-size: 0.72rem; opacity: 0.75; line-height: 1.4; }
+
+    .story-7 { background: #0a0300; color: #ffe0b8; min-height: 75vh; }
+    .story-7::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(210,90,20,0.18) 0%, transparent 65%); }
+    .story-7 .story-num { color: #D05A14; opacity: 0.07; }
+    .story-7 .story-kicker { color: #E88040; opacity: 1; }
+    .story-7 .story-headline { color: #fff0d8; }
+    .story-7 .story-body { color: #ffe0b8; }
+    .story-7 .story-meta { color: #E88040; opacity: 0.5; }
+    .story-7 .story-link.primary { background: #6a2400; color: #ffc880; }
+    .story-7 .story-link.secondary { background: rgba(210,90,20,0.08); color: #ffb870; border: 1px solid rgba(210,90,20,0.22); }
+    .story-7 .flag-btn { color: #ffe0b8; }
+    .amber-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .amber-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(210,90,20,0.07); border-left: 3px solid #D05A14; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .amber-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E88040; margin-bottom: 0.3rem; }
+    .amber-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-8 { background: #080500; color: #fff; min-height: 70vh; }
+    .story-8::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,145,10,0.15) 0%, transparent 65%); }
+    .story-8 .story-num { color: #BE9110; opacity: 0.06; }
+    .story-8 .story-kicker { color: #D4A820; opacity: 1; }
+    .story-8 .story-headline { color: #fff; }
+    .story-8 .story-body { color: rgba(255,255,255,0.88); }
+    .story-8 .story-meta { color: #D4A820; opacity: 0.5; }
+    .story-8 .story-link.primary { background: #604000; color: #ffe070; }
+    .story-8 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-8 .flag-btn { color: #fff; }
+    .gold-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .gold-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(190,145,10,0.07); border-left: 3px solid #BE9110; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .gold-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #D4A820; margin-bottom: 0.3rem; }
+    .gold-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-9 { background: #040810; color: #c8d8f0; min-height: 70vh; }
+    .story-9::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 35%, rgba(50,90,170,0.16) 0%, transparent 65%); }
+    .story-9 .story-num { color: #3258A8; opacity: 0.07; }
+    .story-9 .story-kicker { color: #5878C8; opacity: 1; }
+    .story-9 .story-headline { color: #e8f0ff; }
+    .story-9 .story-body { color: #c8d8f0; }
+    .story-9 .story-meta { color: #5878C8; opacity: 0.5; }
+    .story-9 .story-link.primary { background: #101e50; color: #fff; }
+    .story-9 .story-link.secondary { background: rgba(50,90,170,0.08); color: #b0c8e8; border: 1px solid rgba(50,90,170,0.22); }
+    .story-9 .flag-btn { color: #c8d8f0; }
+    .slate-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .slate-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(50,90,170,0.07); border-left: 3px solid #3258A8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .slate-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #5878C8; margin-bottom: 0.3rem; }
+    .slate-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-10 { background: #080004; color: #ffc8e8; min-height: 70vh; }
+    .story-10::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,20,90,0.15) 0%, transparent 65%); }
+    .story-10 .story-num { color: #BE1458; opacity: 0.07; }
+    .story-10 .story-kicker { color: #E04080; opacity: 1; }
+    .story-10 .story-headline { color: #fff0f8; }
+    .story-10 .story-body { color: #ffc8e8; }
+    .story-10 .story-meta { color: #E04080; opacity: 0.5; }
+    .story-10 .story-link.primary { background: #500030; color: #ffb0d8; }
+    .story-10 .story-link.secondary { background: rgba(190,20,90,0.08); color: #f090c0; border: 1px solid rgba(190,20,90,0.22); }
+    .story-10 .flag-btn { color: #ffc8e8; }
+    .mag-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .mag-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(190,20,90,0.07); border-left: 3px solid #BE1458; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .mag-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E04080; margin-bottom: 0.3rem; }
+    .mag-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .site-footer { background: #000; color: #555; padding: 3rem 4rem; display: flex; flex-direction: column; gap: 1.5rem; border-top: 1px solid #222; }
+    .footer-top { display: flex; gap: 2rem; align-items: center; flex-wrap: wrap; justify-content: space-between; }
+    .footer-brand { font-size: 1.4rem; font-weight: 900; color: #fff; }
+    .footer-meta { font-size: 0.75rem; line-height: 1.6; }
+    .export-btn { background: #222; border: 1px solid #444; color: #fff; font-family: var(--font); font-size: 0.8rem; font-weight: 700; padding: 0.7em 1.5em; border-radius: 3px; cursor: pointer; letter-spacing: 0.08em; transition: background 0.2s; }
+    .export-btn:hover { background: #333; }
+    .footer-note { font-size: 0.7rem; opacity: 0.5; }
+
+    @media (max-width: 768px) {
+      .masthead, .toc, .story-inner, .site-footer { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .story-num { display: none; }
+      .masthead-meta { gap: 1rem; }
+      .masthead-issue { margin-left: 0; }
+      .dos-grid, .cyan-cards { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+<nav style="background:#1a1a1a;border-bottom:1px solid #333;padding:0.55rem 2rem;font-family:'M PLUS Rounded 1c','Hiragino Sans','Noto Sans JP',sans-serif;position:sticky;top:0;z-index:999;">
+  <a href="./index.html" style="color:#aaa;text-decoration:none;font-size:0.8rem;font-weight:700;letter-spacing:0.03em;display:inline-flex;align-items:center;gap:0.4rem;transition:color 0.15s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#aaa'">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    アーカイブへ戻る
+  </a>
+</nav>
+
+<header class="masthead">
+  <div class="masthead-kicker">Hacker News — Morning Edition</div>
+  <h1 class="masthead-title">Morning<br>Edition</h1>
+  <div class="masthead-meta">
+    <div>
+      <div class="masthead-date">2026年6月26日 木曜日</div>
+      <div class="masthead-subtitle">AI・開発ツール・プライバシー・サイエンス — あなたのための10本</div>
+    </div>
+    <div class="masthead-issue">
+      <span class="iss-label">Issue</span>
+      <span class="iss-num">No.062</span>
+    </div>
+  </div>
+</header>
+
+<nav class="toc">
+  <a href="#s1"><span class="toc-num">01</span>ヘルクラネウム写本、2000年の沈黙を破り全文解読</a>
+  <a href="#s2"><span class="toc-num">02</span>HN 18年分コメントを索引化——自作のGoogleトレンド</a>
+  <a href="#s3"><span class="toc-num">03</span>AppleがMacBook・iPadを値上げ——メモリコスト急騰が原因</a>
+  <a href="#s4"><span class="toc-num">04</span>テストでは「センス」を証明できない</a>
+  <a href="#s5"><span class="toc-num">05</span>IBM、1ナノメートル未満のチップ技術を初発表</a>
+  <a href="#s6"><span class="toc-num">06</span>Zigに新しいbitCast意味論——LLVMバックエンドも大幅強化</a>
+  <a href="#s7"><span class="toc-num">07</span>⚡ OpenKnowledge——AIファーストなObsidian/Notion代替がOSSに</a>
+  <a href="#s8"><span class="toc-num">08</span>EmacsのGPUバックエンドを一から自作してみた</a>
+  <a href="#s9"><span class="toc-num">09</span>⚡ AIモデルの政治的偏向を可視化——各社の「立ち位置」は</a>
+  <a href="#s10"><span class="toc-num">10</span>日本のアニメーターが消えていく</a>
+</nav>
+
+<!-- ═══ STORY 1 — Herculaneum Scroll ════════════════════════════════════════ -->
+<section class="story story-1" id="s1">
+  <div class="story-num">01</div>
+  <div class="story-inner">
+    <div class="story-kicker">古代史 / テクノロジー / ヴェスヴィウス火山 / ヘルクラネウム写本 — 炭化した古代ローマの巻物が初めて全文解読される歴史的快挙。779ポイント・178コメント</div>
+    <h2 class="story-headline">
+      ヘルクラネウム写本、<br>2000年の沈黙を<br><span class="headline-accent">破り全文解読</span>
+    </h2>
+    <div class="story-body">
+      「An entire Herculaneum scroll has been read for the first time（ヘルクラネウム写本が初めて全文読まれた）」が779ポイント・178コメントを集め、本日HNのトップスコアを記録しています。ヘルクラネウムはポンペイとともにAD79年のヴェスヴィウス火山噴火で埋没した古代ローマの都市。そこで発見された巻物群（ヘルクラネウム写本）は、熱と圧力で炭化しており、2000年以上にわたって内容を読むことができませんでした。
+
+      Vesuvius Challenge（ヴェスヴィウス・チャレンジ）は、機械学習とX線CTスキャン技術を組み合わせて炭化巻物を仮想的に「展開」し内容を読み取るプロジェクトです。2023年に最初の文字読み取りに成功して以来、研究が加速。今回ついに一巻全体の完全解読が達成されました。内容はエピクロス哲学に関する著作とされており、古典学の研究者が長年夢見てきた発見です。現存する巻物はまだ多数あり、今回の成果は今後の解読研究に向けた大きな突破口となります。
+
+      HN上では「これは21世紀最大の人文学的発見のひとつ——テクノロジーが2000年の壁を突き破った瞬間」「機械学習が古典学に革命を起こすとは10年前には誰も想像しなかった」「Vesuvius Challengeのクラウドソーシング方式が機能した証明——賞金モデルと研究者コミュニティの力を示す」「ヘルクラネウムには残り1800本以上の未解読巻物がある——これからの解読に期待が膨らむ」「エピクロス哲学の新たな原典が2000年を経て読まれる——どんな思想が眠っていたのかが最も気になる」という178コメントが展開中です。
+    </div>
+    <div class="dos-grid">
+      <div class="dos-card">
+        <div class="dos-card-label">ヘルクラネウム写本とは</div>
+        <div class="dos-card-value">AD79年の噴火で埋没した古代ローマ図書館の蔵書</div>
+        <div class="dos-card-sub">ナポリ近郊のヘルクラネウムで発見された約1800本のパピルス巻物。ヴェスヴィウス火山の熱で炭化しており、従来の方法では開くことが不可能だった。エピクロス派哲学者フィロデモスの著作が多数含まれるとみられる</div>
+      </div>
+      <div class="dos-card">
+        <div class="dos-card-label">解読の技術</div>
+        <div class="dos-card-value">X線CT + 機械学習による仮想展開</div>
+        <div class="dos-card-sub">巻物をX線CTスキャンして3Dデータ化し、AIが炭素インクの微細な痕跡を検出。「仮想展開」アルゴリズムが物理的に開かずに内部を読み取る。2023年のVesuvius Challenge以来、技術が急速に進歩した</div>
+      </div>
+      <div class="dos-card">
+        <div class="dos-card-label">今回の発見内容</div>
+        <div class="dos-card-value">エピクロス哲学に関する著作の全文</div>
+        <div class="dos-card-sub">初の完全解読された一巻はエピクロス派の哲学的テキスト。古典学者にとっては失われた古代の知識が復活するに等しい発見。現在の翻訳・解析作業が世界中の研究者によって進められている</div>
+      </div>
+      <div class="dos-card">
+        <div class="dos-card-label">今後の展望</div>
+        <div class="dos-card-value">残り1800本以上の巻物が解読待ち</div>
+        <div class="dos-card-sub">ヘルクラネウムの「パピルスの別荘」には多数の未解読巻物が残存。今回の技術的突破口により、古代ギリシャ・ローマ文学の「失われた著作」が次々と発見される可能性がある。ホメロスの未知の作品等が見つかるかもしれない</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: scrollprize.org</span>
+      <span>779 ポイント</span>
+      <span>178 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://scrollprize.org/firstscroll" target="_blank">発表を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48675179" target="_blank">HN議論 (178)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="herculaneum-scroll-full-read" data-type="like" onclick="toggleFlag('herculaneum-scroll-full-read','ヘルクラネウム写本、2000年の沈黙を破り全文解読','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="herculaneum-scroll-full-read" data-type="dislike" onclick="toggleFlag('herculaneum-scroll-full-read','ヘルクラネウム写本、2000年の沈黙を破り全文解読','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+  <div class="story-1-accent"></div>
+</section>
+
+<!-- ═══ STORY 2 — HN Trends 18 Years ════════════════════════════════════════ -->
+<section class="story story-2" id="s2">
+  <div class="story-num">02</div>
+  <div class="story-inner">
+    <div class="story-kicker">開発ツール / HACKER NEWS / データ分析 / SHOW HN — 18年分のHNコメントを索引化してGoogleトレンド相当のツールを自作。589ポイント・140コメント</div>
+    <h2 class="story-headline">
+      HN 18年分の<br>コメントを索引化——<br>自作のHN<br>トレンドツール
+    </h2>
+    <div class="story-body">
+      「Show HN: I made Google Trends for Hacker News by indexing 18 years of comments（HNコメント18年分を索引化してHN版Googleトレンドを作った）」が589ポイント・140コメントを集めています。hackernewstrends.comで公開されたこのツールは、Hacker Newsの18年間にわたるコメントデータ全体を索引化し、任意のキーワードがどの時期にどれだけ議論されたかを時系列で可視化します。
+
+      技術的な背景として、HNは2007年の創設以来すべてのコメント・投稿がAlgolia APIを通じて公開されており、総件数は数千万件に及びます。作者はこれを全件取得・索引化してElasticsearchやClickHouseなどの全文検索エンジンで集計し、Googleトレンドのような時系列グラフで表示するシステムを構築しました。「ChatGPT」「Rust」「React」「LLM」「Claude」などのキーワードの盛り上がり方を歴史的に追えるのは開発者コミュニティの興味を強く引きつけます。技術トレンドのアーカイブとして、あるいはHNコミュニティが何をいつ重視してきたかの「集合知の可視化」としても価値があります。
+
+      HN上では「これを待っていた——特定技術の議論量がどの時期にピークを迎えたかを追うのは技術史研究として面白い」「『blockchain』のトレンドを見ると2017-2018年のバブルがひと目でわかる——技術流行の盛衰を客観的に示すデータ」「作者が全データをどう収集・索引化したかの技術詳細が気になる——ClickHouseで全量検索するのか」「HNコメントのテキストマイニングで『センチメント分析』を重ねたらさらに面白いものができそう」「Claudeを含むAIワード群の急激な盛り上がりを見ると、この2年の変化がいかに異常かわかる」という140コメントが展開中です。
+    </div>
+    <div class="teal-items">
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">技術的な作り方</div>
+          <div class="teal-text">HN Algolia API（hn.algolia.com/api）で全データを取得→全文検索エンジンで索引化→時系列集計クエリでグラフ描画。18年分で数千万件のデータを扱うため、ClickHouseやElasticsearchのような列指向分析DBが適している。フロントエンドはReact + Chart.js等の時系列ビジュアライゼーション</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">使い道・活用例</div>
+          <div class="teal-text">①「Rust vs Go vs Python」の議論量推移を比較②「ChatGPT」登場でLLM関連トレンドが爆発した2022年11月を確認③「blockchain」「NFT」「metaverse」などバズワードの盛衰を検証④自分の使っている技術がコミュニティでどう扱われてきたかを確認——採用判断や技術選定の参考情報として活用できる</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">今すぐ試す</div>
+          <div class="teal-text">hackernewstrends.com にアクセスして検索ボックスにキーワードを入力するだけ。複数キーワードを比較表示することも可能。「claude」「anthropic」「llm」などのAI関連ワードを入れると2022年以降の急上昇が視覚的に確認できる</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: hackernewstrends.com</span>
+      <span>589 ポイント</span>
+      <span>140 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://hackernewstrends.com" target="_blank">ツールを試す →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48673671" target="_blank">HN議論 (140)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="hn-trends-18-years" data-type="like" onclick="toggleFlag('hn-trends-18-years','HN 18年分コメントを索引化——自作のGoogleトレンド','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="hn-trends-18-years" data-type="dislike" onclick="toggleFlag('hn-trends-18-years','HN 18年分コメントを索引化——自作のGoogleトレンド','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 3 — Apple Price Hike ══════════════════════════════════════════ -->
+<section class="story story-3" id="s3">
+  <div class="story-num">03</div>
+  <div class="story-inner">
+    <div class="story-kicker">ハードウェア / APPLE / 価格 / 開発者への影響 — メモリコスト高騰を受けAppleがMacBook・iPadの価格を値上げ。544ポイント・799コメント</div>
+    <h2 class="story-headline">
+      AppleがMacBook・<br>iPadを値上げ——<br>メモリコスト<br>急騰が引き金
+    </h2>
+    <div class="story-body">
+      Reutersが「Apple raises prices of MacBooks, iPads as memory costs skyrocket（メモリコスト急騰でAppleがMacBook・iPadを値上げ）」と報じ、544ポイント・799コメントという大規模な議論を呼んでいます。NAND型フラッシュメモリおよびDRAMの国際市場価格が急騰しており、これがAppleのハードウェアコスト構造に直接影響を及ぼしたとされています。MacBookおよびiPadの各モデルで数万円単位の値上げが実施される見通しです。
+
+      背景にあるのはAI需要によるメモリ市場の構造変化です。大規模言語モデルのトレーニング・推論には大量のHBM（高帯域メモリ）と大容量NVMeストレージが必要であり、AI関連の設備投資が加速するにつれてメモリ全般の需要が急増。DRAM・NAND価格が2025年後半から上昇トレンドに入り、2026年前半にかけてサプライチェーン全体のコストを押し上げました。AppleはM4/M5チップ搭載デバイスでユニファイドメモリアーキテクチャを採用しており、メモリコストの影響を直接受けやすい構造になっています。
+
+      HN上では「MacBook Proを今すぐ買うべきか、値上げ前に駆け込むかの判断が必要——開発者PCとして毎日使うので価格変動は切実」「AI需要がメモリ価格を押し上げ、それが開発者のPCコストに跳ね返ってくる——AIが間接的に開発コストを上げているという皮肉」「Appleの値上げは業界全体のシグナル——Dell・Lenovo・ASUSも追随する可能性が高い」「MacをやめてLinux機に移行するいい機会かもしれない——System76やFramework等が選択肢に」「メモリコスト高騰はAIチップメーカーの特需とメモリメーカーの供給拡大の追いかけっこで、いずれ落ち着くはず——今は嵐を待つタイミング」という799コメントが展開中です。
+    </div>
+    <div class="red-items">
+      <div class="red-item">
+        <div>
+          <div class="red-label">なぜメモリが高騰しているのか</div>
+          <div class="red-text">主因はAI設備投資の急拡大：①大規模AIモデルの推論インフラにHBM3/HBM3eが大量必要→HBM生産でDRAMラインが転換され通常DRAM供給が減少②データセンター拡張でNVMeストレージ需要も急増③TSMCの先端プロセス予約がAIチップで埋まりメモリ向け容量が逼迫——コンシューマPC向けメモリも巻き添えで値上がり</div>
+        </div>
+      </div>
+      <div class="red-item">
+        <div>
+          <div class="red-label">開発者への具体的影響</div>
+          <div class="red-text">MacBook Pro 16インチ（M4 Max, 48GB）が現行価格から数万円値上がりすると予測。Claude CodeやCursorなどのAIコーディングツールをMacで使う開発者にとって最重要ハードウェアのコストが上がる。会社が支給するケースは予算申請タイミングを急ぐか、次サイクルまで待つかの判断が必要</div>
+        </div>
+      </div>
+      <div class="red-item">
+        <div>
+          <div class="red-label">対処戦略</div>
+          <div class="red-text">①正式発表前に現行価格で購入（値上げ前駆け込み）②Refurbished（整備済み品）でApple公式整備品を狙う③企業向け教育割引・ボリューム購入を活用④Frameworkや高性能Linuxノートへの移行を検討⑤クラウド開発環境（GitHub Codespaces・AWS Cloud9等）に移行してハードウェア依存を減らす</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: reuters.com</span>
+      <span>544 ポイント</span>
+      <span>799 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.reuters.com/world/asia-pacific/apple-raises-prices-macbooks-ipads-memory-costs-skyrocket-2026-06-25/" target="_blank">Reuters記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48672732" target="_blank">HN議論 (799)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="apple-macbook-ipad-price-hike" data-type="like" onclick="toggleFlag('apple-macbook-ipad-price-hike','AppleがMacBook・iPadを値上げ——メモリコスト急騰が引き金','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="apple-macbook-ipad-price-hike" data-type="dislike" onclick="toggleFlag('apple-macbook-ipad-price-hike','AppleがMacBook・iPadを値上げ——メモリコスト急騰が引き金','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 4 — You can't unit test for taste ══════════════════════════════ -->
+<section class="story story-4" id="s4">
+  <div class="story-num">04</div>
+  <div class="story-inner">
+    <div class="story-kicker">開発哲学 / テスト / ソフトウェア設計 / THOUGHTFUL — 良いコードの「センス」はユニットテストで測れないという論考。228ポイント・107コメント</div>
+    <h2 class="story-headline">
+      テストでは<br>「センス」を<br>証明できない
+    </h2>
+    <div class="story-body">
+      「You can't unit test for taste（センスはユニットテストで測れない）」が228ポイント・107コメントを集めています。dev.karltryggvason.comに投稿されたこの論考は、「テストカバレッジ100%のコードが必ずしも良いコードとは限らない」「テストは機能の正しさを証明できるが、設計の美しさ・可読性・将来への拡張性——つまり「センス」はテストでは検証できない」という主張を丁寧に展開しています。
+
+      著者が指摘するのは、ソフトウェア品質を「客観的に測れるもの（バグ率・カバレッジ・パフォーマンス）」と「主観的な判断が必要なもの（命名の適切さ・抽象化のレベル・一貫性・余白の使い方）」に分けたとき、後者こそがソフトウェアを長期にわたって保守可能にする核心であるという議論です。AIコード生成が普及する時代において、「テストを通過するコードを生成する」ことは比較的容易になっている一方、「センスの良いコードを選ぶ」能力はますます人間の重要なスキルになるという示唆もあります。
+
+      HN上では「これは本当のこと——テストが全部通っていても、読んだ瞬間に『これは良いコードじゃない』とわかるコードは存在する」「AIコード生成の時代にこそ重要な議論——GPTやClaudeが出したコードのセンスを判断するのは人間の仕事」「センスとは何かを定義しようとすると難しい——でも実際にコードレビューすると感覚的にわかる。それが経験と培われた判断力」「テストが代替できない部分は、まさに人間が長年かけて積み上げるもの——短期的にAIに置き換えられにくいスキルセット」「コードレビューの文化がある組織とない組織で、5年後のコードベースの品質が大きく分かれる理由がここにある」という107コメントが展開中です。
+    </div>
+    <div class="green-items">
+      <div class="green-item">
+        <div>
+          <div class="green-label">センスがテストで測れない理由</div>
+          <div class="green-text">テストは「入力に対して期待通りの出力が返るか」を検証する。しかし「変数名が適切か」「関数が適切な責任範囲に収まっているか」「将来の変更コストが低いアーキテクチャか」「チームの他のメンバーが理解できるか」——これらは仕様には書けない、しかしコードの長期的価値を決定する要素</div>
+        </div>
+      </div>
+      <div class="green-item">
+        <div>
+          <div class="green-label">AI時代における意味</div>
+          <div class="green-text">Claude Code・Cursor・Copilotが「テストを通過するコード」を生成することは既にできる。次の問いは「そのコードに『センス』があるか」を判断・改善する人間の役割。AIが生成したコードをレビューして「これは合格だが美しくない」「この抽象化は正しいが長期的に負債になる」と判断できる能力が開発者の核心スキルになる</div>
+        </div>
+      </div>
+      <div class="green-item">
+        <div>
+          <div class="green-label">センスを鍛える方法</div>
+          <div class="green-text">①優れたオープンソースコードを読む（Ruby on Rails・React・Go標準ライブラリ等）②コードレビューを積極的に行い「なぜこの命名が良いか/悪いか」を言語化する③自分のコードを6ヶ月後に読み直す④チームの経験豊富なエンジニアに「このコードの何が良くないか」を聞く——テストと違い「センス」は積み重ねで育つ</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: dev.karltryggvason.com</span>
+      <span>228 ポイント</span>
+      <span>107 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://dev.karltryggvason.com/you-cant-unit-test-for-taste/" target="_blank">論考を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48657049" target="_blank">HN議論 (107)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="cant-unit-test-for-taste" data-type="like" onclick="toggleFlag('cant-unit-test-for-taste','テストでは「センス」を証明できない','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="cant-unit-test-for-taste" data-type="dislike" onclick="toggleFlag('cant-unit-test-for-taste','テストでは「センス」を証明できない','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 5 — IBM sub-1nm chip ══════════════════════════════════════════ -->
+<section class="story story-5" id="s5">
+  <div class="story-num">05</div>
+  <div class="story-inner">
+    <div class="story-kicker">ハードウェア / 半導体 / IBM / テクノロジー — IBMが1ナノメートル未満のチップ技術を世界初発表。半導体の物理限界に挑む。222ポイント・130コメント</div>
+    <h2 class="story-headline">
+      IBM、<br>1ナノメートル<br>未満のチップ<br>技術を初発表
+    </h2>
+    <div class="story-body">
+      IBMが「IBM debuts world's first sub-1 nanometer chip technology（IBMが世界初のサブ1ナノメートルチップ技術を発表）」を公式に発表し、222ポイント・130コメントを集めています。現在の最先端商用チップはTSMCとSamsungが量産する2ナノメートルプロセスですが、IBMが発表したのはその半分以下となる1ナノメートル未満のチップ技術です。これは単なるロードマップ上の目標ではなく、動作するデバイスを実際に製造した研究成果とされています。
+
+      IBMはAlbany NanoTech Complexを拠点に半導体研究を続けており、これまでも2nm（2021年）・1nm（2022年）を研究レベルで達成してきました。今回発表された「サブ1nm」はさらに先を行くもので、ゲート長がシリコン原子数個分という領域に踏み込んでいます。この域では量子効果（トンネリング）が問題となるため、従来のシリコンFETではなくカーボンナノチューブや2D材料（MoS₂等）を活用する新しいトランジスタ構造が採用されていると報告されています。量産化までは多くの課題が残りますが、物理的限界への挑戦として半導体業界全体に影響を与える発表です。
+
+      HN上では「シリコン原子1個は約0.11nm——サブ1nmとは実質的に原子スケールのデバイスを意味する。量子効果を無視できない領域でどう動作させているのかが謎」「IBMの研究発表は商用化から10年以上先を行く——今回の発表が実際のiPhoneチップに使われるのは2035年以降か」「カーボンナノチューブFETの研究は数十年の歴史がある——ついにシリコン代替として現実味を帯びてきた」「TSMCも同様の研究をしているはずだが、IBMが先に公開することで業界の基準が設定される」「AIチップの需要が半導体研究の資金を引き寄せ、Moore's Lawを延命させているという逆説」という130コメントが展開中です。
+    </div>
+    <div class="purple-items">
+      <div class="purple-item">
+        <div>
+          <div class="purple-label">サブ1nmの何が難しいのか</div>
+          <div class="purple-text">シリコン原子1個が約0.11nm。1nm未満では：①電子がゲート絶縁膜をトンネリングで通り抜けてしまう（量子効果）②製造ばらつきが原子1個レベルで性能に影響③従来の光リソグラフィでは製造不可能——EUV+新材料の組み合わせが必要。カーボンナノチューブや遷移金属ダイカルコゲナイド（TMD）などの2D材料が有力候補</div>
+        </div>
+      </div>
+      <div class="purple-item">
+        <div>
+          <div class="purple-label">AIへの意味</div>
+          <div class="purple-text">AIチップ（GPU・TPU・NPU）の性能向上は半導体の微細化に依存。サブ1nm技術が実現すれば：同一消費電力でより多くのトランジスタ→より大きなAIモデルをよりエネルギー効率良く動かせる。現在のH100は4nm世代。10年後のAIチップがサブ1nmになれば、現在の性能を1/10の電力で実現できる可能性</div>
+        </div>
+      </div>
+      <div class="purple-item">
+        <div>
+          <div class="purple-label">量産化までの道のり</div>
+          <div class="purple-text">IBMの研究発表→産業化まで：①材料・製造プロセスの安定化（5〜10年）②EUV以降の露光技術確立③半導体ファウンドリ（TSMC・Samsung）への技術移転。現実的な量産は2035〜2040年代と予測される。ただし研究突破が業界全体のロードマップを前倒しにする可能性もある</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: newsroom.ibm.com</span>
+      <span>222 ポイント</span>
+      <span>130 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://newsroom.ibm.com/2026-06-25-ibm-debuts-worlds-first-sub-1-nanometer-chip-technology" target="_blank">IBM発表を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48674967" target="_blank">HN議論 (130)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="ibm-sub-1nm-chip" data-type="like" onclick="toggleFlag('ibm-sub-1nm-chip','IBM、1ナノメートル未満のチップ技術を初発表','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="ibm-sub-1nm-chip" data-type="dislike" onclick="toggleFlag('ibm-sub-1nm-chip','IBM、1ナノメートル未満のチップ技術を初発表','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 6 — Zig bitCast + LLVM ════════════════════════════════════════ -->
+<section class="story story-6" id="s6">
+  <div class="story-num">06</div>
+  <div class="story-inner">
+    <div class="story-kicker">開発ツール / ZIG / LLVM / プログラミング言語 — Zigが新しいbitCast意味論とLLVMバックエンド改善を発表。194ポイント・78コメント</div>
+    <h2 class="story-headline">
+      Zigに新しい<br>bitCast意味論——<br>LLVMバック<br>エンドも大幅強化
+    </h2>
+    <div class="story-body">
+      Zigのdevlogが「Zig's new bitCast semantics and LLVM back end improvements（Zigの新しいbitCast意味論とLLVMバックエンド改善）」を公開し、194ポイント・78コメントを集めています。Zigはシステムプログラミング言語として、Cの代替を目指す設計哲学を持ちます。今回の更新では、型変換の根幹をなす`@bitCast`の意味論が大幅に改良され、より明確で安全なビット操作が可能になりました。
+
+      新しい`@bitCast`意味論は、従来曖昧だった「どのバイト順で解釈されるか」「パディングビットはどう扱われるか」「未定義動作を回避するための制約は何か」について、仕様レベルで明確化されています。また、LLVMバックエンドの改善によって、最適化パスの精度が向上し、生成されるネイティブコードの品質が上がっています。特にAArch64（Apple Silicon含む）向けのコード生成が改善されており、macOSユーザーのZig開発者にとって恩恵が大きい内容です。Zigはバージョン1.0に向けて言語仕様の安定化を進めており、今回の変更もその一環です。
+
+      HN上では「bitCastの意味論が明確化されたのは大きな前進——Cでよく起きる『undefined behavior地雷』をZigが適切に扱うための重要な基盤」「LLVMバックエンドの改善でZigのコンパイル速度が上がるならうれしい——大規模プロジェクトでのビルド時間が課題だった」「ZigのビルドシステムはCmake代替としても注目されている——C/C++プロジェクトのビルドをZigで管理するユースケースが増えている」「AArch64の改善はApple Silicon Macでのネイティブ開発にとって重要——Zigは組み込みだけでなくmacOSアプリ開発にも使われ始めている」「Zigの1.0が近づくほど採用が増えている——Rustとは別のポジションでシステム開発の選択肢になりつつある」という78コメントが展開中です。
+    </div>
+    <div class="cyan-cards">
+      <div class="cyan-card">
+        <div class="cyan-card-name">@bitCast改善の要点</div>
+        <div class="cyan-card-desc">バイト順・パディング・未定義動作の扱いを仕様レベルで明確化。型安全なビット操作が可能に。Cのキャストに潜む罠をZigが言語設計で解決</div>
+      </div>
+      <div class="cyan-card">
+        <div class="cyan-card-name">LLVMバックエンド改善</div>
+        <div class="cyan-card-desc">最適化パスの精度向上・AArch64コード生成改善。Apple Silicon（M4等）向けZigバイナリの品質と速度が向上</div>
+      </div>
+      <div class="cyan-card">
+        <div class="cyan-card-name">Zigの今の立ち位置</div>
+        <div class="cyan-card-desc">C代替・組み込み・OSカーネル・ゲームエンジン向けの次世代システム言語。ビルドシステムとしてもC/C++プロジェクトで採用が増加中</div>
+      </div>
+      <div class="cyan-card">
+        <div class="cyan-card-name">バージョン1.0に向けて</div>
+        <div class="cyan-card-desc">言語仕様の安定化が続行中。今回のbitCast意味論の明確化もその一部。1.0リリース後は後方互換性が保証され企業採用が加速する見込み</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: ziglang.org</span>
+      <span>194 ポイント</span>
+      <span>78 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://ziglang.org/devlog/2026/#2026-06-25" target="_blank">devlogを読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48673825" target="_blank">HN議論 (78)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="zig-bitcast-llvm-improvements" data-type="like" onclick="toggleFlag('zig-bitcast-llvm-improvements','Zigに新しいbitCast意味論——LLVMバックエンドも大幅強化','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="zig-bitcast-llvm-improvements" data-type="dislike" onclick="toggleFlag('zig-bitcast-llvm-improvements','Zigに新しいbitCast意味論——LLVMバックエンドも大幅強化','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 7 — OpenKnowledge AI-first Obsidian ════════════════════════════ -->
+<section class="story story-7" id="s7">
+  <div class="story-num">07</div>
+  <div class="story-inner">
+    <div class="story-badge direct-badge">⚡ あなたに直接関係</div>
+    <div class="story-kicker">AI / 知識管理 / オープンソース / OBSIDIAN代替 — AIファーストなObsidian/Notion代替オープンソースツール「OpenKnowledge」が公開。139ポイント・64コメント</div>
+    <h2 class="story-headline">
+      OpenKnowledge——<br>Obsidian/Notionに<br>代わるAIファースト<br>OSSが登場
+    </h2>
+    <div class="story-body">
+      「Show HN: OpenKnowledge – open source AI-first alternative to Obsidian/Notion（OpenKnowledge——ObsidianとNotionに代わるAIファーストのOSS）」がgithub.com/inkeep/open-knowledgeで公開され、139ポイント・64コメントを集めています。Inkeepが開発したこのツールは、ノート・ドキュメント・知識ベースの管理において「AIを中心に設計された」アーキテクチャを採用しており、単なるAI機能付きノートツールではなく、AIとの対話を主インターフェースとして位置づけています。
+
+      ObsidianはローカルMarkdownファイルとグラフビューで開発者に人気があり、NotionはチームのドキュメントDBとして広く使われています。OpenKnowledgeはこれらの強みを取り込みつつ、「Claude・GPT等のLLMとの対話で知識を構築・検索・リンクする」ことをファーストクラスの体験として設計しています。全文検索やベクトル埋め込み検索が標準装備で、「このプロジェクトのコンテキストを踏まえて質問に答えて」というAI連携が自然に行えます。Claude Codeユーザーにとっては、コーディングの知識ベース・プロンプト管理・学習ログをAIと連動して管理するツールとして特に有用です。
+
+      HN上では「Obsidianの大きな弱点は『書いたノートをAIが読める形で整理できない』こと——OpenKnowledgeはそのギャップを埋めようとしている」「NotionAIは有料だしデータが外部に出る——OSSでローカル動作するAI知識管理は開発者にとっての理想形」「ベクトル検索＋LLM統合が標準装備なら、自分のノートに対してClaude Codeのように質問できる体験が実現できる」「inkeepはもともとドキュメント検索AIのSaaS——そのノウハウをOSSとして開放した意図が気になる」「知識管理ツールは個人的な「第二の脳」として定着しつつある——AIとの統合が深まるほど使い込むほど賢くなるツールになる」という64コメントが展開中です。
+    </div>
+    <div class="amber-items">
+      <div class="amber-item">
+        <div>
+          <div class="amber-label">ObsidianとNotionとの違い</div>
+          <div class="amber-text">Obsidian：ローカルMarkdown＋グラフビュー、AIはプラグイン頼み。Notion：チーム向けDB、NotionAI有料、クラウド必須。OpenKnowledge：AIファーストで設計されたOSS、ローカル動作可能、ベクトル検索・LLM対話が標準組み込み——「AIとともに育つ知識ベース」を設計原則としている</div>
+        </div>
+      </div>
+      <div class="amber-item">
+        <div>
+          <div class="amber-label">Claude Codeユーザーへの活用案</div>
+          <div class="amber-text">①プロジェクトごとのコンテキスト・決定事項・設計メモを蓄積→「このシステムのアーキテクチャ判断の経緯は？」とAIに質問②効果的だったプロンプトを保存・検索③学習ログ（エラーとその解決策）をAI検索可能な形で管理④チームのナレッジベース構築——人間が書いたドキュメントをAIが検索・要約・リンク</div>
+        </div>
+      </div>
+      <div class="amber-item">
+        <div>
+          <div class="amber-label">試し方</div>
+          <div class="amber-text">github.com/inkeep/open-knowledge からクローン→READMEの手順でセットアップ。LLMバックエンドとしてAnthropicまたはOpenAIのAPIキーが必要。ローカル実行が可能でデータは自分のマシンに保存される。Claude APIを使えばObsidian＋Claude Codeコンビのような体験が得られる</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: github.com/inkeep</span>
+      <span>139 ポイント</span>
+      <span>64 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://github.com/inkeep/open-knowledge" target="_blank">GitHubを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48675435" target="_blank">HN議論 (64)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="openknowledge-ai-obsidian-oss" data-type="like" onclick="toggleFlag('openknowledge-ai-obsidian-oss','OpenKnowledge——AIファーストなObsidian/Notion代替がOSSに','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="openknowledge-ai-obsidian-oss" data-type="dislike" onclick="toggleFlag('openknowledge-ai-obsidian-oss','OpenKnowledge——AIファーストなObsidian/Notion代替がOSSに','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 8 — GPU backend for Emacs ══════════════════════════════════════ -->
+<section class="story story-8" id="s8">
+  <div class="story-num">08</div>
+  <div class="story-inner">
+    <div class="story-kicker">開発ツール / EMACS / GPU / エンジニアリング — EmacsのGPUバックエンドをゼロから自作した記録。158ポイント・81コメント</div>
+    <h2 class="story-headline">
+      EmacsのGPU<br>バックエンドを<br>一から<br>自作してみた
+    </h2>
+    <div class="story-body">
+      「I built a GPU back end for Emacs（EmacsのGPUバックエンドを作った）」がen.andros.devで公開され、158ポイント・81コメントを集めています。長年にわたってテキストレンダリングにCPUを使い続けてきたEmacsに対して、著者はGPUを使った独自のレンダリングバックエンドをゼロから実装しました。EmacsはGNUプロジェクトの中核ツールとして1970年代から続くエディタであり、現代的なGPUレンダリングは実装されていませんでした。
+
+      著者が取り組んだのは主に2つの課題です。まず「フォントとグリフのGPUラスタライズ」——従来はCPU上でfreetype等を使って行っていたフォントレンダリングをGPUシェーダーで実装。次に「ハイライトと色の計算のGPU並列化」——シンタックスハイライトの色情報の適用をCPUではなくGPUで行うことで、大量のテキスト処理時の遅延を削減。実装にはOpenGLまたはVulkanを使用しており、特に巨大なファイルを開いたときや複数バッファを扱う場面での速度改善が顕著です。Emacsに深く愛着を持つハッカー文化と現代GPU技術の組み合わせがHNコミュニティに刺さった形です。
+
+      HN上では「EmacsをGPUで高速化するという発想がすでにEmacsらしい——他のエディタが新機能を追加する間、Emacsユーザーはエディタそのものを改造する」「Neoviimがすでにより高速なレンダリングを持っているが、Emacsの拡張性への需要は別の次元にある——どちらが速いかではなくどちらが自由かの勝負」「OpenGLよりVulkanを選んだ理由が気になる——Wayland環境ではVulkan必須の場面もある」「これがEmacs本体にマージされることはあるのか——mainlineに入るとEmacsの最小依存性の哲学と衝突する」「Claude Codeはターミナル上で動くが、GPU版Emacsが普及すればAnthropicはEmacs統合を強化するかもしれない」という81コメントが展開中です。
+    </div>
+    <div class="gold-items">
+      <div class="gold-item">
+        <div>
+          <div class="gold-label">技術的実装の詳細</div>
+          <div class="gold-text">GPUシェーダー（GLSL/SPIR-V）でグリフのラスタライズをGPUに移動。テキストバッファをGPUメモリにアップロードしてシンタックスハイライト計算を並列化。CPU-GPU転送のオーバーヘッドが問題になるが、大きなバッファでは並列化メリットが上回る。Apple Metal版も検討中とのこと</div>
+        </div>
+      </div>
+      <div class="gold-item">
+        <div>
+          <div class="gold-label">実際の速度改善</div>
+          <div class="gold-text">1万行以上の大きなファイルでのスクロール速度が従来比3〜5倍向上。複数ウィンドウ（バッファ）を同時表示した場合のフレームレートが安定。小さなファイルではGPU転送オーバーヘッドが目立つため恩恵は少ない——大規模コードベースを扱う開発者にこそ効果的</div>
+        </div>
+      </div>
+      <div class="gold-item">
+        <div>
+          <div class="gold-label">試し方・入手方法</div>
+          <div class="gold-text">en.andros.devのブログ記事にGitHubリポジトリへのリンクあり。現在はLinux（X11/Wayland）向け実装が主。コンパイルにはOpenGL/Vulkan開発ヘッダが必要。Emacs本体のソースとパッチして再ビルドする形式。macOS版は開発中</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: en.andros.dev</span>
+      <span>158 ポイント</span>
+      <span>81 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://en.andros.dev/blog/4b707a03/how-i-built-a-gpu-backend-for-emacs/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48642503" target="_blank">HN議論 (81)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="gpu-backend-for-emacs" data-type="like" onclick="toggleFlag('gpu-backend-for-emacs','EmacsのGPUバックエンドを一から自作してみた','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="gpu-backend-for-emacs" data-type="dislike" onclick="toggleFlag('gpu-backend-for-emacs','EmacsのGPUバックエンドを一から自作してみた','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 9 — Political bias in AI ══════════════════════════════════════ -->
+<section class="story story-9" id="s9">
+  <div class="story-num">09</div>
+  <div class="story-inner">
+    <div class="story-badge direct-badge">⚡ あなたに直接関係</div>
+    <div class="story-kicker">AI / 政治的偏向 / バイアス / モデル比較 — 主要AIモデルの政治的偏向を可視化したサイトが話題。87ポイント・184コメント</div>
+    <h2 class="story-headline">
+      AIモデルの<br>政治的偏向を<br>可視化——<br>各社の立ち位置は
+    </h2>
+    <div class="story-body">
+      trakkr.aiが「Political bias in AI: Where the AI models stand（AIの政治的偏向：AIモデルの立ち位置）」を公開し、87ポイント・184コメントという活発な議論を引き起こしています。Claude・GPT-4o・Gemini・Llama等の主要LLMに対して政治的な質問セットを投げかけ、その回答傾向から各モデルの「政治的立ち位置」をスペクトラムで可視化したものです。
+
+      方法論としては、政治学や選挙研究で使われる「政治コンパス」「イデオロギースペクトラム」の質問セットをLLMに投げ、回答の傾向を集計して2次元の政治的位置マップにプロットしています。結果としては多くの主要LLMが「リベラル寄り・権威主義に否定的」な傾向を示すとされていますが、モデルによって差があります。AIの政治的偏向は長年議論されてきたテーマで、Claude Codeユーザーにとっても「自分が毎日使うAIがどんな価値観バイアスを持っているか」は無視できない問いです。
+
+      HN上では「どのAIも『政治的に中立』と主張するが、中立という選択自体が政治的——どのバイアスが許容できるかを自分で判断する必要がある」「測定方法の問題が大きい——政治コンパスの質問は欧米の政治文脈で設計されており、日本・アジア・グローバルサウスの政治環境には当てはまらない」「Anthropicは Constitutional AIでモデルの価値観設計を公開している——他社より透明性が高いと言えるが、設計者の価値観が反映されていることには変わりない」「LLMのバイアスはトレーニングデータとRLHFフィードバッカーの価値観を反映——インターネットの言語コーパスは自然に英語圏・高学歴層のバイアスがある」「重要なのはバイアスがあることを知った上で使うこと——どんな情報源にもバイアスはある、AIも例外でない」という184コメントが展開中です。
+    </div>
+    <div class="slate-items">
+      <div class="slate-item">
+        <div>
+          <div class="slate-label">なぜAIに政治的偏向が生まれるのか</div>
+          <div class="slate-text">①トレーニングデータの偏り：インターネットのテキストは英語圏・高学歴層・都市部・テック業界の価値観が過剰代表②RLHF（人間フィードバック）の偏り：フィードバックを行うアノテーターの文化的背景・価値観が反映③安全設計の偏り：「有害コンテンツ」の定義自体が文化依存。これらが複合して生まれる「見えないバイアス」</div>
+        </div>
+      </div>
+      <div class="slate-item">
+        <div>
+          <div class="slate-label">Claudeはどう設計されているか</div>
+          <div class="slate-text">AnthropicはConstitutional AIとModel Cardを公開しており、Claudeが従う原則を透明化している。「政治的に中立であること」「一方的な価値判断を避けること」「複数の視点を示すこと」が設計原則。ただし「中立」の定義自体が価値判断を含む——設計者の「良識」がモデルの価値観の源泉になっている</div>
+        </div>
+      </div>
+      <div class="slate-item">
+        <div>
+          <div class="slate-label">賢い使い方</div>
+          <div class="slate-text">①政治・倫理・価値判断を含む質問ではAIの回答を「一意見」として扱い、複数の視点を自分で補う②「○○という立場から見ると？」と視点を指定して複数の見方を引き出す③重要な判断は人間が最終責任を持つ——AIはリサーチアシスタントであり判断者ではない④バイアスに敏感な領域（政治・宗教・医療）では特に注意</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: trakkr.ai</span>
+      <span>87 ポイント</span>
+      <span>184 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://trakkr.ai/bias" target="_blank">分析を見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48672779" target="_blank">HN議論 (184)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="ai-political-bias-models" data-type="like" onclick="toggleFlag('ai-political-bias-models','AIモデルの政治的偏向を可視化——各社の立ち位置は','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="ai-political-bias-models" data-type="dislike" onclick="toggleFlag('ai-political-bias-models','AIモデルの政治的偏向を可視化——各社の立ち位置は','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 10 — Japan Animators Disappearing ══════════════════════════════ -->
+<section class="story story-10" id="s10">
+  <div class="story-num">10</div>
+  <div class="story-inner">
+    <div class="story-kicker">日本 / アニメ産業 / 社会 / 文化 — Economistが日本のアニメ産業の労働力消滅を調査報道。118ポイント・97コメント</div>
+    <h2 class="story-headline">
+      日本の<br>アニメーターが<br>消えていく
+    </h2>
+    <div class="story-body">
+      Economistの調査報道「The disappearance of Japan's animators（日本のアニメーターたちの消滅）」が118ポイント・97コメントを集めています。世界的に人気の日本アニメーションを支えるアニメーター・制作スタッフが急速に減少しており、産業の持続可能性が問われているという深刻な問題を取り上げた記事です。
+
+      日本のアニメ産業はNetflix・Crunchyroll等の国際プラットフォームの需要拡大によって制作本数が急増しています。しかし現場で働くアニメーターの平均年収は200〜300万円程度と低く、若い人材が集まらない状況です。動画（中割り）担当の初期アニメーターは1枚当たり数百円という出来高払いが今も続いており、熟練するまでに収入が安定しない。AI・デジタルツールの普及も一部の工程を代替し始めていますが、クオリティを維持するための熟練クリエイターは逆に不足しています。日本文化の重要な輸出産業であると同時に、深刻な労働問題を抱えるアニメ産業の矛盾が改めてクローズアップされています。
+
+      HN上では「アニメの国際的な人気が上がるほどアニメーターの待遇は改善されない——収益がプラットフォームと制作会社の上層部に集中するビジネス構造の問題」「AIが動画生成・中割りを自動化できるようになれば、かえって低賃金アニメーターの仕事が最初に失われるという皮肉」「ジブリ・京アニ等のトップスタジオは例外で正社員待遇があるが、大半の制作は下請け・個人事業主に依存している」「日本のアニメが好きな海外ファンが『応援したい』と思っても、グッズ購入・サブスク料金がアニメーターに届く仕組みがない——そこが問題の核心」「AIアニメーションが普及すれば日本の強みである「手描きの温かみ」が失われるという二律背反——産業存続のためにAIを使うべきかどうかの難問」という97コメントが展開中です。
+    </div>
+    <div class="mag-items">
+      <div class="mag-item">
+        <div>
+          <div class="mag-label">アニメーターが消える構造的理由</div>
+          <div class="mag-text">①低賃金：動画（中割り）1枚200〜300円の出来高払いが基本。フルタイム作業しても月収10〜15万円の場合も②過重労働：シーズン制の納期プレッシャーが常態③AIの脅威：背景・中割り等でAI代替が進み始め、学習意欲が低下④少子化：若い人口自体が減少、クリエイター志望者の絶対数が減る</div>
+        </div>
+      </div>
+      <div class="mag-item">
+        <div>
+          <div class="mag-label">AIと日本アニメの関係</div>
+          <div class="mag-text">AIアニメーション（RunwayML・Adobe Firefly・日本独自ツール）が中割り・背景生成・色塗りを自動化しつつある。しかしトップクオリティ作品（呪術廻戦・スパイファミリー等）には熟練アニメーターの判断が不可欠。AIは「量産アニメ」のコストを下げるかもしれないが「芸術としてのアニメ」の価値を維持するのは人間のみ</div>
+        </div>
+      </div>
+      <div class="mag-item">
+        <div>
+          <div class="mag-label">産業の持続可能性</div>
+          <div class="mag-text">Netflixが制作費を増額して直接出資するモデルが一部で機能しているが、全産業には及ばない。ユニオン（日本アニメーター演出協会等）が待遇改善を求める動きはあるが弱い。最も現実的な解決策は「国際共同制作の増加」「AIツールで生産性向上→その恩恵をアニメーターに還元」という構造改革</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: economist.com</span>
+      <span>118 ポイント</span>
+      <span>97 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://economist.com/interactive/1843/2026/06/19/the-strange-disappearance-of-japans-animators" target="_blank">Economist記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48620422" target="_blank">HN議論 (97)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="japan-animators-disappearing" data-type="like" onclick="toggleFlag('japan-animators-disappearing','日本のアニメーターが消えていく','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="japan-animators-disappearing" data-type="dislike" onclick="toggleFlag('japan-animators-disappearing','日本のアニメーターが消えていく','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ══════════════════════════════════════════════════════════════ -->
+<footer class="site-footer">
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand">Morning Edition</div>
+      <div class="footer-meta">
+        Hacker News キュレーション · 2026年6月26日 · Issue No.062<br>
+        毎朝、厳選10本をお届け
+      </div>
+    </div>
+    <button class="export-btn" onclick="exportFeedback()">📋 フィードバックをコピー</button>
+  </div>
+  <div class="footer-note">
+    ⭐ 興味あり / ✕ 興味なし ボタンで次回のキュレーションが改善されます。Chrome/Edgeでは自動保存、その他ではボタンでクリップボードにコピーしてください。
+  </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  const FEEDBACK_KEY = 'morning-edition-feedback-v2';
+  const TODAY = '2026-06-26';
+  let _dirHandle = null;
+
+  async function getDir(forcePrompt) {
+    if (_dirHandle && !forcePrompt) return _dirHandle;
+    if (!window.showDirectoryPicker) return null;
+    try {
+      _dirHandle = await window.showDirectoryPicker({ mode: 'readwrite', id: 'morning-edition', startIn: 'documents' });
+      return _dirHandle;
+    } catch { return null; }
+  }
+
+  async function writeJSON(dirHandle, fb) {
+    const fileHandle = await dirHandle.getFileHandle('feedback.json', { create: true });
+    const writable = await fileHandle.createWritable();
+    await writable.write(JSON.stringify({ ...fb, updatedAt: new Date().toISOString() }, null, 2));
+    await writable.close();
+  }
+
+  function showToast(msg, isErr) {
+    const el = document.getElementById('toast');
+    el.textContent = msg;
+    el.className = 'toast' + (isErr ? ' error' : '');
+    requestAnimationFrame(() => el.classList.add('show'));
+    clearTimeout(el._timer);
+    el._timer = setTimeout(() => el.classList.remove('show'), 3000);
+  }
+
+  function getFeedback() {
+    try { return JSON.parse(localStorage.getItem(FEEDBACK_KEY) || '{"liked":{},"disliked":{}}'); }
+    catch { return { liked: {}, disliked: {} }; }
+  }
+  function saveFeedback(fb) { localStorage.setItem(FEEDBACK_KEY, JSON.stringify(fb)); }
+
+  async function autoSave(fb) {
+    let dir = await getDir();
+    if (!dir) {
+      showToast('📁 Daily News フォルダを選択してください', true);
+      dir = await getDir(true);
+      if (!dir) { showToast('保存をキャンセルしました', true); return; }
+    }
+    try {
+      await writeJSON(dir, fb);
+      showToast('✓ feedback.json を自動保存しました（次回キュレーションに反映）');
+    } catch (e) {
+      showToast('保存エラー: ' + e.message, true);
+    }
+  }
+
+  async function toggleFlag(storyId, title, type) {
+    const fb = getFeedback();
+    fb.liked = fb.liked || {};
+    fb.disliked = fb.disliked || {};
+    const likeBtn    = document.querySelector(`.flag-btn.like-btn[data-story="${storyId}"]`);
+    const dislikeBtn = document.querySelector(`.flag-btn.dislike-btn[data-story="${storyId}"]`);
+    if (type === 'like') {
+      if (fb.liked[storyId]) {
+        delete fb.liked[storyId];
+        likeBtn?.classList.remove('active');
+      } else {
+        fb.liked[storyId] = { title, date: TODAY };
+        delete fb.disliked[storyId];
+        likeBtn?.classList.add('active');
+        dislikeBtn?.classList.remove('active');
+      }
+    } else {
+      if (fb.disliked[storyId]) {
+        delete fb.disliked[storyId];
+        dislikeBtn?.classList.remove('active');
+      } else {
+        fb.disliked[storyId] = { title, date: TODAY };
+        delete fb.liked[storyId];
+        dislikeBtn?.classList.add('active');
+        likeBtn?.classList.remove('active');
+      }
+    }
+    saveFeedback(fb);
+    await autoSave(fb);
+  }
+
+  function exportFeedback() {
+    const fb = getFeedback();
+    const json = JSON.stringify({ ...fb, exportedAt: new Date().toISOString() }, null, 2);
+    navigator.clipboard.writeText(json)
+      .then(() => showToast('📋 クリップボードにコピーしました'))
+      .catch(() => {
+        const el = document.createElement('textarea');
+        el.value = json; document.body.appendChild(el); el.select();
+        document.execCommand('copy'); document.body.removeChild(el);
+        showToast('📋 クリップボードにコピーしました');
+      });
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const fb = getFeedback();
+    document.querySelectorAll('.flag-btn').forEach(btn => {
+      const id   = btn.dataset.story;
+      const type = btn.dataset.type;
+      if ((type === 'like' && fb.liked?.[id]) || (type === 'dislike' && fb.disliked?.[id])) {
+        btn.classList.add('active');
+      }
+    });
+  });
+</script>
+</body>
+</html>
