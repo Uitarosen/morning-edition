@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Morning Edition — 2026年6月30日</title>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --font: 'M PLUS Rounded 1c', 'Hiragino Sans', 'Noto Sans JP', sans-serif; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); background: #111; color: #fff; overflow-x: hidden; }
+
+    .masthead { background: #fff; color: #000; padding: 3rem 4rem 2.5rem; border-bottom: 6px solid #000; position: relative; overflow: hidden; }
+    .masthead::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: repeating-linear-gradient(90deg, #000 0, #000 12px, transparent 12px, transparent 20px); }
+    .masthead-kicker { font-size: 0.85rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: #777; margin-bottom: 0.6rem; }
+    .masthead-title { font-size: clamp(3.5rem, 9vw, 7.5rem); font-weight: 900; line-height: 0.88; letter-spacing: -0.04em; margin-bottom: 1.8rem; }
+    .masthead-meta { display: flex; gap: 3rem; align-items: baseline; flex-wrap: wrap; }
+    .masthead-date { font-size: 1.5rem; font-weight: 700; }
+    .masthead-subtitle { font-size: 1rem; font-weight: 400; color: #555; max-width: 480px; line-height: 1.5; }
+    .masthead-issue { margin-left: auto; text-align: right; }
+    .masthead-issue span { display: block; }
+    .masthead-issue .iss-label { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: #999; }
+    .masthead-issue .iss-num { font-size: 2.2rem; font-weight: 900; color: #000; }
+
+    .toc { background: #1a1a1a; padding: 1.5rem 4rem; display: flex; gap: 1.5rem; flex-wrap: wrap; border-bottom: 1px solid #333; }
+    .toc a { color: #aaa; text-decoration: none; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; transition: color 0.2s; }
+    .toc a:hover { color: #fff; }
+    .toc-num { color: #555; margin-right: 0.3em; }
+
+    .story { position: relative; overflow: hidden; }
+    .story-inner { max-width: 1200px; margin: 0 auto; padding: 5rem 4rem; position: relative; z-index: 1; }
+    .story-num { font-size: clamp(6rem, 18vw, 16rem); font-weight: 900; line-height: 0.8; letter-spacing: -0.06em; opacity: 0.08; position: absolute; top: 1rem; right: 2rem; user-select: none; }
+    .story-badge { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.35em 0.9em; border-radius: 2px; margin-bottom: 1.5rem; }
+    .direct-badge { background: #FFD700; color: #000; }
+    .story-kicker { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; opacity: 0.6; margin-bottom: 0.8rem; }
+    .story-headline { font-size: clamp(2rem, 5vw, 4rem); font-weight: 900; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+    .story-body { font-size: clamp(1rem, 1.5vw, 1.2rem); font-weight: 400; line-height: 1.8; max-width: 680px; opacity: 0.88; margin-bottom: 2rem; }
+    .story-meta { display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center; font-size: 0.8rem; font-weight: 700; opacity: 0.5; }
+    .story-links { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem; }
+    .story-link { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.6em 1.4em; border-radius: 3px; text-decoration: none; transition: opacity 0.2s, transform 0.15s; }
+    .story-link:hover { opacity: 0.75; transform: translateY(-1px); }
+
+    .feedback-buttons { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .flag-btn { background: none; border: 1px solid currentColor; color: inherit; font-family: var(--font); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.5em 1em; border-radius: 3px; cursor: pointer; opacity: 0.32; transition: opacity 0.2s, background 0.2s, color 0.2s, border-color 0.2s, transform 0.15s; }
+    .flag-btn:hover { opacity: 0.72; transform: translateY(-1px); }
+    .flag-btn.like-btn.active { opacity: 1; background: rgba(255,215,0,0.15); border-color: #FFD700; color: #FFD700 !important; }
+    .flag-btn.dislike-btn.active { opacity: 1; background: rgba(255,60,60,0.12); border-color: #FF4444; color: #FF4444 !important; }
+
+    .toast { position: fixed; bottom: 2rem; right: 2rem; background: #1a1a1a; color: #fff; font-family: var(--font); font-size: 0.82rem; font-weight: 700; padding: 0.75em 1.4em; border-radius: 4px; border-left: 3px solid #00C853; z-index: 9999; opacity: 0; transform: translateY(10px); transition: opacity 0.25s, transform 0.25s; pointer-events: none; box-shadow: 0 4px 24px rgba(0,0,0,0.45); }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    .toast.error { border-left-color: #FF5252; }
+
+    .story-1 { background: #fff; color: #000; min-height: 90vh; display: flex; flex-direction: column; justify-content: center; }
+    .story-1 .story-num { color: #000; opacity: 0.04; }
+    .story-1 .story-kicker { color: #555; opacity: 1; }
+    .story-1 .story-headline { color: #000; }
+    .story-1 .story-body { color: #111; }
+    .story-1 .story-meta { color: #000; }
+    .story-1 .story-link.primary { background: #1a1a1a; color: #fff; }
+    .story-1 .story-link.secondary { background: #f0f0f0; color: #000; }
+    .story-1 .flag-btn { color: #000; }
+    .story-1-accent { position: absolute; bottom: 0; left: 0; width: 100%; height: 8px; background: linear-gradient(90deg, #1a1a1a, #555, #999, #1a1a1a); }
+    .story-1 .headline-accent { display: inline-block; background: linear-gradient(135deg, #1a1a1a 0%, #555 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .dos-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1.2rem; margin: 2rem 0; max-width: 680px; }
+    .dos-card { border: 2px solid rgba(0,0,0,0.12); background: rgba(0,0,0,0.04); border-radius: 6px; padding: 1.3rem 1.5rem; }
+    .dos-card-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.2em; text-transform: uppercase; color: #333; margin-bottom: 0.4rem; }
+    .dos-card-value { font-size: 1.05rem; font-weight: 900; color: #000; line-height: 1.3; }
+    .dos-card-sub { font-size: 0.75rem; color: #555; margin-top: 0.3rem; line-height: 1.4; }
+
+    .story-2 { background: #00080c; color: #b8f0ff; min-height: 80vh; }
+    .story-2::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(0,160,200,0.14) 0%, transparent 65%); }
+    .story-2 .story-num { color: #00A0C8; opacity: 0.07; }
+    .story-2 .story-kicker { color: #20C8E8; opacity: 1; }
+    .story-2 .story-headline { color: #e0f8ff; }
+    .story-2 .story-body { color: #b8f0ff; }
+    .story-2 .story-meta { color: #20C8E8; opacity: 0.5; }
+    .story-2 .story-link.primary { background: #004058; color: #80e8ff; }
+    .story-2 .story-link.secondary { background: rgba(0,160,200,0.08); color: #90d8f0; border: 1px solid rgba(0,160,200,0.22); }
+    .story-2 .flag-btn { color: #b8f0ff; }
+    .teal-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .teal-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(0,160,200,0.07); border-left: 3px solid #00A0C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .teal-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20C8E8; margin-bottom: 0.3rem; }
+    .teal-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-3 { background: #0a0000; color: #fff; min-height: 80vh; }
+    .story-3::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(200,20,20,0.16) 0%, transparent 65%); }
+    .story-3 .story-num { color: #C81414; opacity: 0.07; }
+    .story-3 .story-kicker { color: #E84040; opacity: 1; }
+    .story-3 .story-headline { color: #fff; }
+    .story-3 .story-body { color: rgba(255,255,255,0.88); }
+    .story-3 .story-meta { color: #E84040; opacity: 0.5; }
+    .story-3 .story-link.primary { background: #6a0000; color: #fff; }
+    .story-3 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-3 .flag-btn { color: #fff; }
+    .red-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .red-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(200,20,20,0.07); border-left: 3px solid #C81414; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .red-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E84040; margin-bottom: 0.3rem; }
+    .red-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-4 { background: #020c04; color: #c8f0d0; min-height: 80vh; }
+    .story-4::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(20,160,70,0.16) 0%, transparent 65%); }
+    .story-4 .story-num { color: #14A046; opacity: 0.07; }
+    .story-4 .story-kicker { color: #30C060; opacity: 1; }
+    .story-4 .story-headline { color: #e0ffe8; }
+    .story-4 .story-body { color: #c8f0d0; }
+    .story-4 .story-meta { color: #30C060; opacity: 0.5; }
+    .story-4 .story-link.primary { background: #063820; color: #80ffb0; }
+    .story-4 .story-link.secondary { background: rgba(20,160,70,0.08); color: #a0e8b0; border: 1px solid rgba(20,160,70,0.22); }
+    .story-4 .flag-btn { color: #c8f0d0; }
+    .green-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .green-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(20,160,70,0.07); border-left: 3px solid #14A046; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .green-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #30C060; margin-bottom: 0.3rem; }
+    .green-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-5 { background: #040010; color: #d8c8ff; min-height: 75vh; }
+    .story-5::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(90,40,200,0.17) 0%, transparent 65%); }
+    .story-5 .story-num { color: #5A28C8; opacity: 0.07; }
+    .story-5 .story-kicker { color: #8050E0; opacity: 1; }
+    .story-5 .story-headline { color: #f0e8ff; }
+    .story-5 .story-body { color: #d8c8ff; }
+    .story-5 .story-meta { color: #8050E0; opacity: 0.5; }
+    .story-5 .story-link.primary { background: #200860; color: #d0a8ff; }
+    .story-5 .story-link.secondary { background: rgba(90,40,200,0.08); color: #c0a0f0; border: 1px solid rgba(90,40,200,0.22); }
+    .story-5 .flag-btn { color: #d8c8ff; }
+    .purple-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .purple-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(90,40,200,0.07); border-left: 3px solid #5A28C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .purple-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #8050E0; margin-bottom: 0.3rem; }
+    .purple-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-6 { background: #000c10; color: #b8e8f0; min-height: 75vh; }
+    .story-6::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 40%, rgba(0,130,160,0.14) 0%, transparent 65%); }
+    .story-6 .story-num { color: #0080A0; opacity: 0.07; }
+    .story-6 .story-kicker { color: #20B0D0; opacity: 1; }
+    .story-6 .story-headline { color: #e0f4ff; }
+    .story-6 .story-body { color: #b8e8f0; }
+    .story-6 .story-meta { color: #20B0D0; opacity: 0.5; }
+    .story-6 .story-link.primary { background: #003848; color: #80d8f0; }
+    .story-6 .story-link.secondary { background: rgba(0,130,160,0.08); color: #90cce0; border: 1px solid rgba(0,130,160,0.22); }
+    .story-6 .flag-btn { color: #b8e8f0; }
+    .cyan-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(185px, 1fr)); gap: 1rem; margin: 2rem 0; max-width: 680px; }
+    .cyan-card { background: rgba(0,130,160,0.07); border: 1px solid rgba(0,130,160,0.22); border-radius: 4px; padding: 1.2rem 1.4rem; }
+    .cyan-card-name { font-size: 0.78rem; font-weight: 900; color: #20B0D0; margin-bottom: 0.4rem; }
+    .cyan-card-desc { font-size: 0.72rem; opacity: 0.75; line-height: 1.4; }
+
+    .story-7 { background: #0a0300; color: #ffe0b8; min-height: 75vh; }
+    .story-7::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(210,90,20,0.18) 0%, transparent 65%); }
+    .story-7 .story-num { color: #D05A14; opacity: 0.07; }
+    .story-7 .story-kicker { color: #E88040; opacity: 1; }
+    .story-7 .story-headline { color: #fff0d8; }
+    .story-7 .story-body { color: #ffe0b8; }
+    .story-7 .story-meta { color: #E88040; opacity: 0.5; }
+    .story-7 .story-link.primary { background: #6a2400; color: #ffc880; }
+    .story-7 .story-link.secondary { background: rgba(210,90,20,0.08); color: #ffb870; border: 1px solid rgba(210,90,20,0.22); }
+    .story-7 .flag-btn { color: #ffe0b8; }
+    .amber-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .amber-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(210,90,20,0.07); border-left: 3px solid #D05A14; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .amber-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E88040; margin-bottom: 0.3rem; }
+    .amber-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-8 { background: #080500; color: #fff; min-height: 70vh; }
+    .story-8::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,145,10,0.15) 0%, transparent 65%); }
+    .story-8 .story-num { color: #BE9110; opacity: 0.06; }
+    .story-8 .story-kicker { color: #D4A820; opacity: 1; }
+    .story-8 .story-headline { color: #fff; }
+    .story-8 .story-body { color: rgba(255,255,255,0.88); }
+    .story-8 .story-meta { color: #D4A820; opacity: 0.5; }
+    .story-8 .story-link.primary { background: #604000; color: #ffe070; }
+    .story-8 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-8 .flag-btn { color: #fff; }
+    .gold-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .gold-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(190,145,10,0.07); border-left: 3px solid #BE9110; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .gold-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #D4A820; margin-bottom: 0.3rem; }
+    .gold-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-9 { background: #040810; color: #c8d8f0; min-height: 70vh; }
+    .story-9::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 35%, rgba(50,90,170,0.16) 0%, transparent 65%); }
+    .story-9 .story-num { color: #3258A8; opacity: 0.07; }
+    .story-9 .story-kicker { color: #5878C8; opacity: 1; }
+    .story-9 .story-headline { color: #e8f0ff; }
+    .story-9 .story-body { color: #c8d8f0; }
+    .story-9 .story-meta { color: #5878C8; opacity: 0.5; }
+    .story-9 .story-link.primary { background: #101e50; color: #fff; }
+    .story-9 .story-link.secondary { background: rgba(50,90,170,0.08); color: #b0c8e8; border: 1px solid rgba(50,90,170,0.22); }
+    .story-9 .flag-btn { color: #c8d8f0; }
+    .slate-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .slate-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(50,90,170,0.07); border-left: 3px solid #3258A8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .slate-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #5878C8; margin-bottom: 0.3rem; }
+    .slate-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-10 { background: #080004; color: #ffc8e8; min-height: 70vh; }
+    .story-10::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,20,90,0.15) 0%, transparent 65%); }
+    .story-10 .story-num { color: #BE1458; opacity: 0.07; }
+    .story-10 .story-kicker { color: #E04080; opacity: 1; }
+    .story-10 .story-headline { color: #fff0f8; }
+    .story-10 .story-body { color: #ffc8e8; }
+    .story-10 .story-meta { color: #E04080; opacity: 0.5; }
+    .story-10 .story-link.primary { background: #500030; color: #ffb0d8; }
+    .story-10 .story-link.secondary { background: rgba(190,20,90,0.08); color: #f090c0; border: 1px solid rgba(190,20,90,0.22); }
+    .story-10 .flag-btn { color: #ffc8e8; }
+    .mag-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .mag-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(190,20,90,0.07); border-left: 3px solid #BE1458; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .mag-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E04080; margin-bottom: 0.3rem; }
+    .mag-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .site-footer { background: #000; color: #555; padding: 3rem 4rem; display: flex; flex-direction: column; gap: 1.5rem; border-top: 1px solid #222; }
+    .footer-top { display: flex; gap: 2rem; align-items: center; flex-wrap: wrap; justify-content: space-between; }
+    .footer-brand { font-size: 1.4rem; font-weight: 900; color: #fff; }
+    .footer-meta { font-size: 0.75rem; line-height: 1.6; }
+    .export-btn { background: #222; border: 1px solid #444; color: #fff; font-family: var(--font); font-size: 0.8rem; font-weight: 700; padding: 0.7em 1.5em; border-radius: 3px; cursor: pointer; letter-spacing: 0.08em; transition: background 0.2s; }
+    .export-btn:hover { background: #333; }
+    .footer-note { font-size: 0.7rem; opacity: 0.5; }
+
+    @media (max-width: 768px) {
+      .masthead, .toc, .story-inner, .site-footer { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .story-num { display: none; }
+      .masthead-meta { gap: 1rem; }
+      .masthead-issue { margin-left: 0; }
+      .dos-grid, .cyan-cards { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+<nav style="background:#1a1a1a;border-bottom:1px solid #333;padding:0.55rem 2rem;font-family:'M PLUS Rounded 1c','Hiragino Sans','Noto Sans JP',sans-serif;position:sticky;top:0;z-index:999;">
+  <a href="./index.html" style="color:#aaa;text-decoration:none;font-size:0.8rem;font-weight:700;letter-spacing:0.03em;display:inline-flex;align-items:center;gap:0.4rem;transition:color 0.15s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#aaa'">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    アーカイブへ戻る
+  </a>
+</nav>
+
+<header class="masthead">
+  <div class="masthead-kicker">Hacker News — Morning Edition</div>
+  <h1 class="masthead-title">Morning<br>Edition</h1>
+  <div class="masthead-meta">
+    <div>
+      <div class="masthead-date">2026年6月30日 火曜日</div>
+      <div class="masthead-subtitle">AI・開発ツール・プライバシー・サイエンス — あなたのための10本</div>
+    </div>
+    <div class="masthead-issue">
+      <span class="iss-label">Issue</span>
+      <span class="iss-num">No.064</span>
+    </div>
+  </div>
+</header>
+
+<nav class="toc">
+  <a href="#s1"><span class="toc-num">01</span>⚡ Qwen 3.6 27Bがローカル開発の「スイートスポット」に</a>
+  <a href="#s2"><span class="toc-num">02</span>MullvadのCEOがスウェーデン地方政党の主要資金提供者に</a>
+  <a href="#s3"><span class="toc-num">03</span>米最高裁、ジオフェンス令状に憲法上の保護を適用</a>
+  <a href="#s4"><span class="toc-num">04</span>Rocket LabがIridiumを買収——宇宙企業の垂直統合</a>
+  <a href="#s5"><span class="toc-num">05</span>InstagramがユーザーのMeta Glasses広告に写真を無断使用</a>
+  <a href="#s6"><span class="toc-num">06</span>SSH用ネイティブGUIシェル「Blocks」が公開</a>
+  <a href="#s7"><span class="toc-num">07</span>CUDAカーネルを実行したとき、GPUの中では何が起きているか</a>
+  <a href="#s8"><span class="toc-num">08</span>Game BoyのインストラクションをWASMにJITコンパイル</a>
+  <a href="#s9"><span class="toc-num">09</span>セルフホスティング専用の新TLD「.self」構想</a>
+  <a href="#s10"><span class="toc-num">10</span>⚡ Ornith-1.0: 自己改善型オープンソースエージェントコーディングモデル</a>
+</nav>
+
+<!-- ═══ STORY 1 — Qwen 3.6 27B ══════════════════════════════════════════════ -->
+<section class="story story-1" id="s1">
+  <div class="story-num">01</div>
+  <div class="story-inner">
+    <div class="story-badge direct-badge">⚡ あなたに直接関係</div>
+    <div class="story-kicker">AI / ローカルLLM / 開発ツール / QWEN — Qwen 3.6 27BがローカルLLMとして最高のコスパ・性能バランスを実現。APIコスト不要でClaude並みのコーディング支援。491ポイント・426コメント</div>
+    <h2 class="story-headline">
+      Qwen 3.6 27Bは<br>ローカル開発の<br><span class="headline-accent">スイートスポット</span><br>だ
+    </h2>
+    <div class="story-body">
+      「Qwen 3.6 27B is the sweet spot for local development（Qwen 3.6 27Bはローカル開発のスイートスポット）」がquesma.comで公開され、491ポイント・426コメントという大きな反響を呼んでいます。Alibaba傘下のQwen（通義千問）チームが開発したQwen 3.6の27Bパラメーター版が、ローカルで動かせるLLMの中で現時点最高のコスト・性能・ハードウェア要件のバランスを実現しているという実証レポートです。
+
+      著者はquesma（データパイプラインの会社）のエンジニアで、M4 Pro MacBook（32GB RAM）でOllama経由で動かした際の体験を詳述しています。コーディング補完・デバッグ・コードレビュー・SQLクエリ生成といった実際の開発タスクで、GPT-4o miniやClaude Haiku 4.5と比較評価した結果、Qwen 3.6 27BはAPIコストがゼロで、速度・精度ともにこれらのクラウドモデルと互角以上だったとされています。特に注目すべきは「Thinking mode」の搭載で、複雑な問題では数百トークンの内部推論ステップを経た上で回答する拡張思考がローカルで動くという点です。
+
+      HN上では「MacBook Pro M4 Maxの128GBなら快適に動く——ゲーマー向けGPUじゃなくてもいい時代が来た」「Qwen 3.6はMITライセンスで商用利用可能——ライセンスが厄介なLlamaシリーズより企業に優しい」「医療・法律など機密データを扱う企業にとって、自社サーバーで動くLLMは必須——Qwenがその選択肢になり得る」「プロプライエタリモデルとの差が縮まっている——Claude Sonnet 4.6が飛び抜けているのは複雑な推論と長文理解の部分だけになってきた」「ローカルLLMの精度が上がるほどClaude Codeのサブエージェントに使える——低コストのHaiku相当をローカルで置き換える選択肢」という426コメントが展開中です。
+    </div>
+    <div class="dos-grid">
+      <div class="dos-card">
+        <div class="dos-card-label">Qwen 3.6 27Bとは</div>
+        <div class="dos-card-value">Alibabaが開発するオープンソースLLMの最新版</div>
+        <div class="dos-card-sub">Qwen（通義千問）シリーズの3.6世代・27Bパラメーター版。MITライセンスで商用利用可能。HuggingFaceで公開されOllamaやLM Studioで簡単に動かせる。Thinking mode（拡張推論）搭載</div>
+      </div>
+      <div class="dos-card">
+        <div class="dos-card-label">ハードウェア要件</div>
+        <div class="dos-card-value">M4 Pro/32GB RAM以上で快適動作</div>
+        <div class="dos-card-sub">Q4量子化版で約16GB VRAMまたはRAM。M4 Pro MacBook（32GB）・RTX 4090・AMD RX 7900 XTXが最適。M3 Max 128GBなら最高クラスの体験。最低16GB RAMでも動作するが速度は低下</div>
+      </div>
+      <div class="dos-card">
+        <div class="dos-card-label">Claude Codeとの使い分け</div>
+        <div class="dos-card-value">ローカルQwenをサブタスクに、Claudeを複雑推論に</div>
+        <div class="dos-card-sub">コードフォーマット・簡単なリファクタリング・コメント追加→Qwen 3.6 27B（無料・高速）。複雑なアーキテクチャ判断・大規模コードベース理解・マルチファイル編集→Claude Sonnet 4.6。コスト最適化のハイブリッド戦略が現実的に</div>
+      </div>
+      <div class="dos-card">
+        <div class="dos-card-label">Thinkingモードの実力</div>
+        <div class="dos-card-value">複雑な問題では内部推論で品質が大幅向上</div>
+        <div class="dos-card-sub">算数・コーディングアルゴリズム・推論問題でThinkingモードをオンにすると正答率が20〜40%向上。速度は下がるが困難な問題には価値あり。Claude OpusのExtended Thinkingと同様の発想がローカルで実現</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: quesma.com</span>
+      <span>491 ポイント</span>
+      <span>426 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://quesma.com/blog/qwen-36-is-awesome/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48721903" target="_blank">HN議論 (426)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="qwen-36-27b-local-development" data-type="like" onclick="toggleFlag('qwen-36-27b-local-development','Qwen 3.6 27Bはローカル開発のスイートスポット','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="qwen-36-27b-local-development" data-type="dislike" onclick="toggleFlag('qwen-36-27b-local-development','Qwen 3.6 27Bはローカル開発のスイートスポット','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+  <div class="story-1-accent"></div>
+</section>
+
+<!-- ═══ STORY 2 — Mullvad CEO Swedish party ════════════════════════════════ -->
+<section class="story story-2" id="s2">
+  <div class="story-num">02</div>
+  <div class="story-inner">
+    <div class="story-kicker">プライバシー / VPN / 政治 / スウェーデン — プライバシーVPN MullvadのCEOがスウェーデン地方政党「Örebropartiet」の主要資金提供者であることが判明。493ポイント・1111コメント</div>
+    <h2 class="story-headline">
+      MullvadのCEOは<br>スウェーデン地方<br>政党の主要<br>スポンサーだった
+    </h2>
+    <div class="story-body">
+      「The CEO of Mullvad is the main financer of the Swedish Örebro party（MullvadのCEOはスウェーデンのÖrebro党の主要資金提供者）」がマストドンの投稿から広まり、493ポイント・1111コメントという今日のHNで最大の議論を生んでいます。世界で最もプライバシーを重視するVPNサービスの一つとして知られるMullvad VPNのCEOが、スウェーデンのÖrebro（エレブルー）を拠点とするポピュリスト系地方政党の主要な財政支援者であることが明らかになりました。
+
+      Mullvad VPNは「アカウント不要・ログなし・クレジットカード不要（現金・Moneroで支払い可能）」を掲げ、プライバシーコミュニティで高い評価を受けてきたサービスです。今回の報道を受け、HNでは「創業者の政治的信条とサービスの信頼性をどう切り分けるか」「プライバシーツールの中立性とは何か」という根本的な議論が起きています。Örebropartietの政策の詳細や政治的立場については議論の中でも見解が分かれており、「欧州の文脈でのポピュリスト政党とは何か」という認識の差も浮き彫りになっています。
+
+      HN上では「個人の政治的信条とサービスの技術的品質は別物——Mullvadのノーログポリシーは監査済みで実績がある」「MullvadはSwedish LEAへの令状対応で実際に記録がなかったことが複数回確認されている——技術的信頼性は変わらない」「プライバシー企業のCEOの政治信条を問うなら、全てのテック企業のCEOの政治献金も同様に問うべき」「Örebro党が具体的にどんな政策を持つか知らずに批判するのは早計——スウェーデン政治の文脈が必要」「これを理由にMullvadを辞めるなら代替は？──Proton VPNのスイスは連邦規制があり、ExpressVPNはKape TechnologiesというIPOの歴史がある」という1111コメントが展開中です。
+    </div>
+    <div class="teal-items">
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">Mullvad VPNの技術的信頼性</div>
+          <div class="teal-text">Mullvadは以下の点でプライバシー業界の基準を超えるサービスを提供：①アカウント番号のみで利用（メールアドレス不要）②現金・Monero・Bitcoinでの匿名支払い③スウェーデン当局の令状に対して「記録がない」ことを複数回実証④年次独立監査（Cure53による）で監査済み⑤オープンソースクライアント。今回の報道でこれらの技術的事実は変わらない</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">なぜこれが問題視されるか</div>
+          <div class="teal-text">「プライバシーを守る」サービスと「特定の政治的アジェンダを持つ個人」が紐づくことへの心理的抵抗：①VPNサービスは企業とユーザーの間に深い信頼が必要②プライバシーコミュニティは創設者の価値観を重視する傾向③商業VPN企業が政治的に中立であるべきかの原則論。ただし法人としてのMullvadとCEO個人の政治活動は法的に別物</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">VPN選択の実用的指針</div>
+          <div class="teal-text">プライバシーVPNを評価する実用的基準（創設者の政治信条より重要）：①法的管轄（Five Eyes / Nine Eyes / Fourteen Eyes 圏外か）②独立監査の頻度と結果③実際の令状対応の実績④ビジネスモデル（広告なし・有料サービス）⑤オープンソースクライアント。Mullvadはこれら全てを満たす。代替としてはProton VPN（スイス）・IVPN（マルタ）が有力</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: det.social / Mastodon</span>
+      <span>493 ポイント</span>
+      <span>1111 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://det.social/@lostgen/116820546568940358" target="_blank">投稿を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48717469" target="_blank">HN議論 (1111)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="mullvad-ceo-swedish-party" data-type="like" onclick="toggleFlag('mullvad-ceo-swedish-party','MullvadのCEOがスウェーデン地方政党の主要資金提供者に','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="mullvad-ceo-swedish-party" data-type="dislike" onclick="toggleFlag('mullvad-ceo-swedish-party','MullvadのCEOがスウェーデン地方政党の主要資金提供者に','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 3 — Supreme Court geofence warrants ══════════════════════════ -->
+<section class="story story-3" id="s3">
+  <div class="story-num">03</div>
+  <div class="story-inner">
+    <div class="story-kicker">プライバシー / 法律 / 最高裁 / 監視 — 米国最高裁がジオフェンス令状（特定エリアの全デバイス位置データ取得）に憲法修正第4条の保護を適用する判決。354ポイント・161コメント</div>
+    <h2 class="story-headline">
+      米最高裁——<br>ジオフェンス<br>令状にも憲法<br>保護が必要だ
+    </h2>
+    <div class="story-body">
+      「US Supreme Court rules geofence warrants require constitutional protections（米最高裁、ジオフェンス令状に憲法上の保護が必要と判決）」をThe Guardianが報じ、354ポイント・161コメントを集めています。ジオフェンス令状（geofence warrant）とは、警察が犯罪発生時刻・場所の周辺にいた全てのスマートフォンのGPS・位置データを一括取得するために裁判所に申請する令状です。主にGoogleの「Sensorvault」データベース（位置履歴を持つGoogleアカウントのデータ）が対象となってきました。
+
+      これまで一部の裁判所はジオフェンス令状を「第三者原則（Third-Party Doctrine）」に基づき令状不要と判断していましたが、今回の最高裁判決はGPS・位置データが憲法修正第4条（不合理な捜索・押収からの保護）の保護対象となることを明確化しました。この判決は2018年のCarpenter v. United States（携帯電話の位置データに修正第4条が適用されると認定）の延長線上にあり、デジタル時代のプライバシー保護が強化される歴史的な判決と評価されています。警察はジオフェンス令状を使って事件とは無関係の数百人〜数千人の位置データを取得し、そこから容疑者を絞り込む手法を広く使っており、無実の市民が誤って容疑者とされたケースも複数報告されています。
+
+      HN上では「Carpenter判決の自然な拡張——GPSと携帯電話の位置データの区別は技術的に無意味だった」「この判決でGoogleへの一括令状が難しくなる——個別の令状が必要になるため捜査の手続きが複雑になる」「無実の市民が誤って逮捕されたケースが証明している——令状なしで数千人のデータを見るのは明らかにやりすぎだった」「第三者原則は1979年に確立されたものでスマートフォン時代に対応していない——今回の判決でようやく更新された」「この原則が確立されても令状を取れば許されるのは変わらない——本当の課題は令状審査が形骸化していること」という161コメントが展開中です。
+    </div>
+    <div class="red-items">
+      <div class="red-item">
+        <div>
+          <div class="red-label">ジオフェンス令状とは何か</div>
+          <div class="red-text">犯罪が起きた時刻・場所の半径○○メートル以内にいた全スマートフォンの位置データをGoogleなどに一括請求する令状。「ガバナー・スクエア爆破事件（午後3時）に現場1km以内にいた全デバイスを特定してほしい」という形で申請される。無実の通行人・近隣住民のデータも大量に含まれる。FBIや州警察が広く使ってきた</div>
+        </div>
+      </div>
+      <div class="red-item">
+        <div>
+          <div class="red-label">判決の具体的意味</div>
+          <div class="red-text">①警察はジオフェンス令状を取得するためにも「相当な理由（probable cause）」の具体的説明が必要になる②「この場所・この時間帯の全デバイス」という包括的要求は令状に書ける範囲の具体性を欠く可能性が高い③Googleのsensorvaultへの一括アクセスが司法のより厳しい審査を経ることになる④証拠として使われたジオフェンスデータが過去に遡って排除される可能性も</div>
+        </div>
+      </div>
+      <div class="red-item">
+        <div>
+          <div class="red-label">開発者・Androidユーザーへの意味</div>
+          <div class="red-text">①GoogleのLocationHistoryを有効にしているAndroidユーザーのデータが令状の対象になりうる——設定オフを推奨②iPhoneの「重要な場所」機能も類似のデータを保存——設定→プライバシーとセキュリティ→位置情報サービス→システムサービス→重要な場所でオフに③プライバシー重視の開発者は自社アプリが位置データを収集・第三者に送信していないか再確認を</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: theguardian.com</span>
+      <span>354 ポイント</span>
+      <span>161 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.theguardian.com/us-news/2026/jun/29/supreme-court-geofence-warrants-case-decision" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48720924" target="_blank">HN議論 (161)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="supreme-court-geofence-warrants" data-type="like" onclick="toggleFlag('supreme-court-geofence-warrants','米最高裁、ジオフェンス令状に憲法上の保護を適用','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="supreme-court-geofence-warrants" data-type="dislike" onclick="toggleFlag('supreme-court-geofence-warrants','米最高裁、ジオフェンス令状に憲法上の保護を適用','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 4 — Rocketlab acquires Iridium ═══════════════════════════════ -->
+<section class="story story-4" id="s4">
+  <div class="story-num">04</div>
+  <div class="story-inner">
+    <div class="story-kicker">宇宙 / 衛星通信 / M&A / ROCKETLAB — Rocket LabがIridium Communications（衛星電話の世界最大手）を買収。ロケット製造から衛星星座の運用まで垂直統合した宇宙企業が誕生。321ポイント・193コメント</div>
+    <h2 class="story-headline">
+      Rocket Labが<br>Iridiumを買収——<br>宇宙の垂直統合<br>時代へ
+    </h2>
+    <div class="story-body">
+      「Rocket Lab to acquire Iridium in historic deal creating fully integrated space company（Rocket Lab、ロケットから衛星まで垂直統合した宇宙企業を創出する歴史的買収を発表）」として公式リリースが出され、321ポイント・193コメントを集めています。Rocket Lab（RKLB）は自社ロケット「Electron」と「Neutron（開発中）」、および宇宙船製造事業を持つ宇宙企業ですが、今回のIridium買収によって66機の衛星星座を持つグローバル衛星通信サービスまでを傘下に収めることになります。
+
+      Iridiumは1997年の破産から復活し、極域を含む地球全域をカバーする唯一の衛星電話ネットワークとして再建に成功した企業です。航空・海事・政府・緊急サービスの分野で不可欠なインフラとなっており、最新のIridium NEXT星座（Falcon 9で打ち上げ）は高速データ通信にも対応しています。Rocket LabはElectronロケットで200回以上の打ち上げ実績を持ち、次世代ロケットNeutronをIridium衛星の補充打ち上げに活用する戦略的シナジーが明確です。また、Iridiumの安定したサブスクリプション収益がロケット事業の資金調達コストを大幅に下げる財務的メリットも指摘されています。
+
+      HN上では「SpaceXのStarlink＋Starship（打ち上げ）と同じ垂直統合戦略——Rocket Lab版Starlinkを目指す動きだ」「Iridiumの顧客基盤（政府・軍・航空）は非常に安定していて収益性が高い——Rocket Labにとって素晴らしい財務基盤になる」「IridiumはSpaceXに打ち上げを依存していた——Neutronが完成すればその依存から脱却できる戦略的意味がある」「Electronはスモールサット打ち上げ市場に特化していたが、Iridiumの衛星は大型——NeutronへのピボットをIridiumが後押しする」「宇宙産業の統合が加速している——Rocket Labは買収でインフラ企業に変貌しつつある」という193コメントが展開中です。
+    </div>
+    <div class="green-items">
+      <div class="green-item">
+        <div>
+          <div class="green-label">Iridiumとは何か</div>
+          <div class="green-text">66機の低軌道（LEO）衛星で地球全域（極地含む）をカバーするグローバル衛星通信ネットワーク。1997年の破産後2000年に再建。独自の特徴：①衛星間の直接通信（クロスリンク）で地上基地局なしに通信可能②北極・南極でも使える唯一の商業衛星電話③航空・海事・政府・IoT向けのL-bandサービス。月額サブスクリプションで安定収益</div>
+        </div>
+      </div>
+      <div class="green-item">
+        <div>
+          <div class="green-label">Rocket Labにとっての意味</div>
+          <div class="green-text">①財務：Iridiumの安定したサブスクリプション収益（年間数百億円規模）がロケット事業の損益を支える②技術：自社ロケットで衛星補充打ち上げ→SpaceXへの依存脱却③Neutron加速：Iridiumの次世代衛星打ち上げ需要が明確な需要としてNeutron開発を後押し④事業モデル転換：ロケット打ち上げサービスから宇宙インフラ企業へのシフト</div>
+        </div>
+      </div>
+      <div class="green-item">
+        <div>
+          <div class="green-label">SpaceXとの比較</div>
+          <div class="green-text">SpaceXはStarlink（通信）＋Starship/Falcon（打ち上げ）という垂直統合モデルで宇宙産業を支配しつつある。Rocket Lab＋IridiumはこれのSmaller版：Iridiumの覆域（極地・政府）はStarlinkが苦手な分野。軍・航空・海事のミッションクリティカルな用途ではIridiumが引き続き独自のポジションを持つ。Starlink vs Iridiumは競合というより補完関係</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: investors.rocketlabcorp.com</span>
+      <span>321 ポイント</span>
+      <span>193 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://investors.rocketlabcorp.com/news-releases/news-release-details/rocket-lab-acquire-iridium-historic-deal-creating-fully" target="_blank">プレスリリースを読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48719485" target="_blank">HN議論 (193)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="rocketlab-acquires-iridium" data-type="like" onclick="toggleFlag('rocketlab-acquires-iridium','Rocket LabがIridiumを買収——宇宙企業の垂直統合','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="rocketlab-acquires-iridium" data-type="dislike" onclick="toggleFlag('rocketlab-acquires-iridium','Rocket LabがIridiumを買収——宇宙企業の垂直統合','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 5 — Instagram Meta Glasses photos ════════════════════════════ -->
+<section class="story story-5" id="s5">
+  <div class="story-num">05</div>
+  <div class="story-inner">
+    <div class="story-kicker">プライバシー / INSTAGRAM / META / AR — InstagramがユーザーがアップロードしたAI生成・実写写真をMeta Glassesの広告に無断で使用。サービス利用規約の「落とし穴」が再び問題に。304ポイント・133コメント</div>
+    <h2 class="story-headline">
+      Instagramが<br>あなたの写真を<br>Meta Glasses<br>の広告に使っている
+    </h2>
+    <div class="story-body">
+      「Instagram is incorporating users' photos in ads for Meta Glasses（InstagramがユーザーのメタグラスへのInstagram写真を広告に使用）」として複数の報告が広まり、304ポイント・133コメントを集めています。Metaが最新のスマートグラス「Meta Glasses」を宣伝するにあたり、Instagram上でユーザーが公開投稿したAI生成画像や一般写真をコンテンツとして広告動画に組み込んでいるという事例が多数報告されています。
+
+      問題の本質は、Instagramの利用規約に「Metaはユーザーが投稿した公開コンテンツを広告や商業目的で使用できる」という条項が含まれており、ユーザーが明示的に同意を拒否しない限りこれが適用されるという点です。特にAI生成画像を投稿していたアーティストやデザイナーから「自分の作品がAIの宣伝広告（Meta Glasses）に使われた」という報告が相次いでおり、AI×ARという組み合わせが醸す皮肉さも注目を浴びています。欧州ではGDPRにより同様の扱いはオプトインが必要ですが、米国では法的に問題ない範囲とされています。
+
+      HN上では「規約に同意している以上法的には問題ない——だが倫理的に問題があるかどうかは別の話」「アーティストにとってはダブルパンチ——まず自分の絵がAI学習に使われ、今度はAI関連製品の広告にも使われる」「Instagramが公開投稿をどう商業利用するかの実例——プラットフォームがコンテンツを所有するエコシステムの本質」「解決策はシンプル——Instagramに一切公開投稿しないか、もしくはオプトアウト設定を毎回確認する」「Metaに利用を禁じる方法：設定→アカウントセンター→広告のカスタマイズ→広告主との情報連携でオフにする（完全にはオフにできないが一部制限可能）」という133コメントが展開中です。
+    </div>
+    <div class="purple-items">
+      <div class="purple-item">
+        <div>
+          <div class="purple-label">どんな写真が対象になるか</div>
+          <div class="purple-text">Instagramに「公開」設定で投稿した全てのコンテンツが対象になりうる：①実写写真②AI生成画像③動画④リール——非公開アカウントの投稿は対象外。公開アカウントで投稿した瞬間から利用規約の商業利用条項が適用される。「いいね」「保存」した他者のコンテンツは対象外。ただしMetaは実際に何を使っているかを個別に通知しない</div>
+        </div>
+      </div>
+      <div class="purple-item">
+        <div>
+          <div class="purple-label">オプトアウトの方法</div>
+          <div class="purple-text">完全なオプトアウトはできないが制限可能：①Instagram設定→アカウントセンター→広告のカスタマイズ→「Metaのテクノロジー外に基づく広告」をオフ②EU在住の場合はGDPRに基づいてより強いオプトアウト権利がある③最も確実なのは公開投稿をやめる or 非公開アカウントに移行すること。アーティストはWatermarkの目立つ添付を推奨するコミュニティもある</div>
+        </div>
+      </div>
+      <div class="purple-item">
+        <div>
+          <div class="purple-label">AI生成画像の場合の特殊性</div>
+          <div class="purple-text">AI生成画像は著作権の帰属が不明確なため（米国著作権局は単純なAI生成物の著作権登録を認めていない）、Metaが広告に使うことへの法的異議申し立てが難しい。一方で、AIが生成したコンテンツをAI搭載デバイスの広告に使うという連鎖は、「AIはコンテンツを搾取するもの」という認識をより強化する。Instagramがアーティストのコミュニティを商業的に利用する構造の問題</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: twitter.com (X)</span>
+      <span>304 ポイント</span>
+      <span>133 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://news.ycombinator.com/item?id=48719027" target="_blank">HN議論 (133)</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48719027" target="_blank">元スレッドを見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="instagram-user-photos-meta-glasses-ads" data-type="like" onclick="toggleFlag('instagram-user-photos-meta-glasses-ads','InstagramがユーザーのMeta Glasses広告に写真を無断使用','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="instagram-user-photos-meta-glasses-ads" data-type="dislike" onclick="toggleFlag('instagram-user-photos-meta-glasses-ads','InstagramがユーザーのMeta Glasses広告に写真を無断使用','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 6 — Native graphical shell for SSH ═══════════════════════════ -->
+<section class="story story-6" id="s6">
+  <div class="story-num">06</div>
+  <div class="story-inner">
+    <div class="story-kicker">開発ツール / SSH / ターミナル / UX — SSH用のネイティブGUIシェル「Blocks」が公開。テキストのみのターミナルを超えたグラフィカルなインターフェースでリモートサーバー操作を変革。206ポイント・90コメント</div>
+    <h2 class="story-headline">
+      SSH用の<br>ネイティブ<br>グラフィカル<br>シェルが登場
+    </h2>
+    <div class="story-body">
+      「A native graphical shell for SSH（SSH用のネイティブグラフィカルシェル）」がprobablymarcus.comで公開され、206ポイント・90コメントを集めています。著者のMarcus Clawsが開発した「Blocks」は、SSH接続したリモートサーバーの操作を従来のテキストターミナルを超えたネイティブGUIで提供するシェルです。コマンドの出力を構造化されたブロックとして表示し、ファイルマネージャー・プロセスモニター・ログビューアなどをネイティブな視覚的UIとして提供します。
+
+      Blocksのアーキテクチャは興味深く、サーバー側に軽量なシェルサーバー（Rustで書かれている）をインストールし、クライアント側（macOS/Linux）のネイティブアプリと通信するという設計です。コマンドを実行すると出力がリッチなUIコンポーネントとしてレンダリングされ、例えばlsコマンドを実行するとアイコン付きのファイルブラウザが表示され、psコマンドはソート可能なプロセステーブルになります。また、ログファイルをリアルタイムで追うtailコマンドはエラーパターンを自動ハイライトするビューアになります。著者は「ターミナルエミュレーターは1970年代から基本的に変わっていない——SSHのUXをネイティブアプリのレベルに引き上げる実験」と説明しています。
+
+      HN上では「Terminalは最もレガシーなUIパラダイムの一つ——テキストをpipeで繋ぐという設計は美しいが、視覚的フィードバックの貧しさは生産性のボトルネック」「モバイルからSSHを操作するとき（ShellFish等）との統合も面白そう」「tmuxやvimのユーザーにとってはテキストの方が速い場合も——慣れの問題か本質的な優劣かは人による」「Claude Codeのリモートサーバーでの操作にこのUIが使えたら面白い——ターミナル型よりも状況把握が速くなる」「サーバー側にデーモンを入れる点がセキュリティ上の懸念——最小権限での動作設計が重要」という90コメントが展開中です。
+    </div>
+    <div class="cyan-cards">
+      <div class="cyan-card">
+        <div class="cyan-card-name">Blocksの主な機能</div>
+        <div class="cyan-card-desc">①lsコマンド→アイコン付きファイルブラウザ②ps/top→ソート可能プロセステーブル③tail -f→エラーハイライト付きログビューア④df/du→ビジュアルディスク使用量グラフ⑤git log→グラフィカルコミット履歴</div>
+      </div>
+      <div class="cyan-card">
+        <div class="cyan-card-name">アーキテクチャ</div>
+        <div class="cyan-card-desc">サーバー側：Rustで書かれた軽量デーモン（サーバーにインストール必要）。クライアント側：macOS/Linux用ネイティブアプリ。通信：SSH経由で暗号化。既存のSSHキー・config設定をそのまま使用可能</div>
+      </div>
+      <div class="cyan-card">
+        <div class="cyan-card-name">従来ターミナルとの使い分け</div>
+        <div class="cyan-card-desc">Blocksが有利な場面：複数サーバーの状態監視・ログの視覚的追跡・初心者・広い画面での作業。従来ターミナルが有利：シェルスクリプト・パイプライン・キーボードショートカット重視・画面サイズ制限環境</div>
+      </div>
+      <div class="cyan-card">
+        <div class="cyan-card-name">セキュリティ考慮事項</div>
+        <div class="cyan-card-desc">サーバーに追加デーモンが必要なため：①最小権限で実行されるか確認②セキュリティ監査の実施状況を確認③本番サーバーでの使用前に内部レビューを推奨。開発・ステージング環境での活用から始めるのが安全</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: probablymarcus.com</span>
+      <span>206 ポイント</span>
+      <span>90 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://probablymarcus.com/blocks/2026/06/28/native-graphical-shell-for-SSH.html" target="_blank">詳細を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48720758" target="_blank">HN議論 (90)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="native-graphical-shell-ssh" data-type="like" onclick="toggleFlag('native-graphical-shell-ssh','SSH用ネイティブGUIシェル「Blocks」が公開','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="native-graphical-shell-ssh" data-type="dislike" onclick="toggleFlag('native-graphical-shell-ssh','SSH用ネイティブGUIシェル「Blocks」が公開','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 7 — What happens when you run a CUDA kernel ══════════════════ -->
+<section class="story story-7" id="s7">
+  <div class="story-num">07</div>
+  <div class="story-inner">
+    <div class="story-kicker">エンジニアリング / GPU / CUDA / AI基盤 — CUDAカーネルを実行したとき、GPUの内部で実際に何が起きているかを丁寧に解説した技術記事。AI時代のGPU必須知識。188ポイント・20コメント</div>
+    <h2 class="story-headline">
+      CUDAカーネルを<br>実行すると<br>GPUの中では<br>何が起きるのか
+    </h2>
+    <div class="story-body">
+      「What happens when you run a CUDA kernel?（CUDAカーネルを実行すると何が起きるか）」がfergusfinn.comで公開され、188ポイント・20コメントを集めています。AI・機械学習の普及でGPUが重要インフラになっているにもかかわらず、「GPUがなぜNNトレーニングに強いのか」「CUDAカーネルとは何か」を深く理解しているエンジニアは少ない——そのギャップを埋める技術記事です。
+
+      著者はCUDAカーネル実行の全過程を段階的に解説しています。まずホスト（CPU）からデバイス（GPU）へのデータ転送、次にカーネルの起動（<<<gridDim, blockDim>>>という起動設定）、そしてGPU内部でのSM（Streaming Multiprocessor）によるスレッドブロックのスケジューリング、Warpと呼ばれる32スレッドを一単位としたSIMD実行、共有メモリ・レジスタ・グローバルメモリのメモリ階層、そしてWarp divergence（if文による性能低下）まで、図解とコード例を交えて説明しています。特に「なぜCPUのif文がGPUでは性能劣化を引き起こすのか」「なぜ行列積（GEMM）がGPUで劇的に速くなるのか」という直感的な説明が評価されています。
+
+      HN上では「これをLLMのアーキテクチャを理解する前に読むべき——アテンション計算がなぜ並列化できるかのハードウェア的な理由が分かる」「SM・Warp・Blockの関係が図で初めて直感的に理解できた——NVIDIAの公式ドキュメントより分かりやすい」「Flash Attentionの設計の天才性もこれを理解してから改めて読むと意味が変わる——共有メモリの使い方があんなに重要だとは」「CUDA学習のロードマップ：この記事→CS231n→Programming Massively Parallel Processors→実装」「AIエンジニアでGPUの仕組みを知らない人が多すぎる——PyTorchの抽象化が優秀すぎて内部を見なくなった」という20コメントが展開中です。
+    </div>
+    <div class="amber-items">
+      <div class="amber-item">
+        <div>
+          <div class="amber-label">CUDAカーネル実行の仕組み</div>
+          <div class="amber-text">①CPUがGPUにデータを転送（PCIe経由）②カーネル起動：grid（ブロックの集合）とblock（スレッドの集合）のサイズを指定③SM（Streaming Multiprocessor）がスレッドブロックを受け取り実行④32スレッドずつのWarp単位でSIMD実行——全スレッドが同じ命令を同時実行⑤L1キャッシュ（共有メモリ）→L2キャッシュ→グローバルメモリのメモリ階層を経てデータアクセス⑥結果をCPUに返却</div>
+        </div>
+      </div>
+      <div class="amber-item">
+        <div>
+          <div class="amber-label">なぜ行列積がGPUで速いのか</div>
+          <div class="amber-text">行列積C=A×Bの各要素は独立して計算できる——依存関係がないため何千スレッドでも並列実行可能。GPUは数千〜数万のCUDAコアを持ち、これを同時に動かせる。対してCPUは数十〜数百コア。LLMのアテンション計算・FFN層は全て行列積——GPUが「AI専用チップ」と呼ばれる根本的な理由。Warpの全スレッドが同じ命令を実行するため、条件分岐（if文）があるとスレッドが分岐して半分が待機→これがWarp divergence</div>
+        </div>
+      </div>
+      <div class="amber-item">
+        <div>
+          <div class="amber-label">AI開発者が知るべき実用知識</div>
+          <div class="amber-text">①バッチサイズを大きくするとGPU使用率が上がる理由：より多くのSMを使えるため②Flash Attentionが速い理由：共有メモリ（SRAM）の使用を最大化してグローバルメモリアクセスを最小化③mixed precision（fp16/bf16）の効果：メモリ帯域幅の節約とTensor Coreの活用④CUDA OOMエラーの原因はほぼ全てグローバルメモリ（VRAM）不足——バッチ・シーケンス長を下げるか量子化で対応</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: fergusfinn.com</span>
+      <span>188 ポイント</span>
+      <span>20 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://fergusfinn.com/blog/what-happens-when-you-run-a-gpu-kernel/" target="_blank">技術記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48718863" target="_blank">HN議論 (20)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="cuda-kernel-execution-explained" data-type="like" onclick="toggleFlag('cuda-kernel-execution-explained','CUDAカーネルを実行したとき、GPUの中では何が起きているか','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="cuda-kernel-execution-explained" data-type="dislike" onclick="toggleFlag('cuda-kernel-execution-explained','CUDAカーネルを実行したとき、GPUの中では何が起きているか','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 8 — WATaBoy JIT WASM Game Boy ════════════════════════════════ -->
+<section class="story story-8" id="s8">
+  <div class="story-num">08</div>
+  <div class="story-inner">
+    <div class="story-kicker">エンジニアリング / WASM / エミュレーター / JIT — Game BoyのインストラクションをWebAssemblyにJITコンパイルしてネイティブインタープリターを超える速度を実現。技術の奇跡。160ポイント・24コメント</div>
+    <h2 class="story-headline">
+      Game BoyをWASMに<br>JITコンパイル——<br>ネイティブ<br>インタープリターを超えた
+    </h2>
+    <div class="story-body">
+      「WATaBoy: JIT-Ing Game Boy Instructions to WASM Beats a Native Interpreter（WATaBoy：Game BoyインストラクションをWASMにJITコンパイルしたらネイティブインタープリターより速かった）」がhumphri.esで公開され、160ポイント・24コメントを集めています。著者は「ブラウザ上でGame BoyをエミュレートするためにWASMをJITコンパイルターゲットとして使う」という技術的実験を行い、素朴なインタープリター実装より高速な結果を得ました。
+
+      通常のGame Boyエミュレーターは「Game Boyのバイナリ命令を読み取り、それをホスト言語（JavaScript、Rustなど）で逐次実行するインタープリター」として実装されます。WATaBoyのアプローチは異なります：Game Boyの命令列を解析し、それに対応するWATというWebAssemblyテキスト形式に変換し、ブラウザのWASMエンジンにJITコンパイルさせるのです。WASMはブラウザが最適化JITコンパイラを持っているため、一度コンパイルされたコードは非常に高速に実行されます。著者の計測ではJavaScriptのインタープリター実装より1.5〜3倍の高速化を達成し、「WASMをコンパイルターゲットとして動的生成する」という珍しいユースケースの実証になりました。
+
+      HN上では「WASMをJITコンパイルの出力形式として使うのは本当に美しいアイデア——バイナリJITを書かずにブラウザのJITを活用する」「この手法はGame Boyだけでなく、他のISA（RISC-V、ARMなど）のWebエミュレーターにも応用できる」「Spidermonkey・V8・JavaScriptCoreは全て優秀なWASM JITを持っている——それを自前のJITの代わりに使う発想の転換」「ブラウザがWASMを動的に生成して実行できるのはWebAssembly.instantiateを使えばできる——これをLLVMバックエンドとして使う実験も見たことがある」「コンピューターサイエンスの美しさ——1989年のGame BoyのコードがWASMを経由して2026年のChromeで動く」という24コメントが展開中です。
+    </div>
+    <div class="gold-items">
+      <div class="gold-item">
+        <div>
+          <div class="gold-label">WATとは何か</div>
+          <div class="gold-text">WAT（WebAssembly Text Format）はWASMバイナリの人間が読めるテキスト表現。(module (func $add (param i32 i32) (result i32) local.get 0 local.get 1 i32.add)) のような形式。WATaBoyはGame Boyの命令列をこのWATコードにリアルタイムで変換し、WebAssembly.instantiateでブラウザにコンパイル・実行させる。動的WASMコード生成という珍しい技法</div>
+        </div>
+      </div>
+      <div class="gold-item">
+        <div>
+          <div class="gold-label">なぜ速くなるのか</div>
+          <div class="gold-text">インタープリターはGame Boyの各命令をループで読み取るたびにdispatch（命令の振り分け）コストが発生する。JITコンパイルでは命令列が事前に機械語に変換されdispatchコストが消える。ブラウザのWASM JITはネイティブに近い速度のコードを生成するため、「Game BoyのコードをWASM経由でCPUが直接実行する」に近い状態になる</div>
+        </div>
+      </div>
+      <div class="gold-item">
+        <div>
+          <div class="gold-label">応用と意義</div>
+          <div class="gold-text">①他ISAのブラウザエミュレーター（RISC-V・x86・ARM）に同じ手法が使える②「WASMを動的生成する」パターンはゲームエンジン・言語ランタイムのブラウザ移植でも使われ始めている③教育的意義：JIT・ISA・エミュレーション・WASMを一つのプロジェクトで学べる④Game Boy（DMG）の全命令セット（512命令）をWATに対応させる実装の完全性</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: humphri.es</span>
+      <span>160 ポイント</span>
+      <span>24 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://humphri.es/blog/WATaBoy/" target="_blank">技術記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48720190" target="_blank">HN議論 (24)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="wataboy-jit-gameboy-wasm" data-type="like" onclick="toggleFlag('wataboy-jit-gameboy-wasm','Game BoyのインストラクションをWASMにJITコンパイル','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="wataboy-jit-gameboy-wasm" data-type="dislike" onclick="toggleFlag('wataboy-jit-gameboy-wasm','Game BoyのインストラクションをWASMにJITコンパイル','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 9 — .self TLD for self-hosting ════════════════════════════════ -->
+<section class="story story-9" id="s9">
+  <div class="story-num">09</div>
+  <div class="story-inner">
+    <div class="story-kicker">開発ツール / プライバシー / インターネット / 分散化 — セルフホスティング専用の新トップレベルドメイン「.self」の構想が公開。人間中心のインターネットインフラを目指すHCCFの提案。144ポイント・92コメント</div>
+    <h2 class="story-headline">
+      「.self」——<br>セルフホスティング<br>のための<br>新TLD構想
+    </h2>
+    <div class="story-body">
+      「.self: A new top-level domain designed to support self-hosting（.self：セルフホスティングを支援するために設計された新しいTLD）」がHCCF（Human-Centered Computing Foundation）から公開され、144ポイント・92コメントを集めています。現在インターネットのTLD（.com、.net、.io等）は大企業・政府・技術エリートを主な利用者として設計されていますが、「.self」は個人がシンプルかつプライベートに自分のサーバー・サービスをホストするためのTLDとして設計されます。
+
+      HCCFの提案によると、.selfのドメインは①ローカルネットワーク上でのみ解決される（グローバルDNSに依存しない）②個人の機器と紐づき追跡不可能な形で機能③個人のセルフホストサービス（Nextcloud、自作のWebアプリ、個人ブログ等）をIPアドレスなしでアドレス可能にする——という三つの特徴を持ちます。例えばmyserver.selfやfiles.selfのような名前でローカルにホストしたサービスにアクセスできるようになります。ただしこれはICANNが正式に承認したTLDではなく、mDNS（Multicast DNS）や.localの代替として機能するコミュニティ主導の提案段階です。
+
+      HN上では「.localという先行例が既にある——Appleのmacとデバイスがローカルに使っているmDNS用TLD。.selfとの違いが不明確」「ICANNがこれを正式承認することはないだろう——コミュニティ主導のローカル標準として育てる方が現実的」「ローカルネットワーク上での名前解決は良いアイデアだが、セキュリティ（ドメイン偽装）が課題」「セルフホストのUXを改善する方向性は正しい——固定IPや動的DNS不要でmy-pi.selfでRaspberry Piにアクセスできるならわかりやすい」「mDNSの実装はAppleが`.local`でやっており、同じことを別名でやるだけなら既存インフラを使った方が良い」という92コメントが展開中です。
+    </div>
+    <div class="slate-items">
+      <div class="slate-item">
+        <div>
+          <div class="slate-label">.selfの設計思想</div>
+          <div class="slate-text">グローバルDNSに登録・支払い不要でローカルにホストしたサービスに名前でアクセスできるようにする。目標：①Raspberry Pi・NASなどのホームサーバーをIPアドレスなしでアクセス（my-nas.self）②個人間のp2p通信③自己ホストサービスのディスカバリーを簡単に。.localのmDNSと同様の仕組みを使いつつ、より意図的に「セルフホスティング文化」を支援するブランディング</div>
+        </div>
+      </div>
+      <div class="slate-item">
+        <div>
+          <div class="slate-label">既存ソリューションとの比較</div>
+          <div class="slate-text">①.local（mDNS）：Apple主導、ローカルネットワーク名前解決に広く使われているが認知度が低い②動的DNS（duckdns.org等）：グローバルアクセス可能だがDNSプロバイダーへの依存③Tailscale/ZeroTier：VPNメッシュによる解決。.selfは「コミュニティ規約として.selfを使う」という緩い合意ベースの提案で、ICANN承認は現時点で目標としていない</div>
+        </div>
+      </div>
+      <div class="slate-item">
+        <div>
+          <div class="slate-label">セルフホストを始めるなら</div>
+          <div class="slate-text">.selfの正式化を待たずに今日からできるセルフホスト環境の構築：①Tailscaleを使えばmy-pi.tailnet-name.ts.netという名前でどこからでもアクセス可能②Home Assistantは.localで自動ディスカバリー③CasaOSやUmbrel（ホームクラウドOS）はRaspberry Pi/NASに1コマンドでDockerベースのアプリを展開。プライバシー最優先でGoogle/Metaのクラウドから自分のデータを移行したいなら今が最高のタイミング</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: hccf.onmy.cloud</span>
+      <span>144 ポイント</span>
+      <span>92 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://hccf.onmy.cloud/2026/06/21/reclaiming-our-digital-selves-hccfs-vision-for-a-human-centered-top-level-domain/" target="_blank">提案を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48724230" target="_blank">HN議論 (92)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="self-tld-self-hosting" data-type="like" onclick="toggleFlag('self-tld-self-hosting','セルフホスティング専用の新TLD「.self」構想','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="self-tld-self-hosting" data-type="dislike" onclick="toggleFlag('self-tld-self-hosting','セルフホスティング専用の新TLD「.self」構想','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 10 — Ornith-1.0 agentic coding ═══════════════════════════════ -->
+<section class="story story-10" id="s10">
+  <div class="story-num">10</div>
+  <div class="story-inner">
+    <div class="story-badge direct-badge">⚡ あなたに直接関係</div>
+    <div class="story-kicker">AI / オープンソース / エージェント / コーディング — Ornith-1.0：自己改善型オープンソースエージェントコーディングモデル。自律的にコードを生成・実行・検証・修正するAIシステムがGitHubで公開。112ポイント・27コメント</div>
+    <h2 class="story-headline">
+      Ornith-1.0——<br>自己改善型<br>エージェント<br>コーディングAI
+    </h2>
+    <div class="story-body">
+      「Ornith-1.0: self-improving open-source models for agentic coding（Ornith-1.0：エージェントコーディング向け自己改善型オープンソースモデル）」がGitHubのdeepeinforce-ai/Ornith-1として公開され、112ポイント・27コメントを集めています。deepreinforce-aiが開発するOrnithは、ユーザーの指示に従いコードを書くだけでなく「自分で書いたコードを実行し、失敗したら自分で原因を分析して修正する」という自律的なフィードバックループを持つエージェントコーディングシステムです。
+
+      Ornithのアーキテクチャは「自己スキャフォールディング（self-scaffolding）」と呼ばれる手法を採用しています。モデル自身が実行環境とのインターフェースを動的に設計・実装し、タスク達成に必要なツール（コード実行・ファイル読み書き・Webアクセス）を自律的に組み合わせて問題を解決します。さらに「自己改善（self-improving）」の名の通り、成功・失敗のトレースをフィードバックとして次の試行に反映し、同種のタスクでは繰り返し失敗しない仕組みを持つとされています。モデル自体はオープンソースで公開されており、ローカルで動かせる点がClaudeやGPT-4を使ったエージェントとの差別化点です。
+
+      HN上では「Claude Codeが強力なのはAnthropicのインフラ・モデルありきだが、Ornithはローカルで同様のサイクルを実現しようとしている——完全プライベートなAIエージェント環境への一歩」「自己改善の『改善』はファインチューニングではなくプロンプト戦略の更新——真の意味での自己学習ではないが実用的な意味では有効」「SWE-benchやHumanEvalでの評価スコアが公開されていないと信頼性が評価できない——ベンチマークへの言及を求めるコメントが複数」「deepreinforce-aiは小さいチームで急速に開発しているが、安全性・アライメントのドキュメントが薄い」「こういうオープンソースエージェントが出るほどClaude Codeの競合が激化していく——Anthropicのエコシステム戦略の重要性が上がる」という27コメントが展開中です。
+    </div>
+    <div class="mag-items">
+      <div class="mag-item">
+        <div>
+          <div class="mag-label">Ornithの自律サイクル</div>
+          <div class="mag-text">①タスク受信→②コード生成→③サンドボックス環境で実行→④成功なら完了、失敗ならエラーログを分析→⑤失敗の根本原因を推論→⑥修正コードを生成→③に戻る。このループを最大N回（設定可能）繰り返す。Claude Codeの「エラーが出たら自分で直す」機能に近いが、ローカルでオープンに動く点が異なる</div>
+        </div>
+      </div>
+      <div class="mag-item">
+        <div>
+          <div class="mag-label">Claude Codeとの比較</div>
+          <div class="mag-text">Claude Code（Anthropic）：①最高クラスのモデル品質②IDE統合・CLAUDE.md等のエコシステム③豊富な実績と信頼性④APIコスト発生。Ornith（ローカル）：①無料・完全プライベート②機密コードをクラウドに送らない③カスタマイズ・改変が自由④モデル品質はClaude Sonnet 4.6より劣る可能性。使い分けとして「機密プロジェクトにOrnith、品質重視の本番コードにClaude Code」が考えられる</div>
+        </div>
+      </div>
+      <div class="mag-item">
+        <div>
+          <div class="mag-label">今後のオープンソースエージェント動向</div>
+          <div class="mag-text">2026年はオープンソースエージェントコーディングの競争が本格化：Ornith・OpenHands・SWE-agent・Agentlessなど多数が登場。共通の評価指標（SWE-bench）での競争が進んでいる。Claude CodeやCopilot Workspaceとの性能差は縮まりつつあるが、「信頼性・エコシステム・ユーザー体験」では商用ツールが依然優位。ローカルエージェントの台頭はAI開発ツールの民主化の象徴</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: github.com/deepreinforce-ai</span>
+      <span>112 ポイント</span>
+      <span>27 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://github.com/deepreinforce-ai/Ornith-1" target="_blank">GitHubを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48722052" target="_blank">HN議論 (27)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="ornith-10-agentic-coding" data-type="like" onclick="toggleFlag('ornith-10-agentic-coding','Ornith-1.0: 自己改善型オープンソースエージェントコーディングモデル','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="ornith-10-agentic-coding" data-type="dislike" onclick="toggleFlag('ornith-10-agentic-coding','Ornith-1.0: 自己改善型オープンソースエージェントコーディングモデル','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ══════════════════════════════════════════════════════════════ -->
+<footer class="site-footer">
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand">Morning Edition</div>
+      <div class="footer-meta">
+        Hacker News キュレーション · 2026年6月30日 · Issue No.064<br>
+        毎朝、厳選10本をお届け
+      </div>
+    </div>
+    <button class="export-btn" onclick="exportFeedback()">📋 フィードバックをコピー</button>
+  </div>
+  <div class="footer-note">
+    ⭐ 興味あり / ✕ 興味なし ボタンで次回のキュレーションが改善されます。Chrome/Edgeでは自動保存、その他ではボタンでクリップボードにコピーしてください。
+  </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  const FEEDBACK_KEY = 'morning-edition-feedback-v2';
+  const TODAY = '2026-06-30';
+  let _dirHandle = null;
+
+  async function getDir(forcePrompt) {
+    if (_dirHandle && !forcePrompt) return _dirHandle;
+    if (!window.showDirectoryPicker) return null;
+    try {
+      _dirHandle = await window.showDirectoryPicker({ mode: 'readwrite', id: 'morning-edition', startIn: 'documents' });
+      return _dirHandle;
+    } catch { return null; }
+  }
+
+  async function writeJSON(dirHandle, fb) {
+    const fileHandle = await dirHandle.getFileHandle('feedback.json', { create: true });
+    const writable = await fileHandle.createWritable();
+    await writable.write(JSON.stringify({ ...fb, updatedAt: new Date().toISOString() }, null, 2));
+    await writable.close();
+  }
+
+  function showToast(msg, isErr) {
+    const el = document.getElementById('toast');
+    el.textContent = msg;
+    el.className = 'toast' + (isErr ? ' error' : '');
+    requestAnimationFrame(() => el.classList.add('show'));
+    clearTimeout(el._timer);
+    el._timer = setTimeout(() => el.classList.remove('show'), 3000);
+  }
+
+  function getFeedback() {
+    try { return JSON.parse(localStorage.getItem(FEEDBACK_KEY) || '{"liked":{},"disliked":{}}'); }
+    catch { return { liked: {}, disliked: {} }; }
+  }
+  function saveFeedback(fb) { localStorage.setItem(FEEDBACK_KEY, JSON.stringify(fb)); }
+
+  async function autoSave(fb) {
+    let dir = await getDir();
+    if (!dir) {
+      showToast('📁 Daily News フォルダを選択してください', true);
+      dir = await getDir(true);
+      if (!dir) { showToast('保存をキャンセルしました', true); return; }
+    }
+    try {
+      await writeJSON(dir, fb);
+      showToast('✓ feedback.json を自動保存しました（次回キュレーションに反映）');
+    } catch (e) {
+      showToast('保存エラー: ' + e.message, true);
+    }
+  }
+
+  async function toggleFlag(storyId, title, type) {
+    const fb = getFeedback();
+    fb.liked = fb.liked || {};
+    fb.disliked = fb.disliked || {};
+    const likeBtn    = document.querySelector(`.flag-btn.like-btn[data-story="${storyId}"]`);
+    const dislikeBtn = document.querySelector(`.flag-btn.dislike-btn[data-story="${storyId}"]`);
+    if (type === 'like') {
+      if (fb.liked[storyId]) {
+        delete fb.liked[storyId];
+        likeBtn?.classList.remove('active');
+      } else {
+        fb.liked[storyId] = { title, date: TODAY };
+        delete fb.disliked[storyId];
+        likeBtn?.classList.add('active');
+        dislikeBtn?.classList.remove('active');
+      }
+    } else {
+      if (fb.disliked[storyId]) {
+        delete fb.disliked[storyId];
+        dislikeBtn?.classList.remove('active');
+      } else {
+        fb.disliked[storyId] = { title, date: TODAY };
+        delete fb.liked[storyId];
+        dislikeBtn?.classList.add('active');
+        likeBtn?.classList.remove('active');
+      }
+    }
+    saveFeedback(fb);
+    await autoSave(fb);
+  }
+
+  function exportFeedback() {
+    const fb = getFeedback();
+    const json = JSON.stringify({ ...fb, exportedAt: new Date().toISOString() }, null, 2);
+    navigator.clipboard.writeText(json)
+      .then(() => showToast('📋 クリップボードにコピーしました'))
+      .catch(() => {
+        const el = document.createElement('textarea');
+        el.value = json; document.body.appendChild(el); el.select();
+        document.execCommand('copy'); document.body.removeChild(el);
+        showToast('📋 クリップボードにコピーしました');
+      });
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const fb = getFeedback();
+    document.querySelectorAll('.flag-btn').forEach(btn => {
+      const id   = btn.dataset.story;
+      const type = btn.dataset.type;
+      if ((type === 'like' && fb.liked?.[id]) || (type === 'dislike' && fb.disliked?.[id])) {
+        btn.classList.add('active');
+      }
+    });
+  });
+</script>
+</body>
+</html>
