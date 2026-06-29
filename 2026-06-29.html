@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Morning Edition — 2026年6月29日</title>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --font: 'M PLUS Rounded 1c', 'Hiragino Sans', 'Noto Sans JP', sans-serif; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); background: #111; color: #fff; overflow-x: hidden; }
+
+    .masthead { background: #fff; color: #000; padding: 3rem 4rem 2.5rem; border-bottom: 6px solid #000; position: relative; overflow: hidden; }
+    .masthead::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: repeating-linear-gradient(90deg, #000 0, #000 12px, transparent 12px, transparent 20px); }
+    .masthead-kicker { font-size: 0.85rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: #777; margin-bottom: 0.6rem; }
+    .masthead-title { font-size: clamp(3.5rem, 9vw, 7.5rem); font-weight: 900; line-height: 0.88; letter-spacing: -0.04em; margin-bottom: 1.8rem; }
+    .masthead-meta { display: flex; gap: 3rem; align-items: baseline; flex-wrap: wrap; }
+    .masthead-date { font-size: 1.5rem; font-weight: 700; }
+    .masthead-subtitle { font-size: 1rem; font-weight: 400; color: #555; max-width: 480px; line-height: 1.5; }
+    .masthead-issue { margin-left: auto; text-align: right; }
+    .masthead-issue span { display: block; }
+    .masthead-issue .iss-label { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: #999; }
+    .masthead-issue .iss-num { font-size: 2.2rem; font-weight: 900; color: #000; }
+
+    .toc { background: #1a1a1a; padding: 1.5rem 4rem; display: flex; gap: 1.5rem; flex-wrap: wrap; border-bottom: 1px solid #333; }
+    .toc a { color: #aaa; text-decoration: none; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; transition: color 0.2s; }
+    .toc a:hover { color: #fff; }
+    .toc-num { color: #555; margin-right: 0.3em; }
+
+    .story { position: relative; overflow: hidden; }
+    .story-inner { max-width: 1200px; margin: 0 auto; padding: 5rem 4rem; position: relative; z-index: 1; }
+    .story-num { font-size: clamp(6rem, 18vw, 16rem); font-weight: 900; line-height: 0.8; letter-spacing: -0.06em; opacity: 0.08; position: absolute; top: 1rem; right: 2rem; user-select: none; }
+    .story-badge { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.35em 0.9em; border-radius: 2px; margin-bottom: 1.5rem; }
+    .direct-badge { background: #FFD700; color: #000; }
+    .story-kicker { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; opacity: 0.6; margin-bottom: 0.8rem; }
+    .story-headline { font-size: clamp(2rem, 5vw, 4rem); font-weight: 900; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+    .story-body { font-size: clamp(1rem, 1.5vw, 1.2rem); font-weight: 400; line-height: 1.8; max-width: 680px; opacity: 0.88; margin-bottom: 2rem; }
+    .story-meta { display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center; font-size: 0.8rem; font-weight: 700; opacity: 0.5; }
+    .story-links { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem; }
+    .story-link { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.6em 1.4em; border-radius: 3px; text-decoration: none; transition: opacity 0.2s, transform 0.15s; }
+    .story-link:hover { opacity: 0.75; transform: translateY(-1px); }
+
+    .feedback-buttons { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .flag-btn { background: none; border: 1px solid currentColor; color: inherit; font-family: var(--font); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.5em 1em; border-radius: 3px; cursor: pointer; opacity: 0.32; transition: opacity 0.2s, background 0.2s, color 0.2s, border-color 0.2s, transform 0.15s; }
+    .flag-btn:hover { opacity: 0.72; transform: translateY(-1px); }
+    .flag-btn.like-btn.active { opacity: 1; background: rgba(255,215,0,0.15); border-color: #FFD700; color: #FFD700 !important; }
+    .flag-btn.dislike-btn.active { opacity: 1; background: rgba(255,60,60,0.12); border-color: #FF4444; color: #FF4444 !important; }
+
+    .toast { position: fixed; bottom: 2rem; right: 2rem; background: #1a1a1a; color: #fff; font-family: var(--font); font-size: 0.82rem; font-weight: 700; padding: 0.75em 1.4em; border-radius: 4px; border-left: 3px solid #00C853; z-index: 9999; opacity: 0; transform: translateY(10px); transition: opacity 0.25s, transform 0.25s; pointer-events: none; box-shadow: 0 4px 24px rgba(0,0,0,0.45); }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    .toast.error { border-left-color: #FF5252; }
+
+    .story-1 { background: #fff; color: #000; min-height: 90vh; display: flex; flex-direction: column; justify-content: center; }
+    .story-1 .story-num { color: #000; opacity: 0.04; }
+    .story-1 .story-kicker { color: #555; opacity: 1; }
+    .story-1 .story-headline { color: #000; }
+    .story-1 .story-body { color: #111; }
+    .story-1 .story-meta { color: #000; }
+    .story-1 .story-link.primary { background: #1a1a1a; color: #fff; }
+    .story-1 .story-link.secondary { background: #f0f0f0; color: #000; }
+    .story-1 .flag-btn { color: #000; }
+    .story-1-accent { position: absolute; bottom: 0; left: 0; width: 100%; height: 8px; background: linear-gradient(90deg, #1a1a1a, #555, #999, #1a1a1a); }
+    .story-1 .headline-accent { display: inline-block; background: linear-gradient(135deg, #1a1a1a 0%, #555 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .dos-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1.2rem; margin: 2rem 0; max-width: 680px; }
+    .dos-card { border: 2px solid rgba(0,0,0,0.12); background: rgba(0,0,0,0.04); border-radius: 6px; padding: 1.3rem 1.5rem; }
+    .dos-card-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.2em; text-transform: uppercase; color: #333; margin-bottom: 0.4rem; }
+    .dos-card-value { font-size: 1.05rem; font-weight: 900; color: #000; line-height: 1.3; }
+    .dos-card-sub { font-size: 0.75rem; color: #555; margin-top: 0.3rem; line-height: 1.4; }
+
+    .story-2 { background: #00080c; color: #b8f0ff; min-height: 80vh; }
+    .story-2::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(0,160,200,0.14) 0%, transparent 65%); }
+    .story-2 .story-num { color: #00A0C8; opacity: 0.07; }
+    .story-2 .story-kicker { color: #20C8E8; opacity: 1; }
+    .story-2 .story-headline { color: #e0f8ff; }
+    .story-2 .story-body { color: #b8f0ff; }
+    .story-2 .story-meta { color: #20C8E8; opacity: 0.5; }
+    .story-2 .story-link.primary { background: #004058; color: #80e8ff; }
+    .story-2 .story-link.secondary { background: rgba(0,160,200,0.08); color: #90d8f0; border: 1px solid rgba(0,160,200,0.22); }
+    .story-2 .flag-btn { color: #b8f0ff; }
+    .teal-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .teal-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(0,160,200,0.07); border-left: 3px solid #00A0C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .teal-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20C8E8; margin-bottom: 0.3rem; }
+    .teal-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-3 { background: #0a0000; color: #fff; min-height: 80vh; }
+    .story-3::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(200,20,20,0.16) 0%, transparent 65%); }
+    .story-3 .story-num { color: #C81414; opacity: 0.07; }
+    .story-3 .story-kicker { color: #E84040; opacity: 1; }
+    .story-3 .story-headline { color: #fff; }
+    .story-3 .story-body { color: rgba(255,255,255,0.88); }
+    .story-3 .story-meta { color: #E84040; opacity: 0.5; }
+    .story-3 .story-link.primary { background: #6a0000; color: #fff; }
+    .story-3 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-3 .flag-btn { color: #fff; }
+    .red-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .red-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(200,20,20,0.07); border-left: 3px solid #C81414; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .red-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E84040; margin-bottom: 0.3rem; }
+    .red-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-4 { background: #020c04; color: #c8f0d0; min-height: 80vh; }
+    .story-4::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(20,160,70,0.16) 0%, transparent 65%); }
+    .story-4 .story-num { color: #14A046; opacity: 0.07; }
+    .story-4 .story-kicker { color: #30C060; opacity: 1; }
+    .story-4 .story-headline { color: #e0ffe8; }
+    .story-4 .story-body { color: #c8f0d0; }
+    .story-4 .story-meta { color: #30C060; opacity: 0.5; }
+    .story-4 .story-link.primary { background: #063820; color: #80ffb0; }
+    .story-4 .story-link.secondary { background: rgba(20,160,70,0.08); color: #a0e8b0; border: 1px solid rgba(20,160,70,0.22); }
+    .story-4 .flag-btn { color: #c8f0d0; }
+    .green-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .green-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(20,160,70,0.07); border-left: 3px solid #14A046; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .green-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #30C060; margin-bottom: 0.3rem; }
+    .green-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-5 { background: #040010; color: #d8c8ff; min-height: 75vh; }
+    .story-5::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(90,40,200,0.17) 0%, transparent 65%); }
+    .story-5 .story-num { color: #5A28C8; opacity: 0.07; }
+    .story-5 .story-kicker { color: #8050E0; opacity: 1; }
+    .story-5 .story-headline { color: #f0e8ff; }
+    .story-5 .story-body { color: #d8c8ff; }
+    .story-5 .story-meta { color: #8050E0; opacity: 0.5; }
+    .story-5 .story-link.primary { background: #200860; color: #d0a8ff; }
+    .story-5 .story-link.secondary { background: rgba(90,40,200,0.08); color: #c0a0f0; border: 1px solid rgba(90,40,200,0.22); }
+    .story-5 .flag-btn { color: #d8c8ff; }
+    .purple-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .purple-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(90,40,200,0.07); border-left: 3px solid #5A28C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .purple-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #8050E0; margin-bottom: 0.3rem; }
+    .purple-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-6 { background: #000c10; color: #b8e8f0; min-height: 75vh; }
+    .story-6::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 40%, rgba(0,130,160,0.14) 0%, transparent 65%); }
+    .story-6 .story-num { color: #0080A0; opacity: 0.07; }
+    .story-6 .story-kicker { color: #20B0D0; opacity: 1; }
+    .story-6 .story-headline { color: #e0f4ff; }
+    .story-6 .story-body { color: #b8e8f0; }
+    .story-6 .story-meta { color: #20B0D0; opacity: 0.5; }
+    .story-6 .story-link.primary { background: #003848; color: #80d8f0; }
+    .story-6 .story-link.secondary { background: rgba(0,130,160,0.08); color: #90cce0; border: 1px solid rgba(0,130,160,0.22); }
+    .story-6 .flag-btn { color: #b8e8f0; }
+    .cyan-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(185px, 1fr)); gap: 1rem; margin: 2rem 0; max-width: 680px; }
+    .cyan-card { background: rgba(0,130,160,0.07); border: 1px solid rgba(0,130,160,0.22); border-radius: 4px; padding: 1.2rem 1.4rem; }
+    .cyan-card-name { font-size: 0.78rem; font-weight: 900; color: #20B0D0; margin-bottom: 0.4rem; }
+    .cyan-card-desc { font-size: 0.72rem; opacity: 0.75; line-height: 1.4; }
+
+    .story-7 { background: #0a0300; color: #ffe0b8; min-height: 75vh; }
+    .story-7::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(210,90,20,0.18) 0%, transparent 65%); }
+    .story-7 .story-num { color: #D05A14; opacity: 0.07; }
+    .story-7 .story-kicker { color: #E88040; opacity: 1; }
+    .story-7 .story-headline { color: #fff0d8; }
+    .story-7 .story-body { color: #ffe0b8; }
+    .story-7 .story-meta { color: #E88040; opacity: 0.5; }
+    .story-7 .story-link.primary { background: #6a2400; color: #ffc880; }
+    .story-7 .story-link.secondary { background: rgba(210,90,20,0.08); color: #ffb870; border: 1px solid rgba(210,90,20,0.22); }
+    .story-7 .flag-btn { color: #ffe0b8; }
+    .amber-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .amber-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(210,90,20,0.07); border-left: 3px solid #D05A14; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .amber-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E88040; margin-bottom: 0.3rem; }
+    .amber-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-8 { background: #080500; color: #fff; min-height: 70vh; }
+    .story-8::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,145,10,0.15) 0%, transparent 65%); }
+    .story-8 .story-num { color: #BE9110; opacity: 0.06; }
+    .story-8 .story-kicker { color: #D4A820; opacity: 1; }
+    .story-8 .story-headline { color: #fff; }
+    .story-8 .story-body { color: rgba(255,255,255,0.88); }
+    .story-8 .story-meta { color: #D4A820; opacity: 0.5; }
+    .story-8 .story-link.primary { background: #604000; color: #ffe070; }
+    .story-8 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-8 .flag-btn { color: #fff; }
+    .gold-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .gold-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(190,145,10,0.07); border-left: 3px solid #BE9110; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .gold-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #D4A820; margin-bottom: 0.3rem; }
+    .gold-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-9 { background: #040810; color: #c8d8f0; min-height: 70vh; }
+    .story-9::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 35%, rgba(50,90,170,0.16) 0%, transparent 65%); }
+    .story-9 .story-num { color: #3258A8; opacity: 0.07; }
+    .story-9 .story-kicker { color: #5878C8; opacity: 1; }
+    .story-9 .story-headline { color: #e8f0ff; }
+    .story-9 .story-body { color: #c8d8f0; }
+    .story-9 .story-meta { color: #5878C8; opacity: 0.5; }
+    .story-9 .story-link.primary { background: #101e50; color: #fff; }
+    .story-9 .story-link.secondary { background: rgba(50,90,170,0.08); color: #b0c8e8; border: 1px solid rgba(50,90,170,0.22); }
+    .story-9 .flag-btn { color: #c8d8f0; }
+    .slate-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .slate-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(50,90,170,0.07); border-left: 3px solid #3258A8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .slate-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #5878C8; margin-bottom: 0.3rem; }
+    .slate-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-10 { background: #080004; color: #ffc8e8; min-height: 70vh; }
+    .story-10::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,20,90,0.15) 0%, transparent 65%); }
+    .story-10 .story-num { color: #BE1458; opacity: 0.07; }
+    .story-10 .story-kicker { color: #E04080; opacity: 1; }
+    .story-10 .story-headline { color: #fff0f8; }
+    .story-10 .story-body { color: #ffc8e8; }
+    .story-10 .story-meta { color: #E04080; opacity: 0.5; }
+    .story-10 .story-link.primary { background: #500030; color: #ffb0d8; }
+    .story-10 .story-link.secondary { background: rgba(190,20,90,0.08); color: #f090c0; border: 1px solid rgba(190,20,90,0.22); }
+    .story-10 .flag-btn { color: #ffc8e8; }
+    .mag-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .mag-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(190,20,90,0.07); border-left: 3px solid #BE1458; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .mag-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E04080; margin-bottom: 0.3rem; }
+    .mag-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .site-footer { background: #000; color: #555; padding: 3rem 4rem; display: flex; flex-direction: column; gap: 1.5rem; border-top: 1px solid #222; }
+    .footer-top { display: flex; gap: 2rem; align-items: center; flex-wrap: wrap; justify-content: space-between; }
+    .footer-brand { font-size: 1.4rem; font-weight: 900; color: #fff; }
+    .footer-meta { font-size: 0.75rem; line-height: 1.6; }
+    .export-btn { background: #222; border: 1px solid #444; color: #fff; font-family: var(--font); font-size: 0.8rem; font-weight: 700; padding: 0.7em 1.5em; border-radius: 3px; cursor: pointer; letter-spacing: 0.08em; transition: background 0.2s; }
+    .export-btn:hover { background: #333; }
+    .footer-note { font-size: 0.7rem; opacity: 0.5; }
+
+    @media (max-width: 768px) {
+      .masthead, .toc, .story-inner, .site-footer { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .story-num { display: none; }
+      .masthead-meta { gap: 1rem; }
+      .masthead-issue { margin-left: 0; }
+      .dos-grid, .cyan-cards { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+<nav style="background:#1a1a1a;border-bottom:1px solid #333;padding:0.55rem 2rem;font-family:'M PLUS Rounded 1c','Hiragino Sans','Noto Sans JP',sans-serif;position:sticky;top:0;z-index:999;">
+  <a href="./index.html" style="color:#aaa;text-decoration:none;font-size:0.8rem;font-weight:700;letter-spacing:0.03em;display:inline-flex;align-items:center;gap:0.4rem;transition:color 0.15s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#aaa'">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    アーカイブへ戻る
+  </a>
+</nav>
+
+<header class="masthead">
+  <div class="masthead-kicker">Hacker News — Morning Edition</div>
+  <h1 class="masthead-title">Morning<br>Edition</h1>
+  <div class="masthead-meta">
+    <div>
+      <div class="masthead-date">2026年6月29日 月曜日</div>
+      <div class="masthead-subtitle">AI・開発ツール・プライバシー・サイエンス — あなたのための10本</div>
+    </div>
+    <div class="masthead-issue">
+      <span class="iss-label">Issue</span>
+      <span class="iss-num">No.063</span>
+    </div>
+  </div>
+</header>
+
+<nav class="toc">
+  <a href="#s1"><span class="toc-num">01</span>⚡ GLM 5.2がClaudeをサイバーベンチマークで上回った</a>
+  <a href="#s2"><span class="toc-num">02</span>⚡ Claude CodeでMRI画像のセカンドオピニオンを取る</a>
+  <a href="#s3"><span class="toc-num">03</span>KIDS法案——オンラインに年齢確認が義務化されるか</a>
+  <a href="#s4"><span class="toc-num">04</span>ブラウン大教授がAI大規模不正を告発</a>
+  <a href="#s5"><span class="toc-num">05</span>Librepods——AirPodsが解放された</a>
+  <a href="#s6"><span class="toc-num">06</span>年齢確認は言論の自動帰属化への布石</a>
+  <a href="#s7"><span class="toc-num">07</span>メモリ価格1960〜2026年の歴史的推移</a>
+  <a href="#s8"><span class="toc-num">08</span>火星に古代生命の「さらなる証拠」</a>
+  <a href="#s9"><span class="toc-num">09</span>TOP500：ISC'26で世界最速スーパーコンピュータが交代</a>
+  <a href="#s10"><span class="toc-num">10</span>トークンマキシングは死んだ——エージェンティクス時代の再定義</a>
+</nav>
+
+<!-- ═══ STORY 1 — GLM 5.2 beats Claude ════════════════════════════════════════ -->
+<section class="story story-1" id="s1">
+  <div class="story-num">01</div>
+  <div class="story-inner">
+    <div class="story-badge direct-badge">⚡ あなたに直接関係</div>
+    <div class="story-kicker">AI / ベンチマーク / サイバーセキュリティ / CLAUDE対抗 — 中国発のGLM 5.2がSemgrepのサイバーセキュリティ評価でClaudeを上回る結果に。627ポイント・305コメント</div>
+    <h2 class="story-headline">
+      GLM 5.2が<br>Claudeを上回った——<br><span class="headline-accent">サイバーベンチマーク</span><br>の衝撃
+    </h2>
+    <div class="story-body">
+      静的解析ツールSemgrepが「GLM 5.2 beats Claude in our benchmarks（GLM 5.2が私たちのベンチマークでClaudeを上回った）」を公開し、627ポイント・305コメントを集めて本日のHNトップに躍り出ました。GLM（General Language Model）は清華大学と智谱AI（Zhipu AI）が共同開発する中国発のオープンソースLLMシリーズで、今回のバージョン5.2がSemgrepのサイバーセキュリティ特化ベンチマーク「Mythos」においてClaudeを上回るスコアを記録したというものです。
+
+      Semgrepはコードセキュリティ分析の分野で広く使われるツールで、同社が開発したMythosベンチマークはCVE脆弱性の検出・分類・修正案生成など実務的なセキュリティタスクで構成されています。ベンチマークの設計が「実際のセキュリティエンジニアリング業務」に近い点が特徴で、単純なQAではなく複雑な推論が要求されます。GLM 5.2はこの評価でClaude Opus 4を含む複数の主要モデルを上回ったとされており、特に「コードの脆弱性の根本原因分析」タスクでの精度が高かったと報告されています。
+
+      HN上では「ベンチマーク依存の罠——特定タスクで勝つことと汎用能力は別の話。Semgrepのユースケースに最適化されたGLMが彼らのベンチで勝つのは自然」「GLM 5.2はオープンソースとして使えるのが重要——エンタープライズがAPIに依存せず自社サーバで動かせる」「ClauedeとGPT-4oが群雄割拠のAI市場でますます追い上げられている——2026年の競争はどのモデルがどの専門領域で勝つかの話になってきた」「サイバーセキュリティは特にデータの機密性が高い——オンプレミスで動くOSSモデルが選ばれる合理的理由がある」「Anthropicは特定ドメインのfine-tuningに対してどう対抗するのか——汎用性か特化性かの戦略的選択が迫られている」という305コメントが展開中です。
+    </div>
+    <div class="dos-grid">
+      <div class="dos-card">
+        <div class="dos-card-label">GLM 5.2とは</div>
+        <div class="dos-card-value">清華大学×智谱AIのオープンソースLLM</div>
+        <div class="dos-card-sub">中国のAI研究機関が開発するLLMシリーズの最新版。オープンソースとして公開されており、商用利用も可能。従来のGLM-4から大幅にアーキテクチャと学習データを改良し、推論能力が向上</div>
+      </div>
+      <div class="dos-card">
+        <div class="dos-card-label">Mythosベンチマーク</div>
+        <div class="dos-card-value">Semgrepが設計したサイバーセキュリティ特化評価</div>
+        <div class="dos-card-sub">CVEの脆弱性検出・根本原因分析・修正案生成など実務的タスクで構成。「コードを読んでセキュリティ問題を見つける」という実際のセキュリティエンジニア業務に近い評価設計が特徴</div>
+      </div>
+      <div class="dos-card">
+        <div class="dos-card-label">今回の結果の意味</div>
+        <div class="dos-card-value">特定ドメインでは専門特化モデルが汎用モデルを超える時代</div>
+        <div class="dos-card-sub">Claudeが全般的に優れていても、特化したタスクでは専門特化・ファインチューニング済みのモデルが優位に立てる。AI選択が「最高の汎用モデルを使う」から「タスクに最適なモデルを選ぶ」に移行している証拠</div>
+      </div>
+      <div class="dos-card">
+        <div class="dos-card-label">Claude Codeユーザーへの示唆</div>
+        <div class="dos-card-value">セキュリティ審査にGLMを補完的に使う選択肢が生まれた</div>
+        <div class="dos-card-sub">Claude Codeによる開発後のセキュリティレビューをGLM 5.2（セルフホスト）で行うというハイブリッド戦略が現実的に。機密コードをAPIに送れない企業環境では特に有効な選択肢</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: semgrep.dev</span>
+      <span>627 ポイント</span>
+      <span>305 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://semgrep.dev/blog/2026/we-have-mythos-at-home-glm-52-beats-claude-in-our-cyber-benchmarks/" target="_blank">ブログを読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48709670" target="_blank">HN議論 (305)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="glm-52-beats-claude-benchmarks" data-type="like" onclick="toggleFlag('glm-52-beats-claude-benchmarks','GLM 5.2がClaudeをサイバーベンチマークで上回った','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="glm-52-beats-claude-benchmarks" data-type="dislike" onclick="toggleFlag('glm-52-beats-claude-benchmarks','GLM 5.2がClaudeをサイバーベンチマークで上回った','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+  <div class="story-1-accent"></div>
+</section>
+
+<!-- ═══ STORY 2 — Claude Code MRI second opinion ════════════════════════════ -->
+<section class="story story-2" id="s2">
+  <div class="story-num">02</div>
+  <div class="story-inner">
+    <div class="story-badge direct-badge">⚡ あなたに直接関係</div>
+    <div class="story-kicker">AI / 医療 / CLAUDE CODE / OPUS — 開発者がClaude Code OpusでMRI画像を解析し医師のセカンドオピニオンとして活用。383ポイント・500コメント</div>
+    <h2 class="story-headline">
+      Claude Codeで<br>MRIの<br>セカンドオピニオン<br>を取る
+    </h2>
+    <div class="story-body">
+      「I used Claude Code to get a second opinion on my MRI（Claude CodeでMRIのセカンドオピニオンを取った）」がantoine.fiで公開され、383ポイント・500コメントというHN上でも異例の高エンゲージメントを記録しています。著者のAntoineは自分のMRI画像をClaude Code（Opusモデル）に読み込ませ、放射線科医の所見に加えて独立した解析と質問への回答を求めた実験の詳細を記録しています。
+
+      記事では、MRIのDICOMファイルをJPEGに変換してClaude Codeに入力し、「腰椎の各椎間板の状態を評価して」「L4-L5間の所見について詳しく説明して」といったプロンプトで質問する手順が詳述されています。結果として、Claudeの解析は担当医の報告書と高い一致を示し、さらに「この所見についてどんな質問を医師に投げかけるべきか」「日常生活での注意点は何か」という実用的なアドバイスまで提供されたといいます。著者は「医師の判断を代替するものではなく、理解を深め・質問を準備するためのツールとして非常に有用だった」と結論づけています。
+
+      HN上では「これが本当に価値があるのは医療知識の格差を埋める点——放射線科医の報告書は患者には難解で、Claudeが仲介して説明してくれる」「医師がオーダーメイドの説明に割く時間はない——AIが補完できる領域がここにある」「セカンドオピニオンのコストは高く、保険もカバーしないことが多い——Claude Codeならほぼゼロコスト」「規制の問題：これが医療行為にあたるかどうかの法的グレーゾーン——Anthropicはどう対応するか」「自分の健康情報をAIに送ることへのプライバシー懸念——HIPAA非準拠APIへの医療データ送信の法的リスク」という500コメントが展開中です。
+    </div>
+    <div class="teal-items">
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">実際の手順</div>
+          <div class="teal-text">①病院からMRIのDICOMファイルを取得（多くの病院でCD/USBやオンラインポータルから入手可能）②DICOMをJPEGに変換（OsiriX・RadiAnt・3D Slicerなどの無料ツールを使用）③Claude Code（Opusを推奨）に画像とともに「放射線科医として各所見を評価して」とプロンプト④疑問点を追加で質問し、次の診察で医師に確認すべき項目をまとめる</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">どんな場面で有効か</div>
+          <div class="teal-text">①放射線科医の報告書の専門用語を平易な言葉で説明してもらう②「この所見は深刻か」「どんな治療選択肢があるか」を理解するための事前勉強③次の診察で医師に投げかける質問リストの作成④セカンドオピニオンを求める前の「予備調査」として——ただし診断・治療の最終判断は必ず医師に委ねること</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">注意点とリスク</div>
+          <div class="teal-text">①プライバシー：医療画像にはメタデータ（氏名・ID・日付）が含まれることがある——Claudeに送る前に匿名化を検討②誤解のリスク：AIが「正常」と判断しても見落としはありえる——あくまで補助ツール③法的グレーゾーン：多くの国でAIの医療診断は規制対象になりつつある——個人の自己教育目的として使う</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: antoine.fi</span>
+      <span>383 ポイント</span>
+      <span>500 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://antoine.fi/mri-analysis-using-claude-code-opus" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48708941" target="_blank">HN議論 (500)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="claude-code-mri-second-opinion" data-type="like" onclick="toggleFlag('claude-code-mri-second-opinion','Claude CodeでMRI画像のセカンドオピニオンを取る','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="claude-code-mri-second-opinion" data-type="dislike" onclick="toggleFlag('claude-code-mri-second-opinion','Claude CodeでMRI画像のセカンドオピニオンを取る','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 3 — KIDS Act age verification ═══════════════════════════════════ -->
+<section class="story story-3" id="s3">
+  <div class="story-num">03</div>
+  <div class="story-inner">
+    <div class="story-kicker">プライバシー / 法律 / EFF / インターネット規制 — EFFがKIDS法案を批判：オンラインに年齢確認を義務化する法案が提出される。394ポイント・318コメント</div>
+    <h2 class="story-headline">
+      KIDS法案——<br>オンラインに<br>年齢確認が<br>義務化されるか
+    </h2>
+    <div class="story-body">
+      電子フロンティア財団（EFF）が「The KIDS Act Would Require Age Checks to Get Online（KIDS法案はオンラインアクセスに年齢確認を義務化しようとしている）」を公開し、394ポイント・318コメントを集めています。KIDS Act（Kids Internet Design and Safety Act）は米国議会に提出された法案で、未成年者をオンラインの危険から守ることを名目に、ウェブサービスがユーザーの年齢確認を行うことを義務づけるものです。
+
+      EFFの批判の核心は「子どもを守るための法律が、全てのユーザーのプライバシーを侵害する」という点です。年齢確認を実装するためには事業者がユーザーの身分証明書を収集・検証する必要があり、これは匿名でのインターネット利用を事実上不可能にします。政府IDとオンラインアカウントが紐づくことで「誰が何を読んだか」「誰がどのウェブサイトを訪問したか」という行動データが記録・収集されるリスクが生じます。EFFはまた、年齢確認の技術的な実装が難しく、多くの未成年が簡単にバイパスできることも指摘しています。
+
+      HN上では「子どもを守ることは重要だが、手段が間違っている——全員の匿名性を奪うことで守れる安全と失う自由を天秤にかけるべき」「中国のネットは実名制でIDとアカウントが紐づいている——これはそちらに向かう一歩なのか」「VPNとTorが子どもに使えるなら年齢確認は子どもを守らず大人のプライバシーだけを奪う」「実際に未成年者を傷つけているコンテンツ問題は年齢確認では解決しない——プラットフォームの設計とモデレーションの問題」「日本ではYouTubeの年齢確認はGoogleアカウントのみ——実際に機能していない見本がある」という318コメントが展開中です。
+    </div>
+    <div class="red-items">
+      <div class="red-item">
+        <div>
+          <div class="red-label">KIDS法案の主な内容</div>
+          <div class="red-text">米国の対象ウェブサービスに年齢確認の実装を義務付け。未成年と判断されたユーザーへのアルゴリズム推薦・プッシュ通知・ダイレクトメッセージを制限。違反事業者には罰則。非準拠サービスはアプリストアから削除される可能性もある——AppleとGoogleによる執行力を活用</div>
+        </div>
+      </div>
+      <div class="red-item">
+        <div>
+          <div class="red-label">EFFが反対する理由</div>
+          <div class="red-text">①年齢確認には政府IDの提出が必要→匿名インターネットの終焉②収集された身元データが漏洩・政府共有されるリスク③表現の自由への萎縮効果——「見られている」環境では人は自己検閲する④技術的実装が困難で未成年は簡単にバイパス——効果なしで弊害だけが残る⑤小規模サイトやOSSプロジェクトは準拠コストを負担できない</div>
+        </div>
+      </div>
+      <div class="red-item">
+        <div>
+          <div class="red-label">開発者への影響</div>
+          <div class="red-text">もし成立すれば：①個人運営・小規模のウェブサービスでも年齢確認実装が必要になる可能性②Stripe Identity等の年齢確認APIのコストが運営費に上乗せ③匿名ユーザー前提のサービス設計が違法になるリスク④EUのGDPRと同様、米国サービスにも域外適用の可能性。GitHubやHN自体も影響を受けうる</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: eff.org</span>
+      <span>394 ポイント</span>
+      <span>318 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.eff.org/deeplinks/2026/06/kids-act-would-require-age-checks-get-online" target="_blank">EFF記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48706560" target="_blank">HN議論 (318)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="kids-act-age-checks-online" data-type="like" onclick="toggleFlag('kids-act-age-checks-online','KIDS法案——オンラインに年齢確認が義務化されるか','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="kids-act-age-checks-online" data-type="dislike" onclick="toggleFlag('kids-act-age-checks-online','KIDS法案——オンラインに年齢確認が義務化されるか','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 4 — AI fraud at Brown University ═══════════════════════════════ -->
+<section class="story story-4" id="s4">
+  <div class="story-num">04</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / 教育 / 不正 / 学術的誠実性 — ブラウン大学の英語教授がAIを使った大規模試験不正を公開告発。学術の危機が顕在化。332ポイント・449コメント</div>
+    <h2 class="story-headline">
+      ブラウン大教授が<br>大規模AI不正<br>を告発——<br>学術の誠実性が危機に
+    </h2>
+    <div class="story-body">
+      スペインの大手紙El Paísが「AI fraud at Brown University: academic integrity is at risk（ブラウン大学でのAI不正：学術的誠実性が危機に）」を報じ、332ポイント・449コメントという活発な議論を呼んでいます。ブラウン大学の英語学部教授が期末試験の採点中に、提出物の大多数がChatGPTまたは類似のAIツールで生成されたことを発見し、その実態と自身の対応を公開した内容です。
+
+      教授によると、受講生の7〜8割の提出物にAI生成特有のパターン（一貫して滑らかすぎる文体・文章中に挿入された奇妙な言い回し・トピックの飛躍・根拠のない断言など）が見られたといいます。AIテキスト検出ツール（GPTZero等）を使用したほか、元のプロンプトを推定して同じ出力が再現できることも確認したとされています。教授は単位取り消しを含む処分を複数の学生に下しましたが、「システムが壊れている——学生が不正をするのは合理的な選択になってしまっている」という苦悩も吐露しています。
+
+      HN上では「学生側の合理性を責めるより、AIが普及した時代に従来型の筆記試験が有効かを問い直すべき」「英語の論文を書く能力とコンテンツを理解する能力は分離可能——後者を評価する新しい方法が必要」「AI検出ツールは精度が低く、非ネイティブの英語学習者が誤検知される差別的リスクがある」「教授が学生を告発するより大学と社会がAI時代の教育モデルを再設計すべき——個人vs個人の争いに矮小化されている」「プログラミング教育がすでにAI前提にシフトしつつある——文系学部も同じ変革を迫られている」という449コメントが展開中です。
+    </div>
+    <div class="green-items">
+      <div class="green-item">
+        <div>
+          <div class="green-label">AI不正が起きる構造的理由</div>
+          <div class="green-text">①AIが高品質な文章を秒速で生成——「書く労力」の価値が学生の目には消えた②課題の内容がAIで簡単に完遂できる設計になっている③検出が困難で発覚リスクが低い——GPTZeroなどの検出ツールは精度が不十分④留学生・語学的弱者にとってAIは「公平な競技場」に見える——倫理的ジレンマ</div>
+        </div>
+      </div>
+      <div class="green-item">
+        <div>
+          <div class="green-label">教育機関の対応策</div>
+          <div class="green-text">①口頭試問（バイバ）の復活：提出物について直接質問し、自分の言葉で説明させる②インクラス執筆への回帰：監視環境での筆記で不正を物理的に防ぐ③「AIとともに」型の課題設計：AIを使うことを前提に、プロセスの透明化・批判的評価を課す④マルチモーダル評価：議論・プレゼン・グループワークなどAIで代替できない評価を増やす</div>
+        </div>
+      </div>
+      <div class="green-item">
+        <div>
+          <div class="green-label">開発者コミュニティへの示唆</div>
+          <div class="green-text">技術面接でも同様の問題が深刻化：Claude CodeやCopilotを使ったコーディングテスト解答が広まっている。採用側の対応：①ペアプログラミング形式での面接②「このコードについて説明して」という口頭質問③AIを使うことを許可した上で、設計判断や代替案を問う——「何を作るか」より「なぜこの設計か」を問う面接へ</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: english.elpais.com</span>
+      <span>332 ポイント</span>
+      <span>449 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://english.elpais.com/education/2026-06-28/ai-fraud-at-brown-university-academic-integrity-is-at-risk.html" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48708991" target="_blank">HN議論 (449)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="ai-fraud-brown-university-exam" data-type="like" onclick="toggleFlag('ai-fraud-brown-university-exam','ブラウン大教授がAI大規模不正を告発','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="ai-fraud-brown-university-exam" data-type="dislike" onclick="toggleFlag('ai-fraud-brown-university-exam','ブラウン大教授がAI大規模不正を告発','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 5 — Librepods ═══════════════════════════════════════════════════ -->
+<section class="story story-5" id="s5">
+  <div class="story-num">05</div>
+  <div class="story-inner">
+    <div class="story-kicker">オープンソース / ハードウェア / APPLE / プライバシー — AirPodsのプロプライエタリプロトコルをリバースエンジニアリングし解放するOSSプロジェクト。326ポイント・105コメント</div>
+    <h2 class="story-headline">
+      Librepods——<br>AirPodsが<br>解放された
+    </h2>
+    <div class="story-body">
+      「Librepods: AirPods liberated（Librepods：AirPodsが解放された）」がGitHubで公開され、326ポイント・105コメントを集めています。librepods-org/librepodsとして公開されたこのオープンソースプロジェクトは、AppleのAirPodsが使用するプロプライエタリなAAP（Apple Audio Protocol）をリバースエンジニアリングし、Linux・Windows・Android等の非Apple環境でもAirPodsの高度な機能を使えるようにするソフトウェアです。
+
+      通常AirPodsは非Apple環境では「普通のBluetooth イヤホン」としてしか動作せず、ノイズキャンセリングのオン/オフ切替・耳の検出による自動停止・ヘッドジェスチャー認識・バッテリー残量の正確な表示といった機能が使えません。Librepodsはこれらのプロトコルを解析・実装することで、Apple製品を使わなくてもAirPodsの全機能を利用可能にします。特にLinuxユーザーやdegoogled Androidユーザー（Graphene OS等）にとっては待望のプロジェクトで、Appleのエコシステムに縛られずに高品質なハードウェアを最大限活用できるようになります。
+
+      HN上では「AirPodsのハードウェア品質は文句なく最高——Appleのエコシステムに縛られずに使えるようになるのは素晴らしい」「リバースエンジニアリング自体の法的問題：EU・米国でのDMCA・CFAA等の解釈によってはグレーゾーン」「OpenPodsというプロジェクトが先にあったが停滞していた——LibrepodsはそのスピリチュアルサクセサーかつPythonからRustへの書き直し」「Appleが法的措置を取るかどうか——商業的な脅威ではないが、エコシステム維持の観点からは黙認しないかもしれない」「LinuxでのAudio suiteの状況が改善されれば、Linux on laptopのユーザー体験が格段に上がる」という105コメントが展開中です。
+    </div>
+    <div class="purple-items">
+      <div class="purple-item">
+        <div>
+          <div class="purple-label">使える機能</div>
+          <div class="purple-text">Librepods実装後に非Apple環境で利用可能になる機能：①ノイズキャンセリング（ANC）のオン/オフとパーソナライズドANC②耳から外したときの自動停止（耳検出センサー）③左右・両耳個別のバッテリー残量リアルタイム表示④ヘッドジェスチャー（頷く・首振りで操作）⑤会話認識（人が話しかけると自動で音量を下げる）</div>
+        </div>
+      </div>
+      <div class="purple-item">
+        <div>
+          <div class="purple-label">対応環境と対象デバイス</div>
+          <div class="purple-text">対応OS：Linux（BlueZ経由）・Windows・Android（AOSP/GrapheneOS含む）。対応AirPodsモデル：AirPods Pro 2・AirPods 4・AirPods Max等の最新世代を中心に実装中。古いモデル（AirPods 2・3世代）も一部対応。インストールはBluetooth HCI経由で、多くの場合ユーザースペースで動作し特権不要</div>
+        </div>
+      </div>
+      <div class="purple-item">
+        <div>
+          <div class="purple-label">なぜ重要か</div>
+          <div class="purple-text">①ハードウェアロックインへの対抗：高価なAirPodsを購入してもApple端末でしか真価を発揮できない制限をOSSで解除②右to repairの精神：自分が購入したデバイスを自分の好む環境で使う権利③プライバシー：AirPodsのファームウェアが収集するデータの透明性向上に向けた研究基盤④イノベーション：Appleが実装しない機能（カスタムジェスチャー等）をコミュニティが追加できる</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: github.com/librepods-org</span>
+      <span>326 ポイント</span>
+      <span>105 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://github.com/librepods-org/librepods" target="_blank">GitHubを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48710232" target="_blank">HN議論 (105)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="librepods-airpods-liberated" data-type="like" onclick="toggleFlag('librepods-airpods-liberated','Librepods——AirPodsが解放された','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="librepods-airpods-liberated" data-type="dislike" onclick="toggleFlag('librepods-airpods-liberated','Librepods——AirPodsが解放された','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 6 — Age verification = attribution ═════════════════════════════ -->
+<section class="story story-6" id="s6">
+  <div class="story-num">06</div>
+  <div class="story-inner">
+    <div class="story-kicker">プライバシー / 言論の自由 / 監視 / インターネット政策 — 年齢確認の本当の目的は子供の保護ではなく発言の実名帰属化インフラの構築だという論考。179ポイント・51コメント</div>
+    <h2 class="story-headline">
+      年齢確認は<br>言論の自動<br>帰属化への<br>布石にすぎない
+    </h2>
+    <div class="story-body">
+      nonogra.phに掲載された「Age verification is just a precursor to automated attribution of speech（年齢確認は発言の自動帰属化の布石にすぎない）」が179ポイント・51コメントを集めています。ストーリー3で取り上げたKIDS法案に対する深い批判として読むべき論考で、著者は「子供保護」を名目とした年齢確認の義務化が実際には「誰がオンラインで何を発言したかを政府・企業が追跡できる実名インターネット」の構築につながる道筋を分析しています。
+
+      著者の論理の核心はこうです：①年齢確認には身元確認が必要→②全ユーザーの実名とオンライン行動が紐づく→③一度そのインフラが構築されれば、目的は「子供の保護」から「テロリストの追跡」「詐欺師の摘発」「著作権違反の検出」へと際限なく拡大できる→④最終的に「匿名での発言の権利」が消滅する。これは中国の実名制インターネットや、ロシアが国内SNSに求める身元登録義務と同じ構造的メカニズムだという指摘です。「子供を守るため」という動機は誠実であっても、そのために設計されたシステムが後に別の目的に転用されるという「mission creep（目的の拡大）」のリスクを強調しています。
+
+      HN上では「これは陰謀論ではなく歴史的パターン——GADSPAやPATRIOT Actも最初は特定の緊急目的で導入されたが権限は拡大した」「日本の個人番号（マイナンバー）とSNSアカウントの紐づけも似た方向に向かっている——国際的なトレンドとして読むべき」「匿名性は弱者の盾——DV被害者・LGBTQ+・政治的反対派・内部告発者にとって匿名インターネットは安全保障そのもの」「子供がネットで傷つく問題はリアルだが解決策が間違い——年齢確認ではなくデジタルリテラシー教育と親のサポート体制が必要」「発言の帰属化が完全に実現した世界では、現在のHNのような率直な議論は不可能になる」という51コメントが展開中です。
+    </div>
+    <div class="cyan-cards">
+      <div class="cyan-card">
+        <div class="cyan-card-name">なぜ年齢確認が実名制につながるか</div>
+        <div class="cyan-card-desc">年齢確認→身元証明→実名データベース化→行動追跡。一度のインフラ構築が永続的な監視基盤になる。「子供の保護」という動機は誠実でも、システムは目的を問わない</div>
+      </div>
+      <div class="cyan-card">
+        <div class="cyan-card-name">Mission Creepの事例</div>
+        <div class="cyan-card-desc">税務目的で設計されたシステムが移民追跡に転用・テロ対策法が政治的反対派の監視に適用された歴史的事例多数。「善意の目的で作ったシステムが悪用される」は繰り返すパターン</div>
+      </div>
+      <div class="cyan-card">
+        <div class="cyan-card-name">匿名性が守っているもの</div>
+        <div class="cyan-card-desc">DV被害者・LGBTQ+当事者・内部告発者・政治的反対派・患者コミュニティ・研究者——匿名で発言できる環境が安全を守る。実名制は「声を上げにくい人」を最も傷つける</div>
+      </div>
+      <div class="cyan-card">
+        <div class="cyan-card-name">代替の子供保護策</div>
+        <div class="cyan-card-desc">プライバシーを侵害しない子供保護の選択肢：デバイスレベルの保護者管理・デジタルリテラシー教育の義務化・プラットフォームのデフォルト設定の安全化・コンテンツモデレーションの強化</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: nonogra.ph</span>
+      <span>179 ポイント</span>
+      <span>51 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://nonogra.ph/age-verification-is-just-a-precursor-to-attribution-of-speech-06-29-2026" target="_blank">論考を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48714529" target="_blank">HN議論 (51)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="age-verification-attribution-speech" data-type="like" onclick="toggleFlag('age-verification-attribution-speech','年齢確認は言論の自動帰属化への布石','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="age-verification-attribution-speech" data-type="dislike" onclick="toggleFlag('age-verification-attribution-speech','年齢確認は言論の自動帰属化への布石','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 7 — Historical memory prices ═══════════════════════════════════ -->
+<section class="story story-7" id="s7">
+  <div class="story-num">07</div>
+  <div class="story-inner">
+    <div class="story-kicker">データ / ハードウェア / 半導体 / スタンフォード大学 — スタンフォード大が公開する1960年〜2026年のメモリ価格推移データ。243ポイント・89コメント</div>
+    <h2 class="story-headline">
+      メモリ価格<br>1960〜2026年——<br>66年間の<br>歴史的推移
+    </h2>
+    <div class="story-body">
+      スタンフォード大学が公開している「Historical memory prices 1960–2026（1960〜2026年のメモリ価格の歴史的推移）」がdam.stanford.eduで注目を集め、243ポイント・89コメントを記録しました。1960年から現在まで66年間にわたるDRAM・フラッシュメモリ・ハードディスク等の1メガバイトあたりの価格推移を可視化したデータセットです。
+
+      数字で見るとその変化は驚異的です：1960年のRAMは1MBあたり約4億円（当時の価格をドル換算）だったのが、2026年には1MBあたり0.0003円程度（DDR5の小売価格ベース）にまで下落しています。これはおよそ1兆分の1への価格低下であり、人類史上これほど劇的な価格下落を経験した商品は他にありません。この急落がムーアの法則とラーナーの法則（学習曲線による製造コスト低下）によって駆動されてきたことも分かります。足元では2025〜2026年にかけてAI需要によるHBMの需要急増でDRAMの価格が反転上昇しており、66年間で初めての「意味のある反転」として注目されています。
+
+      HN上では「このデータを見ると今AIが動く理由がわかる——1980年代のコンピュータで今のLLMを動かすには宇宙の年齢よりも長い時間が必要だった」「HBM需要によるDRAM価格の反転は本当に異常——66年間で初めて技術による低下以外の要因が価格を押し上げた」「コンピュータの歴史を説明する最強のグラフ——1つのグラフがIT産業の全てを語っている」「ストレージ価格の低下が『データを消さない』文化を生んだ——今や全てを保存するのがデフォルト」「このトレンドがAI時代にどう変化するか——学習計算コストが低下するという同様の曲線がLLMトレーニングにも成立するか」という89コメントが展開中です。
+    </div>
+    <div class="amber-items">
+      <div class="amber-item">
+        <div>
+          <div class="amber-label">価格低下の数字感</div>
+          <div class="amber-text">1960年：1MBのRAMに約400,000ドル（現在の価値で数億円）→2000年：1MBあたり約0.10ドル→2020年：1MBあたり約0.000030ドル→2026年：1MBあたり約0.0000025ドル（DDR5ベース）。約66年で1億6,000万分の1以下に低下。これは毎年平均約35%のコスト低下に相当</div>
+        </div>
+      </div>
+      <div class="amber-item">
+        <div>
+          <div class="amber-label">AI需要による2025〜2026年の反転</div>
+          <div class="amber-text">HBM（高帯域メモリ）がH100・H200・B200等のAIアクセラレータに大量搭載されるため、DRAMメーカーがHBM生産にラインをシフト→通常DRAM（PC・スマートフォン向け）の供給が減少→価格が20〜40%上昇。この価格上昇がAppleのMacBook値上げ（Story 3相当）にも波及</div>
+        </div>
+      </div>
+      <div class="amber-item">
+        <div>
+          <div class="amber-label">このトレンドが示す未来</div>
+          <div class="amber-text">AIモデルの推論コストが毎年半分以下になるという別のムーアの法則的トレンドが進行中——Anthropic・OpenAIともにAPIコストを毎年大幅に下げている。メモリ・コンピュートの価格低下がAIを安価にし、AIがさらに半導体の設計を最適化するというフライホイールが加速しつつある</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: dam.stanford.edu</span>
+      <span>243 ポイント</span>
+      <span>89 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://dam.stanford.edu/memory-prices.html" target="_blank">データを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48710092" target="_blank">HN議論 (89)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="historical-memory-prices-1960-2026" data-type="like" onclick="toggleFlag('historical-memory-prices-1960-2026','メモリ価格1960〜2026年の歴史的推移','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="historical-memory-prices-1960-2026" data-type="dislike" onclick="toggleFlag('historical-memory-prices-1960-2026','メモリ価格1960〜2026年の歴史的推移','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 8 — Ancient life on Mars ══════════════════════════════════════════ -->
+<section class="story story-8" id="s8">
+  <div class="story-num">08</div>
+  <div class="story-inner">
+    <div class="story-kicker">サイエンス / 惑星科学 / 火星 / 生命起源 — 火星に古代生命が存在した可能性と整合する新たな証拠が発表された（2025年報告）。72ポイント・73コメント</div>
+    <h2 class="story-headline">
+      火星に<br>古代生命の<br>「さらなる証拠」——<br>科学者の見解
+    </h2>
+    <div class="story-body">
+      カナダCBCのサイエンス番組「Quirks & Quarks」が「More evidence is consistent with possible ancient life on Mars, but still no life（火星に古代生命の可能性と整合する証拠がさらに増えた、ただし生命そのものはまだ見つかっていない）」を報じ、72ポイント・73コメントを集めています。NASAのパーサヴィアランス探査機がジェゼロ・クレーターで採取したサンプルの分析から、過去に液体の水と有機化合物が存在したことを示す鉱物的証拠がさらに増加したという内容です。
+
+      研究者たちは火星の岩石サンプルから、地球上では主に生命の活動によって生成される「炭素同位体比のパターン」や、生物起源の有機物と相性のいい硫酸塩鉱物の分布を確認しました。ただし科学者たちは慎重で、「これらの証拠は生命の存在と矛盾しない（consistent with）が、生命を証明するものではない」と強調しています。火星の生命存在の有無は、パーサヴィアランスが採取した岩石コアを地球に持ち帰るMars Sample Return（MSR）ミッション——現在資金問題で遅延中——によってのみ決着できる可能性が高いとされています。
+
+      HN上では「『生命と整合する』と『生命を発見した』の違いが重要——科学的に誠実な表現だが、メディアはよく混同して報道する」「MSRが遅延しているのが最大の問題——岩石を地球で分析しないとこれ以上分からない」「ジェゼロ・クレーターを選んだのは正解——過去に湖があったと推定されており、化石記録が残っている可能性が最も高い場所」「Perseveranceが発見した有機物は生命起源でなくても宇宙化学的に重要——炭素化合物が火星に豊富なら有機化学の観点で価値がある」「火星で生命の証拠が確認されたとき、人類の宇宙観と宗教・哲学がどう変わるかを想像する——最大級の知的インパクトになる」という73コメントが展開中です。
+    </div>
+    <div class="gold-items">
+      <div class="gold-item">
+        <div>
+          <div class="gold-label">今回発見された証拠の詳細</div>
+          <div class="gold-text">①炭素同位体比（12C/13C）のパターン：地球では生命活動で軽い炭素が多く使われる傾向があり、火星サンプルでも同様のパターンが検出②硫酸塩鉱物の分布：地球の生命が硫酸塩を代謝する環境と類似した鉱物パターン③有機化合物の保存：40億年前の有機物が火星の乾燥・寒冷環境で保存されていた——ただしいずれも「生命と矛盾しない」証拠であり、非生物的プロセスでも説明可能</div>
+        </div>
+      </div>
+      <div class="gold-item">
+        <div>
+          <div class="gold-label">Mars Sample Return（MSR）の現状</div>
+          <div class="gold-text">NASAとESAが協力するMSRミッションはパーサヴィアランスが採取した岩石コアを地球に持ち帰る計画。当初2033年帰還予定だったが予算問題で遅延・縮小の危機。NASAは民間パートナー（SpaceX等）を含む代替案を検討中。MSRが実現しない場合、火星生命の問題は今世紀中に決着しない可能性がある</div>
+        </div>
+      </div>
+      <div class="gold-item">
+        <div>
+          <div class="gold-label">もし発見されたら何が変わるか</div>
+          <div class="gold-text">①科学：生命の起源が地球固有でないことが証明——宇宙に生命は普遍的に存在する可能性②惑星保護：火星探査・移住計画のルールが根本から変わる（地球の生物が火星生命を駆逐しないよう）③哲学・宗教：「宇宙における人類の特別性」に対する世界観の変革④実用：火星の生命がもつ代謝系・酵素は地球と全く異なる可能性——バイオテクノロジーの革命的素材</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: cbc.ca / Quirks &amp; Quarks</span>
+      <span>72 ポイント</span>
+      <span>73 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.cbc.ca/radio/quirks/more-evidence-of-life-on-mars-but-still-no-life-1.7649645" target="_blank">ラジオ記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48706554" target="_blank">HN議論 (73)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="ancient-life-mars-evidence" data-type="like" onclick="toggleFlag('ancient-life-mars-evidence','火星に古代生命の「さらなる証拠」','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="ancient-life-mars-evidence" data-type="dislike" onclick="toggleFlag('ancient-life-mars-evidence','火星に古代生命の「さらなる証拠」','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 9 — TOP500 ISC'26 ══════════════════════════════════════════════ -->
+<section class="story story-9" id="s9">
+  <div class="story-num">09</div>
+  <div class="story-inner">
+    <div class="story-kicker">スーパーコンピュータ / HPC / AI / ハードウェア — ISC'26で世界最速スーパーコンピュータの首位が交代。新No.1の詳細が明らかに。90ポイント・51コメント</div>
+    <h2 class="story-headline">
+      TOP500最新版——<br>ISC'26で<br>新しい世界最速<br>スーパーコンピュータ
+    </h2>
+    <div class="story-body">
+      半導体分析メディアChips and Cheeseが「TOP500 at ISC'26: We Have a New Number 1 Supercomputer（ISC'26のTOP500：新しいNo.1スーパーコンピュータが登場）」を報じ、90ポイント・51コメントを集めています。国際スーパーコンピューティング会議（ISC 2026）において公開されたTOP500最新版では、米国オークリッジ国立研究所のFrontierが長らく保持していた世界最速の座が新システムに移りました。
+
+      新たにNo.1となったシステムは次世代NVIDIAアーキテクチャ（Blackwell後継）を採用したもので、理論ピーク性能はExaFLOPS規模の後継となる数十ExaFLOPS級とみられています。Chips and Cheeseの詳細分析によると、新システムはAI推論ワークロードに最適化された設計となっており、従来型のLinpack（倍精度浮動小数点演算）スコアだけでなくAI特化ベンチマークでも前例のない性能を記録しています。欧州・日本・中国のシステムも上位に食い込んでおり、スーパーコンピュータ競争が地政学的競争の縮図になっていることも改めて示されました。
+
+      HN上では「Frontierが5年も首位を保ったのは異例——消費電力とコスト効率で限界が来るまで更新が遅くなっている」「AI特化スパコンとHPC向けスパコンは別物になりつつある——Linpackスコアだけでは比較できない時代」「日本の富岳は省電力効率では依然世界トップクラス——ピーク性能より効率の競争という視点も重要」「中国勢がTOP10から姿を消しているのはHPC向け先端チップの輸出規制の影響——地政学がスパコンランキングを歪めている」「AIトレーニングクラスターとスーパーコンピュータの境界が消えつつある——xAIのColossusが正式にランキングに入る日も来るか」という51コメントが展開中です。
+    </div>
+    <div class="slate-items">
+      <div class="slate-item">
+        <div>
+          <div class="slate-label">TOP500とは何か</div>
+          <div class="slate-text">世界のスーパーコンピュータ上位500台を性能でランキングする半年毎のリスト。Linpackベンチマーク（倍精度浮動小数点の連立方程式を解く速度）で計測。1993年に始まり国際スーパーコンピューティング会議（ISC）と SC Conference（年2回）で更新される。科学計算・気象予報・核シミュレーション・創薬・AIトレーニングに使われるシステムがランクイン</div>
+        </div>
+      </div>
+      <div class="slate-item">
+        <div>
+          <div class="slate-label">Frontierからの交代が示すもの</div>
+          <div class="slate-text">Frontier（AMD MI250X GPUベース）は2022年に初のExaFLOPS超えを達成した歴史的システム。新No.1はNVIDIA Blackwell後継世代を採用し、エネルギー効率とAI特化性能で大幅に上回る。消費電力1GW以上のデータセンターが現実になりつつある中で、次世代スパコンの電力消費がインフラの限界に近づいている</div>
+        </div>
+      </div>
+      <div class="slate-item">
+        <div>
+          <div class="slate-label">AIとスパコンの融合</div>
+          <div class="slate-text">従来のHPCと最新AIクラスターの境界が消えつつある：①LLMトレーニングにはスパコン級のGPUクラスターが必要②スパコンがAI推論エンジンとして科学計算に活用③xAI Colossus・Meta SuperClusterなど民間AIスパコンがTOP10入りを狙う時代。科学機関と民間AIの計算資源をめぐる競争が激化中</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: chipsandcheese.com</span>
+      <span>90 ポイント</span>
+      <span>51 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://chipsandcheese.com/p/top500-at-isc26-we-have-a-new-number" target="_blank">分析を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48710775" target="_blank">HN議論 (51)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="top500-isc26-new-number-1" data-type="like" onclick="toggleFlag('top500-isc26-new-number-1','TOP500：ISC26で世界最速スーパーコンピュータが交代','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="top500-isc26-new-number-1" data-type="dislike" onclick="toggleFlag('top500-isc26-new-number-1','TOP500：ISC26で世界最速スーパーコンピュータが交代','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 10 — Tokenmaxxing dead/alive ═══════════════════════════════════ -->
+<section class="story story-10" id="s10">
+  <div class="story-num">10</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / エージェンティクス / LLM設計 / 開発哲学 — 「トークンマキシング」の概念が死んでエージェンティクス時代に生まれ変わるという論考。126ポイント・153コメント</div>
+    <h2 class="story-headline">
+      トークンマキシング<br>は死んだ——<br>長い文脈と<br>エージェンシーの時代へ
+    </h2>
+    <div class="story-body">
+      「Tokenmaxxing is dead, long live tokenmaxxing（トークンマキシングは死んだ、トークンマキシング万歳）」が12gramsofcarbon.comで公開され、126ポイント・153コメントを集めています。「トークンマキシング（tokenmaxxing）」とは、LLMへのプロンプト設計において「コンテキストウィンドウのトークンを最大限に活用して出力品質を上げる」という考え方を指す俗語です。著者は「従来のトークンマキシングの概念は死にかけているが、エージェンティクスの時代に新しい形で蘇りつつある」と論じています。
+
+      従来のトークンマキシングは「コンテキストにできるだけ多くの情報を詰め込む」「few-shotの例を大量に入れる」「システムプロンプトを精緻に設計する」といった、1回のLLM呼び出しを最適化する発想でした。しかしGemini 2.5の200万トークンコンテキスト、Claude 3.xの200Kトークン、そして多段階エージェントの普及によって、「1回の呼び出しを最適化する」パラダイムから「複数ステップの呼び出しをどう設計するか」というパラダイムへの転換が起きています。著者が「新しいトークンマキシング」と呼ぶのは、エージェントが何度もLLMを呼び出す際に「どのステップでどの粒度の情報を渡すか」「ツール呼び出しの結果をどう次のコンテキストに反映するか」という設計の最適化です。
+
+      HN上では「Claude Codeを使っていると感じる——長い会話履歴を保つより、新鮮なコンテキストで再スタートした方が品質が上がる場面がある。これが新しいトークン管理の直感」「エージェントのループ設計はもはやプロンプトエンジニアリングではなくシステムアーキテクチャ——入出力のインターフェース設計に近い」「200万トークンのコンテキストが使えるなら、それを使い切るより『どこにRAGが必要でどこに直接コンテキストを使うか』の判断が重要になった」「Anthropicのエージェントフレームワーク（Claude Code）はこの新しいパラダイムを最もうまく体現している——マルチターン・ツール呼び出し・CLAUDE.mdによるコンテキスト管理」「トークンの価格が下がるにつれて、最適化の焦点はトークン数からレイテンシ・品質・信頼性に移る」という153コメントが展開中です。
+    </div>
+    <div class="mag-items">
+      <div class="mag-item">
+        <div>
+          <div class="mag-label">従来のトークンマキシングとは</div>
+          <div class="mag-text">1回のLLM呼び出しを最適化する発想：①コンテキストに関連情報を最大限詰め込む②few-shotの例を多数入れる③システムプロンプトを精密に設計する。この発想は「コンテキストが貴重」「呼び出しは最小限に」という前提のもとで有効だった。しかし長大なコンテキストウィンドウと低価格な呼び出しコストによって前提が変わりつつある</div>
+        </div>
+      </div>
+      <div class="mag-item">
+        <div>
+          <div class="mag-label">新しいトークンマキシング</div>
+          <div class="mag-text">エージェントが複数回LLMを呼び出す設計における最適化：①各ステップに最低限必要なコンテキストだけを渡す（不要な情報は「注意の散漫」を招く）②ツール呼び出し結果のフォーマットをLLMが扱いやすい形に整形③長い会話履歴のサマリー戦略④「どのステップをHaiku/Sonnet/Opusで担当させるか」のルーティング設計——Claude Codeのworktreeやサブエージェント設計がこれを体現</div>
+        </div>
+      </div>
+      <div class="mag-item">
+        <div>
+          <div class="mag-label">Claude Codeユーザーへの実践的示唆</div>
+          <div class="mag-text">①長い会話が複雑になってきたらコンパクトにリセットする（/compact コマンド）——新鮮なコンテキストで再スタートが有効な場面がある②CLAUDE.mdに「永続すべきコンテキスト」を明示的に書く——会話ごとに重要情報を再注入③サブエージェントには「最小必要コンテキスト」だけ渡す設計④Sonnet（メイン）×Haiku（補助作業）の組み合わせでコスト・品質バランスを最適化</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: 12gramsofcarbon.com</span>
+      <span>126 ポイント</span>
+      <span>153 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://12gramsofcarbon.com/p/agentics-tech-things-tokenmaxxing" target="_blank">論考を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48708795" target="_blank">HN議論 (153)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="tokenmaxxing-dead-long-live" data-type="like" onclick="toggleFlag('tokenmaxxing-dead-long-live','トークンマキシングは死んだ——エージェンティクス時代の再定義','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="tokenmaxxing-dead-long-live" data-type="dislike" onclick="toggleFlag('tokenmaxxing-dead-long-live','トークンマキシングは死んだ——エージェンティクス時代の再定義','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ══════════════════════════════════════════════════════════════ -->
+<footer class="site-footer">
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand">Morning Edition</div>
+      <div class="footer-meta">
+        Hacker News キュレーション · 2026年6月29日 · Issue No.063<br>
+        毎朝、厳選10本をお届け
+      </div>
+    </div>
+    <button class="export-btn" onclick="exportFeedback()">📋 フィードバックをコピー</button>
+  </div>
+  <div class="footer-note">
+    ⭐ 興味あり / ✕ 興味なし ボタンで次回のキュレーションが改善されます。Chrome/Edgeでは自動保存、その他ではボタンでクリップボードにコピーしてください。
+  </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  const FEEDBACK_KEY = 'morning-edition-feedback-v2';
+  const TODAY = '2026-06-29';
+  let _dirHandle = null;
+
+  async function getDir(forcePrompt) {
+    if (_dirHandle && !forcePrompt) return _dirHandle;
+    if (!window.showDirectoryPicker) return null;
+    try {
+      _dirHandle = await window.showDirectoryPicker({ mode: 'readwrite', id: 'morning-edition', startIn: 'documents' });
+      return _dirHandle;
+    } catch { return null; }
+  }
+
+  async function writeJSON(dirHandle, fb) {
+    const fileHandle = await dirHandle.getFileHandle('feedback.json', { create: true });
+    const writable = await fileHandle.createWritable();
+    await writable.write(JSON.stringify({ ...fb, updatedAt: new Date().toISOString() }, null, 2));
+    await writable.close();
+  }
+
+  function showToast(msg, isErr) {
+    const el = document.getElementById('toast');
+    el.textContent = msg;
+    el.className = 'toast' + (isErr ? ' error' : '');
+    requestAnimationFrame(() => el.classList.add('show'));
+    clearTimeout(el._timer);
+    el._timer = setTimeout(() => el.classList.remove('show'), 3000);
+  }
+
+  function getFeedback() {
+    try { return JSON.parse(localStorage.getItem(FEEDBACK_KEY) || '{"liked":{},"disliked":{}}'); }
+    catch { return { liked: {}, disliked: {} }; }
+  }
+  function saveFeedback(fb) { localStorage.setItem(FEEDBACK_KEY, JSON.stringify(fb)); }
+
+  async function autoSave(fb) {
+    let dir = await getDir();
+    if (!dir) {
+      showToast('📁 Daily News フォルダを選択してください', true);
+      dir = await getDir(true);
+      if (!dir) { showToast('保存をキャンセルしました', true); return; }
+    }
+    try {
+      await writeJSON(dir, fb);
+      showToast('✓ feedback.json を自動保存しました（次回キュレーションに反映）');
+    } catch (e) {
+      showToast('保存エラー: ' + e.message, true);
+    }
+  }
+
+  async function toggleFlag(storyId, title, type) {
+    const fb = getFeedback();
+    fb.liked = fb.liked || {};
+    fb.disliked = fb.disliked || {};
+    const likeBtn    = document.querySelector(`.flag-btn.like-btn[data-story="${storyId}"]`);
+    const dislikeBtn = document.querySelector(`.flag-btn.dislike-btn[data-story="${storyId}"]`);
+    if (type === 'like') {
+      if (fb.liked[storyId]) {
+        delete fb.liked[storyId];
+        likeBtn?.classList.remove('active');
+      } else {
+        fb.liked[storyId] = { title, date: TODAY };
+        delete fb.disliked[storyId];
+        likeBtn?.classList.add('active');
+        dislikeBtn?.classList.remove('active');
+      }
+    } else {
+      if (fb.disliked[storyId]) {
+        delete fb.disliked[storyId];
+        dislikeBtn?.classList.remove('active');
+      } else {
+        fb.disliked[storyId] = { title, date: TODAY };
+        delete fb.liked[storyId];
+        dislikeBtn?.classList.add('active');
+        likeBtn?.classList.remove('active');
+      }
+    }
+    saveFeedback(fb);
+    await autoSave(fb);
+  }
+
+  function exportFeedback() {
+    const fb = getFeedback();
+    const json = JSON.stringify({ ...fb, exportedAt: new Date().toISOString() }, null, 2);
+    navigator.clipboard.writeText(json)
+      .then(() => showToast('📋 クリップボードにコピーしました'))
+      .catch(() => {
+        const el = document.createElement('textarea');
+        el.value = json; document.body.appendChild(el); el.select();
+        document.execCommand('copy'); document.body.removeChild(el);
+        showToast('📋 クリップボードにコピーしました');
+      });
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const fb = getFeedback();
+    document.querySelectorAll('.flag-btn').forEach(btn => {
+      const id   = btn.dataset.story;
+      const type = btn.dataset.type;
+      if ((type === 'like' && fb.liked?.[id]) || (type === 'dislike' && fb.disliked?.[id])) {
+        btn.classList.add('active');
+      }
+    });
+  });
+</script>
+</body>
+</html>
