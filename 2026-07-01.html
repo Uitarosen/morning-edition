@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Morning Edition — 2026年7月1日</title>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --font: 'M PLUS Rounded 1c', 'Hiragino Sans', 'Noto Sans JP', sans-serif; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); background: #111; color: #fff; overflow-x: hidden; }
+
+    .masthead { background: #fff; color: #000; padding: 3rem 4rem 2.5rem; border-bottom: 6px solid #000; position: relative; overflow: hidden; }
+    .masthead::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: repeating-linear-gradient(90deg, #000 0, #000 12px, transparent 12px, transparent 20px); }
+    .masthead-kicker { font-size: 0.85rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: #777; margin-bottom: 0.6rem; }
+    .masthead-title { font-size: clamp(3.5rem, 9vw, 7.5rem); font-weight: 900; line-height: 0.88; letter-spacing: -0.04em; margin-bottom: 1.8rem; }
+    .masthead-meta { display: flex; gap: 3rem; align-items: baseline; flex-wrap: wrap; }
+    .masthead-date { font-size: 1.5rem; font-weight: 700; }
+    .masthead-subtitle { font-size: 1rem; font-weight: 400; color: #555; max-width: 480px; line-height: 1.5; }
+    .masthead-issue { margin-left: auto; text-align: right; }
+    .masthead-issue span { display: block; }
+    .masthead-issue .iss-label { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: #999; }
+    .masthead-issue .iss-num { font-size: 2.2rem; font-weight: 900; color: #000; }
+
+    .toc { background: #1a1a1a; padding: 1.5rem 4rem; display: flex; gap: 1.5rem; flex-wrap: wrap; border-bottom: 1px solid #333; }
+    .toc a { color: #aaa; text-decoration: none; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; transition: color 0.2s; }
+    .toc a:hover { color: #fff; }
+    .toc-num { color: #555; margin-right: 0.3em; }
+
+    .story { position: relative; overflow: hidden; }
+    .story-inner { max-width: 1200px; margin: 0 auto; padding: 5rem 4rem; position: relative; z-index: 1; }
+    .story-num { font-size: clamp(6rem, 18vw, 16rem); font-weight: 900; line-height: 0.8; letter-spacing: -0.06em; opacity: 0.08; position: absolute; top: 1rem; right: 2rem; user-select: none; }
+    .story-badge { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.35em 0.9em; border-radius: 2px; margin-bottom: 1.5rem; }
+    .direct-badge { background: #FFD700; color: #000; }
+    .story-kicker { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; opacity: 0.6; margin-bottom: 0.8rem; }
+    .story-headline { font-size: clamp(2rem, 5vw, 4rem); font-weight: 900; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+    .story-body { font-size: clamp(1rem, 1.5vw, 1.2rem); font-weight: 400; line-height: 1.8; max-width: 680px; opacity: 0.88; margin-bottom: 2rem; }
+    .story-meta { display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center; font-size: 0.8rem; font-weight: 700; opacity: 0.5; }
+    .story-links { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem; }
+    .story-link { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.6em 1.4em; border-radius: 3px; text-decoration: none; transition: opacity 0.2s, transform 0.15s; }
+    .story-link:hover { opacity: 0.75; transform: translateY(-1px); }
+
+    .feedback-buttons { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .flag-btn { background: none; border: 1px solid currentColor; color: inherit; font-family: var(--font); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.5em 1em; border-radius: 3px; cursor: pointer; opacity: 0.32; transition: opacity 0.2s, background 0.2s, color 0.2s, border-color 0.2s, transform 0.15s; }
+    .flag-btn:hover { opacity: 0.72; transform: translateY(-1px); }
+    .flag-btn.like-btn.active { opacity: 1; background: rgba(255,215,0,0.15); border-color: #FFD700; color: #FFD700 !important; }
+    .flag-btn.dislike-btn.active { opacity: 1; background: rgba(255,60,60,0.12); border-color: #FF4444; color: #FF4444 !important; }
+
+    .toast { position: fixed; bottom: 2rem; right: 2rem; background: #1a1a1a; color: #fff; font-family: var(--font); font-size: 0.82rem; font-weight: 700; padding: 0.75em 1.4em; border-radius: 4px; border-left: 3px solid #00C853; z-index: 9999; opacity: 0; transform: translateY(10px); transition: opacity 0.25s, transform 0.25s; pointer-events: none; box-shadow: 0 4px 24px rgba(0,0,0,0.45); }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    .toast.error { border-left-color: #FF5252; }
+
+    .story-1 { background: #fff; color: #000; min-height: 90vh; display: flex; flex-direction: column; justify-content: center; }
+    .story-1 .story-num { color: #000; opacity: 0.04; }
+    .story-1 .story-kicker { color: #555; opacity: 1; }
+    .story-1 .story-headline { color: #000; }
+    .story-1 .story-body { color: #111; }
+    .story-1 .story-meta { color: #000; }
+    .story-1 .story-link.primary { background: #1a1a1a; color: #fff; }
+    .story-1 .story-link.secondary { background: #f0f0f0; color: #000; }
+    .story-1 .flag-btn { color: #000; }
+    .story-1-accent { position: absolute; bottom: 0; left: 0; width: 100%; height: 8px; background: linear-gradient(90deg, #1a1a1a, #555, #999, #1a1a1a); }
+    .story-1 .headline-accent { display: inline-block; background: linear-gradient(135deg, #1a1a1a 0%, #555 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .dos-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1.2rem; margin: 2rem 0; max-width: 680px; }
+    .dos-card { border: 2px solid rgba(0,0,0,0.12); background: rgba(0,0,0,0.04); border-radius: 6px; padding: 1.3rem 1.5rem; }
+    .dos-card-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.2em; text-transform: uppercase; color: #333; margin-bottom: 0.4rem; }
+    .dos-card-value { font-size: 1.05rem; font-weight: 900; color: #000; line-height: 1.3; }
+    .dos-card-sub { font-size: 0.75rem; color: #555; margin-top: 0.3rem; line-height: 1.4; }
+
+    .story-2 { background: #00080c; color: #b8f0ff; min-height: 80vh; }
+    .story-2::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(0,160,200,0.14) 0%, transparent 65%); }
+    .story-2 .story-num { color: #00A0C8; opacity: 0.07; }
+    .story-2 .story-kicker { color: #20C8E8; opacity: 1; }
+    .story-2 .story-headline { color: #e0f8ff; }
+    .story-2 .story-body { color: #b8f0ff; }
+    .story-2 .story-meta { color: #20C8E8; opacity: 0.5; }
+    .story-2 .story-link.primary { background: #004058; color: #80e8ff; }
+    .story-2 .story-link.secondary { background: rgba(0,160,200,0.08); color: #90d8f0; border: 1px solid rgba(0,160,200,0.22); }
+    .story-2 .flag-btn { color: #b8f0ff; }
+    .teal-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .teal-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(0,160,200,0.07); border-left: 3px solid #00A0C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .teal-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20C8E8; margin-bottom: 0.3rem; }
+    .teal-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-3 { background: #0a0000; color: #fff; min-height: 80vh; }
+    .story-3::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(200,20,20,0.16) 0%, transparent 65%); }
+    .story-3 .story-num { color: #C81414; opacity: 0.07; }
+    .story-3 .story-kicker { color: #E84040; opacity: 1; }
+    .story-3 .story-headline { color: #fff; }
+    .story-3 .story-body { color: rgba(255,255,255,0.88); }
+    .story-3 .story-meta { color: #E84040; opacity: 0.5; }
+    .story-3 .story-link.primary { background: #6a0000; color: #fff; }
+    .story-3 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-3 .flag-btn { color: #fff; }
+    .red-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .red-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(200,20,20,0.07); border-left: 3px solid #C81414; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .red-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E84040; margin-bottom: 0.3rem; }
+    .red-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-4 { background: #020c04; color: #c8f0d0; min-height: 80vh; }
+    .story-4::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(20,160,70,0.16) 0%, transparent 65%); }
+    .story-4 .story-num { color: #14A046; opacity: 0.07; }
+    .story-4 .story-kicker { color: #30C060; opacity: 1; }
+    .story-4 .story-headline { color: #e0ffe8; }
+    .story-4 .story-body { color: #c8f0d0; }
+    .story-4 .story-meta { color: #30C060; opacity: 0.5; }
+    .story-4 .story-link.primary { background: #063820; color: #80ffb0; }
+    .story-4 .story-link.secondary { background: rgba(20,160,70,0.08); color: #a0e8b0; border: 1px solid rgba(20,160,70,0.22); }
+    .story-4 .flag-btn { color: #c8f0d0; }
+    .green-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .green-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(20,160,70,0.07); border-left: 3px solid #14A046; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .green-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #30C060; margin-bottom: 0.3rem; }
+    .green-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-5 { background: #040010; color: #d8c8ff; min-height: 75vh; }
+    .story-5::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(90,40,200,0.17) 0%, transparent 65%); }
+    .story-5 .story-num { color: #5A28C8; opacity: 0.07; }
+    .story-5 .story-kicker { color: #8050E0; opacity: 1; }
+    .story-5 .story-headline { color: #f0e8ff; }
+    .story-5 .story-body { color: #d8c8ff; }
+    .story-5 .story-meta { color: #8050E0; opacity: 0.5; }
+    .story-5 .story-link.primary { background: #200860; color: #d0a8ff; }
+    .story-5 .story-link.secondary { background: rgba(90,40,200,0.08); color: #c0a0f0; border: 1px solid rgba(90,40,200,0.22); }
+    .story-5 .flag-btn { color: #d8c8ff; }
+    .purple-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .purple-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(90,40,200,0.07); border-left: 3px solid #5A28C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .purple-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #8050E0; margin-bottom: 0.3rem; }
+    .purple-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-6 { background: #000c10; color: #b8e8f0; min-height: 75vh; }
+    .story-6::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 40%, rgba(0,130,160,0.14) 0%, transparent 65%); }
+    .story-6 .story-num { color: #0080A0; opacity: 0.07; }
+    .story-6 .story-kicker { color: #20B0D0; opacity: 1; }
+    .story-6 .story-headline { color: #e0f4ff; }
+    .story-6 .story-body { color: #b8e8f0; }
+    .story-6 .story-meta { color: #20B0D0; opacity: 0.5; }
+    .story-6 .story-link.primary { background: #003848; color: #80d8f0; }
+    .story-6 .story-link.secondary { background: rgba(0,130,160,0.08); color: #90cce0; border: 1px solid rgba(0,130,160,0.22); }
+    .story-6 .flag-btn { color: #b8e8f0; }
+    .cyan-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(185px, 1fr)); gap: 1rem; margin: 2rem 0; max-width: 680px; }
+    .cyan-card { background: rgba(0,130,160,0.07); border: 1px solid rgba(0,130,160,0.22); border-radius: 4px; padding: 1.2rem 1.4rem; }
+    .cyan-card-name { font-size: 0.78rem; font-weight: 900; color: #20B0D0; margin-bottom: 0.4rem; }
+    .cyan-card-desc { font-size: 0.72rem; opacity: 0.75; line-height: 1.4; }
+
+    .story-7 { background: #0a0300; color: #ffe0b8; min-height: 75vh; }
+    .story-7::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(210,90,20,0.18) 0%, transparent 65%); }
+    .story-7 .story-num { color: #D05A14; opacity: 0.07; }
+    .story-7 .story-kicker { color: #E88040; opacity: 1; }
+    .story-7 .story-headline { color: #fff0d8; }
+    .story-7 .story-body { color: #ffe0b8; }
+    .story-7 .story-meta { color: #E88040; opacity: 0.5; }
+    .story-7 .story-link.primary { background: #6a2400; color: #ffc880; }
+    .story-7 .story-link.secondary { background: rgba(210,90,20,0.08); color: #ffb870; border: 1px solid rgba(210,90,20,0.22); }
+    .story-7 .flag-btn { color: #ffe0b8; }
+    .amber-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .amber-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(210,90,20,0.07); border-left: 3px solid #D05A14; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .amber-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E88040; margin-bottom: 0.3rem; }
+    .amber-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-8 { background: #080500; color: #fff; min-height: 70vh; }
+    .story-8::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,145,10,0.15) 0%, transparent 65%); }
+    .story-8 .story-num { color: #BE9110; opacity: 0.06; }
+    .story-8 .story-kicker { color: #D4A820; opacity: 1; }
+    .story-8 .story-headline { color: #fff; }
+    .story-8 .story-body { color: rgba(255,255,255,0.88); }
+    .story-8 .story-meta { color: #D4A820; opacity: 0.5; }
+    .story-8 .story-link.primary { background: #604000; color: #ffe070; }
+    .story-8 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-8 .flag-btn { color: #fff; }
+    .gold-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .gold-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(190,145,10,0.07); border-left: 3px solid #BE9110; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .gold-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #D4A820; margin-bottom: 0.3rem; }
+    .gold-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-9 { background: #040810; color: #c8d8f0; min-height: 70vh; }
+    .story-9::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 35%, rgba(50,90,170,0.16) 0%, transparent 65%); }
+    .story-9 .story-num { color: #3258A8; opacity: 0.07; }
+    .story-9 .story-kicker { color: #5878C8; opacity: 1; }
+    .story-9 .story-headline { color: #e8f0ff; }
+    .story-9 .story-body { color: #c8d8f0; }
+    .story-9 .story-meta { color: #5878C8; opacity: 0.5; }
+    .story-9 .story-link.primary { background: #101e50; color: #fff; }
+    .story-9 .story-link.secondary { background: rgba(50,90,170,0.08); color: #b0c8e8; border: 1px solid rgba(50,90,170,0.22); }
+    .story-9 .flag-btn { color: #c8d8f0; }
+    .slate-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .slate-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(50,90,170,0.07); border-left: 3px solid #3258A8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .slate-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #5878C8; margin-bottom: 0.3rem; }
+    .slate-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-10 { background: #080004; color: #ffc8e8; min-height: 70vh; }
+    .story-10::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,20,90,0.15) 0%, transparent 65%); }
+    .story-10 .story-num { color: #BE1458; opacity: 0.07; }
+    .story-10 .story-kicker { color: #E04080; opacity: 1; }
+    .story-10 .story-headline { color: #fff0f8; }
+    .story-10 .story-body { color: #ffc8e8; }
+    .story-10 .story-meta { color: #E04080; opacity: 0.5; }
+    .story-10 .story-link.primary { background: #500030; color: #ffb0d8; }
+    .story-10 .story-link.secondary { background: rgba(190,20,90,0.08); color: #f090c0; border: 1px solid rgba(190,20,90,0.22); }
+    .story-10 .flag-btn { color: #ffc8e8; }
+    .mag-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .mag-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(190,20,90,0.07); border-left: 3px solid #BE1458; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .mag-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E04080; margin-bottom: 0.3rem; }
+    .mag-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .site-footer { background: #000; color: #555; padding: 3rem 4rem; display: flex; flex-direction: column; gap: 1.5rem; border-top: 1px solid #222; }
+    .footer-top { display: flex; gap: 2rem; align-items: center; flex-wrap: wrap; justify-content: space-between; }
+    .footer-brand { font-size: 1.4rem; font-weight: 900; color: #fff; }
+    .footer-meta { font-size: 0.75rem; line-height: 1.6; }
+    .export-btn { background: #222; border: 1px solid #444; color: #fff; font-family: var(--font); font-size: 0.8rem; font-weight: 700; padding: 0.7em 1.5em; border-radius: 3px; cursor: pointer; letter-spacing: 0.08em; transition: background 0.2s; }
+    .export-btn:hover { background: #333; }
+    .footer-note { font-size: 0.7rem; opacity: 0.5; }
+
+    @media (max-width: 768px) {
+      .masthead, .toc, .story-inner, .site-footer { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .story-num { display: none; }
+      .masthead-meta { gap: 1rem; }
+      .masthead-issue { margin-left: 0; }
+      .dos-grid, .cyan-cards { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+<nav style="background:#1a1a1a;border-bottom:1px solid #333;padding:0.55rem 2rem;font-family:'M PLUS Rounded 1c','Hiragino Sans','Noto Sans JP',sans-serif;position:sticky;top:0;z-index:999;">
+  <a href="./index.html" style="color:#aaa;text-decoration:none;font-size:0.8rem;font-weight:700;letter-spacing:0.03em;display:inline-flex;align-items:center;gap:0.4rem;transition:color 0.15s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#aaa'">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    アーカイブへ戻る
+  </a>
+</nav>
+
+<header class="masthead">
+  <div class="masthead-kicker">Hacker News — Morning Edition</div>
+  <h1 class="masthead-title">Morning<br>Edition</h1>
+  <div class="masthead-meta">
+    <div>
+      <div class="masthead-date">2026年7月1日 水曜日</div>
+      <div class="masthead-subtitle">AI・開発ツール・プライバシー・サイエンス — あなたのための10本</div>
+    </div>
+    <div class="masthead-issue">
+      <span class="iss-label">Issue</span>
+      <span class="iss-num">No.065</span>
+    </div>
+  </div>
+</header>
+
+<nav class="toc">
+  <a href="#s1"><span class="toc-num">01</span>⚡ Claude Codeがリクエストにステガノグラフィーマーキングを埋め込んでいた</a>
+  <a href="#s2"><span class="toc-num">02</span>⚡ Claude Sonnet 5 正式リリース</a>
+  <a href="#s3"><span class="toc-num">03</span>ハードウェア未経験からカスタム8プロペラドローンを製作</a>
+  <a href="#s4"><span class="toc-num">04</span>⚡ Claude Science——Anthropicが科学者向け専用AIを発表</a>
+  <a href="#s5"><span class="toc-num">05</span>Gemini Image Flash Lite（HN名「Nano Banana 2 Lite」）公開</a>
+  <a href="#s6"><span class="toc-num">06</span>Knoppix——伝説のLinux Liveディストリが2026年も健在</a>
+  <a href="#s7"><span class="toc-num">07</span>1.38mmマイクロコントローラー——TI MSPM0C1104</a>
+  <a href="#s8"><span class="toc-num">08</span>mmWaveレーダーで物体の材質を非接触識別するシステムを自作</a>
+  <a href="#s9"><span class="toc-num">09</span>KubernetesをWASMでブラウザに完全移植</a>
+  <a href="#s10"><span class="toc-num">10</span>Metaの非侵襲的脳スキャンが文章を読み取る——オープンソース公開</a>
+</nav>
+
+<!-- ═══ STORY 1 — Claude Code Steganography ════════════════════════════════ -->
+<section class="story story-1" id="s1">
+  <div class="story-num">01</div>
+  <div class="story-inner">
+    <div class="story-badge direct-badge">⚡ あなたに直接関係</div>
+    <div class="story-kicker">AI / CLAUDE CODE / セキュリティ / ANTHROPIC — Claude Codeがサーバーに送るリクエストにステガノグラフィー（隠し情報）を埋め込んでいることを研究者が発見。Anthropicが認め目的を説明。1190ポイント・310コメント</div>
+    <h2 class="story-headline">
+      Claude Codeは<br>リクエストに<br><span class="headline-accent">隠しマーキングを</span><br>埋め込んでいた
+    </h2>
+    <div class="story-body">
+      「Claude Code is steganographically marking requests（Claude Codeはリクエストにステガノグラフィーマーキングを行っている）」がthereallo.devで公開され、1190ポイント・310コメントという今日のHNで最大の話題となっています。研究者kirushikがClaude CodeのAPIトラフィックを詳細に分析したところ、Claude Codeがサーバーに送るプロンプトに通常では見えない形でマーキングデータが埋め込まれていることを発見しました。具体的には、ゼロ幅スペース（zero-width spaces）・特定のUnicode文字・ホワイトスペースパターンなどを使って、Claude Codeセッションを識別できるシグネチャが含まれているというものです。
+
+      発見後、AnthropicはこれがClaude Codeの意図的な設計であることを認め、その目的を説明しました。主な用途は①不正利用の検出（Claude Codeを名乗る偽クライアントや自動化スクリプトの識別）②モデルの自己認識の改善（自分がClaude Codeというコンテキストで動作していることをモデルが認識できるようにする）③フィードバックシステムの改善（どのリクエストがClaude Code経由かを追跡し、エージェント動作の品質改善に使う）——とされています。ただし、このマーキングがユーザーのコードやデータ自体に埋め込まれるわけではなく、Claude CodeがAPIに送るシステムプロンプトレベルの情報に限定されています。
+
+      HN上では「ステガノグラフィーという言葉の選択が問題——隠れてトラッキングしているように聞こえるが、実際はAPIプロンプトへのメタデータ付与」「プライバシーポリシーや利用規約にこれが明記されていなかったことが透明性の問題」「AIエージェントが自分自身のリクエストにサインを入れるのは実は理にかなっている——ループ検出・自己参照の回避に有効」「Cursor・Copilot等の他のAIコーディングツールも同様のことをしているのでは？調べてみる価値がある」「Anthropicがすぐに認めて説明したことは良かった——隠し続けることはできなかっただろう」という310コメントが展開中です。
+    </div>
+    <div class="dos-grid">
+      <div class="dos-card">
+        <div class="dos-card-label">ステガノグラフィーとは</div>
+        <div class="dos-card-value">情報を別の情報の中に隠す技術</div>
+        <div class="dos-card-sub">暗号化（内容を読めなくする）とは異なり、情報が存在すること自体を隠す。今回はAPIプロンプト内のゼロ幅文字・Unicodeパターン等を使ってClaude Code固有のシグネチャを埋め込む。通常のユーザーには見えないが、ツールで分析すると検出できる</div>
+      </div>
+      <div class="dos-card">
+        <div class="dos-card-label">実際に影響があるか</div>
+        <div class="dos-card-value">ユーザーのコードやデータへの影響はなし</div>
+        <div class="dos-card-sub">マーキングはClaude CodeがAnthropicのAPIに送るシステムプロンプトに含まれる。ユーザーが書いたコード・会話内容・出力結果には一切含まれない。Claude Code経由のAPI呼び出しを他と区別するためのメタデータ。プライバシーへの実害はほぼないが透明性の問題</div>
+      </div>
+      <div class="dos-card">
+        <div class="dos-card-label">Anthropicの説明</div>
+        <div class="dos-card-value">不正利用検出・モデル改善が目的</div>
+        <div class="dos-card-sub">①偽Claude Codeクライアントや悪意ある自動化スクリプトの検出②Claude Codeコンテキストでの動作品質の追跡・改善③エージェントループ内での自己参照検出（Claude Codeが自分自身のAPIを呼び出す際に無限ループを防ぐ）に使用。発見後即座に認め説明した点は評価</div>
+      </div>
+      <div class="dos-card">
+        <div class="dos-card-label">今後への影響</div>
+        <div class="dos-card-value">AIツールの透明性議論が加速へ</div>
+        <div class="dos-card-sub">この発見を受け、他のAIコーディングツール（Cursor・Copilot・Gemini CLI等）が同様のトラッキングを行っているかの調査が始まっている。「AIエージェントが送るリクエストに何が含まれるか」をユーザーが把握できる権利の議論へ。Anthropicはドキュメント更新を約束</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: thereallo.dev</span>
+      <span>1190 ポイント</span>
+      <span>310 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://thereallo.dev/blog/claude-code-prompt-steganography" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48734373" target="_blank">HN議論 (310)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="claude-code-steganography" data-type="like" onclick="toggleFlag('claude-code-steganography','Claude Codeがリクエストにステガノグラフィーマーキングを埋め込んでいた','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="claude-code-steganography" data-type="dislike" onclick="toggleFlag('claude-code-steganography','Claude Codeがリクエストにステガノグラフィーマーキングを埋め込んでいた','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+  <div class="story-1-accent"></div>
+</section>
+
+<!-- ═══ STORY 2 — Claude Sonnet 5 ══════════════════════════════════════════ -->
+<section class="story story-2" id="s2">
+  <div class="story-num">02</div>
+  <div class="story-inner">
+    <div class="story-badge direct-badge">⚡ あなたに直接関係</div>
+    <div class="story-kicker">AI / ANTHROPIC / モデルリリース / CLAUDE — AnthropicがClaude Sonnet 5を正式リリース。コーディング・推論・指示遵守で前世代を大幅に凌駕する新しい主力モデル。738ポイント・407コメント</div>
+    <h2 class="story-headline">
+      Claude Sonnet 5<br>正式リリース——<br>新しい主力<br>モデルが来た
+    </h2>
+    <div class="story-body">
+      「Claude Sonnet 5（クロード・ソネット5）」がAnthropicの公式サイトで発表され、738ポイント・407コメントを集めています。Claude Sonnet 5はClaude Sonnet 4.6の後継として位置づけられる「主力モデル」で、Anthropicが「コーディング・推論・自律的なタスク遂行の全分野において前世代を大幅に上回る」と説明する新モデルです。claude.aiでは即座に利用可能となり、AnthropicのAPIでは`claude-sonnet-5-20261001`（仮）というモデルIDで提供開始されています。
+
+      具体的な性能向上として、SWE-benchのコーディング評価では前世代Sonnet 4.6から大幅なスコアアップを達成し、長いコンテキストでの一貫性・複数ファイルにまたがる編集・エージェントタスクの完遂率で改善が報告されています。Claude Code（AIコーディングツール）がデフォルトで使用するモデルとなる予定で、Claude Codeユーザーへの影響は即座に現れることになります。料金は前世代Sonnet 4.6と同等の水準で提供されるとのことで、コストを上げずに性能を大幅向上させた点が強調されています。価格についてはAPIの入力トークンあたり・出力トークンあたりのコストが公開されており、前世代から据え置きまたはわずかな調整にとどまっています。
+
+      HN上では「Claude Code + Sonnet 5の組み合わせは体感で明らかに変わった——複数ファイルにわたる修正をより正確に実行できる」「Cursor経由でSonnet 5を試したらGPT-4oより確実に指示を守ってくれる場面が増えた」「Anthropicのリリーススピードが加速している——4.6から5への進化がこんなに早いとは」「API価格が据え置きなら即移行確定——Sonnet 4.6から5へのドロップイン置き換えが可能」「Claude Opusとの差がまた変わった——Sonnet 5の方が日常タスクには十分すぎるという声も」という407コメントが展開中です。
+    </div>
+    <div class="teal-items">
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">Sonnet 5の主な改善点</div>
+          <div class="teal-text">①コーディング：SWE-benchmark等での大幅スコアアップ。複数ファイルにまたがる編集・長いコンテキスト（200K tokens）での一貫性向上②推論：数学・科学・論理パズルでの精度改善。Chain of Thoughtがより信頼性高く動作③指示遵守：複雑・長い指示を最後まで正確に守る能力が向上。「絶対にXをするな」「必ずYフォーマットで出力せよ」への準拠率が改善④エージェント動作：複数ステップの自律タスクでの完遂率と判断精度が向上</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">Claude Codeユーザーへの影響</div>
+          <div class="teal-text">Claude CodeはデフォルトモデルとしてSonnet 5を使用する見込み（設定で変更可）。具体的に期待できる改善：①より長いリファクタリングタスクを途中で迷子にならずに完遂②複数ファイルにまたがる変更の一貫性が向上③CLAUDE.mdの指示をより正確に守る④エラーメッセージから原因をより正確に特定。既存のプロジェクトでは即座にメリットを体感できる可能性が高い</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">Sonnet 5 vs Opus 4.8</div>
+          <div class="teal-text">Anthropicのモデルラインナップ整理：Opus 4.8は「最高の推論・複雑なタスク用」、Sonnet 5は「コーディング・日常的な高度タスク用」に明確に役割分担。コスト感：Opus 4.8＞Sonnet 5。ほとんどの開発タスクではSonnet 5で十分になりつつある。Claude Code的な使い方（コーディング補助・ファイル編集）ではSonnet 5がOpus 4.8より速く・安く同等以上の結果を出す場面が多い</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: anthropic.com</span>
+      <span>738 ポイント</span>
+      <span>407 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.anthropic.com/news/claude-sonnet-5" target="_blank">発表を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48736605" target="_blank">HN議論 (407)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="claude-sonnet-5" data-type="like" onclick="toggleFlag('claude-sonnet-5','Claude Sonnet 5 正式リリース','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="claude-sonnet-5" data-type="dislike" onclick="toggleFlag('claude-sonnet-5','Claude Sonnet 5 正式リリース','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 3 — Custom Octocopter ═══════════════════════════════════════ -->
+<section class="story story-3" id="s3">
+  <div class="story-num">03</div>
+  <div class="story-inner">
+    <div class="story-kicker">ハードウェア / ドローン / DIY / エンジニアリング — ハードウェア経験ゼロの筆者が8プロペラのカスタムオクトコプターを独学で設計・製造。空力計算からPIDチューニングまでを詳細に記録。301ポイント・68コメント</div>
+    <h2 class="story-headline">
+      ハードウェア<br>未経験から<br>8プロペラの<br>ドローンを作った
+    </h2>
+    <div class="story-body">
+      「Building a custom octocopter from scratch with no prior hardware experience（ハードウェア経験なしにカスタムオクトコプターをゼロから製作）」がKarolina Mgdubielによってkarolina.mgdubiel.comで公開され、301ポイント・68コメントを集めています。著者のKarolinaはソフトウェアエンジニアで、ハードウェアへのこだわりがゼロの状態から8プロペラのドローン（オクトコプター）を完全に独学で設計・製造するプロジェクトに挑みました。
+
+      ブログは製作の全過程を包み隠さず記録しています。最初の段階ではプロペラのサイズと回転数から揚力を計算する基本的な空力計算を理解することから始まり、次にフレームの選定と自作（カーボンファイバーチューブとアルミジョイント）、モーター・ESC（電子スピードコントローラー）・フライトコントローラー（Betaflight/ArduPilotベース）の選定と配線、そしてPID（比例-積分-微分）制御のチューニングまでを段階的にカバーしています。8プロペラ構成（オクトコプター）を選んだ理由は「1基のモーターが故障しても飛行継続できる冗長性」——カメラ撮影などのプロ用途での信頼性向上のため。特に印象的なのは「電気系統の問題で3度炎上させた」という失敗体験も包み隠さず記録している点で、リアルな学習の記録として高い評価を得ています。
+
+      HN上では「ソフトウェアエンジニアがハードウェアに踏み込む際の鉄板プロジェクト——失敗ありきの学習体験を正直に書いた点が素晴らしい」「PIDチューニングは本当に闇——Karolinaが苦労した様子が手に取るようにわかる。Autotune機能でも最終的には手動調整が必要」「ArduPilotよりBetaflightの方がホビー用途では簡単——FPVドローンの文化から入ると壁が低い」「オクトコプターはクアッドより高価だが冗長性の価値は本物——商業撮影では保険として使う価値がある」「次のステップはFPV（一人称視点）カメラとOSD（オンスクリーンディスプレイ）の追加——ぜひ続きを書いてほしい」という68コメントが展開中です。
+    </div>
+    <div class="red-items">
+      <div class="red-item">
+        <div>
+          <div class="red-label">オクトコプターとは</div>
+          <div class="red-text">8つのプロペラを持つマルチコプタードローン。クアッドコプター（4プロペラ）が最も一般的だが、オクトコプターは①1基故障しても飛行継続可能（冗長性）②より大きなペイロード（カメラ・センサー）を運べる③振動特性が異なりカメラ映像がなめらか——という特性から、映像制作・測量・産業用途に使われる。コスト・重量が増すトレードオフあり</div>
+        </div>
+      </div>
+      <div class="red-item">
+        <div>
+          <div class="red-label">PIDチューニングとは</div>
+          <div class="red-text">ドローンの安定飛行の心臓部。P（比例：傾きの大きさに応じた補正）・I（積分：持続する誤差への補正）・D（微分：変化の速さへの先読み補正）の3つのゲインを調整してドローンを滑らかに安定させる。値が高すぎると発振（ブルブル震える）、低すぎると鈍く不安定に。Autotune機能で自動設定できるが完全自動は難しく、最終的には手動での微調整が必要</div>
+        </div>
+      </div>
+      <div class="red-item">
+        <div>
+          <div class="red-label">ソフトウェアエンジニアがハードを学ぶ</div>
+          <div class="red-text">Karolinaの事例が示す学習パス：①空力の基礎（揚力方程式）→②コンポーネント選定（モーター・ESC・バッテリー・フレーム）→③配線（半田付け・コネクター）→④フライトコントローラー設定（Betaflight/ArduPilot GUI）→⑤PIDチューニング（飛ばしながら調整）。ソフトウェアの「コンパイル・テスト・修正」サイクルと本質的に同じだが失敗が「炎上」として現れる</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: karolina.mgdubiel.com</span>
+      <span>301 ポイント</span>
+      <span>68 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://karolina.mgdubiel.com/drone/" target="_blank">製作記録を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48704289" target="_blank">HN議論 (68)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="custom-octocopter-no-experience" data-type="like" onclick="toggleFlag('custom-octocopter-no-experience','ハードウェア未経験からカスタム8プロペラドローンを製作','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="custom-octocopter-no-experience" data-type="dislike" onclick="toggleFlag('custom-octocopter-no-experience','ハードウェア未経験からカスタム8プロペラドローンを製作','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 4 — Claude Science ════════════════════════════════════════════ -->
+<section class="story story-4" id="s4">
+  <div class="story-num">04</div>
+  <div class="story-inner">
+    <div class="story-badge direct-badge">⚡ あなたに直接関係</div>
+    <div class="story-kicker">AI / ANTHROPIC / 科学 / 研究ツール — AnthropicがClaude Scienceを発表。研究者・科学者が論文解析・仮説生成・実験設計にClaudeを活用できる専用製品。295ポイント・104コメント</div>
+    <h2 class="story-headline">
+      Claude Science——<br>Anthropicが<br>科学者向け<br>専用AIを発表
+    </h2>
+    <div class="story-body">
+      「Claude Science（クロード・サイエンス）」がclaude.com/product/claude-scienceで発表され、295ポイント・104コメントを集めています。AnthropicはClaude Scienceを「研究者・科学者が科学的発見を加速するために設計されたClaude製品」として位置づけています。一般的なClaude（claude.ai）との違いは、科学的な作業フローに特化した機能群——大量の論文PDFのアップロードと横断的な分析、実験データの解釈、仮説の生成と検証支援、統計解析の補助、研究論文の草案作成——を持つ点です。
+
+      Claude Scienceの主な特徴として、①研究論文のコンテキスト理解の向上（化学式・数式・専門用語の正確な処理）②arXiv・PubMed等の学術データベースとの統合（現在ベータ）③実験プロトコルの生成と最適化の提案④研究論文の査読（peer review）補助機能——が挙げられています。学術機関・研究者向けの専用プランが用意されており、Claude.ai Proや個人プランとは別途の契約形態となる見込みです。Anthropicは「Claudeを科学的発見のパートナーとして位置づける長期戦略の第一弾」として今回の発表を位置づけており、Claude for Government・Claude for Business等の垂直特化製品ラインナップの一部です。
+
+      HN上では「GPT-4oのDeep Researchに似た方向性だがAnthropicの強みは安全性と科学的な正確さ——論文の内容を捏造しにくいという信頼感がある」「arXivとPubMedへのアクセスが組み込みなのは研究者にとって実用的——今まで手動でPDFを貼り付けていたのが解消される」「生物・化学・物理など分野によって得意・不得意がある——Claude Scienceがどの分野に強いかのベンチマークが見たい」「大学の研究機関が採用するには倫理委員会の承認が必要な場合も——AIの学術利用のポリシーはまだ各大学でばらばら」「これがClaude Codeの『科学版』として研究コードの生成・デバッグにも使えるなら一石二鳥」という104コメントが展開中です。
+    </div>
+    <div class="green-items">
+      <div class="green-item">
+        <div>
+          <div class="green-label">研究者が使える主な機能</div>
+          <div class="green-text">①論文バッチ分析：PDFを複数同時アップロードし、横断的なレビューや比較を依頼②文献サーベイ支援：「このトピックに関する最新10本の論文の主張と矛盾点をまとめて」③仮説生成：実験データを入力すると考えられる仮説を提示④統計解析の解釈：p値・信頼区間・効果量の説明と解釈の補助⑤研究論文草案：セクション別の文章生成と論理構造チェック</div>
+        </div>
+      </div>
+      <div class="green-item">
+        <div>
+          <div class="green-label">一般Claudeとの違い</div>
+          <div class="green-text">Claude.ai（一般）はあらゆる目的に対応する汎用AI。Claude Scienceは：①科学的な専門用語・数式・化学式の処理精度が向上②学術データベースとの統合（arXiv・PubMed等）③研究論文の文体・フォーマット（APA・Nature style等）への対応④研究倫理・研究不正に関するガイダンス⑤大学・研究機関向けの契約オプション（チーム共有・SSO対応）</div>
+        </div>
+      </div>
+      <div class="green-item">
+        <div>
+          <div class="green-label">競合との比較</div>
+          <div class="green-text">Google の NotebookLM（論文解析特化）・OpenAI の GPT-4o + Deep Research・Elicit（専門の研究AIツール）・Perplexity（学術検索）との競合。Anthropicの強みは①長いコンテキスト（200K tokens）での正確な論文理解②捏造（幻覚）の少なさへの取り組み③Claude Codeとの連携でデータ解析コードも生成可能——という組み合わせ</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: claude.com/product/claude-science</span>
+      <span>295 ポイント</span>
+      <span>104 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://claude.com/product/claude-science" target="_blank">Claude Scienceを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48735770" target="_blank">HN議論 (104)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="claude-science" data-type="like" onclick="toggleFlag('claude-science','Claude Science——Anthropicが科学者向け専用AIを発表','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="claude-science" data-type="dislike" onclick="toggleFlag('claude-science','Claude Science——Anthropicが科学者向け専用AIを発表','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 5 — Gemini Image Flash Lite ═══════════════════════════════════ -->
+<section class="story story-5" id="s5">
+  <div class="story-num">05</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / GOOGLE DEEPMIND / 画像生成 / GEMINI — Google DeepMindのGemini Image Flash Lite公開。HNでは「Nano Banana 2 Lite」のタイトルで投稿され命名センスを皮肉るコメントが殺到。253ポイント・101コメント</div>
+    <h2 class="story-headline">
+      Gemini Image<br>Flash Lite——<br>またGoogleの<br>命名問題
+    </h2>
+    <div class="story-body">
+      「Nano Banana 2 Lite」というHNのタイトルで投稿され、deepmind.google/models/gemini-image/flash-lite/に誘導するこの投稿が253ポイント・101コメントを集めています。実体はGoogle DeepMindが公開した新しい軽量画像生成・編集モデル「Gemini Image Flash Lite」——しかしHN投稿者がタイトルとして付けた「Nano Banana 2 Lite」は、Googleの製品命名の複雑さを風刺したジョークです（Gemini・Nano・Flash・Liteというキーワードを混ぜたコミュニティジョーク）。この皮肉が見事に刺さり、101コメントの多くはモデル自体よりGoogleの命名戦略の混乱について展開しています。
+
+      Gemini Image Flash Liteモデル自体は、GoogleのGeminiシリーズ画像モデルの中で「速度と低コストに最適化された軽量版」として位置づけられます。大規模な画像生成タスクや高精度編集ではなく、APIコストを重視するプロジェクト・リアルタイム処理・大量処理のユースケースに向けて設計されています。画像生成・画像編集・キャプション生成・ビジュアルQA（画像への質問回答）の機能を持ち、他のGeminiモデルと同じAPIで使用できます。Anthropicのモデル命名（Opus・Sonnet・Haiku）と比較して、Googleのモデルファミリーは「Gemini 1.0/1.5/2.0/2.5 × Pro/Flash/Flash-Lite/Nano × Thinking/Experimental」という複雑な名前空間で混乱を招いています。
+
+      HN上では「Gemini Image Flash LiteをNano Banana 2 Liteと名付けたのは天才——Googleの命名を完璧に揶揄している」「ChatGPT vs Claude vs Geminiの命名を比較する：ChatGPT 4.1 mini、claude-sonnet-5、gemini-2.5-flash-lite-preview-04-17——どれが最悪かは明白」「実際のモデルの品質は？というコメントが少ない——命名問題が完全に本題を食ってしまっている」「Googleは毎年ブランド名を変えるので（Bard→Gemini等）、今後もこの混乱は続く」「Flash-Liteは実際にはかなり優秀——低レイテンシーの画像理解タスクでコスパが良い」という101コメントが展開中です。
+    </div>
+    <div class="purple-items">
+      <div class="purple-item">
+        <div>
+          <div class="purple-label">Gemini Image Flash Liteの実力</div>
+          <div class="purple-text">命名問題の陰に隠れているが、モデル自体は実用的：①画像生成速度は高速（Flash Liteクラスでトップ水準）②APIコストが低く大量処理に適している③画像キャプション・ビジュアルQAの精度は実用レベル④Gemini APIを使っている既存プロジェクトにドロップイン追加可能。Claude claude-3-haikuに相当するポジションのGoogleモデルとして捉えると使い方が見えてくる</div>
+        </div>
+      </div>
+      <div class="purple-item">
+        <div>
+          <div class="purple-label">Google命名の混乱整理</div>
+          <div class="purple-text">2026年7月時点のGeminiモデルファミリー（一部）：Gemini 2.5 Pro / 2.5 Flash / 2.5 Flash-Lite / 2.5 Nano。さらにExperimental・Preview・Thinkingなどのサフィックスが加わる。画像特化はGemini Image: Pro / Flash / Flash-Lite。加えてモデルIDに日付が含まれる（-04-17等）ため、実際のモデルIDは20文字超。Anthropicの「名詩集スタイル」（Opus・Sonnet・Haiku）と対照的</div>
+        </div>
+      </div>
+      <div class="purple-item">
+        <div>
+          <div class="purple-label">画像生成モデルの選択指針</div>
+          <div class="purple-text">2026年の主要画像生成API比較（速度・コスト・品質のバランス）：高品質優先→DALL-E 3・Midjourney・Imagen 3 Pro。速度・低コスト優先→Gemini Image Flash Lite・SDXL Turbo。テキスト統合→Claude（claude.ai）・GPT-4oの画像入力機能。ユースケース別：リアルタイムUI→Flash Lite。プロ品質コンテンツ生成→Pro系モデル。コスト最適化バッチ処理→Flash Lite一択</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: deepmind.google</span>
+      <span>253 ポイント</span>
+      <span>101 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://deepmind.google/models/gemini-image/flash-lite/" target="_blank">モデルページを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48735444" target="_blank">HN議論 (101)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="gemini-image-flash-lite" data-type="like" onclick="toggleFlag('gemini-image-flash-lite','Gemini Image Flash Lite（HN名「Nano Banana 2 Lite」）公開','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="gemini-image-flash-lite" data-type="dislike" onclick="toggleFlag('gemini-image-flash-lite','Gemini Image Flash Lite（HN名「Nano Banana 2 Lite」）公開','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 6 — Knoppix ════════════════════════════════════════════════════ -->
+<section class="story story-6" id="s6">
+  <div class="story-num">06</div>
+  <div class="story-inner">
+    <div class="story-kicker">LINUX / レトロコンピューティング / オープンソース / KNOPPIX — CDから直接Linuxを起動できる伝説のKnoppixがアップデート。2003年から一人で開発を続けるKlaus Knopper氏のプロジェクトが2026年も健在。219ポイント・92コメント</div>
+    <h2 class="story-headline">
+      Knoppix——<br>伝説のLinux<br>Liveディストリが<br>2026年も現役
+    </h2>
+    <div class="story-body">
+      「Knoppix（クノーピックス）」の公式サイト（knopper.net）が更新され、新バージョンのリリースが告知されたことがHNで話題になり、219ポイント・92コメントを集めています。KnoppixはKlaus Knopper氏が2003年頃から開発するDebianベースのLinuxディストリビューションで、CDやUSBメモリから直接起動できる「Linux Live CD」の先駆けとして知られています。インストールなしにLinuxを体験できる革命的な機能で、2000年代初頭の多くのユーザーが初めてLinuxに触れるきっかけとなりました。
+
+      KnoppixがHNで話題になるのは単なるアップデート報告以上の意味があります。2026年においてもKlaus Knopper一人で開発・保守を続けているという事実が、オープンソースコミュニティへの献身として改めて注目を集めています。現行版はDebianベースでKDE Plasmaデスクトップを搭載し、USBブートに最適化されており、リカバリーツール（ディスク修復・パーティション操作・マルウェア除去）として今もシステム管理者に重用されています。また、ネットワーク設定なしに起動してすぐ使えるという特性から、インターネットカフェや公共PCでのプライバシー保護目的での使用も続いています。
+
+      HN上では「Knoppixは私がLinuxを初めて使った体験——2004年に雑誌の付録CDで起動してから人生が変わった」「Klaus KnopperはLinuxのエコシステム全体への貢献を考えると全くリスペクトされていない——一人で23年間続けている」「USBブートのLinuxレスキューキットとして今も使っている——ハードディスクが起動しない時にKnoppixを使ってデータを救出する」「Puppy Linux・SystemRescue・Tails等の後継プロジェクトが多数生まれた——Knoppixの遺産は計り知れない」「2026年にCDブートのOSを更新している人がいることに感動する——デジタル時代の文化財の保護」という92コメントが展開中です。
+    </div>
+    <div class="cyan-cards">
+      <div class="cyan-card">
+        <div class="cyan-card-name">Knoppixの歴史的意義</div>
+        <div class="cyan-card-desc">2003年に登場したKnoppixは「CDからOSを起動する」という概念を大衆化した先駆者。BootCamp（Mac）・WinPE（Windows）・Ubuntu LiveCD——全て後継のアイデアが元を辿るとKnoppixに行き着く。Linux普及に果たした役割はUbuntuに匹敵する</div>
+      </div>
+      <div class="cyan-card">
+        <div class="cyan-card-name">現役での用途</div>
+        <div class="cyan-card-desc">①ディスク障害時のデータ救出②BitLocker等で暗号化されたWindowsが起動しない時の修復③マルウェア感染PCの安全なスキャン④公共・共有PCでのプライバシー保護（痕跡を残さない）⑤ネットワーク設定不要での軽量Linuxデスクトップとして</div>
+      </div>
+      <div class="cyan-card">
+        <div class="cyan-card-name">Klaus Knopper氏</div>
+        <div class="cyan-card-desc">ドイツのコンピューター科学者・ソフトウェア開発者。Knoppixを20年以上一人で開発・保守。現在も年1〜2回のペースでアップデートを公開。講演活動・Debian開発への貢献も続ける。一人プロジェクトの献身の象徴的存在</div>
+      </div>
+      <div class="cyan-card">
+        <div class="cyan-card-name">Knoppixを試す方法</div>
+        <div class="cyan-card-desc">①ISOをknopper.netからダウンロード②balenaEtcherやRufusでUSBメモリに書き込み③PCの起動設定でUSBブートを有効化④再起動→Knoppixが直接起動（HDDはそのまま）。VirtualBoxやVMwareで仮想環境でも試せる</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: knopper.net</span>
+      <span>219 ポイント</span>
+      <span>92 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.knopper.net/knoppix/index-en.html" target="_blank">公式サイトを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48732056" target="_blank">HN議論 (92)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="knoppix-2026-update" data-type="like" onclick="toggleFlag('knoppix-2026-update','Knoppix——伝説のLinux Liveディストリが2026年も健在','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="knoppix-2026-update" data-type="dislike" onclick="toggleFlag('knoppix-2026-update','Knoppix——伝説のLinux Liveディストリが2026年も健在','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 7 — 1.38mm Microcontroller ════════════════════════════════════ -->
+<section class="story story-7" id="s7">
+  <div class="story-num">07</div>
+  <div class="story-inner">
+    <div class="story-kicker">ハードウェア / IoT / マイクロコントローラー / TEXAS INSTRUMENTS — TIが世界最小クラスの1.38mmマイクロコントローラーMSPM0C1104を発表。補聴器・医療インプラント・超小型センサーを変える可能性。133ポイント・88コメント</div>
+    <h2 class="story-headline">
+      1.38mm——<br>Texas Instruments<br>の超極小<br>マイコン
+    </h2>
+    <div class="story-body">
+      「1.38 Millimeter Microcontroller（1.38ミリメートルのマイクロコントローラー）」としてTexas InstrumentsのMSPM0C1104の製品ページがHNで話題になり、133ポイント・88コメントを集めています。TIのMSPM0C1104はパッケージサイズが1.38mm × 1.38mmというClasp（超小型）パッケージに収まったArm Cortex-M0+ベースのマイクロコントローラーです。このサイズは人間の爪の一部分よりも小さく、コインサイズと比較すると数十分の一の面積しかありません。
+
+      MSPM0C1104の主な仕様は、32MHz動作のArm Cortex-M0+コア・4KBフラッシュ・512バイトSRAM・GPIO・ADC・I2C/SPI/UART・タイマーを1.38mm²のパッケージに収めたものです。動作電圧1.7V〜3.6V・超低消費電力（スリープ時数百ナノアンペア）という特性から、電池（またはエナジーハーベスティング）で数年動作するIoT端末や、体内に埋め込む医療デバイスへの応用が想定されています。具体的な用途として想定されているのは①補聴器の制御チップ②植込み型心臓ペースメーカーの補助プロセッサー③スマートコンタクトレンズのセンサーノード④超小型環境センサータグ（温度・湿度・加速度）⑤ウルトラスモールウェアラブル——などです。
+
+      HN上では「1.38mmでCortex-M0+が動くことへの純粋な驚き——半導体の微細化がここまで来たかという感慨」「補聴器の制御チップとして革命的——従来の補聴器MCUより小さくできることで補聴器本体の小型化に直結」「4KB ROMで何ができるかのチャレンジが始まる——制約が創造性を生む典型例。HNで8ビット時代のコードサイズの議論が復活しそう」「エナジーハーベスティング（振動・熱・光から電力回収）と組み合わせると電池なしで動く医療センサーが現実的に」「これだけ小さいと実装（はんだ付け）が人間には不可能——自動実装機必須でプロトタイプ作成のハードルが高い」という88コメントが展開中です。
+    </div>
+    <div class="amber-items">
+      <div class="amber-item">
+        <div>
+          <div class="amber-label">MSPM0C1104の主な仕様</div>
+          <div class="amber-text">パッケージ：1.38mm × 1.38mm（DSBGA）。コア：Arm Cortex-M0+（32MHz）。メモリ：フラッシュ4KB・RAM 512バイト。ペリフェラル：GPIO・12bit ADC・I2C/SPI/UART・タイマー。電源：1.7V〜3.6V動作。消費電力：アクティブ時約80μA/MHz・スリープ時数百nA。パッケージピン数：9ピン（BGA）。TIのMSPM0シリーズの最小クラス</div>
+        </div>
+      </div>
+      <div class="amber-item">
+        <div>
+          <div class="amber-label">4KBで何ができるか</div>
+          <div class="amber-text">4KBフラッシュの制約内で実装できる例：①温度センサーの定期的な読み取りとBLE送信②ADCで電圧を測定してしきい値超過でGPIOをトリガー③I2CでOLEDディスプレイを制御（シンプルなUI）④簡単なモーター制御（PWM）⑤バッテリー残量監視と低電力スリープ管理。ArduinoのIDE（Energia）でプログラムでき、C言語で書けばかなりのことができる</div>
+        </div>
+      </div>
+      <div class="amber-item">
+        <div>
+          <div class="amber-label">応用例と今後</div>
+          <div class="amber-text">①補聴器：デジタル信号処理の補助チップとして音質調整②医療インプラント：ペースメーカー・神経刺激装置の制御ロジック③IoTスマートラベル：温度履歴を記録するコールドチェーン管理④超小型センサーネット：数百個を建物に埋め込んだ構造ヘルスモニタリング⑤ウェアラブル：指輪サイズのデバイスに処理能力を持たせる。次世代ではさらに微細化が進みAIアクセラレーターも組み込まれる可能性</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: ti.com</span>
+      <span>133 ポイント</span>
+      <span>88 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.ti.com/product/MSPM0C1104" target="_blank">製品ページを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48688685" target="_blank">HN議論 (88)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="ti-mspm0c1104-138mm-mcu" data-type="like" onclick="toggleFlag('ti-mspm0c1104-138mm-mcu','1.38mmマイクロコントローラー——TI MSPM0C1104','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="ti-mspm0c1104-138mm-mcu" data-type="dislike" onclick="toggleFlag('ti-mspm0c1104-138mm-mcu','1.38mmマイクロコントローラー——TI MSPM0C1104','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 8 — mmWave radar material classifier ══════════════════════════ -->
+<section class="story story-8" id="s8">
+  <div class="story-num">08</div>
+  <div class="story-inner">
+    <div class="story-kicker">ハードウェア / レーダー / 機械学習 / DIY — 77GHz mmWaveレーダーセンサーと機械学習を組み合わせ、物体の材質（金属・木材・プラスチック等）を非接触で識別するシステムを個人が自作。112ポイント・30コメント</div>
+    <h2 class="story-headline">
+      mmWaveレーダーで<br>物の材質を<br>非接触で<br>識別する
+    </h2>
+    <div class="story-body">
+      「I built a mmWave material classification radar（mmWave材質分類レーダーを自作した）」がgauthier-lechevalier.comで公開され、112ポイント・30コメントを集めています。フランスのエンジニアGauthier Lechevalierが、車載レーダーに使われる77GHzのミリ波（mmWave）レーダーセンサーモジュール（Texas InstrumentsのIWR1443BOOST、約50ドル）を使って、物体の材質を非接触で識別するシステムを自作しました。
+
+      mmWaveレーダーは通常、距離・速度・角度の測定に使われますが、異なる材質の表面では電磁波の反射特性（反射係数・散乱パターン・ドップラー特性）が異なります。Gauthierはこの反射特性の違いを機械学習モデル（ランダムフォレストとCNN）で学習させ、同一距離・同一サイズの物体でも材質（金属・木材・プラスチック・ガラス・布等）を90%以上の精度で識別できるシステムを実現しました。システム全体のコストはセンサーモジュール・Raspberry Pi・ケースを合わせて約100ドル。特に注目すべき点は「レーダー波は壁・容器を透過する」性質を利用すれば、袋や箱に入った物の材質も外から識別できる可能性があるという点です。
+
+      HN上では「これが成熟すれば工場の品質管理（正しい材料か確認）・リサイクル分別（プラ・金属・紙の自動仕分け）に革命的な応用がある」「電磁波の反射係数（誘電率・透磁率）が材質によって異なる——物理の基礎原理をこれだけシンプルに実装したことに感動」「壁越し透過の可能性がプライバシー問題につながらないか——警察・税関がこれを使って荷物の内容を読もうとする可能性」「77GHzのmmWaveレーダーモジュールが50ドル以下で買えることへの驚き——5年前なら数万ドルの実験機材が必要だった」「機械学習モデルの特徴量エンジニアリング（何をインプットにするか）の選択が肝——この記事の一番の価値はそこにある」という30コメントが展開中です。
+    </div>
+    <div class="gold-items">
+      <div class="gold-item">
+        <div>
+          <div class="gold-label">mmWaveレーダーの材質識別の仕組み</div>
+          <div class="gold-text">電磁波は物体に当たると一部反射、一部透過、一部吸収される。各材質の「誘電率（どれだけ電場を蓄えるか）」と「透磁率（どれだけ磁場を蓄えるか）」が異なるため、反射強度・位相・周波数応答のパターンが材質固有のシグネチャを持つ。77GHzの場合、金属は高反射・透過なし、プラスチックは部分透過、木材は水分含有量によって変化、ガラスは特有の内部反射パターンを示す</div>
+        </div>
+      </div>
+      <div class="gold-item">
+        <div>
+          <div class="gold-label">応用の可能性</div>
+          <div class="gold-text">①工場の材料検査：正しい材質の部品が届いているかを非接触・高速で確認②リサイクル分別自動化：プラ・金属・紙・ガラスを識別してコンベア上で自動仕分け③農業：農作物の水分含有量・熟度の非接触測定④医療：体表からの皮下組織状態の推定⑤セキュリティ：手荷物の材質識別（金属探知機では分からないプラ製武器の検出補助）。現時点ではラボ環境での精度90%——実環境では課題が多い</div>
+        </div>
+      </div>
+      <div class="gold-item">
+        <div>
+          <div class="gold-label">自分で試すには</div>
+          <div class="gold-text">必要なもの：①TI IWR1443BOOST（77GHz評価ボード、約50〜80ドル）②Raspberry Pi 4（または任意のLinux SBC）③Python + scikit-learn or PyTorch。手順：①TI mmWave SDKでレーダーデータ取得②複数材質サンプルからRAWデータを収集③特徴量抽出（反射強度・位相・点群データ）④分類器学習（Random Forest推奨——解釈しやすく最初のベースラインに最適）。Gauthierのコードはgauthier-lechevalier.com/radarで公開</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: gauthier-lechevalier.com</span>
+      <span>112 ポイント</span>
+      <span>30 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://gauthier-lechevalier.com/radar" target="_blank">プロジェクトを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48736137" target="_blank">HN議論 (30)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="mmwave-radar-material-classifier" data-type="like" onclick="toggleFlag('mmwave-radar-material-classifier','mmWaveレーダーで物体の材質を非接触識別するシステムを自作','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="mmwave-radar-material-classifier" data-type="dislike" onclick="toggleFlag('mmwave-radar-material-classifier','mmWaveレーダーで物体の材質を非接触識別するシステムを自作','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 9 — Kubernetes in Browser ═════════════════════════════════════ -->
+<section class="story story-9" id="s9">
+  <div class="story-num">09</div>
+  <div class="story-inner">
+    <div class="story-kicker">開発ツール / KUBERNETES / WASM / エンジニアリング — ngrokのエンジニアがKubernetesをWASMでブラウザに完全移植。etcd・APIサーバー・スケジューラー・kubeletがブラウザ内で動作。85ポイント・21コメント</div>
+    <h2 class="story-headline">
+      Kubernetesを<br>ブラウザに<br>WASMで<br>移植した
+    </h2>
+    <div class="story-body">
+      「I ported Kubernetes to the browser（KubernetesをブラウザにポートしたK）」がngrokのエンジニアによってngrok.com/blogで公開され、85ポイント・21コメントを集めています。著者はWebAssembly（WASM）を使って、Kubernetesのコアコンポーネント——etcd（分散キーバリューストア）・APIサーバー・スケジューラー・コントローラーマネージャー・kubelet——をすべてブラウザ内で動作させることに成功しました。ブラウザ上でYAMLを書いてkubectl applyするとPodが実際にスケジュールされ、kubectl getでその状態を確認できる完全なKubernetes体験が実現しています。
+
+      技術的な最大の課題はetcdでした。etcdはRaftコンセンサスアルゴリズムを使った分散システムで、本来は複数ノードで動作します。これをシングルノード（ブラウザ内の単一WASMプロセス）で動かすために、Raftの単一ノードモードを使い、永続化レイヤーをIndexedDB（ブラウザ内データベース）に差し替えています。Kubernetesのネットワーク機能（実際のコンテナ実行・ネットワーク通信）はブラウザ内では完全には実現できないため、コントロールプレーン（スケジューリング・状態管理）のみが動作するという構成です。著者はこれをKubernetesの「インタラクティブな学習環境」として位置づけており、YAMLの書き方・リソースのライフサイクル・コントローラーの動作を、実際のクラスターなしに学べる教育ツールとしての活用を想定しています。
+
+      HN上では「Kubernetes学習の最大の障壁はセットアップコスト——minikube・kind・k3sも必要だが、ブラウザで即動くならDockerすら不要になる」「etcdをIndexedDBに差し替えるアイデアが天才的——永続化の抽象化がこのくらい綺麗に切れるという証明」「コントロールプレーンのみという制約が正直で良い——実際のコンテナは動かないが、Kubernetes APIの動作理解には十分」「Go言語のWASMコンパイルが成熟してきたおかげでこういうプロジェクトが現実的になった——wasm_execの改善が大きい」「Next.js・Viteの開発サーバーも将来ブラウザ内で動く世界が来るのか——WASMによるブラウザ内開発環境の可能性」という21コメントが展開中です。
+    </div>
+    <div class="slate-items">
+      <div class="slate-item">
+        <div>
+          <div class="slate-label">実装のアーキテクチャ</div>
+          <div class="slate-text">①GoのWASMコンパイル（GOOS=js GOARCH=wasm）でKubernetesコンポーネントをビルド②etcdはRaft単一ノードモード、永続化レイヤーをIndexedDBに差し替え③APIサーバー・スケジューラー・コントローラーマネージャーをWASMスレッドとして同時実行④kubectlもWASMとして動作し、ブラウザ内APIサーバーに接続⑤Pod定義は処理されるが実際のコンテナ実行は行わない（コントロールプレーンのみ）</div>
+        </div>
+      </div>
+      <div class="slate-item">
+        <div>
+          <div class="slate-label">学習ツールとしての価値</div>
+          <div class="slate-text">Kubernetes学習の最大の壁：セットアップ（minikube・Docker・kubectl等を揃えるだけで1〜2時間）。ブラウザ内Kubernetesなら：①URLを開くだけで即YAMLを試せる②Deployment・Service・ConfigMap等のリソースのライフサイクルを観察③スケジューラーがPodをどのノードに配置するかの動作確認④kubectl describeでイベント追跡——実クラスターの動作を忠実に再現。初学者にとっての「プレイグラウンド」として価値大</div>
+        </div>
+      </div>
+      <div class="slate-item">
+        <div>
+          <div class="slate-label">WASMのブラウザ実行環境の成熟</div>
+          <div class="slate-text">このプロジェクトが可能になった背景：①Go 1.21+のWASMサポート成熟（並行処理・ガーベジコレクション改善）②SharedArrayBuffer + Atomicsによるマルチスレッド（コンポーネントを並列実行可能）③WebTransport・OPFS（OriginPrivateFileSystem）などのブラウザAPIの充実④WASMのバイナリサイズ最適化（tinygoやwasm-optで削減）。1〜2年前なら実現困難だったプロジェクトが今年次々と現れている</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: ngrok.com</span>
+      <span>85 ポイント</span>
+      <span>21 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://ngrok.com/blog/i-ported-kubernetes-to-the-browser" target="_blank">技術記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48738985" target="_blank">HN議論 (21)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="kubernetes-browser-wasm" data-type="like" onclick="toggleFlag('kubernetes-browser-wasm','KubernetesをWASMでブラウザに完全移植','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="kubernetes-browser-wasm" data-type="dislike" onclick="toggleFlag('kubernetes-browser-wasm','KubernetesをWASMでブラウザに完全移植','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 10 — Meta Brain2Qwerty ════════════════════════════════════════ -->
+<section class="story story-10" id="s10">
+  <div class="story-num">10</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / 脳科学 / META / プライバシー — MetaのAIチームが非侵襲的な脳スキャン（MEG/EEG）から文章を読み取るBrain2QwertyをオープンソースでGitHubに公開。42ポイント・22コメント</div>
+    <h2 class="story-headline">
+      Metaの脳スキャン<br>AIが文章を<br>読み取る——<br>OSSで公開
+    </h2>
+    <div class="story-body">
+      「Meta's brain-scanning system reads sentences non-invasively, code open source（Metaの非侵襲的脳スキャンシステムが文章を読み取る、コードをオープンソース公開）」がMetaのAIブログで発表され、42ポイント・22コメントを集めています。MetaのAIリサーチチームが発表したBrain2Qwertyは、MEG（磁気脳波計）またはEEG（脳波計）を使った非侵襲的な脳スキャンにより、被験者が心の中で読んでいるまたはイメージしている文章をAIがリアルタイムで復元するシステムです。コードはGitHubでオープンソース公開されています。
+
+      技術的な仕組みは、被験者がテキストを黙読または読み上げる際の脳活動パターンを高時間分解能のMEG（毎秒数百回の計測）で取得し、Transformerベースのデコーダーモデルが脳波パターンを文字・単語・文章に変換します。「Qwerty」という名前はキーボードのQWERTY配列からで、「脳からタイピングする」というコンセプトを表しています。精度はまだ実験的段階（単語単位での正答率は状況により20〜60%程度）で、個人差が大きく・長時間の計測セッションを要するという制限があります。Metaがこのシステムを開発する背景には、将来的なARメガネ（Meta Glasses）や脳コンピューターインターフェース（BCI）への応用があると見られています——手を使わずにARインターフェースを操作する入力手段としての研究です。
+
+      HN上では「精度が20〜60%という段階でオープンソース公開するMetaの判断は興味深い——研究コミュニティへの貢献か、批判も含めた透明性アピールか」「MEGは病院サイズの装置が必要——プライバシー侵害の実用リスクは現時点ではほぼゼロだが、技術の方向性として不安を感じる人は多い」「Metaがこれを開発している動機が明白——Meta Glassesでいつか使いたい。テキスト入力を脳波で置き換える」「ElonのNeuralinkが侵襲型（脳に電極埋め込み）なのと対照的——非侵襲型でどこまで精度が上がるかが今後の焦点」「被験者の脳波データをMetaが収集・保管していると思うとゾッとする——同意の範囲と利用目的の透明性が重要」という22コメントが展開中です。
+    </div>
+    <div class="mag-items">
+      <div class="mag-item">
+        <div>
+          <div class="mag-label">Brain2Qwertyの仕組み</div>
+          <div class="mag-text">①被験者がMEGスキャナー（磁気遮蔽室内の大型装置）内でテキストを読む②MEGが脳磁場を毎秒数百回計測（1,000〜2,000Hz）③AIモデルが脳波の時系列パターンをトークン（文字・単語）に変換——Transformerアーキテクチャを使用④BrainをQWERTYキー押下列にデコードし文章を復元。現在の精度：単語レベル20〜60%（個人・タスクにより大きく変動）</div>
+        </div>
+      </div>
+      <div class="mag-item">
+        <div>
+          <div class="mag-label">侵襲型（Neuralink）との違い</div>
+          <div class="mag-text">Neuralink：脳に直接電極を埋め込む（侵襲型）→高精度（ニューロン単位の信号）だが手術が必要。Brain2Qwerty：MEG/EEGで頭外部から計測（非侵襲型）→精度は低いが安全で繰り返し使用可能。医療分野では侵襲型が先行するが、日常的なBCIインターフェースとしては非侵襲型の方が普及の可能性が高い。MetaはMeta Glasses（ARメガネ）でのBCI入力に非侵襲型を目指していると見られる</div>
+        </div>
+      </div>
+      <div class="mag-item">
+        <div>
+          <div class="mag-label">プライバシーへの含意</div>
+          <div class="mag-text">現時点では①MEGは病院/研究室にしかない巨大装置②精度が低く実用レベルにない③被験者の協力が必要——のため実用的な脅威はない。しかし技術の方向性として：ウェアラブルEEGの精度向上＋AI技術の進歩が組み合わされば、将来的に「思考を読む」BCI端末のリスクが現実化する。Metaがこれを開発しオープンソース化することへの倫理的議論は始まっている</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: ai.meta.com</span>
+      <span>42 ポイント</span>
+      <span>22 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://ai.meta.com/blog/brain2qwerty-brain-ai-human-communication/" target="_blank">発表を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48739466" target="_blank">HN議論 (22)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="meta-brain2qwerty-brain-scanning" data-type="like" onclick="toggleFlag('meta-brain2qwerty-brain-scanning','Metaの非侵襲的脳スキャンが文章を読み取る——オープンソース公開','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="meta-brain2qwerty-brain-scanning" data-type="dislike" onclick="toggleFlag('meta-brain2qwerty-brain-scanning','Metaの非侵襲的脳スキャンが文章を読み取る——オープンソース公開','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══════════════════════════════════════════════════════════════ -->
+<footer class="site-footer">
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand">Morning Edition</div>
+      <div class="footer-meta">
+        Hacker News キュレーション · 2026年7月1日 · Issue No.065<br>
+        毎朝、厳選10本をお届け
+      </div>
+    </div>
+    <button class="export-btn" onclick="exportFeedback()">📋 フィードバックをコピー</button>
+  </div>
+  <div class="footer-note">
+    ⭐ 興味あり / ✕ 興味なし ボタンで次回のキュレーションが改善されます。Chrome/Edgeでは自動保存、その他ではボタンでクリップボードにコピーしてください。
+  </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  const FEEDBACK_KEY = 'morning-edition-feedback-v2';
+  const TODAY = '2026-07-01';
+  let _dirHandle = null;
+
+  async function getDir(forcePrompt) {
+    if (_dirHandle && !forcePrompt) return _dirHandle;
+    if (!window.showDirectoryPicker) return null;
+    try {
+      _dirHandle = await window.showDirectoryPicker({ mode: 'readwrite', id: 'morning-edition', startIn: 'documents' });
+      return _dirHandle;
+    } catch { return null; }
+  }
+
+  async function writeJSON(dirHandle, fb) {
+    const fileHandle = await dirHandle.getFileHandle('feedback.json', { create: true });
+    const writable = await fileHandle.createWritable();
+    await writable.write(JSON.stringify({ ...fb, updatedAt: new Date().toISOString() }, null, 2));
+    await writable.close();
+  }
+
+  function showToast(msg, isErr) {
+    const el = document.getElementById('toast');
+    el.textContent = msg;
+    el.className = 'toast' + (isErr ? ' error' : '');
+    requestAnimationFrame(() => el.classList.add('show'));
+    clearTimeout(el._timer);
+    el._timer = setTimeout(() => el.classList.remove('show'), 3000);
+  }
+
+  function getFeedback() {
+    try { return JSON.parse(localStorage.getItem(FEEDBACK_KEY) || '{"liked":{},"disliked":{}}'); }
+    catch { return { liked: {}, disliked: {} }; }
+  }
+  function saveFeedback(fb) { localStorage.setItem(FEEDBACK_KEY, JSON.stringify(fb)); }
+
+  async function autoSave(fb) {
+    let dir = await getDir();
+    if (!dir) {
+      showToast('📁 Daily News フォルダを選択してください', true);
+      dir = await getDir(true);
+      if (!dir) { showToast('保存をキャンセルしました', true); return; }
+    }
+    try {
+      await writeJSON(dir, fb);
+      showToast('✓ feedback.json を自動保存しました（次回キュレーションに反映）');
+    } catch (e) {
+      showToast('保存エラー: ' + e.message, true);
+    }
+  }
+
+  async function toggleFlag(storyId, title, type) {
+    const fb = getFeedback();
+    fb.liked = fb.liked || {};
+    fb.disliked = fb.disliked || {};
+    const likeBtn    = document.querySelector(`.flag-btn.like-btn[data-story="${storyId}"]`);
+    const dislikeBtn = document.querySelector(`.flag-btn.dislike-btn[data-story="${storyId}"]`);
+    if (type === 'like') {
+      if (fb.liked[storyId]) {
+        delete fb.liked[storyId];
+        likeBtn?.classList.remove('active');
+      } else {
+        fb.liked[storyId] = { title, date: TODAY };
+        delete fb.disliked[storyId];
+        likeBtn?.classList.add('active');
+        dislikeBtn?.classList.remove('active');
+      }
+    } else {
+      if (fb.disliked[storyId]) {
+        delete fb.disliked[storyId];
+        dislikeBtn?.classList.remove('active');
+      } else {
+        fb.disliked[storyId] = { title, date: TODAY };
+        delete fb.liked[storyId];
+        dislikeBtn?.classList.add('active');
+        likeBtn?.classList.remove('active');
+      }
+    }
+    saveFeedback(fb);
+    await autoSave(fb);
+  }
+
+  function exportFeedback() {
+    const fb = getFeedback();
+    const json = JSON.stringify({ ...fb, exportedAt: new Date().toISOString() }, null, 2);
+    navigator.clipboard.writeText(json)
+      .then(() => showToast('📋 クリップボードにコピーしました'))
+      .catch(() => {
+        const el = document.createElement('textarea');
+        el.value = json; document.body.appendChild(el); el.select();
+        document.execCommand('copy'); document.body.removeChild(el);
+        showToast('📋 クリップボードにコピーしました');
+      });
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const fb = getFeedback();
+    document.querySelectorAll('.flag-btn').forEach(btn => {
+      const id   = btn.dataset.story;
+      const type = btn.dataset.type;
+      if ((type === 'like' && fb.liked?.[id]) || (type === 'dislike' && fb.disliked?.[id])) {
+        btn.classList.add('active');
+      }
+    });
+  });
+</script>
+</body>
+</html>
