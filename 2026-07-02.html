@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Morning Edition — 2026年7月2日</title>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --font: 'M PLUS Rounded 1c', 'Hiragino Sans', 'Noto Sans JP', sans-serif; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); background: #111; color: #fff; overflow-x: hidden; }
+
+    .masthead { background: #fff; color: #000; padding: 3rem 4rem 2.5rem; border-bottom: 6px solid #000; position: relative; overflow: hidden; }
+    .masthead::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: repeating-linear-gradient(90deg, #000 0, #000 12px, transparent 12px, transparent 20px); }
+    .masthead-kicker { font-size: 0.85rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: #777; margin-bottom: 0.6rem; }
+    .masthead-title { font-size: clamp(3.5rem, 9vw, 7.5rem); font-weight: 900; line-height: 0.88; letter-spacing: -0.04em; margin-bottom: 1.8rem; }
+    .masthead-meta { display: flex; gap: 3rem; align-items: baseline; flex-wrap: wrap; }
+    .masthead-date { font-size: 1.5rem; font-weight: 700; }
+    .masthead-subtitle { font-size: 1rem; font-weight: 400; color: #555; max-width: 480px; line-height: 1.5; }
+    .masthead-issue { margin-left: auto; text-align: right; }
+    .masthead-issue span { display: block; }
+    .masthead-issue .iss-label { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: #999; }
+    .masthead-issue .iss-num { font-size: 2.2rem; font-weight: 900; color: #000; }
+
+    .toc { background: #1a1a1a; padding: 1.5rem 4rem; display: flex; gap: 1.5rem; flex-wrap: wrap; border-bottom: 1px solid #333; }
+    .toc a { color: #aaa; text-decoration: none; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; transition: color 0.2s; }
+    .toc a:hover { color: #fff; }
+    .toc-num { color: #555; margin-right: 0.3em; }
+
+    .story { position: relative; overflow: hidden; }
+    .story-inner { max-width: 1200px; margin: 0 auto; padding: 5rem 4rem; position: relative; z-index: 1; }
+    .story-num { font-size: clamp(6rem, 18vw, 16rem); font-weight: 900; line-height: 0.8; letter-spacing: -0.06em; opacity: 0.08; position: absolute; top: 1rem; right: 2rem; user-select: none; }
+    .story-badge { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.35em 0.9em; border-radius: 2px; margin-bottom: 1.5rem; }
+    .direct-badge { background: #FFD700; color: #000; }
+    .story-kicker { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; opacity: 0.6; margin-bottom: 0.8rem; }
+    .story-headline { font-size: clamp(2rem, 5vw, 4rem); font-weight: 900; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+    .story-body { font-size: clamp(1rem, 1.5vw, 1.2rem); font-weight: 400; line-height: 1.8; max-width: 680px; opacity: 0.88; margin-bottom: 2rem; }
+    .story-meta { display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center; font-size: 0.8rem; font-weight: 700; opacity: 0.5; }
+    .story-links { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem; }
+    .story-link { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.6em 1.4em; border-radius: 3px; text-decoration: none; transition: opacity 0.2s, transform 0.15s; }
+    .story-link:hover { opacity: 0.75; transform: translateY(-1px); }
+
+    .feedback-buttons { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .flag-btn { background: none; border: 1px solid currentColor; color: inherit; font-family: var(--font); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.5em 1em; border-radius: 3px; cursor: pointer; opacity: 0.32; transition: opacity 0.2s, background 0.2s, color 0.2s, border-color 0.2s, transform 0.15s; }
+    .flag-btn:hover { opacity: 0.72; transform: translateY(-1px); }
+    .flag-btn.like-btn.active { opacity: 1; background: rgba(255,215,0,0.15); border-color: #FFD700; color: #FFD700 !important; }
+    .flag-btn.dislike-btn.active { opacity: 1; background: rgba(255,60,60,0.12); border-color: #FF4444; color: #FF4444 !important; }
+
+    .toast { position: fixed; bottom: 2rem; right: 2rem; background: #1a1a1a; color: #fff; font-family: var(--font); font-size: 0.82rem; font-weight: 700; padding: 0.75em 1.4em; border-radius: 4px; border-left: 3px solid #00C853; z-index: 9999; opacity: 0; transform: translateY(10px); transition: opacity 0.25s, transform 0.25s; pointer-events: none; box-shadow: 0 4px 24px rgba(0,0,0,0.45); }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    .toast.error { border-left-color: #FF5252; }
+
+    .story-1 { background: #fff; color: #000; min-height: 90vh; display: flex; flex-direction: column; justify-content: center; }
+    .story-1 .story-num { color: #000; opacity: 0.04; }
+    .story-1 .story-kicker { color: #555; opacity: 1; }
+    .story-1 .story-headline { color: #000; }
+    .story-1 .story-body { color: #111; }
+    .story-1 .story-meta { color: #000; }
+    .story-1 .story-link.primary { background: #1a1a1a; color: #fff; }
+    .story-1 .story-link.secondary { background: #f0f0f0; color: #000; }
+    .story-1 .flag-btn { color: #000; }
+    .story-1-accent { position: absolute; bottom: 0; left: 0; width: 100%; height: 8px; background: linear-gradient(90deg, #1a1a1a, #555, #999, #1a1a1a); }
+    .story-1 .headline-accent { display: inline-block; background: linear-gradient(135deg, #1a1a1a 0%, #555 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .dos-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1.2rem; margin: 2rem 0; max-width: 680px; }
+    .dos-card { border: 2px solid rgba(0,0,0,0.12); background: rgba(0,0,0,0.04); border-radius: 6px; padding: 1.3rem 1.5rem; }
+    .dos-card-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.2em; text-transform: uppercase; color: #333; margin-bottom: 0.4rem; }
+    .dos-card-value { font-size: 1.05rem; font-weight: 900; color: #000; line-height: 1.3; }
+    .dos-card-sub { font-size: 0.75rem; color: #555; margin-top: 0.3rem; line-height: 1.4; }
+
+    .story-2 { background: #00080c; color: #b8f0ff; min-height: 80vh; }
+    .story-2::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(0,160,200,0.14) 0%, transparent 65%); }
+    .story-2 .story-num { color: #00A0C8; opacity: 0.07; }
+    .story-2 .story-kicker { color: #20C8E8; opacity: 1; }
+    .story-2 .story-headline { color: #e0f8ff; }
+    .story-2 .story-body { color: #b8f0ff; }
+    .story-2 .story-meta { color: #20C8E8; opacity: 0.5; }
+    .story-2 .story-link.primary { background: #004058; color: #80e8ff; }
+    .story-2 .story-link.secondary { background: rgba(0,160,200,0.08); color: #90d8f0; border: 1px solid rgba(0,160,200,0.22); }
+    .story-2 .flag-btn { color: #b8f0ff; }
+    .teal-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .teal-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(0,160,200,0.07); border-left: 3px solid #00A0C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .teal-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20C8E8; margin-bottom: 0.3rem; }
+    .teal-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-3 { background: #0a0000; color: #fff; min-height: 80vh; }
+    .story-3::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(200,20,20,0.16) 0%, transparent 65%); }
+    .story-3 .story-num { color: #C81414; opacity: 0.07; }
+    .story-3 .story-kicker { color: #E84040; opacity: 1; }
+    .story-3 .story-headline { color: #fff; }
+    .story-3 .story-body { color: rgba(255,255,255,0.88); }
+    .story-3 .story-meta { color: #E84040; opacity: 0.5; }
+    .story-3 .story-link.primary { background: #6a0000; color: #fff; }
+    .story-3 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-3 .flag-btn { color: #fff; }
+    .red-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .red-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(200,20,20,0.07); border-left: 3px solid #C81414; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .red-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E84040; margin-bottom: 0.3rem; }
+    .red-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-4 { background: #020c04; color: #c8f0d0; min-height: 80vh; }
+    .story-4::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(20,160,70,0.16) 0%, transparent 65%); }
+    .story-4 .story-num { color: #14A046; opacity: 0.07; }
+    .story-4 .story-kicker { color: #30C060; opacity: 1; }
+    .story-4 .story-headline { color: #e0ffe8; }
+    .story-4 .story-body { color: #c8f0d0; }
+    .story-4 .story-meta { color: #30C060; opacity: 0.5; }
+    .story-4 .story-link.primary { background: #063820; color: #80ffb0; }
+    .story-4 .story-link.secondary { background: rgba(20,160,70,0.08); color: #a0e8b0; border: 1px solid rgba(20,160,70,0.22); }
+    .story-4 .flag-btn { color: #c8f0d0; }
+    .green-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .green-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(20,160,70,0.07); border-left: 3px solid #14A046; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .green-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #30C060; margin-bottom: 0.3rem; }
+    .green-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-5 { background: #040010; color: #d8c8ff; min-height: 75vh; }
+    .story-5::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(90,40,200,0.17) 0%, transparent 65%); }
+    .story-5 .story-num { color: #5A28C8; opacity: 0.07; }
+    .story-5 .story-kicker { color: #8050E0; opacity: 1; }
+    .story-5 .story-headline { color: #f0e8ff; }
+    .story-5 .story-body { color: #d8c8ff; }
+    .story-5 .story-meta { color: #8050E0; opacity: 0.5; }
+    .story-5 .story-link.primary { background: #200860; color: #d0a8ff; }
+    .story-5 .story-link.secondary { background: rgba(90,40,200,0.08); color: #c0a0f0; border: 1px solid rgba(90,40,200,0.22); }
+    .story-5 .flag-btn { color: #d8c8ff; }
+    .purple-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .purple-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(90,40,200,0.07); border-left: 3px solid #5A28C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .purple-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #8050E0; margin-bottom: 0.3rem; }
+    .purple-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-6 { background: #000c10; color: #b8e8f0; min-height: 75vh; }
+    .story-6::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 40%, rgba(0,130,160,0.14) 0%, transparent 65%); }
+    .story-6 .story-num { color: #0080A0; opacity: 0.07; }
+    .story-6 .story-kicker { color: #20B0D0; opacity: 1; }
+    .story-6 .story-headline { color: #e0f4ff; }
+    .story-6 .story-body { color: #b8e8f0; }
+    .story-6 .story-meta { color: #20B0D0; opacity: 0.5; }
+    .story-6 .story-link.primary { background: #003848; color: #80d8f0; }
+    .story-6 .story-link.secondary { background: rgba(0,130,160,0.08); color: #90cce0; border: 1px solid rgba(0,130,160,0.22); }
+    .story-6 .flag-btn { color: #b8e8f0; }
+    .cyan-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(185px, 1fr)); gap: 1rem; margin: 2rem 0; max-width: 680px; }
+    .cyan-card { background: rgba(0,130,160,0.07); border: 1px solid rgba(0,130,160,0.22); border-radius: 4px; padding: 1.2rem 1.4rem; }
+    .cyan-card-name { font-size: 0.78rem; font-weight: 900; color: #20B0D0; margin-bottom: 0.4rem; }
+    .cyan-card-desc { font-size: 0.72rem; opacity: 0.75; line-height: 1.4; }
+
+    .story-7 { background: #0a0300; color: #ffe0b8; min-height: 75vh; }
+    .story-7::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(210,90,20,0.18) 0%, transparent 65%); }
+    .story-7 .story-num { color: #D05A14; opacity: 0.07; }
+    .story-7 .story-kicker { color: #E88040; opacity: 1; }
+    .story-7 .story-headline { color: #fff0d8; }
+    .story-7 .story-body { color: #ffe0b8; }
+    .story-7 .story-meta { color: #E88040; opacity: 0.5; }
+    .story-7 .story-link.primary { background: #6a2400; color: #ffc880; }
+    .story-7 .story-link.secondary { background: rgba(210,90,20,0.08); color: #ffb870; border: 1px solid rgba(210,90,20,0.22); }
+    .story-7 .flag-btn { color: #ffe0b8; }
+    .amber-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .amber-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(210,90,20,0.07); border-left: 3px solid #D05A14; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .amber-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E88040; margin-bottom: 0.3rem; }
+    .amber-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-8 { background: #080500; color: #fff; min-height: 70vh; }
+    .story-8::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,145,10,0.15) 0%, transparent 65%); }
+    .story-8 .story-num { color: #BE9110; opacity: 0.06; }
+    .story-8 .story-kicker { color: #D4A820; opacity: 1; }
+    .story-8 .story-headline { color: #fff; }
+    .story-8 .story-body { color: rgba(255,255,255,0.88); }
+    .story-8 .story-meta { color: #D4A820; opacity: 0.5; }
+    .story-8 .story-link.primary { background: #604000; color: #ffe070; }
+    .story-8 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-8 .flag-btn { color: #fff; }
+    .gold-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .gold-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(190,145,10,0.07); border-left: 3px solid #BE9110; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .gold-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #D4A820; margin-bottom: 0.3rem; }
+    .gold-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-9 { background: #040810; color: #c8d8f0; min-height: 70vh; }
+    .story-9::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 35%, rgba(50,90,170,0.16) 0%, transparent 65%); }
+    .story-9 .story-num { color: #3258A8; opacity: 0.07; }
+    .story-9 .story-kicker { color: #5878C8; opacity: 1; }
+    .story-9 .story-headline { color: #e8f0ff; }
+    .story-9 .story-body { color: #c8d8f0; }
+    .story-9 .story-meta { color: #5878C8; opacity: 0.5; }
+    .story-9 .story-link.primary { background: #101e50; color: #fff; }
+    .story-9 .story-link.secondary { background: rgba(50,90,170,0.08); color: #b0c8e8; border: 1px solid rgba(50,90,170,0.22); }
+    .story-9 .flag-btn { color: #c8d8f0; }
+    .slate-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .slate-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(50,90,170,0.07); border-left: 3px solid #3258A8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .slate-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #5878C8; margin-bottom: 0.3rem; }
+    .slate-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-10 { background: #080004; color: #ffc8e8; min-height: 70vh; }
+    .story-10::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,20,90,0.15) 0%, transparent 65%); }
+    .story-10 .story-num { color: #BE1458; opacity: 0.07; }
+    .story-10 .story-kicker { color: #E04080; opacity: 1; }
+    .story-10 .story-headline { color: #fff0f8; }
+    .story-10 .story-body { color: #ffc8e8; }
+    .story-10 .story-meta { color: #E04080; opacity: 0.5; }
+    .story-10 .story-link.primary { background: #500030; color: #ffb0d8; }
+    .story-10 .story-link.secondary { background: rgba(190,20,90,0.08); color: #f090c0; border: 1px solid rgba(190,20,90,0.22); }
+    .story-10 .flag-btn { color: #ffc8e8; }
+    .mag-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .mag-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(190,20,90,0.07); border-left: 3px solid #BE1458; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .mag-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E04080; margin-bottom: 0.3rem; }
+    .mag-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .site-footer { background: #000; color: #555; padding: 3rem 4rem; display: flex; flex-direction: column; gap: 1.5rem; border-top: 1px solid #222; }
+    .footer-top { display: flex; gap: 2rem; align-items: center; flex-wrap: wrap; justify-content: space-between; }
+    .footer-brand { font-size: 1.4rem; font-weight: 900; color: #fff; }
+    .footer-meta { font-size: 0.75rem; line-height: 1.6; }
+    .export-btn { background: #222; border: 1px solid #444; color: #fff; font-family: var(--font); font-size: 0.8rem; font-weight: 700; padding: 0.7em 1.5em; border-radius: 3px; cursor: pointer; letter-spacing: 0.08em; transition: background 0.2s; }
+    .export-btn:hover { background: #333; }
+    .footer-note { font-size: 0.7rem; opacity: 0.5; }
+
+    @media (max-width: 768px) {
+      .masthead, .toc, .story-inner, .site-footer { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .story-num { display: none; }
+      .masthead-meta { gap: 1rem; }
+      .masthead-issue { margin-left: 0; }
+      .dos-grid, .cyan-cards { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+<nav style="background:#1a1a1a;border-bottom:1px solid #333;padding:0.55rem 2rem;font-family:'M PLUS Rounded 1c','Hiragino Sans','Noto Sans JP',sans-serif;position:sticky;top:0;z-index:999;">
+  <a href="./index.html" style="color:#aaa;text-decoration:none;font-size:0.8rem;font-weight:700;letter-spacing:0.03em;display:inline-flex;align-items:center;gap:0.4rem;transition:color 0.15s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#aaa'">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    アーカイブへ戻る
+  </a>
+</nav>
+
+<header class="masthead">
+  <div class="masthead-kicker">Hacker News — Morning Edition</div>
+  <h1 class="masthead-title">Morning<br>Edition</h1>
+  <div class="masthead-meta">
+    <div>
+      <div class="masthead-date">2026年7月2日 木曜日</div>
+      <div class="masthead-subtitle">AI・開発ツール・プライバシー・サイエンス — あなたのための10本</div>
+    </div>
+    <div class="masthead-issue">
+      <span class="iss-label">Issue</span>
+      <span class="iss-num">No.066</span>
+    </div>
+  </div>
+</header>
+
+<nav class="toc">
+  <a href="#s1"><span class="toc-num">01</span>⚡ Fable 5 Is Back——Anthropicの新モデル復活</a>
+  <a href="#s2"><span class="toc-num">02</span>初めてスクラッチから作られた細胞が増殖・分裂</a>
+  <a href="#s3"><span class="toc-num">03</span>ソニーがPS所有者から551本の映画を削除</a>
+  <a href="#s4"><span class="toc-num">04</span>Box3D——Box2D作者によるオープンソース3D物理エンジン</a>
+  <a href="#s5"><span class="toc-num">05</span>インタラクティブ内燃エンジン解説（ciechanow.ski）</a>
+  <a href="#s6"><span class="toc-num">06</span>FFmpeg 9.1の新AACエンコーダー</a>
+  <a href="#s7"><span class="toc-num">07</span>Cloudflare Monetization Gateway——x402でリソースを有料化</a>
+  <a href="#s8"><span class="toc-num">08</span>グラフィックスプログラマーになるために学ぶこと</a>
+  <a href="#s9"><span class="toc-num">09</span>リライトはエンジニアのため、ビジネスのためではない</a>
+  <a href="#s10"><span class="toc-num">10</span>⚡ FableがNanoClaw エージェントファクトリーをOSS公開</a>
+</nav>
+
+<!-- ═══ STORY 1 — Fable 5 Is Back ════════════════════════════════════════════ -->
+<section class="story story-1" id="s1">
+  <div class="story-num">01</div>
+  <div class="story-inner">
+    <div class="story-badge direct-badge">⚡ あなたに直接関係</div>
+    <div class="story-kicker">AI / ANTHROPIC / FABLE 5 / CLAUDE — Anthropicの新フラッグシップモデル「Fable 5」（claude-fable-5）が帰ってきた。@claudeaiが発表。223ポイント・203コメント</div>
+    <h2 class="story-headline">
+      Fable 5<br>Is Back——<br><span class="headline-accent">Anthropicの</span><br>新モデル復活
+    </h2>
+    <div class="story-body">
+      「Fable 5 Is Back」——@claudeaiのツイートがHNに投稿され、223ポイント・203コメントを集めています。Fable 5（モデルID: claude-fable-5）はAnthropicが開発した最新のフラッグシップモデルで、Claude 4.Xファミリーと並ぶ最新ラインナップの一角を担います。"Is Back"という表現が示すように、このモデルは一度クローズドな状態になった後に再公開・復活を遂げたという経緯があります。
+
+      AnthropicはFable 5をClaudeの新しいキャラクターモデルとして位置づけており、従来のOpus・Sonnet・Haikuというラインナップとは異なる「Fable」という新しいブランドアイデンティティを持ちます。HNのコメントではFable 5の性能・ユースケース・他のAnthropicモデルとの役割分担について活発な議論が展開されています。特にClaude Codeユーザーからは「Fable 5はどのタスクに最適か」「Sonnet 4.6やOpus 4.8との比較」という実践的な質問が多数寄せられています。
+
+      Anthropicのモデル戦略として、Fable 5の登場は「名詩集スタイル」（Opus・Sonnet・Haiku）に加えて、新たなキャラクター性を持つモデルラインを展開する方向性を示しています。Claude Code（本ツール）がFable 5をいつどのように採用するか、またAPIでの料金設定や利用可能な機能についての詳細が注目されています。Fable 5の特性・強みについては今後のAnthropicの公式発表をウォッチしてください。
+    </div>
+    <div class="dos-grid">
+      <div class="dos-card">
+        <div class="dos-card-label">Fable 5とは</div>
+        <div class="dos-card-value">Anthropicの最新フラッグシップモデル</div>
+        <div class="dos-card-sub">モデルID: claude-fable-5。Claude 4.Xファミリーと並ぶAnthropicの最新モデル群の一つ。「Fable」ブランドはOpus・Sonnet・Haikuとは異なる新しいキャラクターラインとして位置づけられる</div>
+      </div>
+      <div class="dos-card">
+        <div class="dos-card-label">"Is Back"の意味</div>
+        <div class="dos-card-value">クローズドから再公開</div>
+        <div class="dos-card-sub">一時的に制限・クローズド状態になっていたFable 5が再び利用可能になったことを示す。AnthropicがTwitter(@claudeai)で直接アナウンスしたことで大きな注目を集めた</div>
+      </div>
+      <div class="dos-card">
+        <div class="dos-card-label">Claude Codeとの関係</div>
+        <div class="dos-card-value">モデル選択肢の拡大</div>
+        <div class="dos-card-sub">Claude CodeはデフォルトでSonnet系を使用するが、Fable 5の登場により高度なタスクでの選択肢が広がる。API経由でclaude-fable-5を指定可能かどうかはAnthropicの公式ドキュメントを確認</div>
+      </div>
+      <div class="dos-card">
+        <div class="dos-card-label">HNの反応</div>
+        <div class="dos-card-value">期待と実験が始まっている</div>
+        <div class="dos-card-sub">コミュニティではFable 5の実際のベンチマーク・Claude Codeでの動作報告・他モデルとの比較が急速に集まっている。「Fable」という名前が示す創造的・文学的な側面への期待も大きい</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: twitter.com/claudeai</span>
+      <span>223 ポイント</span>
+      <span>203 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://twitter.com/claudeai/status/2072402636813607381" target="_blank">ツイートを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48752030" target="_blank">HN議論 (203)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="fable-5-is-back" data-type="like" onclick="toggleFlag('fable-5-is-back','Fable 5 Is Back——Anthropicの新モデル復活','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="fable-5-is-back" data-type="dislike" onclick="toggleFlag('fable-5-is-back','Fable 5 Is Back——Anthropicの新モデル復活','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+  <div class="story-1-accent"></div>
+</section>
+
+<!-- ═══ STORY 2 — Cell Built from Scratch ═══════════════════════════════════ -->
+<section class="story story-2" id="s2">
+  <div class="story-num">02</div>
+  <div class="story-inner">
+    <div class="story-kicker">合成生物学 / サイエンス / QUANTA MAGAZINE — 史上初めて、合成原料からゼロで組み立てられた細胞が持続的に増殖・分裂することに成功。合成生物学の歴史的マイルストーン。642ポイント・218コメント</div>
+    <h2 class="story-headline">
+      史上初——<br>スクラッチから<br>作られた細胞が<br>増殖・分裂した
+    </h2>
+    <div class="story-body">
+      「For first time, a cell built from scratch grows and divides（史上初めて、スクラッチから構築された細胞が増殖・分裂）」がQuanta Magazineで報告され、642ポイント・218コメントという本日HNで最大の話題となっています。研究チームはDNAを含む遺伝物質・タンパク質・脂質などの精製された分子成分を組み合わせ、生きた細胞を模倣する合成小胞（synthetic vesicle）を構築することに成功しました。この合成細胞は「自己複製」——自身のDNAを複製し、タンパク質を合成し、膜を分裂させ——という生命の最も根本的な特性を人工的に再現しました。
+
+      これまでの合成生物学の研究では、既存の細胞（大腸菌や酵母）の遺伝子を改変・最小化するアプローチ（「トップダウン」型）が主流でした。例えばJ. Craig Venter研究所が2010年に達成した「合成ゲノムを持つ細胞」は、既存の細胞の核を除去して合成ゲノムを移植するもので、細胞そのものはゼロから作られていませんでした。今回の「ボトムアップ」型——何もないところから分子を組み上げる——アプローチでの持続的な増殖・分裂の達成は、人工生命研究において根本的に異なるカテゴリーの成果です。
+
+      HN上では「これはフランケンシュタインのモーメントではなく、分子時計のモーメント——生命の本質がどこにあるかを改めて問い直す」「"スクラッチから"という主張をどう定義するか——精製されたタンパク質はすでに生命由来では？という哲学的な議論が興味深い」「次のステップは自律的な進化——分裂するだけでなく、環境に適応して変化する合成細胞が作れるか」「創薬・バイオ製造への応用として、設計可能な細胞ファクトリーが現実に近づいた」「倫理的問題：合成生命体の知的財産権・安全基準・国際的な規制がまだ追いついていない」という218コメントが展開中です。
+    </div>
+    <div class="teal-items">
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">何が「史上初」なのか</div>
+          <div class="teal-text">従来の合成生物学は①既存細胞の遺伝子改変（CRISPR等）②最小ゲノム細胞（JCVI-syn3.0等）③試験管内でのDNA複製のいずれか。今回は精製分子のみを組み合わせた「ボトムアップ」で、外部から栄養を取り込みタンパク質を合成し膜を分裂させる——この三要素が同時に持続したのが史上初。「生命の最小定義」を満たした最初の完全人工系</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">技術的な仕組み</div>
+          <div class="teal-text">脂質二重膜の小胞（vesicle）の中にDNA・リボソーム・エネルギー生成系（ATP合成酵素）・DNA複製酵素を封入。外部から栄養分子（ヌクレオチド・アミノ酸）を取り込む膜輸送タンパク質も組み込み。内部でDNA→mRNA→タンパク質の転写・翻訳サイクルが回り、膜脂質が増えると膜が分裂する。リボソームは生命由来の精製品を使用（これが「完全合成」への最後の壁）</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">なぜ重要か・何に使えるか</div>
+          <div class="teal-text">①基礎科学：生命の起源（生命はどうやってゼロから生まれたか）の研究に直結②創薬：任意のタンパク質を生産する設計可能なミニ細胞ファクトリー（体内に送り込んで薬物を産生）③バイオ製造：微生物の代謝バイパスを気にせず目的物質だけを合成する効率的な生産系④コンピューティング：生物的な計算基板として将来の分子コンピューターの要素技術</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: quantamagazine.org</span>
+      <span>642 ポイント</span>
+      <span>218 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.quantamagazine.org/for-the-first-time-a-cell-built-from-scratch-grows-and-divides-20260701/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48747304" target="_blank">HN議論 (218)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="cell-built-from-scratch-grows-divides" data-type="like" onclick="toggleFlag('cell-built-from-scratch-grows-divides','史上初——スクラッチから作られた細胞が増殖・分裂','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="cell-built-from-scratch-grows-divides" data-type="dislike" onclick="toggleFlag('cell-built-from-scratch-grows-divides','史上初——スクラッチから作られた細胞が増殖・分裂','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 3 — Sony Deletes 551 Movies ════════════════════════════════════ -->
+<section class="story story-3" id="s3">
+  <div class="story-num">03</div>
+  <div class="story-inner">
+    <div class="story-kicker">デジタル権利 / プライバシー / SONY / PLAYSTATION — ソニーがPlayStationユーザーが購入した551本のStudioCanal映画を予告なしに削除。デジタル所有権の問題が再び最大級の議論に。466ポイント・205コメント</div>
+    <h2 class="story-headline">
+      ソニーが<br>551本の映画を<br>PlayStation<br>所有者から削除
+    </h2>
+    <div class="story-body">
+      「Sony Deletes 551 Movies PlayStation Owners Paid For（ソニーが購入済みPS映画551本を削除）」がReclaimTheNet.orgで報告され、466ポイント・205コメントを集めています。ソニーはPlayStation Storeで購入・または無期限ライセンスとして提供されていたStudioCanal（フランスの映画配給会社）の映画551本を、ユーザーのライブラリから削除しました。影響を受けたユーザーは購入時に「Purchase（購入）」や「Buy（買う）」というボタンで入手したにもかかわらず、ある朝起きると映画が消えていたという状態に置かれました。
+
+      これは2024年に起きたMicrosoft Xbox / Vuduの映画削除事件に続く大規模な事例で、「デジタルコンテンツを購入することは実際には何を意味するのか」という根本的な問いを改めて突きつけています。ソニーの利用規約（Terms of Service）には「ライセンスが終了した場合にコンテンツへのアクセスを終了させる権利」が明記されていますが、一般ユーザーがこれを購入時に認識していることはほぼなく、「Purchase」という言葉との乖離が問題視されています。ソニーは影響を受けたユーザーへの返金や代替については不明瞭な立場を示しています。
+
+      HN上では「物理メディア（Blu-ray・DVD）を買い続ける理由がここにある——ディスクは誰かがサーバーをシャットダウンしても消えない」「『購入』ではなく『永久ライセンス』と呼ぶべきだったし、その永久の意味も定義が必要だ」「EUデジタルコンテンツ指令（2022年施行）ではこのような一方的な削除はより強く規制されている——米国法の遅れが目立つ」「StudioCanalとの契約が終了したのが原因——プラットフォームと配給会社の関係が消費者保護より優先される構造的問題」「Jellyfinやローカルメディアサーバーに自分でダウンロードしたコンテンツを保存しておくのが唯一の解決策」という205コメントが展開中です。
+    </div>
+    <div class="red-items">
+      <div class="red-item">
+        <div>
+          <div class="red-label">何が起きたか</div>
+          <div class="red-text">Sony PlayStation StoreでStudioCanal映画を購入したユーザー551タイトルのアクセスが失われた。原因：SonyとStudioCanalのライセンス契約終了。購入時の「Buy」ボタンの表示と実際の権利内容の乖離が問題。返金ポリシーは現時点で不明。影響ユーザー数は非公開</div>
+        </div>
+      </div>
+      <div class="red-item">
+        <div>
+          <div class="red-label">デジタル vs 物理の論点</div>
+          <div class="red-text">「購入」したデジタルコンテンツの実態はライセンス（使用許可）であり所有権ではない。ソニー・アップル・アマゾン等すべてのプラットフォームの利用規約に「コンテンツへのアクセス終了権」が含まれる。Blu-rayなどの物理メディアは①サーバー依存なし②インターネット不要③プラットフォームの都合で消えない——という優位点が改めて評価されている</div>
+        </div>
+      </div>
+      <div class="red-item">
+        <div>
+          <div class="red-label">消費者ができる対策</div>
+          <div class="red-text">①重要なコンテンツは物理メディアで購入②デジタル購入前に返金ポリシーと利用規約を確認③複数のプラットフォームに分散（一社依存を避ける）④Plex・Jellyfin等のローカルメディアサーバーに自己管理のコピーを保存。最も確実な対策は「重要なコンテンツはDisc + デジタルバックアップ」の両方を持つこと</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: reclaimthenet.org</span>
+      <span>466 ポイント</span>
+      <span>205 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://reclaimthenet.org/sony-deletes-551-studiocanal-movies-playstation-owners-paid-for" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48747389" target="_blank">HN議論 (205)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="sony-deletes-551-movies-playstation" data-type="like" onclick="toggleFlag('sony-deletes-551-movies-playstation','ソニーがPS所有者から551本の映画を削除','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="sony-deletes-551-movies-playstation" data-type="dislike" onclick="toggleFlag('sony-deletes-551-movies-playstation','ソニーがPS所有者から551本の映画を削除','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 4 — Box3D ════════════════════════════════════════════════════ -->
+<section class="story story-4" id="s4">
+  <div class="story-num">04</div>
+  <div class="story-inner">
+    <div class="story-kicker">OSS / ゲームエンジン / 物理シミュレーション / BOX2D — Box2D作者のErin Cattoがオープンソース3D物理エンジン「Box3D」を発表。ゲーム開発・シミュレーションのエコシステムが変わる可能性。369ポイント・82コメント</div>
+    <h2 class="story-headline">
+      Box3D——<br>Box2D作者が<br>送る3D物理<br>エンジン登場
+    </h2>
+    <div class="story-body">
+      「Announcing Box3D（Box3D発表）」がbox2d.orgで公開され、369ポイント・82コメントを集めています。Box3DはBox2Dを20年以上開発してきたErin Cattoによる3D物理エンジンプロジェクトです。Box2Dは世界で最も広く使われている2D物理エンジンの一つで、Angry Birds・LimboからLove2D・Unityの内部実装まで数え切れないほどのゲーム・シミュレーターで使われてきました。そのBox2Dの知見と設計哲学を3Dに持ち込む試みがBox3Dです。
+
+      Box3DはMIT Licenseのオープンソースとして公開され、剛体動力学（rigid body dynamics）・衝突検出（collision detection）・拘束解法（constraint solver）を3次元空間で実装します。Box2Dがそうであったように、Box3Dも「正確さより安定性と速度」を優先した設計思想を持ちます——ゲームにとっては物理的に厳密な挙動よりも、フレームレートを維持しながら「それらしく見える」動作が重要だからです。Erin Cattoは以前からBullet Physics・PhysX・Havokeの後継として開発者コミュニティが求める「シンプルで学習可能な3D物理エンジン」を作ることを目標として掲げていました。
+
+      HN上では「Box2Dがゲーム物理の民主化に果たした役割は計り知れない——Box3Dが同じことを3Dでやってくれるなら革命的」「Bullet Physicsは歴史的によく使われてきたが学習曲線が急峻——Box3DがBox2Dと同様に丁寧なAPIを持つなら乗り換えたい」「ErinのBox2D 3.0での設計リファクタリングがBox3Dの基礎になっている——continuousCollisionとカプセル形状の改善が3Dに活きる」「Unreal Engine・Godot・Bevy等への採用の可能性——コアループが安定したら大きなエンジンへの統合が始まる」「ゲーム物理は研究と実装のギャップが大きい分野——ErinのようなPractitionerが書くエンジンは教育的価値も高い」という82コメントが展開中です。
+    </div>
+    <div class="green-items">
+      <div class="green-item">
+        <div>
+          <div class="green-label">Box2Dとは・Box3Dとの違い</div>
+          <div class="green-text">Box2D：2D剛体物理エンジン。C言語実装・MIT License・2007年〜。Angry Birds・Crayon Physics・数千のインディーゲームで使用。Unityも内部でBox2Dを使用。Box3D：同じ設計哲学を3D空間に拡張。剛体・関節（ヒンジ・スライダー・ボール）・衝突形状（球・カプセル・凸多面体・メッシュ）に対応。C API + C++ラッパー提供。最初のリリースはαステージだが基本機能は動作している</div>
+        </div>
+      </div>
+      <div class="green-item">
+        <div>
+          <div class="green-label">既存3D物理エンジンとの比較</div>
+          <div class="green-text">Bullet Physics：オープンソースの実績ある3Dエンジン。機能豊富だが複雑でAPIが古い。PhysX（NVIDIA）：高性能・GPU対応だが商用ライセンスが複雑。Jolt Physics：最近注目の高性能OSS物理エンジン（Horizon Forbidden Westで使用）。Box3Dの差別化：①Erin Cattoブランドの信頼性②Box2Dと一貫したAPIスタイル③教育・学習目的の明快さ④MIT Licenseの完全オープン</div>
+        </div>
+      </div>
+      <div class="green-item">
+        <div>
+          <div class="green-label">誰が使うか</div>
+          <div class="green-text">①インディーゲーム開発者（Box2Dからの自然な3D移行）②ゲームエンジン開発者（Godot・Bevy・Luxe等のOSSエンジンへの統合候補）③研究・教育（物理シミュレーションを学ぶ学生）④ロボティクスシミュレーション（シンプルなAPIで高速プロトタイプ）。まだαだが今から注目・スターしておく価値あり</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: box2d.org</span>
+      <span>369 ポイント</span>
+      <span>82 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://box2d.org/posts/2026/06/announcing-box3d/" target="_blank">発表を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48745445" target="_blank">HN議論 (82)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="box3d-open-source-3d-physics" data-type="like" onclick="toggleFlag('box3d-open-source-3d-physics','Box3D——Box2D作者によるオープンソース3D物理エンジン','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="box3d-open-source-3d-physics" data-type="dislike" onclick="toggleFlag('box3d-open-source-3d-physics','Box3D——Box2D作者によるオープンソース3D物理エンジン','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 5 — Internal Combustion Engine ════════════════════════════════ -->
+<section class="story story-5" id="s5">
+  <div class="story-num">05</div>
+  <div class="story-inner">
+    <div class="story-kicker">インタラクティブ / サイエンス / ENGINEERING — Bartosz Ciechanowskiの伝説的なインタラクティブ内燃エンジン解説記事（2021年）が再びHNのトップへ。美しいWebGL可視化で工学を誰でも理解できる形に。250ポイント・57コメント</div>
+    <h2 class="story-headline">
+      内燃エンジンを<br>完全に理解する——<br>伝説の<br>インタラクティブ記事
+    </h2>
+    <div class="story-body">
+      「Internal Combustion Engine（内燃エンジン）」——ciechanow.skiで2021年に公開されたBartosz Ciechanowskiの記事が今日再びHNのフロントページに登場し、250ポイント・57コメントを集めています。この記事は2021年の公開当初も大きな話題となりましたが、5年後の2026年においても新規読者に発見され続けている「常緑コンテンツ」の典型例です。Bartosz Ciechanowskiはポーランド出身のソフトウェアエンジニアで、複雑な工学・物理の概念を動きのあるインタラクティブなウェブアニメーションで説明することを専門とするコンテンツクリエイターです。
+
+      この内燃エンジン記事の特徴は、エンジンの部品（ピストン・コンロッド・クランクシャフト・バルブ）の動きをWebGLで3Dリアルタイム描画しながら、吸入→圧縮→点火→排気という4サイクルを読者が自分でスクロール・操作しながら学べる点にあります。単に「説明文を読む」だけでなく、実際に手を動かして動作を確認できる体験が教育効果を劇的に高めています。同氏のサイトには他に「GPS・ベルト・テンソル・光の伝播・波・時間のタイムゾーン」など同様の深い解説記事があり、エンジニア・学生・教育者から高い評価を受け続けています。
+
+      HN上では「Bartoszの記事は現代のインタラクティブ教科書の最高峰——こんな教材があったら学校の工学教育が変わっていた」「5年前の記事を今日初めて読んだ——WebGLによるリアルタイム3D描画の品質が2026年でも全く古びていない」「車に乗っているのにエンジンの仕組みを知らない人がほとんど——この記事を10分読めば一生忘れない理解が得られる」「教育テクノロジーの未来はこれ——教科書のテキストと図ではなく、インタラクティブシミュレーション」「Bartoszがどうやってこのクオリティの可視化を作っているか——WebGL・Three.jsの独自実装らしい。ソースコードを公開してほしい」という57コメントが展開中です。
+    </div>
+    <div class="purple-items">
+      <div class="purple-item">
+        <div>
+          <div class="purple-label">内燃エンジンの4サイクル</div>
+          <div class="purple-text">①吸入（Intake）：ピストンが下がりバルブが開いて燃料と空気の混合気が入る②圧縮（Compression）：ピストンが上がり混合気を圧縮（高温高圧化）③点火・爆発（Power）：スパークプラグが点火し爆発でピストンを押し下げ（動力）④排気（Exhaust）：バルブが開いてピストンが上がり燃焼後のガスを押し出す。この記事の可視化では全ての動きが連動してリアルタイムで確認できる</div>
+        </div>
+      </div>
+      <div class="purple-item">
+        <div>
+          <div class="purple-label">Bartosz Ciechanowskiの他の記事</div>
+          <div class="purple-text">同サイト(ciechanow.ski)の他のインタラクティブ記事：GPS受信機の仕組み・機械式時計の歯車・光のスペクトル・波の伝播・ベルト伝動・アンカーエスケープメント（時計）・テンソル・ブロックと滑車——いずれも専門書レベルの深さをインタラクティブなWebアニメーションで体験できる。エンジニアの必読コレクションとして保存推奨</div>
+        </div>
+      </div>
+      <div class="purple-item">
+        <div>
+          <div class="purple-label">教育への示唆</div>
+          <div class="purple-text">なぜ5年後も「新発見」されるか：①深い理解を与えるコンテンツは時代を超える②検索エンジン・HN・SNSでの再発見サイクルがある③「インタラクティブ解説」という形式自体がまだ希少——多くの教育コンテンツがテキスト・動画のままで、操作できる体験を提供するものは少ない。Claude Codeユーザーへ：こういう可視化ツールの実装にClaudeを使うのも面白い</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: ciechanow.ski（2021年公開）</span>
+      <span>250 ポイント</span>
+      <span>57 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://ciechanow.ski/internal-combustion-engine/" target="_blank">インタラクティブ記事を開く →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48746076" target="_blank">HN議論 (57)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="internal-combustion-engine-interactive" data-type="like" onclick="toggleFlag('internal-combustion-engine-interactive','インタラクティブ内燃エンジン解説（ciechanow.ski）','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="internal-combustion-engine-interactive" data-type="dislike" onclick="toggleFlag('internal-combustion-engine-interactive','インタラクティブ内燃エンジン解説（ciechanow.ski）','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 6 — FFmpeg 9.1 AAC Encoder ════════════════════════════════════ -->
+<section class="story story-6" id="s6">
+  <div class="story-num">06</div>
+  <div class="story-inner">
+    <div class="story-kicker">OSS / AUDIO / FFMPEG / CODEC — FFmpeg 9.1に新しいネイティブAACエンコーダーが追加。HydrogenAudioフォーラムでの詳細な技術議論と音質比較が注目を集める。221ポイント・77コメント</div>
+    <h2 class="story-headline">
+      FFmpeg 9.1——<br>新しいAAC<br>エンコーダーが<br>来た
+    </h2>
+    <div class="story-body">
+      「FFmpeg 9.1's new AAC encoder（FFmpeg 9.1の新しいAACエンコーダー）」がHydrogenAudio.orgフォーラムで詳細に議論され、221ポイント・77コメントを集めています。HydrogenAudioは音響工学・オーディオコーデック・ABXテスト（聴き比べテスト）を専門とするコミュニティで、音質の議論については世界最高水準の厳密さで知られています。FFmpeg 9.1でのAACエンコーダーの改良は、CBR（固定ビットレート）・VBR（可変ビットレート）モードの両方で品質向上が報告されており、特に低ビットレート（64-128kbps）での音質改善が顕著とされています。
+
+      FFmpegはビデオ・オーディオの変換・エンコード・デコードを行うオープンソースのマルチメディアフレームワークで、YouTubeからHandBrake・VLC・Plex・ほぼすべての動画関連ソフトウェアの内部で使われています。これまでFFmpegのネイティブAACエンコーダーは「Fraunhofer FDK-AAC」や「Apple AAC」と比較して音質が劣るとされており、高音質が必要な用途ではFFmpeg経由でFDK-AACを使うことが推奨されていました。今回の改良でこの差が縮まり、追加ライブラリなしにFFmpegだけで高品質なAAC出力が可能になる可能性があります。
+
+      HN上では「FFmpegのデフォルトAACエンコーダーの評判が悪かったのは長年の問題——9.1でようやく追いついたのか」「HydrogenAudioのABXテストは金字塔——聴き分けられないなら透明（transparent）と見なすアプローチが正確」「FDK-AACはライセンス上FFmpegのデフォルトビルドに含められない（特許問題）——ネイティブAACの改善がここまで待望されていた理由」「128kbpsでの音質改善が顕著——YouTubeのAACストリームの品質向上に影響するかも」「OGG Vorbis・Opus等の競合と比較してAACを選ぶ理由——Apple ecosystemとの互換性が最大の動機」という77コメントが展開中です。
+    </div>
+    <div class="cyan-cards">
+      <div class="cyan-card">
+        <div class="cyan-card-name">FFmpegのAACエンコーダー遍歴</div>
+        <div class="cyan-card-desc">旧来：ネイティブAACエンコーダー（aac codec）は音質が低く非推奨。推奨：-codec:a libfdk_aac（Fraunhofer FDK-AACライブラリ）を使用。問題：FDK-AACは特許上の制約でFFmpegのデフォルトビルドに含まれない。FFmpeg 9.1：ネイティブAACエンコーダーを大幅改良</div>
+      </div>
+      <div class="cyan-card">
+        <div class="cyan-card-name">どう使うか</div>
+        <div class="cyan-card-desc">FFmpeg 9.1以降：ffmpeg -i input.wav -c:a aac -b:a 128k output.m4a のコマンドで高品質なAAC。VBRモード：-vbr 5（最高品質）〜-vbr 1。9.1以前は-codec:a libfdk_aacが必要だったが、新版ではデフォルトのaacで十分になる可能性</div>
+      </div>
+      <div class="cyan-card">
+        <div class="cyan-card-name">AACとOpus・Vorbisの比較</div>
+        <div class="cyan-card-desc">Opus（RFC 6716）：低ビットレートで最強の品質。ブラウザ・WebRTC完全対応。Apple非対応が弱点。AAC：Apple / YouTube / 放送業界の標準。互換性が最大の利点。Vorbis：古いOSS形式、Opusに置き換えられつつある。用途：配信・YouTube→AAC。音声通話・Podcast→Opus</div>
+      </div>
+      <div class="cyan-card">
+        <div class="cyan-card-name">HydroganAudioとは</div>
+        <div class="cyan-card-desc">音響工学コミュニティ。ABXテスト（A/Bをランダム割り当てで盲目的に聴き分けるテスト）の標準化で知られる。「ロスレス音源とMP3 320kbpsを聴き分けられるか」など統計的に有意な比較を行う場所。オーディオコーデックの品質評価の聖地</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: hydrogenaudio.org</span>
+      <span>221 ポイント</span>
+      <span>77 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://hydrogenaudio.org/index.php/topic,129691.0.html" target="_blank">議論を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48747116" target="_blank">HN議論 (77)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="ffmpeg-9-1-new-aac-encoder" data-type="like" onclick="toggleFlag('ffmpeg-9-1-new-aac-encoder','FFmpeg 9.1の新AACエンコーダー','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="ffmpeg-9-1-new-aac-encoder" data-type="dislike" onclick="toggleFlag('ffmpeg-9-1-new-aac-encoder','FFmpeg 9.1の新AACエンコーダー','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 7 — Cloudflare Monetization Gateway ══════════════════════════ -->
+<section class="story story-7" id="s7">
+  <div class="story-num">07</div>
+  <div class="story-inner">
+    <div class="story-kicker">WEB / CLOUDFLARE / PAYMENTS / X402 — CloudflareがMonetization Gatewayを発表。HTTP x402プロトコルを使ってAPIや静的ファイル等あらゆるリソースを即座に有料化できる。215ポイント・133コメント</div>
+    <h2 class="story-headline">
+      Cloudflare<br>Monetization<br>Gateway——<br>x402で即課金
+    </h2>
+    <div class="story-body">
+      「Monetization Gateway: Charge for any resource behind Cloudflare via x402（Cloudflare Monetization Gateway：x402でCloudflare配下のあらゆるリソースを有料化）」がCloudflareのブログで発表され、215ポイント・133コメントを集めています。Cloudflare Monetization Gatewayは、CloudflareのWorkerとx402（HTTP Payment Required）プロトコルを組み合わせて、開発者がAPIエンドポイント・静的ファイル・画像・HTMLページなどあらゆるHTTPリソースに対してマイクロペイメントのゲートを設置できる新サービスです。ユーザーがリソースにアクセスしようとすると402ステータス（Payment Required）が返り、ウォレット（対応ブラウザ拡張またはアプリ）で支払いを行うと自動的にアクセスが許可されます。
+
+      x402はCoinbaseが主導するHTTPの拡張仕様で、ステーブルコイン（USDC等）を使ったマシン間のマイクロペイメントを標準化することを目的としています。従来のStripeやPayPalによる課金システムと根本的に異なるのは、「人間の操作」や「サブスクリプション契約」なしに、AIエージェント・スクリプト・ボットが自律的に支払いを行ってリソースを取得できる点です。Cloudflareの実装ではCloudflare Workersのルールとして課金ゲートを設定し、URLパターン・IPアドレス・User-Agentなどの条件で細かく制御できます。
+
+      HN上では「x402はAIエージェント経済のインフラになる——エージェントが自律的にAPIを呼んで支払いまで完結する世界が来た」「CloudflareがWeb決済インフラになろうとしている——DNSからCDN・WAF・AI Gateway・そして決済まで垂直統合」「ステーブルコインへの依存は規制リスク——米国以外でのUSDCの扱いが変わると一気に使いにくくなる」「実際にこれを使う開発者のUXがどうなるか——ウォレット設定のハードルが一般ユーザーには高すぎる懸念」「API課金の粒度が変わる——月額サブスクではなくリクエスト1件いくらの世界。Stripe Meteringより遥かに軽量」という133コメントが展開中です。
+    </div>
+    <div class="amber-items">
+      <div class="amber-item">
+        <div>
+          <div class="amber-label">x402プロトコルとは</div>
+          <div class="amber-text">HTTP 402「Payment Required」ステータス（1991年のRFCで定義されたが長年未使用）を再活用した支払い標準仕様。Coinbaseが提案・推進。仕組み：①クライアントがリクエスト→②サーバーが402+支払い条件（金額・通貨・ウォレットアドレス）を返す→③クライアントがブロックチェーン上で支払い→④サーバーが支払い確認→⑤リソース提供。ステーブルコイン（USDC等）で即時決済。AIエージェント向け設計</div>
+        </div>
+      </div>
+      <div class="amber-item">
+        <div>
+          <div class="amber-label">何ができるか（実用例）</div>
+          <div class="amber-text">①API課金：GPT-4oやClaudeを超える専門AI APIを1リクエスト＄0.001から課金②データ販売：気象データ・地図データ・金融データを従量課金③プレミアムコンテンツ：記事・画像・音楽ファイルへのマイクロペイメント④AIエージェントのツール：エージェントが自律的にAPIを呼んで支払い。Cloudflare Workers設定で10分以内に実装可能</div>
+        </div>
+      </div>
+      <div class="amber-item">
+        <div>
+          <div class="amber-label">開発者へのポイント</div>
+          <div class="amber-text">現在のx402エコシステム：Coinbase・Cloudflare・Agentkit（AIエージェントSDK）が対応。実装方法：①Cloudflare Workersで`monetization-gateway`テンプレートを使う②課金するURLパターンと金額を設定③ウォレットアドレス（USDC受け取り先）を登録。注意点：ユーザー側はx402対応クライアント（Coinbase Commerce対応アプリ等）が必要。まだ普及初期段階</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: blog.cloudflare.com</span>
+      <span>215 ポイント</span>
+      <span>133 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://blog.cloudflare.com/monetization-gateway/" target="_blank">発表を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48746914" target="_blank">HN議論 (133)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="cloudflare-monetization-gateway-x402" data-type="like" onclick="toggleFlag('cloudflare-monetization-gateway-x402','Cloudflare Monetization Gateway——x402でリソースを有料化','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="cloudflare-monetization-gateway-x402" data-type="dislike" onclick="toggleFlag('cloudflare-monetization-gateway-x402','Cloudflare Monetization Gateway——x402でリソースを有料化','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 8 — Graphics Programming Learning ═════════════════════════════ -->
+<section class="story story-8" id="s8">
+  <div class="story-num">08</div>
+  <div class="story-inner">
+    <div class="story-kicker">キャリア / グラフィックスプログラミング / 学習ガイド / GPU — グラフィックスプログラマーになるための学習ロードマップを経験者が詳細に解説。数学・API・概念の優先順位付きで実践的。174ポイント・81コメント</div>
+    <h2 class="story-headline">
+      グラフィックス<br>プログラマーに<br>なるために<br>何を学ぶか
+    </h2>
+    <div class="story-body">
+      「What to learn to be a graphics programmer（グラフィックスプログラマーになるために学ぶこと）」がblog.demofox.orgで公開され、174ポイント・81コメントを集めています。著者はゲーム業界でグラフィックスプログラマーとして長年のキャリアを持つエンジニアで、「グラフィックスプログラミングを始めたい人が最初に何を学ぶべきか」という質問への回答として包括的なロードマップを提供しています。単なる「読むべき本リスト」ではなく、どの概念をどの順序で学ぶべきか、どこでつまずくか、何を後回しにしてもよいかという優先順位付きのガイドです。
+
+      記事の核心は「数学から逃げるな、しかし完全習得を待つな」というアドバイスです。線形代数（ベクトル・行列・クォータニオン）は必須ですが、最初から完璧に理解しなくても実装しながら学べると著者は主張します。APIの選択（DirectX・Vulkan・Metal・WebGPU・OpenGL）については「Vulkanは学習コストが高すぎる入門用——まずOpenGL 4.x・WebGPU・Metal（macOS）から始めよ」と推奨しています。レンダリングの基礎概念（ラスタライゼーション・シェーダー・テクスチャ・フレームバッファ）→中級（影・透明度・ポストプロセス）→上級（レイトレーシング・グローバルイルミネーション・物理ベースレンダリング）という段階を踏む学習パスが示されています。
+
+      HN上では「Vulkanから始めるのは地獄——三角形1つ描くのに1000行のボイラープレートが必要。OpenGLまたはWebGPUスタートが正解」「グラフィックスプログラマーの求人が2026年でも健在——GPUプログラミングができる人材は常に不足している」「シェーダーコード（GLSL・HLSL・MSL）は別言語の習得——C++コード書けてもGPU並列実行のメンタルモデルが全く違う」「shadertoy.comで遊ぶのが最速の入門——ブラウザ上で即座にシェーダーを書いて試せる」「レイトレーシングはDXR（DirectX Raytracing）・Vulkan RTで正式サポートされたが、リアルタイムでは依然としてラスタライゼーションがメイン——両方知ることが重要」という81コメントが展開中です。
+    </div>
+    <div class="gold-items">
+      <div class="gold-item">
+        <div>
+          <div class="gold-label">学習ロードマップ（優先順位順）</div>
+          <div class="gold-text">【必須・最初に】①線形代数（ベクトル・行列・クォータニオン）——「3D Math Primer」か「Mathematics for 3D Game Programming」②C++の基礎③WebGPU またはOpenGL 4.xの入門チュートリアル。【基礎固め】④シェーダー言語（GLSL/HLSL）⑤テクスチャ・ミップマップ・サンプリング⑥デプスバッファ・Zテスト。【中級】⑦シャドウマッピング⑧ポストプロセスエフェクト⑨物理ベースレンダリング（PBR）入門</div>
+        </div>
+      </div>
+      <div class="gold-item">
+        <div>
+          <div class="gold-label">API選択のガイド</div>
+          <div class="gold-text">入門：WebGPU（ブラウザで動くモダンAPI、TypeScript/Rust対応）またはOpenGL 4.x（枯れた技術、資料豊富）。プロダクション：DirectX 12（Windows/Xbox）またはMetal（Apple）またはVulkan（クロスプラットフォームだが複雑）。避けるべき：Vulkanを最初から学ぶ（三角形を描くまでに挫折リスクが高い）。WebGPU→WebGPU Unleashed tutorialが2026年現在の最良の入門資料</div>
+        </div>
+      </div>
+      <div class="gold-item">
+        <div>
+          <div class="gold-label">実践的な練習場所</div>
+          <div class="gold-text">①shadertoy.com：ブラウザでGLSLシェーダーを即書いて実行。コミュニティのシェーダーを読んで学べる②learnopengl.com：OpenGLの最良のフリーチュートリアル。日本語訳もある③webgpu.rocks・WebGPU Samples：WebGPUの公式サンプル集④graphics.cs.cornell.edu：アカデミックなレンダリング理論。レイトレーシングを学ぶなら「Ray Tracing in One Weekend」シリーズが決定版</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: blog.demofox.org</span>
+      <span>174 ポイント</span>
+      <span>81 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://blog.demofox.org/2026/07/01/what-to-learn-to-be-a-graphics-programmer/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48750710" target="_blank">HN議論 (81)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="what-to-learn-graphics-programmer" data-type="like" onclick="toggleFlag('what-to-learn-graphics-programmer','グラフィックスプログラマーになるために学ぶこと','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="what-to-learn-graphics-programmer" data-type="dislike" onclick="toggleFlag('what-to-learn-graphics-programmer','グラフィックスプログラマーになるために学ぶこと','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 9 — Most Rewrites Serve the Engineer ═══════════════════════════ -->
+<section class="story story-9" id="s9">
+  <div class="story-num">09</div>
+  <div class="story-inner">
+    <div class="story-kicker">エンジニアリング / 意見 / ソフトウェア設計 / キャリア — 「コードリライトのほとんどはエンジニアのためであってビジネスのためではない」という主張が議論を呼んでいる。リライトを正当化する前に問うべき5つの質問。42ポイント・34コメント</div>
+    <h2 class="story-headline">
+      リライトは<br>エンジニアの<br>ため——ビジネス<br>のためではない
+    </h2>
+    <div class="story-body">
+      「Most rewrites serve the engineer, not the business（リライトのほとんどはエンジニアのため、ビジネスのためではない）」がanatoliybabushka.comで公開され、42ポイント・34コメントを集めています。著者のAnatoliy Babushkaはフルスタックエンジニアで、コードのフルリライトを提案・実行してきた自身の経験を振り返り「リライトをしたくなる衝動の多くは、本質的に開発者の美的感覚や新しい技術への興味から来ており、ビジネス的な必要性から来ていない」と論じています。
+
+      記事の核心的な主張は「リライトが必要かどうかを判断する前に、まず現在のシステムが実際に失敗しているかどうかを問え」という点です。著者は「コードが汚い・読みにくい・新しいフレームワークを使っていない」というのはリライトの理由にならないと主張します。本当に必要なのは①スケーリングの限界に達しているか②バグ修正のコストがビジネスに実害を与えているか③新機能の追加が技術的に不可能になっているか——のいずれかを満たしている場合のみだと指摘します。「技術的負債」という言葉が「気に入らないコード」を正当化するための隠れ蓑として使われすぎていると警告します。
+
+      HN上では「この記事が言っていることは正しいが、完全なリライトが必要なケースも確かにある——問題はそれが稀であること」「『技術的負債』の定義が組織によって全く違う——エンジニアにとってのTD=美的不満、ビジネスにとってのTD=リリース速度の低下、マネージャーにとってのTD=不明瞭なバズワード」「段階的なリファクタリングをビッグリライトの代替として常に考えよ——Strangler Fig Patternが最も安全」「リライトで最もよく失われるもの：元コードに埋め込まれた暗黙知——なぜその実装になったかの理由が消える」「AI時代のリライト：LLMにリライトさせることのリスクも同じ——ドメイン知識の喪失と過信」という34コメントが展開中です。
+    </div>
+    <div class="slate-items">
+      <div class="slate-item">
+        <div>
+          <div class="slate-label">リライトを始める前に問う5つのこと</div>
+          <div class="slate-text">①現在のシステムは実際にビジネスに失敗を起こしているか（パフォーマンス問題・致命的バグ）②段階的なリファクタリングで解決できないか③リライト後のシステムが本当に「クリーン」なままである保証はあるか④元のコードに込められた暗黙知を失うリスクを把握しているか⑤リライトにかかる時間に対して、同じ時間で既存システムにどれだけの価値を追加できるか——これらを答えてからリライトを検討せよ</div>
+        </div>
+      </div>
+      <div class="slate-item">
+        <div>
+          <div class="slate-label">安全な代替パターン</div>
+          <div class="slate-text">Strangler Fig Pattern（絞め殺しのイチジク）：古いシステムを一度に置き換えず、新しい機能を新しいコードで書き、古い部分を徐々に「包んで」置き換える。Mikado Method：変更の依存関係を可視化してから安全な順序でリファクタリング。Branch by Abstraction：抽象レイヤーを挟んで実装を切り替える。いずれも「ゼロから書き直す」のではなく「動くシステムを維持しながら改善する」アプローチ</div>
+        </div>
+      </div>
+      <div class="slate-item">
+        <div>
+          <div class="slate-label">AI時代のリライトの落とし穴</div>
+          <div class="slate-text">LLMやAIコーディングツール（Claude Code等）を使ったリライトは速くなったが落とし穴は同じ：①生成されたコードには元のコードの「なぜ」が失われる②「クリーンに見える」コードが実際にドメイン知識を正確に持っているかどうかわからない③テストが薄いと問題は本番まで発見されない。AIが速くリライトできるからこそ、「リライトすべきか」の判断がより重要になる</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: anatoliybabushka.com</span>
+      <span>42 ポイント</span>
+      <span>34 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://anatoliybabushka.com/blog/when-to-rewrite-working-code.html" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48750934" target="_blank">HN議論 (34)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="most-rewrites-serve-engineer-not-business" data-type="like" onclick="toggleFlag('most-rewrites-serve-engineer-not-business','リライトはエンジニアのため、ビジネスのためではない','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="most-rewrites-serve-engineer-not-business" data-type="dislike" onclick="toggleFlag('most-rewrites-serve-engineer-not-business','リライトはエンジニアのため、ビジネスのためではない','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 10 — Fable NanoClaw Agent Factory ══════════════════════════════ -->
+<section class="story story-10" id="s10">
+  <div class="story-num">10</div>
+  <div class="story-inner">
+    <div class="story-badge direct-badge">⚡ あなたに直接関係</div>
+    <div class="story-kicker">AI / FABLE / NANOCLAW / エージェント — FableがNanoClaw（マルチエージェントファクトリー）をオープンソース公開。製作コストはわずか$800。Anthropicエコシステムのエージェント基盤が公開へ。13ポイント・14コメント</div>
+    <h2 class="story-headline">
+      Fableが<br>NanoClaw<br>エージェント<br>ファクトリーをOSS化
+    </h2>
+    <div class="story-body">
+      「Fable open sourced NanoClaw's agent factory. It cost $800（FableがNanoClaw エージェントファクトリーをオープンソース化。コストは$800）」というGavriel Cohenのツイートがhacker Newsに投稿され、13ポイント・14コメントを集めています。NanoClaw（NanoClawはfableとAnthropicのエコシステムに関連するマルチエージェントオーケストレーションフレームワーク）のエージェントファクトリー——つまり複数のAIエージェントを並列に生成・管理・調整するシステム——が今回GitHubでOSSとして公開されました。
+
+      注目すべき点は「製作コスト$800」という数字です。これはNanoClaw のエージェントファクトリーを構築するためにAnthropicのAPIを呼び出したコストを指していると考えられ、「コード生成を含むエージェントシステム全体をAI自体が$800で構築した」という意味合いを持ちます。これはAIエージェントが自分自身のインフラを構築する「再帰的なエージェント構築」の実例として注目されています。Claude Code（本ツール）のような開発ツールを支えるエージェントオーケストレーション層の実装を公開することで、コミュニティが同様のシステムを構築・改良できるようになります。
+
+      HN上では「$800でエージェントファクトリーを作れるなら、このコストはどんどん下がる——6ヶ月後は$80、1年後は$8かもしれない」「NanoClaw の設計思想がClaude Codeのマルチエージェントオーケストレーションにも影響しているのか気になる」「OSSにしたことで、このシステムがどう動くかを学べる——教育的価値が高い」「Anthropicがエージェントスタックを段階的にオープンにしていく戦略の一部では」という14コメントが展開中です。
+    </div>
+    <div class="mag-items">
+      <div class="mag-item">
+        <div>
+          <div class="mag-label">NanoClaw とは</div>
+          <div class="mag-text">Fableが開発するマルチエージェントオーケストレーションフレームワーク。エージェントファクトリー（Agent Factory）は複数のAIエージェントを動的に生成・並列実行・調整するシステム。Claude Code等のAIコーディングツールの内部でも類似のアーキテクチャが使われており、このOSS公開は参照実装として機能する。GitHubリポジトリでコード・ドキュメントが公開中</div>
+        </div>
+      </div>
+      <div class="mag-item">
+        <div>
+          <div class="mag-label">$800という数字の意味</div>
+          <div class="mag-text">NanoClaw エージェントファクトリーを構築するために使ったAI API（主にAnthropicのClaude）の料金が$800だったという。「AIを使ってAIのインフラを作る」という再帰的な構築の実例。$800はアーリーアダプターにとって受け入れられるコストだが、AIモデルの価格低下トレンドからするとこのコストは急速に下がる。Claude 3ベースのシステムを今同じように構築すれば$80以下かもしれない</div>
+        </div>
+      </div>
+      <div class="mag-item">
+        <div>
+          <div class="mag-label">Claude Code開発者への示唆</div>
+          <div class="mag-text">NanoClaw OSSを参照することでわかること：①本格的なマルチエージェントオーケストレーションの実装パターン②エージェント間の状態共有・メッセージパッシングの設計③Claude API（claude-fable-5等）を複数エージェントで効率的に使うコスト最適化手法。Claude Code内でも複雑なタスクをマルチエージェントで処理するシナリオが増えており、このアーキテクチャの理解は直接役立つ</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: twitter.com/Gavriel_Cohen</span>
+      <span>13 ポイント</span>
+      <span>14 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://twitter.com/Gavriel_Cohen/status/2072432348805669139" target="_blank">ツイートを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48753508" target="_blank">HN議論 (14)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="fable-nanoclaw-agent-factory-opensource" data-type="like" onclick="toggleFlag('fable-nanoclaw-agent-factory-opensource','FableがNanoClaw エージェントファクトリーをOSS公開','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="fable-nanoclaw-agent-factory-opensource" data-type="dislike" onclick="toggleFlag('fable-nanoclaw-agent-factory-opensource','FableがNanoClaw エージェントファクトリーをOSS公開','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══════════════════════════════════════════════════════════════ -->
+<footer class="site-footer">
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand">Morning Edition</div>
+      <div class="footer-meta">
+        Hacker News キュレーション · 2026年7月2日 · Issue No.066<br>
+        毎朝、厳選10本をお届け
+      </div>
+    </div>
+    <button class="export-btn" onclick="exportFeedback()">📋 フィードバックをコピー</button>
+  </div>
+  <div class="footer-note">
+    ⭐ 興味あり / ✕ 興味なし ボタンで次回のキュレーションが改善されます。Chrome/Edgeでは自動保存、その他ではボタンでクリップボードにコピーしてください。
+  </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  const FEEDBACK_KEY = 'morning-edition-feedback-v2';
+  const TODAY = '2026-07-02';
+  let _dirHandle = null;
+
+  async function getDir(forcePrompt) {
+    if (_dirHandle && !forcePrompt) return _dirHandle;
+    if (!window.showDirectoryPicker) return null;
+    try {
+      _dirHandle = await window.showDirectoryPicker({ mode: 'readwrite', id: 'morning-edition', startIn: 'documents' });
+      return _dirHandle;
+    } catch { return null; }
+  }
+
+  async function writeJSON(dirHandle, fb) {
+    const fileHandle = await dirHandle.getFileHandle('feedback.json', { create: true });
+    const writable = await fileHandle.createWritable();
+    await writable.write(JSON.stringify({ ...fb, updatedAt: new Date().toISOString() }, null, 2));
+    await writable.close();
+  }
+
+  function showToast(msg, isErr) {
+    const el = document.getElementById('toast');
+    el.textContent = msg;
+    el.className = 'toast' + (isErr ? ' error' : '');
+    requestAnimationFrame(() => el.classList.add('show'));
+    clearTimeout(el._timer);
+    el._timer = setTimeout(() => el.classList.remove('show'), 3000);
+  }
+
+  function getFeedback() {
+    try { return JSON.parse(localStorage.getItem(FEEDBACK_KEY) || '{"liked":{},"disliked":{}}'); }
+    catch { return { liked: {}, disliked: {} }; }
+  }
+  function saveFeedback(fb) { localStorage.setItem(FEEDBACK_KEY, JSON.stringify(fb)); }
+
+  async function autoSave(fb) {
+    let dir = await getDir();
+    if (!dir) {
+      showToast('📁 Daily News フォルダを選択してください', true);
+      dir = await getDir(true);
+      if (!dir) { showToast('保存をキャンセルしました', true); return; }
+    }
+    try {
+      await writeJSON(dir, fb);
+      showToast('✓ feedback.json を自動保存しました（次回キュレーションに反映）');
+    } catch (e) {
+      showToast('保存エラー: ' + e.message, true);
+    }
+  }
+
+  async function toggleFlag(storyId, title, type) {
+    const fb = getFeedback();
+    fb.liked = fb.liked || {};
+    fb.disliked = fb.disliked || {};
+    const likeBtn    = document.querySelector(`.flag-btn.like-btn[data-story="${storyId}"]`);
+    const dislikeBtn = document.querySelector(`.flag-btn.dislike-btn[data-story="${storyId}"]`);
+    if (type === 'like') {
+      if (fb.liked[storyId]) {
+        delete fb.liked[storyId];
+        likeBtn?.classList.remove('active');
+      } else {
+        fb.liked[storyId] = { title, date: TODAY };
+        delete fb.disliked[storyId];
+        likeBtn?.classList.add('active');
+        dislikeBtn?.classList.remove('active');
+      }
+    } else {
+      if (fb.disliked[storyId]) {
+        delete fb.disliked[storyId];
+        dislikeBtn?.classList.remove('active');
+      } else {
+        fb.disliked[storyId] = { title, date: TODAY };
+        delete fb.liked[storyId];
+        dislikeBtn?.classList.add('active');
+        likeBtn?.classList.remove('active');
+      }
+    }
+    saveFeedback(fb);
+    await autoSave(fb);
+  }
+
+  function exportFeedback() {
+    const fb = getFeedback();
+    const json = JSON.stringify({ ...fb, exportedAt: new Date().toISOString() }, null, 2);
+    navigator.clipboard.writeText(json)
+      .then(() => showToast('📋 クリップボードにコピーしました'))
+      .catch(() => {
+        const el = document.createElement('textarea');
+        el.value = json; document.body.appendChild(el); el.select();
+        document.execCommand('copy'); document.body.removeChild(el);
+        showToast('📋 クリップボードにコピーしました');
+      });
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const fb = getFeedback();
+    document.querySelectorAll('.flag-btn').forEach(btn => {
+      const id   = btn.dataset.story;
+      const type = btn.dataset.type;
+      if ((type === 'like' && fb.liked?.[id]) || (type === 'dislike' && fb.disliked?.[id])) {
+        btn.classList.add('active');
+      }
+    });
+  });
+</script>
+</body>
+</html>
