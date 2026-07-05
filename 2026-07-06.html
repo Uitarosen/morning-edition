@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Morning Edition — 2026年7月6日</title>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --font: 'M PLUS Rounded 1c', 'Hiragino Sans', 'Noto Sans JP', sans-serif; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); background: #111; color: #fff; overflow-x: hidden; }
+
+    .masthead { background: #fff; color: #000; padding: 3rem 4rem 2.5rem; border-bottom: 6px solid #000; position: relative; overflow: hidden; }
+    .masthead::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: repeating-linear-gradient(90deg, #000 0, #000 12px, transparent 12px, transparent 20px); }
+    .masthead-kicker { font-size: 0.85rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: #777; margin-bottom: 0.6rem; }
+    .masthead-title { font-size: clamp(3.5rem, 9vw, 7.5rem); font-weight: 900; line-height: 0.88; letter-spacing: -0.04em; margin-bottom: 1.8rem; }
+    .masthead-meta { display: flex; gap: 3rem; align-items: baseline; flex-wrap: wrap; }
+    .masthead-date { font-size: 1.5rem; font-weight: 700; }
+    .masthead-subtitle { font-size: 1rem; font-weight: 400; color: #555; max-width: 480px; line-height: 1.5; }
+    .masthead-issue { margin-left: auto; text-align: right; }
+    .masthead-issue span { display: block; }
+    .masthead-issue .iss-label { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: #999; }
+    .masthead-issue .iss-num { font-size: 2.2rem; font-weight: 900; color: #000; }
+
+    .toc { background: #1a1a1a; padding: 1.5rem 4rem; display: flex; gap: 1.5rem; flex-wrap: wrap; border-bottom: 1px solid #333; }
+    .toc a { color: #aaa; text-decoration: none; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; transition: color 0.2s; }
+    .toc a:hover { color: #fff; }
+    .toc-num { color: #555; margin-right: 0.3em; }
+
+    .story { position: relative; overflow: hidden; }
+    .story-inner { max-width: 1200px; margin: 0 auto; padding: 5rem 4rem; position: relative; z-index: 1; }
+    .story-num { font-size: clamp(6rem, 18vw, 16rem); font-weight: 900; line-height: 0.8; letter-spacing: -0.06em; opacity: 0.08; position: absolute; top: 1rem; right: 2rem; user-select: none; }
+    .story-badge { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.35em 0.9em; border-radius: 2px; margin-bottom: 1.5rem; }
+    .direct-badge { background: #FFD700; color: #000; }
+    .story-kicker { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; opacity: 0.6; margin-bottom: 0.8rem; }
+    .story-headline { font-size: clamp(2rem, 5vw, 4rem); font-weight: 900; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+    .story-body { font-size: clamp(1rem, 1.5vw, 1.2rem); font-weight: 400; line-height: 1.8; max-width: 680px; opacity: 0.88; margin-bottom: 2rem; }
+    .story-meta { display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center; font-size: 0.8rem; font-weight: 700; opacity: 0.5; }
+    .story-links { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem; }
+    .story-link { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.6em 1.4em; border-radius: 3px; text-decoration: none; transition: opacity 0.2s, transform 0.15s; }
+    .story-link:hover { opacity: 0.75; transform: translateY(-1px); }
+
+    .feedback-buttons { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .flag-btn { background: none; border: 1px solid currentColor; color: inherit; font-family: var(--font); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.5em 1em; border-radius: 3px; cursor: pointer; opacity: 0.32; transition: opacity 0.2s, background 0.2s, color 0.2s, border-color 0.2s, transform 0.15s; }
+    .flag-btn:hover { opacity: 0.72; transform: translateY(-1px); }
+    .flag-btn.like-btn.active { opacity: 1; background: rgba(255,215,0,0.15); border-color: #FFD700; color: #FFD700 !important; }
+    .flag-btn.dislike-btn.active { opacity: 1; background: rgba(255,60,60,0.12); border-color: #FF4444; color: #FF4444 !important; }
+
+    .toast { position: fixed; bottom: 2rem; right: 2rem; background: #1a1a1a; color: #fff; font-family: var(--font); font-size: 0.82rem; font-weight: 700; padding: 0.75em 1.4em; border-radius: 4px; border-left: 3px solid #00C853; z-index: 9999; opacity: 0; transform: translateY(10px); transition: opacity 0.25s, transform 0.25s; pointer-events: none; box-shadow: 0 4px 24px rgba(0,0,0,0.45); }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    .toast.error { border-left-color: #FF5252; }
+
+    .story-1 { background: #fff; color: #000; min-height: 90vh; display: flex; flex-direction: column; justify-content: center; }
+    .story-1 .story-num { color: #000; opacity: 0.04; }
+    .story-1 .story-kicker { color: #555; opacity: 1; }
+    .story-1 .story-headline { color: #000; }
+    .story-1 .story-body { color: #111; }
+    .story-1 .story-meta { color: #000; }
+    .story-1 .story-link.primary { background: #1a1a1a; color: #fff; }
+    .story-1 .story-link.secondary { background: #f0f0f0; color: #000; }
+    .story-1 .flag-btn { color: #000; }
+    .story-1-accent { position: absolute; bottom: 0; left: 0; width: 100%; height: 8px; background: linear-gradient(90deg, #1a1a1a, #555, #999, #1a1a1a); }
+    .story-1 .headline-accent { display: inline-block; background: linear-gradient(135deg, #007700 0%, #004400 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .dos-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1.2rem; margin: 2rem 0; max-width: 680px; }
+    .dos-card { border: 2px solid rgba(0,0,0,0.12); background: rgba(0,0,0,0.04); border-radius: 6px; padding: 1.3rem 1.5rem; }
+    .dos-card-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.2em; text-transform: uppercase; color: #333; margin-bottom: 0.4rem; }
+    .dos-card-value { font-size: 1.05rem; font-weight: 900; color: #000; line-height: 1.3; }
+    .dos-card-sub { font-size: 0.75rem; color: #555; margin-top: 0.3rem; line-height: 1.4; }
+
+    .story-2 { background: #00080c; color: #b8f0ff; min-height: 80vh; }
+    .story-2::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(0,160,200,0.14) 0%, transparent 65%); }
+    .story-2 .story-num { color: #00A0C8; opacity: 0.07; }
+    .story-2 .story-kicker { color: #20C8E8; opacity: 1; }
+    .story-2 .story-headline { color: #e0f8ff; }
+    .story-2 .story-body { color: #b8f0ff; }
+    .story-2 .story-meta { color: #20C8E8; opacity: 0.5; }
+    .story-2 .story-link.primary { background: #004058; color: #80e8ff; }
+    .story-2 .story-link.secondary { background: rgba(0,160,200,0.08); color: #90d8f0; border: 1px solid rgba(0,160,200,0.22); }
+    .story-2 .flag-btn { color: #b8f0ff; }
+    .teal-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .teal-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(0,160,200,0.07); border-left: 3px solid #00A0C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .teal-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20C8E8; margin-bottom: 0.3rem; }
+    .teal-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-3 { background: #0a0000; color: #fff; min-height: 80vh; }
+    .story-3::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(200,20,20,0.16) 0%, transparent 65%); }
+    .story-3 .story-num { color: #C81414; opacity: 0.07; }
+    .story-3 .story-kicker { color: #E84040; opacity: 1; }
+    .story-3 .story-headline { color: #fff; }
+    .story-3 .story-body { color: rgba(255,255,255,0.88); }
+    .story-3 .story-meta { color: #E84040; opacity: 0.5; }
+    .story-3 .story-link.primary { background: #6a0000; color: #fff; }
+    .story-3 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-3 .flag-btn { color: #fff; }
+    .red-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .red-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(200,20,20,0.07); border-left: 3px solid #C81414; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .red-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E84040; margin-bottom: 0.3rem; }
+    .red-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-4 { background: #020c04; color: #c8f0d0; min-height: 80vh; }
+    .story-4::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(20,160,70,0.16) 0%, transparent 65%); }
+    .story-4 .story-num { color: #14A046; opacity: 0.07; }
+    .story-4 .story-kicker { color: #30C060; opacity: 1; }
+    .story-4 .story-headline { color: #e0ffe8; }
+    .story-4 .story-body { color: #c8f0d0; }
+    .story-4 .story-meta { color: #30C060; opacity: 0.5; }
+    .story-4 .story-link.primary { background: #063820; color: #80ffb0; }
+    .story-4 .story-link.secondary { background: rgba(20,160,70,0.08); color: #a0e8b0; border: 1px solid rgba(20,160,70,0.22); }
+    .story-4 .flag-btn { color: #c8f0d0; }
+    .green-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .green-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(20,160,70,0.07); border-left: 3px solid #14A046; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .green-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #30C060; margin-bottom: 0.3rem; }
+    .green-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-5 { background: #040010; color: #d8c8ff; min-height: 75vh; }
+    .story-5::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(90,40,200,0.17) 0%, transparent 65%); }
+    .story-5 .story-num { color: #5A28C8; opacity: 0.07; }
+    .story-5 .story-kicker { color: #8050E0; opacity: 1; }
+    .story-5 .story-headline { color: #f0e8ff; }
+    .story-5 .story-body { color: #d8c8ff; }
+    .story-5 .story-meta { color: #8050E0; opacity: 0.5; }
+    .story-5 .story-link.primary { background: #200860; color: #d0a8ff; }
+    .story-5 .story-link.secondary { background: rgba(90,40,200,0.08); color: #c0a0f0; border: 1px solid rgba(90,40,200,0.22); }
+    .story-5 .flag-btn { color: #d8c8ff; }
+    .purple-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .purple-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(90,40,200,0.07); border-left: 3px solid #5A28C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .purple-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #8050E0; margin-bottom: 0.3rem; }
+    .purple-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-6 { background: #000c10; color: #b8e8f0; min-height: 75vh; }
+    .story-6::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 40%, rgba(0,130,160,0.14) 0%, transparent 65%); }
+    .story-6 .story-num { color: #0080A0; opacity: 0.07; }
+    .story-6 .story-kicker { color: #20B0D0; opacity: 1; }
+    .story-6 .story-headline { color: #e0f4ff; }
+    .story-6 .story-body { color: #b8e8f0; }
+    .story-6 .story-meta { color: #20B0D0; opacity: 0.5; }
+    .story-6 .story-link.primary { background: #003848; color: #80d8f0; }
+    .story-6 .story-link.secondary { background: rgba(0,130,160,0.08); color: #90cce0; border: 1px solid rgba(0,130,160,0.22); }
+    .story-6 .flag-btn { color: #b8e8f0; }
+    .cyan-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(185px, 1fr)); gap: 1rem; margin: 2rem 0; max-width: 680px; }
+    .cyan-card { background: rgba(0,130,160,0.07); border: 1px solid rgba(0,130,160,0.22); border-radius: 4px; padding: 1.2rem 1.4rem; }
+    .cyan-card-name { font-size: 0.78rem; font-weight: 900; color: #20B0D0; margin-bottom: 0.4rem; }
+    .cyan-card-desc { font-size: 0.72rem; opacity: 0.75; line-height: 1.4; }
+
+    .story-7 { background: #0a0300; color: #ffe0b8; min-height: 75vh; }
+    .story-7::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(210,90,20,0.18) 0%, transparent 65%); }
+    .story-7 .story-num { color: #D05A14; opacity: 0.07; }
+    .story-7 .story-kicker { color: #E88040; opacity: 1; }
+    .story-7 .story-headline { color: #fff0d8; }
+    .story-7 .story-body { color: #ffe0b8; }
+    .story-7 .story-meta { color: #E88040; opacity: 0.5; }
+    .story-7 .story-link.primary { background: #6a2400; color: #ffc880; }
+    .story-7 .story-link.secondary { background: rgba(210,90,20,0.08); color: #ffb870; border: 1px solid rgba(210,90,20,0.22); }
+    .story-7 .flag-btn { color: #ffe0b8; }
+    .amber-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .amber-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(210,90,20,0.07); border-left: 3px solid #D05A14; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .amber-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E88040; margin-bottom: 0.3rem; }
+    .amber-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-8 { background: #080500; color: #fff; min-height: 70vh; }
+    .story-8::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,145,10,0.15) 0%, transparent 65%); }
+    .story-8 .story-num { color: #BE9110; opacity: 0.06; }
+    .story-8 .story-kicker { color: #D4A820; opacity: 1; }
+    .story-8 .story-headline { color: #fff; }
+    .story-8 .story-body { color: rgba(255,255,255,0.88); }
+    .story-8 .story-meta { color: #D4A820; opacity: 0.5; }
+    .story-8 .story-link.primary { background: #604000; color: #ffe070; }
+    .story-8 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-8 .flag-btn { color: #fff; }
+    .gold-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .gold-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(190,145,10,0.07); border-left: 3px solid #BE9110; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .gold-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #D4A820; margin-bottom: 0.3rem; }
+    .gold-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-9 { background: #040810; color: #c8d8f0; min-height: 70vh; }
+    .story-9::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 35%, rgba(50,90,170,0.16) 0%, transparent 65%); }
+    .story-9 .story-num { color: #3258A8; opacity: 0.07; }
+    .story-9 .story-kicker { color: #5878C8; opacity: 1; }
+    .story-9 .story-headline { color: #e8f0ff; }
+    .story-9 .story-body { color: #c8d8f0; }
+    .story-9 .story-meta { color: #5878C8; opacity: 0.5; }
+    .story-9 .story-link.primary { background: #101e50; color: #fff; }
+    .story-9 .story-link.secondary { background: rgba(50,90,170,0.08); color: #b0c8e8; border: 1px solid rgba(50,90,170,0.22); }
+    .story-9 .flag-btn { color: #c8d8f0; }
+    .slate-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .slate-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(50,90,170,0.07); border-left: 3px solid #3258A8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .slate-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #5878C8; margin-bottom: 0.3rem; }
+    .slate-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-10 { background: #080004; color: #ffc8e8; min-height: 70vh; }
+    .story-10::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,20,90,0.15) 0%, transparent 65%); }
+    .story-10 .story-num { color: #BE1458; opacity: 0.07; }
+    .story-10 .story-kicker { color: #E04080; opacity: 1; }
+    .story-10 .story-headline { color: #fff0f8; }
+    .story-10 .story-body { color: #ffc8e8; }
+    .story-10 .story-meta { color: #E04080; opacity: 0.5; }
+    .story-10 .story-link.primary { background: #500030; color: #ffb0d8; }
+    .story-10 .story-link.secondary { background: rgba(190,20,90,0.08); color: #f090c0; border: 1px solid rgba(190,20,90,0.22); }
+    .story-10 .flag-btn { color: #ffc8e8; }
+    .mag-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .mag-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(190,20,90,0.07); border-left: 3px solid #BE1458; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .mag-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E04080; margin-bottom: 0.3rem; }
+    .mag-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .site-footer { background: #000; color: #555; padding: 3rem 4rem; display: flex; flex-direction: column; gap: 1.5rem; border-top: 1px solid #222; }
+    .footer-top { display: flex; gap: 2rem; align-items: center; flex-wrap: wrap; justify-content: space-between; }
+    .footer-brand { font-size: 1.4rem; font-weight: 900; color: #fff; }
+    .footer-meta { font-size: 0.75rem; line-height: 1.6; }
+    .export-btn { background: #222; border: 1px solid #444; color: #fff; font-family: var(--font); font-size: 0.8rem; font-weight: 700; padding: 0.7em 1.5em; border-radius: 3px; cursor: pointer; letter-spacing: 0.08em; transition: background 0.2s; }
+    .export-btn:hover { background: #333; }
+    .footer-note { font-size: 0.7rem; opacity: 0.5; }
+
+    @media (max-width: 768px) {
+      .masthead, .toc, .story-inner, .site-footer { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .story-num { display: none; }
+      .masthead-meta { gap: 1rem; }
+      .masthead-issue { margin-left: 0; }
+      .dos-grid, .cyan-cards { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+<nav style="background:#1a1a1a;border-bottom:1px solid #333;padding:0.55rem 2rem;font-family:'M PLUS Rounded 1c','Hiragino Sans','Noto Sans JP',sans-serif;position:sticky;top:0;z-index:999;">
+  <a href="./index.html" style="color:#aaa;text-decoration:none;font-size:0.8rem;font-weight:700;letter-spacing:0.03em;display:inline-flex;align-items:center;gap:0.4rem;transition:color 0.15s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#aaa'">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    アーカイブへ戻る
+  </a>
+</nav>
+
+<header class="masthead">
+  <div class="masthead-kicker">Hacker News — Morning Edition</div>
+  <h1 class="masthead-title">Morning<br>Edition</h1>
+  <div class="masthead-meta">
+    <div>
+      <div class="masthead-date">2026年7月6日 月曜日</div>
+      <div class="masthead-subtitle">AI・開発ツール・プライバシー・サイエンス — あなたのための10本</div>
+    </div>
+    <div class="masthead-issue">
+      <span class="iss-label">Issue</span>
+      <span class="iss-num">No.069</span>
+    </div>
+  </div>
+</header>
+
+<nav class="toc">
+  <a href="#s1"><span class="toc-num">01</span>オープンソース地図アプリ「Organic Maps」が急上昇</a>
+  <a href="#s2"><span class="toc-num">02</span>コンパイラと言語設計入門——無料テキストブック</a>
+  <a href="#s3"><span class="toc-num">03</span>物理vs デジタルの問題じゃない——所有権の問題だ</a>
+  <a href="#s4"><span class="toc-num">04</span>Flipper Zeroの開発の未来について</a>
+  <a href="#s5"><span class="toc-num">05</span>AIチューター、ダートマス講義で0.71〜1.30 SDの学習効果</a>
+  <a href="#s6"><span class="toc-num">06</span>修理可能でオープンソースな紙プリンター</a>
+  <a href="#s7"><span class="toc-num">07</span>お絵描きツール開発中に新しいセルオートマトンを偶然発見</a>
+  <a href="#s8"><span class="toc-num">08</span>パパ・ジョンズはあなたの冷蔵庫が空になるタイミングを予測できる</a>
+  <a href="#s9"><span class="toc-num">09</span>DMARCの新しい「NP」タグがDNSSECで失敗する理由</a>
+  <a href="#s10"><span class="toc-num">10</span>ターミナルのフルスタックを解説する</a>
+</nav>
+
+<!-- ═══ STORY 1 — Organic Maps ════════════════════════════════════════════════ -->
+<section class="story story-1" id="s1">
+  <div class="story-num">01</div>
+  <div class="story-inner">
+    <div class="story-kicker">プライバシー / オープンソース / マップ / OPENSTREETMAP — トラッキングなし・広告なし・オフライン動作のオープンソース地図アプリ「Organic Maps」がHNトップへ。707ポイント・200コメント</div>
+    <h2 class="story-headline">
+      <span class="headline-accent">Organic Maps</span>——<br>プライバシーを<br>守る地図アプリの<br>決定版
+    </h2>
+    <div class="story-body">
+      「Organic Maps」がHNのフロントページに707ポイント・200コメントを集めてトップ入りしました。OrganicMaps.appは、OpenStreetMapのデータを使ったオープンソースの地図アプリです。iOSとAndroidの両方で無料提供されており、追跡なし・広告なし・サブスクリプションなし・バックグラウンド通信なし——という徹底したプライバシー設計が特徴です。
+
+      Google MapsやApple Mapsと異なり、Organic Mapsはすべてのデータをデバイス上でローカル処理します。地図データはOpenStreetMapからダウンロードしてオフラインで使えるため、圏外でもナビゲーション・検索・ルート計算が動作します。地図データは都市・地域単位でダウンロード可能で、ファイルサイズも最適化されています。特にハイキング・サイクリング向けのルート表示が充実しており、ユーザーコミュニティによる地図の改善も活発です。
+
+      HN上では「Organic Mapsを山岳地帯でのハイキングに使っているが、オフライン動作が完璧で電波のない場所でも問題なく使える」「Google Mapsを捨ててOrganic Mapsに移行して1年——位置情報データが外部に送られないことでプライバシーへの不安が消えた」「OpenStreetMapの品質は都市部では既にGoogle Mapsと遜色ない水準に達している——地方では差があるが、コントリビューターが増え続けている」「iOSのウィジェット対応とCarPlayサポートが充実してきた——日常使いに十分な完成度」という200コメントが展開しています。
+    </div>
+    <div class="dos-grid">
+      <div class="dos-card">
+        <div class="dos-card-label">プライバシー設計</div>
+        <div class="dos-card-value">追跡ゼロ・広告ゼロ</div>
+        <div class="dos-card-sub">位置情報・検索クエリ・ルート履歴を外部サーバーへ送信しない。バックグラウンド通信なし。Google Analyticsなどのトラッキングコード一切なし。すべての処理がデバイスローカルで完結する設計</div>
+      </div>
+      <div class="dos-card">
+        <div class="dos-card-label">オフライン動作</div>
+        <div class="dos-card-value">完全オフラインで使える</div>
+        <div class="dos-card-sub">地図データを国・地域単位でダウンロード。ダウンロード後はネット接続不要でナビ・検索・ルート計算が動作。旅行中の通信費節約にも。ファイルサイズは競合アプリより30〜50%小さい最適化済み</div>
+      </div>
+      <div class="dos-card">
+        <div class="dos-card-label">オープンソース</div>
+        <div class="dos-card-value">GPL v3ライセンス公開</div>
+        <div class="dos-card-sub">GitHubで全コードが公開されており、誰でも検証・コントリビュート可能。OpenStreetMapのデータを使用——地図の誤りはOSMを通じて世界中のユーザーが修正できる。クローズドな独自データへの依存がない</div>
+      </div>
+      <div class="dos-card">
+        <div class="dos-card-label">対応プラットフォーム</div>
+        <div class="dos-card-value">iOS / Android / macOS</div>
+        <div class="dos-card-sub">iOS（App Store）・Android（Google Play / F-Droid）・macOS（App Store）で無料配布。CarPlayとAndroid Auto対応。Apple Watchのウォッチフェイスコンプリケーション対応。iOSウィジェット対応</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: organicmaps.app</span>
+      <span>707 ポイント</span>
+      <span>200 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://organicmaps.app/" target="_blank">Organic Mapsを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48794446" target="_blank">HN議論 (200)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="organic-maps" data-type="like" onclick="toggleFlag('organic-maps','オープンソース地図アプリ「Organic Maps」が急上昇','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="organic-maps" data-type="dislike" onclick="toggleFlag('organic-maps','オープンソース地図アプリ「Organic Maps」が急上昇','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+  <div class="story-1-accent"></div>
+</section>
+
+<!-- ═══ STORY 2 — Introduction to Compilers ══════════════════════════════════ -->
+<section class="story story-2" id="s2">
+  <div class="story-num">02</div>
+  <div class="story-inner">
+    <div class="story-kicker">開発ツール / コンパイラ / 言語設計 / 教育 — ノートルダム大学Douglas Thain教授によるコンパイラ・言語設計入門テキストブック（2021年版）が無料公開中。250ポイント・42コメント</div>
+    <h2 class="story-headline">
+      コンパイラと<br>言語設計の<br>無料テキスト<br>ブック
+    </h2>
+    <div class="story-body">
+      「Introduction to Compilers and Language Design (2021)」がdthain.github.ioで公開されており、HNで250ポイント・42コメントを集めました。著者はノートルダム大学コンピュータサイエンス教授のDouglas Thain氏で、同大学のコンパイラ設計講義で使われているテキストです。PDF版は無料でダウンロード可能で、印刷版はAmazonから実費で入手できます。
+
+      このテキストは「実際に動くコンパイラを一から書く」という実践的なアプローチで設計されており、C言語のサブセット（B-Minor言語）に対するコンパイラをx86-64アセンブリに向けて実装する過程を通じて、字句解析・構文解析・型チェック・コード生成・最適化の全フェーズを学べる構成です。各章末には演習問題があり、段階的に完成するコンパイラプロジェクトが学習効果を高めています。HNのコメント欄では「Crafting Interpreters（Bob Nystrom著）」と並ぶコンパイラ入門の二大名著として評価されています。
+
+      HN上では「コンパイラを一度書いてみると、すべてのプログラミング言語への理解が根本から変わる——これを読む前と後では別人のように感じる」「B-Minorという独自言語を題材にしている点が賢い——実在の言語だと言語仕様の複雑さに引きずられるが、教育用言語なら本質的なコンパイラの構造に集中できる」「x86-64アセンブリが題材なのでIntelの最適化マニュアルやSIMD命令への興味が湧いてきた」「LLVM IRをバックエンドにした改訂版も欲しい——現代のコンパイラはほとんどLLVMに依存している」という42コメントが展開しています。
+    </div>
+    <div class="teal-items">
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">テキストブックの構成</div>
+          <div class="teal-text">第1章：コンパイラの概要と歴史。第2〜3章：字句解析（Scanning）——正規表現とFSMを使ったトークナイザーの実装。第4〜5章：構文解析（Parsing）——文脈自由文法・LL(1)・LR(1)パーサーの理論と実装。第6〜7章：意味解析と型チェック——シンボルテーブル・型システム・スコープ管理。第8章：中間表現（IR）の設計。第9〜11章：コード生成——x86-64アセンブリへの変換。第12章：最適化テクニック</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">なぜコンパイラを学ぶべきか</div>
+          <div class="teal-text">コンパイラはすべてのソフトウェアの「土台の土台」——コンパイラの仕組みを知ることで①なぜある書き方がパフォーマンスで優れるか理解できる②デバッグ時にアセンブリが読めると根本原因に近づける③インタープリター・LSP・コードフォーマッター等のツール開発への道が開ける④プログラミング言語の設計思想（型システム・スコープ・ライフタイム等）が腑に落ちる。AIがコードを書く時代でも、コードの「実行の仕組み」を理解することはより重要になる</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">読む前に準備すること</div>
+          <div class="teal-text">前提知識：C言語の基本的な読み書き（ポインタ・構造体）・基本的なデータ構造（リスト・ツリー・ハッシュ表）。補完リソース：「Crafting Interpreters」（Bob Nystrom、無料Web版あり）はより手を動かしやすいインタープリター実装への入門として並行利用が効果的。LLVM Tutorialも良い補足。このテキストはCで実装するが、PythonやGoで再実装するプロジェクトにチャレンジするのも深い理解につながる</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: dthain.github.io/books/compiler/</span>
+      <span>250 ポイント</span>
+      <span>42 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://dthain.github.io/books/compiler/" target="_blank">テキストブックを読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48793454" target="_blank">HN議論 (42)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="compiler-design-book" data-type="like" onclick="toggleFlag('compiler-design-book','コンパイラと言語設計入門——無料テキストブック','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="compiler-design-book" data-type="dislike" onclick="toggleFlag('compiler-design-book','コンパイラと言語設計入門——無料テキストブック','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 3 — Digital Ownership ══════════════════════════════════════════ -->
+<section class="story story-3" id="s3">
+  <div class="story-num">03</div>
+  <div class="story-inner">
+    <div class="story-kicker">デジタル所有権 / プライバシー / ゲーム / DRM — 物理メディアvsデジタルの論争は「フォーマットの好み」ではなく「所有権」の問題だ、という主張。229ポイント・169コメント</div>
+    <h2 class="story-headline">
+      物理vsデジタルの<br>問題じゃない——<br>所有権の<br>問題だ
+    </h2>
+    <div class="story-body">
+      「It's not about physical vs. digital games, it's about ownership（物理vsデジタルゲームの問題ではなく所有権の問題だ）」がpopcar.bearblog.devで公開され、229ポイント・169コメントを集めました。著者のpopcar2氏は、物理メディアとデジタルダウンロードの違いを「画質」「利便性」「価格」ではなく「所有権」という根本的な観点から論じています。
+
+      デジタルゲームを「購入」しても実際にはライセンスを取得しているに過ぎず、プラットフォーム（Steam・PlayStation Store・Nintendo eShop等）のサービス終了やアカウント停止により、いつでもアクセスを失う可能性があります。2024年にはUbisoftがThe Crewのサービスを終了し、購入済みプレイヤーが一切の補償なしにゲームへのアクセスを失った事例が話題を呼びました。これはDigital First Sale Doctrine（デジタル版の消尽原則）が確立されていない法的環境で起きている問題です。著者は「物理メディアにこだわる人々はノスタルジーではなく、適切な所有権を求めているだけだ」と主張します。
+
+      HN上では「AmazonがKindle本の削除を行った件・Adobe CCのサービス変更で過去のファイルが開けなくなった件——デジタル所有権の脆弱性は実際にユーザーを傷つけ続けている」「ゲームの場合はオンライン認証・サーバー停止でオフラインでも動かなくなるケースが増えている——GOG.com（DRMフリー）がそのアンチテーゼ」「EUは2022年にデジタルコンテンツの消尽原則について議論を始めたが、コンテンツ産業の強いロビー活動で棚上げになった」「Ratchet & Clank: Riftに限らず、今後5年で多数のPS4デジタル購入タイトルがPS5でプレイできなくなることが確定している——これが所有権の意味だ」という169コメントが展開しています。
+    </div>
+    <div class="red-items">
+      <div class="red-item">
+        <div>
+          <div class="red-label">デジタル所有権の現実</div>
+          <div class="red-text">「購入」≠「所有」：SteamのEULA §1では「本ソフトウェアはライセンス付与であり販売ではない」と明記。Steamアカウント停止→ライブラリ全消失。Nintendo eShopアカウント削除→購入済み全DL不可。現実の事例：The Crew（Ubisoft、2024年1月停止）・Stadia（Google、2023年停止）・PT（Konami、再DL不可）。物理メディアはプラットフォームのサービス終了に無関係</div>
+        </div>
+      </div>
+      <div class="red-item">
+        <div>
+          <div class="red-label">DRMフリーの選択肢</div>
+          <div class="red-text">GOG.com（Good Old Games）：DRMフリーのゲームストア。購入後はオフラインインストーラーが手元に残り、プラットフォームがなくなっても動作し続ける。Itch.io：インディーゲームのDRMフリーストア。どちらも大手ストアより品揃えは限られるが、「本当の所有権」を提供する数少ない選択肢。電子書籍はKobo（ADE DRM）よりStandard Ebooks・Project Gutenberg・DRMフリーePub</div>
+        </div>
+      </div>
+      <div class="red-item">
+        <div>
+          <div class="red-label">法的・政策的状況</div>
+          <div class="red-text">EU：2022年のデジタル市場法（DMA）でプラットフォームの透明性義務化が進んだが、デジタルコンテンツの消尽原則は未解決。米国：2019年のRight to Repair運動の一部としてデジタル所有権が議論されたが立法化に至らず。著作権法の「消尽原則（First Sale Doctrine）」は物理メディアには適用されるがデジタルには適用されないという司法解釈が主流。Kyle Orland（Ars Technica）が継続的に報道中</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: popcar.bearblog.dev</span>
+      <span>229 ポイント</span>
+      <span>169 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://popcar.bearblog.dev/its-about-ownership/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48794750" target="_blank">HN議論 (169)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="digital-ownership" data-type="like" onclick="toggleFlag('digital-ownership','物理vsデジタルの問題じゃない——所有権の問題だ','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="digital-ownership" data-type="dislike" onclick="toggleFlag('digital-ownership','物理vsデジタルの問題じゃない——所有権の問題だ','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 4 — Flipper Zero Future ════════════════════════════════════════ -->
+<section class="story story-4" id="s4">
+  <div class="story-num">04</div>
+  <div class="story-inner">
+    <div class="story-kicker">ハードウェア / セキュリティ / オープンソース / FLIPPER ZERO — Flipper Devicesが公式ブログで今後のFlipper Zero開発ロードマップを発表。新機能・オープンソース化の進展・コミュニティの方向性を説明。159ポイント・37コメント</div>
+    <h2 class="story-headline">
+      Flipper Zeroの<br>開発の<br>未来について
+    </h2>
+    <div class="story-body">
+      「The future of Flipper Zero development（Flipper Zero開発の未来）」がblog.flipper.netで公開され、159ポイント・37コメントを集めました。Flipper Devicesが今後のFlipper Zeroの開発方針について透明性のある発表を行いました。Flipper Zeroは2022年のクラウドファンディングで約460万ドルを調達して誕生した、ペンテスト・デジタルおもちゃとして人気のポータブルマルチツールデバイスです。
+
+      今回の発表では、ファームウェアのオープンソース化の継続・Flipper Applicationsプラットフォームの拡充・ハードウェアの次バージョンに向けた設計の考え方が語られています。特に注目されるのは「Flipper Zero Applicationsエコシステム」の強化で、コミュニティが開発したアプリをより簡単に配布・インストールできる仕組みの整備が含まれています。また、政府機関からのプレッシャー（カナダ・ブラジルによる輸入規制）を経験してきた中で、合法的なセキュリティ研究ツールとしての立ち位置を明確にする方針も示されています。
+
+      HN上では「Flipper Zeroの本質は『いろんなプロトコルを可視化して理解する』ツール——ペンテスターというよりも無線の仕組みを学ぶ教育ツールとして使っている」「カナダ政府が2024年に輸入禁止を試みた際の対応が見事だった——翌日には禁止が解除された。政府が技術の仕組みを理解していないことを露わにした事件」「FZのアプリエコシステムはRaspberry Pi HAT並みの豊かさになってきた——NFC・RFID・IR・Bluetooth・Sub-GHz全部触れるのが強い」「次世代モデルのスペックが気になる——現行はSTM32WBとバッテリー容量が制約だった」という37コメントが展開しています。
+    </div>
+    <div class="green-items">
+      <div class="green-item">
+        <div>
+          <div class="green-label">Flipper Zeroができること</div>
+          <div class="green-text">Sub-GHz無線（315/433/868/915MHz）：車のキーレスエントリー・ガレージ扉・IoTデバイスの信号を受信・解析・再生。NFC/RFID：建物アクセスカード・交通系ICの読み取り（読み取りのみ、書き込みには別途ハードウェアが必要）。IR（赤外線）：ほぼ全てのリモコンの学習・送信。iButton/1-Wire：Dallas DS1990A等のキーの読み取り。USB Bad USB：カスタムスクリプトをキーボードとして実行。Bluetooth：BLEデバイスの解析。GPIO：外部モジュールとの接続でWi-Fi・UARTデバッグ等に対応</div>
+        </div>
+      </div>
+      <div class="green-item">
+        <div>
+          <div class="green-label">法的・倫理的利用について</div>
+          <div class="green-text">Flipper Zeroは正当なセキュリティ研究・教育・自分所有のデバイスのテストを目的として設計されている。他人の財産・インフラへの無断使用は違法。合法的な用途：①自宅のIoTデバイスのセキュリティ検証②会社のセキュリティ監査（書面による承認が必須）③CTFチャレンジ④ペンテスト教育・研究。Flipper Devicesはファームウェアに「悪意ある用途に特化した機能」は含めない方針を明示しており、カナダ・ブラジルの輸入規制はこの事実を無視した政治的判断だったと多くの専門家が批判</div>
+        </div>
+      </div>
+      <div class="green-item">
+        <div>
+          <div class="green-label">オープンソースコミュニティ</div>
+          <div class="green-text">公式ファームウェアはGitHubで公開（github.com/flipperdevices/flipperzero-firmware）。サードパーティファームウェアのUnleashed Firmware・Xtreme Firmwareは、公式では無効化されている一部の実験的機能を有効化している（利用者の責任において）。アプリカタログ（lab.flipper.net/apps）には700以上のコミュニティアプリが公開されており、FAPフォーマットで簡単にインストール可能。ゲーム・ビジュアライザー・プロトコルアナライザー等多岐にわたる</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: blog.flipper.net</span>
+      <span>159 ポイント</span>
+      <span>37 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://blog.flipper.net/future-of-flipper-zero-development/" target="_blank">ブログ記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48796552" target="_blank">HN議論 (37)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="flipper-zero-future" data-type="like" onclick="toggleFlag('flipper-zero-future','Flipper Zeroの開発の未来について','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="flipper-zero-future" data-type="dislike" onclick="toggleFlag('flipper-zero-future','Flipper Zeroの開発の未来について','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 5 — AI Tutor Effect Size ═══════════════════════════════════════ -->
+<section class="story story-5" id="s5">
+  <div class="story-num">05</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / 教育 / 学習効果 / ダートマス — ダートマス大学の講義でAIチューターが0.71〜1.30標準偏差の学習効果を達成。教育研究における「Bloom's 2 Sigma」問題への現実解として注目。96ポイント・61コメント</div>
+    <h2 class="story-headline">
+      AIチューターが<br>ダートマスで<br>0.71〜1.30 SD<br>の学習効果を達成
+    </h2>
+    <div class="story-body">
+      「New AI tutor achieves 0.71-1.30 SD effect size in Dartmouth course（ダートマス講義でAIチューターが0.71〜1.30 SDの学習効果を達成）」が教育テクノロジー研究ワークショップ（ITB2026）で発表され、96ポイント・61コメントを集めました。この研究はダートマス大学の実際の講義コースにAIチューターを導入し、学習効果をコントロール群と比較した実験研究です。
+
+      「効果量（Effect Size）0.71〜1.30 SD（標準偏差）」という数値がなぜ重要かを説明します。教育研究では効果量0.2を小さい・0.5を中程度・0.8以上を大きな効果と見なします。Benjamin Bloom（ブルームの分類法の考案者）が1984年に示した「2 Sigma Problem（2シグマ問題）」——「優秀な家庭教師による個別指導は平均的な集団授業と比べて学習効果が2標準偏差（2 SD）高い——しかしすべての生徒に1対1の家庭教師をつけるのはコスト的に不可能だ」——への現実的な解として、AIチューターが0.71〜1.30 SDを達成したことはこの問題に初めて実用的なスケーラブルな解を提供した可能性を示します。
+
+      HN上では「1.30 SDというのは本当に大きな数字——研究の設計と対照群の選び方が気になる。ランダム化比較試験かどうか」「ASSISTments・Khan Academy Khanmigoと比べた場合の違いが知りたい——どのLLMベースのシステムか」「Bloom's 2 Sigma問題への言及が適切——個別指導がなぜ効くかを理解した上でAI家庭教師を設計することが重要」「ダートマスの学生サンプルはそもそもアカデミックなエリート——一般化可能性に注意が必要」という61コメントが展開しています。
+    </div>
+    <div class="purple-items">
+      <div class="purple-item">
+        <div>
+          <div class="purple-label">Bloom's 2 Sigma問題とは</div>
+          <div class="purple-text">1984年にBenjamin Bloomが教育研究のレビューで示した問題提起：①集団授業（30人クラス）での平均的な学習者を基準とすると②優秀な家庭教師（1対1）は学習効果が2標準偏差（SD）高い——つまりクラスの84パーセンタイルに位置する学習者と同等の成果を平均的な学習者が出せる③ただし全員に家庭教師をつけるのはコスト的に不可能。40年間この問題への解は見つかっておらず、今回のAIチューターが0.71〜1.30 SDを低コストで達成した結果は歴史的に重要な意味を持つ</div>
+        </div>
+      </div>
+      <div class="purple-item">
+        <div>
+          <div class="purple-label">AIチューターが効く理由</div>
+          <div class="purple-text">個別家庭教師が有効な理由を模倣できるから：①即時フィードバック——理解の誤りをその場で修正②適応的な難易度——学習者のペースに合わせて次の問題を選択③無限の忍耐——同じ概念を10通りの説明で試せる④24時間対応——わからなくなった瞬間に質問できる。AIはこれらすべてをスケーラブルなコストで提供できる。ただし、モチベーション付け・社会的学習・探索的な思考の促進はまだ人間教師の方が優れている</div>
+        </div>
+      </div>
+      <div class="purple-item">
+        <div>
+          <div class="purple-label">実践的な示唆</div>
+          <div class="purple-text">独学者・自己学習者への示唆：AIを単なる「答え出し機」ではなく「ソクラテス式問答パートナー」として使う——質問に答えてもらうだけでなく「なぜそうなるか」を掘り下げる対話を続けることで学習効果が高まる。Claude Code（または他のClaude）を使う場合：コードを書いてもらうだけでなく「このアルゴリズムの計算量はなぜO(n log n)になるのか説明して」「この設計のトレードオフは何か」という問い方が学習促進につながる</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: intextbooks.science.uu.nl/workshop2026/</span>
+      <span>96 ポイント</span>
+      <span>61 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://intextbooks.science.uu.nl/workshop2026/files/itb26_s1s2.pdf" target="_blank">研究論文を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48796817" target="_blank">HN議論 (61)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="ai-tutor-effect-size" data-type="like" onclick="toggleFlag('ai-tutor-effect-size','AIチューター、ダートマス講義で0.71〜1.30 SDの学習効果','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="ai-tutor-effect-size" data-type="dislike" onclick="toggleFlag('ai-tutor-effect-size','AIチューター、ダートマス講義で0.71〜1.30 SDの学習効果','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 6 — Open Source Paper Printer ══════════════════════════════════ -->
+<section class="story story-6" id="s6">
+  <div class="story-num">06</div>
+  <div class="story-inner">
+    <div class="story-kicker">ハードウェア / オープンソース / 修理可能 / プリンター — opentools.studioが修理可能でオープンソースな紙プリンターを設計・公開。独自エコシステムへの依存を排除した持続可能なハードウェア。108ポイント・31コメント</div>
+    <h2 class="story-headline">
+      修理可能で<br>オープンソースな<br>紙プリンターを<br>作った
+    </h2>
+    <div class="story-body">
+      「Reparaible and open source paper printer（修理可能でオープンソースな紙プリンター）」がopentools.studioで公開され、108ポイント・31コメントを集めました。このプロジェクトは「インクカートリッジのサブスクリプション・DRMチップ・修理を妨げる設計・非公開ドライバー」という現代のプリンターが抱える問題を根本から解決しようとする試みです。
+
+      現代の家庭用プリンターはビジネスモデルとして「本体を赤字で売ってインクで儲ける」ラソレモデルを採用しており、HP・Canon・Epsonは特許を駆使してサードパーティインクを排除し、ファームウェアアップデートを通じてサードパーティカートリッジを無効化することが問題になってきました。opentools.studioのプロジェクトはこれに対して①完全なオープンソースハードウェア設計（回路図・3Dモデルを公開）②標準的な部品を使った設計（モジュール交換で修理可能）③ベンダーロックインなし（標準インクカートリッジへの対応）④完全オープンのドライバー——という設計原則を実現しようとしています。
+
+      HN上では「プリンターはRight to Repairの象徴的な戦場——HPが2022年にサードパーティインクを使うとプリンターをブリックするファームウェアアップデートを配信したことを覚えている。このプロジェクトはその答えだ」「インクジェットよりも熱転写・感熱プリントの方がオープンソース実装が容易では——コンポーネントが少ない」「3Dプリンターの世界ではRepRapプロジェクトが同様の哲学を実現した——プリンターにもそれが来た」という31コメントが展開しています。
+    </div>
+    <div class="cyan-cards">
+      <div class="cyan-card">
+        <div class="cyan-card-name">設計原則</div>
+        <div class="cyan-card-desc">完全オープンソースのハードウェア設計（回路図・BOM・3Dモデル）をCC BY-SAで公開。標準的な汎用部品を使用し、ベンダー固有のコンポーネントに依存しない。モジュール設計で壊れた部品のみを交換可能。ドライバーも完全オープン</div>
+      </div>
+      <div class="cyan-card">
+        <div class="cyan-card-name">現代プリンターの問題</div>
+        <div class="cyan-card-desc">HPのインスタントインクは月額サブスクリプションでインクを「販売」——解約するとカートリッジが無効化。Epson・Canonも定期的なファームウェアでサードパーティインクをブロック。インクコストは体積当たりでシャンパン以上。修理を妨げる接着剤・特殊ネジの多用</div>
+      </div>
+      <div class="cyan-card">
+        <div class="cyan-card-name">Right to Repairとの関係</div>
+        <div class="cyan-card-desc">EU Right to Repair指令（2024年発効）はプリンターを対象外としているが、消費者の修理権への意識が高まる中でオープンハードウェアプリンターへの関心が増している。iFixitのRepairabilityスコアでほとんどの家庭用プリンターは低スコア。修理の権利は所有権と表裏一体</div>
+      </div>
+      <div class="cyan-card">
+        <div class="cyan-card-name">類似プロジェクト</div>
+        <div class="cyan-card-desc">AxiDraw：オープンソースのペンプロッター（Evil Mad Scientist Labs）。Bantam Tools：オープンソース設計のPCBミル。3Dプリンター業界ではPrusa Research（Josef Průša）がオープンソース・修理可能・ユーザー改造可能なモデルを提供し続けている。opentools.studioはその精神をインクジェットプリンターに適用しようとしている</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: opentools.studio</span>
+      <span>108 ポイント</span>
+      <span>31 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.opentools.studio/" target="_blank">プロジェクトを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48797916" target="_blank">HN議論 (31)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="open-source-paper-printer" data-type="like" onclick="toggleFlag('open-source-paper-printer','修理可能でオープンソースな紙プリンター','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="open-source-paper-printer" data-type="dislike" onclick="toggleFlag('open-source-paper-printer','修理可能でオープンソースな紙プリンター','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 7 — Cellular Automata Discovery ════════════════════════════════ -->
+<section class="story story-7" id="s7">
+  <div class="story-num">07</div>
+  <div class="story-inner">
+    <div class="story-kicker">変わった科学 / セルオートマトン / 偶然の発見 / クリエイティブコーディング — 「Mr. Baby Paint」というお絵かきツールを開発中に、未知のセルオートマトンを偶然発見。63ポイント・12コメント</div>
+    <h2 class="story-headline">
+      お絵かきツールを<br>作っていたら<br>新しいセルオート<br>マトンを発見した
+    </h2>
+    <div class="story-body">
+      「Mr. Baby Paint and accidentally discovering a new cellular automata（Mr. Baby Paintと新しいセルオートマトンの偶然の発見）」がAalto大学のアーティスト・イン・レジデンスブログで公開され、63ポイント・12コメントを集めました。著者のHeikki氏はAalto大学のレジデンスプログラムの一環として「Mr. Baby Paint」というインタラクティブなお絵かきツールを開発していました。このツールは描かれた図形が自律的に動き続けるアニメーション機能を持つユニークなアプリです。
+
+      ある実装を試みた際、予期せず規則的なパターンが反復・伝播・消滅するという振る舞いを見せるアルゴリズムが生まれました。これを詳しく調べると、Conway's Game of Lifeのような「セルオートマトン」の一種であることがわかりましたが、既知のルールセットには合致しないものでした。セルオートマトンは単純なルールから複雑なパターンを生み出す数学的構造で、Conway's Game of Lifeが最も有名ですが、Wolfram Code（ElementaryCellar Automata）・Langton's Ant等、多数のバリエーションが研究されています。新しいルールセットの発見は珍しいことではありませんが、意図せずアート制作の過程で発見されたことが特に興味深い事例です。
+
+      HN上では「Wolfram's A New Kind of Scienceがセルオートマトンの広大な空間を系統的に探索したが、まだ無数の未発見ルールが存在する——あらゆる創作活動が科学的発見の機会になりうる」「Game of Lifeも元々はConwayが『単純なルールから複雑さが生まれるか』という好奇心から設計したもの——今回の発見はその精神の現代版」「発見されたルールの形式的な記述と既存の分類（B/S記法等）との関係が記事にあればなお良かった」という12コメントが展開しています。
+    </div>
+    <div class="amber-items">
+      <div class="amber-item">
+        <div>
+          <div class="amber-label">セルオートマトンとは何か</div>
+          <div class="amber-text">セルオートマトンはグリッド上のセル集合で、各セルは「生きている」か「死んでいる」かの状態を持ち、近傍のセルの状態に基づく単純なルールに従って世代ごとに状態が更新されるシステム。Conway's Game of Lifeのルール：①生きたセルに生きた隣接が2〜3個→生存②生きたセルに隣接0〜1個→死（孤立）③生きたセルに隣接4個以上→死（過密）④死んだセルに隣接ちょうど3個→誕生。このわずか4つのルールから無限に多様なパターンが生まれる</div>
+        </div>
+      </div>
+      <div class="amber-item">
+        <div>
+          <div class="amber-label">偶然の発見の歴史</div>
+          <div class="amber-text">科学の歴史に残る「セレンディピティ」な発見：ペニシリン（フレミング、培養皿の汚染から）・電子レンジ（レーダー技術の研究中に）・Velcro（ゴードン・ド・メストラルが山から帰ると服に引っかかった植物を観察して）。コンピュータサイエンスでも：バックプロパゲーション・遺伝的アルゴリズム・ニューラルネットワークの多くの発見が偶発的な観察から始まっている。今回の事例は「何かを作ろうとして別の何かを見つける」という創造プロセスの本質を示す</div>
+        </div>
+      </div>
+      <div class="amber-item">
+        <div>
+          <div class="amber-label">自分で試せるセルオートマトン</div>
+          <div class="amber-text">Conway's Game of Lifeをすぐ試す：conwaylife.com（ブラウザで動作）・golly（高機能デスクトップアプリ）。独自ルールを探索：Golly付属のRuleTableCreatorで独自ルールを定義できる。WolframのElementary Cellular Automata：256種のルールをオンラインで試せる（wolframalpha.com/elementary-cellular-automaton）。WebGL実装のHighLife・B36/S23等のバリエーションはCodePenで多数公開されている。Claude Codeに「ライフゲームのシミュレーターをcanvasで実装して」と頼むと数分で動く</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: tekstien-marginaalien-keskus.aalto.fi</span>
+      <span>63 ポイント</span>
+      <span>12 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://tekstien-marginaalien-keskus.aalto.fi/residenssi/heikki/blog/004-december-2/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48770291" target="_blank">HN議論 (12)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="cellular-automata-discovery" data-type="like" onclick="toggleFlag('cellular-automata-discovery','お絵かきツールを作っていたら新しいセルオートマトンを発見した','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="cellular-automata-discovery" data-type="dislike" onclick="toggleFlag('cellular-automata-discovery','お絵かきツールを作っていたら新しいセルオートマトンを発見した','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 8 — Papa Johns Fridge Surveillance ═════════════════════════════ -->
+<section class="story story-8" id="s8">
+  <div class="story-num">08</div>
+  <div class="story-inner">
+    <div class="story-kicker">プライバシー / 監視広告 / データブローカー / IoT — パパ・ジョンズが冷蔵庫の空き状況を予測してピザを売る。データブローカーとスマート家電データを組み合わせた行動ターゲティング広告の現実。30ポイント・26コメント</div>
+    <h2 class="story-headline">
+      パパ・ジョンズは<br>あなたの冷蔵庫が<br>空になる前を<br>知っている
+    </h2>
+    <div class="story-body">
+      「Papa Johns Can Predict When Your Fridge Is Empty（パパ・ジョンズはあなたの冷蔵庫が空のタイミングを予測できる）」がAdExchangerで報告され、30ポイント・26コメントを集めました。パパ・ジョンズがデータブローカー・購買行動データ・スマート家電のデータを組み合わせることで「ユーザーの冷蔵庫の食料が尽きるタイミング」を予測し、そのタイミングに合わせてピザの広告を配信するターゲティング広告を実施しているという内容です。
+
+      技術的な仕組みとしては①スーパーマーケットのロイヤルティカード・クレジットカードの購買データをデータブローカーが集約②食品購買の頻度・パターンから「次に食料品を買いに行く前の空腹タイミング」を機械学習でモデル化③Samsung・LG等のスマート冷蔵庫データが（ユーザーの同意の下で）パートナーシップを通じて参照されるケースもある——という組み合わせです。AdExchangerの記事はこれをマーケティングの「成功事例」として取り上げていますが、HNではプライバシーの観点から厳しい批判が集まりました。
+
+      HN上では「『同意の下で』という表現は深いダークパターンの下に埋もれたオプトインを指すことがほとんど——実質的に同意は得られていない」「データブローカーのエコシステムは規制の最前線——GDPR・CCPAが対象とするが、実際の執行は追いついていない」「スマート家電のデータが広告に使われることはプライバシーポリシーの奥深くに書かれているが、誰も読まない——これを読んでスマート家電を買うのが怖くなった人は正しい判断をしている」「食料が尽きる瞬間の人間の脆弱性（空腹、判断力低下）を意図的に狙う広告は倫理的に問題では」という26コメントが展開しています。
+    </div>
+    <div class="gold-items">
+      <div class="gold-item">
+        <div>
+          <div class="gold-label">データブローカーのエコシステム</div>
+          <div class="gold-text">データブローカーとは：個人の行動・購買・位置・健康・財務データを多方面から収集し、企業に販売することをビジネスとする会社。主要プレイヤー：Acxiom・Experian・LexisNexis・Nielsen。収集源：スーパーのロイヤルティカード・クレカ明細・スマホの位置履歴（GPS）・スマート家電のAPIデータ・公開SNS・公的記録（選挙人名簿・不動産記録等）。年間市場規模：約2,000億ドル（2026年推定）。オプトアウト：米国では各ブローカーへの個別申請が必要——Privacy Bee・DeleteMeというサービスが代行</div>
+        </div>
+      </div>
+      <div class="gold-item">
+        <div>
+          <div class="gold-label">スマート家電のデータリスク</div>
+          <div class="gold-text">Samsung Family Hub冷蔵庫：カメラで庫内を撮影し「Food AI」で食品認識・在庫管理——このデータをSamsungのサーバーへ送信。プライバシーポリシーには「マーケティングパートナーへのデータ共有」条項。LG ThinQ冷蔵庫：同様のクラウド連携。Amazon Dash Replenish：消耗品が減ると自動注文——購買データがAmazonの広告プラットフォームに統合される。対策：スマート家電のクラウド連携をオフにする・ルーターでIoT機器の外部通信をブロック（Pi-hole等）</div>
+        </div>
+      </div>
+      <div class="gold-item">
+        <div>
+          <div class="gold-label">今すぐできる防御策</div>
+          <div class="gold-text">①データブローカーからオプトアウト：opt-out.global（EU向け）・EFF Privacy Badger・DeleteMe（有料だが包括的）②スーパーのロイヤルティカードは使わない——割引との引き換えに購買履歴を販売。代わりに現金・交換可能なプリペイドカード③スマート家電のクラウド設定をオフ——ほとんどの機能はローカルで動作可能④クレカより現金・プライバシー重視のデビットカード（Venmo等は避ける）⑤IPTV・ストリーミングの視聴履歴も広告に使われる——VPNより効果的なのはDNSブロック（1.1.1.1 for Families等）</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: adexchanger.com</span>
+      <span>30 ポイント</span>
+      <span>26 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.adexchanger.com/tv/papa-johns-can-predict-when-your-fridge-is-empty/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48755686" target="_blank">HN議論 (26)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="papa-johns-fridge-surveillance" data-type="like" onclick="toggleFlag('papa-johns-fridge-surveillance','パパ・ジョンズはあなたの冷蔵庫が空になる前を知っている','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="papa-johns-fridge-surveillance" data-type="dislike" onclick="toggleFlag('papa-johns-fridge-surveillance','パパ・ジョンズはあなたの冷蔵庫が空になる前を知っている','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 9 — DMARC NP DNSSEC ════════════════════════════════════════════ -->
+<section class="story story-9" id="s9">
+  <div class="story-num">09</div>
+  <div class="story-inner">
+    <div class="story-kicker">セキュリティ / メール / DMARC / DNSSEC — DMARCの新しい「NP」タグ（非存在サブドメインポリシー）がDNSSECと組み合わさると機能しなくなる技術的な問題の解説。40ポイント・16コメント</div>
+    <h2 class="story-headline">
+      DMARCの新「NP」<br>タグがDNSSECで<br>失敗する<br>理由
+    </h2>
+    <div class="story-body">
+      「Why DMARC's new 'NP' tag can fail with DNSSEC（DMARCの新しい『NP』タグがDNSSECで失敗する理由）」がdmarcwise.ioで公開され、40ポイント・16コメントを集めました。DMARCはメールの送信元認証のプロトコルで、フィッシング・スプーフィングを防ぐために広く使われています。2023年にRFC 9091の拡張として導入された「NP（Non-existent subdomain Policy）」タグは、存在しないサブドメインからのメール（例: nonexistent.example.comからのメール）に対するポリシーを別途指定できる機能です。
+
+      問題の技術的な核心：DNSSECが有効な場合、存在しないドメインへのDNSクエリはNXDOMAIN（ドメイン未存在）ではなくNSEC/NSEC3レコードで否定的な存在証明を返します。DMARCレシーバーがNPタグの適用判断をするためには「このサブドメインは存在しない」という情報をDNSから得る必要がありますが、DNSSEC対応リゾルバーはNXDOMAINを返す代わりにNSECレコードを返すため、DMARCの実装によっては「存在しないサブドメイン」と「存在するが設定のないサブドメイン」を区別できなくなり、NPタグが意図した通りに機能しません。
+
+      HN上では「これは仕様の相互作用の問題——DMARCの策定者がDNSSECのNSEC応答パターンを十分に考慮しなかった」「メールのセキュリティスタック（SPF・DKIM・DMARC・ARC）は相互作用が複雑すぎてバグだらけのまま運用されている——今回はその新しいケース」「DMARCレポート（RUA・RUF）を正しく設定して実際にどのメールが失敗しているかを可視化するのがまず先決——NPタグは高度な機能なので中小企業には関係ない話」という16コメントが展開しています。
+    </div>
+    <div class="slate-items">
+      <div class="slate-item">
+        <div>
+          <div class="slate-label">DMARC・SPF・DKIMの関係</div>
+          <div class="slate-text">SPF（Sender Policy Framework）：「このドメインからメールを送っていいIPアドレスの一覧」をDNSのTXTレコードで公開する仕組み。DKIM（DomainKeys Identified Mail）：メールにデジタル署名を付けて改ざんを検知する仕組み。DMARC（Domain-based Message Authentication, Reporting and Conformance）：SPFとDKIMの認証結果を受け取り「認証失敗のメールをどう扱うか（none/quarantine/reject）」を指定するポリシー。NPタグはDMARCに追加された拡張で、存在しないサブドメインへの適用ポリシーを分離して指定できる</div>
+        </div>
+      </div>
+      <div class="slate-item">
+        <div>
+          <div class="slate-label">DNSSEC問題の詳細</div>
+          <div class="slate-text">DNSSEC：DNSの回答にデジタル署名を付けてなりすましを防ぐ技術。存在しないドメインへのクエリ：通常はNXDOMAINを返すが、DNSSECではNXDOMAINの代わりにNSECまたはNSEC3レコードで「このドメインとこのドメインの間には何もない（つまりクエリしたドメインは存在しない）」という証明を返す。問題：DMARCのNP処理ロジックがNXDOMAINのみをトリガーとして「存在しないサブドメイン」と判断する実装が多く、NSEC/NSEC3で応答された場合はNPタグを適用しない——つまりDNSSECが有効だとNPが機能しない</div>
+        </div>
+      </div>
+      <div class="slate-item">
+        <div>
+          <div class="slate-label">実務的な対策</div>
+          <div class="slate-text">今すぐNPタグを使っているか確認：`dig TXT _dmarc.example.com`でnpタグが含まれているか確認。DNSSECが有効かどうか：`dig +dnssec example.com`でAD（Authenticated Data）フラグが立っていればDNSSEC有効。影響を受けているか確認：major.io/mxtoolbox等のDMARCチェッカーでNPタグの動作確認を。現実的な対処：NPタグがDNSSEC環境で機能しない場合は、親ドメインのpタグを`reject`に設定して代替とする。MXToolbox・Postmark DMARC Analyzerでレポートを可視化するのが先決</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: dmarcwise.io/blog/</span>
+      <span>40 ポイント</span>
+      <span>16 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://dmarcwise.io/blog/dmarc-np-incompatibility-with-dnssec" target="_blank">技術解説を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48794788" target="_blank">HN議論 (16)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="dmarc-np-dnssec" data-type="like" onclick="toggleFlag('dmarc-np-dnssec','DMARCの新「NP」タグがDNSSECで失敗する理由','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="dmarc-np-dnssec" data-type="dislike" onclick="toggleFlag('dmarc-np-dnssec','DMARCの新「NP」タグがDNSSECで失敗する理由','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 10 — Full Stack of Terminals ════════════════════════════════════ -->
+<section class="story story-10" id="s10">
+  <div class="story-num">10</div>
+  <div class="story-inner">
+    <div class="story-kicker">開発ツール / ターミナル / UNIX / 技術解説 — ターミナルエミュレーター・シェル・TTY・コンソール・POSIX・ANSIエスケープ・PTYのフルスタックを網羅した解説記事。12ポイント・0コメント</div>
+    <h2 class="story-headline">
+      ターミナルの<br>フルスタックを<br>完全に<br>解説する
+    </h2>
+    <div class="story-body">
+      「The full stack of terminals explained（ターミナルのフルスタックを解説する）」がahmadawais.comで公開されました。タイトルが示す通り、「ターミナル」「シェル」「TTY」「コンソール」「POSIX」「ANSIエスケープシーケンス」「PTY（擬似ターミナル）」という、普段何気なく使っているターミナル環境の裏側にある7つのレイヤーを一つの記事で体系的に解説するコンテンツです。
+
+      多くの開発者はターミナルを「コマンドを打つ黒い画面」として使っていますが、これは実際には何十年もの歴史的積み重ねと、互いに依存し合う複数のソフトウェア・ハードウェアのレイヤーで構成されています。現代のmacOSでiTerm2を開いたとき何が起きているか——iTerm2（ターミナルエミュレーター）→macOS Kernel（PTYドライバー）→zsh（シェルプロセス）→POSIX API（標準呼び出し）→ANSIエスケープシーケンス（カーソル移動・色表示）→TTYライン規律（バックスペース・Ctrl+C処理）——という連鎖を理解すると、シェルスクリプトのデバッグ・エスケープシーケンスの問題解決・端末幅の取得・プログレスバーの実装等が根本から理解できます。
+
+      HN上ではコメントがまだついていませんが、この手の「基礎を網羅する」記事はHNで定期的に高評価を得るカテゴリです。同様の良質リソースとしては「The TTY demystified」（Linus Åkerblom）・「A Brief Introduction to termios」も参照価値があります。
+    </div>
+    <div class="mag-items">
+      <div class="mag-item">
+        <div>
+          <div class="mag-label">ターミナルとシェルの違い</div>
+          <div class="mag-text">混同されやすいが別のソフトウェア：ターミナルエミュレーター（Terminal Emulator）は「表示担当」——テキストを画面に描画し、キー入力を受け取る。例：iTerm2・Windows Terminal・Alacritty・GNOME Terminal。シェル（Shell）は「実行担当」——コマンドを解釈・実行する。例：bash・zsh・fish・PowerShell。PTY（Pseudo-TTY）はこの二者をつなぐカーネルの「橋」——ターミナルエミュレーターはPTYのmaster側、シェルはslave側に接続される。`echo $TERM`でどのターミナルタイプが設定されているかわかる</div>
+        </div>
+      </div>
+      <div class="mag-item">
+        <div>
+          <div class="mag-label">ANSIエスケープシーケンス</div>
+          <div class="mag-text">ANSIエスケープシーケンスはESCキャラクター（\033または\x1b）から始まるバイト列で、ターミナルに「カーソルを移動せよ」「テキストを赤で表示せよ」「画面を消去せよ」等を指示する。例：`\033[31m`→赤色テキスト・`\033[0m`→リセット・`\033[2J`→画面クリア・`\033[A`→カーソルを1行上へ。これを使うとシェルスクリプトでプログレスバー・カラー出力・インタラクティブなTUIが作れる。Claudeに「bashでアニメーションするプログレスバーを実装して」と頼むとANSIシーケンスを使った実装が返ってくる</div>
+        </div>
+      </div>
+      <div class="mag-item">
+        <div>
+          <div class="mag-label">なぜ今これを知るべきか</div>
+          <div class="mag-text">Claude CodeはCLIツール——ターミナルのスタックを理解するとClaude Code自身の動作が腑に落ちる。Claude Codeのインタラクティブな表示・カーソル移動・カラー出力はすべてANSIエスケープシーケンスとPTYの組み合わせで実現されている。実践的な応用：①シェルスクリプトのデバッグでエスケープシーケンスが文字化けする問題の根本原因理解②`tput`コマンドでポータブルなカラー表示を実装③SSH越しのターミナル幅が正しく取得できない問題の解決④Tmux・Screen等のマルチプレクサがなぜ「ターミナルの中のターミナル」を作れるかの理解</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: ahmadawais.com</span>
+      <span>12 ポイント</span>
+      <span>0 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://ahmadawais.com/the-full-stack-of-terminals-explained-terminal-shell-tty-console-posix-ansi-escapes-ptys/" target="_blank">解説を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48797214" target="_blank">HN議論 (0)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="terminal-stack-explained" data-type="like" onclick="toggleFlag('terminal-stack-explained','ターミナルのフルスタックを完全に解説する','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="terminal-stack-explained" data-type="dislike" onclick="toggleFlag('terminal-stack-explained','ターミナルのフルスタックを完全に解説する','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══════════════════════════════════════════════════════════════ -->
+<footer class="site-footer">
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand">Morning Edition</div>
+      <div class="footer-meta">
+        Hacker News キュレーション · 2026年7月6日 · Issue No.069<br>
+        毎朝、厳選10本をお届け
+      </div>
+    </div>
+    <button class="export-btn" onclick="exportFeedback()">📋 フィードバックをコピー</button>
+  </div>
+  <div class="footer-note">
+    ⭐ 興味あり / ✕ 興味なし ボタンで次回のキュレーションが改善されます。Chrome/Edgeでは自動保存、その他ではボタンでクリップボードにコピーしてください。
+  </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  const FEEDBACK_KEY = 'morning-edition-feedback-v2';
+  const TODAY = '2026-07-06';
+  let _dirHandle = null;
+
+  async function getDir(forcePrompt) {
+    if (_dirHandle && !forcePrompt) return _dirHandle;
+    if (!window.showDirectoryPicker) return null;
+    try {
+      _dirHandle = await window.showDirectoryPicker({ mode: 'readwrite', id: 'morning-edition', startIn: 'documents' });
+      return _dirHandle;
+    } catch { return null; }
+  }
+
+  async function writeJSON(dirHandle, fb) {
+    const fileHandle = await dirHandle.getFileHandle('feedback.json', { create: true });
+    const writable = await fileHandle.createWritable();
+    await writable.write(JSON.stringify({ ...fb, updatedAt: new Date().toISOString() }, null, 2));
+    await writable.close();
+  }
+
+  function showToast(msg, isErr) {
+    const el = document.getElementById('toast');
+    el.textContent = msg;
+    el.className = 'toast' + (isErr ? ' error' : '');
+    requestAnimationFrame(() => el.classList.add('show'));
+    clearTimeout(el._timer);
+    el._timer = setTimeout(() => el.classList.remove('show'), 3000);
+  }
+
+  function getFeedback() {
+    try { return JSON.parse(localStorage.getItem(FEEDBACK_KEY) || '{"liked":{},"disliked":{}}'); }
+    catch { return { liked: {}, disliked: {} }; }
+  }
+  function saveFeedback(fb) { localStorage.setItem(FEEDBACK_KEY, JSON.stringify(fb)); }
+
+  async function autoSave(fb) {
+    let dir = await getDir();
+    if (!dir) {
+      showToast('📁 Daily News フォルダを選択してください', true);
+      dir = await getDir(true);
+      if (!dir) { showToast('保存をキャンセルしました', true); return; }
+    }
+    try {
+      await writeJSON(dir, fb);
+      showToast('✓ feedback.json を自動保存しました（次回キュレーションに反映）');
+    } catch (e) {
+      showToast('保存エラー: ' + e.message, true);
+    }
+  }
+
+  async function toggleFlag(storyId, title, type) {
+    const fb = getFeedback();
+    fb.liked = fb.liked || {};
+    fb.disliked = fb.disliked || {};
+    const likeBtn    = document.querySelector(`.flag-btn.like-btn[data-story="${storyId}"]`);
+    const dislikeBtn = document.querySelector(`.flag-btn.dislike-btn[data-story="${storyId}"]`);
+    if (type === 'like') {
+      if (fb.liked[storyId]) {
+        delete fb.liked[storyId];
+        likeBtn?.classList.remove('active');
+      } else {
+        fb.liked[storyId] = { title, date: TODAY };
+        delete fb.disliked[storyId];
+        likeBtn?.classList.add('active');
+        dislikeBtn?.classList.remove('active');
+      }
+    } else {
+      if (fb.disliked[storyId]) {
+        delete fb.disliked[storyId];
+        dislikeBtn?.classList.remove('active');
+      } else {
+        fb.disliked[storyId] = { title, date: TODAY };
+        delete fb.liked[storyId];
+        dislikeBtn?.classList.add('active');
+        likeBtn?.classList.remove('active');
+      }
+    }
+    saveFeedback(fb);
+    await autoSave(fb);
+  }
+
+  function exportFeedback() {
+    const fb = getFeedback();
+    const json = JSON.stringify({ ...fb, exportedAt: new Date().toISOString() }, null, 2);
+    navigator.clipboard.writeText(json)
+      .then(() => showToast('📋 クリップボードにコピーしました'))
+      .catch(() => {
+        const el = document.createElement('textarea');
+        el.value = json; document.body.appendChild(el); el.select();
+        document.execCommand('copy'); document.body.removeChild(el);
+        showToast('📋 クリップボードにコピーしました');
+      });
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const fb = getFeedback();
+    document.querySelectorAll('.flag-btn').forEach(btn => {
+      const id   = btn.dataset.story;
+      const type = btn.dataset.type;
+      if ((type === 'like' && fb.liked?.[id]) || (type === 'dislike' && fb.disliked?.[id])) {
+        btn.classList.add('active');
+      }
+    });
+  });
+</script>
+</body>
+</html>
