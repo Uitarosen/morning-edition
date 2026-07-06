@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Morning Edition — 2026年7月7日</title>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --font: 'M PLUS Rounded 1c', 'Hiragino Sans', 'Noto Sans JP', sans-serif; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); background: #111; color: #fff; overflow-x: hidden; }
+
+    .masthead { background: #fff; color: #000; padding: 3rem 4rem 2.5rem; border-bottom: 6px solid #000; position: relative; overflow: hidden; }
+    .masthead::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: repeating-linear-gradient(90deg, #000 0, #000 12px, transparent 12px, transparent 20px); }
+    .masthead-kicker { font-size: 0.85rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: #777; margin-bottom: 0.6rem; }
+    .masthead-title { font-size: clamp(3.5rem, 9vw, 7.5rem); font-weight: 900; line-height: 0.88; letter-spacing: -0.04em; margin-bottom: 1.8rem; }
+    .masthead-meta { display: flex; gap: 3rem; align-items: baseline; flex-wrap: wrap; }
+    .masthead-date { font-size: 1.5rem; font-weight: 700; }
+    .masthead-subtitle { font-size: 1rem; font-weight: 400; color: #555; max-width: 480px; line-height: 1.5; }
+    .masthead-issue { margin-left: auto; text-align: right; }
+    .masthead-issue span { display: block; }
+    .masthead-issue .iss-label { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: #999; }
+    .masthead-issue .iss-num { font-size: 2.2rem; font-weight: 900; color: #000; }
+
+    .toc { background: #1a1a1a; padding: 1.5rem 4rem; display: flex; gap: 1.5rem; flex-wrap: wrap; border-bottom: 1px solid #333; }
+    .toc a { color: #aaa; text-decoration: none; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; transition: color 0.2s; }
+    .toc a:hover { color: #fff; }
+    .toc-num { color: #555; margin-right: 0.3em; }
+
+    .story { position: relative; overflow: hidden; }
+    .story-inner { max-width: 1200px; margin: 0 auto; padding: 5rem 4rem; position: relative; z-index: 1; }
+    .story-num { font-size: clamp(6rem, 18vw, 16rem); font-weight: 900; line-height: 0.8; letter-spacing: -0.06em; opacity: 0.08; position: absolute; top: 1rem; right: 2rem; user-select: none; }
+    .story-badge { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.35em 0.9em; border-radius: 2px; margin-bottom: 1.5rem; }
+    .direct-badge { background: #FFD700; color: #000; }
+    .story-kicker { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; opacity: 0.6; margin-bottom: 0.8rem; }
+    .story-headline { font-size: clamp(2rem, 5vw, 4rem); font-weight: 900; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+    .story-body { font-size: clamp(1rem, 1.5vw, 1.2rem); font-weight: 400; line-height: 1.8; max-width: 680px; opacity: 0.88; margin-bottom: 2rem; }
+    .story-meta { display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center; font-size: 0.8rem; font-weight: 700; opacity: 0.5; }
+    .story-links { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem; }
+    .story-link { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.6em 1.4em; border-radius: 3px; text-decoration: none; transition: opacity 0.2s, transform 0.15s; }
+    .story-link:hover { opacity: 0.75; transform: translateY(-1px); }
+
+    .feedback-buttons { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .flag-btn { background: none; border: 1px solid currentColor; color: inherit; font-family: var(--font); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.5em 1em; border-radius: 3px; cursor: pointer; opacity: 0.32; transition: opacity 0.2s, background 0.2s, color 0.2s, border-color 0.2s, transform 0.15s; }
+    .flag-btn:hover { opacity: 0.72; transform: translateY(-1px); }
+    .flag-btn.like-btn.active { opacity: 1; background: rgba(255,215,0,0.15); border-color: #FFD700; color: #FFD700 !important; }
+    .flag-btn.dislike-btn.active { opacity: 1; background: rgba(255,60,60,0.12); border-color: #FF4444; color: #FF4444 !important; }
+
+    .toast { position: fixed; bottom: 2rem; right: 2rem; background: #1a1a1a; color: #fff; font-family: var(--font); font-size: 0.82rem; font-weight: 700; padding: 0.75em 1.4em; border-radius: 4px; border-left: 3px solid #00C853; z-index: 9999; opacity: 0; transform: translateY(10px); transition: opacity 0.25s, transform 0.25s; pointer-events: none; box-shadow: 0 4px 24px rgba(0,0,0,0.45); }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    .toast.error { border-left-color: #FF5252; }
+
+    .story-1 { background: #fff; color: #000; min-height: 90vh; display: flex; flex-direction: column; justify-content: center; }
+    .story-1 .story-num { color: #000; opacity: 0.04; }
+    .story-1 .story-kicker { color: #555; opacity: 1; }
+    .story-1 .story-headline { color: #000; }
+    .story-1 .story-body { color: #111; }
+    .story-1 .story-meta { color: #000; }
+    .story-1 .story-link.primary { background: #1a1a1a; color: #fff; }
+    .story-1 .story-link.secondary { background: #f0f0f0; color: #000; }
+    .story-1 .flag-btn { color: #000; }
+    .story-1-accent { position: absolute; bottom: 0; left: 0; width: 100%; height: 8px; background: linear-gradient(90deg, #c25100, #e07000, #c25100); }
+    .story-1 .headline-accent { display: inline-block; background: linear-gradient(135deg, #c25100 0%, #ff8c00 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .dos-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1.2rem; margin: 2rem 0; max-width: 680px; }
+    .dos-card { border: 2px solid rgba(0,0,0,0.12); background: rgba(0,0,0,0.04); border-radius: 6px; padding: 1.3rem 1.5rem; }
+    .dos-card-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.2em; text-transform: uppercase; color: #333; margin-bottom: 0.4rem; }
+    .dos-card-value { font-size: 1.05rem; font-weight: 900; color: #000; line-height: 1.3; }
+    .dos-card-sub { font-size: 0.75rem; color: #555; margin-top: 0.3rem; line-height: 1.4; }
+
+    .story-2 { background: #00080c; color: #b8f0ff; min-height: 80vh; }
+    .story-2::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(0,160,200,0.14) 0%, transparent 65%); }
+    .story-2 .story-num { color: #00A0C8; opacity: 0.07; }
+    .story-2 .story-kicker { color: #20C8E8; opacity: 1; }
+    .story-2 .story-headline { color: #e0f8ff; }
+    .story-2 .story-body { color: #b8f0ff; }
+    .story-2 .story-meta { color: #20C8E8; opacity: 0.5; }
+    .story-2 .story-link.primary { background: #004058; color: #80e8ff; }
+    .story-2 .story-link.secondary { background: rgba(0,160,200,0.08); color: #90d8f0; border: 1px solid rgba(0,160,200,0.22); }
+    .story-2 .flag-btn { color: #b8f0ff; }
+    .teal-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .teal-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(0,160,200,0.07); border-left: 3px solid #00A0C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .teal-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20C8E8; margin-bottom: 0.3rem; }
+    .teal-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-3 { background: #0a0000; color: #fff; min-height: 80vh; }
+    .story-3::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(200,20,20,0.16) 0%, transparent 65%); }
+    .story-3 .story-num { color: #C81414; opacity: 0.07; }
+    .story-3 .story-kicker { color: #E84040; opacity: 1; }
+    .story-3 .story-headline { color: #fff; }
+    .story-3 .story-body { color: rgba(255,255,255,0.88); }
+    .story-3 .story-meta { color: #E84040; opacity: 0.5; }
+    .story-3 .story-link.primary { background: #6a0000; color: #fff; }
+    .story-3 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-3 .flag-btn { color: #fff; }
+    .red-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .red-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(200,20,20,0.07); border-left: 3px solid #C81414; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .red-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E84040; margin-bottom: 0.3rem; }
+    .red-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-4 { background: #020c04; color: #c8f0d0; min-height: 80vh; }
+    .story-4::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(20,160,70,0.16) 0%, transparent 65%); }
+    .story-4 .story-num { color: #14A046; opacity: 0.07; }
+    .story-4 .story-kicker { color: #30C060; opacity: 1; }
+    .story-4 .story-headline { color: #e0ffe8; }
+    .story-4 .story-body { color: #c8f0d0; }
+    .story-4 .story-meta { color: #30C060; opacity: 0.5; }
+    .story-4 .story-link.primary { background: #063820; color: #80ffb0; }
+    .story-4 .story-link.secondary { background: rgba(20,160,70,0.08); color: #a0e8b0; border: 1px solid rgba(20,160,70,0.22); }
+    .story-4 .flag-btn { color: #c8f0d0; }
+    .green-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .green-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(20,160,70,0.07); border-left: 3px solid #14A046; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .green-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #30C060; margin-bottom: 0.3rem; }
+    .green-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-5 { background: #040010; color: #d8c8ff; min-height: 75vh; }
+    .story-5::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(90,40,200,0.17) 0%, transparent 65%); }
+    .story-5 .story-num { color: #5A28C8; opacity: 0.07; }
+    .story-5 .story-kicker { color: #8050E0; opacity: 1; }
+    .story-5 .story-headline { color: #f0e8ff; }
+    .story-5 .story-body { color: #d8c8ff; }
+    .story-5 .story-meta { color: #8050E0; opacity: 0.5; }
+    .story-5 .story-link.primary { background: #200860; color: #d0a8ff; }
+    .story-5 .story-link.secondary { background: rgba(90,40,200,0.08); color: #c0a0f0; border: 1px solid rgba(90,40,200,0.22); }
+    .story-5 .flag-btn { color: #d8c8ff; }
+    .purple-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .purple-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(90,40,200,0.07); border-left: 3px solid #5A28C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .purple-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #8050E0; margin-bottom: 0.3rem; }
+    .purple-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-6 { background: #000c10; color: #b8e8f0; min-height: 75vh; }
+    .story-6::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 40%, rgba(0,130,160,0.14) 0%, transparent 65%); }
+    .story-6 .story-num { color: #0080A0; opacity: 0.07; }
+    .story-6 .story-kicker { color: #20B0D0; opacity: 1; }
+    .story-6 .story-headline { color: #e0f4ff; }
+    .story-6 .story-body { color: #b8e8f0; }
+    .story-6 .story-meta { color: #20B0D0; opacity: 0.5; }
+    .story-6 .story-link.primary { background: #003848; color: #80d8f0; }
+    .story-6 .story-link.secondary { background: rgba(0,130,160,0.08); color: #90cce0; border: 1px solid rgba(0,130,160,0.22); }
+    .story-6 .flag-btn { color: #b8e8f0; }
+    .cyan-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .cyan-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(0,130,160,0.07); border-left: 3px solid #0080A0; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .cyan-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20B0D0; margin-bottom: 0.3rem; }
+    .cyan-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-7 { background: #0a0300; color: #ffe0b8; min-height: 75vh; }
+    .story-7::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(210,90,20,0.18) 0%, transparent 65%); }
+    .story-7 .story-num { color: #D05A14; opacity: 0.07; }
+    .story-7 .story-kicker { color: #E88040; opacity: 1; }
+    .story-7 .story-headline { color: #fff0d8; }
+    .story-7 .story-body { color: #ffe0b8; }
+    .story-7 .story-meta { color: #E88040; opacity: 0.5; }
+    .story-7 .story-link.primary { background: #6a2400; color: #ffc880; }
+    .story-7 .story-link.secondary { background: rgba(210,90,20,0.08); color: #ffb870; border: 1px solid rgba(210,90,20,0.22); }
+    .story-7 .flag-btn { color: #ffe0b8; }
+    .amber-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .amber-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(210,90,20,0.07); border-left: 3px solid #D05A14; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .amber-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E88040; margin-bottom: 0.3rem; }
+    .amber-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-8 { background: #080500; color: #fff; min-height: 70vh; }
+    .story-8::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,145,10,0.15) 0%, transparent 65%); }
+    .story-8 .story-num { color: #BE9110; opacity: 0.06; }
+    .story-8 .story-kicker { color: #D4A820; opacity: 1; }
+    .story-8 .story-headline { color: #fff; }
+    .story-8 .story-body { color: rgba(255,255,255,0.88); }
+    .story-8 .story-meta { color: #D4A820; opacity: 0.5; }
+    .story-8 .story-link.primary { background: #604000; color: #ffe070; }
+    .story-8 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-8 .flag-btn { color: #fff; }
+    .gold-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .gold-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(190,145,10,0.07); border-left: 3px solid #BE9110; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .gold-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #D4A820; margin-bottom: 0.3rem; }
+    .gold-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-9 { background: #040810; color: #c8d8f0; min-height: 70vh; }
+    .story-9::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 35%, rgba(50,90,170,0.16) 0%, transparent 65%); }
+    .story-9 .story-num { color: #3258A8; opacity: 0.07; }
+    .story-9 .story-kicker { color: #5878C8; opacity: 1; }
+    .story-9 .story-headline { color: #e8f0ff; }
+    .story-9 .story-body { color: #c8d8f0; }
+    .story-9 .story-meta { color: #5878C8; opacity: 0.5; }
+    .story-9 .story-link.primary { background: #101e50; color: #fff; }
+    .story-9 .story-link.secondary { background: rgba(50,90,170,0.08); color: #b0c8e8; border: 1px solid rgba(50,90,170,0.22); }
+    .story-9 .flag-btn { color: #c8d8f0; }
+    .slate-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .slate-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(50,90,170,0.07); border-left: 3px solid #3258A8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .slate-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #5878C8; margin-bottom: 0.3rem; }
+    .slate-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-10 { background: #080004; color: #ffc8e8; min-height: 70vh; }
+    .story-10::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,20,90,0.15) 0%, transparent 65%); }
+    .story-10 .story-num { color: #BE1458; opacity: 0.07; }
+    .story-10 .story-kicker { color: #E04080; opacity: 1; }
+    .story-10 .story-headline { color: #fff0f8; }
+    .story-10 .story-body { color: #ffc8e8; }
+    .story-10 .story-meta { color: #E04080; opacity: 0.5; }
+    .story-10 .story-link.primary { background: #500030; color: #ffb0d8; }
+    .story-10 .story-link.secondary { background: rgba(190,20,90,0.08); color: #f090c0; border: 1px solid rgba(190,20,90,0.22); }
+    .story-10 .flag-btn { color: #ffc8e8; }
+    .mag-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .mag-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(190,20,90,0.07); border-left: 3px solid #BE1458; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .mag-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E04080; margin-bottom: 0.3rem; }
+    .mag-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .site-footer { background: #000; color: #555; padding: 3rem 4rem; display: flex; flex-direction: column; gap: 1.5rem; border-top: 1px solid #222; }
+    .footer-top { display: flex; gap: 2rem; align-items: center; flex-wrap: wrap; justify-content: space-between; }
+    .footer-brand { font-size: 1.4rem; font-weight: 900; color: #fff; }
+    .footer-meta { font-size: 0.75rem; line-height: 1.6; }
+    .export-btn { background: #222; border: 1px solid #444; color: #fff; font-family: var(--font); font-size: 0.8rem; font-weight: 700; padding: 0.7em 1.5em; border-radius: 3px; cursor: pointer; letter-spacing: 0.08em; transition: background 0.2s; }
+    .export-btn:hover { background: #333; }
+    .footer-note { font-size: 0.7rem; opacity: 0.5; }
+
+    @media (max-width: 768px) {
+      .masthead, .toc, .story-inner, .site-footer { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .story-num { display: none; }
+      .masthead-meta { gap: 1rem; }
+      .masthead-issue { margin-left: 0; }
+      .dos-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+<nav style="background:#1a1a1a;border-bottom:1px solid #333;padding:0.55rem 2rem;font-family:'M PLUS Rounded 1c','Hiragino Sans','Noto Sans JP',sans-serif;position:sticky;top:0;z-index:999;">
+  <a href="./index.html" style="color:#aaa;text-decoration:none;font-size:0.8rem;font-weight:700;letter-spacing:0.03em;display:inline-flex;align-items:center;gap:0.4rem;transition:color 0.15s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#aaa'">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    アーカイブへ戻る
+  </a>
+</nav>
+
+<header class="masthead">
+  <div class="masthead-kicker">Hacker News — Morning Edition</div>
+  <h1 class="masthead-title">Morning<br>Edition</h1>
+  <div class="masthead-meta">
+    <div>
+      <div class="masthead-date">2026年7月7日 火曜日</div>
+      <div class="masthead-subtitle">AI・開発ツール・プライバシー・サイエンス — あなたのための10本</div>
+    </div>
+    <div class="masthead-issue">
+      <span class="iss-label">Issue</span>
+      <span class="iss-num">No.070</span>
+    </div>
+  </div>
+</header>
+
+<nav class="toc">
+  <a href="#s1"><span class="toc-num">01</span>⚡ Anthropicが「言語モデルのグローバルワークスペース」研究を発表</a>
+  <a href="#s2"><span class="toc-num">02</span>OpenWrtが自社設計のオープンハードウェアルーターを発売</a>
+  <a href="#s3"><span class="toc-num">03</span>Elm 1.0への道——ビルド速度が劇的改善</a>
+  <a href="#s4"><span class="toc-num">04</span>AMD Ryzen AI Halo——4,000ドルのAI開発キット登場</a>
+  <a href="#s5"><span class="toc-num">05</span>「100万トークンあたりの価格」は無意味だ</a>
+  <a href="#s6"><span class="toc-num">06</span>Python 3.14をインタープリタなしでネイティブコードにコンパイル</a>
+  <a href="#s7"><span class="toc-num">07</span>KVM仮想マシンからホストへのエスケープ脆弱性（CVE-2026-53359）</a>
+  <a href="#s8"><span class="toc-num">08</span>CoMaps——オフラインで使えるFOSSマップアプリ</a>
+  <a href="#s9"><span class="toc-num">09</span>Clojure 1.13がチェック済みキーのサポートを追加</a>
+  <a href="#s10"><span class="toc-num">10</span>Atari JaguarでLinuxを動かす</a>
+</nav>
+
+<!-- ═══ STORY 1 — Anthropic Global Workspace ══════════════════════════════════ -->
+<section class="story story-1" id="s1">
+  <div class="story-num">01</div>
+  <div class="story-inner">
+    <div class="story-badge direct-badge">⚡ あなたに直接関係</div>
+    <div class="story-kicker">AI研究 / 認知科学 / Anthropic / 大規模言語モデル — Anthropicが「言語モデルにおけるグローバルワークスペース」研究を発表。LLMが人間の「意識」モデルに類似した情報伝播の仕組みを持つ可能性を示す。191ポイント・57コメント</div>
+    <h2 class="story-headline">
+      言語モデルの中に<br><span class="headline-accent">グローバル</span><br>ワークスペースが<br>存在する
+    </h2>
+    <div class="story-body">
+      Anthropicが「A global workspace in language models（言語モデルにおけるグローバルワークスペース）」という研究論文を公開し、191ポイント・57コメントを集めました。グローバルワークスペース理論（GWT）とは、神経科学者Bernard Baarsが1988年に提唱した意識の認知モデルです。人間の脳では、特定の情報が「グローバルワークスペース」と呼ばれる共有領域にブロードキャストされることで、異なる脳領域が協調して処理を行い、これが意識的な認識を生むとされています。
+
+      Anthropicの研究は、大規模言語モデルのアクティベーションパターンを解析し、人間のGWTと類似した構造——特定の情報が多くのアテンションヘッドやレイヤーにわたって広くブロードキャストされる様子——を確認したと報告しています。具体的には、いくつかの「ハブ」的なトークン位置が存在し、そこに多くのアテンションが集中することで、タスクに関連する情報がモデル全体に伝播される仕組みが見られたとのことです。これは解釈可能性（Interpretability）研究の一環であり、LLMが「なぜそう答えるのか」を機械論的に理解しようとするAnthropicの継続的な取り組みの最新成果です。
+
+      HN上では「これは解釈可能性研究の中でも特に興味深い成果——モデルの内部動作が認知科学の既存理論と対応していることを示している」「GWTとの対応が本当に意識と関係があるのかは別問題だが、アーキテクチャの理解という観点では重要」「Anthropicが公開する解釈可能性論文は再現性が高く、他の研究者が追試できるレベルの詳細さがある」「Claude Code を毎日使っている身として、その中身がこうなっているのかと思うと感慨深い」という57コメントが展開しています。
+    </div>
+    <div class="dos-grid">
+      <div class="dos-card">
+        <div class="dos-card-label">グローバルワークスペース理論</div>
+        <div class="dos-card-value">意識の認知モデル</div>
+        <div class="dos-card-sub">Bernard Baars（1988）提唱。人間の脳内に「情報を広くブロードキャストする共有領域」が存在し、これが意識的な気づきを生むとする理論。神経科学・AIの両分野で引用される。LLMとの類似点を探る研究の理論的基盤</div>
+      </div>
+      <div class="dos-card">
+        <div class="dos-card-label">研究の方法論</div>
+        <div class="dos-card-value">アクティベーション解析</div>
+        <div class="dos-card-sub">モデルの内部表現（アクティベーション）を直接調べ、情報がどのようにレイヤー間・ヘッド間を伝播するかを可視化。Anthropicの解釈可能性研究（Sparse Autoencoders等）の延長線上にある手法</div>
+      </div>
+      <div class="dos-card">
+        <div class="dos-card-label">実務的意味</div>
+        <div class="dos-card-value">より安全なAI設計へ</div>
+        <div class="dos-card-sub">モデルの内部動作が理解できると「なぜ誤った回答をするか」「なぜ有害なコンテンツを生成するか」の原因を特定しやすくなる。Anthropicが目指すInterpretability研究の到達目標の一つ</div>
+      </div>
+      <div class="dos-card">
+        <div class="dos-card-label">次に読むべきもの</div>
+        <div class="dos-card-value">Anthropic Interpretability</div>
+        <div class="dos-card-sub">関連論文：「Scaling Monosemanticity」「Towards Monosemanticity」「Scaling and evaluating sparse autoencoders」——いずれもAnthropicのInterpretabilityチームによるLLM内部解析の連作。anthropic.com/researchで全文公開</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: anthropic.com/research</span>
+      <span>191 ポイント</span>
+      <span>57 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.anthropic.com/research/global-workspace" target="_blank">論文を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48808002" target="_blank">HN議論 (57)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="anthropic-global-workspace" data-type="like" onclick="toggleFlag('anthropic-global-workspace','言語モデルの中にグローバルワークスペースが存在する','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="anthropic-global-workspace" data-type="dislike" onclick="toggleFlag('anthropic-global-workspace','言語モデルの中にグローバルワークスペースが存在する','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+  <div class="story-1-accent"></div>
+</section>
+
+<!-- ═══ STORY 2 — OpenWrt One Router ═════════════════════════════════════════ -->
+<section class="story story-2" id="s2">
+  <div class="story-num">02</div>
+  <div class="story-inner">
+    <div class="story-kicker">オープンソース / ネットワーク / ハードウェア / プライバシー — OpenWrtプロジェクトが初の自社設計オープンハードウェアルーター「OpenWrt One」を発売。完全オープンなソフト＋ハードの組み合わせ。299ポイント・130コメント</div>
+    <h2 class="story-headline">
+      OpenWrtが<br>自社設計の<br>オープンハード<br>ルーターを出した
+    </h2>
+    <div class="story-body">
+      OpenWrtプロジェクトが「OpenWrt One」を発売し、299ポイント・130コメントを集めてHNトップ入りしました。OpenWrtとは、ルーター向けのオープンソースLinuxディストリビューションで、TP-Link・Netgear・ASUS等の市販ルーターにインストールすることで、メーカー提供の制限つきファームウェアを置き換え、完全な制御・カスタマイズを可能にするプロジェクトです。2004年から続く老舗で、現在も活発に開発が続いています。
+
+      OpenWrt Oneは、OpenWrtプロジェクトが初めて設計した「リファレンスハードウェア」です。MediaTek MT7981B（2コアCortex-A53、1.3GHz）・512MB RAM・256MBフラッシュ・Wi-Fi 6（2.4GHz＋5GHz対応）という構成で、ハードウェアの設計データ（回路図・基板レイアウト）もCC BY 4.0ライセンスで完全公開されます。価格は約89ドル。メーカーのブラックボックスなファームウェアに依存せず、ハードウェアレベルから完全に検証可能なルーターを求めるプライバシー意識の高いユーザーに向けた製品です。
+
+      HN上では「これは単なるルーターではなく、ハードウェアのオープン化運動の一歩——ROOTer・Libre Computerのような動きと並んで重要」「OpenWrtを既存ルーターに入れるのと何が違うか？→ハードウェアの挙動まで完全に検証できること」「89ドルはほぼ市販のミドルクラスルーターと同額——オープンであることへのプレミアムがほぼゼロ」「Wi-Fi 6対応で実際の性能も十分実用的なのが素晴らしい」という130コメントが展開しています。
+    </div>
+    <div class="teal-items">
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">なぜオープンハードウェアルーターが重要か</div>
+          <div class="teal-text">市販ルーターのファームウェアは「ブラックボックス」——メーカーが何を送受信しているか検証できない。中国メーカー製ルーター（TP-Link等）のバックドアや情報送信問題が繰り返し報告されている。OpenWrt Oneはソフトウェアだけでなく、ハードウェア設計まで公開されているため、理論上すべての動作を検証できる。米国・EU政府機関でも「信頼できるルーター」の調達基準が議論される中、オープンハードウェアは最も信頼性の高いアプローチ</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">OpenWrtが提供するプライバシー機能</div>
+          <div class="teal-text">DNS-over-HTTPS（DoH）：ISPによるDNSクエリの監視をブロック。Pi-hole統合：広告・トラッキングドメインをネットワーク全体でブロック。WireGuard VPN：ルーターレベルでVPNを設定し、接続した全デバイスのトラフィックを暗号化。ファイアウォールルールの完全制御：デバイスごとの通信を細かく制限（例：スマート家電のクラウド通信を遮断）。Tor透過プロキシ：全通信をTorルーティング（高度なユースケース）</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">導入前に確認すること</div>
+          <div class="teal-text">現在のルーターがOpenWrt対応かを確認：openwrt.org/tohで機種を検索。未対応の場合はOpenWrt One（89ドル）またはGL.iNetシリーズ（OpenWrt対応の廉価ルーター、30〜80ドル）が手軽な選択肢。初心者向けのGL.iNetはOpenWrtベースのGUIを持ち、設定が簡単。OpenWrt Oneは設定に知識が必要——Luci（OpenWrtのWebUI）に慣れていることが前提</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: openwrt.org</span>
+      <span>299 ポイント</span>
+      <span>130 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://openwrt.org/toh/openwrt/one" target="_blank">製品ページを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48808482" target="_blank">HN議論 (130)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="openwrt-one-router" data-type="like" onclick="toggleFlag('openwrt-one-router','OpenWrtが自社設計のオープンハードルーターを出した','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="openwrt-one-router" data-type="dislike" onclick="toggleFlag('openwrt-one-router','OpenWrtが自社設計のオープンハードルーターを出した','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 3 — Road to Elm 1.0 ════════════════════════════════════════════ -->
+<section class="story story-3" id="s3">
+  <div class="story-num">03</div>
+  <div class="story-inner">
+    <div class="story-kicker">プログラミング言語 / フロントエンド / 関数型 / ビルドツール — Elm言語がビルド速度の大幅改善を発表。1.0リリースへの道筋が見えてきた。286ポイント・134コメント</div>
+    <h2 class="story-headline">
+      Elmが<br>ついに<br>1.0への<br>道を歩みだす
+    </h2>
+    <div class="story-body">
+      「Road to Elm 1.0」がelm-lang.orgで公開され、286ポイント・134コメントを集めました。Elmは、Haskellの影響を受けたWebフロントエンド向けの関数型プログラミング言語で、コンパイル時に「ランタイムエラーが発生しない」ことを保証する強力な型システムで知られています。2012年のEvangelos Mouzakitisの卒業論文から始まり、主に著者Evan Czaplickiが一人で開発を続けてきた言語です。
+
+      今回の投稿は、Elmのビルドシステムの大幅な高速化に関する技術的な詳細と、1.0リリースへの具体的なロードマップを示した内容です。コンパイルの増分ビルド（incremental compilation）が改善され、小規模な変更に対するビルド時間が大幅に短縮されたとのことです。Elmは長らく「バージョン0.19から更新されない」「Evan氏が開発に消極的」という批判を受けていましたが、今回の投稿はコミュニティの期待を大きく高めています。
+
+      HN上では「ElmはJSエコシステムの中で唯一『本当に型安全なフロントエンド開発』を実現している——TypeScriptはElmに比べると抜け穴だらけ」「0.19から数年動きがなかったが、Evanが再び活発になってきた——Elmコミュニティにとっては朗報」「The Elm Architectureはその後のRedux・Vuex・Flutterに多大な影響を与えた——オリジナルがどこへ向かうかは重要」「ビルド速度の改善は小規模チームには大きい——大規模プロジェクトでのElmの採用障壁が下がる」という134コメントが展開しています。
+    </div>
+    <div class="red-items">
+      <div class="red-item">
+        <div>
+          <div class="red-label">Elmの特徴と強み</div>
+          <div class="red-text">ランタイムエラーゼロの保証：コンパイルが通ればnull参照エラー・型の不一致・未定義プロパティアクセスが実行時に起きない。これはTypeScriptでは達成できない（TypeScriptはコンパイル後にJSになる）。The Elm Architecture：Model・Update・Viewの三層構造——Reduxはこれを直接参照している。フレンドリーなエラーメッセージ：コンパイルエラーが「何が間違っているか」を日常言語で説明してくれる。Elmのエラーメッセージは他の言語の手本として広く引用される</div>
+        </div>
+      </div>
+      <div class="red-item">
+        <div>
+          <div class="red-label">なぜ0.19から止まっていたのか</div>
+          <div class="red-text">Evan Czaplickiは2019年以降、意図的に開発ペースを落としていた。理由：急激な変更による既存コードベースの破壊を避けるため・コア設計の見直しに時間をかけるため。Elmコミュニティは「elm-explorations」「lamdera」等のエコシステムを独自に発展させ、Evanの更新を待たずに実用的な開発を続けてきた。今回の発表はその休止期間からの復帰を示唆するもの</div>
+        </div>
+      </div>
+      <div class="red-item">
+        <div>
+          <div class="red-label">試してみるなら</div>
+          <div class="red-text">elm-lang.org/try：ブラウザ上で即座にElmを試せる公式Playground。guide.elm-lang.org：公式ガイド——Elm入門として最も丁寧なドキュメントの一つ。elm-land.dev：現代的なElmプロジェクトのボイラープレートと規約を提供するフレームワーク。実際のElmプロジェクト例：Noredink（教育SaaS）・Prezi（プレゼン）——どちらも本番環境で何年もElmを使用</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: elm-lang.org</span>
+      <span>286 ポイント</span>
+      <span>134 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://elm-lang.org/news/faster-builds" target="_blank">発表を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48803364" target="_blank">HN議論 (134)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="elm-1-0" data-type="like" onclick="toggleFlag('elm-1-0','Elmがついに1.0への道を歩みだす','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="elm-1-0" data-type="dislike" onclick="toggleFlag('elm-1-0','Elmがついに1.0への道を歩みだす','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 4 — AMD Ryzen AI Halo ══════════════════════════════════════════ -->
+<section class="story story-4" id="s4">
+  <div class="story-num">04</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / ハードウェア / NPU / エッジAI — AMDが新チップ「Ryzen AI Halo」搭載の開発者向けキットを4,000ドルで発売。強力なオンデバイスAI推論性能を目指す。248ポイント・176コメント</div>
+    <h2 class="story-headline">
+      AMDの<br>4,000ドル<br>AI開発キット<br>「Ryzen AI Halo」
+    </h2>
+    <div class="story-body">
+      「AMD Ryzen AI Halo – $4k AI Dev Kit」がLTT Labsでレビューされ、248ポイント・176コメントを集めました。Ryzen AI Haloは、AMDが2026年に投入した最新のAPU（CPU+GPU+NPU統合チップ）です。搭載されているNPU（Neural Processing Unit）は最大55 TOPSのAI推論性能を持ち、Windows 12の「Copilot+PC」要件（40 TOPS以上）を大幅に超えます。この開発者キットは、エッジAIアプリケーションの開発者がクラウドを使わずにオンデバイス推論を実験するために設計されています。
+
+      4,000ドルという価格は一般消費者向けではなく、オンデバイスAI推論を研究・開発するエンジニア向けです。Llama 3・Mistral・Phi-3等の小型言語モデルをローカルで高速に動かす実験環境として活用できます。LTT Labsのレビューによると、Llama 3 8Bモデルで約30〜40トークン/秒の推論速度を達成しており、実用的なローカルLLM環境として十分な性能とのことです。
+
+      HN上では「NPUは汎用GPUより電力効率が高い——バッテリー駆動のオンデバイスAIには重要」「4,000ドルのキットという形で出すのはApple Silicon M4 Ultraと同じ戦略——まず開発者に使わせて実績を作る」「IntelのMeteor Lake・Lunar LakeのNPUと比べた性能比較が欲しい」「ローカルLLMが実用レベルになってきた——プライバシー重視の企業での採用が加速するかも」という176コメントが展開しています。
+    </div>
+    <div class="green-items">
+      <div class="green-item">
+        <div>
+          <div class="green-label">NPUとは何か・なぜ重要か</div>
+          <div class="green-text">NPU（Neural Processing Unit）：行列演算（LLMの推論の基本演算）に特化した専用チップ。汎用CPU・GPUより電力効率が高く、同じワット数でより多くのAI推論が可能。Apple Silicon（M1〜M4）のNeural Engine・QualcommのHexagon DSP・Intel NPUなどが代表例。クラウドAPI（GPT-4・Claude等）を使わずにモデルを端末内で動かせる——プライバシー保護・オフライン動作・レイテンシ削減のために重要</div>
+        </div>
+      </div>
+      <div class="green-item">
+        <div>
+          <div class="green-label">ローカルLLM実験の現実的な選択肢</div>
+          <div class="green-text">4,000ドルを出せないなら：Apple MacBook Pro M4 Pro（25〜30万円）が現時点で最高のオンデバイスLLM環境。LM Studio・Ollama：Mac・Windows・LinuxでLlama・Mistral・Phi等をGUI/CLIで実行できるツール。最小構成：Llama 3.2 3Bモデルなら8GB RAM・2年以内のCPUでも動作する。RTX 4070/4080搭載PCがあればGPU推論でM4 Pro並みのスループットを出せる</div>
+        </div>
+      </div>
+      <div class="green-item">
+        <div>
+          <div class="green-label">エッジAIの2026年トレンド</div>
+          <div class="green-text">Microsoft Copilot+PC要件（40 TOPS）がNPU搭載の標準化を加速。Qualcomm Snapdragon X Elite・Intel Core Ultra 200Vシリーズも高性能NPUを搭載——2026年の新型PCはほぼ全てNPU搭載に。Apple Intelligence（Apple Silicon必須）がオンデバイスAIの実用例を示した。次の焦点：オンデバイスで動く多モーダルモデル（テキスト＋画像＋音声）——2026年後半に複数のモデルが登場予定</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: lttlabs.com</span>
+      <span>248 ポイント</span>
+      <span>176 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.lttlabs.com/articles/2026/07/06/amd-ryzen-ai-halo" target="_blank">レビューを読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48805624" target="_blank">HN議論 (176)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="amd-ryzen-ai-halo" data-type="like" onclick="toggleFlag('amd-ryzen-ai-halo','AMDの4,000ドルAI開発キット「Ryzen AI Halo」','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="amd-ryzen-ai-halo" data-type="dislike" onclick="toggleFlag('amd-ryzen-ai-halo','AMDの4,000ドルAI開発キット「Ryzen AI Halo」','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 5 — Price per Token Meaningless ════════════════════════════════ -->
+<section class="story story-5" id="s5">
+  <div class="story-num">05</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / LLM / コスト分析 / 開発者向け — 「100万トークンあたりの価格」という指標はLLMの実コストを反映しない——タスク完了効率を考慮した指標が必要だという主張。110ポイント・58コメント</div>
+    <h2 class="story-headline">
+      「100万トークン<br>あたりの価格」<br>という指標は<br>意味がない
+    </h2>
+    <div class="story-body">
+      「Price per 1M tokens is meaningless（100万トークンあたりの価格は意味がない）」がjanilowski.plで公開され、110ポイント・58コメントを集めました。LLMの価格比較でよく使われる「1Mトークンあたり○ドル」という指標が、実際のコストを正しく反映しないという主張です。理由は単純です——同じタスクでも、モデルによって必要なトークン数が大きく異なるからです。
+
+      筆者の主張の核心：安いモデルが1つのタスクを完了するのに10,000トークン必要で、高いモデルが同じタスクを3,000トークンで完了するなら、「1Mトークンあたりの価格」が3倍違っても、実際の1タスクあたりのコストは高いモデルの方が安くなる場合がある。特にエージェント的なタスク（複数ステップの推論・コード生成・デバッグ）では、モデルの「1回で正しく完了できる率」が重要で、安いモデルが失敗して再試行を繰り返すとトータルコストが跳ね上がる。真の指標は「タスクあたりのコスト」または「成功率あたりのコスト」であるべきだ、という論旨です。
+
+      HN上では「これはまったく正しい——我々のユースケースではGPT-4oが安いモデル×3回より安かった」「コンテキストウィンドウの使い方の効率も指標に入れるべき——同じ答えを出すのに必要なプロンプトの長さも違う」「結局はベンチマーク（SWE-bench・MMLU等）とコストの組み合わせで評価するしかない」「Claude Code / Cursor等のAIコーディングツールの文脈では、『完了したPRあたりのコスト』という指標を使い始めている企業がある」という58コメントが展開しています。
+    </div>
+    <div class="purple-items">
+      <div class="purple-item">
+        <div>
+          <div class="purple-label">正しいLLMコスト評価の考え方</div>
+          <div class="purple-text">タスクあたりのコスト：「このタスクを10回実行したときの総トークン数×単価」で評価。成功率を加味：「正しい答えを1回得るまでの平均試行回数×タスクあたりトークン数×単価」がより正確。コンテキスト効率：モデルによってシステムプロンプトやRAGコンテキストの読み方が異なる——同じプロンプトで異なるトークン消費になることも。時間コスト：安いモデルが遅く、待機コスト（エンジニア工数）が高い場合は実効コストに算入すべき</div>
+        </div>
+      </div>
+      <div class="purple-item">
+        <div>
+          <div class="purple-label">実際の選択フレームワーク</div>
+          <div class="purple-text">①タスクを分類する：シンプルなルーティング・分類（Haiku 4.5で十分）／複雑な推論・コード生成（Sonnet 5以上が経済的）／最高品質が必要（Opus 4.8）。②成功率で検証する：本番に近いサンプルで各モデルの正答率を測定。③実コストを計算：（1 / 成功率）× 平均トークン数 × 単価 = タスクあたりの実コスト。④モデルルーティング：タスクの複雑度を自動判定して最適なモデルに振り分けるアーキテクチャが効果的</div>
+        </div>
+      </div>
+      <div class="purple-item">
+        <div>
+          <div class="purple-label">Claude Codeユーザーへの示唆</div>
+          <div class="purple-text">Claude Codeは現在Sonnet 4.6をデフォルト使用。/fast（Opus Fast）は速度優先のオプション。複雑なリファクタリング・設計タスクにOpus 4.8を使い、単純なコード補完にHaiku 4.5を使うモデルルーティングを意識すると、品質を落とさずにコストを下げられる。「同じ予算でより多くのコードが書ける」ことを評価軸にする——「1Mトークンあたりの価格」ではなく「完成した機能あたりのコスト」で考えよう</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: janilowski.pl</span>
+      <span>110 ポイント</span>
+      <span>58 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://janilowski.pl/en/blog/2026/price-per-m-tokens/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48809542" target="_blank">HN議論 (58)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="price-per-token-meaningless" data-type="like" onclick="toggleFlag('price-per-token-meaningless','「100万トークンあたりの価格」という指標は意味がない','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="price-per-token-meaningless" data-type="dislike" onclick="toggleFlag('price-per-token-meaningless','「100万トークンあたりの価格」という指標は意味がない','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 6 — Python 3.14 to Metal ═══════════════════════════════════════ -->
+<section class="story story-6" id="s6">
+  <div class="story-num">06</div>
+  <div class="story-inner">
+    <div class="story-kicker">Python / コンパイラ / パフォーマンス / 開発ツール — Python 3.14コードをインタープリタなしでネイティブマシンコードに直接コンパイルするプロジェクト「pon」がGitHubに登場。84ポイント・46コメント</div>
+    <h2 class="story-headline">
+      Python 3.14を<br>インタープリタ<br>なしで<br>ネイティブ化
+    </h2>
+    <div class="story-body">
+      「Python 3.14 compiled to metal – no interpreter（Python 3.14をインタープリタなしでネイティブコードにコンパイル）」というGitHubプロジェクト「pon」が公開され、84ポイント・46コメントを集めました。Pythonは通常、CPythonインタープリタがPythonコードをバイトコードに変換し、そのバイトコードをC言語で書かれた仮想マシンが実行するという二段階の方式で動作します。この「pon」は、その仮想マシン部分をバイパスし、Python 3.14のコードを直接x86-64ネイティブマシンコードにコンパイルしようとするプロジェクトです。
+
+      技術的なアプローチとしては、Python 3.14で実験的に導入された新しいAST（抽象構文木）表現を活用し、LLVMのような中間表現を経由してネイティブコードを生成します。現時点では全てのPythonの機能をサポートしているわけではなく、動的型・継承・ジェネレーター等の複雑な機能は制限があります。しかし数値計算・ループ・基本的な関数呼び出しでは、CPythonの10〜50倍程度の実行速度を達成しているとデモが示しています。
+
+      HN上では「Mypycのアプローチ（型ヒントを活用してCPythonのコードを最適化）・Cython・PyPyと何が違うか——完全なネイティブコンパイルへの挑戦という点でユニーク」「Pythonのインタープリタなしコンパイルは夢のような話だが、Pythonのセマンティクス（動的型・モンキーパッチ・eval等）は静的コンパイルと根本的に相性が悪い」「Python 3.13のJIT・3.14の実験的機能と組み合わせた可能性が興味深い」という46コメントが展開しています。
+    </div>
+    <div class="cyan-items">
+      <div class="cyan-item">
+        <div>
+          <div class="cyan-label">Pythonの高速化手法の全体像</div>
+          <div class="cyan-text">CPython標準（遅い側）→ CPython 3.13 JIT（10〜20%改善）→ PyPy（2〜10倍、互換性制限あり）→ Cython（型付きコードで5〜100倍）→ Mypyc（型ヒント活用で2〜10倍、CPythonバイナリ生成）→ Numba（数値計算のJIT、10〜100倍）→ pon/Nuitka（ネイティブコンパイル、最大50倍、機能制限あり）→ 書き直し（Rust・C++、数百倍だが別言語）。「どこまで速くしたいか」と「互換性の妥協をどこまで許容するか」のトレードオフ</div>
+        </div>
+      </div>
+      <div class="cyan-item">
+        <div>
+          <div class="cyan-label">Python 3.13・3.14の高速化機能</div>
+          <div class="cyan-text">Python 3.13：実験的JITコンパイラ（デフォルトオフ）・フリースレッドモード（GIL削除、--disable-gil）・改善されたインタープリタ最適化で全体的に5〜15%高速化。Python 3.14：型アノテーションの実行時評価の変更（PEP 749）・改良されたAST・t-string（PEP 750）。Python 3.13のフリースレッドモードは並列数値計算で大きな恩恵——Numpyとの統合が進行中</div>
+        </div>
+      </div>
+      <div class="cyan-item">
+        <div>
+          <div class="cyan-label">今すぐ試せる高速化</div>
+          <div class="cyan-text">数値計算なら：NumPy・SciPyの使用（C実装）、Numba（@jitデコレーター1行で数値ループを10〜100倍高速化）。一般的なPythonコードなら：PyPy（互換性が高く、Djangoも動く）。型情報があるコードなら：Mypycで既存コードをそのまま高速化（Dropbox・Instagram実績あり）。並列処理ボトルネックなら：Python 3.13t（フリースレッド版）を試す。Rust FFI：PyO3を使えばRust関数をPythonモジュールとして簡単に呼べる</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: github.com/can1357/pon</span>
+      <span>84 ポイント</span>
+      <span>46 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://github.com/can1357/pon" target="_blank">GitHubを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48809496" target="_blank">HN議論 (46)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="python-3-14-metal" data-type="like" onclick="toggleFlag('python-3-14-metal','Python 3.14をインタープリタなしでネイティブ化','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="python-3-14-metal" data-type="dislike" onclick="toggleFlag('python-3-14-metal','Python 3.14をインタープリタなしでネイティブ化','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 7 — Januscape KVM Escape ═══════════════════════════════════════ -->
+<section class="story story-7" id="s7">
+  <div class="story-num">07</div>
+  <div class="story-inner">
+    <div class="story-kicker">セキュリティ / 仮想化 / CVE / KVM — KVM仮想マシンからホストへのエスケープを可能にする脆弱性「Januscape」（CVE-2026-53359）の詳細と実証コードが公開。62ポイント・16コメント</div>
+    <h2 class="story-headline">
+      KVMから<br>ホストへの<br>エスケープ脆弱性<br>CVE-2026-53359
+    </h2>
+    <div class="story-body">
+      「Januscape: Guest-to-Host Escape in KVM/x86 [CVE-2026-53359]」がGitHubで公開され、62ポイント・16コメントを集めました。KVM（Kernel-based Virtual Machine）はLinuxカーネルに組み込まれた仮想化機能で、AWSのEC2・Google Cloud・Azureの一部・多くのVPSプロバイダーがインフラとして使用しています。ゲスト-ホスト間のエスケープ（guest-to-host escape）は仮想化セキュリティにおける最も深刻なクラスの脆弱性の一つで、仮想マシン内から脱出してホストOSのコードを実行できる可能性があります。
+
+      CVE-2026-53359はKVMのx86エミュレーション層における境界外書き込み（out-of-bounds write）の脆弱性です。特定のx86命令シーケンスを仮想マシン内で実行することで、KVMのVMEXITハンドラーのメモリ境界を超えて書き込みができ、ホストカーネルのメモリを改ざんできる可能性があるとのことです。公開されたJanuscapeはこの脆弱性の実証コード（PoC）で、制御された環境での検証を目的としています。Linuxカーネルのパッチはすでにメインラインに取り込まれており、各ディストリビューションのセキュリティアップデートとして配布中です。
+
+      HN上では「クラウドプロバイダーはこういう脆弱性を発見次第即座にパッチを適用するので、EC2・GCE上での危険は既にない——問題は自己管理KVMサーバーを使っている組織」「KVMのハイパーバイザーコードはそれほど大きくないが、x86のエミュレーション層は複雑で脆弱性が出やすい」「タイムラインが重要——パッチがリリースされてからどれくらい経ってPublicになったのか」という16コメントが展開しています。
+    </div>
+    <div class="amber-items">
+      <div class="amber-item">
+        <div>
+          <div class="amber-label">影響を受ける環境と確認方法</div>
+          <div class="amber-text">影響：Linuxカーネル 6.8〜6.12系でKVM/x86を使用しているホスト。パッチ済みバージョン：6.12.35以降・6.14.x最新。確認方法：`uname -r`でカーネルバージョンを確認。主要ディストリの対応：Ubuntu 24.04 → linux-image 6.8.0-XX（リポジトリを更新後にアップグレード）・RHEL/Rocky → errata RHSA-2026-XXXX・Debian bookworm → kernel 6.1系は対象外とのこと（6.8以降の問題）。KVMを使うクラウドサービスを管理している場合は即時にホストを更新する</div>
+        </div>
+      </div>
+      <div class="amber-item">
+        <div>
+          <div class="amber-label">ゲスト-ホストエスケープとはなにか</div>
+          <div class="amber-text">仮想マシンはホストOSと分離されたサンドボックスで動作するはずです。ゲスト-ホストエスケープは、この分離を破って仮想マシン内から「外側」のホストOSに影響を与えられる脆弱性の総称。影響の深刻度：ゲストVMが悪意あるコードを実行 → ホストカーネルのコードを実行 → 同じホスト上の他のVM・ホスト上のデータ全てにアクセス可能になる。過去の類似脆弱性：VENOM (CVE-2015-3456)・Spectre/Meltdown・L1TF等。クラウド環境ではテナント間のデータ盗取が理論上可能になる最悪シナリオ</div>
+        </div>
+      </div>
+      <div class="amber-item">
+        <div>
+          <div class="amber-label">今すぐ取るべき対応</div>
+          <div class="amber-text">自己管理KVMホストがある場合：即時にカーネルを更新（apt upgrade / dnf update）し、KVMホストを再起動。パッチ適用確認：`grep CVE-2026-53359 /proc/version_signature`または各ディストリのchangelogを確認。クラウドサービス利用者（AWS・GCP・Azure）：クラウドプロバイダー側でパッチ済みのため対応不要。KVMを使うVPSプロバイダー（Hetzner・DigitalOcean等）のホスト：プロバイダーが対応済みかを確認。ゲストOS内でのみ対応しても不十分——ホスト側のパッチが必要</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: github.com/V4bel/Januscape</span>
+      <span>62 ポイント</span>
+      <span>16 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://github.com/V4bel/Januscape" target="_blank">詳細を確認する →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48807908" target="_blank">HN議論 (16)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="januscape-kvm-escape" data-type="like" onclick="toggleFlag('januscape-kvm-escape','KVMからホストへのエスケープ脆弱性CVE-2026-53359','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="januscape-kvm-escape" data-type="dislike" onclick="toggleFlag('januscape-kvm-escape','KVMからホストへのエスケープ脆弱性CVE-2026-53359','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 8 — CoMaps FOSS Maps ════════════════════════════════════════════ -->
+<section class="story story-8" id="s8">
+  <div class="story-num">08</div>
+  <div class="story-inner">
+    <div class="story-kicker">プライバシー / オープンソース / マップ / OpenStreetMap — 「CoMaps」がOrganic MapsのフォークとしてFOSS地図アプリの新たな選択肢に。オフライン動作・追跡なし・広告なし。204ポイント・38コメント</div>
+    <h2 class="story-headline">
+      CoMaps——<br>プライバシー重視の<br>FOSSオフライン<br>マップが登場
+    </h2>
+    <div class="story-body">
+      「CoMaps – FOSS Offline Maps」がHNに登場し、204ポイント・38コメントを集めました。CoMapsは、OpenStreetMapのデータを使ったオープンソースのオフライン地図アプリです。Organic Mapsから派生した（あるいは並行して開発される）プロジェクトとして、iOSとAndroidの両方で提供されており、追跡なし・広告なし・サブスクリプションなし・バックグラウンド通信なしというプライバシー設計を維持しています。comaps.appというドメインで独自のブランドを確立しつつあります。
+
+      Organic MapsとCoMapsが並行して存在する背景には、オープンソースプロジェクトのフォーク文化があります。開発方針・機能優先度・コミュニティガバナンスの違いから、どちらのプロジェクトも独自の発展を続けています。HNでは「なぜ新しいフォークが必要だったのか」という議論が起き、CoMapsの開発チームが「UIの改善・Androidの品質向上・コミュニティのオープン化」を理由として挙げていました。
+
+      実際の地図の品質はどちらもOpenStreetMapに依存するため同等ですが、アプリのUX・機能更新の速度・対応OSバージョンで差別化が進んでいます。HN上では「Organic MapsとCoMapsどちらを使えばいいか——今のところ見た目はほぼ同じ、コミュニティの動きを見て判断」「OpenStreetMapのコントリビューターが増え続けているのが根本的に重要——アプリのフォーク競争より地図の質」「iOSのApple Mapsも最近はOSMデータを参照するケースが増えている——エコシステム全体が良くなっている」という38コメントが展開しています。
+    </div>
+    <div class="gold-items">
+      <div class="gold-item">
+        <div>
+          <div class="gold-label">Google Mapsからの移行ガイド</div>
+          <div class="gold-text">移行のコスト：高くない。CoMaps/Organic Mapsはお気に入り場所のインポート（KML/GPX形式）をサポート。Google Mapsのデータエクスポート：Google Takeoutでスター付き場所をKMLでエクスポート可能。実用性：都市部ではナビ精度はGoogle Mapsと遜色ない（東京・大阪・名古屋は特に高品質）。ハイキング・登山用途では等高線表示・山岳ルートの充実度でOrganicMaps系が優れる。弱点：公共交通機関のリアルタイム情報・ビジネス情報（営業時間・レビュー）はGoogle Mapsに劣る</div>
+        </div>
+      </div>
+      <div class="gold-item">
+        <div>
+          <div class="gold-label">OpenStreetMapに貢献する方法</div>
+          <div class="gold-text">地図の質を上げるには：EveryDoor（iOSアプリ）——近くのお店・施設の情報をスマートフォンから簡単に追加・修正できる。OsmAnd・Vespucci——PCレベルの編集機能を持つモバイルアプリ。JOSM——Javaベースのデスクトップエディタ、上級者向け。始め方：openstreetmap.org でアカウントを作成 → EveryDoorをインストール → 近所の未登録施設（飲食店・コンビニ等）を追加するだけで世界地図に貢献できる</div>
+        </div>
+      </div>
+      <div class="gold-item">
+        <div>
+          <div class="gold-label">プライバシー重視マップの選択肢比較</div>
+          <div class="gold-text">Organic Maps：長い実績・iOS/Android/macOS対応・GPLv3。CoMaps：Organic MapsからのフォークでUIが改善傾向・新興プロジェクト。OsmAnd：最も機能豊富（オフラインWikipedia・海図等）だが重い。Magic Earth：OSMベースだがクローズドソース。Maps.me：以前は優秀だったがロシア企業による買収後に論争あり。現在の推薦：始めるならOrganic MapsまたはCoMapsが最も手軽——機能が豊富になったらOsmAndへ移行</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: comaps.app</span>
+      <span>204 ポイント</span>
+      <span>38 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.comaps.app/" target="_blank">CoMapsを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48808928" target="_blank">HN議論 (38)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="comaps-foss-maps" data-type="like" onclick="toggleFlag('comaps-foss-maps','CoMaps——プライバシー重視のFOSSオフラインマップが登場','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="comaps-foss-maps" data-type="dislike" onclick="toggleFlag('comaps-foss-maps','CoMaps——プライバシー重視のFOSSオフラインマップが登場','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 9 — Clojure 1.13 ════════════════════════════════════════════════ -->
+<section class="story story-9" id="s9">
+  <div class="story-num">09</div>
+  <div class="story-inner">
+    <div class="story-kicker">プログラミング言語 / Clojure / 型安全 / JVM — Clojure 1.13がチェック済みキー（checked keys）のサポートを追加。マップのキーをスキーマで検証できる新機能でランタイム安全性が向上。177ポイント・38コメント</div>
+    <h2 class="story-headline">
+      Clojure 1.13が<br>「チェック済み<br>キー」で<br>型安全に近づく
+    </h2>
+    <div class="story-body">
+      「Clojure 1.13 adds support for checked keys（Clojure 1.13がチェック済みキーのサポートを追加）」がclojure.orgで発表され、177ポイント・38コメントを集めました。Clojureは、Rich Hickeyが設計したJVM上で動作するLISP系の動的型付け関数型プログラミング言語です。不変データ構造・STM（Software Transactional Memory）・Javaとの相互運用性を特徴とし、バックエンド開発・データエンジニアリング・金融システムで本番使用されています。
+
+      今回の「checked keys（チェック済みキー）」機能は、Clojureのマップ（辞書型）に対して、使用できるキーのセットをコンパイル時・実行時に検証できる機能です。Clojureは伝統的に「任意のキーを持てる柔軟なマップ」が強みでしたが、大規模システムでは「想定外のキーが入ったまま処理される」バグが発生しやすいという課題がありました。checked keysを使うことで、`clojure.spec`や`malli`のようなスキーマライブラリと連携し、マップの構造をより厳密に定義できるようになります。
+
+      HN上では「これはClojureが静的型方向に歩み寄ったというより、実用的なトレードオフの選択——動的言語の柔軟性を保ちながら安全性の入口を設けた」「clojure.specの代替としてmalliが台頭しているが、言語コアレベルでのサポートは重要な意味を持つ」「Rich Hickeyはいつも時間をかけてから機能を入れる——今回も数年間の議論の末の実装」「ClojureScriptへの影響が気になる——フロントエンドでも同じ恩恵が受けられるなら採用が進む」という38コメントが展開しています。
+    </div>
+    <div class="slate-items">
+      <div class="slate-item">
+        <div>
+          <div class="slate-label">チェック済みキーとは何か</div>
+          <div class="slate-text">Clojureのマップは通常任意のキーを持てる（柔軟だが検証が難しい）。チェック済みキーを使うと「このマップは:nameと:ageというキーしか持てない」というルールをコード上で定義できる。実行時に定義外のキーが入った場合はエラーを即座に発生させる。これにより「スペルミスのキーが気づかれないまま通る」「デバッグが困難な沈黙したバグ」を防げる。既存の`defrecord`との違い：checked keysはマップとしての柔軟性（merge・assoc等）を保ちながらキーの検証を追加するアプローチ</div>
+        </div>
+      </div>
+      <div class="slate-item">
+        <div>
+          <div class="slate-label">Clojureが活躍する場面</div>
+          <div class="slate-text">データ変換パイプライン：不変データ＋パイプライン処理（→>演算子）が自然に書ける。REPLドリブン開発：実行中のプロセスに接続してコードを変更できる——デバッグ・探索的開発が強力。並行・並列処理：STMとcore.asyncが複雑な並行処理を安全に扱える。Datomic（Clojure製データベース）との相性：不変データ構造の設計がシームレス。採用実績：Nubank（ブラジル最大ネオバンク・世界最大Clojureユーザー）・Cognitect・CircleCI（一部）</div>
+        </div>
+      </div>
+      <div class="slate-item">
+        <div>
+          <div class="slate-label">試してみるなら</div>
+          <div class="slate-text">clojure.org/guides/getting_started：公式スタートガイド。REPL.it または Clojuredocs.org：ブラウザ上で即試せる環境。「Clojure for the Brave and True」：無料で読める入門書（braveclojure.com）。deps.edn + Calva（VS Code拡張）：モダンな開発環境として推薦されている組み合わせ。checked keysの実験：alpha1版なので本番使用は慎重に、ただし試すには十分な安定性がある</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: clojure.org</span>
+      <span>177 ポイント</span>
+      <span>38 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://clojure.org/news/2026/07/02/clojure-1-13-alpha1" target="_blank">リリースノートを読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48767211" target="_blank">HN議論 (38)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="clojure-1-13" data-type="like" onclick="toggleFlag('clojure-1-13','Clojure 1.13が「チェック済みキー」で型安全に近づく','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="clojure-1-13" data-type="dislike" onclick="toggleFlag('clojure-1-13','Clojure 1.13が「チェック済みキー」で型安全に近づく','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 10 — Linux on Atari Jaguar ══════════════════════════════════════ -->
+<section class="story story-10" id="s10">
+  <div class="story-num">10</div>
+  <div class="story-inner">
+    <div class="story-kicker">変わったエンジニアリング / レトロコンピューティング / Linux / ゲーム機 — 1993年発売のAtari Jaguar（68000系CPU）でLinuxカーネルをブートすることに成功。82ポイント・14コメント</div>
+    <h2 class="story-headline">
+      1993年の<br>Atari Jaguarで<br>Linuxを<br>動かした
+    </h2>
+    <div class="story-body">
+      「Linux on the Atari Jaguar（Atari JaguarでLinuxを動かす）」がGitHub Pagesで公開され、82ポイント・14コメントを集めました。Atari Jaguarは、1993年にAtariが発売したゲームコンソールです。プロセッサはMotorola 68000系の互換チップ（Tom・Jerry）と独自の64bitバスアーキテクチャという特殊な構成で、発売当時は「64bitゲーム機」として宣伝されましたが、実際のアーキテクチャは複雑で、開発が困難なことで知られていました。
+
+      cakehonoluluというGitHubユーザーが、このAtari JaguarにLinuxカーネルをポーティングし、実際にブートさせることに成功しています。作業の詳細は「Linux for Jaguar」プロジェクトページに記録されており、68020相当のCPUサポートをLinuxカーネルに持ち込み、JaguarのRAM（2MB）・カスタムチップ（GPU「Tom」・DSP「Jerry」）の初期化・シリアルコンソールの接続という手順でLinux 6.x系のカーネルを起動したとのことです。2MBという極端に少ないRAMに収まるよう、カーネルコンフィグを最小化するのが最大の挑戦だったとレポートされています。
+
+      HN上では「2MBでLinuxをブートできるのが驚き——musl libc＋Buildroot系の最小構成でどこまで動くかの探求として面白い」「Jaguarのアーキテクチャはゲーム開発者を悩ませたが、このようなハッキングには逆に面白い制約になる」「68kシリーズのLinuxサポートは昔からあるが、JaguarのカスタムI/Oを全てエミュレートしたのが技術的な核心」「レトロゲーム機でLinuxを動かす系では、GBAやNESのケースも面白い——どこまで最小化できるかの競争」という14コメントが展開しています。
+    </div>
+    <div class="mag-items">
+      <div class="mag-item">
+        <div>
+          <div class="mag-label">Atari Jaguarとはなにか</div>
+          <div class="mag-text">1993年発売のゲームコンソール。Atari最後の自社コンソールで、商業的には失敗した。「64bit」を標榜したが、実際にはMotorola 68000（32bit）＋カスタムチップ（Tom=GPU/Jerry=DSP）という非対称アーキテクチャ。開発ツールが整備されておらず、サードパーティが制作困難なことで悪名高い。代表タイトル：Alien vs Predator・Tempest 2000。北米で約25万台を販売——スーパーNESの2000万台・Genesis（MD）の3000万台と比べると惨敗。2001年にAtari自らがコンソール市場を撤退するきっかけとなった</div>
+        </div>
+      </div>
+      <div class="mag-item">
+        <div>
+          <div class="mag-label">2MBのRAMでLinuxを動かす技術</div>
+          <div class="mag-text">通常のLinux（デスクトップ向け）は最低でも512MB〜4GBのRAMを推奨。2MBで動かすには：①最小カーネルコンフィグ（ほぼ全てのドライバー・ファイルシステムをオフ）②μClibc / musl libc（軽量Cライブラリ）③BusyBox（Unixユーティリティを1バイナリに集約）④カーネル圧縮（zImage）⑤ルートファイルシステムをramfs（メモリ上）に展開。比較：OpenWrtルーターは通常4〜32MBのフラッシュ＋RAM——JaguarはOpenWrtより小さい環境でLinuxを動かしている</div>
+        </div>
+      </div>
+      <div class="mag-item">
+        <div>
+          <div class="mag-label">変わったハードウェアへのLinuxポーティング事例</div>
+          <div class="mag-text">GBA（Game Boy Advance）：ARM7TDMIでLinux起動済み——256KBのRAMで動かす猛者も。Nintendo DS：2コアARM9＋ARM7でLinux・Debian起動実績あり。AppleTVの初代：Intel Pentium M＋256MB RAMでUbuntu稼働。古い電子書籍リーダー（Kindle Keyboard）：FreeBSDで起動するプロジェクトあり。共通のモチベーション：「できるから」——制約の中で何を動かせるかという純粋な技術的探求。これらのプロジェクトはカーネル移植・省メモリ最適化技術の教材として価値がある</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: cakehonolulu.github.io</span>
+      <span>82 ポイント</span>
+      <span>14 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://cakehonolulu.github.io/linux-for-jaguar/" target="_blank">プロジェクトを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48808663" target="_blank">HN議論 (14)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="linux-atari-jaguar" data-type="like" onclick="toggleFlag('linux-atari-jaguar','1993年のAtari JaguarでLinuxを動かした','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="linux-atari-jaguar" data-type="dislike" onclick="toggleFlag('linux-atari-jaguar','1993年のAtari JaguarでLinuxを動かした','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══════════════════════════════════════════════════════════════ -->
+<footer class="site-footer">
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand">Morning Edition</div>
+      <div class="footer-meta">
+        Hacker News キュレーション · 2026年7月7日 · Issue No.070<br>
+        毎朝、厳選10本をお届け
+      </div>
+    </div>
+    <button class="export-btn" onclick="exportFeedback()">📋 フィードバックをコピー</button>
+  </div>
+  <div class="footer-note">
+    ⭐ 興味あり / ✕ 興味なし ボタンで次回のキュレーションが改善されます。Chrome/Edgeでは自動保存、その他ではボタンでクリップボードにコピーしてください。
+  </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  const FEEDBACK_KEY = 'morning-edition-feedback-v2';
+  const TODAY = '2026-07-07';
+  let _dirHandle = null;
+
+  async function getDir(forcePrompt) {
+    if (_dirHandle && !forcePrompt) return _dirHandle;
+    if (!window.showDirectoryPicker) return null;
+    try {
+      _dirHandle = await window.showDirectoryPicker({ mode: 'readwrite', id: 'morning-edition', startIn: 'documents' });
+      return _dirHandle;
+    } catch { return null; }
+  }
+
+  async function writeJSON(dirHandle, fb) {
+    const fileHandle = await dirHandle.getFileHandle('feedback.json', { create: true });
+    const writable = await fileHandle.createWritable();
+    await writable.write(JSON.stringify({ ...fb, updatedAt: new Date().toISOString() }, null, 2));
+    await writable.close();
+  }
+
+  function showToast(msg, isErr) {
+    const el = document.getElementById('toast');
+    el.textContent = msg;
+    el.className = 'toast' + (isErr ? ' error' : '');
+    requestAnimationFrame(() => el.classList.add('show'));
+    clearTimeout(el._timer);
+    el._timer = setTimeout(() => el.classList.remove('show'), 3000);
+  }
+
+  function getFeedback() {
+    try { return JSON.parse(localStorage.getItem(FEEDBACK_KEY) || '{"liked":{},"disliked":{}}'); }
+    catch { return { liked: {}, disliked: {} }; }
+  }
+  function saveFeedback(fb) { localStorage.setItem(FEEDBACK_KEY, JSON.stringify(fb)); }
+
+  async function autoSave(fb) {
+    let dir = await getDir();
+    if (!dir) {
+      showToast('📁 Daily News フォルダを選択してください', true);
+      dir = await getDir(true);
+      if (!dir) { showToast('保存をキャンセルしました', true); return; }
+    }
+    try {
+      await writeJSON(dir, fb);
+      showToast('✓ feedback.json を自動保存しました（次回キュレーションに反映）');
+    } catch (e) {
+      showToast('保存エラー: ' + e.message, true);
+    }
+  }
+
+  async function toggleFlag(storyId, title, type) {
+    const fb = getFeedback();
+    fb.liked = fb.liked || {};
+    fb.disliked = fb.disliked || {};
+    const likeBtn    = document.querySelector(`.flag-btn.like-btn[data-story="${storyId}"]`);
+    const dislikeBtn = document.querySelector(`.flag-btn.dislike-btn[data-story="${storyId}"]`);
+    if (type === 'like') {
+      if (fb.liked[storyId]) {
+        delete fb.liked[storyId];
+        likeBtn?.classList.remove('active');
+      } else {
+        fb.liked[storyId] = { title, date: TODAY };
+        delete fb.disliked[storyId];
+        likeBtn?.classList.add('active');
+        dislikeBtn?.classList.remove('active');
+      }
+    } else {
+      if (fb.disliked[storyId]) {
+        delete fb.disliked[storyId];
+        dislikeBtn?.classList.remove('active');
+      } else {
+        fb.disliked[storyId] = { title, date: TODAY };
+        delete fb.liked[storyId];
+        dislikeBtn?.classList.add('active');
+        likeBtn?.classList.remove('active');
+      }
+    }
+    saveFeedback(fb);
+    await autoSave(fb);
+  }
+
+  function exportFeedback() {
+    const fb = getFeedback();
+    const json = JSON.stringify({ ...fb, exportedAt: new Date().toISOString() }, null, 2);
+    navigator.clipboard.writeText(json)
+      .then(() => showToast('📋 クリップボードにコピーしました'))
+      .catch(() => {
+        const el = document.createElement('textarea');
+        el.value = json; document.body.appendChild(el); el.select();
+        document.execCommand('copy'); document.body.removeChild(el);
+        showToast('📋 クリップボードにコピーしました');
+      });
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const fb = getFeedback();
+    document.querySelectorAll('.flag-btn').forEach(btn => {
+      const id   = btn.dataset.story;
+      const type = btn.dataset.type;
+      if ((type === 'like' && fb.liked?.[id]) || (type === 'dislike' && fb.disliked?.[id])) {
+        btn.classList.add('active');
+      }
+    });
+  });
+</script>
+</body>
+</html>
