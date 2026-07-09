@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Morning Edition — 2026年7月10日</title>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --font: 'M PLUS Rounded 1c', 'Hiragino Sans', 'Noto Sans JP', sans-serif; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); background: #111; color: #fff; overflow-x: hidden; }
+
+    .masthead { background: #fff; color: #000; padding: 3rem 4rem 2.5rem; border-bottom: 6px solid #000; position: relative; overflow: hidden; }
+    .masthead::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: repeating-linear-gradient(90deg, #000 0, #000 12px, transparent 12px, transparent 20px); }
+    .masthead-kicker { font-size: 0.85rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: #777; margin-bottom: 0.6rem; }
+    .masthead-title { font-size: clamp(3.5rem, 9vw, 7.5rem); font-weight: 900; line-height: 0.88; letter-spacing: -0.04em; margin-bottom: 1.8rem; }
+    .masthead-meta { display: flex; gap: 3rem; align-items: baseline; flex-wrap: wrap; }
+    .masthead-date { font-size: 1.5rem; font-weight: 700; }
+    .masthead-subtitle { font-size: 1rem; font-weight: 400; color: #555; max-width: 480px; line-height: 1.5; }
+    .masthead-issue { margin-left: auto; text-align: right; }
+    .masthead-issue span { display: block; }
+    .masthead-issue .iss-label { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: #999; }
+    .masthead-issue .iss-num { font-size: 2.2rem; font-weight: 900; color: #000; }
+
+    .toc { background: #1a1a1a; padding: 1.5rem 4rem; display: flex; gap: 1.5rem; flex-wrap: wrap; border-bottom: 1px solid #333; }
+    .toc a { color: #aaa; text-decoration: none; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; transition: color 0.2s; }
+    .toc a:hover { color: #fff; }
+    .toc-num { color: #555; margin-right: 0.3em; }
+
+    .story { position: relative; overflow: hidden; }
+    .story-inner { max-width: 1200px; margin: 0 auto; padding: 5rem 4rem; position: relative; z-index: 1; }
+    .story-num { font-size: clamp(6rem, 18vw, 16rem); font-weight: 900; line-height: 0.8; letter-spacing: -0.06em; opacity: 0.08; position: absolute; top: 1rem; right: 2rem; user-select: none; }
+    .story-badge { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.35em 0.9em; border-radius: 2px; margin-bottom: 1.5rem; }
+    .direct-badge { background: #FFD700; color: #000; }
+    .story-kicker { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; opacity: 0.6; margin-bottom: 0.8rem; }
+    .story-headline { font-size: clamp(2rem, 5vw, 4rem); font-weight: 900; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+    .story-body { font-size: clamp(1rem, 1.5vw, 1.2rem); font-weight: 400; line-height: 1.8; max-width: 680px; opacity: 0.88; margin-bottom: 2rem; }
+    .story-meta { display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center; font-size: 0.8rem; font-weight: 700; opacity: 0.5; }
+    .story-links { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem; }
+    .story-link { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.6em 1.4em; border-radius: 3px; text-decoration: none; transition: opacity 0.2s, transform 0.15s; }
+    .story-link:hover { opacity: 0.75; transform: translateY(-1px); }
+
+    .feedback-buttons { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .flag-btn { background: none; border: 1px solid currentColor; color: inherit; font-family: var(--font); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.5em 1em; border-radius: 3px; cursor: pointer; opacity: 0.32; transition: opacity 0.2s, background 0.2s, color 0.2s, border-color 0.2s, transform 0.15s; }
+    .flag-btn:hover { opacity: 0.72; transform: translateY(-1px); }
+    .flag-btn.like-btn.active { opacity: 1; background: rgba(255,215,0,0.15); border-color: #FFD700; color: #FFD700 !important; }
+    .flag-btn.dislike-btn.active { opacity: 1; background: rgba(255,60,60,0.12); border-color: #FF4444; color: #FF4444 !important; }
+
+    .toast { position: fixed; bottom: 2rem; right: 2rem; background: #1a1a1a; color: #fff; font-family: var(--font); font-size: 0.82rem; font-weight: 700; padding: 0.75em 1.4em; border-radius: 4px; border-left: 3px solid #00C853; z-index: 9999; opacity: 0; transform: translateY(10px); transition: opacity 0.25s, transform 0.25s; pointer-events: none; box-shadow: 0 4px 24px rgba(0,0,0,0.45); }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    .toast.error { border-left-color: #FF5252; }
+
+    .story-1 { background: #fff; color: #000; min-height: 90vh; display: flex; flex-direction: column; justify-content: center; }
+    .story-1 .story-num { color: #000; opacity: 0.04; }
+    .story-1 .story-kicker { color: #555; opacity: 1; }
+    .story-1 .story-headline { color: #000; }
+    .story-1 .story-body { color: #111; }
+    .story-1 .story-meta { color: #000; }
+    .story-1 .story-link.primary { background: #1a1a1a; color: #fff; }
+    .story-1 .story-link.secondary { background: #f0f0f0; color: #000; }
+    .story-1 .flag-btn { color: #000; }
+    .story-1-accent { position: absolute; bottom: 0; left: 0; width: 100%; height: 8px; background: linear-gradient(90deg, #10a37f, #1fd1a0, #10a37f); }
+    .story-1 .headline-accent { display: inline-block; background: linear-gradient(135deg, #10a37f 0%, #1fd1a0 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .dos-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1.2rem; margin: 2rem 0; max-width: 680px; }
+    .dos-card { border: 2px solid rgba(0,0,0,0.12); background: rgba(0,0,0,0.04); border-radius: 6px; padding: 1.3rem 1.5rem; }
+    .dos-card-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.2em; text-transform: uppercase; color: #333; margin-bottom: 0.4rem; }
+    .dos-card-value { font-size: 1.05rem; font-weight: 900; color: #000; line-height: 1.3; }
+    .dos-card-sub { font-size: 0.75rem; color: #555; margin-top: 0.3rem; line-height: 1.4; }
+
+    .story-2 { background: #00080c; color: #b8f0ff; min-height: 80vh; }
+    .story-2::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(0,160,200,0.14) 0%, transparent 65%); }
+    .story-2 .story-num { color: #00A0C8; opacity: 0.07; }
+    .story-2 .story-kicker { color: #20C8E8; opacity: 1; }
+    .story-2 .story-headline { color: #e0f8ff; }
+    .story-2 .story-body { color: #b8f0ff; }
+    .story-2 .story-meta { color: #20C8E8; opacity: 0.5; }
+    .story-2 .story-link.primary { background: #004058; color: #80e8ff; }
+    .story-2 .story-link.secondary { background: rgba(0,160,200,0.08); color: #90d8f0; border: 1px solid rgba(0,160,200,0.22); }
+    .story-2 .flag-btn { color: #b8f0ff; }
+    .teal-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .teal-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(0,160,200,0.07); border-left: 3px solid #00A0C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .teal-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20C8E8; margin-bottom: 0.3rem; }
+    .teal-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-3 { background: #0a0000; color: #fff; min-height: 80vh; }
+    .story-3::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(200,20,20,0.16) 0%, transparent 65%); }
+    .story-3 .story-num { color: #C81414; opacity: 0.07; }
+    .story-3 .story-kicker { color: #E84040; opacity: 1; }
+    .story-3 .story-headline { color: #fff; }
+    .story-3 .story-body { color: rgba(255,255,255,0.88); }
+    .story-3 .story-meta { color: #E84040; opacity: 0.5; }
+    .story-3 .story-link.primary { background: #6a0000; color: #fff; }
+    .story-3 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-3 .flag-btn { color: #fff; }
+    .red-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .red-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(200,20,20,0.07); border-left: 3px solid #C81414; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .red-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E84040; margin-bottom: 0.3rem; }
+    .red-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-4 { background: #020c04; color: #c8f0d0; min-height: 80vh; }
+    .story-4::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(20,160,70,0.16) 0%, transparent 65%); }
+    .story-4 .story-num { color: #14A046; opacity: 0.07; }
+    .story-4 .story-kicker { color: #30C060; opacity: 1; }
+    .story-4 .story-headline { color: #e0ffe8; }
+    .story-4 .story-body { color: #c8f0d0; }
+    .story-4 .story-meta { color: #30C060; opacity: 0.5; }
+    .story-4 .story-link.primary { background: #063820; color: #80ffb0; }
+    .story-4 .story-link.secondary { background: rgba(20,160,70,0.08); color: #a0e8b0; border: 1px solid rgba(20,160,70,0.22); }
+    .story-4 .flag-btn { color: #c8f0d0; }
+    .green-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .green-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(20,160,70,0.07); border-left: 3px solid #14A046; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .green-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #30C060; margin-bottom: 0.3rem; }
+    .green-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-5 { background: #040010; color: #d8c8ff; min-height: 75vh; }
+    .story-5::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(90,40,200,0.17) 0%, transparent 65%); }
+    .story-5 .story-num { color: #5A28C8; opacity: 0.07; }
+    .story-5 .story-kicker { color: #8050E0; opacity: 1; }
+    .story-5 .story-headline { color: #f0e8ff; }
+    .story-5 .story-body { color: #d8c8ff; }
+    .story-5 .story-meta { color: #8050E0; opacity: 0.5; }
+    .story-5 .story-link.primary { background: #200860; color: #d0a8ff; }
+    .story-5 .story-link.secondary { background: rgba(90,40,200,0.08); color: #c0a0f0; border: 1px solid rgba(90,40,200,0.22); }
+    .story-5 .flag-btn { color: #d8c8ff; }
+    .purple-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .purple-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(90,40,200,0.07); border-left: 3px solid #5A28C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .purple-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #8050E0; margin-bottom: 0.3rem; }
+    .purple-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-6 { background: #000c10; color: #b8e8f0; min-height: 75vh; }
+    .story-6::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 40%, rgba(0,130,160,0.14) 0%, transparent 65%); }
+    .story-6 .story-num { color: #0080A0; opacity: 0.07; }
+    .story-6 .story-kicker { color: #20B0D0; opacity: 1; }
+    .story-6 .story-headline { color: #e0f4ff; }
+    .story-6 .story-body { color: #b8e8f0; }
+    .story-6 .story-meta { color: #20B0D0; opacity: 0.5; }
+    .story-6 .story-link.primary { background: #003848; color: #80d8f0; }
+    .story-6 .story-link.secondary { background: rgba(0,130,160,0.08); color: #90cce0; border: 1px solid rgba(0,130,160,0.22); }
+    .story-6 .flag-btn { color: #b8e8f0; }
+    .cyan-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .cyan-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(0,130,160,0.07); border-left: 3px solid #0080A0; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .cyan-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20B0D0; margin-bottom: 0.3rem; }
+    .cyan-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-7 { background: #0a0300; color: #ffe0b8; min-height: 75vh; }
+    .story-7::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(210,90,20,0.18) 0%, transparent 65%); }
+    .story-7 .story-num { color: #D05A14; opacity: 0.07; }
+    .story-7 .story-kicker { color: #E88040; opacity: 1; }
+    .story-7 .story-headline { color: #fff0d8; }
+    .story-7 .story-body { color: #ffe0b8; }
+    .story-7 .story-meta { color: #E88040; opacity: 0.5; }
+    .story-7 .story-link.primary { background: #6a2400; color: #ffc880; }
+    .story-7 .story-link.secondary { background: rgba(210,90,20,0.08); color: #ffb870; border: 1px solid rgba(210,90,20,0.22); }
+    .story-7 .flag-btn { color: #ffe0b8; }
+    .amber-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .amber-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(210,90,20,0.07); border-left: 3px solid #D05A14; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .amber-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E88040; margin-bottom: 0.3rem; }
+    .amber-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-8 { background: #080500; color: #fff; min-height: 70vh; }
+    .story-8::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,145,10,0.15) 0%, transparent 65%); }
+    .story-8 .story-num { color: #BE9110; opacity: 0.06; }
+    .story-8 .story-kicker { color: #D4A820; opacity: 1; }
+    .story-8 .story-headline { color: #fff; }
+    .story-8 .story-body { color: rgba(255,255,255,0.88); }
+    .story-8 .story-meta { color: #D4A820; opacity: 0.5; }
+    .story-8 .story-link.primary { background: #604000; color: #ffe070; }
+    .story-8 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-8 .flag-btn { color: #fff; }
+    .gold-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .gold-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(190,145,10,0.07); border-left: 3px solid #BE9110; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .gold-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #D4A820; margin-bottom: 0.3rem; }
+    .gold-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-9 { background: #040810; color: #c8d8f0; min-height: 70vh; }
+    .story-9::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 35%, rgba(50,90,170,0.16) 0%, transparent 65%); }
+    .story-9 .story-num { color: #3258A8; opacity: 0.07; }
+    .story-9 .story-kicker { color: #5878C8; opacity: 1; }
+    .story-9 .story-headline { color: #e8f0ff; }
+    .story-9 .story-body { color: #c8d8f0; }
+    .story-9 .story-meta { color: #5878C8; opacity: 0.5; }
+    .story-9 .story-link.primary { background: #101e50; color: #fff; }
+    .story-9 .story-link.secondary { background: rgba(50,90,170,0.08); color: #b0c8e8; border: 1px solid rgba(50,90,170,0.22); }
+    .story-9 .flag-btn { color: #c8d8f0; }
+    .slate-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .slate-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(50,90,170,0.07); border-left: 3px solid #3258A8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .slate-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #5878C8; margin-bottom: 0.3rem; }
+    .slate-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-10 { background: #080004; color: #ffc8e8; min-height: 70vh; }
+    .story-10::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,20,90,0.15) 0%, transparent 65%); }
+    .story-10 .story-num { color: #BE1458; opacity: 0.07; }
+    .story-10 .story-kicker { color: #E04080; opacity: 1; }
+    .story-10 .story-headline { color: #fff0f8; }
+    .story-10 .story-body { color: #ffc8e8; }
+    .story-10 .story-meta { color: #E04080; opacity: 0.5; }
+    .story-10 .story-link.primary { background: #500030; color: #ffb0d8; }
+    .story-10 .story-link.secondary { background: rgba(190,20,90,0.08); color: #f090c0; border: 1px solid rgba(190,20,90,0.22); }
+    .story-10 .flag-btn { color: #ffc8e8; }
+    .mag-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .mag-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(190,20,90,0.07); border-left: 3px solid #BE1458; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .mag-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E04080; margin-bottom: 0.3rem; }
+    .mag-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .site-footer { background: #000; color: #555; padding: 3rem 4rem; display: flex; flex-direction: column; gap: 1.5rem; border-top: 1px solid #222; }
+    .footer-top { display: flex; gap: 2rem; align-items: center; flex-wrap: wrap; justify-content: space-between; }
+    .footer-brand { font-size: 1.4rem; font-weight: 900; color: #fff; }
+    .footer-meta { font-size: 0.75rem; line-height: 1.6; }
+    .export-btn { background: #222; border: 1px solid #444; color: #fff; font-family: var(--font); font-size: 0.8rem; font-weight: 700; padding: 0.7em 1.5em; border-radius: 3px; cursor: pointer; letter-spacing: 0.08em; transition: background 0.2s; }
+    .export-btn:hover { background: #333; }
+    .footer-note { font-size: 0.7rem; opacity: 0.5; }
+
+    @media (max-width: 768px) {
+      .masthead, .toc, .story-inner, .site-footer { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .story-num { display: none; }
+      .masthead-meta { gap: 1rem; }
+      .masthead-issue { margin-left: 0; }
+      .dos-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+<nav style="background:#1a1a1a;border-bottom:1px solid #333;padding:0.55rem 2rem;font-family:'M PLUS Rounded 1c','Hiragino Sans','Noto Sans JP',sans-serif;position:sticky;top:0;z-index:999;">
+  <a href="./index.html" style="color:#aaa;text-decoration:none;font-size:0.8rem;font-weight:700;letter-spacing:0.03em;display:inline-flex;align-items:center;gap:0.4rem;transition:color 0.15s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#aaa'">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    アーカイブへ戻る
+  </a>
+</nav>
+
+<header class="masthead">
+  <div class="masthead-kicker">Hacker News — Morning Edition</div>
+  <h1 class="masthead-title">Morning<br>Edition</h1>
+  <div class="masthead-meta">
+    <div>
+      <div class="masthead-date">2026年7月10日 金曜日</div>
+      <div class="masthead-subtitle">AI・開発ツール・プライバシー・サイエンス — あなたのための10本</div>
+    </div>
+    <div class="masthead-issue">
+      <span class="iss-label">Issue</span>
+      <span class="iss-num">No.072</span>
+    </div>
+  </div>
+</header>
+
+<nav class="toc">
+  <a href="#s1"><span class="toc-num">01</span>GPT-5.6 リリース——OpenAIの最新フラッグシップモデル</a>
+  <a href="#s2"><span class="toc-num">02</span>EU議会がChat Control 1.0を承認——E2EE暗号化への脅威</a>
+  <a href="#s3"><span class="toc-num">03</span>Show HN: 18 Words——18語で書く創作プラットフォーム</a>
+  <a href="#s4"><span class="toc-num">04</span>TencentがHy3（Hunyuan 3D）を公開——3D生成AIの最前線</a>
+  <a href="#s5"><span class="toc-num">05</span>Meta Muse Spark 1.1——APIで使えるクリエイティブAIモデル</a>
+  <a href="#s6"><span class="toc-num">06</span>MetaがCXL独自チップで旧世代RAMを新サーバーに再利用</a>
+  <a href="#s7"><span class="toc-num">07</span>PostgresをRustで書き直したら回帰テスト100%通過した</a>
+  <a href="#s8"><span class="toc-num">08</span>Appleの隠し機能でiPhoneを「子ども向けシンプルフォン」に</a>
+  <a href="#s9"><span class="toc-num">09</span>2026年12月末に閏秒は挿入されない——IERSが正式発表</a>
+  <a href="#s10"><span class="toc-num">10</span>内部サービスのTLS証明書を正しくやる方法</a>
+</nav>
+
+<!-- ═══ STORY 1 — GPT-5.6 ════════════════════════════════════════════════════ -->
+<section class="story story-1" id="s1">
+  <div class="story-num">01</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / OpenAI / LLM / フラッグシップ — OpenAIがGPT-5.6を公開。推論能力・マルチモーダル性能・長コンテキスト処理が大幅に向上。880ポイント・655コメント</div>
+    <h2 class="story-headline">
+      <span class="headline-accent">GPT-5.6</span><br>リリース——<br>OpenAIの最新<br>フラッグシップ
+    </h2>
+    <div class="story-body">
+      OpenAIがGPT-5.6を公開し、880ポイント・655コメントという本日最高の注目を集めました。GPT-5.6はGPT-5系列の最新アップデートで、推論能力の強化・コーディングベンチマーク（SWE-bench）でのスコア向上・マルチモーダル処理の精度改善が主な変更点です。OpenAIの発表によると、GPT-5.6は前モデルのGPT-5.5と比べて数学・科学推論で目に見える改善があり、長文コンテキスト（最大256Kトークン）での整合性も向上しています。
+
+      特に注目を集めているのは、「拡張思考（Extended Thinking）」モードのデフォルト有効化です。GPT-5.6はユーザーが明示的に指示しなくても、複雑な問題に対して自動的に段階的推論を行うモードに切り替わります。これはAnthropicが先行して実装しているClaudeの拡張思考機能との直接競合を意味します。また、Structured Outputs（構造化出力）の精度も向上し、JSON・XMLなどの形式でのレスポンスがより安定しています。
+
+      HN上では「GPT-5.6のコーディング能力はClaude Sonnet 4.6に追いついてきた——あとはClaudeのような強力なツール統合があれば完璧」「拡張思考のデフォルト有効化は良い方向だが、それだけレイテンシとコストが増える」「Anthropicが先んじていた拡張思考をOpenAIが追ってきた——競争が激しい」「APIのプライシングはGPT-5.5と同じ据え置きというのは嬉しい」という655コメントが展開しています。
+    </div>
+    <div class="dos-grid">
+      <div class="dos-card">
+        <div class="dos-card-label">GPT-5.6の主な変更点</div>
+        <div class="dos-card-value">推論と精度の強化</div>
+        <div class="dos-card-sub">拡張思考デフォルト有効化・256Kコンテキスト・SWE-benchスコア向上・Structured Outputs精度改善。プライシングはGPT-5.5から据え置き（入力$10/1Mトークン、出力$30/1M）</div>
+      </div>
+      <div class="dos-card">
+        <div class="dos-card-label">Claude Sonnet 4.6との比較</div>
+        <div class="dos-card-value">コーディングで接近</div>
+        <div class="dos-card-sub">SWE-benchではGPT-5.6がClaude Sonnet 4.6に接近。ツール統合・エージェント機能ではClaudeが依然リード。コスト効率ではGPT-5.6がやや高め。実務でどちらが優れるかはユースケース次第</div>
+      </div>
+      <div class="dos-card">
+        <div class="dos-card-label">拡張思考とは</div>
+        <div class="dos-card-value">自動ステップ推論</div>
+        <div class="dos-card-sub">難しい問題に対してモデルが内部で段階的な推論（chain-of-thought）を実行するモード。回答前に考えを整理するため精度が上がるが、レイテンシとトークン消費が増加。Anthropicはo1以前からこれを「拡張思考」と呼んで実装</div>
+      </div>
+      <div class="dos-card">
+        <div class="dos-card-label">開発者への影響</div>
+        <div class="dos-card-value">APIはほぼ後方互換</div>
+        <div class="dos-card-sub">GPT-5.5を使っているプロジェクトはモデルIDを`gpt-5-6`に変更するだけで利用可能。拡張思考を無効化したい場合は`reasoning_effort: "low"`を設定。Structured Outputs使用時は新しいスキーマ精度を活用して`strict: true`にするのがおすすめ</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: openai.com</span>
+      <span>880 ポイント</span>
+      <span>655 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://openai.com/index/gpt-5-6/" target="_blank">発表を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48849066" target="_blank">HN議論 (655)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="gpt-5-6" data-type="like" onclick="toggleFlag('gpt-5-6','GPT-5.6リリース——OpenAIの最新フラッグシップモデル','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="gpt-5-6" data-type="dislike" onclick="toggleFlag('gpt-5-6','GPT-5.6リリース——OpenAIの最新フラッグシップモデル','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+  <div class="story-1-accent"></div>
+</section>
+
+<!-- ═══ STORY 2 — EU Chat Control 1.0 ══════════════════════════════════════ -->
+<section class="story story-2" id="s2">
+  <div class="story-num">02</div>
+  <div class="story-inner">
+    <div class="story-kicker">プライバシー / EU規制 / 暗号化 / 監視 — EU議会がChat Control 1.0を賛成多数で承認。WhatsApp・Signal等のメッセージをスキャンする法的枠組みが成立。862ポイント・412コメント</div>
+    <h2 class="story-headline">
+      EU議会が<br>Chat Control<br>1.0を承認——<br>暗号化に赤信号
+    </h2>
+    <div class="story-body">
+      EU議会がChat Control 1.0を賛成多数で承認したことが報じられ、862ポイント・412コメントを集めました。Chat Controlとは、WhatsApp・Signal・iMessageなどのメッセージングアプリに対し、児童性的虐待素材（CSAM）を自動検出するスキャンを義務付ける規則です。今回承認されたのはバージョン1.0で、当初の全メッセージスキャン義務から範囲を限定した修正版ですが、プライバシー専門家からは「E2E暗号化を事実上破壊する」という批判が相次いでいます。
+
+      Chat Control 1.0のポイントは「既知のCSAMハッシュとのマッチング」と「AIを使った新規CSAM検出」の2段階スキャンをプロバイダーに義務付けることです。プロバイダーはスキャン結果を法執行機関に報告する義務を負います。問題は、スキャンを実施するにはメッセージがエンドツーエンド暗号化される前（送信デバイス上）でアクセスする必要があること——これが「クライアントサイドスキャン」の強制であり、技術的にはバックドアと同義だとセキュリティ研究者は指摘します。
+
+      SignalのMeredith Whittaker氏は「この法律が施行されればEUでの事業継続は不可能」と明言しており、EU内の数百万人がSignalを失う可能性があります。Patrick Breyer欧州議会議員は「我々の子どもたちはこれで失う——プライバシーも安全も」と声明を出しています。HN上では「EUが民主主義とプライバシーの守護者だった時代は終わった——GDPRを作った同じ人たちがこれを承認している」「Signalが撤退したらMatrix（Element）への移行を検討すべき」「CSAMの検出という名目はもっともだが、この技術は政治的反対意見のスキャンにも容易に拡張できる」という412コメントが展開しています。
+    </div>
+    <div class="teal-items">
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">Chat Control 1.0の法的効力</div>
+          <div class="teal-text">今回承認されたChat Control 1.0は欧州議会の立場（position）として確立された段階。次にEU加盟国政府（理事会）との三者協議（trilogue）に入り、最終的な法文が確定する。施行まで1〜2年かかる見込みだが、EU内に事業展開する全メッセージングサービスに適用される。すでに成立したとは言えないが、議会承認は大きな前進——過去に頓挫した経緯があるだけに今回の承認は重大</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">クライアントサイドスキャンの技術的問題点</div>
+          <div class="teal-text">E2EEの仕組み：メッセージは送信者のデバイスで暗号化され、受信者のデバイスのみで復号できる。サービスプロバイダーは暗号化されたデータしか見えない。クライアントサイドスキャン（CSS）の強制：送信前に端末内でスキャンを実行→これはアプリ自体が「覗き見」機能を持つことを意味する。誤検知問題：ハッシュマッチングは既知素材に有効だが、新規生成CSAMへのAI検出は誤検知率が問題。Appleが2021年に同様の計画を撤回した理由もこれ</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">今あなたにできること</div>
+          <div class="teal-text">①EU居住者・在住者はBreyer議員（patrick-breyer.de）経由で議員への抗議を支援。②EFFのアクションアラートを登録（eff.org）。③Signal・Briar・Session・Element（Matrix）などのE2EEアプリを今すぐ家族・友人に勧める——普及率が高いほど撤退コストが上がる。④技術者として「クライアントサイドスキャンは技術的に実現不可能な要求」という教育活動に参加する。Open Technology Institute・Electronic Frontier Foundationのホワイトペーパーが参考資料として優れている</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: patrick-breyer.de</span>
+      <span>862 ポイント</span>
+      <span>412 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.patrick-breyer.de/en/eu-parliament-greenlights-chat-control-1-0-breyer-our-children-lose-out/" target="_blank">声明を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48843923" target="_blank">HN議論 (412)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="eu-chat-control-1" data-type="like" onclick="toggleFlag('eu-chat-control-1','EU議会がChat Control 1.0を承認——E2EE暗号化への脅威','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="eu-chat-control-1" data-type="dislike" onclick="toggleFlag('eu-chat-control-1','EU議会がChat Control 1.0を承認——E2EE暗号化への脅威','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 3 — 18 Words ════════════════════════════════════════════════════ -->
+<section class="story story-3" id="s3">
+  <div class="story-num">03</div>
+  <div class="story-inner">
+    <div class="story-kicker">創作 / 制約執筆 / インディー / Show HN — 個人開発者が制約付き創作プラットフォーム「18 Words」を公開。ちょうど18語で物語を書く——シンプルな制約がコミュニティの爆発的参加を呼んだ。746ポイント・271コメント</div>
+    <h2 class="story-headline">
+      Show HN:<br>18 Words——<br>18語だけで<br>語る物語
+    </h2>
+    <div class="story-body">
+      個人開発者が制作した創作プラットフォーム「18 Words」がHNに投稿され、746ポイント・271コメントという驚異的な反響を集めました。コンセプトはシンプルで力強い——ちょうど18語（words）で完結する短編物語を投稿・閲覧するプラットフォームです。18という数字は「十分に短くて誰でも書ける」「完全な物語として成立する最小単位」というバランスから選ばれたと作者は説明しています。
+
+      制約を持つ創作フォーマットはTwitterの140文字制限のように、むしろ創造性を解放する効果があります。プラットフォームには投稿時にリアルタイムで語数をカウントする機能があり、18語を超えるか不足すると投稿できない仕組みです。UIは極めてミニマルで、物語のテキストと上下の矢印ナビゲーションのみ。カテゴリもタグもなく、ただ次々と18語の物語が流れてきます。公開から数日で数千の作品が集まり、「初めて詩を書いた」「英語学習のアウトプットとして最高」というコメントが相次いでいます。
+
+      HN上では「18語という制約が詩と散文の中間のような新しいフォームを生み出している——六行詩や俳句に近いが西洋的な語感」「UIの徹底的なミニマリズムが作品に集中させる——良い設計判断」「子どもに書き方を教えるツールとして使ってみたい——制約があると何を書けばいいかわかりやすい」「英語が母語でない人にとってちょうどいい語数——私も初めて英語で物語を書けた」という271コメントが展開しています。
+    </div>
+    <div class="red-items">
+      <div class="red-item">
+        <div>
+          <div class="red-label">なぜ制約が創造性を高めるのか</div>
+          <div class="red-text">制約執筆（Constrained Writing）の心理学：選択肢が無限にあると「白紙恐怖症（Blank Page Anxiety）」が発生する。制約は「この範囲内で最善を尽くせばいい」という安心感を与える。有名な例：ヘミングウェイの六語短編「For sale: baby shoes, never worn.」——完全な悲劇が六語に収まっている。Twitter/Xの140文字制限が独自の表現文化を生んだのと同じ原理。俳句の5-7-5もまた「制約が芸術を生む」の典型例。18語はちょうど「一つの場面、一人の人物、一つの感情」を描くのに十分な長さ</div>
+        </div>
+      </div>
+      <div class="red-item">
+        <div>
+          <div class="red-label">18 Wordsの技術スタック</div>
+          <div class="red-text">作者のコメントによると：フロントエンドはVanilla JS（フレームワークなし）。バックエンドはNode.js + SQLite（個人プロジェクトのため最小構成）。ホスティングはFly.io。語数カウントのロジック：空白で分割したtrim()済みトークンをカウント（英語の「語」として自然な分割）。インフィニットスクロールではなく、矢印ナビゲーションで一作品ずつ読む設計——これが「一作品を大切に読む」体験を生んでいる。ソースコードはGitHubで公開予定とのこと</div>
+        </div>
+      </div>
+      <div class="red-item">
+        <div>
+          <div class="red-label">今すぐ18語の物語を書いてみる</div>
+          <div class="red-text">ルール：ちょうど18語（ハイフンは1語）。句読点は語数に含まない。挑戦してみる例：「He opened the old box. Inside was a letter he never sent, still sealed. He burned it.」（ちょうど18語）。日本語の場合：18語が日本語の語数定義に合わないため、英語での投稿がメイン。ただし作者は多言語への対応も検討中とコメント。18words.comで今すぐ読むだけでも面白い——「最高の18語」を見つけるキュレーションも楽しい</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: 18words.com</span>
+      <span>746 ポイント</span>
+      <span>271 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://18words.com/" target="_blank">プラットフォームを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48845049" target="_blank">HN議論 (271)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="18-words" data-type="like" onclick="toggleFlag('18-words','Show HN: 18 Words——18語だけで語る物語','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="18-words" data-type="dislike" onclick="toggleFlag('18-words','Show HN: 18 Words——18語だけで語る物語','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 4 — Hy3 (Tencent Hunyuan 3D) ══════════════════════════════════ -->
+<section class="story story-4" id="s4">
+  <div class="story-num">04</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / Tencent / 3D生成 / マルチモーダル — TencentがHunyuan（HY）第3世代モデル「Hy3」を研究公開。テキスト・画像から高品質3Dアセットを生成するマルチモーダルAI。323ポイント・73コメント</div>
+    <h2 class="story-headline">
+      Tencent<br>「Hy3」公開——<br>テキストから<br>3Dが生まれる
+    </h2>
+    <div class="story-body">
+      TencentのHunyuanチームが第3世代モデル「Hy3」を研究ページで公開し、323ポイント・73コメントを集めました。Hy3はHunyuan（混元）シリーズの最新モデルで、テキスト記述・参照画像・スケッチ入力から高品質な3Dオブジェクトを生成することに特化したマルチモーダルモデルです。前世代と比べてジオメトリの精度・テクスチャの解像度・生成速度のいずれも大幅に改善されています。
+
+      Hy3の技術的な特徴は「Unified 3D Tokenization」と呼ばれるアプローチで、3Dオブジェクトをボクセル・メッシュ・SDF（符号付き距離関数）の複数表現を統一的なトークン空間で扱えるようにしています。これにより、テキストから直接ゲームアセット品質の3Dモデルを生成でき、Blender・Maya等のDCCツールにエクスポート可能なフォーマット（GLB・OBJ・FBX）での出力をサポートしています。論文とデモは公開されており、コードのオープンソース化も予定されています。
+
+      HN上では「3D生成AIの進化スピードが凄まじい——1年前と比べると品質が数段上がっている」「ゲーム開発でのプロトタイピングに使えるか試したい——ラフなアセットをAIで素早く作り、後でポリッシュするワークフロー」「Tencentがこの領域で本気だとわかる——HunyuanビデオのときもOpenAIに匹敵する品質だった」「コードが出たらlocalで動かしてみたい」という73コメントが展開しています。
+    </div>
+    <div class="green-items">
+      <div class="green-item">
+        <div>
+          <div class="green-label">3D生成AIの現状（2026年7月）</div>
+          <div class="green-text">主要プレイヤー：Tencent Hunyuan 3D（Hy3）・OpenAI Point-E（廃止・後継未定）・Stability AI TripoSR・Google ZeroShape・Adobe Firefly 3D。品質軸：テキスト→3Dの精度・トポロジーの整合性・テクスチャ品質・生成速度。実用レベルまで達しているもの：プロトタイプ・コンセプトアート用。まだ不十分：本番ゲームアセット・建築モデル（手動修正が必須）。ゲーム・映像・VR/AR業界での「AIアシスト3Dワークフロー」の標準化が進んでいる</div>
+        </div>
+      </div>
+      <div class="green-item">
+        <div>
+          <div class="green-label">Unified 3D Tokenizationとは</div>
+          <div class="green-text">従来の3D生成AIの問題：ボクセル・メッシュ・ポイントクラウドそれぞれに特化したモデルが必要で統一感がなかった。Hy3のアプローチ：3Dを統一トークン空間で表現→1つのモデルで複数の3D表現形式を理解・生成できる。メリット：異なるフォーマット間の変換が不要・テキストの意味と3D構造の整合性が向上・ファインチューニングが特定フォーマットに縛られない。実装としてはVQ-VAE（Vector Quantized Variational Autoencoder）を3D空間に拡張した形</div>
+        </div>
+      </div>
+      <div class="green-item">
+        <div>
+          <div class="green-label">今すぐ試せる3D生成AIツール</div>
+          <div class="green-text">無料・即試せる：Meshy AI（meshy.ai）——テキスト→3D、Blenderエクスポート対応。TripoSR by Stability AI——GitHub公開・ローカル実行可能。Luma AI——スマートフォンで撮影→3Dスキャン。有料ツール（商用グレード）：Kaedim・Masterpiece X。Claude Codeとの組み合わせ：Three.js・Babylon.jsを使ったWebGL 3DビューアのコーディングはClaude Codeが得意。生成した3Dアセットを埋め込むWebアプリを作るとき活用できる</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: hy.tencent.com</span>
+      <span>323 ポイント</span>
+      <span>73 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://hy.tencent.com/research/hy3" target="_blank">研究ページを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48847552" target="_blank">HN議論 (73)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="tencent-hy3" data-type="like" onclick="toggleFlag('tencent-hy3','TencentがHy3（Hunyuan 3D）を公開——3D生成AIの最前線','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="tencent-hy3" data-type="dislike" onclick="toggleFlag('tencent-hy3','TencentがHy3（Hunyuan 3D）を公開——3D生成AIの最前線','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 5 — Meta Muse Spark 1.1 ══════════════════════════════════════ -->
+<section class="story story-5" id="s5">
+  <div class="story-num">05</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / Meta / クリエイティブAI / API — MetaがMuse Spark 1.1をAPIとして公開。テキスト・画像・動画の生成を統一したクリエイティブAIモデルのAPIプレビュー。292ポイント・161コメント</div>
+    <h2 class="story-headline">
+      Meta<br>Muse Spark 1.1——<br>クリエイティブAI<br>がAPIに
+    </h2>
+    <div class="story-body">
+      MetaがMuse Spark 1.1のAPIプレビューを公開し、292ポイント・161コメントを集めました。Muse SparkはMetaが開発するクリエイティブ生成AI統合モデルで、テキスト生成・画像生成・短尺動画生成・スタイル転送を単一のモデルで処理する設計が特徴です。バージョン1.1では画像生成品質の向上と動画生成の安定性改善が主な変更点です。APIプレビューはMeta AI Platformから申請ベースでアクセスでき、将来的には完全な一般公開を予定しています。
+
+      Muse Sparkの差別化点は「一貫したスタイルの維持」にあります。同一のプロジェクト内で生成した画像・動画・テキストが統一されたビジュアルスタイルを保つよう設計されており、ブランドキャンペーン・ゲームのコンセプトアート・コンテンツシリーズの制作に活用できます。また、Instagram・Threads・Facebook向けのアスペクト比プリセット（9:16・4:3・1:1等）が組み込まれており、Metaプラットフォームでの公開を前提にしたコンテンツ制作ワークフローに最適化されています。
+
+      HN上では「Stability AI・Midjourney・RunwayのApiを別々に使っていたのが一本化できるなら価値がある——ただしスタイル一貫性が本当に機能するか要検証」「MetaのAI倫理ポリシーとの兼ね合いが心配——コンテンツポリシーがどこまで厳しいか」「Instagramとの統合が前提の設計なのが透けて見える——ロックインには注意」「価格が公開されていない段階で申請はしにくい」という161コメントが展開しています。
+    </div>
+    <div class="purple-items">
+      <div class="purple-item">
+        <div>
+          <div class="purple-label">Muse Spark 1.1の機能一覧</div>
+          <div class="purple-text">テキスト生成：Llama 4ベースの長文・短文コンテンツ生成。画像生成：Stable Diffusion系の独自ファインチューニング、最大4096×4096px出力。動画生成：最大8秒・24fps・1080p（プレビュー段階では4秒まで）。スタイル転送：参照画像のスタイルを維持して別コンテンツを生成。Multi-step editing：生成後にテキストプロンプトで部分修正。アスペクト比プリセット：Instagram Reels/Stories（9:16）・フィード（1:1・4:5）・Threads（16:9）に最適化</div>
+        </div>
+      </div>
+      <div class="purple-item">
+        <div>
+          <div class="purple-label">競合との比較</div>
+          <div class="purple-text">Runway ML（Gen-3 Alpha）：動画生成品質でトップレベル。APIあり、商用ライセンス明確。Midjourney API：画像品質は依然トップクラス。APIが限定公開のため開発者利用しにくい。Adobe Firefly API：Adobeエコシステムとの統合が強み・商用セーフの強調。Stability AI Stable Diffusion API：オープン重視・コスト最安。Muse Spark 1.1の強み：Metaプラットフォームとの統合・スタイル統一性。弱み：APIがまだプレビュー段階・価格未公開・コンテンツポリシーが不透明</div>
+        </div>
+      </div>
+      <div class="purple-item">
+        <div>
+          <div class="purple-label">クリエイティブAI APIを選ぶ基準</div>
+          <div class="purple-text">商用プロジェクトで使うAPIを選ぶ際のチェックリスト：①著作権・ライセンス——生成物の権利は誰に？商用利用は許可されているか？②コンテンツポリシー——どんな制約があるか、ビジネスケースに合うか？③API安定性——SLA・レートリミット・プレビュー段階か否か？④価格——トークン・画像・秒単位での計算と月額予算との整合性。⑤出力クオリティ——自分のユースケースでのA/Bテストは必須。⑥ベンダーロックイン——プロバイダー変更時のマイグレーションコストは？</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: ai.meta.com</span>
+      <span>292 ポイント</span>
+      <span>161 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/" target="_blank">発表を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48846184" target="_blank">HN議論 (161)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="meta-muse-spark-1-1" data-type="like" onclick="toggleFlag('meta-muse-spark-1-1','Meta Muse Spark 1.1——APIで使えるクリエイティブAIモデル','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="meta-muse-spark-1-1" data-type="dislike" onclick="toggleFlag('meta-muse-spark-1-1','Meta Muse Spark 1.1——APIで使えるクリエイティブAIモデル','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 6 — Meta CXL RAM reuse ══════════════════════════════════════ -->
+<section class="story story-6" id="s6">
+  <div class="story-num">06</div>
+  <div class="story-inner">
+    <div class="story-kicker">ハードウェア / Meta / CXL / データセンター / エンジニアリング — MetaがカスタムCXL ASICを開発し、旧サーバーから取り外したDDR4 RAMを新世代AI学習サーバーに再利用することに成功。281ポイント・201コメント</div>
+    <h2 class="story-headline">
+      MetaがCXL<br>独自チップで<br>旧世代RAMを<br>AIサーバーに再利用
+    </h2>
+    <div class="story-body">
+      Metaがカスタム設計のCXL（Compute Express Link）ASICブリッジチップを開発し、旧サーバーから取り外した大量のDDR4メモリモジュールを新世代AI学習サーバーに再利用することに成功したと報じられ、281ポイント・201コメントを集めました。The Registerの記事によると、このプロジェクトは「Zuck Saves Meta Bucks」とも表現されており、億ドル単位のコスト削減が期待されています。
+
+      技術的な核心は、DDR4メモリとDDR5/HBM3を使う新世代サーバーのインターフェース差異をCXL経由でブリッジする独自ASICです。CXL（PCIe 5.0上に構築された高帯域メモリ拡張インターフェース）を使うことで、物理的に異なるメモリ世代を統一されたメモリ空間として扱えるようにしました。これにより、廃棄予定だった旧世代サーバーのRAMを新世代AI学習クラスタに組み込むことが可能になり、廃棄コストの削減とメモリコストの節約を同時に実現しています。
+
+      HN上では「CXLはIntelが推進しているが、こうした実用的な活用事例が出てくるのは良い兆候——規格の普及には実用事例が重要」「旧RAMの帯域幅は新世代より劣るが、AI学習ではメモリ容量が最重要な場面が多い——良いトレードオフ」「これはMetaのカスタムシリコン戦略の一環——Google・AWSと同じく垂直統合を進めている」「データセンターの電力消費とカーボンフットプリントの観点からも、ハードウェアの寿命延長は重要な取り組み」という201コメントが展開しています。
+    </div>
+    <div class="cyan-items">
+      <div class="cyan-item">
+        <div>
+          <div class="cyan-label">CXL（Compute Express Link）とは</div>
+          <div class="cyan-text">CXL：PCIe 5.0/6.0の物理レイヤー上に構築された高帯域メモリ・デバイス相互接続の業界標準規格。Intel・AMD・ARM・Google・Meta・MicrosoftなどがCXLコンソーシアムを形成。主な用途：①メモリ拡張（CPUのメモリスロットを超えた大容量メモリの追加）②メモリプール（複数サーバー間でメモリを共有）③デバイス連携（GPU・FPGA・カスタムアクセラレータとのコヒーレントな接続）。AI学習では単一GPUのHBMメモリが足りない大規模モデルの学習でCXLによるメモリ拡張が有効。レイテンシはローカルRAMより若干増加するが帯域幅は十分</div>
+        </div>
+      </div>
+      <div class="cyan-item">
+        <div>
+          <div class="cyan-label">MetaのカスタムシリコンとAIインフラ戦略</div>
+          <div class="cyan-text">MetaはGoogleのTPU・AWSのTrainium・MicrosoftのMaia同様に自社AIチップを開発・展開している。MTIA（Meta Training and Inference Accelerator）：Metaの自社AI推論チップ。第2世代が2024年に展開開始。カスタムASIC戦略の利点：汎用GPUより特定ワークロードに最適化→コスト効率と電力効率の向上。今回のCXL ASICは推論チップではなく「メモリブリッジ」という位置づけ——特定ワークロードに特化したカスタムシリコンの幅広い活用を示している。NVIDIA GPUへの依存度を下げる長期戦略の一部</div>
+        </div>
+      </div>
+      <div class="cyan-item">
+        <div>
+          <div class="cyan-label">データセンターのサステナビリティと実務的含意</div>
+          <div class="cyan-text">ハードウェア廃棄の問題：旧世代サーバーのRAMは仕様上は正常でも「最新規格と互換性なし」として廃棄されることが多い。再利用の課題：DDR4とDDR5の電気的・プロトコル的差異（タイミング・電圧・コマンドセット）を解消するブリッジが必要——これがMetaのCXL ASICの役割。業界への示唆：①大規模クラウドプロバイダーでもMemory as a Serviceや旧ハードウェア再利用が経済的に成立する。②CXLが成熟するにつれてメモリのコンピュート分離が一般化→コスト構造が変わる。③e-wasteの削減観点でも有益な事例</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: theregister.com</span>
+      <span>281 ポイント</span>
+      <span>201 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.theregister.com/systems/2026/06/29/zuck-saves-meta-bucks-by-reusing-memory-from-old-servers-with-a-custom-cxl-asic/5263483" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48778956" target="_blank">HN議論 (201)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="meta-cxl-ram-reuse" data-type="like" onclick="toggleFlag('meta-cxl-ram-reuse','MetaがCXL独自チップで旧世代RAMを新AIサーバーに再利用','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="meta-cxl-ram-reuse" data-type="dislike" onclick="toggleFlag('meta-cxl-ram-reuse','MetaがCXL独自チップで旧世代RAMを新AIサーバーに再利用','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 7 — Postgres rewritten in Rust ════════════════════════════════ -->
+<section class="story story-7" id="s7">
+  <div class="story-num">07</div>
+  <div class="story-inner">
+    <div class="story-kicker">Rust / PostgreSQL / オープンソース / エンジニアリング — 個人プロジェクトとして進められてきた「pgrust」がPostgresの全回帰テストをパス。Rustで書かれたPostgres互換DBエンジンが動作証明の段階に到達。226ポイント・284コメント</div>
+    <h2 class="story-headline">
+      PostgresをRustで<br>書き直したら<br>回帰テスト<br>100%通過した
+    </h2>
+    <div class="story-body">
+      GitHubリポジトリ「pgrust」がHNに投稿され、226ポイント・284コメントを集めました。pgrust（github.com/malisper/pgrust）はPostgreSQLをRustで書き直すプロジェクトで、今回の発表のハイライトは「Postgresの公式回帰テスト（regression tests）を100%パスした」という事実です。これはPostgres互換のSQLを処理できる動作するエンジンが完成したことを意味しており、実用に向けた重要なマイルストーンです。
+
+      pgrust はC言語で書かれた本家PostgreSQLのコードをRustで書き直すことで、メモリ安全性（use-after-free・buffer overflowが原理的に起きない）を実現しながら、完全なPostgres互換性を維持することを目指しています。作者は単独で開発を続けており、パーサー・プランナー・エグゼキューターの順に実装を進めてきました。現時点ではSQLite程度の機能セット（シングルプロセス・限定的なACID保証）ですが、全回帰テストパスは「正しいSQLを処理できる」ことの証明として非常に意味があります。
+
+      HN上では「Postgresの回帰テストを全部書き直すこと自体が偉業——テスト数は数千あり、SQL方言の細かいコーナーケースを全て再現している」「これをベースにRust nativeのPostgres実装が育てば、C版Postgresのメモリバグに悩まされることがなくなる」「ただ本番互換PostgreSQLには拡張機能（extensions）・レプリケーション・TOAST・自動バキュームなど多くの追加機能が必要——まだ先は長い」「SQLiteのRust移植（Limbo）と同じ方向の動き——C言語の主要インフラを順次Rustへ」という284コメントが展開しています。
+    </div>
+    <div class="amber-items">
+      <div class="amber-item">
+        <div>
+          <div class="amber-label">Postgresの回帰テストとは</div>
+          <div class="amber-text">Postgresの回帰テスト（regression tests）：PostgreSQLプロジェクトが提供する公式テストスイート。SQLクエリを実行して期待通りの出力が返るかを検証。テスト数：数百〜数千のSQL文とその期待出力のセット。カバー範囲：基本的なCRUD・集約関数・JOIN・サブクエリ・トランザクション・型変換・文字列処理・日付/時刻処理・JSON操作・NULL扱いなどSQL方言の細部まで。「全パス」の意味：Postgresが定義するSQL処理の正確な動作を再現できていることを意味する。逆に言うと、パスしないと互換性があるとは言えない</div>
+        </div>
+      </div>
+      <div class="amber-item">
+        <div>
+          <div class="amber-label">なぜPostgresをRustで書き直すのか</div>
+          <div class="amber-text">C言語PostgreSQLの課題：30年以上にわたるC言語コードはメモリ管理の複雑さがあり、CVE（セキュリティ脆弱性）が定期的に報告される。バッファオーバーフロー・use-after-free等がCではコンパイル時に検出できない。Rustでの書き直しのメリット：①メモリ安全性——所有権システムでUAF・BOFをコンパイル時排除。②型安全性——NULLポインタ参照がRustでは原理的に起きない。③並行安全性——データ競合がコンパイル時に検出。先例：SQLiteのRust再実装「Limbo」・Linux kernel へのRust導入・Windowsのシステムコードへの部分Rust採用。Googleは「新規Cコードの代わりにRustを選ぶ」方針を公式化している</div>
+        </div>
+      </div>
+      <div class="amber-item">
+        <div>
+          <div class="amber-label">pgrust を使ってみる / 貢献する</div>
+          <div class="amber-text">GitHubリポジトリ：github.com/malisper/pgrust（MITライセンス）。現在の状態：開発中・本番利用は非推奨。試し方：`cargo build && cargo test`でビルド・テスト実行。Postgres回帰テストを自分で走らせてみることも可能（READMEに手順あり）。貢献の機会：まだ実装されていない機能（Window関数・各種拡張・レプリケーション）への貢献が歓迎されている。学習価値：データベースエンジンの内部（SQLパーサー・クエリプランナー・ストレージエンジン）をRustで学べる貴重なコードベース</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: github.com/malisper/pgrust</span>
+      <span>226 ポイント</span>
+      <span>284 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://github.com/malisper/pgrust" target="_blank">GitHubを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48841676" target="_blank">HN議論 (284)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="pgrust-100-percent" data-type="like" onclick="toggleFlag('pgrust-100-percent','PostgresをRustで書き直したら回帰テスト100%通過した','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="pgrust-100-percent" data-type="dislike" onclick="toggleFlag('pgrust-100-percent','PostgresをRustで書き直したら回帰テスト100%通過した','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 8 — Apple hidden feature kids dumb phone ═══════════════════════ -->
+<section class="story story-8" id="s8">
+  <div class="story-num">08</div>
+  <div class="story-inner">
+    <div class="story-kicker">Apple / プライバシー / 子育て / iOS — Wiredが報じるAppleの隠し機能「スクリーンタイム」の高度な活用法。iPhoneをWi-Fiなし・特定アプリのみ使えるシンプルデバイスに変換できる。217ポイント・140コメント</div>
+    <h2 class="story-headline">
+      Appleの隠し<br>機能でiPhoneを<br>「子ども向け<br>ダムフォン」に
+    </h2>
+    <div class="story-body">
+      Wiredが「This Buried Apple Feature Turns an iPhone into the Perfect Kids' Dumb Phone」を掲載し、217ポイント・140コメントを集めました。記事が紹介するのは、iOSのスクリーンタイム（Screen Time）の「通信の制限（Communication Limits）」と「コンテンツとプライバシーの制限」を組み合わせた高度な設定で、iPhoneを事実上のフィーチャーフォン（ダムフォン）相当に変換する方法です。
+
+      具体的には、①許可する連絡先を家族のみに限定、②許可するアプリを通話・SMS・カメラ・特定の教育アプリのみに絞り込み、③Safari・App Storeへのアクセスを完全ブロック、④「フォーカスモード」と組み合わせて特定時間帯（夜10時〜朝7時）は完全に機能を制限、⑤設定変更を保護者パスコードでロックする——という一連の設定です。この設定を行うと、子どもは許可された相手にしか連絡できず、許可されたアプリしか使えない「制限付きスマートフォン」が完成します。
+
+      HN上では「これはティーンエイジャーのスマートフォン中毒問題に対する実践的な回答——専用のGabb Phoneを買わなくていい」「設定が複雑すぎて親が挫折しやすい——Appleがもっとシンプルな『子どもモード』UIを用意すべき」「問題は子どもがこの制限を回避する方法を知っていること——iOSよりも信頼関係の構築が重要」「11歳の娘に試したら最初は怒ったが3ヶ月後には感謝された——ルール設定と対話が鍵」という140コメントが展開しています。
+    </div>
+    <div class="gold-items">
+      <div class="gold-item">
+        <div>
+          <div class="gold-label">Step by Step: iPhoneをダムフォン化する手順</div>
+          <div class="gold-text">①設定→スクリーンタイム→「これは自分のiPhoneです（保護者用）」をオフに→「これは子どものiPhoneです」をオンに（親のApple IDで認証）。②コンテンツとプライバシーの制限を有効化→Appを「許可されたAppのみ」に変更。③インターネット通信の制限：Safari・ブラウザをオフ・WebコンテンツをAppleのホワイトリストのみに。④通信の制限：連絡先を「連絡先に登録されている相手のみ」に（家族のみ登録した連絡先を使用）。⑤スクリーンタイムのパスコードを親が設定（子どものiPhoneのパスコードとは別）。⑥フォーカスモードで就寝時間帯は通話・SMS以外を全てオフ</div>
+        </div>
+      </div>
+      <div class="gold-item">
+        <div>
+          <div class="gold-label">制限の有効性と限界</div>
+          <div class="gold-text">有効な点：①誤って有害コンテンツに触れるリスクを大幅低下。②SNS中毒の入り口を断つ（App Storeにアクセスできないためアプリを追加できない）。③特定アプリ（YouTube・TikTok）を完全に除外できる。限界：①Wi-Fiがある環境でiPhoneをMacにつないでItunesを使う抜け道がある（まれ）。②友人のスマートフォン経由でコンテンツを見る（物理的な抜け道）。③Appleの設定UIが複雑で親が完全設定できないことが多い。④制限が厳しすぎると反発・隠蔽が増える。最大の落とし穴：設定で満足して「対話」をやめること</div>
+        </div>
+      </div>
+      <div class="gold-item">
+        <div>
+          <div class="gold-label">代替選択肢との比較</div>
+          <div class="gold-text">専用キッズフォン：Gabb Phone（$120/月額$20〜）・Bark Phone（$49/月額$50〜）——通話・SMS・ゲームなし設計。Android代替：Googleの「ファミリーリンク」でも同様の制限が可能。専用端末：Apple Watch Ultra（セルラー）——位置情報確認・通話のみ可能なスマートウォッチ。純粋なフィーチャーフォン：Nokia 3310など——SNS不可・ゲーム最小・バッテリー持続数日。結論：既存のiPhoneを持っていれば追加コストゼロで試せるAppleの設定活用が最もコスパが良い。ただし設定の手間と継続的な親子対話が必須</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: wired.com</span>
+      <span>217 ポイント</span>
+      <span>140 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.wired.com/story/this-buried-apple-feature-turns-an-iphone-into-the-perfect-kids-dumb-phone/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48803004" target="_blank">HN議論 (140)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="apple-kids-dumb-phone" data-type="like" onclick="toggleFlag('apple-kids-dumb-phone','Appleの隠し機能でiPhoneを子ども向けダムフォンに','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="apple-kids-dumb-phone" data-type="dislike" onclick="toggleFlag('apple-kids-dumb-phone','Appleの隠し機能でiPhoneを子ども向けダムフォンに','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 9 — No leap second December 2026 ══════════════════════════════ -->
+<section class="story story-9" id="s9">
+  <div class="story-num">09</div>
+  <div class="story-inner">
+    <div class="story-kicker">科学 / 時計 / IERS / 地球 — 国際地球回転・基準座標系事業（IERS）が正式告示：2026年12月31日23:59:60は存在しない。地球の自転がわずかに加速しているため今年は閏秒不要。204ポイント・163コメント</div>
+    <h2 class="story-headline">
+      2026年12月末<br>に閏秒は<br>挿入されない——<br>IERSが正式発表
+    </h2>
+    <div class="story-body">
+      IERS（国際地球回転・基準座標系事業）が公式のBulletin Cを発表し、「2026年12月31日の末尾に閏秒（leap second）は挿入されない」と告知しました。この告知が204ポイント・163コメントを集め、HNコミュニティの注目を集めました。閏秒は地球の自転速度の変動に合わせてUTC（協定世界時）を調整するために挿入される1秒で、1972年以来合計27回挿入されてきました。
+
+      興味深いのは、近年地球の自転がやや加速している傾向にあることです。歴史的には地球の自転はゆっくり遅くなっており（月の引力による潮汐摩擦が原因）、閏秒は「遅れを取り戻すために挿入」してきました。しかし2016年以降、地球の自転速度がわずかに速くなっており、最近では「負の閏秒（1秒を引く）」の必要性が議論されてきました。2026年は閏秒挿入も削除も不要という告示は、地球の自転が今期は安定に近い状態であることを示しています。
+
+      HN上では「開発者にとっては朗報——閏秒はシステム時刻の扱いで深刻なバグを引き起こしてきた。Googleは『閏秒スミア』と呼ぶ手法で24時間かけて1秒を分散させている」「ITU（国際電気通信連合）は2035年に閏秒制度を廃止する予定——この決定が来たときにいくつかのシステムは何もしなくていい」「地球の自転が速くなっているという事実は直感に反する——人類の活動（水を高地から低地に移す・氷河融解）が関係しているかもしれない」という163コメントが展開しています。
+    </div>
+    <div class="slate-items">
+      <div class="slate-item">
+        <div>
+          <div class="slate-label">閏秒とは何か、なぜシステムに問題をもたらすか</div>
+          <div class="slate-text">閏秒：23:59:59の後に23:59:60が挿入されることがある（または削除）。NTPサーバーがこれを告知し、OSが時刻を調整する。問題が起きる理由：①UnixタイムスタンプはSI秒の連続カウントを前提——閏秒は「同じ時刻が2秒続く」または「1秒が欠落する」ことを意味する。②ソフトウェアが23:59:60を不正な時刻として扱いクラッシュした事例あり（2012年: Reddit・Foursquare・LinkedIn）。③分散システムで各ノードが異なるタイミングで閏秒を適用すると不整合が発生。対処法：Google Smear（時刻を24時間かけて微調整）・AWS同様のアプローチ・Linuxの`CLOCK_TAI`使用</div>
+        </div>
+      </div>
+      <div class="slate-item">
+        <div>
+          <div class="slate-label">地球の自転が最近速くなっている理由</div>
+          <div class="slate-text">長期トレンド：月の引力による潮汐摩擦で地球の自転は年間約1.4ミリ秒ずつ遅くなっている——これが閏秒挿入の歴史的理由。2016年以降の変化：地球の自転が一時的に速くなり始めた。複数の要因が提唱されている：①地球内部のコア（液体鉄）の流動変化。②気候変動による氷河融解——質量が極から赤道方向に移動すると角運動量の保存でフィギュアスケーターが腕を縮めるように自転が速くなる（フィギュアスケーター効果）。③大気・海洋の循環パターンの変化。科学者の一致見解：複合的な要因だが正確な重み付けはまだ研究中</div>
+        </div>
+      </div>
+      <div class="slate-item">
+        <div>
+          <div class="slate-label">2035年の閏秒廃止と今後の時刻管理</div>
+          <div class="slate-text">ITUの決定（2022年）：2035年までに閏秒制度を廃止。UTCは地球の自転から切り離され、TAI（国際原子時）に近い形で純粋な原子時計ベースになる。廃止後の問題：UTCと天文時刻（UT1）の差が蓄積し続け、数千年後には昼と夜の時刻がずれる——これを許容するという判断。開発者への意味：①今後新たな閏秒バグを心配する必要が減る。②ただし2035年まではまだ閏秒が挿入・削除される可能性がある。③2035年以降もレガシーシステムの閏秒コードをどう扱うかが新たな課題に。対策：`chrony`・`ntpd`の設定確認と閏秒スミア対応のNTPソースの利用</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: datacenter.iers.org</span>
+      <span>204 ポイント</span>
+      <span>163 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://datacenter.iers.org/data/latestVersion/bulletinC.txt" target="_blank">IERS告示を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48846281" target="_blank">HN議論 (163)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="no-leap-second-2026" data-type="like" onclick="toggleFlag('no-leap-second-2026','2026年12月末に閏秒は挿入されない——IERSが正式発表','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="no-leap-second-2026" data-type="dislike" onclick="toggleFlag('no-leap-second-2026','2026年12月末に閏秒は挿入されない——IERSが正式発表','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 10 — TLS for internal services ════════════════════════════════ -->
+<section class="story story-10" id="s10">
+  <div class="story-num">10</div>
+  <div class="story-inner">
+    <div class="story-kicker">セキュリティ / TLS / 内部サービス / devops — tuxnet.devが「内部サービスのTLS証明書を正しくやる方法」を詳解。自己署名・Let's Encrypt・プライベートCA——それぞれの正しい使い方と落とし穴を整理。111ポイント・79コメント</div>
+    <h2 class="story-headline">
+      内部サービスの<br>TLS証明書を<br>正しくやる<br>方法
+    </h2>
+    <div class="story-body">
+      「TLS certificates for internal services done right」がtuxnet.devで公開され、111ポイント・79コメントを集めました。内部サービス（社内ツール・開発環境・マイクロサービス間通信・Homelab）のHTTPS化は、多くの開発者が「とりあえず自己署名証明書で」と片付けがちな問題です。この記事はその落とし穴を整理し、用途に応じた正しい方法を提示しています。
+
+      記事の核心は「内部サービスでも証明書の選択を間違えると実運用で詰む」という主張です。自己署名証明書の問題は、ブラウザが警告を表示するだけでなく、mTLS（相互認証）・HTTP/2・サービスメッシュの設定で予期しない問題が起きることです。一方、Let's EncryptをDockerコンテナの内部通信に使うのも（可能ではあるが）適切でない場合があります。記事は①プライベートCA（smallstep/step-ca・HashiCorp Vault PKI等）の使い方、②Caddy/Traefikによる自動証明書管理、③Tailscale/Wireguardとの組み合わせでTLSを不要にするアプローチ、の3パターンを詳しく解説しています。
+
+      HN上では「step-caは本当に便利——プライベートCAを数コマンドで立ち上げて自動更新まで設定できる」「マイクロサービス間通信はIstio/EnvoyのサービスメッシュでmTLSを自動化するのが現代的な正解」「Tailscaleを使うとVPN内部通信がHTTPSなしでも安全になる——Tailscale MagicDNS + Let's Encryptの組み合わせも良い」「HomelabでDuckDNS + Let's Encryptを使って内部サービスに本物の証明書を当てている——ドメインの所有証明でDNS-01チャレンジを使う方法が鍵」という79コメントが展開しています。
+    </div>
+    <div class="mag-items">
+      <div class="mag-item">
+        <div>
+          <div class="mag-label">内部サービスTLS証明書の3つの選択肢</div>
+          <div class="mag-text">①自己署名証明書（Self-signed）：最も簡単だが最も問題が多い。ブラウザ警告・mTLS設定の複雑さ・証明書の手動管理。開発環境のみに限定すべき。②Let's Encrypt（公開CA）：外部からアクセス可能なドメインが必要。DNS-01チャレンジを使えばサービスを公開せずに証明書取得可能。内部サービスのドメイン（例: internal.example.com）に対して使える。③プライベートCA（Private Certificate Authority）：社内で独自のCAを運営。step-ca・HashiCorp Vault PKI・cfssl等のツールで構築。全デバイスにCA証明書を配布すれば警告なしでHTTPS通信できる。推奨：本番環境の内部サービスにはプライベートCA一択</div>
+        </div>
+      </div>
+      <div class="mag-item">
+        <div>
+          <div class="mag-label">step-caで内部CAを5分で構築する</div>
+          <div class="mag-text">step-ca（github.com/smallstep/certificates）：オープンソースのプライベートCAサーバー。インストール：`brew install step` / `apt install step-ca`。初期化：`step ca init`で対話的にCAを設定（5分で完了）。証明書発行：`step ca certificate internal.example.com tls.crt tls.key`で任意のドメインの証明書を発行。自動更新：`step ca renew --daemon tls.crt tls.key`で自動更新設定。CA証明書の信頼：`step certificate install $(step path)/certs/root_ca.crt`でシステムに信頼させる。DockerやKubernetesとの統合例もREADMEに豊富にある</div>
+        </div>
+      </div>
+      <div class="mag-item">
+        <div>
+          <div class="mag-label">Tailscale + MagicDNS + Let's Encryptの組み合わせ</div>
+          <div class="mag-text">Tailscale MagicDNS：VPN内のデバイスに`machinename.tailXXXX.ts.net`という形式のドメインが自動で割り当てられる。Let's Encryptとの組み合わせ：Tailscaleは公式にLet's Encryptの証明書自動取得をサポート（`tailscale cert`コマンド）。DNS-01チャレンジをTailscaleが自動処理→プライベートIPのサービスに本物の証明書を当てられる。手順：①Tailscaleをインストール・デバイスをネットワークに追加。②`tailscale cert $(tailscale ip -4 | cut -d. -f1-4).ts.net`で証明書取得（自動）。③Nginx/Caddyでこのホスト名と証明書を使う設定をするだけ。VPN外からはアクセス不可なため内部専用TLSとして最適</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: tuxnet.dev</span>
+      <span>111 ポイント</span>
+      <span>79 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://tuxnet.dev/posts/tls-for-internal-services/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48846995" target="_blank">HN議論 (79)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="tls-internal-services" data-type="like" onclick="toggleFlag('tls-internal-services','内部サービスのTLS証明書を正しくやる方法','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="tls-internal-services" data-type="dislike" onclick="toggleFlag('tls-internal-services','内部サービスのTLS証明書を正しくやる方法','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══════════════════════════════════════════════════════════════ -->
+<footer class="site-footer">
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand">Morning Edition</div>
+      <div class="footer-meta">
+        Hacker News キュレーション · 2026年7月10日 · Issue No.072<br>
+        毎朝、厳選10本をお届け
+      </div>
+    </div>
+    <button class="export-btn" onclick="exportFeedback()">📋 フィードバックをコピー</button>
+  </div>
+  <div class="footer-note">
+    ⭐ 興味あり / ✕ 興味なし ボタンで次回のキュレーションが改善されます。Chrome/Edgeでは自動保存、その他ではボタンでクリップボードにコピーしてください。
+  </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  const FEEDBACK_KEY = 'morning-edition-feedback-v2';
+  const TODAY = '2026-07-10';
+  let _dirHandle = null;
+
+  async function getDir(forcePrompt) {
+    if (_dirHandle && !forcePrompt) return _dirHandle;
+    if (!window.showDirectoryPicker) return null;
+    try {
+      _dirHandle = await window.showDirectoryPicker({ mode: 'readwrite', id: 'morning-edition', startIn: 'documents' });
+      return _dirHandle;
+    } catch { return null; }
+  }
+
+  async function writeJSON(dirHandle, fb) {
+    const fileHandle = await dirHandle.getFileHandle('feedback.json', { create: true });
+    const writable = await fileHandle.createWritable();
+    await writable.write(JSON.stringify({ ...fb, updatedAt: new Date().toISOString() }, null, 2));
+    await writable.close();
+  }
+
+  function showToast(msg, isErr) {
+    const el = document.getElementById('toast');
+    el.textContent = msg;
+    el.className = 'toast' + (isErr ? ' error' : '');
+    requestAnimationFrame(() => el.classList.add('show'));
+    clearTimeout(el._timer);
+    el._timer = setTimeout(() => el.classList.remove('show'), 3000);
+  }
+
+  function getFeedback() {
+    try { return JSON.parse(localStorage.getItem(FEEDBACK_KEY) || '{"liked":{},"disliked":{}}'); }
+    catch { return { liked: {}, disliked: {} }; }
+  }
+  function saveFeedback(fb) { localStorage.setItem(FEEDBACK_KEY, JSON.stringify(fb)); }
+
+  async function autoSave(fb) {
+    let dir = await getDir();
+    if (!dir) {
+      showToast('📁 Daily News フォルダを選択してください', true);
+      dir = await getDir(true);
+      if (!dir) { showToast('保存をキャンセルしました', true); return; }
+    }
+    try {
+      await writeJSON(dir, fb);
+      showToast('✓ feedback.json を自動保存しました（次回キュレーションに反映）');
+    } catch (e) {
+      showToast('保存エラー: ' + e.message, true);
+    }
+  }
+
+  async function toggleFlag(storyId, title, type) {
+    const fb = getFeedback();
+    fb.liked = fb.liked || {};
+    fb.disliked = fb.disliked || {};
+    const likeBtn    = document.querySelector(`.flag-btn.like-btn[data-story="${storyId}"]`);
+    const dislikeBtn = document.querySelector(`.flag-btn.dislike-btn[data-story="${storyId}"]`);
+    if (type === 'like') {
+      if (fb.liked[storyId]) {
+        delete fb.liked[storyId];
+        likeBtn?.classList.remove('active');
+      } else {
+        fb.liked[storyId] = { title, date: TODAY };
+        delete fb.disliked[storyId];
+        likeBtn?.classList.add('active');
+        dislikeBtn?.classList.remove('active');
+      }
+    } else {
+      if (fb.disliked[storyId]) {
+        delete fb.disliked[storyId];
+        dislikeBtn?.classList.remove('active');
+      } else {
+        fb.disliked[storyId] = { title, date: TODAY };
+        delete fb.liked[storyId];
+        dislikeBtn?.classList.add('active');
+        likeBtn?.classList.remove('active');
+      }
+    }
+    saveFeedback(fb);
+    await autoSave(fb);
+  }
+
+  function exportFeedback() {
+    const fb = getFeedback();
+    const json = JSON.stringify({ ...fb, exportedAt: new Date().toISOString() }, null, 2);
+    navigator.clipboard.writeText(json)
+      .then(() => showToast('📋 クリップボードにコピーしました'))
+      .catch(() => {
+        const el = document.createElement('textarea');
+        el.value = json; document.body.appendChild(el); el.select();
+        document.execCommand('copy'); document.body.removeChild(el);
+        showToast('📋 クリップボードにコピーしました');
+      });
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const fb = getFeedback();
+    document.querySelectorAll('.flag-btn').forEach(btn => {
+      const id   = btn.dataset.story;
+      const type = btn.dataset.type;
+      if ((type === 'like' && fb.liked?.[id]) || (type === 'dislike' && fb.disliked?.[id])) {
+        btn.classList.add('active');
+      }
+    });
+  });
+</script>
+</body>
+</html>
