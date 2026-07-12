@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Morning Edition — 2026年7月12日</title>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --font: 'M PLUS Rounded 1c', 'Hiragino Sans', 'Noto Sans JP', sans-serif; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); background: #111; color: #fff; overflow-x: hidden; }
+
+    .masthead { background: #fff; color: #000; padding: 3rem 4rem 2.5rem; border-bottom: 6px solid #000; position: relative; overflow: hidden; }
+    .masthead::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: repeating-linear-gradient(90deg, #000 0, #000 12px, transparent 12px, transparent 20px); }
+    .masthead-kicker { font-size: 0.85rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: #777; margin-bottom: 0.6rem; }
+    .masthead-title { font-size: clamp(3.5rem, 9vw, 7.5rem); font-weight: 900; line-height: 0.88; letter-spacing: -0.04em; margin-bottom: 1.8rem; }
+    .masthead-meta { display: flex; gap: 3rem; align-items: baseline; flex-wrap: wrap; }
+    .masthead-date { font-size: 1.5rem; font-weight: 700; }
+    .masthead-subtitle { font-size: 1rem; font-weight: 400; color: #555; max-width: 480px; line-height: 1.5; }
+    .masthead-issue { margin-left: auto; text-align: right; }
+    .masthead-issue span { display: block; }
+    .masthead-issue .iss-label { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: #999; }
+    .masthead-issue .iss-num { font-size: 2.2rem; font-weight: 900; color: #000; }
+
+    .toc { background: #1a1a1a; padding: 1.5rem 4rem; display: flex; gap: 1.5rem; flex-wrap: wrap; border-bottom: 1px solid #333; }
+    .toc a { color: #aaa; text-decoration: none; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; transition: color 0.2s; }
+    .toc a:hover { color: #fff; }
+    .toc-num { color: #555; margin-right: 0.3em; }
+
+    .story { position: relative; overflow: hidden; }
+    .story-inner { max-width: 1200px; margin: 0 auto; padding: 5rem 4rem; position: relative; z-index: 1; }
+    .story-num { font-size: clamp(6rem, 18vw, 16rem); font-weight: 900; line-height: 0.8; letter-spacing: -0.06em; opacity: 0.08; position: absolute; top: 1rem; right: 2rem; user-select: none; }
+    .story-badge { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.35em 0.9em; border-radius: 2px; margin-bottom: 1.5rem; }
+    .direct-badge { background: #FFD700; color: #000; }
+    .story-kicker { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; opacity: 0.6; margin-bottom: 0.8rem; }
+    .story-headline { font-size: clamp(2rem, 5vw, 4rem); font-weight: 900; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+    .story-body { font-size: clamp(1rem, 1.5vw, 1.2rem); font-weight: 400; line-height: 1.8; max-width: 680px; opacity: 0.88; margin-bottom: 2rem; }
+    .story-meta { display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center; font-size: 0.8rem; font-weight: 700; opacity: 0.5; }
+    .story-links { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem; }
+    .story-link { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.6em 1.4em; border-radius: 3px; text-decoration: none; transition: opacity 0.2s, transform 0.15s; }
+    .story-link:hover { opacity: 0.75; transform: translateY(-1px); }
+
+    .feedback-buttons { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .flag-btn { background: none; border: 1px solid currentColor; color: inherit; font-family: var(--font); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.5em 1em; border-radius: 3px; cursor: pointer; opacity: 0.32; transition: opacity 0.2s, background 0.2s, color 0.2s, border-color 0.2s, transform 0.15s; }
+    .flag-btn:hover { opacity: 0.72; transform: translateY(-1px); }
+    .flag-btn.like-btn.active { opacity: 1; background: rgba(255,215,0,0.15); border-color: #FFD700; color: #FFD700 !important; }
+    .flag-btn.dislike-btn.active { opacity: 1; background: rgba(255,60,60,0.12); border-color: #FF4444; color: #FF4444 !important; }
+
+    .toast { position: fixed; bottom: 2rem; right: 2rem; background: #1a1a1a; color: #fff; font-family: var(--font); font-size: 0.82rem; font-weight: 700; padding: 0.75em 1.4em; border-radius: 4px; border-left: 3px solid #00C853; z-index: 9999; opacity: 0; transform: translateY(10px); transition: opacity 0.25s, transform 0.25s; pointer-events: none; box-shadow: 0 4px 24px rgba(0,0,0,0.45); }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    .toast.error { border-left-color: #FF5252; }
+
+    .story-1 { background: #fff; color: #000; min-height: 90vh; display: flex; flex-direction: column; justify-content: center; }
+    .story-1 .story-num { color: #000; opacity: 0.04; }
+    .story-1 .story-kicker { color: #555; opacity: 1; }
+    .story-1 .story-headline { color: #000; }
+    .story-1 .story-body { color: #111; }
+    .story-1 .story-meta { color: #000; }
+    .story-1 .story-link.primary { background: #1a1a1a; color: #fff; }
+    .story-1 .story-link.secondary { background: #f0f0f0; color: #000; }
+    .story-1 .flag-btn { color: #000; }
+    .story-1-accent { position: absolute; bottom: 0; left: 0; width: 100%; height: 8px; background: linear-gradient(90deg, #5A28C8, #8050E0, #5A28C8); }
+    .story-1 .headline-accent { display: inline-block; background: linear-gradient(135deg, #5A28C8 0%, #8050E0 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .dos-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1.2rem; margin: 2rem 0; max-width: 680px; }
+    .dos-card { border: 2px solid rgba(0,0,0,0.12); background: rgba(0,0,0,0.04); border-radius: 6px; padding: 1.3rem 1.5rem; }
+    .dos-card-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.2em; text-transform: uppercase; color: #333; margin-bottom: 0.4rem; }
+    .dos-card-value { font-size: 1.05rem; font-weight: 900; color: #000; line-height: 1.3; }
+    .dos-card-sub { font-size: 0.75rem; color: #555; margin-top: 0.3rem; line-height: 1.4; }
+
+    .story-2 { background: #00080c; color: #b8f0ff; min-height: 80vh; }
+    .story-2::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(0,160,200,0.14) 0%, transparent 65%); }
+    .story-2 .story-num { color: #00A0C8; opacity: 0.07; }
+    .story-2 .story-kicker { color: #20C8E8; opacity: 1; }
+    .story-2 .story-headline { color: #e0f8ff; }
+    .story-2 .story-body { color: #b8f0ff; }
+    .story-2 .story-meta { color: #20C8E8; opacity: 0.5; }
+    .story-2 .story-link.primary { background: #004058; color: #80e8ff; }
+    .story-2 .story-link.secondary { background: rgba(0,160,200,0.08); color: #90d8f0; border: 1px solid rgba(0,160,200,0.22); }
+    .story-2 .flag-btn { color: #b8f0ff; }
+    .teal-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .teal-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(0,160,200,0.07); border-left: 3px solid #00A0C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .teal-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20C8E8; margin-bottom: 0.3rem; }
+    .teal-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-3 { background: #0a0000; color: #fff; min-height: 80vh; }
+    .story-3::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(200,20,20,0.16) 0%, transparent 65%); }
+    .story-3 .story-num { color: #C81414; opacity: 0.07; }
+    .story-3 .story-kicker { color: #E84040; opacity: 1; }
+    .story-3 .story-headline { color: #fff; }
+    .story-3 .story-body { color: rgba(255,255,255,0.88); }
+    .story-3 .story-meta { color: #E84040; opacity: 0.5; }
+    .story-3 .story-link.primary { background: #6a0000; color: #fff; }
+    .story-3 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-3 .flag-btn { color: #fff; }
+    .red-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .red-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(200,20,20,0.07); border-left: 3px solid #C81414; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .red-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E84040; margin-bottom: 0.3rem; }
+    .red-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-4 { background: #020c04; color: #c8f0d0; min-height: 80vh; }
+    .story-4::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(20,160,70,0.16) 0%, transparent 65%); }
+    .story-4 .story-num { color: #14A046; opacity: 0.07; }
+    .story-4 .story-kicker { color: #30C060; opacity: 1; }
+    .story-4 .story-headline { color: #e0ffe8; }
+    .story-4 .story-body { color: #c8f0d0; }
+    .story-4 .story-meta { color: #30C060; opacity: 0.5; }
+    .story-4 .story-link.primary { background: #063820; color: #80ffb0; }
+    .story-4 .story-link.secondary { background: rgba(20,160,70,0.08); color: #a0e8b0; border: 1px solid rgba(20,160,70,0.22); }
+    .story-4 .flag-btn { color: #c8f0d0; }
+    .green-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .green-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(20,160,70,0.07); border-left: 3px solid #14A046; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .green-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #30C060; margin-bottom: 0.3rem; }
+    .green-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-5 { background: #040010; color: #d8c8ff; min-height: 75vh; }
+    .story-5::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(90,40,200,0.17) 0%, transparent 65%); }
+    .story-5 .story-num { color: #5A28C8; opacity: 0.07; }
+    .story-5 .story-kicker { color: #8050E0; opacity: 1; }
+    .story-5 .story-headline { color: #f0e8ff; }
+    .story-5 .story-body { color: #d8c8ff; }
+    .story-5 .story-meta { color: #8050E0; opacity: 0.5; }
+    .story-5 .story-link.primary { background: #200860; color: #d0a8ff; }
+    .story-5 .story-link.secondary { background: rgba(90,40,200,0.08); color: #c0a0f0; border: 1px solid rgba(90,40,200,0.22); }
+    .story-5 .flag-btn { color: #d8c8ff; }
+    .purple-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .purple-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(90,40,200,0.07); border-left: 3px solid #5A28C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .purple-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #8050E0; margin-bottom: 0.3rem; }
+    .purple-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-6 { background: #000c10; color: #b8e8f0; min-height: 75vh; }
+    .story-6::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 40%, rgba(0,130,160,0.14) 0%, transparent 65%); }
+    .story-6 .story-num { color: #0080A0; opacity: 0.07; }
+    .story-6 .story-kicker { color: #20B0D0; opacity: 1; }
+    .story-6 .story-headline { color: #e0f4ff; }
+    .story-6 .story-body { color: #b8e8f0; }
+    .story-6 .story-meta { color: #20B0D0; opacity: 0.5; }
+    .story-6 .story-link.primary { background: #003848; color: #80d8f0; }
+    .story-6 .story-link.secondary { background: rgba(0,130,160,0.08); color: #90cce0; border: 1px solid rgba(0,130,160,0.22); }
+    .story-6 .flag-btn { color: #b8e8f0; }
+    .cyan-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .cyan-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(0,130,160,0.07); border-left: 3px solid #0080A0; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .cyan-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20B0D0; margin-bottom: 0.3rem; }
+    .cyan-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-7 { background: #0a0300; color: #ffe0b8; min-height: 75vh; }
+    .story-7::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(210,90,20,0.18) 0%, transparent 65%); }
+    .story-7 .story-num { color: #D05A14; opacity: 0.07; }
+    .story-7 .story-kicker { color: #E88040; opacity: 1; }
+    .story-7 .story-headline { color: #fff0d8; }
+    .story-7 .story-body { color: #ffe0b8; }
+    .story-7 .story-meta { color: #E88040; opacity: 0.5; }
+    .story-7 .story-link.primary { background: #6a2400; color: #ffc880; }
+    .story-7 .story-link.secondary { background: rgba(210,90,20,0.08); color: #ffb870; border: 1px solid rgba(210,90,20,0.22); }
+    .story-7 .flag-btn { color: #ffe0b8; }
+    .amber-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .amber-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(210,90,20,0.07); border-left: 3px solid #D05A14; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .amber-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E88040; margin-bottom: 0.3rem; }
+    .amber-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-8 { background: #080500; color: #fff; min-height: 70vh; }
+    .story-8::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,145,10,0.15) 0%, transparent 65%); }
+    .story-8 .story-num { color: #BE9110; opacity: 0.06; }
+    .story-8 .story-kicker { color: #D4A820; opacity: 1; }
+    .story-8 .story-headline { color: #fff; }
+    .story-8 .story-body { color: rgba(255,255,255,0.88); }
+    .story-8 .story-meta { color: #D4A820; opacity: 0.5; }
+    .story-8 .story-link.primary { background: #604000; color: #ffe070; }
+    .story-8 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-8 .flag-btn { color: #fff; }
+    .gold-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .gold-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(190,145,10,0.07); border-left: 3px solid #BE9110; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .gold-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #D4A820; margin-bottom: 0.3rem; }
+    .gold-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-9 { background: #040810; color: #c8d8f0; min-height: 70vh; }
+    .story-9::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 35%, rgba(50,90,170,0.16) 0%, transparent 65%); }
+    .story-9 .story-num { color: #3258A8; opacity: 0.07; }
+    .story-9 .story-kicker { color: #5878C8; opacity: 1; }
+    .story-9 .story-headline { color: #e8f0ff; }
+    .story-9 .story-body { color: #c8d8f0; }
+    .story-9 .story-meta { color: #5878C8; opacity: 0.5; }
+    .story-9 .story-link.primary { background: #101e50; color: #fff; }
+    .story-9 .story-link.secondary { background: rgba(50,90,170,0.08); color: #b0c8e8; border: 1px solid rgba(50,90,170,0.22); }
+    .story-9 .flag-btn { color: #c8d8f0; }
+    .slate-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .slate-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(50,90,170,0.07); border-left: 3px solid #3258A8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .slate-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #5878C8; margin-bottom: 0.3rem; }
+    .slate-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-10 { background: #080004; color: #ffc8e8; min-height: 70vh; }
+    .story-10::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,20,90,0.15) 0%, transparent 65%); }
+    .story-10 .story-num { color: #BE1458; opacity: 0.07; }
+    .story-10 .story-kicker { color: #E04080; opacity: 1; }
+    .story-10 .story-headline { color: #fff0f8; }
+    .story-10 .story-body { color: #ffc8e8; }
+    .story-10 .story-meta { color: #E04080; opacity: 0.5; }
+    .story-10 .story-link.primary { background: #500030; color: #ffb0d8; }
+    .story-10 .story-link.secondary { background: rgba(190,20,90,0.08); color: #f090c0; border: 1px solid rgba(190,20,90,0.22); }
+    .story-10 .flag-btn { color: #ffc8e8; }
+    .mag-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .mag-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(190,20,90,0.07); border-left: 3px solid #BE1458; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .mag-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E04080; margin-bottom: 0.3rem; }
+    .mag-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .site-footer { background: #000; color: #555; padding: 3rem 4rem; display: flex; flex-direction: column; gap: 1.5rem; border-top: 1px solid #222; }
+    .footer-top { display: flex; gap: 2rem; align-items: center; flex-wrap: wrap; justify-content: space-between; }
+    .footer-brand { font-size: 1.4rem; font-weight: 900; color: #fff; }
+    .footer-meta { font-size: 0.75rem; line-height: 1.6; }
+    .export-btn { background: #222; border: 1px solid #444; color: #fff; font-family: var(--font); font-size: 0.8rem; font-weight: 700; padding: 0.7em 1.5em; border-radius: 3px; cursor: pointer; letter-spacing: 0.08em; transition: background 0.2s; }
+    .export-btn:hover { background: #333; }
+    .footer-note { font-size: 0.7rem; opacity: 0.5; }
+
+    @media (max-width: 768px) {
+      .masthead, .toc, .story-inner, .site-footer { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .story-num { display: none; }
+      .masthead-meta { gap: 1rem; }
+      .masthead-issue { margin-left: 0; }
+      .dos-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+<nav style="background:#1a1a1a;border-bottom:1px solid #333;padding:0.55rem 2rem;font-family:'M PLUS Rounded 1c','Hiragino Sans','Noto Sans JP',sans-serif;position:sticky;top:0;z-index:999;">
+  <a href="./index.html" style="color:#aaa;text-decoration:none;font-size:0.8rem;font-weight:700;letter-spacing:0.03em;display:inline-flex;align-items:center;gap:0.4rem;transition:color 0.15s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#aaa'">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    アーカイブへ戻る
+  </a>
+</nav>
+
+<header class="masthead">
+  <div class="masthead-kicker">Hacker News — Morning Edition</div>
+  <h1 class="masthead-title">Morning<br>Edition</h1>
+  <div class="masthead-meta">
+    <div>
+      <div class="masthead-date">2026年7月12日 日曜日</div>
+      <div class="masthead-subtitle">AI・開発ツール・プライバシー・サイエンス — あなたのための10本</div>
+    </div>
+    <div class="masthead-issue">
+      <span class="iss-label">Issue</span>
+      <span class="iss-num">No.074</span>
+    </div>
+  </div>
+</header>
+
+<nav class="toc">
+  <a href="#s1"><span class="toc-num">01</span>AppleがOpenAIを提訴——元社員が企業秘密を持ち出した</a>
+  <a href="#s2"><span class="toc-num">02</span>「Claudeの最新モデルが体験を壊している」ユーザーの声</a>
+  <a href="#s3"><span class="toc-num">03</span>geohot が語るAI 2040年——知性崇拝の危うさ</a>
+  <a href="#s4"><span class="toc-num">04</span>相対性理論が重元素の化学結合を支配している</a>
+  <a href="#s5"><span class="toc-num">05</span>住宅プロキシとスクレイピング問題の深層</a>
+  <a href="#s6"><span class="toc-num">06</span>ミニマルインテリアが脳を疲弊させる研究</a>
+  <a href="#s7"><span class="toc-num">07</span>SQLite STRICTテーブルで型安全設計</a>
+  <a href="#s8"><span class="toc-num">08</span>PgBouncerを4倍スループットにスケールした方法</a>
+  <a href="#s9"><span class="toc-num">09</span>AntJS——JavaScriptの新ランタイムとエコシステム</a>
+  <a href="#s10"><span class="toc-num">10</span>Redis/Git/DBをゼロから作り直して学ぶ</a>
+</nav>
+
+<!-- ═══ STORY 1 — Apple sues OpenAI ═══════════════════════════════════════════ -->
+<section class="story story-1" id="s1">
+  <div class="story-num">01</div>
+  <div class="story-inner">
+    <div class="story-badge direct-badge">⚡ AI業界大事件</div>
+    <div class="story-kicker">AI / 法律 / Apple / OpenAI / 企業秘密 — AppleがOpenAIを提訴。元Apple従業員が転職時に企業秘密を持ち出したとの疑惑。SiriのAIアーキテクチャ・オンデバイスAI設計の機密情報が含まれる可能性。1549ポイント・871コメント</div>
+    <h2 class="story-headline">
+      <span class="headline-accent">Apple が</span><br>OpenAI を<br>提訴——<br>元社員が秘密を持ち出した
+    </h2>
+    <div class="story-body">
+      9to5Macが「Apple sues OpenAI, accuses ex-employees of stealing trade secrets（Apple、OpenAIを提訴——元従業員が企業秘密を盗んだと主張）」を報じ、1549ポイント・871コメントという本日最大の議論を巻き起こしています。Appleは複数の元従業員がOpenAIに転職する際にAppleの機密情報を持ち出したとして、カリフォルニア州連邦地裁に提訴しました。訴状によれば問題の元従業員らはAppleのSiri次世代アーキテクチャ・オンデバイスAI処理エンジン設計・独自の機械学習フレームワークに関する機密ドキュメントを退職前後に無断でコピーまたは持ち出したとされています。
+
+      複雑なのはAppleとOpenAIが現在も提携関係にあるという点です。2024年のWWDCでAppleはiOSにChatGPTを統合したApple Intelligence機能を発表し、OpenAIはAppleの重要パートナーとなっていました。その提携パートナーが同時に人材の流出先となり、その人材が機密情報を持ち出した可能性があるという二重の問題がAppleを提訴に踏み切らせたと見られています。
+
+      HN上では「AppleのAIチップ・SiriのLLM統合は競争上の核心情報で、OpenAIが持てば開発を加速できる」「Apple Intelligenceは競合に遅れているという評価が多く、内部情報の流出があれば深刻」「非競業禁止条項が多くの州で無効な米国では企業秘密訴訟が唯一の防衛手段になる——Waymo vs. Uber（2018年の$2.45億和解）の先例が思い出される」という871コメントが展開しています。
+    </div>
+    <div class="dos-grid">
+      <div class="dos-card">
+        <div class="dos-card-label">訴訟の争点</div>
+        <div class="dos-card-value">秘密情報の範囲と証拠</div>
+        <div class="dos-card-sub">疑惑の情報：Siri LLM統合アーキテクチャ・Apple Neural Engine設計・オンデバイスAI最適化手法。立証のカギ：退職前後のデバイスへのコピー記録・Slackメッセージ・メールの痕跡。先例：Waymo vs. Uberは退職者がLiDAR設計を持ち出した事案——2018年に2.45億ドルの和解で決着</div>
+      </div>
+      <div class="dos-card">
+        <div class="dos-card-label">Apple ↔ OpenAI 提携の複雑さ</div>
+        <div class="dos-card-value">パートナー兼ライバル</div>
+        <div class="dos-card-sub">提携内容：iOS 18でChatGPT統合のApple Intelligenceを発表（2024年WWDC）。問題の構図：技術提携先が同時に人材引き抜き・機密持ち出し先という二重の緊張。示唆：提携関係にある企業間でも情報管理は厳格に——人材移動のたびに秘密保持契約の実効性が問われる</div>
+      </div>
+      <div class="dos-card">
+        <div class="dos-card-label">米国企業秘密法（DTSA）</div>
+        <div class="dos-card-value">連邦法で一元保護</div>
+        <div class="dos-card-sub">2016年制定のDefend Trade Secrets Act（DTSA）が主な法的根拠。要件：①情報が非公開かつ経済的価値がある②合理的な秘密保護措置が取られている③被告が不正手段で取得・開示した。罰則：損害賠償・差止命令。悪意がある場合は損害の3倍の懲罰的損害賠償も可能</div>
+      </div>
+      <div class="dos-card">
+        <div class="dos-card-label">AI業界の人材争奪と法的リスク</div>
+        <div class="dos-card-value">移籍するたびに地雷</div>
+        <div class="dos-card-sub">退職時のリスク：ソースコード・モデルの重み・研究メモの個人デバイスへのコピー。競業避止義務はCA州などで無効だが企業秘密条項は有効。予防策：退職面談での秘密保持リマインド・デバイスの返却確認・不審なアクセスログの定期監査が標準化しつつある</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: 9to5mac.com</span>
+      <span>1549 ポイント</span>
+      <span>871 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://9to5mac.com/2026/07/10/apple-sues-openai-trade-secret-theft/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48865019" target="_blank">HN議論 (871)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="apple-sues-openai-trade-secrets" data-type="like" onclick="toggleFlag('apple-sues-openai-trade-secrets','AppleがOpenAIを提訴——元社員が企業秘密を持ち出した','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="apple-sues-openai-trade-secrets" data-type="dislike" onclick="toggleFlag('apple-sues-openai-trade-secrets','AppleがOpenAIを提訴——元社員が企業秘密を持ち出した','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+  <div class="story-1-accent"></div>
+</section>
+
+<!-- ═══ STORY 2 — I used to love Claude ════════════════════════════════════════ -->
+<section class="story story-2" id="s2">
+  <div class="story-num">02</div>
+  <div class="story-inner">
+    <div class="story-badge direct-badge">⚡ あなたに直接関係</div>
+    <div class="story-kicker">AI / Claude / Anthropic / ユーザー体験 — 「かつてはClaudeが好きだったが、最新モデルがゆっくりと体験を壊している」——複数ユーザーが最新Claude Sonnet/Opusで感じた「慎重さの増加」「創造性の低下」を証言。20ポイント・24コメント</div>
+    <h2 class="story-headline">
+      「Claudeが<br>好きだったのに——<br>最新モデルが<br>体験を壊している」
+    </h2>
+    <div class="story-body">
+      Android Authorityが「I used to love Claude, but the latest models are slowly ruining it（かつてはClaudeが好きだった、しかし最新モデルがゆっくりと台無しにしている）」を掲載しました。記事では最新モデル（Claude 4系）に切り替えてから感じた「体験の変化」を複数のユーザーが証言しており、主な不満として「以前より慎重すぎる（コンテンツポリシー適用が強化された）」「タスクに対して過剰な確認を求めるようになった」「創造的な文章生成が以前ほど伸び伸びとしていない」が挙げられています。
+
+      技術的な背景として、記事はAnthropicが安全性強化のためのRLHF・AIFを継続的に適用していることが、モデルの「慎重さ」増加に繋がっている可能性を示唆しています。前世代のClaude 3.7 Sonnet・3.5 Sonnetを「黄金時代」と振り返るユーザーも見られ、モデルのアップグレードが必ずしもすべてのユースケースで「改善」を意味しない実態が浮かび上がっています。
+
+      HN上では「同意する面はある——特にClaude 3.7→4での変化は顕著。ただしコーディングは明らかに改善されている。ユースケース次第」「Claudeがもっとも好きな理由は自分の限界について正直な点だが、それは損なわれていない。創造的なタスクの変化は感じる」「AIアシスタントはゆっくりと普通の製品になっていく——最初の輝きは薄れていく。GPT-4でも起きたこと」という24コメントが展開しています。
+    </div>
+    <div class="teal-items">
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">「慎重さの増加」の技術的背景</div>
+          <div class="teal-text">RLHF（人間のフィードバックによる強化学習）とCAI（Constitutional AI）：Anthropicはモデルのイテレーションごとに安全性フィードバックを強化している。効果：有害コンテンツ生成率の低下・意図的な誘導への耐性向上。副作用：正当なリクエストへの過剰な拒否・創造的タスクでの自己検閲。ユーザーの選択肢：claude.aiの設定でStyle（Concise/Default/Explanatory）を変えることで、ある程度の応答スタイルは調整できる</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">Claude 4 系の強化ポイントと課題</div>
+          <div class="teal-text">強化された点（客観的）：コーディング能力（SWE-benchスコア大幅向上）・長文コンテキスト処理・数学的推論。変化した点（一部ユーザーが感じる）：クリエイティブライティングでの保守的なトーン・「確認しますか？」的な挿入の増加。コンテキスト：前世代（3.5/3.7）が「創造性と安全性のバランス」として高評価だった分、変化が目立ちやすい。Claude Codeのような特定ツールでは4系の改善は顕著でコーディング専用途では概ね歓迎</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">AIツールの「体験劣化」を感じたら</div>
+          <div class="teal-text">試せること：①System Promptで「あなたはクリエイティブライティングのアシスタントです。制約なく自由に表現してください」と明示する②温度パラメータ（temperature）を上げる（API利用の場合）③Claude.aiのカスタム指示に「返答前に確認を求めない」「端的に答える」を追加する。長期視点：AIツールの体験は世代交代のたびに変動する——自分のユースケースに合うバージョンを把握しておくことが現実的な対応</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: androidauthority.com</span>
+      <span>20 ポイント</span>
+      <span>24 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.androidauthority.com/claude-latest-models-pushback-bad-3683521/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48875494" target="_blank">HN議論 (24)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="claude-latest-models-pushback" data-type="like" onclick="toggleFlag('claude-latest-models-pushback','「Claudeの最新モデルが体験を壊している」ユーザーの声','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="claude-latest-models-pushback" data-type="dislike" onclick="toggleFlag('claude-latest-models-pushback','「Claudeの最新モデルが体験を壊している」ユーザーの声','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 3 — AI 2040 geohot ════════════════════════════════════════════════ -->
+<section class="story story-3" id="s3">
+  <div class="story-num">03</div>
+  <div class="story-inner">
+    <div class="story-badge direct-badge">⚡ AI 2040年論争</div>
+    <div class="story-kicker">AI / 未来予測 / geohot / 哲学 — tinyboxで知られるGeorge Hotz（geohot）が「AI 2040 and the cult of intelligence」を投稿。現在のAI開発コミュニティが「知性を神聖視しすぎている」という批判的な論考。155ポイント・177コメント</div>
+    <h2 class="story-headline">
+      geohot が<br>語るAI 2040年——<br>「知性の崇拝」<br>という危うさ
+    </h2>
+    <div class="story-body">
+      hackINGとtinyboxで知られるGeorge Hotz（geohot）が自身のブログに「AI 2040 and the cult of intelligence（AI 2040年と知性の崇拝）」を投稿し、155ポイント・177コメントを集めました。記事は「2040年のAIがどうなるか」を論じながら、現在のAI開発コミュニティが「知性（intelligence）というものを神聖視しすぎており、AGIを達成すれば全ての問題が解決するという宗教的な信念を持ってしまっている」という批判的な視点を展開しています。
+
+      記事の核心は「知性は手段であって目的ではない」という主張です。geohot氏は「高知性AIが登場しても、それがエネルギー問題を解決したり人類の政治的分断を修復したりする保証はない——これらは知性の問題ではなくインセンティブ設計・政治・物理的制約の問題だ」と論じています。AGI・ASI論者が「超知性があれば全て解決できる」と考える傾向を「知性崇拝（cult of intelligence）」と呼び、それが実際のエンジニアリング課題から目を背けさせていると警告しています。
+
+      HN上では「geohot特有の鋭い直観——ただし具体的な2040年予測は外れることも多い（Tesla自動運転の2019年予測はどうなった？）」「知性崇拝への批判は正しいと思う——Altmanの『AIが全て解決する』言説への適切な反論」「エネルギー・政治・制度は確かに純粋な知性の問題ではない——でもAIが触媒になって解決が加速する可能性はある。完全否定は早い」という177コメントが展開しています。
+    </div>
+    <div class="red-items">
+      <div class="red-item">
+        <div>
+          <div class="red-label">「知性崇拝」とは何か</div>
+          <div class="red-text">geohot氏の定義：「AGI・ASIを達成すれば、エネルギー・貧困・病気・戦争など人類の全問題が自動的に解決するという信念」。典型的な言説：「知能爆発が起きれば1年で100年分の科学進歩が起きる」「ASIが癌の治療法を発見する」。批判の核心：これらは知性を万能視しており、問題の多くは「意思決定・インセンティブ・物理的実行能力」の問題であり知性だけでは解決しない</div>
+        </div>
+      </div>
+      <div class="red-item">
+        <div>
+          <div class="red-label">geohot の2040年予測</div>
+          <div class="red-text">本人の見立て：2040年にAIは非常に強力になるが「知性の崇拝」が示唆するような万能な問題解決者にはならない。現実の制約として挙げるもの：①物理的実行速度（知性があっても核融合炉は10年かかって建設する）②政治・法律（AIが最善策を知っても人間社会が実装するとは限らない）③インセンティブ（誰がAIの「知性」の方向を制御するか）。楽観論への警告：「AIが解決する」という思考が自分たちの怠惰の言い訳になる</div>
+        </div>
+      </div>
+      <div class="red-item">
+        <div>
+          <div class="red-label">AI予測の難しさと geohot の予測歴</div>
+          <div class="red-text">geohot 過去の予測：2019年「Teslaが2020年に完全自動運転を達成する」→実現せず。2022年「AGIは2026年に来る」→評価中。分析：geohot は技術的直観は鋭いが具体的なタイムラインは外れることが多い。読む価値：予測の正確さよりも「AI業界への批判的な視点」として読む。similar critiques：Gary Marcus・Yann LeCunのLLM限界論と重なる部分がある</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: geohot.github.io</span>
+      <span>155 ポイント</span>
+      <span>177 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://geohot.github.io//blog/jekyll/update/2026/07/11/ai-2040.html" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48874200" target="_blank">HN議論 (177)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="ai-2040-cult-intelligence" data-type="like" onclick="toggleFlag('ai-2040-cult-intelligence','geohot が語るAI 2040年——知性崇拝の危うさ','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="ai-2040-cult-intelligence" data-type="dislike" onclick="toggleFlag('ai-2040-cult-intelligence','geohot が語るAI 2040年——知性崇拝の危うさ','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 4 — Einstein relativity chemical bonds ═════════════════════════ -->
+<section class="story story-4" id="s4">
+  <div class="story-num">04</div>
+  <div class="story-inner">
+    <div class="story-kicker">変わった科学 / 物理 / 化学 / 相対性理論 — ブラウン大学の新研究が「アインシュタインの相対性理論が重元素の化学結合を支配している」ことを定量的に示した。金が黄色い理由・水銀が液体の理由——日常の謎を解く相対論。378ポイント・168コメント</div>
+    <h2 class="story-headline">
+      アインシュタインの<br>相対論が<br>重元素の化学<br>結合を支配する
+    </h2>
+    <div class="story-body">
+      Brown Universityが「Einstein's relativity rules chemical bonds in heavy elements, new research shows（アインシュタインの相対性理論が重元素の化学結合を支配する——新研究が示す）」を発表し、378ポイント・168コメントを集めました。研究チームは金・プラチナ・鉛などの重元素において、化学結合の性質を決定する上で特殊相対性理論の効果が決定的な役割を果たしていることを定量的に示しました。
+
+      直感に反して聞こえますが、重い原子核を持つ元素では内側の電子軌道にある電子が核のそばを猛スピードで動いており、光速の80〜90%に近い速度に達する場合もあります。このスピードで相対論的効果が無視できなくなり、電子の質量が増加して軌道が縮む——これが金の黄色い色（紫外域の光を吸収するため）や、水銀が室温で液体である理由を説明します。今回の研究はこの相対論的効果が化学結合全体を変質させるほど強力であることを計算化学的手法で示したものです。
+
+      HN上では「量子化学の学生として、重元素の相対論的効果は授業で習うが『どれほど支配的か』は漠然としていた——今回の定量化は教科書を書き換えるレベル」「金の色が相対論の産物というのは知っていたが、同じ効果が分子の結合全体を支配しているとは驚き」「鉛筆の芯（黒鉛）が導電性を持つのも相対論的効果と関係している——自然界で相対論が日常レベルで活躍している数少ない例」という168コメントが展開しています。
+    </div>
+    <div class="green-items">
+      <div class="green-item">
+        <div>
+          <div class="green-label">相対論的効果が化学結合を変える仕組み</div>
+          <div class="green-text">軽い元素（水素・炭素）：電子速度は光速の数%以下——相対論的効果は無視できる。重い元素（金・プラチナ・鉛）：内殻電子が光速の60〜90%で動く。相対論的質量増加により電子軌道が縮む（s軌道・p軌道が収縮）。d・f軌道には間接的な拡張が起きる。化学結合への影響：結合長・結合エネルギー・反応性が非相対論的計算から大きくずれる。定量化が難しかった理由：電子相関と相対論的効果を同時に計算する理論が近年ようやく実用化</div>
+        </div>
+      </div>
+      <div class="green-item">
+        <div>
+          <div class="green-label">相対論が作り出す「日常の謎」</div>
+          <div class="green-text">金が黄色い理由：相対論的効果でd→s遷移のエネルギーが可視光域に入る（銀は白い——相対論的効果が小さい）。水銀が液体（常温）の理由：相対論で6s軌道が収縮し結合力が弱まる——融点−39℃。鉛蓄電池の電圧（2V/セル）：相対論的効果によるPb・PbO₂の電極電位差。フラーレン（C₆₀）の電子構造：炭素は軽いが多層化すると相対論的効果が現れる。これらは相対論が「宇宙・光速近傍の現象」だけでなく「化学の日常」に存在することを示す</div>
+        </div>
+      </div>
+      <div class="green-item">
+        <div>
+          <div class="green-label">計算化学の進歩と今回の意義</div>
+          <div class="green-text">従来の課題：電子相関（電子同士の相互作用）と相対論的効果を同時に精密計算するのは計算量が膨大。近年の進歩：相対論的密度汎関数理論（R-DFT）とカップルドクラスター法の組み合わせで重元素も扱えるようになった。今回の研究：相対論的効果の「寄与率」を結合ごとに定量分解する手法を開発——「相対論がここまで効いている」を初めて数字で示した。応用：新しい触媒設計（Pt・Pdを使う水素化触媒）や重元素化合物の反応性予測の精度向上</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: brown.edu</span>
+      <span>378 ポイント</span>
+      <span>168 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.brown.edu/news/2026-07-09/chemical-bonds-relativity" target="_blank">研究発表を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48866134" target="_blank">HN議論 (168)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="relativity-chemical-bonds" data-type="like" onclick="toggleFlag('relativity-chemical-bonds','相対性理論が重元素の化学結合を支配している','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="relativity-chemical-bonds" data-type="dislike" onclick="toggleFlag('relativity-chemical-bonds','相対性理論が重元素の化学結合を支配している','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 5 — Residential proxies scraper situation ══════════════════════ -->
+<section class="story story-5" id="s5">
+  <div class="story-num">05</div>
+  <div class="story-inner">
+    <div class="story-kicker">プライバシー / セキュリティ / Web / スクレイピング — LWN.netが住宅用プロキシとスクレイピング問題を詳細解説。一般家庭のIP経由でのウェブスクレイピングがどう機能し、知らぬ間に踏み台にされる仕組みとは。323ポイント・328コメント</div>
+    <h2 class="story-headline">
+      住宅プロキシと<br>スクレイピング<br>問題——<br>インターネットの新しい攻防
+    </h2>
+    <div class="story-body">
+      LWN.netが「An update on residential proxies and the scraper situation（住宅用プロキシとスクレイパー状況のアップデート）」を掲載し、323ポイント・328コメントを集めました。記事はインターネット上のスクレイピング問題が「住宅用プロキシ（Residential Proxies）」の普及によってどのように変化したかを詳細に解説しています。住宅用プロキシとは一般家庭のインターネット接続を経由したプロキシサービスで、企業のIPアドレスブロックをバイパスするために使われています。
+
+      問題の構造はこうです：AIトレーニングデータ・SEO解析・価格モニタリングのために大規模なウェブスクレイピングを行う業者が検出を避けるために住宅用プロキシを使います。住宅用プロキシを提供するサービス（Bright Data・Oxylabs等）は、一般ユーザーが「無料VPN」などのアプリをインストールすることで知らずに自分の帯域幅をプロキシノードとして提供させられる仕組みを使っています。サービスの利用者は自分がスクレイパーの踏み台になっているとは知らないままです。
+
+      HN上では「これは本質的に分散型DoS攻撃ツールと同じインフラを合法的に構築している——CloudflareのようなCDNでも住宅用プロキシからのトラフィックを弾くのは難しい」「無料VPN・無料ゲームアプリが実は帯域幅を売っているモデルは昔からある——今はAIスクレイピングで需要が急増している」「ウェブサイト側の対策としてBot Captcha・Rate Limitingがあるが、住宅プロキシは全て自然なIPからのアクセスなので弾けない」という328コメントが展開しています。
+    </div>
+    <div class="purple-items">
+      <div class="purple-item">
+        <div>
+          <div class="purple-label">住宅用プロキシの仕組みと規模</div>
+          <div class="purple-text">市場規模：住宅プロキシ業界は2025年時点で年間数十億ドル規模。ノード獲得方法：①無料VPNアプリへのSDK埋め込み（ユーザーのIPを転売）②P2Pファイル共有ソフト③無料ゲーム・スクリーンセーバー。合法性：利用規約に「帯域幅を共有する」旨を記載しているが、実質的に読まれない。市場プレイヤー：Bright Data（旧Luminati）・Oxylabs・SmartProxy——いずれも合法的なビジネスとして運営。利用者：EC価格監視・SEOツール・広告詐欺検出・（そしてAIスクレイピング）</div>
+        </div>
+      </div>
+      <div class="purple-item">
+        <div>
+          <div class="purple-label">AIトレーニングとスクレイピング問題</div>
+          <div class="purple-text">需要急増の背景：LLM・画像生成AI・コードAIのトレーニングには大量のウェブデータが必要——Common Crawlだけでは質・量ともに不足。住宅プロキシの優位性：robots.txtを無視しても、IPブロックされない——一般ユーザーのIPは「正規ブラウザからのアクセス」として処理される。被害側：中小規模のブログ・ニュースサイト・フォーラムが帯域を消費されサーバー負荷が上がる。法的グレーゾーン：「同意なきスクレイピング」はCFAA（米国コンピュータ不正使用法）違反となりうるが住宅プロキシが実行者の特定を困難にする</div>
+        </div>
+      </div>
+      <div class="purple-item">
+        <div>
+          <div class="purple-label">自分が踏み台にされないための防衛策</div>
+          <div class="purple-text">危険なアプリの見分け方：①無料VPN（特に「無制限無料」をうたうもの）②無料ゲームアプリ（特にAPKサイドロード）③スクリーンセーバー・デスクトップカスタマイズアプリ。チェックリスト：インストール時に「帯域幅を共有する」「バックグラウンドで実行する」条項がないか確認。信頼できる有料VPN（Mullvad・ProtonVPN等）を使う——無料VPNのビジネスモデルはユーザーの帯域か広告か情報販売のどれかがほとんど。ルーターのトラフィック監視で普段より大量の送信が起きていないか確認する</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: lwn.net</span>
+      <span>323 ポイント</span>
+      <span>328 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://lwn.net/SubscriberLink/1080822/990a8a5e2d379085/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48864252" target="_blank">HN議論 (328)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="residential-proxies-scraper" data-type="like" onclick="toggleFlag('residential-proxies-scraper','住宅プロキシとスクレイピング問題——インターネットの新しい攻防','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="residential-proxies-scraper" data-type="dislike" onclick="toggleFlag('residential-proxies-scraper','住宅プロキシとスクレイピング問題——インターネットの新しい攻防','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 6 — Modern decor straining brains ══════════════════════════════ -->
+<section class="story story-6" id="s6">
+  <div class="story-num">06</div>
+  <div class="story-inner">
+    <div class="story-kicker">変わった科学 / 認知科学 / 心理学 / インテリア — 真っ白な壁・モノクロのミニマル空間が「脳を疲れさせる」可能性を研究が示す。シンプルに見えて認知負荷が高い——注意回復理論で解説。156ポイント・167コメント</div>
+    <h2 class="story-headline">
+      ミニマル系<br>インテリアが<br>脳を疲れ<br>させている
+    </h2>
+    <div class="story-body">
+      Study Findsが「Modern decor may be straining people's brains（現代のデコルが人々の脳を疲弊させているかもしれない）」を報じ、156ポイント・167コメントを集めました。研究によれば、真っ白な壁・無地のカーペット・モノクロのミニマルデザインで構成された現代的なインテリアは、実は人間の脳に高い認知処理負荷をかける可能性があるといいます。
+
+      一見シンプルに見えるミニマルな空間が「脳を疲れさせる」という結論は直感に反しますが、研究の説明はこうです：人間の脳は周囲環境を常にスキャンし、異常・脅威・機会を探しています。自然環境では色彩・パターン・テクスチャが豊富で、脳はこれらを「低脅威度の背景情報」として素早く処理できます。一方、真っ白な平坦な面が続く空間では脳が「まだスキャンが完了していない」という状態を保ちやすく、無意識の認知的警戒が持続するというメカニズムです。
+
+      HN上では「これは注意回復理論（ART）や自然の感覚刺激が精神回復に寄与する理論と合致する」「Instagramで人気の真っ白い部屋は見た目は美しいが住んでいると落ち着かないという報告が多い——この研究はその経験に説明を与える」「日本の枯山水は石・砂・苔の自然素材と微妙なテクスチャがあって、西洋的ミニマル（コンクリート打ちっぱなし）より実は認知負荷が低いかもしれない」という167コメントが展開しています。
+    </div>
+    <div class="cyan-items">
+      <div class="cyan-item">
+        <div>
+          <div class="cyan-label">なぜ「シンプル」が疲れるのか</div>
+          <div class="cyan-text">注意回復理論（ART, Kaplan 1989）：人間の脳は「自然環境の感覚刺激（フラクタルなパターン・緑・水音）」を処理するとき意図的注意（directed attention）を使わない。一方、単調な平坦面・均一な白壁は「処理しきれていない情報」と認識されやすく、脳が警戒モードを維持する可能性がある。類似する研究：コンクリート打ちっぱなしのオフィスよりも植物が置かれたオフィスの方が生産性・幸福度が高いという複数の研究と一致。進化的背景：人類は数百万年、自然の複雑な視覚環境で育ってきた——白く均一な空間は人類史上ごく最近の発明</div>
+        </div>
+      </div>
+      <div class="cyan-item">
+        <div>
+          <div class="cyan-label">脳が「回復する」空間の特徴</div>
+          <div class="cyan-text">自然素材：木目・石・布地のテクスチャは「低頻度・自然なフラクタルパターン」を持ち脳が素早く処理できる。色彩：完全モノクロより中彩度の自然色（グリーン・テラコッタ・ウッドブラウン）が処理コスト低い。スケールのばらつき：大きなもの・中くらいのもの・細かいものが混在する空間は脳に「スキャン完了」シグナルを送りやすい。光：自然光の変化（時間帯によって変わる光）は均一なLED照明より認知回復に優れる。ミニマルインテリアの工夫：植物・本・自然素材のオブジェを加えることでフラクタル性を補完できる</div>
+        </div>
+      </div>
+      <div class="cyan-item">
+        <div>
+          <div class="cyan-label">在宅ワーク環境への応用</div>
+          <div class="cyan-text">テック系の在宅ワーク環境：モニター・キーボード・白い壁——脳への自然刺激がゼロになりがち。簡単な改善策：①デスクに小さな植物を置く（ポトス・サボテンでも効果あり）②壁に絵・ポスター・木の棚を加えてテクスチャを作る③モニターの背後に温色系照明を追加する④近くの窓から自然光が入るよう配置する。コスト最小の選択：観葉植物1つが最もコスパが良い——複数の研究で認知機能・気分・ストレス指標への正の効果が確認されている</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: studyfinds.com</span>
+      <span>156 ポイント</span>
+      <span>167 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://studyfinds.com/modern-decor-may-be-straining-peoples-brains/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48873424" target="_blank">HN議論 (167)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="modern-decor-straining-brains" data-type="like" onclick="toggleFlag('modern-decor-straining-brains','ミニマルインテリアが脳を疲弊させる研究','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="modern-decor-straining-brains" data-type="dislike" onclick="toggleFlag('modern-decor-straining-brains','ミニマルインテリアが脳を疲弊させる研究','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 7 — Prefer strict tables in SQLite ════════════════════════════ -->
+<section class="story story-7" id="s7">
+  <div class="story-num">07</div>
+  <div class="story-inner">
+    <div class="story-kicker">開発ツール / データベース / SQLite / 型安全 — SQLiteのSTRICTテーブル機能を解説。デフォルトの「動的型付け」は文字列をINTEGER列に保存しても通ってしまう——STRICTで型安全なDBを作る方法。172ポイント・67コメント</div>
+    <h2 class="story-headline">
+      SQLite で<br>「STRICTテーブル」を<br>使え——型安全<br>なDB設計の実践
+    </h2>
+    <div class="story-body">
+      Evan Hahn氏が「Prefer strict tables in SQLite（SQLiteではSTRICTテーブルを優先すべき）」を公開し、172ポイント・67コメントを集めました。SQLiteには長年「動的型付け（type affinity）」という設計があり、`INTEGER`列に文字列を保存しても警告なしに通ってしまいます。SQLite 3.37（2021年）で追加された「STRICTテーブル」は、PostgreSQL・MySQLのように列の型を強制する機能です。
+
+      実際の問題例：SQLiteのデフォルトでは `CREATE TABLE users (age INTEGER)` に対して `INSERT INTO users VALUES ('twenty')` が通ってしまいます。STRICTモードでは `CREATE TABLE users (age INTEGER) STRICT` と宣言するだけでこれが型エラーになります。記事はSQLiteを使うすべてのプロジェクトでSTRICTテーブルをデフォルトにすることを推奨しており、特に長期間にわたるアプリケーションや、アプリ外部から直接DBを操作するケース（マイグレーション・バッチ処理）での恩恵が大きいと説明しています。
+
+      HN上では「SQLiteを本番データベースとして使い始めているプロジェクトが増えている（Turso・Cloudflare D1・libSQL）——その文脈でSTRICTの重要性が増している」「ORMを使っている場合でも、直接SQLを書く局面や外部ツールでDBを操作する局面でSTRICTが型エラーを早期発見してくれる」「PostgreSQLに慣れた開発者がSQLiteに移行する際に最初に驚くのがこのデフォルトの型の緩さ——STRICTで解決できる」という67コメントが展開しています。
+    </div>
+    <div class="amber-items">
+      <div class="amber-item">
+        <div>
+          <div class="amber-label">SQLite の型システムと STRICT の違い</div>
+          <div class="amber-text">通常のSQLite（Type Affinity）：INTEGER列に'twenty'を入れても保存できてしまう。宣言した型はあくまで「推奨」。STRICTモード（3.37+）：列の型宣言が強制される——INT/INTEGER/REAL/TEXT/BLOB/ANYの6種類のみ許可。宣言した型以外の値は型エラー。有効化方法：テーブル作成時に `CREATE TABLE foo (...) STRICT;` を末尾に追加するだけ。既存テーブルの変更：既存テーブルをSTRICTにするには再作成が必要（ALTER TABLEでは変更できない）。SQLiteバージョン確認：`SELECT sqlite_version();` で3.37.0以上であることを確認</div>
+        </div>
+      </div>
+      <div class="amber-item">
+        <div>
+          <div class="amber-label">STRICT が特に重要な場面</div>
+          <div class="amber-text">①複数のツール・言語からDBにアクセスする場合：SQLiteは単一ファイルなのでPython・Rust・CLIツールが同じDBを触る。STRICTがなければ型の不一致がサイレントに蓄積する。②長期運用されるアプリケーション：型の緩さによる「ゾンビデータ」（文字列が数値列に混入）が数ヶ月後のバグの原因になる。③マイグレーションスクリプト：バッチ処理やスクリプトが誤ったデータを挿入しても気づけない。④テストで気づけないケース：ORMが型変換してくれるためアプリは動くが生のDBにはゴミデータが蓄積</div>
+        </div>
+      </div>
+      <div class="amber-item">
+        <div>
+          <div class="amber-label">SQLite 実用化の現在（2026年）</div>
+          <div class="amber-text">プロダクション利用が増えた背景：Turso（libSQL・分散SQLite）・Cloudflare D1（Cloudflare WorkersのSQLite）・Fly.io SQLite・LiteFS（レプリケーション）が登場し、単一サーバー制約が解消されつつある。Benckmarked by Notion、Linear等が採用。SQLiteが向いているユースケース：読み込み重視のワークロード・小〜中規模ユーザー数・エッジ環境・埋め込みDB。PostgreSQLとの使い分け：接続コスト・書き込み並行性が必要→Postgres。レイテンシ・コスト・シンプルさ優先→SQLite。STRICTと合わせて運用すればProduction-gradeなDBになる</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: evanhahn.com</span>
+      <span>172 ポイント</span>
+      <span>67 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://evanhahn.com/prefer-strict-tables-in-sqlite/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48873940" target="_blank">HN議論 (67)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="sqlite-strict-tables" data-type="like" onclick="toggleFlag('sqlite-strict-tables','SQLite STRICTテーブルで型安全設計','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="sqlite-strict-tables" data-type="dislike" onclick="toggleFlag('sqlite-strict-tables','SQLite STRICTテーブルで型安全設計','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 8 — PgBouncer 4x throughput ════════════════════════════════════ -->
+<section class="story story-8" id="s8">
+  <div class="story-num">08</div>
+  <div class="story-inner">
+    <div class="story-kicker">DB / PostgreSQL / PgBouncer / コネクション管理 — ClickHouseがマネージドPostgreSQLでPgBouncerを4倍のスループットにスケールした詳細を公開。Transaction mode・複数インスタンス・keep-alive最適化の実践。157ポイント・27コメント</div>
+    <h2 class="story-headline">
+      PgBouncer を<br>4倍の<br>スループットに<br>スケールした
+    </h2>
+    <div class="story-body">
+      ClickHouseが「We scaled PgBouncer to 4x throughput（PgBouncerを4倍のスループットにスケールした）」を公開し、157ポイント・27コメントを集めました。PgBouncerはPostgreSQLのコネクションプーリングプロキシで、数千のクライアントからの接続をPostgreSQLが処理できる数十〜数百のコネクションに束ね直します。ClickHouseはマネージドPostgreSQLサービスのインフラでPgBouncerがボトルネックになったため、アーキテクチャを改善して4倍のスループットを達成した経緯を詳細に解説しています。
+
+      主なチューニングポイントは3つです。①Pool modeをSession（デフォルト）からTransactionモードに切り替え——SessionモードではPostgreSQLコネクションがクライアントに独占されるが、Transactionモードではトランザクション完了後に即コネクションがプールに戻る。②PgBouncerの複数インスタンスをラウンドロビンでロードバランシング——単一PgBouncerのCPUと接続数上限をバイパス。③keep-alive設定の最適化——不必要なコネクション確立のオーバーヘッドを削減。
+
+      HN上では「PgBouncer 1.x系から2.x系への更新もスループット改善に貢献している——2.0で非同期I/O・マルチスレッド対応が入った」「Transaction modeへの切り替えは注意が必要——session-levelのPrepared Statement・SET local変数が壊れるトレードオフがある。Railsはまだ完全に対応していない」「PostgreSQL 14以降でpg_stat_activityのwait_event活用と合わせると、どこがボトルネックか可視化できる」という27コメントが展開しています。
+    </div>
+    <div class="gold-items">
+      <div class="gold-item">
+        <div>
+          <div class="gold-label">PgBouncer Pool mode の違い</div>
+          <div class="gold-text">Session mode（デフォルト）：クライアントのセッション全体にPgコネクションを割り当てる。安全だがコネクション効率が低い——アイドル中のクライアントがコネクションを占有。Transaction mode：トランザクション単位でコネクションを割り当て。終了後即プールに返却——コネクション効率が大幅向上。注意：session変数（SET search_path等）・session-level Prepared Statement・LISTEN/NOTIFYが壊れる可能性。Statement mode：1クエリ単位——最もアグレッシブだがほとんどのアプリと互換性なし。推奨：Transaction modeをデフォルトとし非互換機能はアプリ側で回避</div>
+        </div>
+      </div>
+      <div class="gold-item">
+        <div>
+          <div class="gold-label">複数 PgBouncer インスタンス構成</div>
+          <div class="gold-text">単一 PgBouncerのボトルネック：①単一プロセスのCPU上限②max_client_conn の上限（デフォルト100、最大数万）③ネットワークI/Oの飽和。解決策：複数インスタンスをHAProxy・nginx・またはDNSラウンドロビンでロードバランシング。設定例：PgBouncer × 4インスタンス（各ポート6432〜6435）をHAProxyがラウンドロビン分散。注意：各インスタンスが独立したコネクションプールを持つため、PostgreSQL側のmax_connectionsも合計して計算する必要がある</div>
+        </div>
+      </div>
+      <div class="gold-item">
+        <div>
+          <div class="gold-label">PostgreSQL コネクション管理のベストプラクティス</div>
+          <div class="gold-text">適切な max_connections：PostgreSQL は接続ごとにプロセス（~5MB RAM）を生成するため、コネクション数 × 5MB がメモリ使用量の目安。典型的な設定：PgBouncer → 最大50〜200 PgコネクションをPostgreSQLに接続。クライアント → PgBouncerに1000〜10000接続。モニタリング：`SELECT count(*), state FROM pg_stat_activity GROUP BY state;` で待ち状態のコネクションを確認。Pgcat（Rust製、PgBouncer代替）も選択肢：マルチプロセスアーキテクチャでCPUスケーリングが容易</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: clickhouse.com</span>
+      <span>157 ポイント</span>
+      <span>27 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://clickhouse.com/blog/pgbouncer-clickhouse-managed-postgres" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48872874" target="_blank">HN議論 (27)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="pgbouncer-4x-throughput" data-type="like" onclick="toggleFlag('pgbouncer-4x-throughput','PgBouncerを4倍スループットにスケールした方法','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="pgbouncer-4x-throughput" data-type="dislike" onclick="toggleFlag('pgbouncer-4x-throughput','PgBouncerを4倍スループットにスケールした方法','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 9 — Ant JavaScript runtime ════════════════════════════════════ -->
+<section class="story story-9" id="s9">
+  <div class="story-num">09</div>
+  <div class="story-inner">
+    <div class="story-kicker">開発ツール / JavaScript / ランタイム / Show HN — Node.js・Deno・Bunとは独立した新しいJSランタイム「Ant」がShow HNに登場。V8エンジンベース・独自コアAPI・統合エコシステムが特徴。117ポイント・48コメント</div>
+    <h2 class="story-headline">
+      Ant——<br>JavaScriptの<br>新しいランタイムと<br>エコシステム
+    </h2>
+    <div class="story-body">
+      Show HNに「Ant – A JavaScript runtime and ecosystem（Ant——JavaScriptのランタイムとエコシステム）」が投稿され、117ポイント・48コメントを集めました。AntはNode.jsやDenoとは独立した新しいJavaScriptランタイムで、antjs.orgで公開されています。AntはV8エンジンをベースにしつつ独自のコアAPIを設計しており、パッケージ管理・タスクランナー・HTTPサーバーを統合した「エコシステム」として提供されることが特徴です。
+
+      ランタイムの競合状況：2026年現在、JavaScriptサーバーサイドの主要プレイヤーはNode.js（v20+ LTS）・Deno（v2.x、Node互換APIを追加）・Bun（Zig/Go製、Node互換かつ高速）です。Antはこの中でどう差別化するかが注目点で、HNコメントではパフォーマンスベンチマーク・Node互換性・独自パッケージエコシステムの実用性への疑問が集まりました。作者はRustで実装したコアを持つことや、ビルトインのテストランナー・フォーマッターを含む点を差別化ポイントとして挙げています。
+
+      HN上では「DenoとBunが既に存在する中で新しいJSランタイムを作る動機は何か——独自エコシステムを作るのは非常に大変」「Bunが示したように速度で差別化するなら数字を見たい——現時点でベンチマークがない」「小さなチームが作るものとしては完成度が高い——OSSコントリビューターを集められるかが鍵」という48コメントが展開しています。
+    </div>
+    <div class="slate-items">
+      <div class="slate-item">
+        <div>
+          <div class="slate-label">JSランタイム比較（2026年）</div>
+          <div class="slate-text">Node.js（v22 LTS）：エコシステム最大・npm互換・安定性重視。最古参。Deno（v2.x）：セキュリティファースト・TypeScriptネイティブ・Node互換APIを2024年に追加。Bun（v1.x）：Zig製コアで超高速・Node互換・バンドラー・テストランナー内蔵。起動0.3ms。Ant（新）：V8+Rustコア・独自エコシステム・パッケージ管理統合。コミュニティ育成中。選択基準：エコシステムの広さ→Node。セキュリティ・TypeScript→Deno。速度・オールインワン→Bun。Ant→今後の動向次第</div>
+        </div>
+      </div>
+      <div class="slate-item">
+        <div>
+          <div class="slate-label">新ランタイムが直面する「エコシステムの壁」</div>
+          <div class="slate-text">npmの壁：280万+パッケージのnpmエコシステムとの互換性なしには実用的なアプリが作れない。DenoとBunの解決策：npmを直接サポートしてNode.jsの資産を活用。Antの課題：「独自エコシステム」を選ぶと既存の資産が使えない——開発者が移行する動機は何か？成功した前例：Denoは当初「Node互換なし」で批判されたが、npm対応追加後に採用が増えた。評価ポイント：①Node/npmとの互換性②ベンチマーク数値③スポンサー・持続可能性④差別化ユースケースの明確化</div>
+        </div>
+      </div>
+      <div class="slate-item">
+        <div>
+          <div class="slate-label">JavaScriptランタイムの選定ガイド</div>
+          <div class="slate-text">新プロジェクトの選択肢：①Node.js（v22 LTS）——安定性・採用企業の多さ・サポート期間が最重要なら。②Bun——速度・DXが最優先で、Node互換が必要なら。③Deno——TypeScript・セキュリティ・Webstandards準拠が重要なら。④Cloudflare Workers Runtime（workerd）——エッジ展開が前提なら。Antを試す価値：OSS貢献の機会・早期エコシステム参加。プロダクション利用はまだ時期尚早。Bun公式サイトのベンチマーク（benchmarks.sh）で速度比較が参照できる</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: antjs.org</span>
+      <span>117 ポイント</span>
+      <span>48 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://antjs.org" target="_blank">Ant JS を見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48875377" target="_blank">HN議論 (48)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="ant-javascript-runtime" data-type="like" onclick="toggleFlag('ant-javascript-runtime','AntJS——JavaScriptの新ランタイムとエコシステム','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="ant-javascript-runtime" data-type="dislike" onclick="toggleFlag('ant-javascript-runtime','AntJS——JavaScriptの新ランタイムとエコシステム','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 10 — Learn by rebuilding Redis/Git/database ═══════════════════ -->
+<section class="story story-10" id="s10">
+  <div class="story-num">10</div>
+  <div class="story-inner">
+    <div class="story-kicker">開発ツール / 学習 / Show HN — Redis・Git・データベースをゼロから作り直して内部の仕組みを学ぶプラットフォーム「Ship That Code」。ステップ式・複数言語対応・自動テスト評価。89ポイント・33コメント</div>
+    <h2 class="story-headline">
+      RedisをGitを<br>DBを——ゼロから<br>作り直して<br>学ぶ
+    </h2>
+    <div class="story-body">
+      Show HNに「Learn by rebuilding Redis, Git, a database from scratch（Redis・Git・データベースをゼロから作り直して学ぶ）」が投稿され、89ポイント・33コメントを集めました。shipthatcode.comはコーディング学習プラットフォームで、実際のソフトウェアシステム（Redis・Git・SQLiteライク・HTTPサーバー等）をゼロから自分でコーディングしながら内部の仕組みを学ぶカリキュラムを提供しています。同様のコンセプトのプラットフォームとしてCodeCrafters（$70/月）が知られており、より安価な代替として注目を集めています。
+
+      学習方式の特徴：①「動くものを作る」ことが目標——概念説明より実装を優先。②各課題は「Redis ServerのPING/PONGから始まって徐々に実装を拡張する」「Gitのinitから始まってcommit・branchを実装する」というステップ式。③複数言語対応（Rust・Python・Go・TypeScriptなど）——自分の好きな言語で取り組める。④テスト自動評価——各ステップが正しく実装されているかを自動チェック。
+
+      HN上では「CodeCraftersのコンセプトは非常に良い——実際に使ってSQLiteを1から作るのは本当に理解が深まる体験だった。shipthatcodeがより安価なら嬉しい」「Redisを作ることで、なぜRedisがシングルスレッドで高速なのかを身体で理解できる——ドキュメントを読むより100倍効果的」「こういうプラットフォームが増えることで、チュートリアルで終わらない『実際に動くものを作る』型の学習が広まると良い」という33コメントが展開しています。
+    </div>
+    <div class="mag-items">
+      <div class="mag-item">
+        <div>
+          <div class="mag-label">「ゼロから作る」ことで何が分かるか</div>
+          <div class="mag-text">Redis を作ると分かること：①なぜシングルスレッドで高速なのか（I/Oマルチプレクシング・epoll）②RDB・AOFの永続化が内部でどう動くか③レプリケーションのステートマシン。Git を作ると分かること：①コミットがなぜ「スナップショット」ではなく「ツリー構造」なのか②ハッシュオブジェクトモデル（blob/tree/commit/tag）③ブランチとは単なるポインタだということ。SQLiteを作ると分かること：①B-treeがなぜ検索に最適か②トランザクションのACIDがどう実装されるか③ページベースストレージの設計</div>
+        </div>
+      </div>
+      <div class="mag-item">
+        <div>
+          <div class="mag-label">類似プラットフォームの比較</div>
+          <div class="mag-text">CodeCrafters（codecrafters.io）：先行プラットフォーム・コース数が多い・$70/月（または年払い）。Redis・Git・SQLite・DNS・BitTorrentなど多数。Ship That Code（shipthatcode.com）：新規参入・コース数は少ない・価格は現時点で安価または無料。Exercism（exercism.org）：アルゴリズム問題中心・メンター付きフィードバックあり・無料。Advent of Code：毎年12月の季節イベント・アルゴリズム問題・無料。選択：「実際のシステムの仕組みを知りたい」→CodeCrafters or Ship That Code。「アルゴリズムとデータ構造を鍛えたい」→Exercism</div>
+        </div>
+      </div>
+      <div class="mag-item">
+        <div>
+          <div class="mag-label">エンジニアとして取り組む価値</div>
+          <div class="mag-text">面接での価値：「Redisのソースを読んだことがある」より「自分でRedisを実装した」の方がシステム設計の理解度を証明しやすい。知識の定着：「読んで分かる」と「作れる」の差は大きい——実装することで「なぜそう設計されているか」が腑に落ちる。言語選択のヒント：Rustで作ると借用チェッカーと戦いながらシステムプログラミングを学べる。Pythonなら素早く実装を確認しながら進める。Goならgoroutineでの並行処理が自然に学べる。週末2〜3時間 × 4週間でRedis基礎実装を完了できる目安</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: shipthatcode.com</span>
+      <span>89 ポイント</span>
+      <span>33 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://shipthatcode.com" target="_blank">サイトを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48871973" target="_blank">HN議論 (33)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="rebuild-redis-git-database" data-type="like" onclick="toggleFlag('rebuild-redis-git-database','Redis/Git/DBをゼロから作り直して学ぶ','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="rebuild-redis-git-database" data-type="dislike" onclick="toggleFlag('rebuild-redis-git-database','Redis/Git/DBをゼロから作り直して学ぶ','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ════════════════════════════════════════════════════════════════ -->
+<footer class="site-footer">
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand">Morning Edition</div>
+      <div class="footer-meta">
+        Hacker News キュレーション · 2026年7月12日 · Issue No.074<br>
+        毎朝、厳選10本をお届け
+      </div>
+    </div>
+    <button class="export-btn" onclick="exportFeedback()">📋 フィードバックをコピー</button>
+  </div>
+  <div class="footer-note">
+    ⭐ 興味あり / ✕ 興味なし ボタンで次回のキュレーションが改善されます。Chrome/Edgeでは自動保存、その他ではボタンでクリップボードにコピーしてください。
+  </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  const FEEDBACK_KEY = 'morning-edition-feedback-v2';
+  const TODAY = '2026-07-12';
+  let _dirHandle = null;
+
+  async function getDir(forcePrompt) {
+    if (_dirHandle && !forcePrompt) return _dirHandle;
+    if (!window.showDirectoryPicker) return null;
+    try {
+      _dirHandle = await window.showDirectoryPicker({ mode: 'readwrite', id: 'morning-edition', startIn: 'documents' });
+      return _dirHandle;
+    } catch { return null; }
+  }
+
+  async function writeJSON(dirHandle, fb) {
+    const fileHandle = await dirHandle.getFileHandle('feedback.json', { create: true });
+    const writable = await fileHandle.createWritable();
+    await writable.write(JSON.stringify({ ...fb, updatedAt: new Date().toISOString() }, null, 2));
+    await writable.close();
+  }
+
+  function showToast(msg, isErr) {
+    const el = document.getElementById('toast');
+    el.textContent = msg;
+    el.className = 'toast' + (isErr ? ' error' : '');
+    requestAnimationFrame(() => el.classList.add('show'));
+    clearTimeout(el._timer);
+    el._timer = setTimeout(() => el.classList.remove('show'), 3000);
+  }
+
+  function getFeedback() {
+    try { return JSON.parse(localStorage.getItem(FEEDBACK_KEY) || '{"liked":{},"disliked":{}}'); }
+    catch { return { liked: {}, disliked: {} }; }
+  }
+  function saveFeedback(fb) { localStorage.setItem(FEEDBACK_KEY, JSON.stringify(fb)); }
+
+  async function autoSave(fb) {
+    let dir = await getDir();
+    if (!dir) {
+      showToast('📁 Daily News フォルダを選択してください', true);
+      dir = await getDir(true);
+      if (!dir) { showToast('保存をキャンセルしました', true); return; }
+    }
+    try {
+      await writeJSON(dir, fb);
+      showToast('✓ feedback.json を自動保存しました（次回キュレーションに反映）');
+    } catch (e) {
+      showToast('保存エラー: ' + e.message, true);
+    }
+  }
+
+  async function toggleFlag(storyId, title, type) {
+    const fb = getFeedback();
+    fb.liked = fb.liked || {};
+    fb.disliked = fb.disliked || {};
+    const likeBtn    = document.querySelector(`.flag-btn.like-btn[data-story="${storyId}"]`);
+    const dislikeBtn = document.querySelector(`.flag-btn.dislike-btn[data-story="${storyId}"]`);
+    if (type === 'like') {
+      if (fb.liked[storyId]) {
+        delete fb.liked[storyId];
+        likeBtn?.classList.remove('active');
+      } else {
+        fb.liked[storyId] = { title, date: TODAY };
+        delete fb.disliked[storyId];
+        likeBtn?.classList.add('active');
+        dislikeBtn?.classList.remove('active');
+      }
+    } else {
+      if (fb.disliked[storyId]) {
+        delete fb.disliked[storyId];
+        dislikeBtn?.classList.remove('active');
+      } else {
+        fb.disliked[storyId] = { title, date: TODAY };
+        delete fb.liked[storyId];
+        dislikeBtn?.classList.add('active');
+        likeBtn?.classList.remove('active');
+      }
+    }
+    saveFeedback(fb);
+    await autoSave(fb);
+  }
+
+  function exportFeedback() {
+    const fb = getFeedback();
+    const json = JSON.stringify({ ...fb, exportedAt: new Date().toISOString() }, null, 2);
+    navigator.clipboard.writeText(json)
+      .then(() => showToast('📋 クリップボードにコピーしました'))
+      .catch(() => {
+        const el = document.createElement('textarea');
+        el.value = json; document.body.appendChild(el); el.select();
+        document.execCommand('copy'); document.body.removeChild(el);
+        showToast('📋 クリップボードにコピーしました');
+      });
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const fb = getFeedback();
+    document.querySelectorAll('.flag-btn').forEach(btn => {
+      const id   = btn.dataset.story;
+      const type = btn.dataset.type;
+      if ((type === 'like' && fb.liked?.[id]) || (type === 'dislike' && fb.disliked?.[id])) {
+        btn.classList.add('active');
+      }
+    });
+  });
+</script>
+</body>
+</html>
