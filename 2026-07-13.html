@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Morning Edition — 2026年7月13日</title>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --font: 'M PLUS Rounded 1c', 'Hiragino Sans', 'Noto Sans JP', sans-serif; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); background: #111; color: #fff; overflow-x: hidden; }
+
+    .masthead { background: #fff; color: #000; padding: 3rem 4rem 2.5rem; border-bottom: 6px solid #000; position: relative; overflow: hidden; }
+    .masthead::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: repeating-linear-gradient(90deg, #000 0, #000 12px, transparent 12px, transparent 20px); }
+    .masthead-kicker { font-size: 0.85rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: #777; margin-bottom: 0.6rem; }
+    .masthead-title { font-size: clamp(3.5rem, 9vw, 7.5rem); font-weight: 900; line-height: 0.88; letter-spacing: -0.04em; margin-bottom: 1.8rem; }
+    .masthead-meta { display: flex; gap: 3rem; align-items: baseline; flex-wrap: wrap; }
+    .masthead-date { font-size: 1.5rem; font-weight: 700; }
+    .masthead-subtitle { font-size: 1rem; font-weight: 400; color: #555; max-width: 480px; line-height: 1.5; }
+    .masthead-issue { margin-left: auto; text-align: right; }
+    .masthead-issue span { display: block; }
+    .masthead-issue .iss-label { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: #999; }
+    .masthead-issue .iss-num { font-size: 2.2rem; font-weight: 900; color: #000; }
+
+    .toc { background: #1a1a1a; padding: 1.5rem 4rem; display: flex; gap: 1.5rem; flex-wrap: wrap; border-bottom: 1px solid #333; }
+    .toc a { color: #aaa; text-decoration: none; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; transition: color 0.2s; }
+    .toc a:hover { color: #fff; }
+    .toc-num { color: #555; margin-right: 0.3em; }
+
+    .story { position: relative; overflow: hidden; }
+    .story-inner { max-width: 1200px; margin: 0 auto; padding: 5rem 4rem; position: relative; z-index: 1; }
+    .story-num { font-size: clamp(6rem, 18vw, 16rem); font-weight: 900; line-height: 0.8; letter-spacing: -0.06em; opacity: 0.08; position: absolute; top: 1rem; right: 2rem; user-select: none; }
+    .story-badge { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.35em 0.9em; border-radius: 2px; margin-bottom: 1.5rem; }
+    .direct-badge { background: #FFD700; color: #000; }
+    .story-kicker { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; opacity: 0.6; margin-bottom: 0.8rem; }
+    .story-headline { font-size: clamp(2rem, 5vw, 4rem); font-weight: 900; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+    .story-body { font-size: clamp(1rem, 1.5vw, 1.2rem); font-weight: 400; line-height: 1.8; max-width: 680px; opacity: 0.88; margin-bottom: 2rem; }
+    .story-meta { display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center; font-size: 0.8rem; font-weight: 700; opacity: 0.5; }
+    .story-links { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem; }
+    .story-link { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.6em 1.4em; border-radius: 3px; text-decoration: none; transition: opacity 0.2s, transform 0.15s; }
+    .story-link:hover { opacity: 0.75; transform: translateY(-1px); }
+
+    .feedback-buttons { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .flag-btn { background: none; border: 1px solid currentColor; color: inherit; font-family: var(--font); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.5em 1em; border-radius: 3px; cursor: pointer; opacity: 0.32; transition: opacity 0.2s, background 0.2s, color 0.2s, border-color 0.2s, transform 0.15s; }
+    .flag-btn:hover { opacity: 0.72; transform: translateY(-1px); }
+    .flag-btn.like-btn.active { opacity: 1; background: rgba(255,215,0,0.15); border-color: #FFD700; color: #FFD700 !important; }
+    .flag-btn.dislike-btn.active { opacity: 1; background: rgba(255,60,60,0.12); border-color: #FF4444; color: #FF4444 !important; }
+
+    .toast { position: fixed; bottom: 2rem; right: 2rem; background: #1a1a1a; color: #fff; font-family: var(--font); font-size: 0.82rem; font-weight: 700; padding: 0.75em 1.4em; border-radius: 4px; border-left: 3px solid #00C853; z-index: 9999; opacity: 0; transform: translateY(10px); transition: opacity 0.25s, transform 0.25s; pointer-events: none; box-shadow: 0 4px 24px rgba(0,0,0,0.45); }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    .toast.error { border-left-color: #FF5252; }
+
+    .story-1 { background: #fff; color: #000; min-height: 90vh; display: flex; flex-direction: column; justify-content: center; }
+    .story-1 .story-num { color: #000; opacity: 0.04; }
+    .story-1 .story-kicker { color: #555; opacity: 1; }
+    .story-1 .story-headline { color: #000; }
+    .story-1 .story-body { color: #111; }
+    .story-1 .story-meta { color: #000; }
+    .story-1 .story-link.primary { background: #1a1a1a; color: #fff; }
+    .story-1 .story-link.secondary { background: #f0f0f0; color: #000; }
+    .story-1 .flag-btn { color: #000; }
+    .story-1-accent { position: absolute; bottom: 0; left: 0; width: 100%; height: 8px; background: linear-gradient(90deg, #FF6B35, #FF8C42, #FF6B35); }
+    .story-1 .headline-accent { display: inline-block; background: linear-gradient(135deg, #FF6B35 0%, #FF8C42 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .dos-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1.2rem; margin: 2rem 0; max-width: 680px; }
+    .dos-card { border: 2px solid rgba(0,0,0,0.12); background: rgba(0,0,0,0.04); border-radius: 6px; padding: 1.3rem 1.5rem; }
+    .dos-card-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.2em; text-transform: uppercase; color: #333; margin-bottom: 0.4rem; }
+    .dos-card-value { font-size: 1.05rem; font-weight: 900; color: #000; line-height: 1.3; }
+    .dos-card-sub { font-size: 0.75rem; color: #555; margin-top: 0.3rem; line-height: 1.4; }
+
+    .story-2 { background: #00080c; color: #b8f0ff; min-height: 80vh; }
+    .story-2::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(0,160,200,0.14) 0%, transparent 65%); }
+    .story-2 .story-num { color: #00A0C8; opacity: 0.07; }
+    .story-2 .story-kicker { color: #20C8E8; opacity: 1; }
+    .story-2 .story-headline { color: #e0f8ff; }
+    .story-2 .story-body { color: #b8f0ff; }
+    .story-2 .story-meta { color: #20C8E8; opacity: 0.5; }
+    .story-2 .story-link.primary { background: #004058; color: #80e8ff; }
+    .story-2 .story-link.secondary { background: rgba(0,160,200,0.08); color: #90d8f0; border: 1px solid rgba(0,160,200,0.22); }
+    .story-2 .flag-btn { color: #b8f0ff; }
+    .teal-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .teal-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(0,160,200,0.07); border-left: 3px solid #00A0C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .teal-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20C8E8; margin-bottom: 0.3rem; }
+    .teal-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-3 { background: #0a0000; color: #fff; min-height: 80vh; }
+    .story-3::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(200,20,20,0.16) 0%, transparent 65%); }
+    .story-3 .story-num { color: #C81414; opacity: 0.07; }
+    .story-3 .story-kicker { color: #E84040; opacity: 1; }
+    .story-3 .story-headline { color: #fff; }
+    .story-3 .story-body { color: rgba(255,255,255,0.88); }
+    .story-3 .story-meta { color: #E84040; opacity: 0.5; }
+    .story-3 .story-link.primary { background: #6a0000; color: #fff; }
+    .story-3 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-3 .flag-btn { color: #fff; }
+    .red-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .red-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(200,20,20,0.07); border-left: 3px solid #C81414; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .red-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E84040; margin-bottom: 0.3rem; }
+    .red-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-4 { background: #020c04; color: #c8f0d0; min-height: 80vh; }
+    .story-4::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(20,160,70,0.16) 0%, transparent 65%); }
+    .story-4 .story-num { color: #14A046; opacity: 0.07; }
+    .story-4 .story-kicker { color: #30C060; opacity: 1; }
+    .story-4 .story-headline { color: #e0ffe8; }
+    .story-4 .story-body { color: #c8f0d0; }
+    .story-4 .story-meta { color: #30C060; opacity: 0.5; }
+    .story-4 .story-link.primary { background: #063820; color: #80ffb0; }
+    .story-4 .story-link.secondary { background: rgba(20,160,70,0.08); color: #a0e8b0; border: 1px solid rgba(20,160,70,0.22); }
+    .story-4 .flag-btn { color: #c8f0d0; }
+    .green-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .green-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(20,160,70,0.07); border-left: 3px solid #14A046; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .green-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #30C060; margin-bottom: 0.3rem; }
+    .green-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-5 { background: #040010; color: #d8c8ff; min-height: 75vh; }
+    .story-5::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(90,40,200,0.17) 0%, transparent 65%); }
+    .story-5 .story-num { color: #5A28C8; opacity: 0.07; }
+    .story-5 .story-kicker { color: #8050E0; opacity: 1; }
+    .story-5 .story-headline { color: #f0e8ff; }
+    .story-5 .story-body { color: #d8c8ff; }
+    .story-5 .story-meta { color: #8050E0; opacity: 0.5; }
+    .story-5 .story-link.primary { background: #200860; color: #d0a8ff; }
+    .story-5 .story-link.secondary { background: rgba(90,40,200,0.08); color: #c0a0f0; border: 1px solid rgba(90,40,200,0.22); }
+    .story-5 .flag-btn { color: #d8c8ff; }
+    .purple-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .purple-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(90,40,200,0.07); border-left: 3px solid #5A28C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .purple-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #8050E0; margin-bottom: 0.3rem; }
+    .purple-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-6 { background: #000c10; color: #b8e8f0; min-height: 75vh; }
+    .story-6::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 40%, rgba(0,130,160,0.14) 0%, transparent 65%); }
+    .story-6 .story-num { color: #0080A0; opacity: 0.07; }
+    .story-6 .story-kicker { color: #20B0D0; opacity: 1; }
+    .story-6 .story-headline { color: #e0f4ff; }
+    .story-6 .story-body { color: #b8e8f0; }
+    .story-6 .story-meta { color: #20B0D0; opacity: 0.5; }
+    .story-6 .story-link.primary { background: #003848; color: #80d8f0; }
+    .story-6 .story-link.secondary { background: rgba(0,130,160,0.08); color: #90cce0; border: 1px solid rgba(0,130,160,0.22); }
+    .story-6 .flag-btn { color: #b8e8f0; }
+    .cyan-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .cyan-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(0,130,160,0.07); border-left: 3px solid #0080A0; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .cyan-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20B0D0; margin-bottom: 0.3rem; }
+    .cyan-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-7 { background: #0a0300; color: #ffe0b8; min-height: 75vh; }
+    .story-7::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(210,90,20,0.18) 0%, transparent 65%); }
+    .story-7 .story-num { color: #D05A14; opacity: 0.07; }
+    .story-7 .story-kicker { color: #E88040; opacity: 1; }
+    .story-7 .story-headline { color: #fff0d8; }
+    .story-7 .story-body { color: #ffe0b8; }
+    .story-7 .story-meta { color: #E88040; opacity: 0.5; }
+    .story-7 .story-link.primary { background: #6a2400; color: #ffc880; }
+    .story-7 .story-link.secondary { background: rgba(210,90,20,0.08); color: #ffb870; border: 1px solid rgba(210,90,20,0.22); }
+    .story-7 .flag-btn { color: #ffe0b8; }
+    .amber-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .amber-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(210,90,20,0.07); border-left: 3px solid #D05A14; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .amber-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E88040; margin-bottom: 0.3rem; }
+    .amber-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-8 { background: #080500; color: #fff; min-height: 70vh; }
+    .story-8::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,145,10,0.15) 0%, transparent 65%); }
+    .story-8 .story-num { color: #BE9110; opacity: 0.06; }
+    .story-8 .story-kicker { color: #D4A820; opacity: 1; }
+    .story-8 .story-headline { color: #fff; }
+    .story-8 .story-body { color: rgba(255,255,255,0.88); }
+    .story-8 .story-meta { color: #D4A820; opacity: 0.5; }
+    .story-8 .story-link.primary { background: #604000; color: #ffe070; }
+    .story-8 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-8 .flag-btn { color: #fff; }
+    .gold-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .gold-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(190,145,10,0.07); border-left: 3px solid #BE9110; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .gold-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #D4A820; margin-bottom: 0.3rem; }
+    .gold-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-9 { background: #040810; color: #c8d8f0; min-height: 70vh; }
+    .story-9::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 35%, rgba(50,90,170,0.16) 0%, transparent 65%); }
+    .story-9 .story-num { color: #3258A8; opacity: 0.07; }
+    .story-9 .story-kicker { color: #5878C8; opacity: 1; }
+    .story-9 .story-headline { color: #e8f0ff; }
+    .story-9 .story-body { color: #c8d8f0; }
+    .story-9 .story-meta { color: #5878C8; opacity: 0.5; }
+    .story-9 .story-link.primary { background: #101e50; color: #fff; }
+    .story-9 .story-link.secondary { background: rgba(50,90,170,0.08); color: #b0c8e8; border: 1px solid rgba(50,90,170,0.22); }
+    .story-9 .flag-btn { color: #c8d8f0; }
+    .slate-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .slate-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(50,90,170,0.07); border-left: 3px solid #3258A8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .slate-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #5878C8; margin-bottom: 0.3rem; }
+    .slate-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .story-10 { background: #080004; color: #ffc8e8; min-height: 70vh; }
+    .story-10::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,20,90,0.15) 0%, transparent 65%); }
+    .story-10 .story-num { color: #BE1458; opacity: 0.07; }
+    .story-10 .story-kicker { color: #E04080; opacity: 1; }
+    .story-10 .story-headline { color: #fff0f8; }
+    .story-10 .story-body { color: #ffc8e8; }
+    .story-10 .story-meta { color: #E04080; opacity: 0.5; }
+    .story-10 .story-link.primary { background: #500030; color: #ffb0d8; }
+    .story-10 .story-link.secondary { background: rgba(190,20,90,0.08); color: #f090c0; border: 1px solid rgba(190,20,90,0.22); }
+    .story-10 .flag-btn { color: #ffc8e8; }
+    .mag-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .mag-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(190,20,90,0.07); border-left: 3px solid #BE1458; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .mag-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E04080; margin-bottom: 0.3rem; }
+    .mag-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .site-footer { background: #000; color: #555; padding: 3rem 4rem; display: flex; flex-direction: column; gap: 1.5rem; border-top: 1px solid #222; }
+    .footer-top { display: flex; gap: 2rem; align-items: center; flex-wrap: wrap; justify-content: space-between; }
+    .footer-brand { font-size: 1.4rem; font-weight: 900; color: #fff; }
+    .footer-meta { font-size: 0.75rem; line-height: 1.6; }
+    .export-btn { background: #222; border: 1px solid #444; color: #fff; font-family: var(--font); font-size: 0.8rem; font-weight: 700; padding: 0.7em 1.5em; border-radius: 3px; cursor: pointer; letter-spacing: 0.08em; transition: background 0.2s; }
+    .export-btn:hover { background: #333; }
+    .footer-note { font-size: 0.7rem; opacity: 0.5; }
+
+    @media (max-width: 768px) {
+      .masthead, .toc, .story-inner, .site-footer { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .story-num { display: none; }
+      .masthead-meta { gap: 1rem; }
+      .masthead-issue { margin-left: 0; }
+      .dos-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+<nav style="background:#1a1a1a;border-bottom:1px solid #333;padding:0.55rem 2rem;font-family:'M PLUS Rounded 1c','Hiragino Sans','Noto Sans JP',sans-serif;position:sticky;top:0;z-index:999;">
+  <a href="./index.html" style="color:#aaa;text-decoration:none;font-size:0.8rem;font-weight:700;letter-spacing:0.03em;display:inline-flex;align-items:center;gap:0.4rem;transition:color 0.15s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#aaa'">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    アーカイブへ戻る
+  </a>
+</nav>
+
+<header class="masthead">
+  <div class="masthead-kicker">Hacker News — Morning Edition</div>
+  <h1 class="masthead-title">Morning<br>Edition</h1>
+  <div class="masthead-meta">
+    <div>
+      <div class="masthead-date">2026年7月13日 月曜日</div>
+      <div class="masthead-subtitle">AI・開発ツール・プライバシー・サイエンス — あなたのための10本</div>
+    </div>
+    <div class="masthead-issue">
+      <span class="iss-label">Issue</span>
+      <span class="iss-num">No.075</span>
+    </div>
+  </div>
+</header>
+
+<nav class="toc">
+  <a href="#s1"><span class="toc-num">01</span>Claude Code、プロンプト読む前に33kトークン消費——OpenCodeの4.7倍</a>
+  <a href="#s2"><span class="toc-num">02</span>テレンス・タオが語る——コーディングエージェントで古いアプリを蘇らせる</a>
+  <a href="#s3"><span class="toc-num">03</span>geohot「LLMは好き、ハイプは嫌い」</a>
+  <a href="#s4"><span class="toc-num">04</span>Ghostel.el——libghosttyで動くEmacs用ターミナルエミュレータ</a>
+  <a href="#s5"><span class="toc-num">05</span>帯状疱疹ワクチンが認知症リスクを下げる可能性</a>
+  <a href="#s6"><span class="toc-num">06</span>「絶滅した」ではなく「絶版」——ファビアン・サングラードの考察</a>
+  <a href="#s7"><span class="toc-num">07</span>Chromium 148でMath.tanhがOSフィンガープリントに使われ始めた</a>
+  <a href="#s8"><span class="toc-num">08</span>アイルランドのデータセンターが国家電力の23%を消費中</a>
+  <a href="#s9"><span class="toc-num">09</span>2026年にコードを書く理由——AIに任せない選択</a>
+  <a href="#s10"><span class="toc-num">10</span>「理解なき自動化」——AIエージェント時代の盲点を問う論文</a>
+</nav>
+
+<!-- ═══ STORY 1 — Claude Code token overhead ═══════════════════════════════════ -->
+<section class="story story-1" id="s1">
+  <div class="story-num">01</div>
+  <div class="story-inner">
+    <div class="story-badge direct-badge">⚡ あなたに直接関係</div>
+    <div class="story-kicker">AI / 開発ツール / Claude Code / トークン効率 / OpenCode — Claude Code vs OpenCode トークンオーバーヘッド比較。プロンプトを読む前に Claude Code は33,000トークンを送信、OpenCodeはわずか7,000トークン。コスト・速度への実質的な影響。348ポイント・196コメント</div>
+    <h2 class="story-headline">
+      <span class="headline-accent">Claude Code、</span><br>プロンプト読む前<br>に33kトークン<br>消費——4.7倍の差
+    </h2>
+    <div class="story-body">
+      Systima.aiが「Claude Code sends 33k tokens before reading the prompt; OpenCode sends 7k（Claude Codeはプロンプトを読む前に33kトークンを送信、OpenCodeは7k）」を公開し、348ポイント・196コメントという活発な議論を呼んでいます。
+
+      記事の核心は「イニシャライゼーションオーバーヘッド」の問題です。Claude Codeはセッション開始時に、ユーザーのプロンプトを処理する前に、システムプロンプト・コードコンテキスト・ツール定義などで約33,000トークンをAnthropicのAPIに送信します。一方、オープンソースの代替ツールであるOpenCodeは同様の初期化をわずか7,000トークンで行います。この差4.7倍が毎回のコーディングセッションで積み重なります。
+
+      HN上では「プロンプトキャッシュが有効な場合、33kの繰り返し送信は最小コスト——でも最初の1回目と新規プロジェクトではキャッシュミスで全額課金される」「OpenCodeがなぜ少ないかは重要——ツール定義を削ぎ落とした軽量設計か、それとも機能を犠牲にしているのか」「Claude Codeはこの「重さ」の代わりにコンテキスト理解力と自律修正能力を持っている——単純な比較では見えないトレードオフ」という196コメントが展開しています。
+    </div>
+    <div class="dos-grid">
+      <div class="dos-card">
+        <div class="dos-card-label">Claude Code</div>
+        <div class="dos-card-value">~33,000 トークン</div>
+        <div class="dos-card-sub">プロンプト読み込み前のオーバーヘッド。システムプロンプト・ツール定義・コンテキスト初期化を含む。Anthropic APIへの送信コストが毎セッションかかる</div>
+      </div>
+      <div class="dos-card">
+        <div class="dos-card-label">OpenCode</div>
+        <div class="dos-card-value">~7,000 トークン</div>
+        <div class="dos-card-sub">同等の初期化を7kで完了。オープンソース・軽量設計。Claude Codeの約4.7倍の効率。ただし機能セットの差には注意が必要</div>
+      </div>
+      <div class="dos-card">
+        <div class="dos-card-label">プロンプトキャッシュの影響</div>
+        <div class="dos-card-value">繰り返しは安い</div>
+        <div class="dos-card-sub">Anthropicのキャッシュ価格：通常の10%。同一セッション内の繰り返しはほぼ無料。ただしキャッシュミス（新規プロジェクト・長時間後）は全額課金。1日あたりの実コストはキャッシュヒット率に依存</div>
+      </div>
+      <div class="dos-card">
+        <div class="dos-card-label">実際のコスト感</div>
+        <div class="dos-card-value">月額への影響</div>
+        <div class="dos-card-sub">ヘビーユーザー（1日50セッション想定）：キャッシュなし換算で月数十ドルの差になりうる。Claude Code Pro（$100/月）契約ならAPIコスト分離のため影響なし。API直接利用ユーザーは要注意</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: systima.ai</span>
+      <span>348 ポイント</span>
+      <span>196 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://systima.ai/blog/claude-code-vs-opencode-token-overhead" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48883275" target="_blank">HN議論 (196)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="claude-code-token-overhead" data-type="like" onclick="toggleFlag('claude-code-token-overhead','Claude Code、プロンプト読む前に33kトークン消費——OpenCodeの4.7倍','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="claude-code-token-overhead" data-type="dislike" onclick="toggleFlag('claude-code-token-overhead','Claude Code、プロンプト読む前に33kトークン消費——OpenCodeの4.7倍','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+  <div class="story-1-accent"></div>
+</section>
+
+<!-- ═══ STORY 2 — Terence Tao on coding agents ══════════════════════════════ -->
+<section class="story story-2" id="s2">
+  <div class="story-num">02</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / コーディングエージェント / 数学 / テレンス・タオ — フィールズ賞数学者テレンス・タオが「モダンなコーディングエージェントで古いアプリと新しいアプリを作る」体験記を公開。プロ以外のプログラマーがAIエージェントで何を実現したか。386ポイント・110コメント</div>
+    <h2 class="story-headline">
+      テレンス・タオ<br>が語る——<br>コーディング<br>エージェント体験
+    </h2>
+    <div class="story-body">
+      フィールズ賞受賞数学者のテレンス・タオ（Terence Tao）がWordPressブログに「Old and new apps, via modern coding agents（モダンなコーディングエージェントを通じた古いアプリと新しいアプリ）」を投稿し、386ポイント・110コメントを集めました。タオは自身が「プロのプログラマーではない」と断りながら、コーディングエージェントを使って自分の研究・教育ツールとして使っていた古いウェブアプリを復活させ、さらに新しいツールを作った体験を詳述しています。
+
+      特に印象的なのは、タオが「数十年前に書いてそのまま放置されていたJavaScriptアプリ」をコーディングエージェントに渡し、現代のブラウザで動くように修正してもらっただけでなく、機能追加まで行った点です。タオは「コードを一行も書かずにこれができた」と語り、数学の視覚化ツールや計算補助ツールを自分のニーズに合わせて整備できたことに率直な驚きを表明しています。
+
+      HN上では「世界最高の数学者がAIコーディングに感動している事実は、AIツールの成熟度を示す強いシグナル」「タオのような人が自分でアプリを整備できるようになると、数学教育の可能性が広がる——彼が作ったビジュアライゼーションツールが公開されればインパクト大」「プロでないユーザーのコーディングエージェント体験記として読むと、ハルシネーションへの対処法や反復改善の実態が分かる」という110コメントが展開しています。
+    </div>
+    <div class="teal-items">
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">タオが使ったユースケース</div>
+          <div class="teal-text">古いアプリの復活：数十年前に書いたJavaScriptベースの数学ツールを現代のブラウザ向けに修正。新規アプリの作成：研究・教育目的の計算・可視化ツールをゼロから制作。特徴：コードを一行も手書きせず、エージェントへの自然言語指示のみで完成。タオの評価：「ツールのロジックを設計し、エージェントに実装させる分業が機能した」——エージェントの限界についても率直に言及</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">プロでないプログラマーにとっての意味</div>
+          <div class="teal-text">タオのポジション：数学は一流だがコーディングはアマチュアレベル。重要な示唆：「ドメイン知識がある人がコーディングエージェントを使うと、エージェントが最も強力に機能する」——何を作りたいかを正確に言語化できるからこそ、AIの出力を評価・修正できる。逆の課題：ドメイン知識なしにコーディングエージェントを使うと、出力の正しさを検証できない。タオは数学の正確さでエージェントの出力を評価できた</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">既存コードのリバイバルというユースケース</div>
+          <div class="teal-text">注目すべき点：「古いコードをモダン化する」はコーディングエージェントの最も強力なユースケースの1つ。理由：旧APIを新APIに置き換える・非推奨関数を更新する・ブラウザ互換性を修正するは、エージェントが得意な反復パターン認識タスク。実際の効果：20年前のDOM操作コードをモダンなJSに変換・古いXMLHttpRequestをfetch APIに置き換えなどが指示なしに自動実行される事例が報告されている。タオの体験はこれを一流研究者が追体験した証言</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: terrytao.wordpress.com</span>
+      <span>386 ポイント</span>
+      <span>110 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://terrytao.wordpress.com/2026/07/11/old-and-new-apps-via-modern-coding-agents/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48880170" target="_blank">HN議論 (110)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="terence-tao-coding-agents" data-type="like" onclick="toggleFlag('terence-tao-coding-agents','テレンス・タオが語る——コーディングエージェントで古いアプリを蘇らせる','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="terence-tao-coding-agents" data-type="dislike" onclick="toggleFlag('terence-tao-coding-agents','テレンス・タオが語る——コーディングエージェントで古いアプリを蘇らせる','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 3 — geohot: I love LLMs, I hate hype ════════════════════════════ -->
+<section class="story story-3" id="s3">
+  <div class="story-num">03</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / LLM / geohot / 批評 / ハイプ — George Hotz（geohot）が「LLMは好き、ハイプは嫌い」を投稿。技術そのものへの評価とAI業界を覆うバズワードと過剰期待への批判を分離して語る。248ポイント・136コメント</div>
+    <h2 class="story-headline">
+      geohot——<br>「LLMは好き、<br>ハイプは<br>嫌いだ」
+    </h2>
+    <div class="story-body">
+      tinyboxやcomma.aiで知られるGeorge Hotz（geohot）が自身のブログに「I love LLMs, I hate hype（LLMは好き、ハイプは嫌い）」を投稿し、248ポイント・136コメントを集めました。記事はLLMという技術そのものへの率直な賞賛と、それを取り巻く業界のハイプ・誇張・バズワードへの鋭い批判を明確に分けて論じています。
+
+      geohot氏がLLMを「好き」な理由として挙げるのは、コーディング補助・数学的推論・知識検索における実際の有用性です。「ChatGPTは毎日使う。Claude Codeは毎日使う。これらは本当に役に立つ」と明言しています。一方で「嫌い」な側面として、「AGIが来年来る」「AIが全ての仕事を奪う」「意識が生まれた」といった誇大言説や、VC・メディア・AI企業自身が作り出すハイプサイクルへの不満を明示しています。
+
+      HN上では「geohot は技術と言説を分けて評価している——これは正しいアプローチ。LLMは便利なツールだが神秘的な存在ではない」「geohot の批判の対象はOpenAIのSam Altmanが体現するような過剰なビジョン言説だろう——それと技術の価値を切り分けるのは重要」「矛盾して聞こえるが、LLMの最もよい使い方を知っている人間がハイプに最も批判的——熟練ユーザーほど現実的」という136コメントが展開しています。
+    </div>
+    <div class="red-items">
+      <div class="red-item">
+        <div>
+          <div class="red-label">geohot が「好き」なLLMの側面</div>
+          <div class="red-text">毎日使うツールとしての実用性：コーディング補助（Claude Code）・検索の代替・ドキュメント要約・コードデバッグ。賞賛ポイント：「知識の民主化ツールとして機能している——専門家への質問が誰でもできる」。技術的な評価：トランスフォーマーアーキテクチャの優雅さ・スケール則の発見・RLHF等の技術革新は本物の科学的成果。geohot 自身がcomma.aiでLLMを使った自動運転開発を行っていることからも、技術への信頼は本物</div>
+        </div>
+      </div>
+      <div class="red-item">
+        <div>
+          <div class="red-label">geohot が「嫌い」なハイプの側面</div>
+          <div class="red-text">具体的な批判対象：①「AGI は1〜2年以内」という根拠なき予測を繰り返すCEOや投資家②「AIが全ての知的労働を奪う」という過剰な脅威言説③「モデルに意識が宿った」という技術的根拠ゼロの主張④数十億ドルの評価額を正当化するための誇大マーケティング。背景：AI企業がVC資金を調達するためにハイプを維持するインセンティブがある——これが技術への正確な評価を歪める。geohot の立場：商業的インセンティブのない独立した批評者として発言</div>
+        </div>
+      </div>
+      <div class="red-item">
+        <div>
+          <div class="red-label">「技術 vs 言説」を分ける思考法</div>
+          <div class="red-text">geohot 流のフレームワーク：「今日役に立つか」と「誇大な未来予測」を切り分ける。実践的な問い：この技術は今すぐ自分の仕事を改善するか？→YesならLLMは使う価値がある。これは10年後に世界を変えるか？→分からない、そして気にする必要はない。歴史的文脈：クラウドコンピューティング・スマートフォン・ブロックチェーンにも同様のハイプサイクルがあった。残ったのは実用的な技術だけ。LLMからも実用性は残る——ハイプが剥がれた後に何が残るかを見ている段階</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: geohot.github.io</span>
+      <span>248 ポイント</span>
+      <span>136 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://geohot.github.io//blog/jekyll/update/2026/07/12/i-love-llms.html" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48883343" target="_blank">HN議論 (136)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="geohot-love-llms-hate-hype" data-type="like" onclick="toggleFlag('geohot-love-llms-hate-hype','geohot「LLMは好き、ハイプは嫌い」','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="geohot-love-llms-hate-hype" data-type="dislike" onclick="toggleFlag('geohot-love-llms-hate-hype','geohot「LLMは好き、ハイプは嫌い」','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 4 — Ghostel.el terminal emulator ═══════════════════════════════ -->
+<section class="story story-4" id="s4">
+  <div class="story-num">04</div>
+  <div class="story-inner">
+    <div class="story-kicker">開発ツール / Emacs / ターミナル / libghostty / Ghostty — Ghosttyターミナルのコアライブラリlibghosttyを使ったEmacs用ターミナルエミュレータ「Ghostel.el」が公開。Emacsユーザー向けの新しい選択肢。254ポイント・47コメント</div>
+    <h2 class="story-headline">
+      Ghostel.el——<br>libghostty で<br>動く Emacs 用<br>ターミナル
+    </h2>
+    <div class="story-body">
+      「Ghostel.el: Terminal emulator powered by libghostty」がHNで254ポイント・47コメントを集めました。Ghostel.elはEmacs内で動作するターミナルエミュレータで、Mitchell Hashimoto（HashiCorp創業者）が開発した高速ターミナルアプリ「Ghostty」のコアライブラリであるlibghosttyを利用しています。
+
+      Ghosttyはその高速レンダリングとmacOS・Linux向けのネイティブ統合で2024年末に大きな注目を集めたターミナルアプリです。libghosttyはそのレンダリング・VT100/xterm互換性処理・フォントシェーピングなどのコア機能をライブラリとして切り出したものです。Ghostel.elはこのlibghosttyをEmacsのモジュールシステム経由で呼び出し、Emacs内に組み込まれたターミナルとして動作させます。既存のEmacsターミナル（term.el・vterm）と比較して、libghosttyのVT互換性の高さとレンダリング速度が利点として挙げられています。
+
+      HN上では「vtermを長年使ってきたが、Ghosttyのレンダリング品質はvlibvtermより明らかに上——Emacsでも使えるなら試す価値がある」「libghosttyのAPIがこれほど早くEmacsに来るとは思わなかった。Mitchellのライブラリ設計が良かった証拠」「macOS限定か？LinuxのGTKバックエンドでも動くか気になる」という47コメントが展開しています。
+    </div>
+    <div class="green-items">
+      <div class="green-item">
+        <div>
+          <div class="green-label">Ghostty / libghosttyとは</div>
+          <div class="green-text">Ghostty：Mitchell Hashimoto（Vagrant・HashiCorp創業者）が個人プロジェクトとして開発し2024年12月に公開したターミナルエミュレータ。特徴：macOSネイティブUI・GPU加速レンダリング・完全なVT互換性・Ziglang製で高速。libghostty：Ghosttyのコアロジックをライブラリとして分離したもの。ターミナルエミュレーション・文字レンダリング・エスケープシーケンス処理を提供。目的：Ghosttyの技術をGUI以外のアプリケーション（Emacs等）でも使えるようにする</div>
+        </div>
+      </div>
+      <div class="green-item">
+        <div>
+          <div class="green-label">Emacsターミナルの現状と比較</div>
+          <div class="green-text">既存の選択肢：term.el（Emacs付属、古くVT互換性に問題あり）・vterm（libvterm使用、現在の標準的選択肢）・eat（Pure Elispで最近登場）。Ghostel.elの位置づけ：libghosttyのVT100/XTerm互換性はlibvtermより高いとされる——よりモダンなターミナルアプリで使われる高度なエスケープシーケンスが正しく処理される可能性。課題：まだ初期段階——安定性・パフォーマンス・プラットフォームサポートは検証中。vtermユーザーが乗り換えるには実績の積み重ねが必要</div>
+        </div>
+      </div>
+      <div class="green-item">
+        <div>
+          <div class="green-label">Emacsとターミナルの統合という思想</div>
+          <div class="green-text">なぜEmacs内にターミナルを持つのか：Emacsをフルの開発環境として使う場合、外部ターミナルに切り替えることなく全ての作業をEmacs内で完結できる。urg（Org-modeでのシェル出力キャプチャ）・コード実行・ファイル操作が一つのバッファ内で統合される。現代的な文脈：VSCodeのIntegrated Terminalと同様の思想——ただしEmacsは40年前からこれを実践してきた。Claude Codeとの統合：Claude Codeをターミナルで使うEmacsユーザーにとって、Emacs内ターミナルとの相性は重要な選択基準になりうる</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: dakra.github.io</span>
+      <span>254 ポイント</span>
+      <span>47 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://dakra.github.io/ghostel/" target="_blank">プロジェクトを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48879504" target="_blank">HN議論 (47)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="ghostel-emacs-terminal" data-type="like" onclick="toggleFlag('ghostel-emacs-terminal','Ghostel.el——libghosttyで動くEmacs用ターミナルエミュレータ','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="ghostel-emacs-terminal" data-type="dislike" onclick="toggleFlag('ghostel-emacs-terminal','Ghostel.el——libghosttyで動くEmacs用ターミナルエミュレータ','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 5 — Shingles vaccine dementia ════════════════════════════════════ -->
+<section class="story story-5" id="s5">
+  <div class="story-num">05</div>
+  <div class="story-inner">
+    <div class="story-kicker">変わった科学 / 医療 / ワクチン / 認知症 / 予防医療 — 帯状疱疹（シングルス）ワクチンが認知症リスクを大幅に下げる可能性を示す大規模研究。エコノミスト誌が「脳を守る最もシンプルな選択」と評価。183ポイント・162コメント</div>
+    <h2 class="story-headline">
+      帯状疱疹<br>ワクチンが<br>認知症リスクを<br>下げる
+    </h2>
+    <div class="story-body">
+      エコノミスト誌が「A no-brainer for protecting your brain（脳を守るための明快な選択）」を掲載し、183ポイント・162コメントを集めました。記事はウェールズで行われた大規模な自然実験を中心に、帯状疱疹（Herpes Zoster）ワクチンが認知症発症リスクを20〜25%程度低下させる可能性を示す複数の研究を紹介しています。
+
+      研究の背景にある仮説はこうです：水痘・帯状疱疹ウイルス（VZV）は子供の頃に感染した後、神経節に潜伏します。加齢とともに免疫力が低下すると再活性化（帯状疱疹として発症）し、一部は脳に炎症を引き起こします。この神経炎症が長期的にアルツハイマー病などの認知症発症に寄与している可能性があるという仮説です。帯状疱疹ワクチン（Shingrix等）がこのリスクを下げることで、副次的に認知症予防効果があると考えられています。
+
+      HN上では「これがランダム化比較試験ではなく観察研究であることに注意——ただしウェールズの自然実験（誕生日による接種資格の切断）はかなり信頼性が高い準実験」「Shingrixは高齢者に強く推奨されているが、この研究は接種のインセンティブをさらに強化する」「帯状疱疹ワクチンは保険適用で比較的安価——コストベネフィットを考えると親世代に強く勧める動機になった」という162コメントが展開しています。
+    </div>
+    <div class="purple-items">
+      <div class="purple-item">
+        <div>
+          <div class="purple-label">研究の根拠と信頼性</div>
+          <div class="purple-text">ウェールズの自然実験：2013年にウェールズが導入した帯状疱疹ワクチン接種プログラムで、誕生日による資格区切り（70歳直前 vs 直後）が生じた。この「誕生日の偶然」が準ランダム化試験として機能——接種群・非接種群の違いが年齢以外のバイアスを最小化。結果：接種群で7年間の認知症診断が約20%少なかった。他の研究：米国・英国の大規模コホートデータでも同様の傾向。証拠の質：観察研究だが準実験設計で高品質。最終確認にはRCTが望ましいが倫理的に困難</div>
+        </div>
+      </div>
+      <div class="purple-item">
+        <div>
+          <div class="purple-label">なぜワクチンが認知症を防げるのか（仮説）</div>
+          <div class="purple-text">VZVと神経炎症：水痘ウイルスは神経節に潜伏し、加齢で再活性化→帯状疱疹→神経炎症が生じる。この慢性的な微小炎症がアルツハイマー病のアミロイドプラーク形成を促進する可能性。支持する証拠：帯状疱疹後神経痛（長期の神経炎症）が認知症リスクを特に高める。感染症と認知症のリンク：単純ヘルペスウイルス（HSV-1）もアルツハイマーとの関連が研究されている——ウイルス性神経炎症仮説全体への関心が高まっている</div>
+        </div>
+      </div>
+      <div class="purple-item">
+        <div>
+          <div class="purple-label">実際に何をすべきか</div>
+          <div class="purple-text">対象年齢：帯状疱疹ワクチン（Shingrix）は50歳以上に推奨（米国CDC・日本でも接種可能）。接種スケジュール：2回接種（2〜6ヶ月間隔）。有効率：帯状疱疹発症予防90%以上。副反応：接種部位の痛み・倦怠感は出やすいが数日で解消。日本での状況：定期接種化は未だ限定的——市区町村の補助を確認のこと。親・祖父母世代への勧め：認知症予防の可能性まで加えると、接種を検討する動機がより強くなる。自分が50代以上の場合：今すぐかかりつけ医に相談する価値あり</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: economist.com</span>
+      <span>183 ポイント</span>
+      <span>162 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.economist.com/leaders/2026/07/09/a-no-brainer-for-protecting-your-brain" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48881874" target="_blank">HN議論 (162)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="shingles-vaccine-dementia" data-type="like" onclick="toggleFlag('shingles-vaccine-dementia','帯状疱疹ワクチンが認知症リスクを下げる可能性','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="shingles-vaccine-dementia" data-type="dislike" onclick="toggleFlag('shingles-vaccine-dementia','帯状疱疹ワクチンが認知症リスクを下げる可能性','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 6 — Don't you mean extinct? ════════════════════════════════════ -->
+<section class="story story-6" id="s6">
+  <div class="story-num">06</div>
+  <div class="story-inner">
+    <div class="story-kicker">変わった考察 / 言語 / テクノロジー / ファビアン・サングラード — ゲームエンジン探偵として知られるファビアン・サングラードが「絶版（discontinued）」と「絶滅（extinct）」を区別すべきという考察を発表。ソフトウェア・ハードウェアの「終わり方」を哲学的に掘り下げる。168ポイント・93コメント</div>
+    <h2 class="story-headline">
+      「絶滅した」<br>ではなく<br>「絶版」——<br>終わり方の哲学
+    </h2>
+    <div class="story-body">
+      ゲームエンジンのリバースエンジニアリングで知られるFabien Sanglard（ファビアン・サングラード）が「Don't you mean extinct?（絶滅した、ということ？）」を公開し、168ポイント・93コメントを集めました。記事はソフトウェアやテクノロジーが「終わる」ときの2つの異なる在り方——「絶版（discontinued）」と「絶滅（extinct）」——を区別することを提唱する哲学的な考察です。
+
+      サングラードの主張は、多くの人が「古いソフト・ハードウェア・ゲームが終わった」と言うとき、実際には2つの全く異なる状態を混同しているというものです。「絶版」は製品が公式サポートを失ったが、まだ動く・使える・コードが存在する状態です。一方「絶滅」は技術的に復元不可能な消滅——ハードウェアが全滅し、ソースコードが失われ、動かすことが不可能になった状態を指します。この区別は単なる言葉遊びではなく、保存活動・エミュレーション・リバースエンジニアリングの意義を正確に定義するために重要だと論じています。
+
+      HN上では「Internet Archive・EFFFがこの区別をずっと主張してきた——法的な保存権利の議論においても重要な概念」「コードが『絶滅』しない限り、エミュレーションで復活させる可能性が残る——だからソースコードの保存が重要」「Flashが『絶版』になったとき、Ruffle等のエミュレータでFlashコンテンツを保存できた。真に『絶滅』したFlash作品は今も失われたまま」という93コメントが展開しています。
+    </div>
+    <div class="cyan-items">
+      <div class="cyan-item">
+        <div>
+          <div class="cyan-label">「絶版」と「絶滅」の違い</div>
+          <div class="cyan-text">絶版（Discontinued）：公式サポート終了・販売終了だが技術的にはまだ動く。例：Windows XP（サポート終了だが仮想マシンで動作可能）・Flash Player（Adobe終了だがRuffleで多くが動く）・PlayStation 2（製造終了だが実機やエミュレータで動作）。絶滅（Extinct）：技術的復元が不可能。例：ハードウェアが全滅し回路図もなく動作実機が存在しない機器・ソースコードが消失しバイナリも残らないソフトウェア・磁気メディアが劣化し読み出せなくなったゲーム。区別の実践的意味：絶版=まだ保存・復元の時間がある。絶滅=手遅れ</div>
+        </div>
+      </div>
+      <div class="cyan-item">
+        <div>
+          <div class="cyan-label">デジタル文化の保存問題</div>
+          <div class="cyan-text">規模感：Internet Archiveによると、2000年代初頭のウェブサイトの約40%がすでに「絶滅」状態——キャッシュもアーカイブも存在しない。ゲームの状況：ゲーム保存プロジェクト（Video Game History Foundation等）の推定では、歴史的ゲームの87%が商業的にアクセス不能——ただし「絶版」と「絶滅」の比率は不明。Flashの事例：Adobeの終了発表でInternet Archiveが大規模なFlash保存プロジェクトを実施→Ruffle等のエミュレータ開発につながった。教訓：「絶版」の段階で動くなら、今すぐ保存できる</div>
+        </div>
+      </div>
+      <div class="cyan-item">
+        <div>
+          <div class="cyan-label">ファビアン・サングラードの視点</div>
+          <div class="cyan-text">著者の背景：Doom・Quakeなどのゲームエンジンをリバースエンジニアリングして解説することで有名。「絶版」ゲームのコードを読み解くことで技術史を書いてきた研究者的視点を持つ。主張の核心：リバースエンジニアリングや保存活動の意義は「絶版」の段階で行動することにある。一度「絶滅」したものは取り戻せない。個人ができること：大切なソフト・ゲーム・デジタルコンテンツは「絶版」の段階でバックアップ・アーカイブを取る。GOG.com・Internet Archive・emulation projectsへの支持が「絶滅」を防ぐ</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: fabiensanglard.net</span>
+      <span>168 ポイント</span>
+      <span>93 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://fabiensanglard.net/extinct/index.html" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48881830" target="_blank">HN議論 (93)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="dont-you-mean-extinct" data-type="like" onclick="toggleFlag('dont-you-mean-extinct','「絶滅した」ではなく「絶版」——終わり方の哲学','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="dont-you-mean-extinct" data-type="dislike" onclick="toggleFlag('dont-you-mean-extinct','「絶滅した」ではなく「絶版」——終わり方の哲学','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 7 — Math.tanh fingerprinting ══════════════════════════════════ -->
+<section class="story story-7" id="s7">
+  <div class="story-num">07</div>
+  <div class="story-inner">
+    <div class="story-kicker">プライバシー / セキュリティ / ブラウザ / フィンガープリント / Chromium — Chromium 148以降でMath.tanhの実装差異がOSレベルのフィンガープリントに使用可能になった。ブラウザの数学関数がプライバシーの穴になる仕組みを解説。112ポイント・41コメント</div>
+    <h2 class="story-headline">
+      Chromium 148——<br>Math.tanh が<br>OS フィンガー<br>プリントに使われる
+    </h2>
+    <div class="story-body">
+      Scrapfly Devが「Since Chromium 148, Math.tanh is now fingerprintable to link underlying OS（Chromium 148以降、Math.tanhを使って裏側のOSを特定できる）」を公開し、112ポイント・41コメントを集めました。記事はブラウザのJavaScript数学関数`Math.tanh()`の実装差異が、ユーザーの基盤となるオペレーティングシステムを特定するフィンガープリントとして使用できることを詳細に示しています。
+
+      仕組みはこうです：`Math.tanh()`はIEEE 754の浮動小数点標準に従う必要がありますが、各OSの数学ライブラリ（libm等）が内部的に使う計算アルゴリズムが微妙に異なります。Chromium 148はこの差異を持ち込む変更を行い、`Math.tanh()`の結果の最下位ビットがmacOS・Linux・Windowsで異なる値になるようになりました。この違いはナノ秒レベルの精度差であり通常は「バグ」と見なされますが、フィンガープリントライブラリはこれをOSを識別するシグナルとして活用できます。
+
+      HN上では「JavaScriptの浮動小数点演算はフィンガープリントの宝庫——今回のtanhは新しい発見だが、toDataURLを使ったCanvasフィンガープリントも本質的に同じ問題」「Firefoxはこれ対策でFingerprintingResistanceモードで浮動小数点をわずかにノイズ化している——ただしそのこと自体がFirefoxを識別するシグナルになるというパラドックス」「ブラウザを完全に匿名化することがいかに難しいかを示す——エントロピーの源泉は至る所にある」という41コメントが展開しています。
+    </div>
+    <div class="amber-items">
+      <div class="amber-item">
+        <div>
+          <div class="amber-label">Math.tanh フィンガープリントの仕組み</div>
+          <div class="amber-text">技術的詳細：Math.tanh(x)はIEEE 754準拠だが内部アルゴリズムはOS依存。macOS（libm）・Linux（glibc）・Windows（msvcrt）で計算経路が異なり、最下位の数ビットが異なる結果になる。Chromium 148の変更：この差異がより顕著になる計算パスに移行。具体例：Math.tanh(1) → 全OS共通だが、Math.tanh(0.000001) → 最下位2〜3ビットがOS間で相違。識別精度：特定の入力値を複数試すことで、macOS/Linux/Windowsの3択を95%以上の精度で識別可能とのこと</div>
+        </div>
+      </div>
+      <div class="amber-item">
+        <div>
+          <div class="amber-label">ブラウザフィンガープリントの全体像</div>
+          <div class="amber-text">主なフィンガープリント手法（Math.tanh以外）：①Canvasフィンガープリント（GPU・フォントレンダリングの差異）②WebGLフィンガープリント（GPUモデルの識別）③AudioContext（音声処理の差異）④フォントリスト⑤画面解像度・タイムゾーン⑥バッテリー情報（廃止済みだが過去は使われた）。組み合わせの脅威：個々のシグナルは数ビット程度のエントロピーだが、10〜20個組み合わせると実質的なユニーク識別が可能。Math.tanhは「OS種別」を数ビット追加するもの</div>
+        </div>
+      </div>
+      <div class="amber-item">
+        <div>
+          <div class="amber-label">対策と現実的なプライバシー戦略</div>
+          <div class="amber-text">ブラウザ側の対策：Firefoxの「fingerprinting resistance」モードで浮動小数点結果にノイズを加算。ただしこれ自体がFirefoxシグナルになる。Tor Browser：最も強力な対策だが使いやすさとのトレードオフ。実用的なアドバイス：フィンガープリント対策の完全な回避は現実的でない。代わりに①同一ブラウザを複数サービスに使わない②Brave Browser（フィンガープリント対策内蔵）を検討③追跡が問題になる場合はTorを使う。重要な認識：ブラウザの「プライベートモード」はフィンガープリントを防がない——IPアドレスとCookieを隠すだけ</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: scrapfly.dev</span>
+      <span>112 ポイント</span>
+      <span>41 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://scrapfly.dev/posts/browser-math-os-fingerprint/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48884853" target="_blank">HN議論 (41)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="chromium-tanh-fingerprint" data-type="like" onclick="toggleFlag('chromium-tanh-fingerprint','Chromium 148でMath.tanhがOSフィンガープリントに使われ始めた','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="chromium-tanh-fingerprint" data-type="dislike" onclick="toggleFlag('chromium-tanh-fingerprint','Chromium 148でMath.tanhがOSフィンガープリントに使われ始めた','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 8 — Irish datacenters electricity ══════════════════════════════ -->
+<section class="story story-8" id="s8">
+  <div class="story-num">08</div>
+  <div class="story-inner">
+    <div class="story-kicker">環境 / AI / データセンター / エネルギー / アイルランド — アイルランドのデータセンターが国家電力消費量の23%を占めるようになった。AIトレーニングと国家電力網の衝突。104ポイント・70コメント</div>
+    <h2 class="story-headline">
+      アイルランドの<br>データセンターが<br>国家電力の<br>23%を消費中
+    </h2>
+    <div class="story-body">
+      The Registerが「Irish datacenters now guzzle 23% of the country's electricity（アイルランドのデータセンターが国家電力の23%を消費中）」を報じ、104ポイント・70コメントを集めました。アイルランドの電力規制当局（EirGrid）の最新データによると、同国のデータセンターが2025年末時点で国内総電力消費量の23%を占めています。2015年時点ではわずか5%だったことを考えると、10年間で約5倍という驚異的な成長です。
+
+      アイルランドは欧州のデータセンターハブとして発展してきました。法人税率12.5%の低さ・英語圏・EU市場へのアクセス・安定した政治環境から、Meta・Google・Microsoft・Amazonが大規模なデータセンターを集積させています。さらにAIトレーニングの需要増加がこの数年の電力消費急増を後押ししています。問題は、アイルランドの電力網がこの急増に対応しきれていない点です。EirGridは新規データセンターの接続申請を一部凍結しており、再生可能エネルギー（主に風力）の導入が追いつかない状況です。
+
+      HN上では「アイルランドはEUの中で人口比でのデータセンター密度が最も高い——これは国家電力インフラ設計の想定外」「AIトレーニングクラスターの消費電力は通常のクラウドサービスと桁が違う——OpenAI・Anthropicのトレーニングラン1回でアイルランドの小都市1週間分の電力を使うレベル」「再生可能エネルギー100%でも、この規模は環境負荷が大きい——土地・水・材料資源への影響は電力だけでは測れない」という70コメントが展開しています。
+    </div>
+    <div class="gold-items">
+      <div class="gold-item">
+        <div>
+          <div class="gold-label">なぜアイルランドにデータセンターが集中したか</div>
+          <div class="gold-text">歴史的背景：2000年代からMetaがダブリンに欧州本部を設置（法人税12.5%・EUデータ保護規制の「入口」として利用）。その後Google・Microsoft・AWS・Appleが追随。地理的優位：大西洋海底ケーブルの陸揚げポイント・EU市場の西端。2015年時点のデータセンター消費：総電力の5%。2020年：14%。2026年：23%。成長の加速：AI関連のGPUクラスター建設ラッシュが2023年以降急増。今後の予測：何も対策しなければ2030年までに30〜40%に達する可能性。EirGridは新規接続に制限を開始</div>
+        </div>
+      </div>
+      <div class="gold-item">
+        <div>
+          <div class="gold-label">電力網への具体的影響</div>
+          <div class="gold-text">アイルランドの電力事情：総発電量の約90%が再生可能エネルギー目標（実態は40〜50%の風力が中心）。問題：データセンターは24時間365日一定の電力を必要とする「baseload」需要——風力の変動性と相性が悪い。バックアップ：化石燃料バックアップ発電機（天然ガス・ディーゼル）の稼働が増える。停電リスク：2021年のEirGridレポートが「国家電力の安定供給に支障が出る可能性」と警告。解決策の模索：マイクロ波・海底ケーブル経由で北欧の余剰風力電力を輸入するプロジェクトが進行中</div>
+        </div>
+      </div>
+      <div class="gold-item">
+        <div>
+          <div class="gold-label">AI産業の電力消費問題の大局</div>
+          <div class="gold-text">アイルランドは「カナリア」：小国・データセンター集中度・再エネ比率の組み合わせで影響が先鋭化している。世界規模：IEAは2024年のデータセンター全世界消費を約460TWh（日本の約40%）と推計、2030年までに倍増する可能性。AIの比重：ChatGPT・Claude等の推論1回は検索1回の10〜100倍の消費電力。核融合・SMR（小型原子炉）：Microsoft・Google・Amazonがデータセンター電力源として核融合・SMR導入を検討——電力制約がこれらのタイムラインを加速させている</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: theregister.com</span>
+      <span>104 ポイント</span>
+      <span>70 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.theregister.com/on-prem/2026/07/11/irish-datacenters-now-guzzle-23-of-the-countrys-electricity/5270013" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48884322" target="_blank">HN議論 (70)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="irish-datacenter-electricity" data-type="like" onclick="toggleFlag('irish-datacenter-electricity','アイルランドのデータセンターが国家電力の23%を消費中','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="irish-datacenter-electricity" data-type="dislike" onclick="toggleFlag('irish-datacenter-electricity','アイルランドのデータセンターが国家電力の23%を消費中','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 9 — Why write code in 2026 ════════════════════════════════════ -->
+<section class="story story-9" id="s9">
+  <div class="story-num">09</div>
+  <div class="story-inner">
+    <div class="story-kicker">エンジニアリング / AI / キャリア / コーディング哲学 — ソフトウェアエンジニアDouglas Turnbullが「2026年にコードを書く理由」を論じる。AIがコードを生成できる時代に、なぜ自分の手でコードを書くことに意味があるのか。71ポイント・121コメント</div>
+    <h2 class="story-headline">
+      2026年に<br>コードを書く<br>理由——AIに<br>任せない選択
+    </h2>
+    <div class="story-body">
+      ソフトウェアエンジニアのDouglas Turnbullが「Why write code in 2026」を公開し、71ポイントながら121コメントという活発な議論を呼んでいます。記事はClaude CodeやGitHub Copilotなどのコーディングエージェントがコードの多くを生成できる時代に、「それでもなぜ人間がコードを書くのか」を問い直します。
+
+      Turnbullは「AIにコードを書かせることと、コードを書くことは、目的が全く違う」という立場です。AIに生成させるのは「成果物（コード）」を得るためであり、自分で書くのは「理解の構築・設計判断の体験・問題解決能力の育成」のためだという主張です。特に「AIが生成したコードをレビューできるかどうかは、自分でそれを書ける能力に依存する」という点を強調し、コードを書く行為が理解の媒体であるという議論を展開しています。
+
+      HN上では「この議論は『電卓があるのに暗算を練習する理由は何か』に似ている——理解の深さと速度のトレードオフ」「自分で書く練習をしなくなった若い開発者は5年後に何ができるのか、が本当の問い」「実務ではAIに任せて速度を上げる一方、個人プロジェクトや競技プログラミングで自分で書く練習を継続するハイブリッド戦略が現実解では」という121コメントが展開しています。
+    </div>
+    <div class="slate-items">
+      <div class="slate-item">
+        <div>
+          <div class="slate-label">AIに任せる vs 自分で書く——目的の違い</div>
+          <div class="slate-text">AIに任せる目的：成果物（動くコード）を速く得ること。自分で書く目的：理解を構築すること・設計の感覚を磨くこと・問題解決パターンを身体化すること。混同が起きる理由：両方とも「コードが生まれる」という表面的な同一性がある。Turnbullの主張：「AIが書いたコードをレビューできるかは、自分がそれを書ける能力に比例する」——AIの補佐を効果的に使うためにも、基礎的な手書き能力が必要。実務での最適解：成果物が目的ならAIに任せ、理解が目的なら自分で書く——目的を明確にすること</div>
+        </div>
+      </div>
+      <div class="slate-item">
+        <div>
+          <div class="slate-label">「書く」行為が生む理解の深さ</div>
+          <div class="slate-text">認知科学の背景：手書きメモvsタイピングのノート研究（Muellerら）が示すように、「書く」という能動的プロセスは受動的な受け取りより理解を深める。コーディングへの適用：エラーに直面し・デバッグし・リファクタリングする過程で、設計の「なぜ」が自然に理解される。対照：AIのコードを読むだけでは「動く」は分かるが「なぜそう設計するのか」が曖昧なまま残りやすい。Knuthのプログラミングの見方：「プログラミングとは思考の一形式であり、コンピュータへの命令ではない」——これは依然有効なフレーミング</div>
+        </div>
+      </div>
+      <div class="slate-item">
+        <div>
+          <div class="slate-label">2026年の現実的なキャリア戦略</div>
+          <div class="slate-text">市場の実態：AIコード生成ツールを使いこなせる開発者の需要は増加——「AIを使わない」ではなく「AIを効果的に使える」が求められる。ハイブリッド戦略の提案：業務ではAIを最大活用して速度を上げる→個人プロジェクト・コードゴルフ・OSSコントリビューションで「自分で書く」を維持する。危機感と楽観：「自分で書く能力を失うと、AIのレビュアーとしても機能しなくなる」という懸念 vs「AIが基礎を補えるから、人間はより高レベルの設計に集中できる」という楽観。どちらが正しいかは5〜10年後に分かる</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: softwaredoug.com</span>
+      <span>71 ポイント</span>
+      <span>121 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://softwaredoug.com/blog/2026/07/09/write-code" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48861923" target="_blank">HN議論 (121)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="why-write-code-2026" data-type="like" onclick="toggleFlag('why-write-code-2026','2026年にコードを書く理由——AIに任せない選択','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="why-write-code-2026" data-type="dislike" onclick="toggleFlag('why-write-code-2026','2026年にコードを書く理由——AIに任せない選択','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 10 — Automation Without Understanding ════════════════════════ -->
+<section class="story story-10" id="s10">
+  <div class="story-num">10</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI研究 / arXiv / 自動化 / 認識論 / エージェント — arXiv論文「理解なき自動化（Automation Without Understanding）」がAIエージェント時代の根本的な問いを提起。何かを「自動化できる」ことと「理解している」ことは異なる——その区別がなぜ重要か。76ポイント・37コメント</div>
+    <h2 class="story-headline">
+      「理解なき<br>自動化」——<br>AIエージェント<br>時代の盲点
+    </h2>
+    <div class="story-body">
+      arXivに掲載された論文「Automation Without Understanding」が76ポイント・37コメントを集めました。論文はAIエージェントが複雑なタスクを自動化できるようになった現在、「自動化できること」と「理解していること」の間に生まれる危険な乖離を論じています。
+
+      論文の核心的主張はこうです：現代のLLMベースのエージェントは、タスクのステップを実行する「手順の自動化」において高い能力を持ちます。しかし手順を正しく実行することと、なぜその手順が有効かを理解することは別物です。問題が起きるのは、エージェントが「理解なし」に学習したパターンを、そのパターンが通用しない新しい状況に適用したときです。著者らはこれを「局所的な有能さ（local competence）と大域的な理解（global understanding）のギャップ」と呼び、特にAIエージェントが安全クリティカルな判断をする場面でのリスクを強調しています。
+
+      HN上では「これはStuart Dreyfusのスキル習得モデル（初心者→熟達者→専門家の段階）でいう『ルールに従う段階』でAIが止まっているという話とほぼ同じ洞察」「コーディングエージェントでも見る——特定のエラーパターンは修正できるが、アーキテクチャレベルの設計判断が入ると迷走する」「人間も『理解なき自動化』に陥ることがある——チェックリスト仕事の陥穽と同じ。人間とAIの違いはどこかという問いに戻る」という37コメントが展開しています。
+    </div>
+    <div class="mag-items">
+      <div class="mag-item">
+        <div>
+          <div class="mag-label">「局所的な有能さ」vs「大域的な理解」</div>
+          <div class="mag-text">論文の定義：局所的な有能さ（Local Competence）＝特定の状況・パターンで正しい行動を取れること。大域的な理解（Global Understanding）＝なぜその行動が正しいかを知り、新しい状況に応用できること。LLMの現状：局所的有能さは高い（コードのデバッグ・既知パターンの適用）。大域的理解は不安定——訓練分布外の問題で急激に能力が落ちる。具体例：コーディングエージェントがよく知ったライブラリのバグは直せるが、そのライブラリを使わない設計判断の是非は判断できない</div>
+        </div>
+      </div>
+      <div class="mag-item">
+        <div>
+          <div class="mag-label">実際のリスクシナリオ</div>
+          <div class="mag-text">医療AI：「この患者の症状でAが有効」というパターンを学習していても、そのパターンを外れる症例に誤って適用する。自律型ビジネスエージェント：財務・法務判断を自動化するエージェントが「手順通りに動く」ことで、手順が想定しない状況を見落とす。コード自動生成：セキュリティ上問題があるコードパターンを「動くコード」として生成し続ける（動くことと安全であることは別）。共通構造：エージェントが「理解」なしにパターンマッチングで動いているとき、エッジケースで予測不能な失敗が起きる</div>
+        </div>
+      </div>
+      <div class="mag-item">
+        <div>
+          <div class="mag-label">この問いとAIエージェント開発への示唆</div>
+          <div class="mag-text">論文の提言：AIエージェントに安全クリティカルなタスクを委ねる前に、「このエージェントは理解しているか、それとも手順を実行しているだけか」を問う必要がある。検証方法：同一目的の別のアプローチで同じ結果を出せるかテストする——手順の記憶ではなく理解の証拠を求める。Claude Codeへの含意：コーディング作業をエージェントに委ねる際も、エージェントが「なぜそう実装するか」を説明できるか確認することが理解の代理指標になりうる。研究の方向：説明可能AI（XAI）・機械的解釈可能性（Mechanistic Interpretability）研究がこのギャップを埋めることを目指している</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: arxiv.org</span>
+      <span>76 ポイント</span>
+      <span>37 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://arxiv.org/abs/2607.06377" target="_blank">論文を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48882554" target="_blank">HN議論 (37)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="automation-without-understanding" data-type="like" onclick="toggleFlag('automation-without-understanding','「理解なき自動化」——AIエージェント時代の盲点を問う論文','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="automation-without-understanding" data-type="dislike" onclick="toggleFlag('automation-without-understanding','「理解なき自動化」——AIエージェント時代の盲点を問う論文','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ════════════════════════════════════════════════════════════════ -->
+<footer class="site-footer">
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand">Morning Edition</div>
+      <div class="footer-meta">
+        Hacker News キュレーション · 2026年7月13日 · Issue No.075<br>
+        毎朝、厳選10本をお届け
+      </div>
+    </div>
+    <button class="export-btn" onclick="exportFeedback()">📋 フィードバックをコピー</button>
+  </div>
+  <div class="footer-note">
+    ⭐ 興味あり / ✕ 興味なし ボタンで次回のキュレーションが改善されます。Chrome/Edgeでは自動保存、その他ではボタンでクリップボードにコピーしてください。
+  </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  const FEEDBACK_KEY = 'morning-edition-feedback-v2';
+  const TODAY = '2026-07-13';
+  let _dirHandle = null;
+
+  async function getDir(forcePrompt) {
+    if (_dirHandle && !forcePrompt) return _dirHandle;
+    if (!window.showDirectoryPicker) return null;
+    try {
+      _dirHandle = await window.showDirectoryPicker({ mode: 'readwrite', id: 'morning-edition', startIn: 'documents' });
+      return _dirHandle;
+    } catch { return null; }
+  }
+
+  async function writeJSON(dirHandle, fb) {
+    const fileHandle = await dirHandle.getFileHandle('feedback.json', { create: true });
+    const writable = await fileHandle.createWritable();
+    await writable.write(JSON.stringify({ ...fb, updatedAt: new Date().toISOString() }, null, 2));
+    await writable.close();
+  }
+
+  function showToast(msg, isErr) {
+    const el = document.getElementById('toast');
+    el.textContent = msg;
+    el.className = 'toast' + (isErr ? ' error' : '');
+    requestAnimationFrame(() => el.classList.add('show'));
+    clearTimeout(el._timer);
+    el._timer = setTimeout(() => el.classList.remove('show'), 3000);
+  }
+
+  function getFeedback() {
+    try { return JSON.parse(localStorage.getItem(FEEDBACK_KEY) || '{"liked":{},"disliked":{}}'); }
+    catch { return { liked: {}, disliked: {} }; }
+  }
+  function saveFeedback(fb) { localStorage.setItem(FEEDBACK_KEY, JSON.stringify(fb)); }
+
+  async function autoSave(fb) {
+    let dir = await getDir();
+    if (!dir) {
+      showToast('📁 Daily News フォルダを選択してください', true);
+      dir = await getDir(true);
+      if (!dir) { showToast('保存をキャンセルしました', true); return; }
+    }
+    try {
+      await writeJSON(dir, fb);
+      showToast('✓ feedback.json を自動保存しました（次回キュレーションに反映）');
+    } catch (e) {
+      showToast('保存エラー: ' + e.message, true);
+    }
+  }
+
+  async function toggleFlag(storyId, title, type) {
+    const fb = getFeedback();
+    fb.liked = fb.liked || {};
+    fb.disliked = fb.disliked || {};
+    const likeBtn    = document.querySelector(`.flag-btn.like-btn[data-story="${storyId}"]`);
+    const dislikeBtn = document.querySelector(`.flag-btn.dislike-btn[data-story="${storyId}"]`);
+    if (type === 'like') {
+      if (fb.liked[storyId]) {
+        delete fb.liked[storyId];
+        likeBtn?.classList.remove('active');
+      } else {
+        fb.liked[storyId] = { title, date: TODAY };
+        delete fb.disliked[storyId];
+        likeBtn?.classList.add('active');
+        dislikeBtn?.classList.remove('active');
+      }
+    } else {
+      if (fb.disliked[storyId]) {
+        delete fb.disliked[storyId];
+        dislikeBtn?.classList.remove('active');
+      } else {
+        fb.disliked[storyId] = { title, date: TODAY };
+        delete fb.liked[storyId];
+        dislikeBtn?.classList.add('active');
+        likeBtn?.classList.remove('active');
+      }
+    }
+    saveFeedback(fb);
+    await autoSave(fb);
+  }
+
+  function exportFeedback() {
+    const fb = getFeedback();
+    const json = JSON.stringify({ ...fb, exportedAt: new Date().toISOString() }, null, 2);
+    navigator.clipboard.writeText(json)
+      .then(() => showToast('📋 クリップボードにコピーしました'))
+      .catch(() => {
+        const el = document.createElement('textarea');
+        el.value = json; document.body.appendChild(el); el.select();
+        document.execCommand('copy'); document.body.removeChild(el);
+        showToast('📋 クリップボードにコピーしました');
+      });
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const fb = getFeedback();
+    document.querySelectorAll('.flag-btn').forEach(btn => {
+      const id   = btn.dataset.story;
+      const type = btn.dataset.type;
+      if ((type === 'like' && fb.liked?.[id]) || (type === 'dislike' && fb.disliked?.[id])) {
+        btn.classList.add('active');
+      }
+    });
+  });
+</script>
+</body>
+</html>
