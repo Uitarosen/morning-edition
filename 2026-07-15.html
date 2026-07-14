@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Morning Edition — 2026年7月15日</title>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --font: 'M PLUS Rounded 1c', 'Hiragino Sans', 'Noto Sans JP', sans-serif; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); background: #111; color: #fff; overflow-x: hidden; }
+
+    .masthead { background: #fff; color: #000; padding: 3rem 4rem 2.5rem; border-bottom: 6px solid #000; position: relative; overflow: hidden; }
+    .masthead::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: repeating-linear-gradient(90deg, #000 0, #000 12px, transparent 12px, transparent 20px); }
+    .masthead-kicker { font-size: 0.85rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: #777; margin-bottom: 0.6rem; }
+    .masthead-title { font-size: clamp(3.5rem, 9vw, 7.5rem); font-weight: 900; line-height: 0.88; letter-spacing: -0.04em; margin-bottom: 1.8rem; }
+    .masthead-meta { display: flex; gap: 3rem; align-items: baseline; flex-wrap: wrap; }
+    .masthead-date { font-size: 1.5rem; font-weight: 700; }
+    .masthead-subtitle { font-size: 1rem; font-weight: 400; color: #555; max-width: 480px; line-height: 1.5; }
+    .masthead-issue { margin-left: auto; text-align: right; }
+    .masthead-issue span { display: block; }
+    .masthead-issue .iss-label { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: #999; }
+    .masthead-issue .iss-num { font-size: 2.2rem; font-weight: 900; color: #000; }
+
+    .toc { background: #1a1a1a; padding: 1.5rem 4rem; display: flex; gap: 1.5rem; flex-wrap: wrap; border-bottom: 1px solid #333; }
+    .toc a { color: #aaa; text-decoration: none; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; transition: color 0.2s; }
+    .toc a:hover { color: #fff; }
+    .toc-num { color: #555; margin-right: 0.3em; }
+
+    .story { position: relative; overflow: hidden; }
+    .story-inner { max-width: 1200px; margin: 0 auto; padding: 5rem 4rem; position: relative; z-index: 1; }
+    .story-num { font-size: clamp(6rem, 18vw, 16rem); font-weight: 900; line-height: 0.8; letter-spacing: -0.06em; opacity: 0.08; position: absolute; top: 1rem; right: 2rem; user-select: none; }
+    .story-badge { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.35em 0.9em; border-radius: 2px; margin-bottom: 1.5rem; }
+    .direct-badge { background: #FFD700; color: #000; }
+    .story-kicker { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; opacity: 0.6; margin-bottom: 0.8rem; }
+    .story-headline { font-size: clamp(2rem, 5vw, 4rem); font-weight: 900; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+    .story-body { font-size: clamp(1rem, 1.5vw, 1.2rem); font-weight: 400; line-height: 1.8; max-width: 680px; opacity: 0.88; margin-bottom: 2rem; }
+    .story-meta { display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center; font-size: 0.8rem; font-weight: 700; opacity: 0.5; }
+    .story-links { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem; }
+    .story-link { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.6em 1.4em; border-radius: 3px; text-decoration: none; transition: opacity 0.2s, transform 0.15s; }
+    .story-link:hover { opacity: 0.75; transform: translateY(-1px); }
+
+    .feedback-buttons { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .flag-btn { background: none; border: 1px solid currentColor; color: inherit; font-family: var(--font); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.5em 1em; border-radius: 3px; cursor: pointer; opacity: 0.32; transition: opacity 0.2s, background 0.2s, color 0.2s, border-color 0.2s, transform 0.15s; }
+    .flag-btn:hover { opacity: 0.72; transform: translateY(-1px); }
+    .flag-btn.like-btn.active { opacity: 1; background: rgba(255,215,0,0.15); border-color: #FFD700; color: #FFD700 !important; }
+    .flag-btn.dislike-btn.active { opacity: 1; background: rgba(255,60,60,0.12); border-color: #FF4444; color: #FF4444 !important; }
+
+    .toast { position: fixed; bottom: 2rem; right: 2rem; background: #1a1a1a; color: #fff; font-family: var(--font); font-size: 0.82rem; font-weight: 700; padding: 0.75em 1.4em; border-radius: 4px; border-left: 3px solid #00C853; z-index: 9999; opacity: 0; transform: translateY(10px); transition: opacity 0.25s, transform 0.25s; pointer-events: none; box-shadow: 0 4px 24px rgba(0,0,0,0.45); }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    .toast.error { border-left-color: #FF5252; }
+
+    /* Story 1 — White bg */
+    .story-1 { background: #fff; color: #000; min-height: 90vh; display: flex; flex-direction: column; justify-content: center; }
+    .story-1 .story-num { color: #000; opacity: 0.04; }
+    .story-1 .story-kicker { color: #555; opacity: 1; }
+    .story-1 .story-headline { color: #000; }
+    .story-1 .story-body { color: #111; }
+    .story-1 .story-meta { color: #000; }
+    .story-1 .story-link.primary { background: #1a1a1a; color: #fff; }
+    .story-1 .story-link.secondary { background: #f0f0f0; color: #000; }
+    .story-1 .flag-btn { color: #000; }
+    .story-1-accent { position: absolute; bottom: 0; left: 0; width: 100%; height: 8px; background: linear-gradient(90deg, #ff6b1a, #ffaa44, #ff6b1a); }
+    .story-1 .headline-accent { display: inline-block; background: linear-gradient(135deg, #ff6b1a 0%, #ffaa44 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .orange-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1.2rem; margin: 2rem 0; max-width: 680px; }
+    .orange-card { border: 2px solid rgba(255,107,26,0.18); background: rgba(255,107,26,0.04); border-radius: 6px; padding: 1.3rem 1.5rem; }
+    .orange-card-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.2em; text-transform: uppercase; color: #cc4400; margin-bottom: 0.4rem; }
+    .orange-card-value { font-size: 1.05rem; font-weight: 900; color: #000; line-height: 1.3; }
+    .orange-card-sub { font-size: 0.75rem; color: #555; margin-top: 0.3rem; line-height: 1.4; }
+
+    /* Story 2 — Dark navy/privacy */
+    .story-2 { background: #00080c; color: #b8f0ff; min-height: 80vh; }
+    .story-2::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(0,160,200,0.14) 0%, transparent 65%); }
+    .story-2 .story-num { color: #00A0C8; opacity: 0.07; }
+    .story-2 .story-kicker { color: #20C8E8; opacity: 1; }
+    .story-2 .story-headline { color: #e0f8ff; }
+    .story-2 .story-body { color: #b8f0ff; }
+    .story-2 .story-meta { color: #20C8E8; opacity: 0.5; }
+    .story-2 .story-link.primary { background: #004058; color: #80e8ff; }
+    .story-2 .story-link.secondary { background: rgba(0,160,200,0.08); color: #90d8f0; border: 1px solid rgba(0,160,200,0.22); }
+    .story-2 .flag-btn { color: #b8f0ff; }
+    .teal-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .teal-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(0,160,200,0.07); border-left: 3px solid #00A0C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .teal-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20C8E8; margin-bottom: 0.3rem; }
+    .teal-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 3 — Dark red */
+    .story-3 { background: #0a0000; color: #fff; min-height: 80vh; }
+    .story-3::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(200,20,20,0.16) 0%, transparent 65%); }
+    .story-3 .story-num { color: #C81414; opacity: 0.07; }
+    .story-3 .story-kicker { color: #E84040; opacity: 1; }
+    .story-3 .story-headline { color: #fff; }
+    .story-3 .story-body { color: rgba(255,255,255,0.88); }
+    .story-3 .story-meta { color: #E84040; opacity: 0.5; }
+    .story-3 .story-link.primary { background: #6a0000; color: #fff; }
+    .story-3 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-3 .flag-btn { color: #fff; }
+    .red-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .red-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(200,20,20,0.07); border-left: 3px solid #C81414; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .red-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E84040; margin-bottom: 0.3rem; }
+    .red-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 4 — Dark green */
+    .story-4 { background: #020c04; color: #c8f0d0; min-height: 80vh; }
+    .story-4::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(20,160,70,0.16) 0%, transparent 65%); }
+    .story-4 .story-num { color: #14A046; opacity: 0.07; }
+    .story-4 .story-kicker { color: #30C060; opacity: 1; }
+    .story-4 .story-headline { color: #e0ffe8; }
+    .story-4 .story-body { color: #c8f0d0; }
+    .story-4 .story-meta { color: #30C060; opacity: 0.5; }
+    .story-4 .story-link.primary { background: #063820; color: #80ffb0; }
+    .story-4 .story-link.secondary { background: rgba(20,160,70,0.08); color: #a0e8b0; border: 1px solid rgba(20,160,70,0.22); }
+    .story-4 .flag-btn { color: #c8f0d0; }
+    .green-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .green-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(20,160,70,0.07); border-left: 3px solid #14A046; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .green-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #30C060; margin-bottom: 0.3rem; }
+    .green-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 5 — Dark purple */
+    .story-5 { background: #040010; color: #d8c8ff; min-height: 75vh; }
+    .story-5::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(90,40,200,0.17) 0%, transparent 65%); }
+    .story-5 .story-num { color: #5A28C8; opacity: 0.07; }
+    .story-5 .story-kicker { color: #8050E0; opacity: 1; }
+    .story-5 .story-headline { color: #f0e8ff; }
+    .story-5 .story-body { color: #d8c8ff; }
+    .story-5 .story-meta { color: #8050E0; opacity: 0.5; }
+    .story-5 .story-link.primary { background: #200860; color: #d0a8ff; }
+    .story-5 .story-link.secondary { background: rgba(90,40,200,0.08); color: #c0a0f0; border: 1px solid rgba(90,40,200,0.22); }
+    .story-5 .flag-btn { color: #d8c8ff; }
+    .purple-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .purple-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(90,40,200,0.07); border-left: 3px solid #5A28C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .purple-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #8050E0; margin-bottom: 0.3rem; }
+    .purple-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 6 — Dark cyan */
+    .story-6 { background: #000c10; color: #b8e8f0; min-height: 75vh; }
+    .story-6::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 40%, rgba(0,130,160,0.14) 0%, transparent 65%); }
+    .story-6 .story-num { color: #0080A0; opacity: 0.07; }
+    .story-6 .story-kicker { color: #20B0D0; opacity: 1; }
+    .story-6 .story-headline { color: #e0f4ff; }
+    .story-6 .story-body { color: #b8e8f0; }
+    .story-6 .story-meta { color: #20B0D0; opacity: 0.5; }
+    .story-6 .story-link.primary { background: #003848; color: #80d8f0; }
+    .story-6 .story-link.secondary { background: rgba(0,130,160,0.08); color: #90cce0; border: 1px solid rgba(0,130,160,0.22); }
+    .story-6 .flag-btn { color: #b8e8f0; }
+    .cyan-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .cyan-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(0,130,160,0.07); border-left: 3px solid #0080A0; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .cyan-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20B0D0; margin-bottom: 0.3rem; }
+    .cyan-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 7 — Dark amber */
+    .story-7 { background: #0a0300; color: #ffe0b8; min-height: 75vh; }
+    .story-7::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(210,90,20,0.18) 0%, transparent 65%); }
+    .story-7 .story-num { color: #D05A14; opacity: 0.07; }
+    .story-7 .story-kicker { color: #E88040; opacity: 1; }
+    .story-7 .story-headline { color: #fff0d8; }
+    .story-7 .story-body { color: #ffe0b8; }
+    .story-7 .story-meta { color: #E88040; opacity: 0.5; }
+    .story-7 .story-link.primary { background: #6a2400; color: #ffc880; }
+    .story-7 .story-link.secondary { background: rgba(210,90,20,0.08); color: #ffb870; border: 1px solid rgba(210,90,20,0.22); }
+    .story-7 .flag-btn { color: #ffe0b8; }
+    .amber-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .amber-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(210,90,20,0.07); border-left: 3px solid #D05A14; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .amber-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E88040; margin-bottom: 0.3rem; }
+    .amber-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 8 — Dark gold */
+    .story-8 { background: #080500; color: #fff; min-height: 70vh; }
+    .story-8::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,145,10,0.15) 0%, transparent 65%); }
+    .story-8 .story-num { color: #BE9110; opacity: 0.06; }
+    .story-8 .story-kicker { color: #D4A820; opacity: 1; }
+    .story-8 .story-headline { color: #fff; }
+    .story-8 .story-body { color: rgba(255,255,255,0.88); }
+    .story-8 .story-meta { color: #D4A820; opacity: 0.5; }
+    .story-8 .story-link.primary { background: #604000; color: #ffe070; }
+    .story-8 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-8 .flag-btn { color: #fff; }
+    .gold-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .gold-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(190,145,10,0.07); border-left: 3px solid #BE9110; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .gold-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #D4A820; margin-bottom: 0.3rem; }
+    .gold-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 9 — Slate blue */
+    .story-9 { background: #040810; color: #c8d8f0; min-height: 70vh; }
+    .story-9::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 35%, rgba(50,90,170,0.16) 0%, transparent 65%); }
+    .story-9 .story-num { color: #3258A8; opacity: 0.07; }
+    .story-9 .story-kicker { color: #5878C8; opacity: 1; }
+    .story-9 .story-headline { color: #e8f0ff; }
+    .story-9 .story-body { color: #c8d8f0; }
+    .story-9 .story-meta { color: #5878C8; opacity: 0.5; }
+    .story-9 .story-link.primary { background: #101e50; color: #fff; }
+    .story-9 .story-link.secondary { background: rgba(50,90,170,0.08); color: #b0c8e8; border: 1px solid rgba(50,90,170,0.22); }
+    .story-9 .flag-btn { color: #c8d8f0; }
+    .slate-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .slate-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(50,90,170,0.07); border-left: 3px solid #3258A8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .slate-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #5878C8; margin-bottom: 0.3rem; }
+    .slate-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 10 — Magenta */
+    .story-10 { background: #080004; color: #ffc8e8; min-height: 70vh; }
+    .story-10::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,20,90,0.15) 0%, transparent 65%); }
+    .story-10 .story-num { color: #BE1458; opacity: 0.07; }
+    .story-10 .story-kicker { color: #E04080; opacity: 1; }
+    .story-10 .story-headline { color: #fff0f8; }
+    .story-10 .story-body { color: #ffc8e8; }
+    .story-10 .story-meta { color: #E04080; opacity: 0.5; }
+    .story-10 .story-link.primary { background: #500030; color: #ffb0d8; }
+    .story-10 .story-link.secondary { background: rgba(190,20,90,0.08); color: #f090c0; border: 1px solid rgba(190,20,90,0.22); }
+    .story-10 .flag-btn { color: #ffc8e8; }
+    .mag-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .mag-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(190,20,90,0.07); border-left: 3px solid #BE1458; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .mag-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E04080; margin-bottom: 0.3rem; }
+    .mag-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .site-footer { background: #000; color: #555; padding: 3rem 4rem; display: flex; flex-direction: column; gap: 1.5rem; border-top: 1px solid #222; }
+    .footer-top { display: flex; gap: 2rem; align-items: center; flex-wrap: wrap; justify-content: space-between; }
+    .footer-brand { font-size: 1.4rem; font-weight: 900; color: #fff; }
+    .footer-meta { font-size: 0.75rem; line-height: 1.6; }
+    .export-btn { background: #222; border: 1px solid #444; color: #fff; font-family: var(--font); font-size: 0.8rem; font-weight: 700; padding: 0.7em 1.5em; border-radius: 3px; cursor: pointer; letter-spacing: 0.08em; transition: background 0.2s; }
+    .export-btn:hover { background: #333; }
+    .footer-note { font-size: 0.7rem; opacity: 0.5; }
+
+    @media (max-width: 768px) {
+      .masthead, .toc, .story-inner, .site-footer { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .story-num { display: none; }
+      .masthead-meta { gap: 1rem; }
+      .masthead-issue { margin-left: 0; }
+      .orange-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+<nav style="background:#1a1a1a;border-bottom:1px solid #333;padding:0.55rem 2rem;font-family:'M PLUS Rounded 1c','Hiragino Sans','Noto Sans JP',sans-serif;position:sticky;top:0;z-index:999;">
+  <a href="./index.html" style="color:#aaa;text-decoration:none;font-size:0.8rem;font-weight:700;letter-spacing:0.03em;display:inline-flex;align-items:center;gap:0.4rem;transition:color 0.15s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#aaa'">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    アーカイブへ戻る
+  </a>
+</nav>
+
+<header class="masthead">
+  <div class="masthead-kicker">Hacker News — Morning Edition</div>
+  <h1 class="masthead-title">Morning<br>Edition</h1>
+  <div class="masthead-meta">
+    <div>
+      <div class="masthead-date">2026年7月15日 水曜日</div>
+      <div class="masthead-subtitle">AI・開発ツール・プライバシー・サイエンス — あなたのための10本</div>
+    </div>
+    <div class="masthead-issue">
+      <span class="iss-label">Issue</span>
+      <span class="iss-num">No.077</span>
+    </div>
+  </div>
+</header>
+
+<nav class="toc">
+  <a href="#s1"><span class="toc-num">01</span>⚡ Claudeに「load-bearing」を言わせない方法</a>
+  <a href="#s2"><span class="toc-num">02</span>EU「年齢確認アプリ」、Android/iOSの二択を強制</a>
+  <a href="#s3"><span class="toc-num">03</span>「アプリ」じゃなくてウェブページで良かった（だから直してやった）</a>
+  <a href="#s4"><span class="toc-num">04</span>私たちはAIに思考を委ねすぎているのか？</a>
+  <a href="#s5"><span class="toc-num">05</span>Bonsai 27B——スマホで動く270億パラメータモデル</a>
+  <a href="#s6"><span class="toc-num">06</span>タワーはまだ高くなり続ける——ソフトウェア抽象化の果てに</a>
+  <a href="#s7"><span class="toc-num">07</span>Cursor 0day——完全開示が最後の盾になるとき</a>
+  <a href="#s8"><span class="toc-num">08</span>FSFのsysadminがreactionでボットネットをブロックする方法</a>
+  <a href="#s9"><span class="toc-num">09</span>Show HN: Juggler——JUCE作者によるOSSコーディングエージェントGUI</a>
+  <a href="#s10"><span class="toc-num">10</span>DeepMindのHassabis、AIを安全に活用するための計画を語る</a>
+</nav>
+
+<!-- ═══ STORY 1 — Claude load-bearing ══════════════════════════════════════ -->
+<section class="story story-1" id="s1">
+  <div class="story-num">01</div>
+  <div class="story-inner">
+    <div class="story-badge direct-badge">⚡ あなたに直接関係</div>
+    <div class="story-kicker">Claude / Anthropic / プロンプトエンジニアリング / LLMの癖 / 言語パターン — 「load-bearing」という表現をClaudeが多用することに気づいた開発者が、その原因を分析し、システムプロンプトで抑制するまでの試行錯誤を記録。380ポイント・433コメント</div>
+    <h2 class="story-headline">
+      <span class="headline-accent">Claude</span>に<br>「load-bearing」を<br>言わせない<br>方法
+    </h2>
+    <div class="story-body">
+      jola.devのブログ記事「How to stop Claude from saying load-bearing」が380ポイント・433コメントという大きな反響を呼びました。著者はClaudeが「load-bearing」（荷重を担う、転じて「重要な役割を果たす」）という表現を繰り返し過剰使用することに気づき、その癖の原因とシステムプロンプトによる修正方法を詳細に解説しています。
+
+      LLMは訓練データのパターンから特定の表現を好む傾向があり、Claudeの場合「load-bearing」はコードの説明や構造分析で頻出するキーワードになっています。著者は「load-bearing assumption」「load-bearing abstraction」「load-bearing function」という形で説明文に何度も登場することを記録し、「この単語を使わないように指示する」「別の言い回しの例を示す」「出力を事後フィルタリングする」という複数のアプローチを試みています。最終的にシステムプロンプトに明示的な制約を追加する方法が最も安定して機能したと報告しています。
+
+      HN上のコメント欄（433コメント）では、Claudeのほかの「癖のある表現」について多数の指摘が集まりました——「certainly」の多用、「I apologize, but」で始まる返答、「It's worth noting that」「Let's」など。「これはモデルのクセを共有する場になっている」「Anthropicがこのスレッドを見てファインチューニングに反映するはず」という声も多数上がっています。
+    </div>
+    <div class="orange-grid">
+      <div class="orange-card">
+        <div class="orange-card-label">問題の根本</div>
+        <div class="orange-card-value">LLMの表現癖</div>
+        <div class="orange-card-sub">訓練データに特定表現が多く含まれると、その言葉を選ぶ確率が高くなる。「load-bearing」はコードレビューやアーキテクチャ文書に頻出する技術語彙</div>
+      </div>
+      <div class="orange-card">
+        <div class="orange-card-label">効果的な対策</div>
+        <div class="orange-card-value">システムプロンプト制約</div>
+        <div class="orange-card-sub">「Avoid the phrase 'load-bearing'」などの明示的指示が最も安定。代替表現の例示も補助的に機能する。事後フィルタリングは根本解決にならない</div>
+      </div>
+      <div class="orange-card">
+        <div class="orange-card-label">コミュニティ発見</div>
+        <div class="orange-card-value">433コメントの証言</div>
+        <div class="orange-card-sub">「certainly」「I apologize, but」「It's worth noting」「Let me」等、他にもClaudeに特有の言語パターンがコメントで多数共有された。集合知の場になった</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: jola.dev</span>
+      <span>380 ポイント</span>
+      <span>433 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://jola.dev/posts/how-to-stop-claude-from-saying-load-bearing" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48905248" target="_blank">HN議論 (433)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="claude-load-bearing-prompt" data-type="like" onclick="toggleFlag('claude-load-bearing-prompt','Claudeに「load-bearing」を言わせない方法','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="claude-load-bearing-prompt" data-type="dislike" onclick="toggleFlag('claude-load-bearing-prompt','Claudeに「load-bearing」を言わせない方法','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+    <div class="story-1-accent"></div>
+  </div>
+</section>
+
+<!-- ═══ STORY 2 — EU age verification ══════════════════════════════════════ -->
+<section class="story story-2" id="s2">
+  <div class="story-num">02</div>
+  <div class="story-inner">
+    <div class="story-kicker">プライバシー / EU規制 / モバイル / Android / iOS / 年齢確認 — EUのデジタルID規格に基づく「年齢確認アプリ」の技術仕様が公開。AndroidまたはiOSのいずれかのみ対応という設計が判明し、プライバシー・独占・代替OSへの影響が議論される。449ポイント・306コメント</div>
+    <h2 class="story-headline">
+      EU「年齢確認<br>アプリ」——<br>Android/iOS<br>の二択を強制
+    </h2>
+    <div class="story-body">
+      GitHub上のEU Digital Identity Walletの技術仕様に対するディスカッション投稿が449ポイント・306コメントを集めました。EUが推進する年齢確認（Age Verification）の公式アプリ仕様において、サポートされるプラットフォームがAndroidとiOSのみに限定されていることが判明し、強い批判が集まっています。
+
+      EU Digital Identity Wallet（EUDI Wallet）は欧州市民がデジタルIDを安全に管理するためのフレームワークで、その延長として未成年者に不適切なコンテンツへのアクセスを制限する「年齢確認アプリ」が計画されています。問題の仕様書（av-doc-technical-specification）では、アプリはAndroid 8以降またはiOS 16以降のデバイスが必須とされており、Linux/カスタムAndroid ROM/PinePhone等のオルタナティブプラットフォームのユーザーは利用できない設計です。
+
+      HN上では「EUはGoogleとAppleの二社によるモバイルOS独占を法的に強化することになる——Digital Markets Act（DMA）の精神と真っ向から矛盾する」「GDPRを制定した欧州が、年齢確認という名目でプラットフォーム企業にIDの把握を要求する構造は皮肉」「そもそも国家が発行するデジタルIDをアプリ経由で管理することへの根本的な懸念——仕様が漏洩したり悪用されると市民の行動が追跡可能になる」という306コメントが展開しています。
+    </div>
+    <div class="teal-items">
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">仕様の問題点</div>
+          <div class="teal-text">サポートOSをAndroid 8+・iOS 16+のみに限定。Linux携帯（PinePhone）、カスタムROM（GrapheneOS、CalyxOS等）のユーザーは除外される。EUのDMA（デジタル市場法）がGoogleとAppleの独占を問題視しているのと逆方向の施策</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">プライバシーのジレンマ</div>
+          <div class="teal-text">年齢確認にはIDの提示が必要——これをGoogleまたはAppleのプラットフォームを経由して行う構造。アプリストアのプラットフォーム企業が「誰がどのコンテンツにアクセスしようとしたか」を把握できるアーキテクチャ上の懸念。GDPRの理念と技術実装のギャップ</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">コミュニティの反応</div>
+          <div class="teal-text">技術者から「ゼロ知識証明（ZKP）を使えば年齢だけを証明しつつIDは開示しない設計が可能」という代替案が提示。「仕様策定者がプライバシーエンジニアリングを理解していない」「まずDiscussionsで声を上げることが重要」という行動呼びかけも</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: github.com/eu-digital-identity-wallet</span>
+      <span>449 ポイント</span>
+      <span>306 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://github.com/eu-digital-identity-wallet/av-doc-technical-specification/discussions/19" target="_blank">仕様ディスカッションを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48903777" target="_blank">HN議論 (306)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="eu-age-verification-android-ios" data-type="like" onclick="toggleFlag('eu-age-verification-android-ios','EU「年齢確認アプリ」、Android/iOSの二択を強制','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="eu-age-verification-android-ios" data-type="dislike" onclick="toggleFlag('eu-age-verification-android-ios','EU「年齢確認アプリ」、Android/iOSの二択を強制','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 3 — App could have been a webpage ════════════════════════════ -->
+<section class="story story-3" id="s3">
+  <div class="story-num">03</div>
+  <div class="story-inner">
+    <div class="story-kicker">Web開発 / ネイティブアプリ / PWA / UX / 開発哲学 — 「あなたのアプリはウェブページで十分だった」というエッセイ。実際にアプリとして配布されているものを著者がウェブページに作り直し、その差異を具体的に示す。647ポイント・407コメント</div>
+    <h2 class="story-headline">
+      「アプリ」じゃなくて<br>ウェブページで<br>良かった——<br>だから直してやった
+    </h2>
+    <div class="story-body">
+      Dan Q（danq.me）が書いた「Your 'app' could have been a webpage (so I fixed it for you)」が647ポイント・407コメントという大きな反響を集めました。著者はネイティブアプリとして配布されているが実質的に静的コンテンツを表示するだけの「アプリ」を取り上げ、HTML/CSS/JSで同等またはそれ以上の機能を持つウェブページを実際に作成して公開しています。
+
+      著者が対象にしたのは、インストール・アカウント作成・プッシュ通知許可の要求などを経ないと使えないのに、内部的には更新頻度の低いテキストコンテンツを表示するだけのアプリです。これをシンプルなHTMLページに書き直すことで、インストール不要・クロスプラットフォーム・オフライン対応（Service Worker経由）・プライバシーに配慮した（追跡なし）サービスに変換できることを実証しています。
+
+      HN上では「これは逆に言えば、アプリストアがゲートウェイとして存在することでビジネス上のインセンティブが生まれている——配布・収益化・分析のためにアプリ化が選ばれる」「WebAssemblyとPWAの成熟で、アプリとウェブの境界は実質的に消えつつある——問題はビジネス判断」「逆にウェブで十分なのにアプリにしているケースと、本当にアプリが必要なケースを区別する基準が欲しい」という407コメントが展開しています。
+    </div>
+    <div class="red-items">
+      <div class="red-item">
+        <div>
+          <div class="red-label">「アプリ化」が選ばれる本当の理由</div>
+          <div class="red-text">アプリストアへの掲載による発見可能性向上。プッシュ通知によるリエンゲージメント。ユーザーIDとデバイスデータの取得。アプリ内課金の手数料モデル。「アプリがある＝本格的なサービス」というブランドイメージ。技術的必要性とは別のビジネス判断</div>
+        </div>
+      </div>
+      <div class="red-item">
+        <div>
+          <div class="red-label">ウェブページが本当に代替できること</div>
+          <div class="red-text">PWA（Progressive Web App）：Service WorkerでオフラインキャッシュOK。Web Push API：ブラウザ経由のプッシュ通知が可能（ただしiOSは制限あり）。Web App Manifest：ホーム画面追加・スプラッシュ画面・全画面モード。WebAssembly：ゲームや動画編集レベルのパフォーマンス。なぜ「ウェブで十分か」の基準を著者は具体例で示す</div>
+        </div>
+      </div>
+      <div class="red-item">
+        <div>
+          <div class="red-label">実際にアプリが必要なケース</div>
+          <div class="red-text">Bluetooth・NFC・センサー（気圧計・心拍計等）へのアクセス。バックグラウンドでの常時動作（音楽アプリ、フィットネストラッカー）。OS統合の深い連携（ウィジェット、共有シート、Siri）。カメラの高度な制御（ARKit、プロ動画撮影）。これらに当てはまらなければ、ウェブで十分なことが多い</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: danq.me</span>
+      <span>647 ポイント</span>
+      <span>407 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://danq.me/2026/07/09/your-app-could-have-been-a-webpage/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48869989" target="_blank">HN議論 (407)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="app-could-be-webpage" data-type="like" onclick="toggleFlag('app-could-be-webpage','「アプリ」じゃなくてウェブページで良かった——だから直してやった','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="app-could-be-webpage" data-type="dislike" onclick="toggleFlag('app-could-be-webpage','「アプリ」じゃなくてウェブページで良かった——だから直してやった','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 4 — Offloading thinking to AI ════════════════════════════════ -->
+<section class="story story-4" id="s4">
+  <div class="story-num">04</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / 認知 / 思考の外部委託 / 生産性 / 哲学 — AIに思考を任せすぎることで人間の認知能力が衰退するリスクを論じた記事。「道具として使う」と「思考を代替させる」の境界線はどこにあるか。336ポイント・326コメント</div>
+    <h2 class="story-headline">
+      私たちはAIに<br>思考を<br>委ねすぎて<br>いるのか？
+    </h2>
+    <div class="story-body">
+      artfish.aiが公開した「Are we offloading too much of our thinking to AI?」が336ポイント・326コメントを集めました。LLMを使った作業が日常化する中、「AIが考えてくれるから自分で考えなくていい」という姿勢が習慣化するリスクと、それが認知能力・問題解決力・創造性に与える長期的な影響について論考しています。
+
+      著者は「計算機が暗算を奪ったとは言わない——でもAIはもっと高次の思考を代替しつつある」という論点から出発し、「道具の使用（tool use）」と「思考の外部委託（cognitive offloading）」の違いを探ります。スペルチェックはスペルを覚える必要性を減らした、GPSはナビゲーション能力を衰えさせた——これらの先行事例と比較しながら、LLMが文章の構造化・論理の組み立て・コードのデバッグを代行するようになると、人間は「何を考えるか」だけを決め「どう考えるか」をAIに任せる構造になりうると指摘します。
+
+      HN上では「使い方の問題——AIに最終答えを出させるのではなく、途中の思考過程を学ぶために使えば認知能力は高まる」「プログラミング学習者がCopilotに頼りすぎてデバッグ能力が育たない、という実際の報告が増えている」「逆に、AIとの対話を通じて自分の思考の盲点が明確になり、思考の質が上がったという体験もある——使い方が全て」という326コメントが展開しています。
+    </div>
+    <div class="green-items">
+      <div class="green-item">
+        <div>
+          <div class="green-label">「道具」と「代替」の境界線</div>
+          <div class="green-text">道具（tool use）：スペルチェック・電卓・検索エンジン——入力と検証は人間が担う。認知的外部委託（cognitive offloading）：推論・構造化・判断をシステムに任せる——人間はアウトプットを受け入れるだけ。LLMは後者に近い使われ方ができる最初の道具カテゴリ</div>
+        </div>
+      </div>
+      <div class="green-item">
+        <div>
+          <div class="green-label">先行事例からの教訓</div>
+          <div class="green-text">GPS：ナビゲーションを任せたことで空間認識能力が低下するという研究がある。スペルチェック：スペル能力の低下と、その一方でより多くの時間を表現に使えるようになったという両面。計算機：暗算は衰えたが、複雑な計算を扱える人口が増えた。得るものと失うものは常にトレードオフ</div>
+        </div>
+      </div>
+      <div class="green-item">
+        <div>
+          <div class="green-label">実践的なスタンス</div>
+          <div class="green-text">「答えを出させる」ではなく「思考過程を見せてもらう」使い方が認知強化につながる。AIが生成したコードを「写す」のではなく「読んで理解してから書く」訓練が重要。定期的に「AIなしで」問題に向き合う時間を意識的に作ることが能力の維持に有効</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: artfish.ai</span>
+      <span>336 ポイント</span>
+      <span>326 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.artfish.ai/p/offloading-thinking-to-ai" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48908178" target="_blank">HN議論 (326)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="ai-thinking-offload" data-type="like" onclick="toggleFlag('ai-thinking-offload','私たちはAIに思考を委ねすぎているのか？','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="ai-thinking-offload" data-type="dislike" onclick="toggleFlag('ai-thinking-offload','私たちはAIに思考を委ねすぎているのか？','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 5 — Bonsai 27B ════════════════════════════════════════════════ -->
+<section class="story story-5" id="s5">
+  <div class="story-num">05</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / モデル / オンデバイス / スマートフォン / PrismML — PrismMLが発表した「Bonsai 27B」は、270億パラメータクラスのモデルでありながら、スマートフォン上での動作を目指して最適化された新モデル。297ポイント・101コメント</div>
+    <h2 class="story-headline">
+      Bonsai 27B——<br>スマホで動く<br>270億パラメータ<br>モデル
+    </h2>
+    <div class="story-body">
+      PrismMLが発表した「Bonsai 27B」がHN上で297ポイント・101コメントを集めました。このモデルはGemma 3 27BやMistral Small 3.1などの270億パラメータクラスのモデルと同等の性能を目指しながら、スマートフォン（具体的にはiPhoneおよびAndroid上位機種）でのオンデバイス推論を実現するために徹底的に最適化されています。
+
+      Bonsai 27Bの技術的な特徴は、量子化（Quantization）と知識蒸留（Knowledge Distillation）の組み合わせによるモデル圧縮です。フルパラメータの27Bモデルをスマートフォンのメモリ（通常6〜12GB）に収まるよう4bit量子化しながら、ベンチマーク性能の低下を最小限に抑えることを目標としています。モデルのアーキテクチャも推論効率を優先した設計が採用されており、バッテリー消費とレイテンシのトレードオフを最適化しているとされています。
+
+      HN上では「スマートフォンでこのクラスが動くなら、クラウドAPIなしのオフラインアシスタントが実用的になる——プライバシーの観点でも重要」「量子化した270億パラメータは実際には70億パラメータに近い品質になることが多い——パラメータ数だけで比較するのは危険」「Apple Siliconチップのニューラルエンジンを使うなら、on-device LLMの本命はApple純正の方向性になるのでは——Bonsaiが差別化できるかが鍵」という101コメントが展開しています。
+    </div>
+    <div class="purple-items">
+      <div class="purple-item">
+        <div>
+          <div class="purple-label">技術的アプローチ</div>
+          <div class="purple-text">4bit量子化（Q4_K_M等）でモデルサイズを大幅圧縮。知識蒸留：大きな教師モデルから小さな生徒モデルに知識を転移。推論効率優先のアーキテクチャ設計——KVキャッシュ最適化、注意機構のグループ化（GQA）等。目標：メモリ8〜12GBのスマートフォンで実用的なTPS（Token/秒）を実現</div>
+        </div>
+      </div>
+      <div class="purple-item">
+        <div>
+          <div class="purple-label">オンデバイスAIが意味すること</div>
+          <div class="purple-text">クラウドAPIへの通信不要 → プライバシー保護。オフライン動作 → 機内・電波不良環境でも使える。レイテンシの削減 → ネットワーク遅延がゼロ。コスト → API課金なしで無制限使用可能。ただし：スマートフォンの発熱・バッテリー消費が課題。長い文脈の処理はメモリ不足になりうる</div>
+        </div>
+      </div>
+      <div class="purple-item">
+        <div>
+          <div class="purple-label">競合との位置づけ</div>
+          <div class="purple-text">Appleのオンデバイス推論（Apple Intelligence）：iOS/macOS専用、非公開モデル。Google Gemini Nano：Android向け、小型モデルに特化。Meta Llama 3.2 3B/11B：オープンウェイト、多数のランタイム対応。Bonsaiの差別化：27Bクラスの知能をオンデバイスに持ち込む規模感と、クロスプラットフォーム対応</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: prismml.com</span>
+      <span>297 ポイント</span>
+      <span>101 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://prismml.com/news/bonsai-27b" target="_blank">発表を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48910545" target="_blank">HN議論 (101)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="bonsai-27b-on-phone" data-type="like" onclick="toggleFlag('bonsai-27b-on-phone','Bonsai 27B——スマホで動く270億パラメータモデル','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="bonsai-27b-on-phone" data-type="dislike" onclick="toggleFlag('bonsai-27b-on-phone','Bonsai 27B——スマホで動く270億パラメータモデル','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 6 — The Tower Keeps Rising ═══════════════════════════════════ -->
+<section class="story story-6" id="s6">
+  <div class="story-num">06</div>
+  <div class="story-inner">
+    <div class="story-kicker">ソフトウェアエンジニアリング / 抽象化 / AI / 複雑性 / Armin Ronacher — Flask/Jinja2の作者Armin Ronacherが、AIによってさらに高くなり続けるソフトウェア抽象化の「タワー」について論じる。275ポイント・134コメント</div>
+    <h2 class="story-headline">
+      タワーはまだ<br>高くなり続ける——<br>ソフトウェア<br>抽象化の果てに
+    </h2>
+    <div class="story-body">
+      Flask・Jinja2・Werkzeugの作者として知られるArmin Ronacher（lucumr.pocoo.org）が書いた「The Tower Keeps Rising」が275ポイント・134コメントを集めました。ソフトウェアエンジニアリングの歴史を「抽象化の層を積み上げてきた歴史」として捉え、AIエージェントとLLMの登場がその「タワー」をさらに高くしつつある——そしてその高さが何を意味するかを問う論考です。
+
+      Arminの議論の核心は「抽象化は複雑性を隠蔽するのではなく移動させる」という観察です。アセンブリからC、CからPython、Pythonからフレームワークへのそれぞれのステップはプログラマが扱う問題の性質を変えてきました。LLMはさらに「英語でコードを書く」という新たな層を加えつつあります。しかしタワーの最上層からは地面（マシンの実際の動作）が見えなくなり、デバッグや最適化が困難になるという代償が伴います。
+
+      HN上では「Arminのポイントは、LLMが生成するコードの『なぜそうなっているか』を理解せずに積み上げることへの警告——レガシーコードの最悪バージョンになりうる」「抽象化のタワーが高いほど、ある層が崩れたときの影響範囲が読めない——AIが生成したコードが大量に入り込むとこのリスクが増す」「逆説的に、タワーが高くなるほど土台を理解しているエンジニアの価値は上がる——差別化の機会でもある」という134コメントが展開しています。
+    </div>
+    <div class="cyan-items">
+      <div class="cyan-item">
+        <div>
+          <div class="cyan-label">抽象化のタワーの歴史</div>
+          <div class="cyan-text">マシンコード → アセンブリ → C → 高水準言語 → フレームワーク/ライブラリ → クラウドサービス → LLMによる自然言語プログラミング。各層は下位の複雑性を隠蔽するが、問題の性質と要求されるスキルを変える。タワーが高いほど「土台を知っているエンジニア」は希少になる</div>
+        </div>
+      </div>
+      <div class="cyan-item">
+        <div>
+          <div class="cyan-label">AIが加える新たな層の特徴</div>
+          <div class="cyan-text">自然言語での指示がコードに変換される。従来の抽象化と違い「何が生成されるか」が確定的でない——同じ指示で異なるコードが出る。生成されたコードに含まれる技術的選択の理由が不透明になりやすい。デバッグ時に「AIに聞く」という再帰的な構造が生まれる</div>
+        </div>
+      </div>
+      <div class="cyan-item">
+        <div>
+          <div class="cyan-label">Arminの立ち位置</div>
+          <div class="cyan-text">AIの活用を否定せず「タワーを高くすることには価値がある」というスタンス。しかし「どの層で何が起きているかを理解している人が最上層にいることが重要」と強調。Flask自体がフレームワークという抽象化層であるArminが「抽象化の限界」を論じる重みは大きい</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: lucumr.pocoo.org</span>
+      <span>275 ポイント</span>
+      <span>134 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://lucumr.pocoo.org/2026/7/13/the-tower-keeps-rising/" target="_blank">エッセイを読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48909785" target="_blank">HN議論 (134)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="tower-keeps-rising" data-type="like" onclick="toggleFlag('tower-keeps-rising','タワーはまだ高くなり続ける——ソフトウェア抽象化の果てに','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="tower-keeps-rising" data-type="dislike" onclick="toggleFlag('tower-keeps-rising','タワーはまだ高くなり続ける——ソフトウェア抽象化の果てに','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 7 — Cursor 0day ═══════════════════════════════════════════════ -->
+<section class="story story-7" id="s7">
+  <div class="story-num">07</div>
+  <div class="story-inner">
+    <div class="story-kicker">セキュリティ / AIコードエディタ / Cursor / 脆弱性 / 完全開示 — AIコードエディタ「Cursor」に存在する未パッチの0day脆弱性について、MindguardのセキュリティリサーチャーがFull Disclosureを選択した経緯と理由を解説。154ポイント・65コメント</div>
+    <h2 class="story-headline">
+      Cursor 0day——<br>完全開示が<br>最後の盾に<br>なるとき
+    </h2>
+    <div class="story-body">
+      Mindguard AIのセキュリティブログに投稿された「Cursor 0day: When Full Disclosure Becomes the Only Protection Left」が154ポイント・65コメントを集めました。AIコードエディタとして急成長している「Cursor」に存在するゼロデイ脆弱性について、研究者が責任ある開示（Responsible Disclosure）の試みが機能しなかった後にFull Disclosure（完全公開）に踏み切るまでの経緯と倫理的判断を詳細に記述しています。
+
+      研究者はCursorに複数のセキュリティ上の問題点を発見し、標準的なCoordinated Vulnerability Disclosure（CVD）プロセスに従ってCursor社に報告しました。しかし一定期間内に適切な応答や修正の進捗が確認できなかったため、最終的に技術的詳細を含む完全開示に移行しました。脆弱性の具体的な内容はまだ確認できていませんが、AIが生成したコードを受け入れる際のインジェクションリスクや、エディタとLLMバックエンド間の通信における問題が含まれる可能性が示唆されています。
+
+      HN上では「AIコードエディタはセキュリティの観点では攻撃面（Attack Surface）が非常に広い——コード、API通信、プラグイン、Model Contextと攻撃ベクタが多い」「Cursorは急成長していてセキュリティ体制が追いついていない可能性——スタートアップあるあるだがリスクは高い」「責任ある開示が機能しなかったとき、ユーザーを守るためにFull Disclosureを選ぶという判断は理解できる——ベンダーへの圧力になる」という65コメントが展開しています。
+    </div>
+    <div class="amber-items">
+      <div class="amber-item">
+        <div>
+          <div class="amber-label">AIコードエディタのセキュリティリスク</div>
+          <div class="amber-text">プロンプトインジェクション：悪意あるコメントがLLMへの指示として機能し、脆弱なコードを生成させるリスク。バックエンド通信：Cursor ↔ LLM API間の通信に機密コードが送信される——TLS実装の問題や中間者攻撃。プラグイン/拡張機能：サードパーティ統合がサンドボックス外で動作する可能性</div>
+        </div>
+      </div>
+      <div class="amber-item">
+        <div>
+          <div class="amber-label">開示プロセスの経緯</div>
+          <div class="amber-text">発見 → Cursor社に非公開報告（CVDプロセス）→ 応答遅延または不十分な対応 → Full Disclosure選択。研究者の判断：「ユーザーは今日もCursorを使ってコードを書いている——知らないまま使い続けるリスクと、開示によって攻撃者が悪用するリスクを比較した」。Cursorユーザーは最新アップデートの適用と、機密コードのローカルモデルへの切り替えを検討すべき</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: mindgard.ai</span>
+      <span>154 ポイント</span>
+      <span>65 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://mindgard.ai/blog/cursor-0day-when-full-disclosure-becomes-the-only-protection-left" target="_blank">リサーチを読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48910676" target="_blank">HN議論 (65)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="cursor-0day-full-disclosure" data-type="like" onclick="toggleFlag('cursor-0day-full-disclosure','Cursor 0day——完全開示が最後の盾になるとき','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="cursor-0day-full-disclosure" data-type="dislike" onclick="toggleFlag('cursor-0day-full-disclosure','Cursor 0day——完全開示が最後の盾になるとき','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 8 — FSF blocking botnets ════════════════════════════════════ -->
+<section class="story story-8" id="s8">
+  <div class="story-num">08</div>
+  <div class="story-inner">
+    <div class="story-kicker">セキュリティ / インフラ / FSF / ボットネット / オープンソース / sysadmin — フリーソフトウェア財団（FSF）のシステム管理者が、ボットネットからの攻撃を「reaction」というツールを使ってどのようにブロックしているかを解説したブログ。151ポイント・59コメント</div>
+    <h2 class="story-headline">
+      FSFのsysadminが<br>reactionで<br>ボットネットを<br>ブロックする方法
+    </h2>
+    <div class="story-body">
+      フリーソフトウェア財団（FSF）の公式ブログに掲載された「How the FSF sysadmins block botnets with reaction」が151ポイント・59コメントを集めました。FSFのシステム管理者が、ウェブサーバーへのボットネット攻撃に対してどのように防御しているかを「reaction」というOSSツールを使った実践的なケーススタディとして公開しています。
+
+      「reaction」は従来のfail2ban的なアプローチをよりモジュラーかつ設定可能な形で実装したログ解析・自動ブロックツールです。fsf.orgでは主にWordPressやGitのログを監視し、一定の閾値を超えたIPアドレスをnftables（Linuxのファイアウォール）を使ってブロックする設定が使われています。FSFの環境は商用インフラではなく独自ホスティングであるため、CloudflareなどのCDNに依存しない防御戦略が必要であり、reactionがその要件に合致したとされています。
+
+      HN上では「fail2banの設定は複雑で正規表現が壊れやすい——reactionがどの点でより堅牢かが気になる」「FSFがCloudflareを使わない理由は明確——Cloudflareへのトラフィックの委託はフリーソフトウェアの哲学とは相容れない。だから独自実装が重要」「自前インフラでサービスを運用している組織には参考になる——VPS・ベアメタルで動かしているなら必読」という59コメントが展開しています。
+    </div>
+    <div class="gold-items">
+      <div class="gold-item">
+        <div>
+          <div class="gold-label">reactionとは何か</div>
+          <div class="gold-text">OSSのログ解析・自動IPブロックツール。fail2banの後継として設計されたわけではないが同種の問題を解く。設定：ログファイルの監視ルール → マッチした場合のアクション（nftables, iptables, etc.）を定義。モジュラー設計で複数サービスのログを統合管理可能。Go実装でリソース効率が良い</div>
+        </div>
+      </div>
+      <div class="gold-item">
+        <div>
+          <div class="gold-label">FSFが自前ホスティングを維持する理由</div>
+          <div class="gold-text">フリーソフトウェア財団の理念：「ユーザーのコンピュータ上でのソフトウェアの自由」を守る組織として、Cloudflare等のサードパーティサービスへの依存はミッションと矛盾する。AWS・Google Cloud等の商用クラウドも同様。独自インフラの維持はコストと手間がかかるが、FSFにとっては選択ではなく信条</div>
+        </div>
+      </div>
+      <div class="gold-item">
+        <div>
+          <div class="gold-label">実践的な設定のポイント</div>
+          <div class="gold-text">監視対象：NginxアクセスログとWordPressのwp-login.phpへのリクエスト。閾値：一定時間内のログイン試行回数（例：10分で30回以上）。アクション：nftablesでIPをDROPリストに追加。有効期間：一定時間後に自動解除（ブロックリストが肥大化しない設計）。Gitリポジトリのアクセスログも同様に監視</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: fsf.org</span>
+      <span>151 ポイント</span>
+      <span>59 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.fsf.org/blogs/community/blocking-botnets-with-reaction" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48876809" target="_blank">HN議論 (59)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="fsf-block-botnets-reaction" data-type="like" onclick="toggleFlag('fsf-block-botnets-reaction','FSFのsysadminがreactionでボットネットをブロックする方法','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="fsf-block-botnets-reaction" data-type="dislike" onclick="toggleFlag('fsf-block-botnets-reaction','FSFのsysadminがreactionでボットネットをブロックする方法','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 9 — Juggler GUI coding agent ═════════════════════════════════ -->
+<section class="story story-9" id="s9">
+  <div class="story-num">09</div>
+  <div class="story-inner">
+    <div class="story-kicker">開発ツール / AIコーディングエージェント / Show HN / JUCE / OSSツール — JUCEオーディオフレームワークの作者が作ったOSSのGUIコーディングエージェント「Juggler」のShow HN。ネイティブUIを持つコーディングエージェントとして注目。142ポイント・75コメント</div>
+    <h2 class="story-headline">
+      Juggler——<br>JUCE作者による<br>OSSコーディング<br>エージェントGUI
+    </h2>
+    <div class="story-body">
+      JUCEオーディオ・マルチメディアフレームワークの作者として知られるJules Storer（julesrms）が公開した「Juggler」のShow HNが142ポイント・75コメントを集めました。JugglerはAIコーディングエージェントのためのOSSグラフィカルUIで、LLMを使った自律的なコーディングタスクの実行を可視化・制御するためのネイティブアプリケーションです。
+
+      Jugglerの特徴は、Webベースのインターフェースではなくネイティブデスクトップアプリとして設計されている点です。コーディングエージェントの実行状態（どのファイルを読んでいるか、どのコマンドを実行しようとしているか、どの判断ポイントにいるか）がグラフィカルに表示され、ユーザーがエージェントの行動に介入・承認・停止できる設計になっています。バックエンドのLLMはAnthropicのAPIを含む複数のプロバイダを選択できるとされています。
+
+      HN上では「JUCEの作者がコーディングエージェントのGUIを作るというのは面白い組み合わせ——JUCEはC++で書かれたネイティブUIフレームワークなので、そのノウハウがJugglerに活かされている」「ClaudeのMCP（Model Context Protocol）をサポートしているなら拡張性が高い——ツールエコシステムとの統合が鍵」「コーディングエージェントの行動を可視化する点が重要——Claude CodeのTUIより視認性が高い場合があるかもしれない」という75コメントが展開しています。
+    </div>
+    <div class="slate-items">
+      <div class="slate-item">
+        <div>
+          <div class="slate-label">Jugglerの設計思想</div>
+          <div class="slate-text">ネイティブデスクトップアプリ（Electronではない）。エージェントの実行状態をリアルタイムで可視化——ファイル読み取り、コマンド実行、LLM呼び出しが見える。「Human in the Loop」設計：ユーザーが任意のタイミングで介入・承認・停止できる。複数のLLMプロバイダを選択可能（Claude、GPT-4、ローカルモデル等）</div>
+        </div>
+      </div>
+      <div class="slate-item">
+        <div>
+          <div class="slate-label">JUCE作者が作る意義</div>
+          <div class="slate-text">JUCEはC++のクロスプラットフォームGUIフレームワーク（Mac/Windows/Linux/iOS/Android）——ネイティブUI実装のノウハウが直接活かせる。Julesはオーディオソフトウェア開発者コミュニティで著名——「使いやすいUI」への拘りがコーディングエージェントツールに新しい視点をもたらすかもしれない</div>
+        </div>
+      </div>
+      <div class="slate-item">
+        <div>
+          <div class="slate-label">コーディングエージェントGUIの競合</div>
+          <div class="slate-text">Claude Code（CLI/TUI）：ターミナルベース、最も統合が深い。Cursor（Webview）：IDE統合、AIチャット中心。GitHub Copilot Workspace：ブラウザベース。Aider（CLI）：ターミナルのみ。Juggler：ネイティブGUIという差別化。行動の可視化と制御を重視するユーザーに向いた設計</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: github.com/juggler-ai/juggler</span>
+      <span>142 ポイント</span>
+      <span>75 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://github.com/juggler-ai/juggler" target="_blank">GitHubを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48883305" target="_blank">HN議論 (75)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="juggler-gui-coding-agent" data-type="like" onclick="toggleFlag('juggler-gui-coding-agent','Juggler——JUCE作者によるOSSコーディングエージェントGUI','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="juggler-gui-coding-agent" data-type="dislike" onclick="toggleFlag('juggler-gui-coding-agent','Juggler——JUCE作者によるOSSコーディングエージェントGUI','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 10 — Demis Hassabis AI safety ════════════════════════════════ -->
+<section class="story story-10" id="s10">
+  <div class="story-num">10</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / 安全性 / DeepMind / Demis Hassabis / 長期戦略 — Google DeepMindのCEO・ノーベル賞受賞者であるDemis Hassabisが、AIを安全に活用するための長期計画を語ったインタビュー。127ポイント・159コメント</div>
+    <h2 class="story-headline">
+      DeepMindの<br>Hassabis、<br>AIを安全に<br>活用する計画を語る
+    </h2>
+    <div class="story-body">
+      Google DeepMindのCEOでノーベル化学賞受賞者（タンパク質構造予測AlphaFoldの功績）のDemis Hassabisが語ったAIの安全な活用計画が127ポイント・159コメントを集めました。HackerNews上でリンクされたのはX（旧Twitter）へのポストで、Demisが科学研究へのAI応用と安全性確保の両立について自身の考えを述べた内容です。
+
+      DemisはAlphaFoldによるタンパク質構造予測でAIが科学の課題を解決した事例を踏まえ、AIを「最速の科学的発見エンジン」として位置づけています。同時に「賢くなればなるほど危険になりうるAIを安全に制御することは、AIを賢くすることと同じくらい重要な研究課題」という立場を一貫して取っており、今後の計画として解釈可能性研究（Interpretability Research）と強化された評価システムへの投資を挙げています。
+
+      HN上では「AlphaFoldで実績を示したDemisの発言は重みがある——AIが実際に科学を加速することを証明した人物の言葉として」「DeepMindは学術的な安全性研究でも先進的——ただしGoogleの商業的プレッシャーとのバランスを外部から評価するのは難しい」「Anthropic・OpenAI・DeepMindそれぞれの安全性へのアプローチの差異がコメント欄でまとめられていて読み応えがある」という159コメントが展開しています。
+    </div>
+    <div class="mag-items">
+      <div class="mag-item">
+        <div>
+          <div class="mag-label">Hassabisの基本的立場</div>
+          <div class="mag-text">「AIは人類が直面する最大の問題（気候変動・疾病・貧困）を解決する最も強力なツール」という楽観論と、「同時に最も注意深く制御する必要があるテクノロジー」という慎重論の両方を保持。AlphaFold・AlphaWeatherなど科学研究への応用実績に基づいた経験的楽観主義</div>
+        </div>
+      </div>
+      <div class="mag-item">
+        <div>
+          <div class="mag-label">安全性へのアプローチ</div>
+          <div class="mag-text">解釈可能性研究（Interpretability）：AIが「なぜその判断をしたか」を人間が理解できるようにする研究。強化されたAI評価（Evaluation）：危険な能力の早期検出システム。段階的な自律性の付与：能力と信頼が比例して増えることを確認しながら権限を広げる。Anthropicの「Constitution AI」やOpenAIの「Superalignment」と方向性は共通</div>
+        </div>
+      </div>
+      <div class="mag-item">
+        <div>
+          <div class="mag-label">HN議論のハイライト</div>
+          <div class="mag-text">「DeepMind・Anthropic・OpenAIの安全性アプローチ比較」スレッドが展開。DeepMind：大規模科学応用と安全性研究の並走。Anthropic：Constitutional AI・解釈可能性を中心とした学術的アプローチ。OpenAI：Superalignment宣言後の組織変動に対する懐疑的コメントも。「誰が本気か」は行動で示されるという意見が多数</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: twitter.com/demishassabis</span>
+      <span>127 ポイント</span>
+      <span>159 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://twitter.com/demishassabis/status/2076957440109625718" target="_blank">ポストを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48904095" target="_blank">HN議論 (159)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="hassabis-ai-safety-plan" data-type="like" onclick="toggleFlag('hassabis-ai-safety-plan','DeepMindのHassabis、AIを安全に活用するための計画を語る','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="hassabis-ai-safety-plan" data-type="dislike" onclick="toggleFlag('hassabis-ai-safety-plan','DeepMindのHassabis、AIを安全に活用するための計画を語る','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ════════════════════════════════════════════════════════════════ -->
+<footer class="site-footer">
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand">Morning Edition</div>
+      <div class="footer-meta">
+        Hacker News キュレーション · 2026年7月15日 · Issue No.077<br>
+        毎朝、厳選10本をお届け
+      </div>
+    </div>
+    <button class="export-btn" onclick="exportFeedback()">📋 フィードバックをコピー</button>
+  </div>
+  <div class="footer-note">
+    ⭐ 興味あり / ✕ 興味なし ボタンで次回のキュレーションが改善されます。Chrome/Edgeでは自動保存、その他ではボタンでクリップボードにコピーしてください。
+  </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  const FEEDBACK_KEY = 'morning-edition-feedback-v2';
+  const TODAY = '2026-07-15';
+  let _dirHandle = null;
+
+  async function getDir(forcePrompt) {
+    if (_dirHandle && !forcePrompt) return _dirHandle;
+    if (!window.showDirectoryPicker) return null;
+    try {
+      _dirHandle = await window.showDirectoryPicker({ mode: 'readwrite', id: 'morning-edition', startIn: 'documents' });
+      return _dirHandle;
+    } catch { return null; }
+  }
+
+  async function writeJSON(dirHandle, fb) {
+    const fileHandle = await dirHandle.getFileHandle('feedback.json', { create: true });
+    const writable = await fileHandle.createWritable();
+    await writable.write(JSON.stringify({ ...fb, updatedAt: new Date().toISOString() }, null, 2));
+    await writable.close();
+  }
+
+  function showToast(msg, isErr) {
+    const el = document.getElementById('toast');
+    el.textContent = msg;
+    el.className = 'toast' + (isErr ? ' error' : '');
+    requestAnimationFrame(() => el.classList.add('show'));
+    clearTimeout(el._timer);
+    el._timer = setTimeout(() => el.classList.remove('show'), 3000);
+  }
+
+  function getFeedback() {
+    try { return JSON.parse(localStorage.getItem(FEEDBACK_KEY) || '{"liked":{},"disliked":{}}'); }
+    catch { return { liked: {}, disliked: {} }; }
+  }
+  function saveFeedback(fb) { localStorage.setItem(FEEDBACK_KEY, JSON.stringify(fb)); }
+
+  async function autoSave(fb) {
+    let dir = await getDir();
+    if (!dir) {
+      showToast('📁 Daily News フォルダを選択してください', true);
+      dir = await getDir(true);
+      if (!dir) { showToast('保存をキャンセルしました', true); return; }
+    }
+    try {
+      await writeJSON(dir, fb);
+      showToast('✓ feedback.json を自動保存しました（次回キュレーションに反映）');
+    } catch (e) {
+      showToast('保存エラー: ' + e.message, true);
+    }
+  }
+
+  async function toggleFlag(storyId, title, type) {
+    const fb = getFeedback();
+    fb.liked = fb.liked || {};
+    fb.disliked = fb.disliked || {};
+    const likeBtn    = document.querySelector(`.flag-btn.like-btn[data-story="${storyId}"]`);
+    const dislikeBtn = document.querySelector(`.flag-btn.dislike-btn[data-story="${storyId}"]`);
+    if (type === 'like') {
+      if (fb.liked[storyId]) {
+        delete fb.liked[storyId];
+        likeBtn?.classList.remove('active');
+      } else {
+        fb.liked[storyId] = { title, date: TODAY };
+        delete fb.disliked[storyId];
+        likeBtn?.classList.add('active');
+        dislikeBtn?.classList.remove('active');
+      }
+    } else {
+      if (fb.disliked[storyId]) {
+        delete fb.disliked[storyId];
+        dislikeBtn?.classList.remove('active');
+      } else {
+        fb.disliked[storyId] = { title, date: TODAY };
+        delete fb.liked[storyId];
+        dislikeBtn?.classList.add('active');
+        likeBtn?.classList.remove('active');
+      }
+    }
+    saveFeedback(fb);
+    await autoSave(fb);
+  }
+
+  function exportFeedback() {
+    const fb = getFeedback();
+    const json = JSON.stringify({ ...fb, exportedAt: new Date().toISOString() }, null, 2);
+    navigator.clipboard.writeText(json)
+      .then(() => showToast('📋 クリップボードにコピーしました'))
+      .catch(() => {
+        const el = document.createElement('textarea');
+        el.value = json; document.body.appendChild(el); el.select();
+        document.execCommand('copy'); document.body.removeChild(el);
+        showToast('📋 クリップボードにコピーしました');
+      });
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const fb = getFeedback();
+    document.querySelectorAll('.flag-btn').forEach(btn => {
+      const id   = btn.dataset.story;
+      const type = btn.dataset.type;
+      if ((type === 'like' && fb.liked?.[id]) || (type === 'dislike' && fb.disliked?.[id])) {
+        btn.classList.add('active');
+      }
+    });
+  });
+</script>
+</body>
+</html>
