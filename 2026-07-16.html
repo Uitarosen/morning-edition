@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Morning Edition — 2026年7月16日</title>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --font: 'M PLUS Rounded 1c', 'Hiragino Sans', 'Noto Sans JP', sans-serif; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); background: #111; color: #fff; overflow-x: hidden; }
+
+    .masthead { background: #fff; color: #000; padding: 3rem 4rem 2.5rem; border-bottom: 6px solid #000; position: relative; overflow: hidden; }
+    .masthead::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: repeating-linear-gradient(90deg, #000 0, #000 12px, transparent 12px, transparent 20px); }
+    .masthead-kicker { font-size: 0.85rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: #777; margin-bottom: 0.6rem; }
+    .masthead-title { font-size: clamp(3.5rem, 9vw, 7.5rem); font-weight: 900; line-height: 0.88; letter-spacing: -0.04em; margin-bottom: 1.8rem; }
+    .masthead-meta { display: flex; gap: 3rem; align-items: baseline; flex-wrap: wrap; }
+    .masthead-date { font-size: 1.5rem; font-weight: 700; }
+    .masthead-subtitle { font-size: 1rem; font-weight: 400; color: #555; max-width: 480px; line-height: 1.5; }
+    .masthead-issue { margin-left: auto; text-align: right; }
+    .masthead-issue span { display: block; }
+    .masthead-issue .iss-label { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: #999; }
+    .masthead-issue .iss-num { font-size: 2.2rem; font-weight: 900; color: #000; }
+
+    .toc { background: #1a1a1a; padding: 1.5rem 4rem; display: flex; gap: 1.5rem; flex-wrap: wrap; border-bottom: 1px solid #333; }
+    .toc a { color: #aaa; text-decoration: none; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; transition: color 0.2s; }
+    .toc a:hover { color: #fff; }
+    .toc-num { color: #555; margin-right: 0.3em; }
+
+    .story { position: relative; overflow: hidden; }
+    .story-inner { max-width: 1200px; margin: 0 auto; padding: 5rem 4rem; position: relative; z-index: 1; }
+    .story-num { font-size: clamp(6rem, 18vw, 16rem); font-weight: 900; line-height: 0.8; letter-spacing: -0.06em; opacity: 0.08; position: absolute; top: 1rem; right: 2rem; user-select: none; }
+    .story-badge { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.35em 0.9em; border-radius: 2px; margin-bottom: 1.5rem; }
+    .direct-badge { background: #FFD700; color: #000; }
+    .story-kicker { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; opacity: 0.6; margin-bottom: 0.8rem; }
+    .story-headline { font-size: clamp(2rem, 5vw, 4rem); font-weight: 900; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+    .story-body { font-size: clamp(1rem, 1.5vw, 1.2rem); font-weight: 400; line-height: 1.8; max-width: 680px; opacity: 0.88; margin-bottom: 2rem; }
+    .story-meta { display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center; font-size: 0.8rem; font-weight: 700; opacity: 0.5; }
+    .story-links { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem; }
+    .story-link { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.6em 1.4em; border-radius: 3px; text-decoration: none; transition: opacity 0.2s, transform 0.15s; }
+    .story-link:hover { opacity: 0.75; transform: translateY(-1px); }
+
+    .feedback-buttons { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .flag-btn { background: none; border: 1px solid currentColor; color: inherit; font-family: var(--font); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.5em 1em; border-radius: 3px; cursor: pointer; opacity: 0.32; transition: opacity 0.2s, background 0.2s, color 0.2s, border-color 0.2s, transform 0.15s; }
+    .flag-btn:hover { opacity: 0.72; transform: translateY(-1px); }
+    .flag-btn.like-btn.active { opacity: 1; background: rgba(255,215,0,0.15); border-color: #FFD700; color: #FFD700 !important; }
+    .flag-btn.dislike-btn.active { opacity: 1; background: rgba(255,60,60,0.12); border-color: #FF4444; color: #FF4444 !important; }
+
+    .toast { position: fixed; bottom: 2rem; right: 2rem; background: #1a1a1a; color: #fff; font-family: var(--font); font-size: 0.82rem; font-weight: 700; padding: 0.75em 1.4em; border-radius: 4px; border-left: 3px solid #00C853; z-index: 9999; opacity: 0; transform: translateY(10px); transition: opacity 0.25s, transform 0.25s; pointer-events: none; box-shadow: 0 4px 24px rgba(0,0,0,0.45); }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    .toast.error { border-left-color: #FF5252; }
+
+    /* Story 1 — White bg */
+    .story-1 { background: #fff; color: #000; min-height: 90vh; display: flex; flex-direction: column; justify-content: center; }
+    .story-1 .story-num { color: #000; opacity: 0.04; }
+    .story-1 .story-kicker { color: #555; opacity: 1; }
+    .story-1 .story-headline { color: #000; }
+    .story-1 .story-body { color: #111; }
+    .story-1 .story-meta { color: #000; }
+    .story-1 .story-link.primary { background: #1a1a1a; color: #fff; }
+    .story-1 .story-link.secondary { background: #f0f0f0; color: #000; }
+    .story-1 .flag-btn { color: #000; }
+    .story-1-accent { position: absolute; bottom: 0; left: 0; width: 100%; height: 8px; background: linear-gradient(90deg, #ff6b1a, #ffaa44, #ff6b1a); }
+    .story-1 .headline-accent { display: inline-block; background: linear-gradient(135deg, #ff6b1a 0%, #ffaa44 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .orange-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1.2rem; margin: 2rem 0; max-width: 680px; }
+    .orange-card { border: 2px solid rgba(255,107,26,0.18); background: rgba(255,107,26,0.04); border-radius: 6px; padding: 1.3rem 1.5rem; }
+    .orange-card-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.2em; text-transform: uppercase; color: #cc4400; margin-bottom: 0.4rem; }
+    .orange-card-value { font-size: 1.05rem; font-weight: 900; color: #000; line-height: 1.3; }
+    .orange-card-sub { font-size: 0.75rem; color: #555; margin-top: 0.3rem; line-height: 1.4; }
+
+    /* Story 2 — Dark navy/AI */
+    .story-2 { background: #00080c; color: #b8f0ff; min-height: 80vh; }
+    .story-2::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(0,160,200,0.14) 0%, transparent 65%); }
+    .story-2 .story-num { color: #00A0C8; opacity: 0.07; }
+    .story-2 .story-kicker { color: #20C8E8; opacity: 1; }
+    .story-2 .story-headline { color: #e0f8ff; }
+    .story-2 .story-body { color: #b8f0ff; }
+    .story-2 .story-meta { color: #20C8E8; opacity: 0.5; }
+    .story-2 .story-link.primary { background: #004058; color: #80e8ff; }
+    .story-2 .story-link.secondary { background: rgba(0,160,200,0.08); color: #90d8f0; border: 1px solid rgba(0,160,200,0.22); }
+    .story-2 .flag-btn { color: #b8f0ff; }
+    .teal-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .teal-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(0,160,200,0.07); border-left: 3px solid #00A0C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .teal-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20C8E8; margin-bottom: 0.3rem; }
+    .teal-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 3 — Dark red */
+    .story-3 { background: #0a0000; color: #fff; min-height: 80vh; }
+    .story-3::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(200,20,20,0.16) 0%, transparent 65%); }
+    .story-3 .story-num { color: #C81414; opacity: 0.07; }
+    .story-3 .story-kicker { color: #E84040; opacity: 1; }
+    .story-3 .story-headline { color: #fff; }
+    .story-3 .story-body { color: rgba(255,255,255,0.88); }
+    .story-3 .story-meta { color: #E84040; opacity: 0.5; }
+    .story-3 .story-link.primary { background: #6a0000; color: #fff; }
+    .story-3 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-3 .flag-btn { color: #fff; }
+    .red-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .red-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(200,20,20,0.07); border-left: 3px solid #C81414; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .red-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E84040; margin-bottom: 0.3rem; }
+    .red-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 4 — Dark green */
+    .story-4 { background: #020c04; color: #c8f0d0; min-height: 80vh; }
+    .story-4::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(20,160,70,0.16) 0%, transparent 65%); }
+    .story-4 .story-num { color: #14A046; opacity: 0.07; }
+    .story-4 .story-kicker { color: #30C060; opacity: 1; }
+    .story-4 .story-headline { color: #e0ffe8; }
+    .story-4 .story-body { color: #c8f0d0; }
+    .story-4 .story-meta { color: #30C060; opacity: 0.5; }
+    .story-4 .story-link.primary { background: #063820; color: #80ffb0; }
+    .story-4 .story-link.secondary { background: rgba(20,160,70,0.08); color: #a0e8b0; border: 1px solid rgba(20,160,70,0.22); }
+    .story-4 .flag-btn { color: #c8f0d0; }
+    .green-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .green-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(20,160,70,0.07); border-left: 3px solid #14A046; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .green-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #30C060; margin-bottom: 0.3rem; }
+    .green-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 5 — Dark purple */
+    .story-5 { background: #040010; color: #d8c8ff; min-height: 75vh; }
+    .story-5::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(90,40,200,0.17) 0%, transparent 65%); }
+    .story-5 .story-num { color: #5A28C8; opacity: 0.07; }
+    .story-5 .story-kicker { color: #8050E0; opacity: 1; }
+    .story-5 .story-headline { color: #f0e8ff; }
+    .story-5 .story-body { color: #d8c8ff; }
+    .story-5 .story-meta { color: #8050E0; opacity: 0.5; }
+    .story-5 .story-link.primary { background: #200860; color: #d0a8ff; }
+    .story-5 .story-link.secondary { background: rgba(90,40,200,0.08); color: #c0a0f0; border: 1px solid rgba(90,40,200,0.22); }
+    .story-5 .flag-btn { color: #d8c8ff; }
+    .purple-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .purple-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(90,40,200,0.07); border-left: 3px solid #5A28C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .purple-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #8050E0; margin-bottom: 0.3rem; }
+    .purple-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 6 — Dark cyan */
+    .story-6 { background: #000c10; color: #b8e8f0; min-height: 75vh; }
+    .story-6::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 40%, rgba(0,130,160,0.14) 0%, transparent 65%); }
+    .story-6 .story-num { color: #0080A0; opacity: 0.07; }
+    .story-6 .story-kicker { color: #20B0D0; opacity: 1; }
+    .story-6 .story-headline { color: #e0f4ff; }
+    .story-6 .story-body { color: #b8e8f0; }
+    .story-6 .story-meta { color: #20B0D0; opacity: 0.5; }
+    .story-6 .story-link.primary { background: #003848; color: #80d8f0; }
+    .story-6 .story-link.secondary { background: rgba(0,130,160,0.08); color: #90cce0; border: 1px solid rgba(0,130,160,0.22); }
+    .story-6 .flag-btn { color: #b8e8f0; }
+    .cyan-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .cyan-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(0,130,160,0.07); border-left: 3px solid #0080A0; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .cyan-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20B0D0; margin-bottom: 0.3rem; }
+    .cyan-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 7 — Dark amber */
+    .story-7 { background: #0a0300; color: #ffe0b8; min-height: 75vh; }
+    .story-7::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(210,90,20,0.18) 0%, transparent 65%); }
+    .story-7 .story-num { color: #D05A14; opacity: 0.07; }
+    .story-7 .story-kicker { color: #E88040; opacity: 1; }
+    .story-7 .story-headline { color: #fff0d8; }
+    .story-7 .story-body { color: #ffe0b8; }
+    .story-7 .story-meta { color: #E88040; opacity: 0.5; }
+    .story-7 .story-link.primary { background: #6a2400; color: #ffc880; }
+    .story-7 .story-link.secondary { background: rgba(210,90,20,0.08); color: #ffb870; border: 1px solid rgba(210,90,20,0.22); }
+    .story-7 .flag-btn { color: #ffe0b8; }
+    .amber-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .amber-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(210,90,20,0.07); border-left: 3px solid #D05A14; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .amber-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E88040; margin-bottom: 0.3rem; }
+    .amber-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 8 — Dark gold */
+    .story-8 { background: #080500; color: #fff; min-height: 70vh; }
+    .story-8::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,145,10,0.15) 0%, transparent 65%); }
+    .story-8 .story-num { color: #BE9110; opacity: 0.06; }
+    .story-8 .story-kicker { color: #D4A820; opacity: 1; }
+    .story-8 .story-headline { color: #fff; }
+    .story-8 .story-body { color: rgba(255,255,255,0.88); }
+    .story-8 .story-meta { color: #D4A820; opacity: 0.5; }
+    .story-8 .story-link.primary { background: #604000; color: #ffe070; }
+    .story-8 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-8 .flag-btn { color: #fff; }
+    .gold-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .gold-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(190,145,10,0.07); border-left: 3px solid #BE9110; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .gold-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #D4A820; margin-bottom: 0.3rem; }
+    .gold-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 9 — Slate blue */
+    .story-9 { background: #040810; color: #c8d8f0; min-height: 70vh; }
+    .story-9::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 35%, rgba(50,90,170,0.16) 0%, transparent 65%); }
+    .story-9 .story-num { color: #3258A8; opacity: 0.07; }
+    .story-9 .story-kicker { color: #5878C8; opacity: 1; }
+    .story-9 .story-headline { color: #e8f0ff; }
+    .story-9 .story-body { color: #c8d8f0; }
+    .story-9 .story-meta { color: #5878C8; opacity: 0.5; }
+    .story-9 .story-link.primary { background: #101e50; color: #fff; }
+    .story-9 .story-link.secondary { background: rgba(50,90,170,0.08); color: #b0c8e8; border: 1px solid rgba(50,90,170,0.22); }
+    .story-9 .flag-btn { color: #c8d8f0; }
+    .slate-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .slate-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(50,90,170,0.07); border-left: 3px solid #3258A8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .slate-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #5878C8; margin-bottom: 0.3rem; }
+    .slate-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 10 — Magenta */
+    .story-10 { background: #080004; color: #ffc8e8; min-height: 70vh; }
+    .story-10::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,20,90,0.15) 0%, transparent 65%); }
+    .story-10 .story-num { color: #BE1458; opacity: 0.07; }
+    .story-10 .story-kicker { color: #E04080; opacity: 1; }
+    .story-10 .story-headline { color: #fff0f8; }
+    .story-10 .story-body { color: #ffc8e8; }
+    .story-10 .story-meta { color: #E04080; opacity: 0.5; }
+    .story-10 .story-link.primary { background: #500030; color: #ffb0d8; }
+    .story-10 .story-link.secondary { background: rgba(190,20,90,0.08); color: #f090c0; border: 1px solid rgba(190,20,90,0.22); }
+    .story-10 .flag-btn { color: #ffc8e8; }
+    .mag-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .mag-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(190,20,90,0.07); border-left: 3px solid #BE1458; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .mag-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E04080; margin-bottom: 0.3rem; }
+    .mag-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .site-footer { background: #000; color: #555; padding: 3rem 4rem; display: flex; flex-direction: column; gap: 1.5rem; border-top: 1px solid #222; }
+    .footer-top { display: flex; gap: 2rem; align-items: center; flex-wrap: wrap; justify-content: space-between; }
+    .footer-brand { font-size: 1.4rem; font-weight: 900; color: #fff; }
+    .footer-meta { font-size: 0.75rem; line-height: 1.6; }
+    .export-btn { background: #222; border: 1px solid #444; color: #fff; font-family: var(--font); font-size: 0.8rem; font-weight: 700; padding: 0.7em 1.5em; border-radius: 3px; cursor: pointer; letter-spacing: 0.08em; transition: background 0.2s; }
+    .export-btn:hover { background: #333; }
+    .footer-note { font-size: 0.7rem; opacity: 0.5; }
+
+    @media (max-width: 768px) {
+      .masthead, .toc, .story-inner, .site-footer { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .story-num { display: none; }
+      .masthead-meta { gap: 1rem; }
+      .masthead-issue { margin-left: 0; }
+      .orange-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+<nav style="background:#1a1a1a;border-bottom:1px solid #333;padding:0.55rem 2rem;font-family:'M PLUS Rounded 1c','Hiragino Sans','Noto Sans JP',sans-serif;position:sticky;top:0;z-index:999;">
+  <a href="./index.html" style="color:#aaa;text-decoration:none;font-size:0.8rem;font-weight:700;letter-spacing:0.03em;display:inline-flex;align-items:center;gap:0.4rem;transition:color 0.15s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#aaa'">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    アーカイブへ戻る
+  </a>
+</nav>
+
+<header class="masthead">
+  <div class="masthead-kicker">Hacker News — Morning Edition</div>
+  <h1 class="masthead-title">Morning<br>Edition</h1>
+  <div class="masthead-meta">
+    <div>
+      <div class="masthead-date">2026年7月16日 木曜日</div>
+      <div class="masthead-subtitle">AI・開発ツール・プライバシー・サイエンス — あなたのための10本</div>
+    </div>
+    <div class="masthead-issue">
+      <span class="iss-label">Issue</span>
+      <span class="iss-num">No.078</span>
+    </div>
+  </div>
+</header>
+
+<nav class="toc">
+  <a href="#s1"><span class="toc-num">01</span>睡眠の「規則正しさ」は「長さ」より死亡リスクを予測する</a>
+  <a href="#s2"><span class="toc-num">02</span>Inkling——フィリピン発、新世代オープンウェイトモデル</a>
+  <a href="#s3"><span class="toc-num">03</span>GPU無しの13年前Xeonで、Gemma 4 26Bが動いた</a>
+  <a href="#s4"><span class="toc-num">04</span>Telegramのデータセンターの謎——場所も構成も公開しない理由</a>
+  <a href="#s5"><span class="toc-num">05</span>プライバシーメッセンジャー「Briar」がメンテナンスモードへ</a>
+  <a href="#s6"><span class="toc-num">06</span>Grok Build——xAIがオープンソースにしたビルドシステム</a>
+  <a href="#s7"><span class="toc-num">07</span>misa77——LZ4の2倍速で解凍できる新コーデック</a>
+  <a href="#s8"><span class="toc-num">08</span>コーディングエージェント向けOSSメモリ、SSH経由で同期</a>
+  <a href="#s9"><span class="toc-num">09</span>⚡ Brainless——Claude Code・Codex・Grokそっくりのshadcnコンポーネント集</a>
+  <a href="#s10"><span class="toc-num">10</span>Show HN: WebAssembly上で動くFirefox</a>
+</nav>
+
+<!-- ═══ STORY 1 — Sleep regularity ══════════════════════════════════════════ -->
+<section class="story story-1" id="s1">
+  <div class="story-num">01</div>
+  <div class="story-inner">
+    <div class="story-kicker">睡眠科学 / 健康 / 死亡リスク / 疫学 / アクショナブル — 睡眠の「規則正しさ（毎日同じ時間に寝て起きる）」が「総睡眠時間」よりも強力な死亡リスクの予測因子であることを示した2023年の論文が625ポイントを獲得。318コメント</div>
+    <h2 class="story-headline">
+      睡眠の<br>「<span class="headline-accent">規則正しさ</span>」は<br>「長さ」より<br>死亡リスクを予測する
+    </h2>
+    <div class="story-body">
+      学術誌『SLEEP』に2023年に掲載された論文「Sleep regularity is a stronger predictor of mortality risk than sleep duration」が625ポイント・318コメントという大きな反響を集めました。65,000人以上のデータを分析したこの研究は、「何時間眠るか」よりも「毎日同じ時間に眠り、起きるか」の方が死亡リスクと強く結びついていることを示しています。
+
+      研究チームは睡眠の不規則性を「Sleep Regularity Index（SRI）」で定量化し、最も規則正しいグループと最も不規則なグループを比較。不規則な睡眠は心血管疾患・がん・代謝疾患のリスク上昇と関連していました。睡眠時間が推奨の7〜9時間を満たしていても、就寝・起床時刻が日によって大きく変わる場合は死亡リスクが低下しないという結果は、現代人の「週末の寝だめ」文化への警告にもなります。
+
+      HN上のコメントでは「夜勤・交替勤務のリスクが改めて可視化された——職業として不規則な睡眠を強いられる人々へ社会的な配慮が必要」「平均値よりも分散（variability）が重要という視点はデータサイエンスにも通じる」「朝型か夜型かのクロノタイプは遺伝的に決まる部分が大きい——規則正しさと本来のリズムの間のトレードオフは？」といった318コメントが展開しました。
+    </div>
+    <div class="orange-grid">
+      <div class="orange-card">
+        <div class="orange-card-label">研究の規模</div>
+        <div class="orange-card-value">65,000人以上のデータ</div>
+        <div class="orange-card-sub">英国バイオバンクのウェアラブルデバイスデータを解析。客観的な睡眠記録に基づく大規模疫学研究。Sleep Regularity Index（SRI）で規則性を0〜100のスコアで数値化</div>
+      </div>
+      <div class="orange-card">
+        <div class="orange-card-label">重要な発見</div>
+        <div class="orange-card-value">規則性 &gt; 時間</div>
+        <div class="orange-card-sub">7〜9時間眠っていても就寝時刻がバラバラなら効果が薄れる。「週末に寝だめ」という習慣はリスク軽減に寄与しないことが示唆される</div>
+      </div>
+      <div class="orange-card">
+        <div class="orange-card-label">今日から使えること</div>
+        <div class="orange-card-value">起床時刻を固定する</div>
+        <div class="orange-card-sub">就寝時刻より起床時刻を固定する方がリズムを整えやすい（睡眠圧の仕組み上）。アラームを毎日同じ時刻に設定し、週末も変えないことが最も実践しやすい一歩</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: academic.oup.com/sleep</span>
+      <span>625 ポイント</span>
+      <span>318 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://academic.oup.com/sleep/article/47/1/zsad253/7280269" target="_blank">論文を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48919363" target="_blank">HN議論 (318)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="sleep-regularity-mortality" data-type="like" onclick="toggleFlag('sleep-regularity-mortality','睡眠の「規則正しさ」は「長さ」より死亡リスクを予測する','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="sleep-regularity-mortality" data-type="dislike" onclick="toggleFlag('sleep-regularity-mortality','睡眠の「規則正しさ」は「長さ」より死亡リスクを予測する','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+    <div class="story-1-accent"></div>
+  </div>
+</section>
+
+<!-- ═══ STORY 2 — Inkling open weights ══════════════════════════════════════ -->
+<section class="story story-2" id="s2">
+  <div class="story-num">02</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / オープンウェイト / 東南アジア / Thinking Machines AI / フィリピン — フィリピンのAI企業「Thinking Machines AI」が自社初のオープンウェイトモデル「Inkling」を公開。地域AI開発の台頭を示す注目リリース。476ポイント・111コメント</div>
+    <h2 class="story-headline">
+      Inkling——<br>フィリピン発、<br>新世代<br>オープンウェイトモデル
+    </h2>
+    <div class="story-body">
+      フィリピンのAI企業「Thinking Machines AI」が公開した自社初のオープンウェイトモデル「Inkling」が476ポイント・111コメントを集めました。東南アジア発の言語モデルとして注目を集め、地域固有の言語・文化・データへの対応と、オープンウェイトとしての透明性を強調したリリースとなっています。
+
+      Thinking Machines AIはデータエンジニアリングとAIコンサルティングを中心に事業を展開してきたフィリピンの企業で、Inklingはその初の自社モデルとなります。オープンウェイトとして公開することで、フィリピン語（タガログ語）・セブ語・英語のマルチリンガル対応や、東南アジア地域の行政・医療・農業分野に特化したファインチューニングを研究者やスタートアップが行いやすくする意図があると説明しています。
+
+      HN上では「GPT/Claude/Geminiに偏った英語中心のAI開発を、地域の視点から補完する動きとして重要」「東南アジアは6億人以上の人口と多様な言語を持つが、地域発の基盤モデルはまだ少ない——Inklingがその先駆けになれるか」「オープンウェイトモデルを出すことはコミュニティ形成・採用・信頼構築においても戦略的だ」という111コメントが展開しています。
+    </div>
+    <div class="teal-items">
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">Inklingの差別化点</div>
+          <div class="teal-text">東南アジアの言語（タガログ語・セブ語・ヒンディー語等）と英語のマルチリンガル対応を重視。地域固有の社会・文化的文脈を訓練データに組み込む設計。オープンウェイト公開によりローカルファインチューニングが可能。商業利用も可能なライセンスを採用</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">なぜ東南アジア発が重要か</div>
+          <div class="teal-text">英語中心に最適化された欧米発モデルは、タガログ語等の低リソース言語で性能が落ちる。医療・農業・行政分野の地域文脈が訓練データに不足している。6億5000万人の人口を持つ地域が自前のAI基盤を持つことは、データ主権とエコシステム形成の観点でも重要</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">グローバルなオープンAIの潮流</div>
+          <div class="teal-text">Llama（Meta）・Mistral（フランス）・DeepSeek（中国）・Gemma（Google）に続き、Inkling（フィリピン）が加わる。地域発オープンウェイトモデルの広がりは、AI開発の分散化と多極化を示している。中央集権的な大企業だけでなく、地域エコシステムからのモデル開発が増加している</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: thinkingmachines.ai</span>
+      <span>476 ポイント</span>
+      <span>111 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://thinkingmachines.ai/news/introducing-inkling/" target="_blank">発表を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48924912" target="_blank">HN議論 (111)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="inkling-open-weights-model" data-type="like" onclick="toggleFlag('inkling-open-weights-model','Inkling——フィリピン発、新世代オープンウェイトモデル','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="inkling-open-weights-model" data-type="dislike" onclick="toggleFlag('inkling-open-weights-model','Inkling——フィリピン発、新世代オープンウェイトモデル','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 3 — Gemma 4 on old Xeon ═══════════════════════════════════════ -->
+<section class="story story-3" id="s3">
+  <div class="story-num">03</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / ハードウェア / オンプレミス推論 / Gemma 4 / Xeon / 低スペック推論 — GPUを持たない2013年製のXeonサーバー1台で、Gemma 4 26Bを毎秒5トークンで動作させた実験レポート。ローカル推論の可能性を広げる技術記事。204ポイント・120コメント</div>
+    <h2 class="story-headline">
+      GPU無しの<br>13年前Xeonで、<br>Gemma 4 26Bが<br>5トークン/秒で動いた
+    </h2>
+    <div class="story-body">
+      Neomind Labsが公開した技術ブログ「Running Gemma 4 26B at 5 tokens/sec on a 13-year-old Xeon with no GPU」が204ポイント・120コメントを集めました。2013年製のIntel Xeon E5-2600シリーズ（v1世代）を搭載したサーバー1台で、GoogleのGemma 4 26Bパラメータモデルを毎秒5トークンの速度で動作させることに成功した実験の詳細を報告しています。
+
+      著者が使用したのはGPUを一切搭載しない古いXeonサーバーで、llama.cppとAVX2最適化を活用してCPU推論を最大化。Gemma 4 26BをQ4_K_M量子化（4ビット量子化）で圧縮し、大容量のDDR3メモリ（192GB）に展開することでモデル全体をメモリ上に保持することを実現しています。毎秒5トークンという速度はリアルタイムの会話には遅いものの、バッチ処理や非対話型のタスクには十分実用的であると述べています。
+
+      HN上では「データセンターの旧型Xeonサーバーがまだ大量に使われている現場にとって、これは重要な知見——廃棄予定のハードウェアを再活用できる」「GPUがなくてもこのクラスのモデルが動くなら、クラウドAPIなしのプライベートデプロイが現実的になる」「llama.cppのCPU最適化の進化がこれを可能にした——3年前なら実用範囲外だった」という120コメントが展開しています。
+    </div>
+    <div class="red-items">
+      <div class="red-item">
+        <div>
+          <div class="red-label">技術的な鍵</div>
+          <div class="red-text">llama.cpp：CPU推論に最適化されたLLM推論エンジン（Georgi Gerganov作）。AVX2命令セット：Haswell以降のXeonに搭載。並列演算で行列積を高速化。Q4_K_M量子化：26Bモデルを約15GB程度に圧縮。大容量メモリ（192GB DDR3）：モデル全体をRAMに展開することでスワップを回避。これらの組み合わせが5トークン/秒を実現</div>
+        </div>
+      </div>
+      <div class="red-item">
+        <div>
+          <div class="red-label">実用性の評価</div>
+          <div class="red-text">5トークン/秒は対話型チャットには遅い（ChatGPTは50〜100トークン/秒）。一方、翻訳・要約・コード生成のバッチ処理では時間的余裕がある。コスト面：旧型Xeonサーバーは中古で数万円。月額クラウドAPIコストと比較すると一定規模を超えると自前の方が安い。プライバシー：データが外部に送られない完全ローカル処理が可能</div>
+        </div>
+      </div>
+      <div class="red-item">
+        <div>
+          <div class="red-label">この先の可能性</div>
+          <div class="red-text">Intel第4世代Xeon（Sapphire Rapids）はAMX（Advanced Matrix Extensions）を搭載——古いXeonと同じアーキテクチャでも大幅に速い。DDR5対応で帯域幅も増加。新しいXeonを使えば同じ手法で20〜50トークン/秒も現実的。「GPU不要のCPU推論」という選択肢が今後さらに広がる可能性を示した実験</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: neomindlabs.com</span>
+      <span>204 ポイント</span>
+      <span>120 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.neomindlabs.com/2026/06/08/running-gemma-4-26b-at-5-tokens-sec-on-a-13-year-old-xeon-with-no-gpu/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48922434" target="_blank">HN議論 (120)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="gemma-4-xeon-no-gpu" data-type="like" onclick="toggleFlag('gemma-4-xeon-no-gpu','GPU無しの13年前Xeonで、Gemma 4 26Bが5トークン/秒で動いた','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="gemma-4-xeon-no-gpu" data-type="dislike" onclick="toggleFlag('gemma-4-xeon-no-gpu','GPU無しの13年前Xeonで、Gemma 4 26Bが5トークン/秒で動いた','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 4 — Telegram data centers ═════════════════════════════════════ -->
+<section class="story story-4" id="s4">
+  <div class="story-num">04</div>
+  <div class="story-inner">
+    <div class="story-kicker">プライバシー / インフラ / Telegram / データセンター / 謎 / セキュリティ — Telegramが自社データセンターの場所・構成・オペレーターを一切公開しない理由と、その謎を解き明かそうとするリバースエンジニアリングの試み。224ポイント・115コメント</div>
+    <h2 class="story-headline">
+      Telegramの<br>データセンターの謎——<br>場所も構成も<br>公開しない理由
+    </h2>
+    <div class="story-body">
+      2022年に書かれたdev.moeのブログ記事「Mysteries of Telegram Data Centers」が224ポイント・115コメントを集めました（再掲）。Telegramが自社インフラについて徹底的に情報を開示しない理由と、その謎に迫ったリバースエンジニアリング・OSINT調査の記録です。WhatsApp・Signal等が一定のインフラ透明性を持つ中、Telegramはデータセンターの所在地・プロバイダー・構成について公式に何も明かしていません。
+
+      著者はIPアドレスの追跡、ASN（自律システム番号）の逆引き、BGPルーティング情報の解析などを使ってTelegramのサーバーがどこに存在するかを推定。シンガポール・オランダ・米国・英国などにノードが確認されるものの、実際のハードウェアがコロケーション施設にあるのか専用データセンターなのか、あるいは大手クラウドのどこかにあるのかは依然として不明瞭だと述べています。
+
+      HN上では「Telegramの不透明性はプライバシーのためではなく、法執行機関への対応を曖昧にするための意図的な設計という見方がある」「Durovがアラブ首長国連邦のパスポートを持ち、UAE・フランスで活動していることとインフラの隠蔽には関連があるかもしれない」「Signalのような真のE2EEとは異なり、TelegramのデフォルトはE2EEではない——インフラを知られたくない理由の一つはここにある」という115コメントが展開しています。
+    </div>
+    <div class="green-items">
+      <div class="green-item">
+        <div>
+          <div class="green-label">何が謎なのか</div>
+          <div class="green-text">データセンターの物理的所在地（国・都市）が非公表。使用しているクラウドプロバイダーまたはコロケーション施設が不明。インフラのオペレーター（社員か外注か）が公開されていない。財務・サーバー台数・帯域幅も非開示。主要メッセンジャーの中で最も不透明なインフラ体制</div>
+        </div>
+      </div>
+      <div class="green-item">
+        <div>
+          <div class="green-label">OSINT調査の手法</div>
+          <div class="green-text">IPアドレス → ASN（自律システム番号）追跡でどのネットワーク組織が保有するかを特定。BGPルーティングの解析でトラフィックの経路を推定。Shodan・Censys等のサービスでサーバーのポート・バナー情報を収集。CDN利用状況の分析。これらを組み合わせてもデータセンターの実態は「不確か」なまま</div>
+        </div>
+      </div>
+      <div class="green-item">
+        <div>
+          <div class="green-label">透明性とプライバシーのパラドックス</div>
+          <div class="green-text">Telegramはユーザーデータの保護を謳う一方、デフォルトのチャットはE2EE非対応（Secret Chatのみ対応）。インフラの隠蔽は「ユーザーのプライバシー保護」ではなく「運営者の自由度の確保」に近いという批判がある。SignalやBriarのような真のプライバシー重視設計とは哲学が異なる</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: dev.moe</span>
+      <span>224 ポイント</span>
+      <span>115 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://dev.moe/en/3025" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48920475" target="_blank">HN議論 (115)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="telegram-data-centers" data-type="like" onclick="toggleFlag('telegram-data-centers','Telegramのデータセンターの謎——場所も構成も公開しない理由','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="telegram-data-centers" data-type="dislike" onclick="toggleFlag('telegram-data-centers','Telegramのデータセンターの謎——場所も構成も公開しない理由','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 5 — Briar maintenance mode ════════════════════════════════════ -->
+<section class="story story-5" id="s5">
+  <div class="story-num">05</div>
+  <div class="story-inner">
+    <div class="story-kicker">プライバシー / オープンソース / Briar / メッセンジャー / 分散型 / メンテナンスモード — インターネット接続なしでメッシュネットワーク通信ができるプライバシー重視のメッセンジャー「Briar」がメンテナンスモードへ移行。開発継続のための資金調達を呼びかけ。136ポイント・90コメント</div>
+    <h2 class="story-headline">
+      プライバシー<br>メッセンジャー<br>「Briar」が<br>メンテナンスモードへ
+    </h2>
+    <div class="story-body">
+      分散型・プライバシー重視のメッセンジャーアプリ「Briar」の開発チームが、2026年にメンテナンスモードへの移行を発表しました。この投稿が136ポイント・90コメントを集めています。BriarはTor経由の暗号化通信を基本としながら、Wi-FiやBluetooth経由のメッシュネットワークでインターネットなしの通信も可能という、検閲・監視の強い環境向けに設計されたメッセンジャーです。
+
+      開発チームは「メンテナンスモード」とは完全な開発停止ではなく、バグ修正・セキュリティアップデートは継続するものの、新機能の追加や大規模な改良は資金確保なしには難しいという状況を意味すると説明しています。Briarはこれまでオープンテクノロジーファンドやその他の助成金に依存してきましたが、現在の資金調達状況では継続的な開発を維持できないと判断しました。
+
+      HN上では「Briarは記者・活動家・検閲国家の住民にとって代替のない重要なツール——失われると困る人が世界中に存在する」「オープンソースのプライバシーツールが資金難に陥るのは繰り返されるパターン——ドナーからの継続的支援が不可欠」「SignalはOpen Whisper Systemsの時代から比較的安定した資金調達ができている——Briarが学べることはあるか」という90コメントが展開しています。
+    </div>
+    <div class="purple-items">
+      <div class="purple-item">
+        <div>
+          <div class="purple-label">Briarとは何か</div>
+          <div class="purple-text">Androidアプリ（OSSライセンス）。通常時：Tor経由の暗号化通信（E2EE）。インターネット不通時：Wi-Fi DirectまたはBluetooth経由のピアツーピアメッシュネットワーク。サーバーレスアーキテクチャ——中央サーバーへの依存なし。設計対象：活動家・ジャーナリスト・自然災害時の緊急通信。ウイグル・ベラルーシ・ミャンマー等の文脈で使われた事例あり</div>
+        </div>
+      </div>
+      <div class="purple-item">
+        <div>
+          <div class="purple-label">メンテナンスモードの意味</div>
+          <div class="purple-text">継続すること：セキュリティアップデート・バグ修正・Androidバージョン対応。停止すること：新機能開発・UI改善・グループ機能の拡張・iOS版の開発。メンテナンスモードは「緩やかな終了」の場合もあれば「資金が確保されれば再開発」の場合もある。チームはOTF（Open Technology Fund）等への支援申請を続けている</div>
+        </div>
+      </div>
+      <div class="purple-item">
+        <div>
+          <div class="purple-label">支援する方法</div>
+          <div class="purple-text">Open Collective経由の個人寄付が可能（briarproject.org）。企業・財団からのスポンサーシップを募集中。OTFやNED（全国民主主義基金）等を通じた機関投資家的支援。「重要なプロジェクトの存続に自分が貢献できる」と考えるなら今が支援のタイミング——メンテナンスモード後に存在に気づいても遅い場合がある</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: briarproject.org</span>
+      <span>136 ポイント</span>
+      <span>90 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://briarproject.org/news/2026-maintenance-mode/" target="_blank">発表を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48919869" target="_blank">HN議論 (90)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="briar-maintenance-mode" data-type="like" onclick="toggleFlag('briar-maintenance-mode','プライバシーメッセンジャー「Briar」がメンテナンスモードへ','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="briar-maintenance-mode" data-type="dislike" onclick="toggleFlag('briar-maintenance-mode','プライバシーメッセンジャー「Briar」がメンテナンスモードへ','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 6 — Grok Build ════════════════════════════════════════════════ -->
+<section class="story story-6" id="s6">
+  <div class="story-num">06</div>
+  <div class="story-inner">
+    <div class="story-kicker">開発ツール / AI / xAI / Grok / ビルドシステム / OSS — Elon MuskのAI企業xAIが、独自のビルドシステム「Grok Build」をオープンソースとして公開。AI/MLプロジェクトのビルド・テスト・デプロイの自動化を目指す。120ポイント・124コメント</div>
+    <h2 class="story-headline">
+      Grok Build——<br>xAIが<br>オープンソースに<br>したビルドシステム
+    </h2>
+    <div class="story-body">
+      xAI（Elon Musk設立のAI企業）が自社のビルドシステム「Grok Build」をGitHubにオープンソースとして公開しました。120ポイント・124コメントを集めており、AIおよびMLプロジェクトのビルド・テスト・デプロイパイプラインを効率化するためのツールチェーンとして設計されています。
+
+      Grok BuildはxAIが内部でGrokモデルの開発・評価・デプロイに使用してきたインフラ基盤の一部をOSS化したものです。Bazel・Make・CMake等の既存ビルドシステムとの違いとして、LLMのトレーニングジョブ・評価パイプライン・モデルサービングの各工程を統合的に管理するワークフローオーケストレーション機能に重点を置いていると説明されています。
+
+      HN上では「GoogleのBazelをインスパイアした設計に見える——xAI内部の規模感を知る手がかりになる」「AIスタートアップがビルドシステムをOSS化するのは採用・エコシステム構築の観点で効果的——優秀なエンジニアは自社ツールに興味を持つ」「実際に使えるものかどうかはドキュメントとサンプルの充実度次第——ツールOSSはここが難関」という124コメントが展開しています。
+    </div>
+    <div class="cyan-items">
+      <div class="cyan-item">
+        <div>
+          <div class="cyan-label">Grok Buildの特徴</div>
+          <div class="cyan-text">MLモデルのトレーニングジョブ管理：GPU/TPUクラスター上の分散トレーニングを宣言的に定義。評価パイプライン統合：モデルの精度・速度・安全性評価を同一フレームワークで実行。モデルサービング自動化：デプロイメントとスケーリングの設定を統一インターフェースで管理。言語：主にPythonベース。依存関係：xAI内部ツールへの依存が残る可能性があり、外部利用には整備が必要</div>
+        </div>
+      </div>
+      <div class="cyan-item">
+        <div>
+          <div class="cyan-label">既存ビルドシステムとの比較</div>
+          <div class="cyan-text">Bazel（Google）：大規模モノレポ向け、ML特化ではない。MLflow：実験管理に強いが、ビルド・デプロイ統合は限定的。Kubeflow：Kubernetes上のMLパイプライン。Ray：分散コンピューティング向け。Grok Buildの位置づけ：これらを補完・統合するレイヤー、またはxAI特化のオピニオネイテッドな選択——外部への適用性はまだ未評価</div>
+        </div>
+      </div>
+      <div class="cyan-item">
+        <div>
+          <div class="cyan-label">OSSとしての評価ポイント</div>
+          <div class="cyan-text">ドキュメントの充実度（初期公開は薄いことが多い）。xAI内部依存の剥離（外部でそのまま動くか）。コミュニティの活性度（PR・Issueへの応答速度）。ライセンス（Apache 2.0かMITか要確認）。「採用ツール」か「本物のOSS」かはこれらで判断される。今は様子見が賢明——数ヶ月後の状況を見てから評価が固まる</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: github.com/xai-org/grok-build</span>
+      <span>120 ポイント</span>
+      <span>124 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://github.com/xai-org/grok-build" target="_blank">GitHubを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48926590" target="_blank">HN議論 (124)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="grok-build-xai" data-type="like" onclick="toggleFlag('grok-build-xai','Grok Build——xAIがオープンソースにしたビルドシステム','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="grok-build-xai" data-type="dislike" onclick="toggleFlag('grok-build-xai','Grok Build——xAIがオープンソースにしたビルドシステム','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 7 — misa77 codec ══════════════════════════════════════════════ -->
+<section class="story story-7" id="s7">
+  <div class="story-num">07</div>
+  <div class="story-inner">
+    <div class="story-kicker">エンジニアリング / 圧縮 / コーデック / パフォーマンス / Show HN / C — Show HN: LZ4より2倍高速に解凍でき、かつ圧縮率も同等以上という新しい圧縮コーデック「misa77」のGitHub公開。実装はCで書かれたSIMD最適化コード。118ポイント・38コメント</div>
+    <h2 class="story-headline">
+      misa77——<br>LZ4の2倍速で<br>解凍できる<br>新コーデック
+    </h2>
+    <div class="story-body">
+      GitHubにShow HNとして公開された圧縮コーデック「misa77」が118ポイント・38コメントを集めました。作者の主張は「LZ4（現存する最速の圧縮コーデックの一つ）より2倍速い解凍速度を、同等以上の圧縮率で実現した」というものです。実装はCで書かれており、SIMD（Single Instruction, Multiple Data）命令セットを活用した高度に最適化されたコードです。
+
+      LZ4はMeta（旧Facebook）が開発した超高速圧縮コーデックで、速度を最優先設計とした圧縮業界のデファクトスタンダードの一つです。データベース（ClickHouse・RocksDB等）・ゲームエンジン・ネットワークプロトコルなど速度が重要なシステムで広く使われています。misa77がLZ4比で2倍の解凍速度を達成した場合、これらのシステムに直接応用できる可能性があります。
+
+      HN上では「ベンチマークの条件が重要——どのデータセット、どのハードウェアで測定したか。自社に有利な条件でのベンチマークは珍しくない」「LZ4はSIMD最適化も十分に行われているため、2倍速は実測で確認したい。ただしアーキテクチャの仮定が違う場合は別のトレードオフが生まれる可能性がある」「圧縮コーデックの自作は難しいが、こうした実験的実装がzstd・lz4・brotli等の改善を促す原動力になってきた歴史がある」という38コメントが展開しています。
+    </div>
+    <div class="amber-items">
+      <div class="amber-item">
+        <div>
+          <div class="amber-label">misa77の技術的アプローチ</div>
+          <div class="amber-text">SIMD命令（AVX2/AVX-512）による並列解凍処理。LZ4系のLZ77形式のリテラルとマッチの組み合わせをベースとしつつ、内部表現を最適化。メモリアクセスパターンの改善でキャッシュミス削減。作者はSIMDを使った解凍において「LZ4が取れていなかったパラレル処理の余地」を活用したと説明</div>
+        </div>
+      </div>
+      <div class="amber-item">
+        <div>
+          <div class="amber-label">LZ4との比較</div>
+          <div class="amber-text">LZ4：解凍速度 〜5〜6 GB/秒（AVX2最適化版）。misa77：同一ハードウェアで〜10〜12 GB/秒と主張。圧縮率：LZ4と同等またはやや良い程度（高圧縮率はzstd等が担当）。注意点：ベンチマークは入力データの種類・ハードウェア・コンパイラ設定で大きく変わる。独立した第三者検証が必要</div>
+        </div>
+      </div>
+      <div class="amber-item">
+        <div>
+          <div class="amber-label">実用上の注意点</div>
+          <div class="amber-text">成熟度：LZ4は10年以上の実績・大規模テスト済み。misa77は新しく、エッジケース・プラットフォーム互換性の検証が不十分な可能性。AVX2/AVX-512依存：古いCPUや組み込みシステムでは使えない。本番環境での採用は独自ベンチマークと安定性テストを経てから。研究・実験目的での試用は今すぐ可能</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: github.com/welcome-to-the-sunny-side/misa77</span>
+      <span>118 ポイント</span>
+      <span>38 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://github.com/welcome-to-the-sunny-side/misa77" target="_blank">GitHubを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48922838" target="_blank">HN議論 (38)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="misa77-codec-lz4" data-type="like" onclick="toggleFlag('misa77-codec-lz4','misa77——LZ4の2倍速で解凍できる新コーデック','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="misa77-codec-lz4" data-type="dislike" onclick="toggleFlag('misa77-codec-lz4','misa77——LZ4の2倍速で解凍できる新コーデック','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 8 — Coding agent memory SSH ═══════════════════════════════════ -->
+<section class="story story-8" id="s8">
+  <div class="story-num">08</div>
+  <div class="story-inner">
+    <div class="story-kicker">開発ツール / AIエージェント / メモリ / SSH / OSSツール / deja-vu — コーディングエージェント向けのオープンソースメモリレイヤー「deja-vu」。SSH経由で複数のマシン・セッション間でコンテキストを同期し、エージェントが以前の作業を「覚えている」状態を実現。98ポイント・22コメント</div>
+    <h2 class="story-headline">
+      コーディング<br>エージェント向け<br>OSSメモリ、<br>SSH経由で同期
+    </h2>
+    <div class="story-body">
+      GitHubで公開された「deja-vu」が98ポイント・22コメントを集めました。コーディングエージェント（Claude Code・Aider等）のためのオープンソースのメモリ永続化レイヤーで、複数のマシンやセッションをまたいでエージェントのコンテキスト・作業履歴・プロジェクト知識をSSH経由で同期するツールです。
+
+      現在のコーディングエージェントはセッションが終了するとコンテキストをリセットするため、新しいセッションでは「以前の会話・決定・ローカルの知識」を持たない状態から始まります。deja-vuはこの問題を解決するために、エージェントが作業中に生成した要約・決定ログ・プロジェクトの構造情報をローカルファイルとして保存し、SSHで別のマシンにも同期できる仕組みを提供します。
+
+      HN上では「Claude CodeのCLAUDE.mdに似た発想を汎用化したもの——ただしSSH同期によって複数マシンで作業する開発者にとっては意味がある」「メモリレイヤーをエージェント本体から分離してOSSにするのは正しい方向性——特定のサービスに依存しないポータブルな設計」「プロジェクトのコンテキストを人間が読める形式で保持するのか、埋め込みベクトルで保持するのか——設計の選択がユースケースを決める」という22コメントが展開しています。
+    </div>
+    <div class="gold-items">
+      <div class="gold-item">
+        <div>
+          <div class="gold-label">解決する問題</div>
+          <div class="gold-text">コーディングエージェントのセッション間断絶：毎回ゼロから始まる問題。マルチマシン環境：自宅・会社・リモートサーバーで同じエージェントコンテキストを共有できない。チーム共有：プロジェクト知識をチームメンバーのエージェントと共有できない。これらは現在のClaude Code等が抱える実用上の課題</div>
+        </div>
+      </div>
+      <div class="gold-item">
+        <div>
+          <div class="gold-label">技術的アプローチ</div>
+          <div class="gold-text">メモリをマークダウン形式のローカルファイルとして保存（人間が読める・編集可能）。SSH経由の同期：rsync等を使ってリモートマシンと双方向同期。エージェントへの統合：ツールとしてエージェントのコンテキストに組み込む。設計思想：Gitのような分散型の発想をエージェントメモリに応用</div>
+        </div>
+      </div>
+      <div class="gold-item">
+        <div>
+          <div class="gold-label">Claude Codeユーザーへの関連性</div>
+          <div class="gold-text">CLAUDE.mdはすでにプロジェクトレベルのコンテキスト永続化手段として機能している。deja-vuはこれを「複数プロジェクト・複数マシン」に拡張するイメージ。Claude Codeを複数のマシン（自宅・職場・サーバー）で使う場合に特に有用。今後Anthropicが公式にメモリ機能を強化する可能性もあるが、今すぐ試せるOSSとして価値がある</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: github.com/vshulcz/deja-vu</span>
+      <span>98 ポイント</span>
+      <span>22 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://github.com/vshulcz/deja-vu/" target="_blank">GitHubを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48923111" target="_blank">HN議論 (22)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="coding-agent-memory-ssh" data-type="like" onclick="toggleFlag('coding-agent-memory-ssh','コーディングエージェント向けOSSメモリ、SSH経由で同期','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="coding-agent-memory-ssh" data-type="dislike" onclick="toggleFlag('coding-agent-memory-ssh','コーディングエージェント向けOSSメモリ、SSH経由で同期','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 9 — Brainless shadcn Claude Code ══════════════════════════════ -->
+<section class="story story-9" id="s9">
+  <div class="story-num">09</div>
+  <div class="story-inner">
+    <div class="story-badge direct-badge">⚡ あなたに直接関係</div>
+    <div class="story-kicker">Claude Code / 開発ツール / shadcn / UI / デザイン / Codex / Grok — Claude Code・Codex・Grokのインターフェースを模したshadcn/UIコンポーネント集「Brainless」の公開。AIコーディングツールのビジュアルスタイルをWebアプリに組み込める。54ポイント・6コメント</div>
+    <h2 class="story-headline">
+      ⚡ Brainless——<br>Claude Code・Codex<br>・Grokそっくりの<br>shadcnコンポーネント集
+    </h2>
+    <div class="story-body">
+      「Brainless」というshadcn/UIコンポーネントライブラリが54ポイント・6コメントを集めました。Claude Code・OpenAI Codex・Grokのインターフェースのビジュアルスタイルを再現したUIコンポーネント集で、これらのAIコーディングツールのデザイン言語をそのまま自分のWebアプリに持ち込めるというコンセプトです。
+
+      Brainlessはshadcn/UIの設計哲学——コピー&ペーストでプロジェクトに組み込むコンポーネント——を継承しつつ、ターミナル風のフォント・ダークバックグラウンド・コードブロックスタイル・エージェント動作を示すアニメーション等、AIコーディングツールに特有のビジュアル要素を提供します。Claude Codeのターミナル出力風・Codexのチャットインターフェース風・Grokのフィード風という3つのスタイル系統が用意されています。
+
+      HN上では「Claude Codeを日常的に使っているユーザーにとって、このデザイン言語に親しみを感じるのは面白い心理——ツールとUIが一体化しているような感覚」「shadcn/UIのエコシステムの成熟を示す事例——デザインシステムが次第に「AIツール風」を包含し始めている」「こういうコンポーネント集は企業内ツールやダッシュボード系アプリのUIを素早く作るときに役立つ——スタートアップ向け」という6コメントが展開しています。
+    </div>
+    <div class="slate-items">
+      <div class="slate-item">
+        <div>
+          <div class="slate-label">含まれるコンポーネント（推定）</div>
+          <div class="slate-text">Terminal出力ブロック（Claude Code風）：モノスペースフォント・ダーク背景・エスケープコード表示対応。チャットバブル（Codex/GPT風）：ユーザー・アシスタントの発言を区別するスタイル。コードブロック（シンタックスハイライト付き）。ローディングアニメーション（エージェント思考中を示す点滅・スピナー）。ファイルツリービュー。ストリーミングテキスト表示</div>
+        </div>
+      </div>
+      <div class="slate-item">
+        <div>
+          <div class="slate-label">使い所</div>
+          <div class="slate-text">社内AIツールのフロントエンド開発：AIを組み込んだ社内ダッシュボードを素早くプロトタイプ。CodeのUIを模したデモアプリ：顧客や投資家向けのデモに「それっぽい」AIインターフェースを素早く実装。Claude・Codex・Grokを使ったプロダクト：ユーザーに馴染みのあるUIで独自サービスを構築。shadcn/UIに慣れた開発者が最短ルートで採用可能</div>
+        </div>
+      </div>
+      <div class="slate-item">
+        <div>
+          <div class="slate-label">shadcn/UIとは</div>
+          <div class="slate-text">Radix UI + Tailwind CSSベースのコンポーネントライブラリ。「インストール」ではなくソースコードをプロジェクトに「コピー」する思想——外部依存なし、完全カスタマイズ可能。Vercel・Shadcn（Vercel社員）作。NextJSとの親和性が高く、React向けが主体。2023〜2024年のエコシステムの中でも特に支持を集めたUIライブラリ</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: brainless.swerdlow.dev</span>
+      <span>54 ポイント</span>
+      <span>6 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://brainless.swerdlow.dev" target="_blank">コンポーネントを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48926085" target="_blank">HN議論 (6)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="brainless-shadcn-claude-code" data-type="like" onclick="toggleFlag('brainless-shadcn-claude-code','⚡ Brainless——Claude Code・Codex・Grokそっくりのshadcnコンポーネント集','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="brainless-shadcn-claude-code" data-type="dislike" onclick="toggleFlag('brainless-shadcn-claude-code','⚡ Brainless——Claude Code・Codex・Grokそっくりのshadcnコンポーネント集','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 10 — Firefox in WebAssembly ═══════════════════════════════════ -->
+<section class="story story-10" id="s10">
+  <div class="story-num">10</div>
+  <div class="story-inner">
+    <div class="story-kicker">WebAssembly / Firefox / ブラウザ / Puter / Show HN / エンジニアリング — Show HN: Puter.comのDeveloper LabsがFirefoxをWebAssemblyにコンパイルし、ブラウザ内で別のブラウザを動作させることに成功。技術的な驚異として話題に。50ポイント・18コメント</div>
+    <h2 class="story-headline">
+      Show HN:<br>WebAssembly上で<br>動く<br>Firefox
+    </h2>
+    <div class="story-body">
+      Puter Developer Labsが公開した「Firefox in WebAssembly」のShow HNが50ポイント・18コメントを集めました。FirefoxをEmscriptenでWebAssemblyにコンパイルし、Chrome・Safari・Edge等のブラウザ内でFirefoxを動作させるというプロジェクトです。「ブラウザの中でブラウザを動かす」という再帰的な構造が技術者の興味を引いています。
+
+      EmscriptenはC/C++コードをWebAssemblyにコンパイルするツールチェーンで、FirefoxのレンダリングエンジンGeckoはC++で書かれているため、理論的にはWasm化が可能です。ただし実際に動作させるためにはGraphics（OpenGL → WebGL変換）・Input handling・Networking・Fileシステム等、ブラウザが前提とする低レイヤーAPIをすべてエミュレートする必要があり、技術的な難易度は高いです。
+
+      HN上では「「Doom runs on WebAssembly」の系譜に連なる技術的な楽しさ——なぜやるか？ できるから！」「実用性よりも技術的可能性の証明として価値がある——Emscriptenの成熟度の裏付けでもある」「ブラウザ分離のサンドボックスとして実用化できれば面白い——広告トラッカーを隔離したFirefoxをブラウザ内で動かす、という使い方は意外と需要があるかも」という18コメントが展開しています。
+    </div>
+    <div class="mag-items">
+      <div class="mag-item">
+        <div>
+          <div class="mag-label">技術的な仕組み</div>
+          <div class="mag-text">EmscriptenでGecko（FirefoxのC++エンジン）をWebAssemblyにコンパイル。グラフィック：OpenGLコールをWebGLに変換（Emscripten組み込みサポート）。ファイルシステム：IndexedDB + EmscriptenのVirtual FSでエミュレート。ネットワーク：Fetchベースのエミュレーション（完全なTCPスタックではない）。入力：キーボード・マウスイベントをエミュレートしたウィンドウに転送</div>
+        </div>
+      </div>
+      <div class="mag-item">
+        <div>
+          <div class="mag-label">Puterとは何か</div>
+          <div class="mag-text">Puter（puter.com）はブラウザ内で動作するクラウドOS——ファイル管理・アプリ実行・開発環境をブラウザ内に再現するプラットフォーム。Developer Labsは実験的なプロジェクトを公開するコーナー。FirefoxのWasm化もPuterの「ブラウザ内で何でも動かす」ビジョンの延長線上にある。過去にもLinuxやWindowsアプリの実験をWasm経由で公開している</div>
+        </div>
+      </div>
+      <div class="mag-item">
+        <div>
+          <div class="mag-label">Wasm「ブラウザ内ブラウザ」の用途</div>
+          <div class="mag-text">セキュリティ隔離：信頼できないWebサイトを完全サンドボックス内のFirefoxで閲覧。自動化テスト：サーバーレス環境でブラウザベースのUIテストを実行。アーカイブ閲覧：古いWebページを当時のFirefoxのレンダリングで再現。エミュレーション研究：ブラウザの挙動差異を研究。実用性は限定的だが可能性は面白い</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: developer.puter.com</span>
+      <span>50 ポイント</span>
+      <span>18 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://developer.puter.com/labs/firefox-wasm/" target="_blank">デモを試す →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48926939" target="_blank">HN議論 (18)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="firefox-webassembly" data-type="like" onclick="toggleFlag('firefox-webassembly','Show HN: WebAssembly上で動くFirefox','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="firefox-webassembly" data-type="dislike" onclick="toggleFlag('firefox-webassembly','Show HN: WebAssembly上で動くFirefox','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ════════════════════════════════════════════════════════════════ -->
+<footer class="site-footer">
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand">Morning Edition</div>
+      <div class="footer-meta">
+        Hacker News キュレーション · 2026年7月16日 · Issue No.078<br>
+        毎朝、厳選10本をお届け
+      </div>
+    </div>
+    <button class="export-btn" onclick="exportFeedback()">📋 フィードバックをコピー</button>
+  </div>
+  <div class="footer-note">
+    ⭐ 興味あり / ✕ 興味なし ボタンで次回のキュレーションが改善されます。Chrome/Edgeでは自動保存、その他ではボタンでクリップボードにコピーしてください。
+  </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  const FEEDBACK_KEY = 'morning-edition-feedback-v2';
+  const TODAY = '2026-07-16';
+  let _dirHandle = null;
+
+  async function getDir(forcePrompt) {
+    if (_dirHandle && !forcePrompt) return _dirHandle;
+    if (!window.showDirectoryPicker) return null;
+    try {
+      _dirHandle = await window.showDirectoryPicker({ mode: 'readwrite', id: 'morning-edition', startIn: 'documents' });
+      return _dirHandle;
+    } catch { return null; }
+  }
+
+  async function writeJSON(dirHandle, fb) {
+    const fileHandle = await dirHandle.getFileHandle('feedback.json', { create: true });
+    const writable = await fileHandle.createWritable();
+    await writable.write(JSON.stringify({ ...fb, updatedAt: new Date().toISOString() }, null, 2));
+    await writable.close();
+  }
+
+  function showToast(msg, isErr) {
+    const el = document.getElementById('toast');
+    el.textContent = msg;
+    el.className = 'toast' + (isErr ? ' error' : '');
+    requestAnimationFrame(() => el.classList.add('show'));
+    clearTimeout(el._timer);
+    el._timer = setTimeout(() => el.classList.remove('show'), 3000);
+  }
+
+  function getFeedback() {
+    try { return JSON.parse(localStorage.getItem(FEEDBACK_KEY) || '{"liked":{},"disliked":{}}'); }
+    catch { return { liked: {}, disliked: {} }; }
+  }
+  function saveFeedback(fb) { localStorage.setItem(FEEDBACK_KEY, JSON.stringify(fb)); }
+
+  async function autoSave(fb) {
+    let dir = await getDir();
+    if (!dir) {
+      showToast('📁 Daily News フォルダを選択してください', true);
+      dir = await getDir(true);
+      if (!dir) { showToast('保存をキャンセルしました', true); return; }
+    }
+    try {
+      await writeJSON(dir, fb);
+      showToast('✓ feedback.json を自動保存しました（次回キュレーションに反映）');
+    } catch (e) {
+      showToast('保存エラー: ' + e.message, true);
+    }
+  }
+
+  async function toggleFlag(storyId, title, type) {
+    const fb = getFeedback();
+    fb.liked = fb.liked || {};
+    fb.disliked = fb.disliked || {};
+    const likeBtn    = document.querySelector(`.flag-btn.like-btn[data-story="${storyId}"]`);
+    const dislikeBtn = document.querySelector(`.flag-btn.dislike-btn[data-story="${storyId}"]`);
+    if (type === 'like') {
+      if (fb.liked[storyId]) {
+        delete fb.liked[storyId];
+        likeBtn?.classList.remove('active');
+      } else {
+        fb.liked[storyId] = { title, date: TODAY };
+        delete fb.disliked[storyId];
+        likeBtn?.classList.add('active');
+        dislikeBtn?.classList.remove('active');
+      }
+    } else {
+      if (fb.disliked[storyId]) {
+        delete fb.disliked[storyId];
+        dislikeBtn?.classList.remove('active');
+      } else {
+        fb.disliked[storyId] = { title, date: TODAY };
+        delete fb.liked[storyId];
+        dislikeBtn?.classList.add('active');
+        likeBtn?.classList.remove('active');
+      }
+    }
+    saveFeedback(fb);
+    await autoSave(fb);
+  }
+
+  function exportFeedback() {
+    const fb = getFeedback();
+    const json = JSON.stringify({ ...fb, exportedAt: new Date().toISOString() }, null, 2);
+    navigator.clipboard.writeText(json)
+      .then(() => showToast('📋 クリップボードにコピーしました'))
+      .catch(() => {
+        const el = document.createElement('textarea');
+        el.value = json; document.body.appendChild(el); el.select();
+        document.execCommand('copy'); document.body.removeChild(el);
+        showToast('📋 クリップボードにコピーしました');
+      });
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const fb = getFeedback();
+    document.querySelectorAll('.flag-btn').forEach(btn => {
+      const id   = btn.dataset.story;
+      const type = btn.dataset.type;
+      if ((type === 'like' && fb.liked?.[id]) || (type === 'dislike' && fb.disliked?.[id])) {
+        btn.classList.add('active');
+      }
+    });
+  });
+</script>
+</body>
+</html>
