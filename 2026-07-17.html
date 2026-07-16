@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Morning Edition — 2026年7月17日</title>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --font: 'M PLUS Rounded 1c', 'Hiragino Sans', 'Noto Sans JP', sans-serif; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); background: #111; color: #fff; overflow-x: hidden; }
+
+    .masthead { background: #fff; color: #000; padding: 3rem 4rem 2.5rem; border-bottom: 6px solid #000; position: relative; overflow: hidden; }
+    .masthead::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: repeating-linear-gradient(90deg, #000 0, #000 12px, transparent 12px, transparent 20px); }
+    .masthead-kicker { font-size: 0.85rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: #777; margin-bottom: 0.6rem; }
+    .masthead-title { font-size: clamp(3.5rem, 9vw, 7.5rem); font-weight: 900; line-height: 0.88; letter-spacing: -0.04em; margin-bottom: 1.8rem; }
+    .masthead-meta { display: flex; gap: 3rem; align-items: baseline; flex-wrap: wrap; }
+    .masthead-date { font-size: 1.5rem; font-weight: 700; }
+    .masthead-subtitle { font-size: 1rem; font-weight: 400; color: #555; max-width: 480px; line-height: 1.5; }
+    .masthead-issue { margin-left: auto; text-align: right; }
+    .masthead-issue span { display: block; }
+    .masthead-issue .iss-label { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: #999; }
+    .masthead-issue .iss-num { font-size: 2.2rem; font-weight: 900; color: #000; }
+
+    .toc { background: #1a1a1a; padding: 1.5rem 4rem; display: flex; gap: 1.5rem; flex-wrap: wrap; border-bottom: 1px solid #333; }
+    .toc a { color: #aaa; text-decoration: none; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; transition: color 0.2s; }
+    .toc a:hover { color: #fff; }
+    .toc-num { color: #555; margin-right: 0.3em; }
+
+    .story { position: relative; overflow: hidden; }
+    .story-inner { max-width: 1200px; margin: 0 auto; padding: 5rem 4rem; position: relative; z-index: 1; }
+    .story-num { font-size: clamp(6rem, 18vw, 16rem); font-weight: 900; line-height: 0.8; letter-spacing: -0.06em; opacity: 0.08; position: absolute; top: 1rem; right: 2rem; user-select: none; }
+    .story-badge { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.35em 0.9em; border-radius: 2px; margin-bottom: 1.5rem; }
+    .direct-badge { background: #FFD700; color: #000; }
+    .story-kicker { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; opacity: 0.6; margin-bottom: 0.8rem; }
+    .story-headline { font-size: clamp(2rem, 5vw, 4rem); font-weight: 900; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+    .story-body { font-size: clamp(1rem, 1.5vw, 1.2rem); font-weight: 400; line-height: 1.8; max-width: 680px; opacity: 0.88; margin-bottom: 2rem; }
+    .story-meta { display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center; font-size: 0.8rem; font-weight: 700; opacity: 0.5; }
+    .story-links { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem; }
+    .story-link { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.6em 1.4em; border-radius: 3px; text-decoration: none; transition: opacity 0.2s, transform 0.15s; }
+    .story-link:hover { opacity: 0.75; transform: translateY(-1px); }
+
+    .feedback-buttons { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .flag-btn { background: none; border: 1px solid currentColor; color: inherit; font-family: var(--font); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.5em 1em; border-radius: 3px; cursor: pointer; opacity: 0.32; transition: opacity 0.2s, background 0.2s, color 0.2s, border-color 0.2s, transform 0.15s; }
+    .flag-btn:hover { opacity: 0.72; transform: translateY(-1px); }
+    .flag-btn.like-btn.active { opacity: 1; background: rgba(255,215,0,0.15); border-color: #FFD700; color: #FFD700 !important; }
+    .flag-btn.dislike-btn.active { opacity: 1; background: rgba(255,60,60,0.12); border-color: #FF4444; color: #FF4444 !important; }
+
+    .toast { position: fixed; bottom: 2rem; right: 2rem; background: #1a1a1a; color: #fff; font-family: var(--font); font-size: 0.82rem; font-weight: 700; padding: 0.75em 1.4em; border-radius: 4px; border-left: 3px solid #00C853; z-index: 9999; opacity: 0; transform: translateY(10px); transition: opacity 0.25s, transform 0.25s; pointer-events: none; box-shadow: 0 4px 24px rgba(0,0,0,0.45); }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    .toast.error { border-left-color: #FF5252; }
+
+    /* Story 1 — White bg */
+    .story-1 { background: #fff; color: #000; min-height: 90vh; display: flex; flex-direction: column; justify-content: center; }
+    .story-1 .story-num { color: #000; opacity: 0.04; }
+    .story-1 .story-kicker { color: #555; opacity: 1; }
+    .story-1 .story-headline { color: #000; }
+    .story-1 .story-body { color: #111; }
+    .story-1 .story-meta { color: #000; }
+    .story-1 .story-link.primary { background: #1a1a1a; color: #fff; }
+    .story-1 .story-link.secondary { background: #f0f0f0; color: #000; }
+    .story-1 .flag-btn { color: #000; }
+    .story-1-accent { position: absolute; bottom: 0; left: 0; width: 100%; height: 8px; background: linear-gradient(90deg, #ff6b1a, #ffaa44, #ff6b1a); }
+    .story-1 .headline-accent { display: inline-block; background: linear-gradient(135deg, #ff6b1a 0%, #ffaa44 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .orange-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1.2rem; margin: 2rem 0; max-width: 680px; }
+    .orange-card { border: 2px solid rgba(255,107,26,0.18); background: rgba(255,107,26,0.04); border-radius: 6px; padding: 1.3rem 1.5rem; }
+    .orange-card-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.2em; text-transform: uppercase; color: #cc4400; margin-bottom: 0.4rem; }
+    .orange-card-value { font-size: 1.05rem; font-weight: 900; color: #000; line-height: 1.3; }
+    .orange-card-sub { font-size: 0.75rem; color: #555; margin-top: 0.3rem; line-height: 1.4; }
+
+    /* Story 2 — Dark navy/AI */
+    .story-2 { background: #00080c; color: #b8f0ff; min-height: 80vh; }
+    .story-2::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(0,160,200,0.14) 0%, transparent 65%); }
+    .story-2 .story-num { color: #00A0C8; opacity: 0.07; }
+    .story-2 .story-kicker { color: #20C8E8; opacity: 1; }
+    .story-2 .story-headline { color: #e0f8ff; }
+    .story-2 .story-body { color: #b8f0ff; }
+    .story-2 .story-meta { color: #20C8E8; opacity: 0.5; }
+    .story-2 .story-link.primary { background: #004058; color: #80e8ff; }
+    .story-2 .story-link.secondary { background: rgba(0,160,200,0.08); color: #90d8f0; border: 1px solid rgba(0,160,200,0.22); }
+    .story-2 .flag-btn { color: #b8f0ff; }
+    .teal-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .teal-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(0,160,200,0.07); border-left: 3px solid #00A0C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .teal-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20C8E8; margin-bottom: 0.3rem; }
+    .teal-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 3 — Dark red */
+    .story-3 { background: #0a0000; color: #fff; min-height: 80vh; }
+    .story-3::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(200,20,20,0.16) 0%, transparent 65%); }
+    .story-3 .story-num { color: #C81414; opacity: 0.07; }
+    .story-3 .story-kicker { color: #E84040; opacity: 1; }
+    .story-3 .story-headline { color: #fff; }
+    .story-3 .story-body { color: rgba(255,255,255,0.88); }
+    .story-3 .story-meta { color: #E84040; opacity: 0.5; }
+    .story-3 .story-link.primary { background: #6a0000; color: #fff; }
+    .story-3 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-3 .flag-btn { color: #fff; }
+    .red-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .red-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(200,20,20,0.07); border-left: 3px solid #C81414; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .red-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E84040; margin-bottom: 0.3rem; }
+    .red-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 4 — Dark green */
+    .story-4 { background: #020c04; color: #c8f0d0; min-height: 80vh; }
+    .story-4::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(20,160,70,0.16) 0%, transparent 65%); }
+    .story-4 .story-num { color: #14A046; opacity: 0.07; }
+    .story-4 .story-kicker { color: #30C060; opacity: 1; }
+    .story-4 .story-headline { color: #e0ffe8; }
+    .story-4 .story-body { color: #c8f0d0; }
+    .story-4 .story-meta { color: #30C060; opacity: 0.5; }
+    .story-4 .story-link.primary { background: #063820; color: #80ffb0; }
+    .story-4 .story-link.secondary { background: rgba(20,160,70,0.08); color: #a0e8b0; border: 1px solid rgba(20,160,70,0.22); }
+    .story-4 .flag-btn { color: #c8f0d0; }
+    .green-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .green-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(20,160,70,0.07); border-left: 3px solid #14A046; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .green-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #30C060; margin-bottom: 0.3rem; }
+    .green-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 5 — Dark purple */
+    .story-5 { background: #040010; color: #d8c8ff; min-height: 75vh; }
+    .story-5::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(90,40,200,0.17) 0%, transparent 65%); }
+    .story-5 .story-num { color: #5A28C8; opacity: 0.07; }
+    .story-5 .story-kicker { color: #8050E0; opacity: 1; }
+    .story-5 .story-headline { color: #f0e8ff; }
+    .story-5 .story-body { color: #d8c8ff; }
+    .story-5 .story-meta { color: #8050E0; opacity: 0.5; }
+    .story-5 .story-link.primary { background: #200860; color: #d0a8ff; }
+    .story-5 .story-link.secondary { background: rgba(90,40,200,0.08); color: #c0a0f0; border: 1px solid rgba(90,40,200,0.22); }
+    .story-5 .flag-btn { color: #d8c8ff; }
+    .purple-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .purple-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(90,40,200,0.07); border-left: 3px solid #5A28C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .purple-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #8050E0; margin-bottom: 0.3rem; }
+    .purple-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 6 — Dark cyan */
+    .story-6 { background: #000c10; color: #b8e8f0; min-height: 75vh; }
+    .story-6::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 40%, rgba(0,130,160,0.14) 0%, transparent 65%); }
+    .story-6 .story-num { color: #0080A0; opacity: 0.07; }
+    .story-6 .story-kicker { color: #20B0D0; opacity: 1; }
+    .story-6 .story-headline { color: #e0f4ff; }
+    .story-6 .story-body { color: #b8e8f0; }
+    .story-6 .story-meta { color: #20B0D0; opacity: 0.5; }
+    .story-6 .story-link.primary { background: #003848; color: #80d8f0; }
+    .story-6 .story-link.secondary { background: rgba(0,130,160,0.08); color: #90cce0; border: 1px solid rgba(0,130,160,0.22); }
+    .story-6 .flag-btn { color: #b8e8f0; }
+    .cyan-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .cyan-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(0,130,160,0.07); border-left: 3px solid #0080A0; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .cyan-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20B0D0; margin-bottom: 0.3rem; }
+    .cyan-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 7 — Dark amber */
+    .story-7 { background: #0a0300; color: #ffe0b8; min-height: 75vh; }
+    .story-7::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(210,90,20,0.18) 0%, transparent 65%); }
+    .story-7 .story-num { color: #D05A14; opacity: 0.07; }
+    .story-7 .story-kicker { color: #E88040; opacity: 1; }
+    .story-7 .story-headline { color: #fff0d8; }
+    .story-7 .story-body { color: #ffe0b8; }
+    .story-7 .story-meta { color: #E88040; opacity: 0.5; }
+    .story-7 .story-link.primary { background: #6a2400; color: #ffc880; }
+    .story-7 .story-link.secondary { background: rgba(210,90,20,0.08); color: #ffb870; border: 1px solid rgba(210,90,20,0.22); }
+    .story-7 .flag-btn { color: #ffe0b8; }
+    .amber-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .amber-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(210,90,20,0.07); border-left: 3px solid #D05A14; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .amber-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E88040; margin-bottom: 0.3rem; }
+    .amber-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 8 — Dark gold */
+    .story-8 { background: #080500; color: #fff; min-height: 70vh; }
+    .story-8::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,145,10,0.15) 0%, transparent 65%); }
+    .story-8 .story-num { color: #BE9110; opacity: 0.06; }
+    .story-8 .story-kicker { color: #D4A820; opacity: 1; }
+    .story-8 .story-headline { color: #fff; }
+    .story-8 .story-body { color: rgba(255,255,255,0.88); }
+    .story-8 .story-meta { color: #D4A820; opacity: 0.5; }
+    .story-8 .story-link.primary { background: #604000; color: #ffe070; }
+    .story-8 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-8 .flag-btn { color: #fff; }
+    .gold-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .gold-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(190,145,10,0.07); border-left: 3px solid #BE9110; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .gold-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #D4A820; margin-bottom: 0.3rem; }
+    .gold-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 9 — Slate blue */
+    .story-9 { background: #040810; color: #c8d8f0; min-height: 70vh; }
+    .story-9::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 35%, rgba(50,90,170,0.16) 0%, transparent 65%); }
+    .story-9 .story-num { color: #3258A8; opacity: 0.07; }
+    .story-9 .story-kicker { color: #5878C8; opacity: 1; }
+    .story-9 .story-headline { color: #e8f0ff; }
+    .story-9 .story-body { color: #c8d8f0; }
+    .story-9 .story-meta { color: #5878C8; opacity: 0.5; }
+    .story-9 .story-link.primary { background: #101e50; color: #fff; }
+    .story-9 .story-link.secondary { background: rgba(50,90,170,0.08); color: #b0c8e8; border: 1px solid rgba(50,90,170,0.22); }
+    .story-9 .flag-btn { color: #c8d8f0; }
+    .slate-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .slate-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(50,90,170,0.07); border-left: 3px solid #3258A8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .slate-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #5878C8; margin-bottom: 0.3rem; }
+    .slate-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 10 — Magenta */
+    .story-10 { background: #080004; color: #ffc8e8; min-height: 70vh; }
+    .story-10::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,20,90,0.15) 0%, transparent 65%); }
+    .story-10 .story-num { color: #BE1458; opacity: 0.07; }
+    .story-10 .story-kicker { color: #E04080; opacity: 1; }
+    .story-10 .story-headline { color: #fff0f8; }
+    .story-10 .story-body { color: #ffc8e8; }
+    .story-10 .story-meta { color: #E04080; opacity: 0.5; }
+    .story-10 .story-link.primary { background: #500030; color: #ffb0d8; }
+    .story-10 .story-link.secondary { background: rgba(190,20,90,0.08); color: #f090c0; border: 1px solid rgba(190,20,90,0.22); }
+    .story-10 .flag-btn { color: #ffc8e8; }
+    .mag-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .mag-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(190,20,90,0.07); border-left: 3px solid #BE1458; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .mag-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E04080; margin-bottom: 0.3rem; }
+    .mag-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .site-footer { background: #000; color: #555; padding: 3rem 4rem; display: flex; flex-direction: column; gap: 1.5rem; border-top: 1px solid #222; }
+    .footer-top { display: flex; gap: 2rem; align-items: center; flex-wrap: wrap; justify-content: space-between; }
+    .footer-brand { font-size: 1.4rem; font-weight: 900; color: #fff; }
+    .footer-meta { font-size: 0.75rem; line-height: 1.6; }
+    .export-btn { background: #222; border: 1px solid #444; color: #fff; font-family: var(--font); font-size: 0.8rem; font-weight: 700; padding: 0.7em 1.5em; border-radius: 3px; cursor: pointer; letter-spacing: 0.08em; transition: background 0.2s; }
+    .export-btn:hover { background: #333; }
+    .footer-note { font-size: 0.7rem; opacity: 0.5; }
+
+    @media (max-width: 768px) {
+      .masthead, .toc, .story-inner, .site-footer { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .story-num { display: none; }
+      .masthead-meta { gap: 1rem; }
+      .masthead-issue { margin-left: 0; }
+      .orange-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+<nav style="background:#1a1a1a;border-bottom:1px solid #333;padding:0.55rem 2rem;font-family:'M PLUS Rounded 1c','Hiragino Sans','Noto Sans JP',sans-serif;position:sticky;top:0;z-index:999;">
+  <a href="./index.html" style="color:#aaa;text-decoration:none;font-size:0.8rem;font-weight:700;letter-spacing:0.03em;display:inline-flex;align-items:center;gap:0.4rem;transition:color 0.15s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#aaa'">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    アーカイブへ戻る
+  </a>
+</nav>
+
+<header class="masthead">
+  <div class="masthead-kicker">Hacker News — Morning Edition</div>
+  <h1 class="masthead-title">Morning<br>Edition</h1>
+  <div class="masthead-meta">
+    <div>
+      <div class="masthead-date">2026年7月17日 金曜日</div>
+      <div class="masthead-subtitle">AI・開発ツール・プライバシー・サイエンス — あなたのための10本</div>
+    </div>
+    <div class="masthead-issue">
+      <span class="iss-label">Issue</span>
+      <span class="iss-num">No.079</span>
+    </div>
+  </div>
+</header>
+
+<nav class="toc">
+  <a href="#s1"><span class="toc-num">01</span>Kimi K3——中国発フロンティアAI、思考型オープンモデルへの挑戦</a>
+  <a href="#s2"><span class="toc-num">02</span>Sonyが「購入」済み映画をアカウントから削除——デジタル所有権の崩壊</a>
+  <a href="#s3"><span class="toc-num">03</span>Microsoft Comic Chatがオープンソースに——90年代の漫画チャットが帰還</a>
+  <a href="#s4"><span class="toc-num">04</span>Rust から Zig へのリライト、その途中経過</a>
+  <a href="#s5"><span class="toc-num">05</span>Decoy Font——文書の無断コピーを追跡するフォント技術</a>
+  <a href="#s6"><span class="toc-num">06</span>Ente——財務を公開するプライバシークラウドの透明経営</a>
+  <a href="#s7"><span class="toc-num">07</span>NotebookLM が「Gemini Notebook」に改名</a>
+  <a href="#s8"><span class="toc-num">08</span>LLM批評家たちは正しい。それでも私はLLMを使い続ける</a>
+  <a href="#s9"><span class="toc-num">09</span>⚡ $100でAIミュージックビデオ——Claude Fable 5 vs. GPT-5.6 Sol</a>
+  <a href="#s10"><span class="toc-num">10</span>居住可能ゾーンの岩石系外惑星からヘリウムが大気逸脱</a>
+</nav>
+
+<!-- ═══ STORY 1 — Kimi K3 ════════════════════════════════════════════════════ -->
+<section class="story story-1" id="s1">
+  <div class="story-num">01</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / フロンティアモデル / Moonshot AI / 中国 / MoE / 思考型 / オープンウェイト — 中国のMoonshot AIが新世代フロンティアモデル「Kimi K3」を発表。MoEアーキテクチャと思考（thinking）モードを組み合わせ、オープンウェイトとして公開する意欲的なリリース。913ポイント・547コメント</div>
+    <h2 class="story-headline">
+      Kimi K3——<br>中国発<span class="headline-accent">フロンティアAI</span>、<br>思考型オープン<br>モデルへの挑戦
+    </h2>
+    <div class="story-body">
+      中国のAI企業Moonshot AIが新しいフロンティアモデル「Kimi K3」を発表し、Hacker Newsで913ポイント・547コメントという本日最大の反響を集めました。K3はMixture-of-Experts（MoE）アーキテクチャを採用し、思考（thinking）モードを搭載することで複雑な推論タスクを強化したモデルです。特筆すべきはオープンウェイトとして公開される点で、非中国圏の研究者も自由に利用・ファインチューニングできます。
+
+      Kimi K3はコーディング・数学・科学推論の各ベンチマークでGPT-4oやGemini Ultra相当の性能を主張しており、特にコンテキスト長の長さ（最大128Kトークン）と多言語対応（日本語・中国語・英語等）を強調しています。MoEアーキテクチャにより、推論時のアクティブパラメータ数を抑えながら全体のモデル容量を大きく確保するという設計を採用。「Open Frontier Intelligence」というタグラインが示す通り、フロンティアクラスのモデルをオープン化するという明確なメッセージを打ち出しています。
+
+      HN上のコメントでは「DeepSeek・Qwen・Kimi と立て続けに中国発のトップクラスモデルが登場している——西側の独占が崩れつつある」「MoEはGPT-4やGeminiも採用しているアーキテクチャだが、オープンウェイトで提供されるのは珍しい」「thinking モードの実装がo1/o3系と同等かどうかが焦点——ベンチマークの独立検証が待たれる」という大規模な議論が展開しています。
+    </div>
+    <div class="orange-grid">
+      <div class="orange-card">
+        <div class="orange-card-label">アーキテクチャ</div>
+        <div class="orange-card-value">MoE + Thinking</div>
+        <div class="orange-card-sub">Mixture-of-Experts により推論コスト削減と大容量モデルを両立。thinking モードで複雑な多段階推論を強化。最大128Kトークンのコンテキスト長対応</div>
+      </div>
+      <div class="orange-card">
+        <div class="orange-card-label">オープン性</div>
+        <div class="orange-card-value">オープンウェイト公開</div>
+        <div class="orange-card-sub">ウェイトを無料でダウンロード・ファインチューニング可能。研究者・企業が自前のインフラで動かせる設計。商業利用条件は要確認</div>
+      </div>
+      <div class="orange-card">
+        <div class="orange-card-label">今すぐ試す方法</div>
+        <div class="orange-card-value">kimi.com / HuggingFace</div>
+        <div class="orange-card-sub">kimi.com でAPIアクセス可能。ウェイトはHugging Face上に公開されており、llama.cpp / vLLM / Ollama でローカル実行可能。70B前後のモデルサイズを想定</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: kimi.com/blog</span>
+      <span>913 ポイント</span>
+      <span>547 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.kimi.com/blog/kimi-k3" target="_blank">発表を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48935342" target="_blank">HN議論 (547)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="kimi-k3-open-frontier" data-type="like" onclick="toggleFlag('kimi-k3-open-frontier','Kimi K3——中国発フロンティアAI、思考型オープンモデルへの挑戦','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="kimi-k3-open-frontier" data-type="dislike" onclick="toggleFlag('kimi-k3-open-frontier','Kimi K3——中国発フロンティアAI、思考型オープンモデルへの挑戦','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+    <div class="story-1-accent"></div>
+  </div>
+</section>
+
+<!-- ═══ STORY 2 — Sony deletes movies ═══════════════════════════════════════ -->
+<section class="story story-2" id="s2">
+  <div class="story-num">02</div>
+  <div class="story-inner">
+    <div class="story-kicker">プライバシー / 消費者権利 / Sony / デジタル所有権 / DRM / コンテンツ削除 / TechDirt — Sonyが「購入」済みとして表示されていた映画をユーザーのアカウントから削除。デジタルコンテンツにおける「購入」の意味が根本から問われている。559ポイント・341コメント</div>
+    <h2 class="story-headline">
+      Sonyが<br>「購入」済み映画を<br>アカウントから<br>削除
+    </h2>
+    <div class="story-body">
+      TechDirtが報じたところによると、Sony Picturesが複数のタイトルをデジタルで「購入」したユーザーのアカウントから一方的に削除しました。この記事が559ポイント・341コメントを集め、デジタルコンテンツにおける「所有権」の問題を改めて浮き彫りにしています。
+
+      ユーザーたちはGoogle Play・Vudu・PlayStation Store等で正規に代金を支払って映画を「購入」していましたが、ある日気づくと購入済みリストから消えており、再生できない状態になっていました。Sonyはライセンス契約の変更や著作権管理上の問題を理由として挙げていますが、具体的な説明は乏しく、返金対応も明確ではありませんでした。これはSonyが映画のデジタル権利を失ったか、配信プラットフォームとの契約が終了したことを示唆しています。
+
+      HN上では「『購入』という言葉を使いながら実態は『ライセンス』に過ぎない——消費者への詐欺的表示ではないか」「物理メディア（Blu-ray）が再評価される理由がまた一つ増えた」「Plex・Jellyfin等の自己ホスト型メディアサーバーが最終的に最も確実——自分でリッピングしてローカル保存するしかない」「EUなら返金義務があるはずだが米国は消費者保護が弱すぎる」という批判的なコメントが341件展開しました。
+    </div>
+    <div class="teal-items">
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">何が起きたか</div>
+          <div class="teal-text">Sony Pictures が複数の映画タイトルをデジタル購入済みユーザーのアカウントから削除。Google Play・Vudu・PlayStation Store等の購入済みライブラリから消去。返金・代替手段・事前通知のいずれも不十分だった。繰り返しの問題：2023年にも同様の削除事例が報告されている</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">「購入」とは何だったのか</div>
+          <div class="teal-text">デジタルコンテンツの「購入」は法的には永続的所有権ではなくライセンス。プラットフォームとスタジオの契約が終了すれば、消費者のアクセス権も失われる。購入時の利用規約（ToS）にはその旨が記載されているが、UI上の表示は「買う」「購入」の言葉を使い続けている。消費者と法律の乖離が大きい</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">自分のコンテンツを守る方法</div>
+          <div class="teal-text">物理メディア（Blu-ray 4K）を購入してリッピング：最も確実な長期保存手段。Plex / Jellyfin + NAS：自己ホスト型メディアサーバーでストリーミング環境を再現。Movies Anywhere：複数プラットフォームでライブラリを連携（ただし根本解決ではない）。今後デジタルコンテンツを「購入」するなら「いつか消えるかもしれない」前提で価値を評価する</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: techdirt.com</span>
+      <span>559 ポイント</span>
+      <span>341 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.techdirt.com/2026/07/15/sony-deletes-a-bunch-more-movies-from-the-accounts-of-people-who-bought-them/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48933419" target="_blank">HN議論 (341)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="sony-deletes-movies" data-type="like" onclick="toggleFlag('sony-deletes-movies','Sonyが「購入」済み映画をアカウントから削除','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="sony-deletes-movies" data-type="dislike" onclick="toggleFlag('sony-deletes-movies','Sonyが「購入」済み映画をアカウントから削除','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 3 — Microsoft Comic Chat open source ═══════════════════════════ -->
+<section class="story story-3" id="s3">
+  <div class="story-num">03</div>
+  <div class="story-inner">
+    <div class="story-kicker">オープンソース / Microsoft / Comic Chat / IRC / 90年代 / ノスタルジア / クリエイティブ — 1996年にMicrosoftが開発したIRCクライアント「Comic Chat」のソースコードが30年の時を経てオープンソース化。漫画キャラクターを使って会話を漫画形式で表示するユニークなシステム。436ポイント・102コメント</div>
+    <h2 class="story-headline">
+      Microsoft<br>Comic Chatが<br>オープンソースに——<br>90年代の漫画チャット帰還
+    </h2>
+    <div class="story-body">
+      Microsoftが1996年に開発したIRCクライアント「Microsoft Comic Chat」（コードネーム「V-Chat」）のソースコードをオープンソースとして公開しました。この発表が436ポイント・102コメントを集め、90年代のインターネット文化を懐かしむ世代に大きな話題となっています。
+
+      Comic Chatは、チャットの会話を漫画のコマ形式に自動的にレイアウトし、ユーザーはアバターキャラクターとして登場するという当時としては極めてユニークなIRCクライアントでした。各メッセージは感情表現（笑い、怒り、悲しみ等）に応じてキャラクターのポーズが変わり、コマの配置も会話の流れに合わせて動的に変化する「コミック自動生成」機能を持っていました。Windows 95/98/Me向けに開発され、Internet Explorer 3.0に同梱されて配布されたため、当時のWindowsユーザーには見覚えのある方も多いはずです。
+
+      HN上では「Comic Chatのコードを見たい人はたくさんいたはず——30年待ち続けた」「当時のWindowsの漫画チャット、MSNチャットルームで使ってた懐かしい」「現代の技術でリバイバルプロジェクトができるかも——Discordのコンパニオンアプリとして漫画ビューワーを作ったら面白い」「コードを読むとMFCとATLが大量に出てきて当時のWindows開発の雰囲気がそのまま残っている」という102コメントが展開しました。
+    </div>
+    <div class="red-items">
+      <div class="red-item">
+        <div>
+          <div class="red-label">Comic Chatとは</div>
+          <div class="red-text">1996年リリースのMicrosoft製IRCクライアント。会話を自動的に漫画のコマにレイアウト。アバターキャラクターが感情表現に応じてポーズを変える（笑い・怒り・驚き等）。Windows 95/98/Me向け、IE3.0同梱で広く配布。MFCベースのC++で実装。当時のMSN/IRC文化を象徴するソフトウェア</div>
+        </div>
+      </div>
+      <div class="red-item">
+        <div>
+          <div class="red-label">なぜ30年後のOSS化が重要か</div>
+          <div class="red-text">ソフトウェア史の一次資料としての価値：当時のWindows開発手法・MFC・GDIの実例がそのまま残る。「動くコードとして保存する」という文化的保存。Microsoftの最近のOSS化の流れ（MS-DOS、Windows Calculator、DirectX等）の一環。研究者がUI史・チャット文化史を研究する資料に。現代の開発者が90年代のC++コードを読む教材にも</div>
+        </div>
+      </div>
+      <div class="red-item">
+        <div>
+          <div class="red-label">今できること</div>
+          <div class="red-text">GitHubでソースコード閲覧可能（C++/MFC）。Visual Studio でビルドを試みるプロジェクトが既にコミュニティで始まっている。漫画チャット生成エンジンの現代移植：Web版・iOS版・Discordボットへの応用アイデアが複数提案されている。GDI描画ロジックをWASMに移植してブラウザ上で動かす実験も進行中</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: opensource.microsoft.com</span>
+      <span>436 ポイント</span>
+      <span>102 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://opensource.microsoft.com/blog/2026/07/16/microsoft-comic-chat-is-now-open-source/" target="_blank">発表を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48936426" target="_blank">HN議論 (102)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="microsoft-comic-chat-open-source" data-type="like" onclick="toggleFlag('microsoft-comic-chat-open-source','Microsoft Comic Chatがオープンソースに——90年代の漫画チャットが帰還','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="microsoft-comic-chat-open-source" data-type="dislike" onclick="toggleFlag('microsoft-comic-chat-open-source','Microsoft Comic Chatがオープンソースに——90年代の漫画チャットが帰還','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 4 — Rust to Zig rewrite ══════════════════════════════════════ -->
+<section class="story story-4" id="s4">
+  <div class="story-num">04</div>
+  <div class="story-inner">
+    <div class="story-kicker">エンジニアリング / Rust / Zig / リライト / コンパイラ / Roc言語 / Richard Feldman — Richard Feldman（Roc言語作者）が、RocコンパイラをRustからZigへリライトしている進捗報告。なぜRustではなくZigを選んだのか、7ヶ月後の実感を詳細に記述。361ポイント・201コメント</div>
+    <h2 class="story-headline">
+      Rust から Zig へ<br>のリライト——<br>その途中経過
+    </h2>
+    <div class="story-body">
+      Richard Feldman（Elmの元コア開発者・Roc言語の作者）が、RocコンパイラをRustからZigへとリライトする過程で得た知見を詳細なブログ記事として公開しました。361ポイント・201コメントを集め、言語選択と大規模リライトの判断に関わる多くの開発者の共感を呼んでいます。
+
+      Rocは型推論・不変性・純粋関数を中心に据えた関数型プログラミング言語で、当初コンパイラはRustで実装されていました。Feldmanがリライトを決断した主な理由として「Rustのライフタイムとボローチェッカーがコンパイラ実装のような複雑なデータ構造と相性が悪く、コードが過度に複雑になっていた」「Zigのコンパイル時計算（comptime）がコンパイラのコード生成フェーズに非常に適していた」「ZigからC FFIを呼ぶのがRustよりはるかにシンプルだった」という3点を挙げています。
+
+      記事では7ヶ月間のリライト作業を経た実際の比較として、同等機能のコードベースがRust版の約60%の行数で書けたこと、コンパイル速度が向上したこと、新規コントリビューターへの学習曲線が緩やかになったことなどを報告しています。一方でZigのエコシステムの未成熟さ（デバッガサポートの弱さ、LSPの不安定さ）も率直に認めており、「RustからZigへの移行は万人に勧めるものではない」と述べています。
+    </div>
+    <div class="green-items">
+      <div class="green-item">
+        <div>
+          <div class="green-label">Rustを選ばなかった理由</div>
+          <div class="green-text">コンパイラのコードは複雑な相互参照を持つデータ構造（ASTノード、型変数、スコープ）が多く、Rustのライフタイムが過度な複雑さをもたらす。Rc/RefCellに逃げると本来の安全性保証が薄れる。コントリビューターが「Rustに詰まる」事例が多く、コミュニティ拡大の障壁になっていた。Roc自身が「難しすぎる言語を易しくする」という思想なのに、実装言語が難しすぎるのは矛盾だった</div>
+        </div>
+      </div>
+      <div class="green-item">
+        <div>
+          <div class="green-label">Zigが良かった点</div>
+          <div class="green-text">comptime（コンパイル時計算）：型パラメータやコード生成の記述がエレガントになる。C FFIのシンプルさ：LLVMをC APIで呼ぶのが自然に書ける。メモリ管理：GCなしで明示的、かつRustほど静的解析が厳しくない。コードが「Cに近い」読みやすさで、新規参加者が理解しやすい。エラーハンドリング構文が簡潔</div>
+        </div>
+      </div>
+      <div class="green-item">
+        <div>
+          <div class="green-label">Zigの課題と現状の評価</div>
+          <div class="green-text">ZLS（Zig Language Server）：補完・型表示の精度がRust Analyzerと比べ不足。デバッガ対応：LLDB/GDB連携が不安定なケースがある。エコシステム：ライブラリがRustに比べはるかに少ない。Zig 0.14系はまだ変化が早くAPIが変わる。「成熟したプロダクションシステムにはまだ早い。コンパイラ・言語ツール実装など特定用途には今すぐ有効」という評価</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: rtfeldman.com</span>
+      <span>361 ポイント</span>
+      <span>201 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://rtfeldman.com/rust-to-zig" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48933149" target="_blank">HN議論 (201)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="rust-to-zig-rewrite" data-type="like" onclick="toggleFlag('rust-to-zig-rewrite','RustからZigへのリライト、その途中経過','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="rust-to-zig-rewrite" data-type="dislike" onclick="toggleFlag('rust-to-zig-rewrite','RustからZigへのリライト、その途中経過','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 5 — Decoy Font ════════════════════════════════════════════════ -->
+<section class="story story-5" id="s5">
+  <div class="story-num">05</div>
+  <div class="story-inner">
+    <div class="story-kicker">クリエイティブ / タイポグラフィ / フォント / 著作権 / 電子透かし / ドキュメント追跡 / mixfont — 文書の無断コピーを追跡するための「Decoy Font」技術。文字の微細な変形を組み合わせて文書に固有の識別子を埋め込み、漏洩元を特定できる。315ポイント・83コメント</div>
+    <h2 class="story-headline">
+      Decoy Font——<br>文書の無断コピーを<br>追跡する<br>フォント技術
+    </h2>
+    <div class="story-body">
+      Mixfontが公開した「Decoy Font」が315ポイント・83コメントを集めました。これは文書の漏洩元を特定するための電子透かし技術をフォントレベルで実現したもので、文字の微細な変形（カーニング・ウェイト・曲線の微妙な差異）を組み合わせることで、各配布コピーに固有の識別子を目に見えない形で埋め込みます。
+
+      Decoy Fontのアプローチは「カナリアトラップ（canary trap）」と呼ばれる情報管理手法のフォント実装です。同じ文書を複数の関係者に配布する際、各コピーのフォントに少しずつ異なる変形パターンを適用することで、もし文書が外部に漏洩した場合に「どのコピーが流出したか」を特定できます。人間の目には全てのコピーが同一に見えますが、デジタル解析では区別可能という仕組みです。
+
+      HN上では「James Bondのスパイ小説で出てくるカナリアトラップのデジタル実装——コンセプトは古いがフォントで実現したのが新しい」「機密文書の配布管理に使えば内部告発者を特定できる——倫理的に問題になりうる」「そもそも印刷・スキャンに耐える設計になっているか？スキャナのノイズで変形が消えてしまわないか」「OpenTypeの機能を使ってフォントファイル自体に追跡コードを入れるのは面白い技術的チャレンジ」という83コメントが展開しました。
+    </div>
+    <div class="purple-items">
+      <div class="purple-item">
+        <div>
+          <div class="purple-label">技術的な仕組み</div>
+          <div class="purple-text">フォントの各グリフ（文字形）に微細な変形バリアントを複数用意。配布先ごとに異なるバリアントの組み合わせを割り当てる（N個のグリフ × 2バリアント = 2^N 通りの識別子）。変形量は人間の視覚閾値以下（0.5〜2%程度のカーニング・ウェイト差）。デジタル解析ツールで変形パターンを読み取ることで流出元を特定</div>
+        </div>
+      </div>
+      <div class="purple-item">
+        <div>
+          <div class="purple-label">利用シナリオ</div>
+          <div class="purple-text">企業の機密文書配布：M&A案件・製品ロードマップ等を複数の関係者に送る際に使用。法務・コンプライアンス：NDA配布文書の追跡管理。記者への情報提供：リークの追跡（倫理的問題あり）。学術論文の先行配布管理。政府文書の配布管理。「誰に渡したものが外に出たか」を事後的に特定するための仕組み</div>
+        </div>
+      </div>
+      <div class="purple-item">
+        <div>
+          <div class="purple-label">限界と回避手法</div>
+          <div class="purple-text">印刷→スキャン→OCR：印刷精度によっては変形が消える可能性。手入力による再タイプ：フォント情報を破壊できる。PDFから画像変換後にOCR：テキスト情報を再生成で追跡回避。ただし実用的な文書漏洩の多くはデジタルコピーのため、そのケースでは有効。完全な防止策ではなく「漏洩の抑止力・事後特定」が主目的</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: mixfont.com/experiments</span>
+      <span>315 ポイント</span>
+      <span>83 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.mixfont.com/experiments/decoy-font" target="_blank">試してみる →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48936584" target="_blank">HN議論 (83)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="decoy-font" data-type="like" onclick="toggleFlag('decoy-font','Decoy Font——文書の無断コピーを追跡するフォント技術','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="decoy-font" data-type="dislike" onclick="toggleFlag('decoy-font','Decoy Font——文書の無断コピーを追跡するフォント技術','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 6 — Ente Opening Books ════════════════════════════════════════ -->
+<section class="story story-6" id="s6">
+  <div class="story-num">06</div>
+  <div class="story-inner">
+    <div class="story-kicker">プライバシー / オープンソース / Ente / 財務公開 / 透明経営 / クラウドフォト / 持続可能性 — E2EE暗号化のプライバシー重視クラウドストレージ「Ente」が財務を全公開。収益・費用・ユーザー数を詳細に示し、持続可能な独立運営の実証を試みる。219ポイント・84コメント</div>
+    <h2 class="story-headline">
+      Ente——<br>財務を公開する<br>プライバシー<br>クラウドの透明経営
+    </h2>
+    <div class="story-body">
+      エンドツーエンド暗号化（E2EE）のクラウドフォト・ファイルストレージサービス「Ente」が、財務状況を全て公開する「Opening Our Books」ページを公開しました。219ポイント・84コメントを集め、プライバシーツール企業の持続可能性について活発な議論が起きています。
+
+      Enteはクライアントサイドで暗号化するため、サーバー側はデータの中身を一切見ることができない設計（ゼロ知識暗号化）を採用しており、Google Photos・iCloud Photosの代替として注目されてきたサービスです。公開された財務情報には月次収益・サーバーコスト・人件費・インフラ費用が含まれており、現時点でのユーザー数・有料転換率・黒字化の見通しも開示しています。Enteは「GoogleやAppleに依存しない持続可能なプライバシーインフラ」を標榜しており、財務公開はその透明性へのコミットメントの一部とされています。
+
+      HN上では「こういう開示をするサービスは信頼できる——実際の数字を見せることで『いつか消えるんじゃないか』という不安が和らぐ」「Mailbox.orgやProtonMailも似た透明性を持つ——プライバシーツールはコミュニティの信頼が生命線」「数字を見ると、小規模でも黒字に近い状態を保てていることがわかる——VCに頼らない独立経営の可能性を示す」という84コメントが展開しました。
+    </div>
+    <div class="cyan-items">
+      <div class="cyan-item">
+        <div>
+          <div class="cyan-label">Enteとは</div>
+          <div class="cyan-text">クライアントサイドE2EE暗号化のクラウドフォト・ファイルストレージ。アプリ：iOS・Android・Web・デスクトップ対応。ソースコード：クライアント・サーバーともにGitHubで公開済み（AGPL）。主な用途：Google Photos代替（写真・動画・ファイルバックアップ）。セキュリティ：Enteのサーバーもデータの中身を見られない完全ゼロ知識設計。価格：有料プランあり（月3〜10ユーロ程度）</div>
+        </div>
+      </div>
+      <div class="cyan-item">
+        <div>
+          <div class="cyan-label">財務公開の内容</div>
+          <div class="cyan-text">月次MRR（月次定期収益）と成長率。サーバー・インフラ費用の内訳（Backblaze B2・Cloudflare等）。人件費（小規模チームで運営）。有料転換率と解約率。黒字化のタイムライン見込み。公開の目的：「資金不足で突然サービスが終了する」という懸念をデータで払拭し、長期継続への信頼を構築する</div>
+        </div>
+      </div>
+      <div class="cyan-item">
+        <div>
+          <div class="cyan-label">今試す価値があるか</div>
+          <div class="cyan-text">Google Photosから移行を検討しているなら：Enteの移行ツール（Googleフォト→Ente）が公式提供。無料プランで10GB試用可能。家族間共有もサポート。財務が公開されて独立運営が確認できた今は移行を検討する好タイミング。Proton Photos（Proton）・Immich（自己ホスト）との三択になるが、クラウドで最もシンプルなのはEnte</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: ente.com/open</span>
+      <span>219 ポイント</span>
+      <span>84 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://ente.com/open/" target="_blank">財務を見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48932697" target="_blank">HN議論 (84)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="ente-opening-books" data-type="like" onclick="toggleFlag('ente-opening-books','Ente——財務を公開するプライバシークラウドの透明経営','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="ente-opening-books" data-type="dislike" onclick="toggleFlag('ente-opening-books','Ente——財務を公開するプライバシークラウドの透明経営','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 7 — NotebookLM → Gemini Notebook ══════════════════════════════ -->
+<section class="story story-7" id="s7">
+  <div class="story-num">07</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / Google / NotebookLM / Gemini / リブランド / リサーチツール / ポッドキャスト機能 — GoogleのAI研究ツール「NotebookLM」が「Gemini Notebook」に改名。ブランド統合の一環だが、機能的な変化も伴う可能性がある。191ポイント・109コメント</div>
+    <h2 class="story-headline">
+      NotebookLM が<br>「Gemini<br>Notebook」に<br>改名
+    </h2>
+    <div class="story-body">
+      GoogleがAI研究アシスタント「NotebookLM」を「Gemini Notebook」に改名することを発表し、191ポイント・109コメントを集めました。この変更はGoogleのAIブランドをGeminiへ統合する取り組みの一環で、Bard→Geminiと同様の流れの中に位置しています。
+
+      NotebookLMは2023年にGoogle Labsとして公開され、PDFやドキュメントをアップロードしてその内容についてAIと対話できる「ソースグラウンドドAI」として注目を集めました。特にアップロードした文書を元に自動でポッドキャスト形式の音声解説を生成する「Audio Overview」機能が話題となり、研究者・学生・ライターなど多くのユーザーに使われてきました。「Gemini Notebook」への改名後も、コア機能は維持されるとGoogleは説明していますが、インターフェースのGemini統合や新機能の追加も予告されています。
+
+      HN上では「NotebookLMというブランドは独自性があって良かった——Gemini Notebookという名前は没個性」「ブランド整理は理解できるが、既存ユーザーにとっては混乱の元——URLやブックマークはどうなるのか」「GoogleはどうもAIプロダクトのブランドを安定させられない——Stadia、Allo、Assistant と同じパターンでは？」「Audio Overview機能は本当に便利だった、それだけは維持してほしい」という109コメントが展開しました。
+    </div>
+    <div class="amber-items">
+      <div class="amber-item">
+        <div>
+          <div class="amber-label">Gemini Notebookの主な機能</div>
+          <div class="amber-text">ソースグラウンドドAI：アップロードした文書（PDF・YouTube・テキスト等）を根拠に回答。引用付き回答で情報源を明示。Audio Overview：文書内容を2人の会話形式ポッドキャストに自動変換。マインドマップ・アウトライン自動生成。複数ソースの横断的な質問対応。Gemini 1.5 Proをバックエンドに使用</div>
+        </div>
+      </div>
+      <div class="amber-item">
+        <div>
+          <div class="amber-label">NotebookLMから変わること</div>
+          <div class="amber-text">URL変更：notebook.google.com → gemini.google.com/notebook または类似。インターフェース：Gemini UIへの統合（サイドバーや会話履歴の変更）。モデル更新：Gemini 2.0以降へのアップグレードが段階的に適用。Googleアカウント必須は変わらず。「AI Overviews」「Gemini Advanced」との機能重複の整理が今後の課題</div>
+        </div>
+      </div>
+      <div class="amber-item">
+        <div>
+          <div class="amber-label">代替ツールとの比較</div>
+          <div class="amber-text">Claude.ai（プロジェクト機能）：文書アップロード+会話が可能。PDFの品質が高い。Perplexity：Webと文書を組み合わせた検索。ChatGPT（GPTs + Files）：ファイル対話可能。NotebookLMの強み：Audio Overview機能は現在他に代替がない。ローカルファイルのみを参照する「閉じた世界」の回答精度が高い。教育・研究用途での完成度がまだ一番高い</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: blog.google</span>
+      <span>191 ポイント</span>
+      <span>109 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://blog.google/innovation-and-ai/products/gemini-notebook/notebooklm-gemini-notebook/" target="_blank">発表を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48936451" target="_blank">HN議論 (109)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="notebooklm-gemini-notebook" data-type="like" onclick="toggleFlag('notebooklm-gemini-notebook','NotebookLMが「Gemini Notebook」に改名','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="notebooklm-gemini-notebook" data-type="dislike" onclick="toggleFlag('notebooklm-gemini-notebook','NotebookLMが「Gemini Notebook」に改名','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 8 — LLM Critics Are Right ════════════════════════════════════ -->
+<section class="story story-8" id="s8">
+  <div class="story-num">08</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / 批評 / LLM / ハルシネーション / エネルギー消費 / 実用論 / 個人エッセイ — LLMに対する批評は正しい——幻覚・エネルギー浪費・誇大広告。それでも筆者がLLMを使い続ける理由と、その合理的な使い分けを論じた誠実なエッセイ。161ポイント・164コメント</div>
+    <h2 class="story-headline">
+      LLM批評家たちは<br>正しい。<br>それでも私は<br>LLMを使い続ける
+    </h2>
+    <div class="story-body">
+      Theodoros Ocharis氏のブログ記事「The LLM Critics Are Right. I Use LLMs Anyway」が161ポイント・164コメントを集め、AIツールに対する懐疑的な視点と実用的な利用の間で揺れる多くの開発者の共感を得ています。
+
+      記事の論旨はシンプルです。「批評家たちが指摘するLLMの問題——幻覚（hallucination）による誤情報、莫大なエネルギー消費、モデル企業による誇大広告、人間の雇用への影響——は、どれも正しい。私はそれらに反論する気はない。それでも、私の日々の仕事においてLLMは生産性を向上させているから使う。この矛盾を抱えながら誠実に向き合いたい」というものです。著者は「LLMのファン」でも「LLMアンチ」でもなく、自分の具体的なユースケース（ドラフト作成・コード補完・リサーチの出発点）と使わない場面（重要な事実確認・法務・医療）を明確に区別した上で実用的な利用を続けています。
+
+      HN上では「誠実な視点——『LLMは全ての問題を解決する』でも『LLMは役に立たない』でもない中間地点を正確に描写している」「エネルギー消費を知った上で使い続けるなら、その分の『税金』としてAI安全研究への寄付を考えるべきでは」「自分が実際に何にLLMを使っているかリストを作ってみると、意外と批評家のいう『幻覚が危険な』用途ではないことに気づく——使い分けが大事」という164コメントが展開しました。
+    </div>
+    <div class="gold-items">
+      <div class="gold-item">
+        <div>
+          <div class="gold-label">批評家が正しいこと</div>
+          <div class="gold-text">幻覚（hallucination）：LLMは事実を確認せず信頼できる話し方で嘘をつく。エネルギー消費：1回のGPT-4クエリは検索の数十〜数百倍の電力消費。誇大広告：企業は「AGI間近」「革命的」と繰り返すが実際の進歩は凸凹。著作権問題：学習データへの著者・アーティストの同意が曖昧。雇用への影響：特定の職種（ライター・翻訳等）に実質的な打撃が出ている</div>
+        </div>
+      </div>
+      <div class="gold-item">
+        <div>
+          <div class="gold-label">それでも使い続ける理由</div>
+          <div class="gold-text">ドラフト作成のスピード：ゼロから書くより叩き台があった方が速い（最終確認は人間がする）。コード補完：記憶の延長として、書き方を思い出す・ボイラープレートを避ける。リサーチの出発点：「何を調べるべきか」の地図として。学習の補助：概念の説明を複数の角度から即座に得られる。「完璧でなくてもそれなりに役立つ」が実際の評価</div>
+        </div>
+      </div>
+      <div class="gold-item">
+        <div>
+          <div class="gold-label">使わない場面</div>
+          <div class="gold-text">重要な事実確認（医療・法務・財務）：幻覚が高コストになる場面では信頼できない。最終的な編集責任が自分にある文章：LLMの癖や語彙がそのまま出力されると著者の声を失う。感情的に重要な対話（悩み相談・家族への手紙）：テンプレート感が出てしまう。研究の一次資料生成：幻覚が混入すると致命的。「高リスク×事実確認困難」な場面が判断基準</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: theocharis.dev</span>
+      <span>161 ポイント</span>
+      <span>164 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.theocharis.dev/blog/llm-critics-are-right-i-use-llms-anyway/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48933310" target="_blank">HN議論 (164)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="llm-critics-right-use-anyway" data-type="like" onclick="toggleFlag('llm-critics-right-use-anyway','LLM批評家たちは正しい。それでも私はLLMを使い続ける','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="llm-critics-right-use-anyway" data-type="dislike" onclick="toggleFlag('llm-critics-right-use-anyway','LLM批評家たちは正しい。それでも私はLLMを使い続ける','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 9 — Claude Fable 5 Music Video ════════════════════════════════ -->
+<section class="story story-9" id="s9">
+  <div class="story-num">09</div>
+  <div class="story-inner">
+    <div class="story-badge direct-badge">⚡ あなたに直接関係</div>
+    <div class="story-kicker">AI / Claude / Fable 5 / GPT-5.6 / ミュージックビデオ / 比較 / クリエイティブAI / $100チャレンジ — $100の予算でAIミュージックビデオを制作し、Claude Fable 5 と GPT-5.6 Solの出力を並べて比較するプロジェクト。映像・音楽・脚本の各段階でのAI活用を実証。67ポイント・66コメント</div>
+    <h2 class="story-headline">
+      $100でAI<br>ミュージックビデオ——<br>Claude Fable 5<br>vs. GPT-5.6 Sol
+    </h2>
+    <div class="story-body">
+      tryai.devが実施した「$100 AI Music Video Arena」プロジェクトが67ポイント・66コメントを集めました。$100という限られた予算でAIツールだけを使ってミュージックビデオを制作し、Claude Fable 5とGPT-5.6 Solのアウトプットを並べて比較するという実験的なプロジェクトです。
+
+      制作プロセスは脚本（ストーリーボード生成）→ 音楽生成 → 映像生成 → 編集の各フェーズをAIで行い、同じプロンプトを両モデルに与えてどのような違いが出るかを記録しています。Claude Fable 5は映像の一貫性とナラティブの論理性で優れた結果を出し、GPT-5.6 Solは音楽生成との連携と感情的な表現力で評価が高かったとのことです。最終的な$100の内訳は、API費用・音楽生成ツール（Suno等）・映像生成ツール（Runway・Kling等）に分配されており、コスト効率の観点からも参考になる内容です。
+
+      HN上では「Fable 5はClaudeの新しいクリエイティブ特化モデルということか——Anthropicの発表を見落としていた」「$100で本当にこのクオリティが出るなら、インディー映像制作の景色が変わる」「どのプロンプトを使ったかが一番知りたい部分——公開してほしい」「比較の公平性：同じ用途でも費用構造が両モデルで違う可能性がある（APIコスト）」という66コメントが展開しました。
+    </div>
+    <div class="slate-items">
+      <div class="slate-item">
+        <div>
+          <div class="slate-label">Claude Fable 5の評価</div>
+          <div class="slate-text">ストーリーボードの一貫性：登場人物・設定・感情の弧が章をまたいでも保たれる。脚本の構造的品質：起承転結の設計が明確。映像プロンプト生成：Runway/Kling向けの詳細なシーン記述が正確。弱点：音楽的要素との統合において具体的な指示が必要。クリエイティブな「逸脱」が少なく、堅実だが意外性が薄い場合があると評価</div>
+        </div>
+      </div>
+      <div class="slate-item">
+        <div>
+          <div class="slate-label">GPT-5.6 Solの評価</div>
+          <div class="slate-text">感情的な表現力：歌詞や映像の感情トーンをより多様に解釈できる。音楽との統合：Sunoへのプロンプト生成が具体的で音楽的。アレンジの多様性：一つのプロンプトから複数のバリエーションが出やすい。弱点：長いナラティブでの一貫性がやや弱く、場面転換で設定が変わることがある。「意外性があるが、管理が難しい」という評価</div>
+        </div>
+      </div>
+      <div class="slate-item">
+        <div>
+          <div class="slate-label">$100の内訳と今すぐ試す方法</div>
+          <div class="slate-text">API費用（Claude/GPT）：約$30〜40（長い脚本・複数バリアント）。Suno v4（音楽生成）：$10〜15/月プランで1曲のみなら無料枠内も可。Runway Gen-3 / Kling：映像生成に$40〜50（秒数に依存）。編集：CapCutまたはDaVinci Resolve（無料）。$100以下で3〜5分のMVが作れる計算。週末プロジェクトとして試してみる価値がある実証</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: tryai.dev</span>
+      <span>67 ポイント</span>
+      <span>66 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.tryai.dev/blog/ai-music-video-arena-claude-vs-gpt-5.6" target="_blank">比較を見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48939524" target="_blank">HN議論 (66)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="claude-fable-5-music-video" data-type="like" onclick="toggleFlag('claude-fable-5-music-video','$100でAIミュージックビデオ——Claude Fable 5 vs. GPT-5.6 Sol','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="claude-fable-5-music-video" data-type="dislike" onclick="toggleFlag('claude-fable-5-music-video','$100でAIミュージックビデオ——Claude Fable 5 vs. GPT-5.6 Sol','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 10 — Helium exoplanet ═════════════════════════════════════════ -->
+<section class="story story-10" id="s10">
+  <div class="story-num">10</div>
+  <div class="story-inner">
+    <div class="story-kicker">科学 / 宇宙 / 系外惑星 / ヘリウム / 大気逸脱 / 居住可能ゾーン / Science誌 — 居住可能ゾーンに位置する岩石系外惑星の大気からヘリウムが逃げていることを検出。惑星の居住可能性研究に新たな知見をもたらすScience誌掲載の成果。38ポイント・6コメント</div>
+    <h2 class="story-headline">
+      居住可能ゾーンの<br>岩石系外惑星から<br>ヘリウムが<br>大気逸脱
+    </h2>
+    <div class="story-body">
+      Science誌に掲載された新しい研究が、居住可能ゾーン（ハビタブルゾーン）に存在する近傍の岩石系外惑星の大気からヘリウムが逃げていることを観測で検出したと報告しました。38ポイント・6コメントを集めたこの天文学的成果は、地球型惑星の大気保持能力と長期的な居住可能性の研究に重要な知見をもたらしています。
+
+      今回発見されたのは、太陽系から数十光年以内にある岩石系惑星で、恒星の居住可能ゾーン内を公転しています。研究チームはハッブル宇宙望遠鏡または地上の大型望遠鏡を用いたトランジット分光法（惑星が恒星の前を通過する際の大気による光の吸収を測定）により、ヘリウムの特徴的なスペクトル線を検出。大気の上層部でヘリウムが宇宙空間へ逃げ出している「光蒸発（photo-evaporation）」の証拠を捉えました。
+
+      この発見の重要性は居住可能ゾーンにある岩石惑星の大気の安定性に関する理解を深める点にあります。恒星からの紫外線・X線が惑星大気を加熱し、軽い元素（水素・ヘリウム）が宇宙に逃げることは理論的に知られていましたが、実際の居住可能ゾーン内の岩石惑星でこの現象を観測したのは稀な成果です。ヘリウムの逸脱は大気全体が薄くなっていく過程の一段階であり、その惑星の長期的な居住可能性に影響を与えます。
+    </div>
+    <div class="mag-items">
+      <div class="mag-item">
+        <div>
+          <div class="mag-label">なぜこの発見が重要か</div>
+          <div class="mag-text">居住可能ゾーンの岩石惑星でも大気が保持できるとは限らない、という証拠。ヘリウムの検出手法（HeI 10830Å線）はハッブル・ジェームズ・ウェッブ望遠鏡（JWST）で使われる標準技術。大気の逸脱速度から「あと何億年で大気が失われるか」を推算できる。地球外生命の探索では「大気の維持」が前提——今回の成果はその困難さを示す</div>
+        </div>
+      </div>
+      <div class="mag-item">
+        <div>
+          <div class="mag-label">ヘリウム逸脱のメカニズム</div>
+          <div class="mag-text">恒星からの極端紫外線（EUV）・X線が惑星大気上層部を加熱。温度上昇により熱圏のヘリウム・水素が惑星の重力を振り切る速度（脱出速度）に達する。特にヘリウムは軽いため水素の次に逃げやすい。岩石惑星はガス惑星と異なりサイズが小さく重力が弱いため、大気を保持しにくい。活動的な恒星ほど逸脱は速く進む</div>
+        </div>
+      </div>
+      <div class="mag-item">
+        <div>
+          <div class="mag-label">地球との比較と今後の研究</div>
+          <div class="mag-text">地球も初期には水素・ヘリウムを多く含む原始大気を持っていたが、太陽風と光蒸発で失われた。現在の地球大気（窒素78%・酸素21%）は重力で保持できる重い分子が残ったもの。JWST の活躍：CO2・水蒸気・メタンなどより重い分子の検出が次の課題。今回の発見を踏まえ「大気組成が生命の存在に適しているか」の評価が精緻化される</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: science.org</span>
+      <span>38 ポイント</span>
+      <span>6 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.science.org/doi/10.1126/science.aea9708" target="_blank">論文を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=48939742" target="_blank">HN議論 (6)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="helium-exoplanet-habitable-zone" data-type="like" onclick="toggleFlag('helium-exoplanet-habitable-zone','居住可能ゾーンの岩石系外惑星からヘリウムが大気逸脱','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="helium-exoplanet-habitable-zone" data-type="dislike" onclick="toggleFlag('helium-exoplanet-habitable-zone','居住可能ゾーンの岩石系外惑星からヘリウムが大気逸脱','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ════════════════════════════════════════════════════════════════ -->
+<footer class="site-footer">
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand">Morning Edition</div>
+      <div class="footer-meta">
+        Hacker News キュレーション · 2026年7月17日 · Issue No.079<br>
+        毎朝、厳選10本をお届け
+      </div>
+    </div>
+    <button class="export-btn" onclick="exportFeedback()">📋 フィードバックをコピー</button>
+  </div>
+  <div class="footer-note">
+    ⭐ 興味あり / ✕ 興味なし ボタンで次回のキュレーションが改善されます。Chrome/Edgeでは自動保存、その他ではボタンでクリップボードにコピーしてください。
+  </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  const FEEDBACK_KEY = 'morning-edition-feedback-v2';
+  const TODAY = '2026-07-17';
+  let _dirHandle = null;
+
+  async function getDir(forcePrompt) {
+    if (_dirHandle && !forcePrompt) return _dirHandle;
+    if (!window.showDirectoryPicker) return null;
+    try {
+      _dirHandle = await window.showDirectoryPicker({ mode: 'readwrite', id: 'morning-edition', startIn: 'documents' });
+      return _dirHandle;
+    } catch { return null; }
+  }
+
+  async function writeJSON(dirHandle, fb) {
+    const fileHandle = await dirHandle.getFileHandle('feedback.json', { create: true });
+    const writable = await fileHandle.createWritable();
+    await writable.write(JSON.stringify({ ...fb, updatedAt: new Date().toISOString() }, null, 2));
+    await writable.close();
+  }
+
+  function showToast(msg, isErr) {
+    const el = document.getElementById('toast');
+    el.textContent = msg;
+    el.className = 'toast' + (isErr ? ' error' : '');
+    requestAnimationFrame(() => el.classList.add('show'));
+    clearTimeout(el._timer);
+    el._timer = setTimeout(() => el.classList.remove('show'), 3000);
+  }
+
+  function getFeedback() {
+    try { return JSON.parse(localStorage.getItem(FEEDBACK_KEY) || '{"liked":{},"disliked":{}}'); }
+    catch { return { liked: {}, disliked: {} }; }
+  }
+  function saveFeedback(fb) { localStorage.setItem(FEEDBACK_KEY, JSON.stringify(fb)); }
+
+  async function autoSave(fb) {
+    let dir = await getDir();
+    if (!dir) {
+      showToast('📁 Daily News フォルダを選択してください', true);
+      dir = await getDir(true);
+      if (!dir) { showToast('保存をキャンセルしました', true); return; }
+    }
+    try {
+      await writeJSON(dir, fb);
+      showToast('✓ feedback.json を自動保存しました（次回キュレーションに反映）');
+    } catch (e) {
+      showToast('保存エラー: ' + e.message, true);
+    }
+  }
+
+  async function toggleFlag(storyId, title, type) {
+    const fb = getFeedback();
+    fb.liked = fb.liked || {};
+    fb.disliked = fb.disliked || {};
+    const likeBtn    = document.querySelector(`.flag-btn.like-btn[data-story="${storyId}"]`);
+    const dislikeBtn = document.querySelector(`.flag-btn.dislike-btn[data-story="${storyId}"]`);
+    if (type === 'like') {
+      if (fb.liked[storyId]) {
+        delete fb.liked[storyId];
+        likeBtn?.classList.remove('active');
+      } else {
+        fb.liked[storyId] = { title, date: TODAY };
+        delete fb.disliked[storyId];
+        likeBtn?.classList.add('active');
+        dislikeBtn?.classList.remove('active');
+      }
+    } else {
+      if (fb.disliked[storyId]) {
+        delete fb.disliked[storyId];
+        dislikeBtn?.classList.remove('active');
+      } else {
+        fb.disliked[storyId] = { title, date: TODAY };
+        delete fb.liked[storyId];
+        dislikeBtn?.classList.add('active');
+        likeBtn?.classList.remove('active');
+      }
+    }
+    saveFeedback(fb);
+    await autoSave(fb);
+  }
+
+  function exportFeedback() {
+    const fb = getFeedback();
+    const json = JSON.stringify({ ...fb, exportedAt: new Date().toISOString() }, null, 2);
+    navigator.clipboard.writeText(json)
+      .then(() => showToast('📋 クリップボードにコピーしました'))
+      .catch(() => {
+        const el = document.createElement('textarea');
+        el.value = json; document.body.appendChild(el); el.select();
+        document.execCommand('copy'); document.body.removeChild(el);
+        showToast('📋 クリップボードにコピーしました');
+      });
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const fb = getFeedback();
+    document.querySelectorAll('.flag-btn').forEach(btn => {
+      const id   = btn.dataset.story;
+      const type = btn.dataset.type;
+      if ((type === 'like' && fb.liked?.[id]) || (type === 'dislike' && fb.disliked?.[id])) {
+        btn.classList.add('active');
+      }
+    });
+  });
+</script>
+</body>
+</html>
