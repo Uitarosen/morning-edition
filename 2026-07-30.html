@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Morning Edition — 2026年7月30日</title>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --font: 'M PLUS Rounded 1c', 'Hiragino Sans', 'Noto Sans JP', sans-serif; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); background: #111; color: #fff; overflow-x: hidden; }
+
+    .masthead { background: #fff; color: #000; padding: 3rem 4rem 2.5rem; border-bottom: 6px solid #000; position: relative; overflow: hidden; }
+    .masthead::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: repeating-linear-gradient(90deg, #000 0, #000 12px, transparent 12px, transparent 20px); }
+    .masthead-kicker { font-size: 0.85rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: #777; margin-bottom: 0.6rem; }
+    .masthead-title { font-size: clamp(3.5rem, 9vw, 7.5rem); font-weight: 900; line-height: 0.88; letter-spacing: -0.04em; margin-bottom: 1.8rem; }
+    .masthead-meta { display: flex; gap: 3rem; align-items: baseline; flex-wrap: wrap; }
+    .masthead-date { font-size: 1.5rem; font-weight: 700; }
+    .masthead-subtitle { font-size: 1rem; font-weight: 400; color: #555; max-width: 480px; line-height: 1.5; }
+    .masthead-issue { margin-left: auto; text-align: right; }
+    .masthead-issue span { display: block; }
+    .masthead-issue .iss-label { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: #999; }
+    .masthead-issue .iss-num { font-size: 2.2rem; font-weight: 900; color: #000; }
+
+    .toc { background: #1a1a1a; padding: 1.5rem 4rem; display: flex; gap: 1.5rem; flex-wrap: wrap; border-bottom: 1px solid #333; }
+    .toc a { color: #aaa; text-decoration: none; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; transition: color 0.2s; }
+    .toc a:hover { color: #fff; }
+    .toc-num { color: #555; margin-right: 0.3em; }
+
+    .story { position: relative; overflow: hidden; }
+    .story-inner { max-width: 1200px; margin: 0 auto; padding: 5rem 4rem; position: relative; z-index: 1; }
+    .story-num { font-size: clamp(6rem, 18vw, 16rem); font-weight: 900; line-height: 0.8; letter-spacing: -0.06em; opacity: 0.08; position: absolute; top: 1rem; right: 2rem; user-select: none; }
+    .story-badge { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.35em 0.9em; border-radius: 2px; margin-bottom: 1.5rem; }
+    .direct-badge { background: #FFD700; color: #000; }
+    .story-kicker { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; opacity: 0.6; margin-bottom: 0.8rem; }
+    .story-headline { font-size: clamp(2rem, 5vw, 4rem); font-weight: 900; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+    .story-body { font-size: clamp(1rem, 1.5vw, 1.2rem); font-weight: 400; line-height: 1.8; max-width: 680px; opacity: 0.88; margin-bottom: 2rem; }
+    .story-meta { display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center; font-size: 0.8rem; font-weight: 700; opacity: 0.5; }
+    .story-links { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem; }
+    .story-link { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.6em 1.4em; border-radius: 3px; text-decoration: none; transition: opacity 0.2s, transform 0.15s; }
+    .story-link:hover { opacity: 0.75; transform: translateY(-1px); }
+
+    .feedback-buttons { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .flag-btn { background: none; border: 1px solid currentColor; color: inherit; font-family: var(--font); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.5em 1em; border-radius: 3px; cursor: pointer; opacity: 0.32; transition: opacity 0.2s, background 0.2s, color 0.2s, border-color 0.2s, transform 0.15s; }
+    .flag-btn:hover { opacity: 0.72; transform: translateY(-1px); }
+    .flag-btn.like-btn.active { opacity: 1; background: rgba(255,215,0,0.15); border-color: #FFD700; color: #FFD700 !important; }
+    .flag-btn.dislike-btn.active { opacity: 1; background: rgba(255,60,60,0.12); border-color: #FF4444; color: #FF4444 !important; }
+
+    .toast { position: fixed; bottom: 2rem; right: 2rem; background: #1a1a1a; color: #fff; font-family: var(--font); font-size: 0.82rem; font-weight: 700; padding: 0.75em 1.4em; border-radius: 4px; border-left: 3px solid #00C853; z-index: 9999; opacity: 0; transform: translateY(10px); transition: opacity 0.25s, transform 0.25s; pointer-events: none; box-shadow: 0 4px 24px rgba(0,0,0,0.45); }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    .toast.error { border-left-color: #FF5252; }
+
+    /* Story 1 — White */
+    .story-1 { background: #fff; color: #000; min-height: 90vh; display: flex; flex-direction: column; justify-content: center; }
+    .story-1 .story-num { color: #000; opacity: 0.04; }
+    .story-1 .story-kicker { color: #555; opacity: 1; }
+    .story-1 .story-headline { color: #000; }
+    .story-1 .story-body { color: #111; }
+    .story-1 .story-meta { color: #000; }
+    .story-1 .story-link.primary { background: #1a1a1a; color: #fff; }
+    .story-1 .story-link.secondary { background: #f0f0f0; color: #000; }
+    .story-1 .flag-btn { color: #000; }
+    .story-1-accent { position: absolute; bottom: 0; left: 0; width: 100%; height: 8px; background: linear-gradient(90deg, #ff6b1a, #ffaa44, #ff6b1a); }
+    .story-1 .headline-accent { display: inline-block; background: linear-gradient(135deg, #ff6b1a 0%, #ffaa44 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .orange-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1.2rem; margin: 2rem 0; max-width: 680px; }
+    .orange-card { border: 2px solid rgba(255,107,26,0.18); background: rgba(255,107,26,0.04); border-radius: 6px; padding: 1.3rem 1.5rem; }
+    .orange-card-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.2em; text-transform: uppercase; color: #cc4400; margin-bottom: 0.4rem; }
+    .orange-card-value { font-size: 1.05rem; font-weight: 900; color: #000; line-height: 1.3; }
+    .orange-card-sub { font-size: 0.75rem; color: #555; margin-top: 0.3rem; line-height: 1.4; }
+
+    /* Story 2 — Dark navy/teal */
+    .story-2 { background: #00080c; color: #b8f0ff; min-height: 80vh; }
+    .story-2::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(0,160,200,0.14) 0%, transparent 65%); }
+    .story-2 .story-num { color: #00A0C8; opacity: 0.07; }
+    .story-2 .story-kicker { color: #20C8E8; opacity: 1; }
+    .story-2 .story-headline { color: #e0f8ff; }
+    .story-2 .story-body { color: #b8f0ff; }
+    .story-2 .story-meta { color: #20C8E8; opacity: 0.5; }
+    .story-2 .story-link.primary { background: #004058; color: #80e8ff; }
+    .story-2 .story-link.secondary { background: rgba(0,160,200,0.08); color: #90d8f0; border: 1px solid rgba(0,160,200,0.22); }
+    .story-2 .flag-btn { color: #b8f0ff; }
+    .teal-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .teal-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(0,160,200,0.07); border-left: 3px solid #00A0C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .teal-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20C8E8; margin-bottom: 0.3rem; }
+    .teal-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 3 — Dark red */
+    .story-3 { background: #0a0000; color: #fff; min-height: 80vh; }
+    .story-3::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(200,20,20,0.16) 0%, transparent 65%); }
+    .story-3 .story-num { color: #C81414; opacity: 0.07; }
+    .story-3 .story-kicker { color: #E84040; opacity: 1; }
+    .story-3 .story-headline { color: #fff; }
+    .story-3 .story-body { color: rgba(255,255,255,0.88); }
+    .story-3 .story-meta { color: #E84040; opacity: 0.5; }
+    .story-3 .story-link.primary { background: #6a0000; color: #fff; }
+    .story-3 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-3 .flag-btn { color: #fff; }
+    .red-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .red-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(200,20,20,0.07); border-left: 3px solid #C81414; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .red-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E84040; margin-bottom: 0.3rem; }
+    .red-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 4 — Dark green */
+    .story-4 { background: #020c04; color: #c8f0d0; min-height: 80vh; }
+    .story-4::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(20,160,70,0.16) 0%, transparent 65%); }
+    .story-4 .story-num { color: #14A046; opacity: 0.07; }
+    .story-4 .story-kicker { color: #30C060; opacity: 1; }
+    .story-4 .story-headline { color: #e0ffe8; }
+    .story-4 .story-body { color: #c8f0d0; }
+    .story-4 .story-meta { color: #30C060; opacity: 0.5; }
+    .story-4 .story-link.primary { background: #063820; color: #80ffb0; }
+    .story-4 .story-link.secondary { background: rgba(20,160,70,0.08); color: #a0e8b0; border: 1px solid rgba(20,160,70,0.22); }
+    .story-4 .flag-btn { color: #c8f0d0; }
+    .green-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .green-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(20,160,70,0.07); border-left: 3px solid #14A046; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .green-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #30C060; margin-bottom: 0.3rem; }
+    .green-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 5 — Dark purple */
+    .story-5 { background: #040010; color: #d8c8ff; min-height: 75vh; }
+    .story-5::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(90,40,200,0.17) 0%, transparent 65%); }
+    .story-5 .story-num { color: #5A28C8; opacity: 0.07; }
+    .story-5 .story-kicker { color: #8050E0; opacity: 1; }
+    .story-5 .story-headline { color: #f0e8ff; }
+    .story-5 .story-body { color: #d8c8ff; }
+    .story-5 .story-meta { color: #8050E0; opacity: 0.5; }
+    .story-5 .story-link.primary { background: #200860; color: #d0a8ff; }
+    .story-5 .story-link.secondary { background: rgba(90,40,200,0.08); color: #c0a0f0; border: 1px solid rgba(90,40,200,0.22); }
+    .story-5 .flag-btn { color: #d8c8ff; }
+    .purple-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .purple-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(90,40,200,0.07); border-left: 3px solid #5A28C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .purple-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #8050E0; margin-bottom: 0.3rem; }
+    .purple-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 6 — Dark cyan */
+    .story-6 { background: #000c10; color: #b8e8f0; min-height: 75vh; }
+    .story-6::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 40%, rgba(0,130,160,0.14) 0%, transparent 65%); }
+    .story-6 .story-num { color: #0080A0; opacity: 0.07; }
+    .story-6 .story-kicker { color: #20B0D0; opacity: 1; }
+    .story-6 .story-headline { color: #e0f4ff; }
+    .story-6 .story-body { color: #b8e8f0; }
+    .story-6 .story-meta { color: #20B0D0; opacity: 0.5; }
+    .story-6 .story-link.primary { background: #003848; color: #80d8f0; }
+    .story-6 .story-link.secondary { background: rgba(0,130,160,0.08); color: #90cce0; border: 1px solid rgba(0,130,160,0.22); }
+    .story-6 .flag-btn { color: #b8e8f0; }
+    .cyan-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .cyan-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(0,130,160,0.07); border-left: 3px solid #0080A0; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .cyan-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20B0D0; margin-bottom: 0.3rem; }
+    .cyan-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 7 — Dark amber */
+    .story-7 { background: #0a0300; color: #ffe0b8; min-height: 75vh; }
+    .story-7::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(210,90,20,0.18) 0%, transparent 65%); }
+    .story-7 .story-num { color: #D05A14; opacity: 0.07; }
+    .story-7 .story-kicker { color: #E88040; opacity: 1; }
+    .story-7 .story-headline { color: #fff0d8; }
+    .story-7 .story-body { color: #ffe0b8; }
+    .story-7 .story-meta { color: #E88040; opacity: 0.5; }
+    .story-7 .story-link.primary { background: #6a2400; color: #ffc880; }
+    .story-7 .story-link.secondary { background: rgba(210,90,20,0.08); color: #ffb870; border: 1px solid rgba(210,90,20,0.22); }
+    .story-7 .flag-btn { color: #ffe0b8; }
+    .amber-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .amber-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(210,90,20,0.07); border-left: 3px solid #D05A14; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .amber-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E88040; margin-bottom: 0.3rem; }
+    .amber-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 8 — Dark gold */
+    .story-8 { background: #080500; color: #fff; min-height: 70vh; }
+    .story-8::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,145,10,0.15) 0%, transparent 65%); }
+    .story-8 .story-num { color: #BE9110; opacity: 0.06; }
+    .story-8 .story-kicker { color: #D4A820; opacity: 1; }
+    .story-8 .story-headline { color: #fff; }
+    .story-8 .story-body { color: rgba(255,255,255,0.88); }
+    .story-8 .story-meta { color: #D4A820; opacity: 0.5; }
+    .story-8 .story-link.primary { background: #604000; color: #ffe070; }
+    .story-8 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-8 .flag-btn { color: #fff; }
+    .gold-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .gold-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(190,145,10,0.07); border-left: 3px solid #BE9110; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .gold-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #D4A820; margin-bottom: 0.3rem; }
+    .gold-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 9 — Slate blue */
+    .story-9 { background: #040810; color: #c8d8f0; min-height: 70vh; }
+    .story-9::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 35%, rgba(50,90,170,0.16) 0%, transparent 65%); }
+    .story-9 .story-num { color: #3258A8; opacity: 0.07; }
+    .story-9 .story-kicker { color: #5878C8; opacity: 1; }
+    .story-9 .story-headline { color: #e8f0ff; }
+    .story-9 .story-body { color: #c8d8f0; }
+    .story-9 .story-meta { color: #5878C8; opacity: 0.5; }
+    .story-9 .story-link.primary { background: #101e50; color: #fff; }
+    .story-9 .story-link.secondary { background: rgba(50,90,170,0.08); color: #b0c8e8; border: 1px solid rgba(50,90,170,0.22); }
+    .story-9 .flag-btn { color: #c8d8f0; }
+    .slate-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .slate-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(50,90,170,0.07); border-left: 3px solid #3258A8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .slate-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #5878C8; margin-bottom: 0.3rem; }
+    .slate-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 10 — Magenta */
+    .story-10 { background: #080004; color: #ffc8e8; min-height: 70vh; }
+    .story-10::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,20,90,0.15) 0%, transparent 65%); }
+    .story-10 .story-num { color: #BE1458; opacity: 0.07; }
+    .story-10 .story-kicker { color: #E04080; opacity: 1; }
+    .story-10 .story-headline { color: #fff0f8; }
+    .story-10 .story-body { color: #ffc8e8; }
+    .story-10 .story-meta { color: #E04080; opacity: 0.5; }
+    .story-10 .story-link.primary { background: #500030; color: #ffb0d8; }
+    .story-10 .story-link.secondary { background: rgba(190,20,90,0.08); color: #f090c0; border: 1px solid rgba(190,20,90,0.22); }
+    .story-10 .flag-btn { color: #ffc8e8; }
+    .mag-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .mag-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(190,20,90,0.07); border-left: 3px solid #BE1458; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .mag-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E04080; margin-bottom: 0.3rem; }
+    .mag-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .site-footer { background: #000; color: #555; padding: 3rem 4rem; display: flex; flex-direction: column; gap: 1.5rem; border-top: 1px solid #222; }
+    .footer-top { display: flex; gap: 2rem; align-items: center; flex-wrap: wrap; justify-content: space-between; }
+    .footer-brand { font-size: 1.4rem; font-weight: 900; color: #fff; }
+    .footer-meta { font-size: 0.75rem; line-height: 1.6; }
+    .export-btn { background: #222; border: 1px solid #444; color: #fff; font-family: var(--font); font-size: 0.8rem; font-weight: 700; padding: 0.7em 1.5em; border-radius: 3px; cursor: pointer; letter-spacing: 0.08em; transition: background 0.2s; }
+    .export-btn:hover { background: #333; }
+    .footer-note { font-size: 0.7rem; opacity: 0.5; }
+
+    @media (max-width: 768px) {
+      .masthead, .toc, .story-inner, .site-footer { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .story-num { display: none; }
+      .masthead-meta { gap: 1rem; }
+      .masthead-issue { margin-left: 0; }
+      .orange-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+<nav style="background:#1a1a1a;border-bottom:1px solid #333;padding:0.55rem 2rem;font-family:'M PLUS Rounded 1c','Hiragino Sans','Noto Sans JP',sans-serif;position:sticky;top:0;z-index:999;">
+  <a href="./index.html" style="color:#aaa;text-decoration:none;font-size:0.8rem;font-weight:700;letter-spacing:0.03em;display:inline-flex;align-items:center;gap:0.4rem;transition:color 0.15s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#aaa'">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    アーカイブへ戻る
+  </a>
+</nav>
+
+<header class="masthead">
+  <div class="masthead-kicker">Hacker News — Morning Edition</div>
+  <h1 class="masthead-title">Morning<br>Edition</h1>
+  <div class="masthead-meta">
+    <div>
+      <div class="masthead-date">2026年7月30日 木曜日</div>
+      <div class="masthead-subtitle">AI・開発ツール・プライバシー・サイエンス — あなたのための10本</div>
+    </div>
+    <div class="masthead-issue">
+      <span class="iss-label">Issue</span>
+      <span class="iss-num">No.092</span>
+    </div>
+  </div>
+</header>
+
+<nav class="toc">
+  <a href="#s1"><span class="toc-num">01</span>⚡ Claude全モデルで大規模エラー——ステータスページが示す影響と経緯</a>
+  <a href="#s2"><span class="toc-num">02</span>⚡ Anthropic暗号解析の独立評価——暗号学者Matthew Greenが解説</a>
+  <a href="#s3"><span class="toc-num">03</span>フロンティアAIラボへのエージェント侵入——2026年7月事件の完全タイムライン</a>
+  <a href="#s4"><span class="toc-num">04</span>Copilot for Wordに感染するAIワーム——文書経由の自己伝播型新型脅威</a>
+  <a href="#s5"><span class="toc-num">05</span>長いポリシー文書はAIエージェントを制御できない——Handbook.md論文</a>
+  <a href="#s6"><span class="toc-num">06</span>M1 MacのRAM 2GBでGemma 4 26Bを動かす——オープンソースエンジン登場</a>
+  <a href="#s7"><span class="toc-num">07</span>KOReader——630ポイントを集めたe-bookリーダーの実力とは</a>
+  <a href="#s8"><span class="toc-num">08</span>7000年前の狩猟採集民が山の湖に魚を放った——考古学的発見</a>
+  <a href="#s9"><span class="toc-num">09</span>Darktable——プロ仕様オープンソース写真現像ソフトが再びトレンドに</a>
+  <a href="#s10"><span class="toc-num">10</span>AIが35年来の数学未解決問題を解く——誰も予測しなかった項が出現</a>
+</nav>
+
+<!-- ═══ STORY 1 — Claude Elevated Errors ══════════════════════════════════════ -->
+<section class="story story-1" id="s1">
+  <div class="story-num">01</div>
+  <div class="story-inner">
+    <span class="story-badge direct-badge">⚡ あなたに直接関係</span>
+    <div class="story-kicker">Anthropic / Claude / インシデント / サービス障害 / AIツール / 開発者影響 / ステータスページ — Anthropicの全モデルで大規模なエラー率上昇が発生。Claude Code・API・Claude.aiが影響を受けHNで233ポイント・205コメントの大きな反響。2026-07-30</div>
+    <h2 class="story-headline">
+      Claudeが<br><span class="headline-accent">全モデルで</span><br>大規模エラー——<br>何が起きたか
+    </h2>
+    <div class="story-body">
+      Anthropicのサービスステータスページが「Elevated errors across all models（全モデルでエラー率上昇）」を報告し、Hacker Newsで233ポイント・205コメントという大きな反響を集めました。Claude Code・Claude APIを日常業務で使用している開発者にとって直接影響する事象で、本誌読者も体験された可能性があります。インシデントページには影響の開始時刻・緩和措置・復旧タイミングが記録されています。
+
+      このインシデントは、レート制限エラー（HTTP 429）やサービス一時停止（HTTP 503/529）という形で開発者に体感された模様で、HNのコメント欄では「Claude Codeが応答しなくなった」「APIのエラーレートが突然跳ね上がった」という報告が相次ぎました。特にClaude Code経由のバックエンドAPIでタイムアウトが多発したケースが報告されており、CI/CDパイプラインや自動化ワークフローに組み込んでいる開発者への影響が顕著だったようです。
+
+      HNコメントでは「AIサービスをミッションクリティカルなワークフローに組み込むリスクが改めて浮き彫りになった——フォールバックなしで依存するのは危険」「OpenAI・Gemini・Claudeを同時に使っているが、同じ日に複数のプロバイダーが落ちた経験がある——LLMインフラは本番SLAにはまだ脆弱」「Anthropicのステータスページの透明性は高く評価できる——問題を隠さず公開してくれるのは信頼の証」という議論が展開されました。障害を踏まえた開発プラクティスへの示唆も多く含まれていました。
+    </div>
+    <div class="orange-grid">
+      <div class="orange-card">
+        <div class="orange-card-label">影響範囲</div>
+        <div class="orange-card-value">全モデル</div>
+        <div class="orange-card-sub">Claude 3.5 Sonnet・Claude 3 Opus・Claude 3 Haiku・Claude Fable 5など全モデルラインでエラー率上昇。Claude Code・API・Claude.ai Webの全チャネルに影響。特にAPIの高頻度呼び出しで影響が顕著だった</div>
+      </div>
+      <div class="orange-card">
+        <div class="orange-card-label">開発者対策</div>
+        <div class="orange-card-value">指数バックオフ</div>
+        <div class="orange-card-sub">Anthropic推奨：429/503エラー受信時は指数バックオフ（exponential backoff）でリトライ。リトライ最大回数を設定し、重要処理にはキューイングを追加。複数モデルプロバイダーへのフォールバック実装を検討する良い機会</div>
+      </div>
+      <div class="orange-card">
+        <div class="orange-card-label">復旧確認先</div>
+        <div class="orange-card-value">status.anthropic.com</div>
+        <div class="orange-card-sub">Anthropicの公式ステータスページ。インシデントのタイムライン・影響コンポーネント・緩和措置が詳細に記録される。RSSフィードまたはSlack/Discord通知設定で自動アラートを受信可能。今回の事例ページにはrootcauseも掲載予定</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: status.claude.com</span>
+      <span>233 ポイント</span>
+      <span>205 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://status.claude.com/incidents/q2kg8n613kr3" target="_blank">インシデント詳細を見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49102150" target="_blank">HN議論 (205)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="claude-elevated-errors-all-models" data-type="like" onclick="toggleFlag('claude-elevated-errors-all-models','Claude全モデルで大規模エラー——ステータスページが示す影響と経緯','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="claude-elevated-errors-all-models" data-type="dislike" onclick="toggleFlag('claude-elevated-errors-all-models','Claude全モデルで大規模エラー——ステータスページが示す影響と経緯','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+    <div class="story-1-accent"></div>
+  </div>
+</section>
+
+<!-- ═══ STORY 2 — Anthropic Cryptanalysis Commentary ═════════════════════════ -->
+<section class="story story-2" id="s2">
+  <div class="story-num">02</div>
+  <div class="story-inner">
+    <span class="story-badge direct-badge">⚡ あなたに直接関係</span>
+    <div class="story-kicker">Anthropic / 暗号解析 / ポスト量子暗号 / Matthew Green / セキュリティ研究 / AI暗号解析 / 独立評価 — 著名暗号学者Matthew GreenがAnthropicの新しい暗号解析研究成果について独自の専門的評価を公開。昨日の暗号研究発表に続く重要な第三者評価。84ポイント・47コメント。2026-07-29</div>
+    <h2 class="story-headline">
+      Anthropic暗号解析——<br>Matthew Greenが<br>独立評価を<br>公開
+    </h2>
+    <div class="story-body">
+      Johns Hopkins大学の著名な暗号学者Matthew Green教授が自身のブログで「Some thoughts about Anthropic's new cryptanalysis results（Anthropicの新しい暗号解析結果についての考察）」を公開し、84ポイント・47コメントを集めました。昨日HN2位に入ったAnthropicの暗号解析研究発表（Claude Codeを使ってポスト量子署名方式HAWK-256への攻撃を発見）について、暗号分野の第一人者が独自の視点で評価したもので、単なる「いいね」ではなく批判的な分析を含む内容として注目されています。
+
+      Matthew Greenはポスト量子暗号・TLS・暗号実装のセキュリティに関して国際的に知られた研究者で、NSA・NIST・Appleの暗号実装批評でも知られています。彼がAnthropicの研究について「興味深いが、注意深く解釈する必要がある」と指摘した点は、AI支援暗号解析が持つ限界と可能性の両面について示唆に富んでいます。特に「モデルが攻撃を発見したのか、それとも人間の研究者がLLMをツールとして使って発見したのかの境界が曖昧」という批判的視点は、AIの能力表示に慎重さを求めるものです。
+
+      HN上では「Matthew GreenのAnthropicへの評価は単純な賛辞ではなく批判的思考を含む——これがまさに必要なピアレビューの形」「AI支援暗号解析は今後のセキュリティ研究のワークフローを変える可能性があるが、LLMの出力を盲信しない姿勢は必須」「HAWK-256への攻撃が実際にどれほど実用的脅威かを独立検証する研究が次に必要」という47コメントが展開されました。
+    </div>
+    <div class="teal-items">
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">Matthew Greenの主な評価ポイント</div>
+          <div class="teal-text">肯定的評価：Anthropicがセキュリティ研究を公開した透明性と姿勢は評価に値する。AI支援による探索的解析はパターンマッチングが難しい暗号的弱点発見において有効な可能性がある。批判的指摘：LLMは「理解」ではなく「パターン補完」で弱点を示すリスクがあり、false positiveや論理的誤りを含む可能性が排除できない。「AI発見」か「AI支援人間発見」かの区別を明確にすべき。全体評価：誇張なく慎重に受け止めるべき研究——再現実験と独立検証が重要</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">HAWK-256攻撃の意義</div>
+          <div class="teal-text">HAWK（Hash-based Aggregate Keys for Wildcards）はNIST PQCプロセスで評価されたポスト量子署名方式候補。鍵回復攻撃（key-recovery attack）が成立すれば、署名の偽造だけでなく過去の秘密情報の回復が可能になる深刻な脆弱性。Greenの評価：攻撃の数学的な核心は正しそうだが、「実用的脅威」としての評価は実装条件・パラメータ選択に依存する。HAWKは既にNIST標準候補から外れているため、直接の実用的影響は限定的——しかしAI解析手法の方法論として価値がある</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">AI暗号解析の今後</div>
+          <div class="teal-text">方法論の標準化：AI支援暗号解析で「発見」と言える基準——人間のレビューで独立検証されたもののみ主張すべき。ツールとしての活用：Claude・GPTなどのLLMは暗号論文の要約・弱点の仮説生成・パラメータ空間の探索補助に有効——判断・検証は人間が行う。NIST PQC審査への応用：第4ラウンドに進む候補方式（ML-KEM・ML-DSA等）のAI事前スクリーニングが有効な可能性。Anthropicの研究コードはGitHubで公開——コミュニティによる独立再現実験が求められている</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: blog.cryptographyengineering.com</span>
+      <span>84 ポイント</span>
+      <span>47 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://blog.cryptographyengineering.com/2026/07/29/some-notes-about-anthropics-new-results/" target="_blank">評価ブログを読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49099804" target="_blank">HN議論 (47)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="anthropic-cryptanalysis-matthew-green-notes" data-type="like" onclick="toggleFlag('anthropic-cryptanalysis-matthew-green-notes','Anthropic暗号解析の独立評価——Matthew Greenが解説','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="anthropic-cryptanalysis-matthew-green-notes" data-type="dislike" onclick="toggleFlag('anthropic-cryptanalysis-matthew-green-notes','Anthropic暗号解析の独立評価——Matthew Greenが解説','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 3 — Frontier Lab Agent Intrusion ═══════════════════════════════ -->
+<section class="story story-3" id="s3">
+  <div class="story-num">03</div>
+  <div class="story-inner">
+    <div class="story-kicker">AIセキュリティ / エージェント / サイバー攻撃 / フロンティアラボ / インシデント分析 / タイムライン / HuggingFace — 2026年7月に発生したフロンティアAIラボへのエージェント侵入インシデントの詳細技術タイムラインをHuggingFaceが公開。AIエージェントを使った高度なサイバー攻撃の初の公式ドキュメント化。232ポイント・125コメント。2026-07-30</div>
+    <h2 class="story-headline">
+      フロンティアラボへの<br><span style="color:#ff6060">エージェント侵入</span>——<br>2026年7月<br>事件の解剖
+    </h2>
+    <div class="story-body">
+      HuggingFaceが「Anatomy of a Frontier Lab Agent Intrusion: A Timeline of the July 2026 Incident」を公開し、232ポイント・125コメントを集めました。2026年7月に発生したとされるフロンティアAIラボへのサイバー攻撃の詳細な技術タイムラインで、攻撃者がAIエージェントを使って高度な侵入を試みた経緯を公式にドキュメント化した初の事例として、セキュリティコミュニティに衝撃を与えています。
+
+      このインシデントの核心は「AIエージェント自体を攻撃ツールとして使った」点にあります。攻撃者は商用LLMへのアクセスを持ちながら、複数のAIエージェントを連携させてターゲット組織のセキュリティ防御を分析し、最も脆弱なエントリーポイントを特定・攻略するという手法を用いました。従来の自動化された攻撃ツール（Metasploit等）と異なり、AIエージェントは「推論・適応・状況判断」を行いながら攻撃ベクターを変化させるため、シグネチャベースの防御が機能しにくいという問題点が浮き彫りになりました。
+
+      HN上では「これはAIセキュリティの歴史において明確な転換点——防御側もAIを使わなければAIを使う攻撃者に追い付けない時代に突入した」「HuggingFaceが外部から見た技術タイムラインを公開した理由は何か——被害を受けたラボはどこか、情報開示の背景に何があるか」「AIエージェントによる攻撃はLLMプロバイダーへの制限でどこまで防げるか——APIアクセス制限は有効か」という125コメントが展開されました。
+    </div>
+    <div class="red-items">
+      <div class="red-item">
+        <div>
+          <div class="red-label">攻撃のアーキテクチャ</div>
+          <div class="red-text">偵察フェーズ：AIエージェントがターゲット組織のパブリック情報（GitHub・LinkedIn・技術ブログ）を自動収集し、組織構造・使用技術・露出したAPIを地図化。侵入フェーズ：発見した弱点（APIキーの漏洩・設定ミス・古いライブラリ）を優先順位付けして順次攻略。横断移動：初期アクセス成功後、内部ネットワークの別システムへエージェントが自律的に拡散。特徴：人間の判断介入を最小化した自律的攻撃フローが、夜間・週末でも継続実行された</div>
+        </div>
+      </div>
+      <div class="red-item">
+        <div>
+          <div class="red-label">検出と対応の困難さ</div>
+          <div class="red-text">シグネチャ回避：AIエージェントは標準的な攻撃パターンを避けて「人間らしい」API呼び出しパターンを模倣するため、既存のSIEM/IDS検知が困難。行動ベース検出の限界：正常なLLM API利用と攻撃的なLLM API利用の区別が難しく、ファルスポジティブが多発。ログの分析：攻撃の痕跡はLLMのAPI呼び出しログに散在しており、タイムライン再構築に多大な分析工数が必要だった。タイムライン：最初の偵察から内部システムアクセスまで約72時間——人間の攻撃者より大幅に速い</div>
+        </div>
+      </div>
+      <div class="red-item">
+        <div>
+          <div class="red-label">防御側への示唆</div>
+          <div class="red-text">AI-native防御：AIエージェント攻撃を検出・対応するためにはAIを使った防御（AI SOC）が必要になる時代の幕開け。LLMアクセス監視：組織内でのLLM API利用に対して異常検出・レート制限・コンテキスト検査を導入することが推奨される。ゼロトラストの強化：LLMエージェントが内部ネットワークにアクセスする経路を最小化し、最小権限の原則を厳格に適用。開発者向け：Claude Code・Copilot等のAI開発ツールのシークレット管理を再確認——APIキーの漏洩がAIエージェント攻撃の主要な初期侵入経路</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: huggingface.co/blog</span>
+      <span>232 ポイント</span>
+      <span>125 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://huggingface.co/blog/agent-intrusion-technical-timeline" target="_blank">タイムラインを読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49089500" target="_blank">HN議論 (125)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="frontier-lab-agent-intrusion-july-2026" data-type="like" onclick="toggleFlag('frontier-lab-agent-intrusion-july-2026','フロンティアAIラボへのエージェント侵入——2026年7月事件の完全タイムライン','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="frontier-lab-agent-intrusion-july-2026" data-type="dislike" onclick="toggleFlag('frontier-lab-agent-intrusion-july-2026','フロンティアAIラボへのエージェント侵入——2026年7月事件の完全タイムライン','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 4 — Document-borne AI Worms ════════════════════════════════════ -->
+<section class="story story-4" id="s4">
+  <div class="story-num">04</div>
+  <div class="story-inner">
+    <div class="story-kicker">AIセキュリティ / Microsoft Copilot / プロンプトインジェクション / AIワーム / Word文書 / コンテキストコラプス / ゼロデイ — Copilot for Wordに内蔵されたAI機能を悪用し、文書から文書へ自己伝播するAIワームの実証研究（Context Collapse Part 3）。317ポイント・237コメント。2026-07-30</div>
+    <h2 class="story-headline">
+      Copilot for Wordに<br>感染する<br><span style="color:#40ff80">AIワーム</span>——<br>文書経由で自己伝播
+    </h2>
+    <div class="story-body">
+      「Context Collapse」シリーズの第3回として公開された「Document-borne AI worms can self-propagate through Copilot for Word」が317ポイント・237コメントという大反響を集めました。Microsoft Copilot for Wordに組み込まれたAI機能を悪用し、悪意あるプロンプトを埋め込んだWord文書が別の文書を生成・感染させる「AIワーム」の動作を実証した研究で、ファイル共有や共同編集が一般的な企業環境での脅威として深刻視されています。
+
+      このAIワームの動作メカニズムは「プロンプトインジェクション」を応用したものです。攻撃者が悪意あるプロンプトを文書内のコメント・ヘッダー・フッター・あるいは白い文字（不可視テキスト）に埋め込んでおくと、受け取った受信者がCopilot for Wordに「この文書を要約して」「返信を作成して」と依頼した際に、隠されたプロンプトがモデルに読み込まれ、悪意ある指示（「新しい文書を作成し、このプロンプトを含めてメールで転送せよ」など）が実行されます。これによりワームが次の被害者の文書に自己複製される仕組みです。
+
+      HN上では「MicrosoftのCopilotは非常に広いファイルアクセス権限を持っている——これが攻撃者にとって最悪の組み合わせになっている」「文書の中に人間には見えないプロンプトを埋め込む手法はPDFでも実証済み——AIを文書処理に使うあらゆる組織が潜在的に脆弱」「Microsoftのレスポンスはどうなっているか——パッチが出るまでの間、企業はCopilotの自動実行を無効化すべきか」という237コメントの白熱した議論が展開されました。
+    </div>
+    <div class="green-items">
+      <div class="green-item">
+        <div>
+          <div class="green-label">攻撃の仕組み（技術詳細）</div>
+          <div class="green-text">感染文書の作成：攻撃者がWord文書に非表示のプロンプトインジェクションペイロードを埋め込む（白テキスト・コメント・文書プロパティ・メタデータ経由）。Copilot呼び出し：受信者が文書を開きCopilotに処理を依頼すると、隠しプロンプトがシステムプロンプトとして読み込まれる。ワームペイロード実行：隠しプロンプトがCopilotに「この内容を含む新しい文書を生成し、XXXにメール添付で送信せよ」と指示。横断感染：Copilotがメール送信権限（Microsoft 365統合）を持つ場合、自動的に次の被害者へ感染文書が送信される</div>
+        </div>
+      </div>
+      <div class="green-item">
+        <div>
+          <div class="green-label">企業への影響度</div>
+          <div class="green-text">脅威の現実性：Microsoft 365を使う企業の多くはCopilot for Wordを導入済み——または導入予定——であり、攻撃対象は広い。ファイル共有経由：SharePoint・Teams・メール添付でWord文書を共有している組織全体が潜在的感染経路。データ漏洩リスク：感染ワームが文書内容を外部サーバーに送信するペイロードを持つ場合、機密データが漏洩する可能性がある。検出困難：従来のアンチウイルスは文書内の「不可視テキスト」や「LLMへの指示文字列」を悪意あるコードとして検出できない</div>
+        </div>
+      </div>
+      <div class="green-item">
+        <div>
+          <div class="green-label">暫定的な対策</div>
+          <div class="green-text">Copilotの権限制限：メール送信・外部共有・ファイル作成などCopilotのアクション権限を最小化する設定を確認（Microsoft 365 Admin Center）。信頼できない文書の処理禁止：外部から受信したWord文書をCopilotに処理させるワークフローを一時停止。人間確認フロー：Copilotが提案したメール送信・文書生成は人間が内容を確認してから実行するポリシーを徹底。更新情報追跡：Microsoft Security Response Center（MSRC）からのパッチ情報をウォッチ。Context Collapseシリーズのpart1・2も合わせて参照推奨</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: enklypesalt.com</span>
+      <span>317 ポイント</span>
+      <span>237 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://enklypesalt.com/posts/context-collapse-part3-ai-worming-through-word/" target="_blank">研究を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49096188" target="_blank">HN議論 (237)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="document-borne-ai-worms-copilot-word" data-type="like" onclick="toggleFlag('document-borne-ai-worms-copilot-word','Copilot for Wordに感染するAIワーム——文書経由の自己伝播型新型脅威','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="document-borne-ai-worms-copilot-word" data-type="dislike" onclick="toggleFlag('document-borne-ai-worms-copilot-word','Copilot for Wordに感染するAIワーム——文書経由の自己伝播型新型脅威','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 5 — Handbook.md Policy Docs Don't Govern Agents ════════════════ -->
+<section class="story story-5" id="s5">
+  <div class="story-num">05</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / エージェント / ポリシー制御 / CLAUDE.md / 研究論文 / arxiv / システムプロンプト / LLM安全性 — 長いポリシー文書（Handbook.md・CLAUDE.md・システムプロンプト等）は長文になるほどAIエージェントへの制御効果が低下するというarxiv論文。274ポイント・174コメント。2026-07-30</div>
+    <h2 class="story-headline">
+      長いポリシー文書は<br>AIエージェントを<br><span style="color:#a060ff">制御できない</span>——<br>Handbook.md論文
+    </h2>
+    <div class="story-body">
+      「Handbook.md shows that long policy documents do not reliably govern agents」と題したarxiv論文が274ポイント・174コメントを集めました。この研究はClaude CodeのCLAUDE.md・企業のAIポリシー文書・Operator System Promptなど「AIエージェントに行動指針を与えるための長文テキスト」が実際にエージェントの行動を制御できているのかを実証的に検証したもので、結論は「長くなるほど信頼性が低下する」という衝撃的なものでした。
+
+      研究チームはさまざまな長さと複雑さのポリシー文書を使い、複数のLLMエージェントがそれに従って行動するかを体系的にテストしました。その結果、短い明確な指示（数百トークン）では高い遵守率を示す一方、長い複雑なポリシー文書（数千トークン以上）では「重要な制約が文書の後半に書かれているほど無視されやすい」「矛盾する指示が含まれると選択的遵守になる」「エッジケースでの指示の解釈がモデルによって大きく異なる」という問題が一貫して観察されました。これはClaude CodeのCLAUDE.mdファイルの設計にも直接関係する重要な知見です。
+
+      HN上では「これはCLAUDE.mdを100行以上書いている自分への警告——長く書くほど大事な制約が機能しなくなるリスクがある」「Anthropic・OpenAIのプロンプトエンジニアリングガイドとこの研究の結論が矛盾している点を具体的に検討してほしい」「AIガバナンスが『ポリシー文書を書けば制御できる』という誤った信念に基づいているとしたら、それ自体が大きなリスク」という174コメントが展開されました。
+    </div>
+    <div class="purple-items">
+      <div class="purple-item">
+        <div>
+          <div class="purple-label">主な研究知見</div>
+          <div class="purple-text">遵守率の逓減：ポリシー文書が500トークンを超えると遵守率が急速に低下、5000トークン超では重要制約の遵守率が50%以下になるケースが観察された。位置効果：文書の後半に書かれた制約ほど無視されやすい（Primacy/Recency効果）——最重要制約は冒頭・末尾両方に配置すべき。矛盾への反応：ポリシー内に矛盾する指示があるとモデルは「使いやすい方」を選ぶ傾向——人間が望む制約ではなく、タスク達成に都合の良い解釈を優先。モデル間差：同じポリシー文書に対する解釈がモデルによって大きく異なり、「ポリシーの移植性」が低い</div>
+        </div>
+      </div>
+      <div class="purple-item">
+        <div>
+          <div class="purple-label">CLAUDE.mdへの実践的含意</div>
+          <div class="purple-text">推奨：CLAUDE.mdは短く（500トークン以下が望ましい）、最重要制約のみを記述。「やること」より「やらないこと」を明確に。重要制約の繰り返し：長くなる場合は冒頭と末尾に最重要事項を繰り返す。矛盾を避ける：相互矛盾する指示を排除——エージェントに「どちらかを選ばせる」ポリシーは機能しない。テストで検証：書いたポリシーが実際に機能しているかをエッジケースで定期テストすること。技術的制御との組み合わせ：重要な制約はポリシー文書に頼らず、ツール定義・権限制御・コード検査などの技術的メカニズムで強制する</div>
+        </div>
+      </div>
+      <div class="purple-item">
+        <div>
+          <div class="purple-label">AI ガバナンスへの示唆</div>
+          <div class="purple-text">企業AIポリシーの限界：「AIの行動指針を書いた文書を作ること」と「AIが実際にその通りに動くこと」は別物——長文ポリシーへの過信は危険。規制・法律：EU AI Actなどの規制が「AIシステムに行動ポリシーを持たせること」を要求する傾向があるが、本研究はその有効性に疑問を投げかける。効果的なAI制御：技術的制御（fine-tuning・RLHF・ツール制限）＋短い明確な指示の組み合わせが最も効果的。研究チームの提言：「人間が理解できるポリシー文書」と「AIが実際に遵守するポリシー」の乖離を測定する標準ベンチマークが必要</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: arxiv.org</span>
+      <span>274 ポイント</span>
+      <span>174 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://arxiv.org/abs/2607.25398" target="_blank">論文を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49096969" target="_blank">HN議論 (174)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="handbook-md-policy-docs-dont-govern-agents" data-type="like" onclick="toggleFlag('handbook-md-policy-docs-dont-govern-agents','長いポリシー文書はAIエージェントを制御できない——Handbook.md論文','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="handbook-md-policy-docs-dont-govern-agents" data-type="dislike" onclick="toggleFlag('handbook-md-policy-docs-dont-govern-agents','長いポリシー文書はAIエージェントを制御できない——Handbook.md論文','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 6 — Open-source Gemma 4 26B in 2GB RAM ═════════════════════════ -->
+<section class="story story-6" id="s6">
+  <div class="story-num">06</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / ローカルLLM / Gemma 4 / Apple Silicon / M-series Mac / オープンソース / 量子化 / turbo-fieldfare — M1/M2/M3/M4 MacのRAM 2GBでGemma 4 26Bモデルを動かすオープンソースエンジン「turbo-fieldfare」が公開。極限的メモリ効率を実現する新手法。570ポイント・200コメント。2026-07-30</div>
+    <h2 class="story-headline">
+      M1 MacのRAM<br>2GBで<br><span style="color:#20d8f0">Gemma 4 26B</span>——<br>新エンジン登場
+    </h2>
+    <div class="story-body">
+      「Show HN: Open-source engine running Gemma 4 26B in 2 GB RAM on any M-series Mac」が570ポイント・200コメントを集め、本日の人気上位に入りました。GitHubプロジェクト「turbo-fieldfare」は、通常なら20-30GB以上のRAMを必要とするGemma 4 26Bモデルを、わずか2GBのRAMで動作させるという極限的なメモリ効率を実現したオープンソースエンジンです。M-series Macという「統合メモリ（CPU-GPU共有）」の特性を最大限に活用した実装として注目されています。
+
+      2GBという数字を達成した技術的な核心は「ダイナミック量子化＋選択的レイヤーオフロード」の組み合わせです。通常の量子化（4-bit・2-bitなど）はモデル全体を圧縮する手法ですが、turbo-fieldfareはモデルの各レイヤーの重要度を動的に評価し、アクティブな推論に必要なレイヤーのみをRAMに保持、残りはSSD（NVMe）に非同期でキャッシュするという手法を採用しています。Apple Siliconの統合メモリバス帯域幅とNVMe速度を組み合わせることで、実用的な推論速度を維持しながらメモリフットプリントを最小化しています。
+
+      HN上では「2GBというのは驚異的だが、SSDからのスワッピングでトークン/秒はどれくらいになるのか——速度とメモリのトレードオフが知りたい」「M1 MacBook Air（8GBモデル）ユーザーには夢のような話——これで大型モデルがローカルで動くなら課金不要になる可能性がある」「llama.cppやOllamaと比較したベンチマークが見たい——アーキテクチャの違いは何か」という200コメントが展開されました。
+    </div>
+    <div class="cyan-items">
+      <div class="cyan-item">
+        <div>
+          <div class="cyan-label">技術的な仕組み</div>
+          <div class="cyan-text">ダイナミック量子化：全レイヤーを固定bit幅で量子化する従来手法と異なり、重要度の高いアテンションヘッドは高精度（8-bit）、重要度の低いFFNレイヤーは超低精度（2-bit）で保持する動的割り当て。選択的オフロード：現在の推論ステップに不要なレイヤーをNVMe SSDに非同期書き出し、必要になる直前に高速プリフェッチ。Apple Siliconの利点：CPU・GPU・ANEが統合メモリを共有するため、データ転送コストなしにRAMを活用できる。実測値（著者発表）：M3 Max（16GB統合メモリ）で約8-15 tokens/sec、M1 Air（8GB）で約3-5 tokens/sec</div>
+        </div>
+      </div>
+      <div class="cyan-item">
+        <div>
+          <div class="cyan-label">実際の使用方法</div>
+          <div class="cyan-text">インストール：GitHub（github.com/drumih/turbo-fieldfare）からclone → makeまたはcargo build。Gemma 4 26Bモデルのダウンロード：HuggingFace Hubから自動取得（初回起動時。約12GB）。起動：./turbo-fieldfare serve --model gemma-4-26b --max-ram 2g で起動。OpenAI互換API：localhost:8080でOpenAI APIと互換性のあるエンドポイントを提供——既存のClaude Code・Open Interpreterなどのツールをそのまま接続可能。対応Mac：M1・M2・M3・M4全シリーズ（RAM 8GB以上のモデルで実用速度）</div>
+        </div>
+      </div>
+      <div class="cyan-item">
+        <div>
+          <div class="cyan-label">llama.cpp / Ollamaとの比較</div>
+          <div class="cyan-text">llama.cpp：成熟した実装で幅広いモデルに対応、量子化の選択肢が豊富——しかし全レイヤーを一度にRAMに載せる設計のため、メモリ下限はturbo-fieldfareより高い。Ollama：使いやすいDockerライクなインターフェースが特徴だがllama.cppベース——メモリ効率はほぼ同等。turbo-fieldfareの優位点：動的オフロードにより「最小RAMでの最大モデルサイズ」という点で他を圧倒。課題：まだv0.x段階でAPIが不安定・モデル対応範囲が限定的——Gemma 4以外のモデルサポートは今後。コミュニティ：GitHubで急速にスター増加中——貢献者を募集中</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: github.com/drumih/turbo-fieldfare</span>
+      <span>570 ポイント</span>
+      <span>200 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://github.com/drumih/turbo-fieldfare" target="_blank">GitHubを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49098510" target="_blank">HN議論 (200)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="open-source-gemma-4-26b-2gb-ram-m-series" data-type="like" onclick="toggleFlag('open-source-gemma-4-26b-2gb-ram-m-series','M1 MacのRAM 2GBでGemma 4 26Bを動かす——オープンソースエンジン登場','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="open-source-gemma-4-26b-2gb-ram-m-series" data-type="dislike" onclick="toggleFlag('open-source-gemma-4-26b-2gb-ram-m-series','M1 MacのRAM 2GBでGemma 4 26Bを動かす——オープンソースエンジン登場','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 7 — KOReader ════════════════════════════════════════════════════ -->
+<section class="story story-7" id="s7">
+  <div class="story-num">07</div>
+  <div class="story-inner">
+    <div class="story-kicker">オープンソース / e-book / e-inkリーダー / Kindle代替 / PDF / EPUB / KOReader / 電子書籍 — KOReaderがHN本日トップ（630ポイント）を獲得。Kindleを凌駕するオープンソースe-bookリーダーの実力と対応デバイスを深掘り。630ポイント・202コメント。2026-07-30</div>
+    <h2 class="story-headline">
+      KOReader——<br>630ポイントを<br>獲得した<br>究極のe-bookリーダー
+    </h2>
+    <div class="story-body">
+      KOReaderの公式サイトがHacker Newsで本日最多の630ポイント・202コメントを集めました。KOReaderはKindle・Kobo・PocketBook等のe-inkデバイスに加え、Android・Linux・macOS・Windows上でも動作するオープンソースのドキュメントリーダーです。PDF・EPUB・MOBI・CBZ/CBR・DJVU・TXT等の多様なフォーマットに対応し、「Kindleの公式アプリより高機能・高速・カスタマイズ性が高い」と10年以上にわたってpower userから支持されてきました。
+
+      KOReaderが人気を集める最大の理由は「読書体験の徹底的なカスタマイズ性」にあります。フォント・行間・余白・輝度・色温度の細かな調整はもちろん、ユーザー定義のキーボードショートカット・スタイルシート（CSS）の直接編集・辞書プラグイン・Calibreとのワイヤレス同期など、出版社の「意図した読書体験」ではなく「自分が最も快適な読書環境」を完全に自分でコントロールできる点が、Kindleアプリには実現できない価値として評価されています。
+
+      HN上では「Kindle端末にKOReaderを入れるとJailbreakを一切せずに使える——購入したkindle本以外のEPUBも自由に読める」「PDFリフロー（テキスト再配置）機能がKOReaderのキラー機能——学術論文のPDFを細い画面で快適に読めるようになった」「Kobo Libraに入れて毎日使っているが、公式ファームウェアには一切戻れない——同期速度も圧倒的に速い」という202コメントが展開されました。
+    </div>
+    <div class="amber-items">
+      <div class="amber-item">
+        <div>
+          <div class="amber-label">対応デバイスと導入方法</div>
+          <div class="amber-text">Kindle端末：Kindle 4・5・Voyage・Paperwhite（Gen1-Gen3）・Oasis——最新機種への対応は機種依存。Kindle購入後の設定は必要だが、JailBreak不要でのインストールが可能なモデルあり。Kobo端末：全モデルで公式サポート。koreader.rocks/download からインストーラーをダウンロードしSD Card経由で導入。Android：Google Play・F-Droid・GitHub Releasesから入手可能。PocketBook・BOOX：メーカー公式のアプリストアまたは手動インストール。Linux/macOS/Windows：AppImage・.dmg・.exe形式でリリースあり</div>
+        </div>
+      </div>
+      <div class="amber-item">
+        <div>
+          <div class="amber-label">注目機能トップ5</div>
+          <div class="amber-text">①PDFリフロー：スキャンPDFのテキストをKOReaderが再配置し、小画面でも読みやすいフォント表示に変換。②辞書プラグイン：単語タップで辞書（英和・英英・EPWING形式等）を表示、Wikpediaルックアップも可能。③Calibreワイヤレス同期：Wi-Fi経由でCalibreライブラリから直接書籍を転送。④Night Mode：E-inkデバイスに最適化されたダークモード（ホワイトパーパー面の白を暗くする）。⑤読書統計：総読書時間・ページ/分・書籍ごとの進捗をSQLiteで記録——自分のデータとして完全にアクセス可能</div>
+        </div>
+      </div>
+      <div class="amber-item">
+        <div>
+          <div class="amber-label">なぜ今トレンドに？</div>
+          <div class="amber-text">Kindleの制限強化：Amazonが最近ドキュメント変換サービスを段階的に制限し、MOBI形式のサポートを廃止。外部コンテンツをKindleで読む選択肢が狭まった背景がある。EPUB対応Kindleの遅さ：AmazonのEPUBサポートは追加されたが機能が限定的でKOReaderと比較にならない。DRM-freeコンテンツの増加：Standard Ebooks・Project Gutenberg・Humble Bundle等のDRM-freeコンテンツが増え、オープンなリーダーの需要が高まっている。GitHub Stars：17,000以上のStarを持つ成熟したプロジェクト——10年以上メンテナンスされ続けている安心感</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: koreader.rocks</span>
+      <span>630 ポイント</span>
+      <span>202 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://koreader.rocks/" target="_blank">KOReaderを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49095865" target="_blank">HN議論 (202)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="koreader-e-reader-open-source" data-type="like" onclick="toggleFlag('koreader-e-reader-open-source','KOReader——630ポイントを集めたe-bookリーダーの実力とは','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="koreader-e-reader-open-source" data-type="dislike" onclick="toggleFlag('koreader-e-reader-open-source','KOReader——630ポイントを集めたe-bookリーダーの実力とは','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 8 — Hunter-gatherers introduced fish to mountain lake ════════════ -->
+<section class="story story-8" id="s8">
+  <div class="story-num">08</div>
+  <div class="story-inner">
+    <div class="story-kicker">考古学 / 先史時代 / 狩猟採集民 / 湖 / 魚の移植 / 人類史 / New Scientist / 環境DNA — スイスの高山湖に7000年前の環境DNA分析により、狩猟採集民が魚を人工的に導入していた証拠が発見される。先史時代の人類の生態系管理の新たな証拠。126ポイント・94コメント。2026-07-30</div>
+    <h2 class="story-headline">
+      7000年前の<br>狩猟採集民が<br>山の湖に<br><span style="color:#d4a820">魚を放した</span>
+    </h2>
+    <div class="story-body">
+      New Scientistが報じた「Hunter-gatherers introduced fish to a mountain lake 7000 years ago」が126ポイント・94コメントを集めました。スイスのアルプスの高山湖（標高約1800m）で行われた湖底堆積物の環境DNA（eDNA）分析により、7000年前に狩猟採集民がこの湖に魚を人工的に導入していた証拠が発見されました。この標高では自然に魚が生息することはできないため、人間による意図的な放流だったことが判明し、先史時代の狩猟採集民の「自然管理」能力について学術界の想定を覆す発見として注目されています。
+
+      この研究が驚きをもって迎えられた理由は、狩猟採集民は「自然を管理・操作する農耕民より原始的な生活をしていた」という従来の定説への挑戦にあります。高山湖への魚の放流は、単なる偶然では起きません——低地から魚を採取し、生きたまま高山まで運んで放流するという、計画的・組織的な行動が必要です。このプロセスは先史時代の人類が「将来の食料確保のために環境に意図的に介入していた」ことを示し、「農業以前の人類は自然に受動的に依存していた」という見方を根本的に見直す必要があることを示しています。
+
+      HN上では「これは狩猟採集民の認知能力・長期計画能力の直接的証拠——単純な食料採取者ではなく、積極的な生態系エンジニアだった」「環境DNAで7000年前のことが分かるというのが凄い——堆積物コア分析と古代DNAシーケンシングの組み合わせで先史時代の研究が革命的に進んでいる」「類似の発見がオーストラリア・北米でもあるか——先住民族の環境管理の歴史的記録と合わせると意義が増す」という94コメントが展開されました。
+    </div>
+    <div class="gold-items">
+      <div class="gold-item">
+        <div>
+          <div class="gold-label">発見の方法——環境DNA分析</div>
+          <div class="gold-text">環境DNA（eDNA）：生物が環境中に放出するDNA断片——鱗・粘液・排泄物など——を水・土壌・堆積物から検出する技術。湖底コア採取：研究チームはスイス高山湖（名称はKleinfeldsee付近）の底から堆積物コアを採取し、年代別にサンプリング。古代DNA解析：7000年前の堆積層から魚（コイ科）のDNAを検出——その魚種は自然には当該標高に生息不可能な低地種であることを確認。結論：自然伝播（鳥類による運搬等）の可能性を統計的に排除し、人間による意図的放流が唯一の合理的説明だと結論付け</div>
+        </div>
+      </div>
+      <div class="gold-item">
+        <div>
+          <div class="gold-label">先史時代の生態系管理</div>
+          <div class="gold-text">先行事例：原始農業以前にも人類が植物の播種・移植を行っていた証拠は世界各地で発見されている。今回の発見はそれを「水生生態系」に拡張した点が新しい。計画的行動の意義：低地から高山まで生きた魚を運ぶには少なくとも数日かかる。水を携帯しながら山を登るという組織的行動は、高度な集団協力・計画能力を示す。定住化との関係：この時期のヨーロッパ先史は農耕移行期にあたり、狩猟採集と初期農業が混在。魚の放流は「半牧畜」的な食料源確保戦略だった可能性。文化的含意：高山湖への魚の放流が「儀礼的意味」を持っていた可能性も排除できないと研究チームは指摘</div>
+        </div>
+      </div>
+      <div class="gold-item">
+        <div>
+          <div class="gold-label">現代への示唆</div>
+          <div class="gold-text">人新世（Anthropocene）の起源：人類が地球の生態系を意図的に改変し始めた時期は農業革命（約1万年前）ではなく、それ以前から始まっていた可能性が高まる。保全生物学への影響：「人間の手が入っていない自然」という概念自体が見直しを迫られる——現在の「自然な」生態系も先史時代の人間活動の産物かもしれない。類似研究の展開：北米の湖・オーストラリアの内陸水域・アジアの高山地帯でも同様のeDNA調査が進行中——先史人類の水生生態系管理の地球規模での実態が明らかになりつつある。eDNA技術の応用：環境保全・絶滅種の追跡・密漁検出にも応用が拡大している次世代環境モニタリング技術</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: newscientist.com</span>
+      <span>126 ポイント</span>
+      <span>94 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.newscientist.com/article/2580119-hunter-gatherers-introduced-fish-to-a-mountain-lake-7000-years-ago/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49063983" target="_blank">HN議論 (94)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="hunter-gatherers-fish-mountain-lake-7000-years" data-type="like" onclick="toggleFlag('hunter-gatherers-fish-mountain-lake-7000-years','7000年前の狩猟採集民が山の湖に魚を放した——考古学的発見','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="hunter-gatherers-fish-mountain-lake-7000-years" data-type="dislike" onclick="toggleFlag('hunter-gatherers-fish-mountain-lake-7000-years','7000年前の狩猟採集民が山の湖に魚を放した——考古学的発見','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 9 — Darktable ════════════════════════════════════════════════════ -->
+<section class="story story-9" id="s9">
+  <div class="story-num">09</div>
+  <div class="story-inner">
+    <div class="story-kicker">写真現像 / オープンソース / クリエイティブソフト / RAW / Lightroom代替 / Linux / macOS / Windows — Darktableが265ポイント・127コメントでHNに登場。LightroomサブスクリプションからのオープンソースRAW現像への移行を考える開発者が多数コメント。2026-07-30</div>
+    <h2 class="story-headline">
+      Darktable——<br>Lightroom代替<br>オープンソース<br>写真現像の決定版
+    </h2>
+    <div class="story-body">
+      Darktableの公式サイトが265ポイント・127コメントを集めました。DarktableはAdobe Lightroomに対抗するオープンソースのRAW写真現像・デジタル暗室ソフトウェアで、Linux・macOS・Windowsをサポートし、GIMP・Inkscapeと並ぶGNUフォトグラフィースタックの中核ツールです。Adobe Creative Cloudのサブスクリプション価格上昇を背景に、プロ・セミプロの写真家を中心に移行が進んでいますが、技術者寄りのHNコミュニティでも写真趣味を持つ人が多いのか、毎年定期的にトレンド入りする人気ソフトです。
+
+      Darktableが特に評価されるのはそのノンデストラクティブ編集哲学と高品質なRAW処理能力です。全ての編集操作はオリジナルファイルを書き換えず、編集履歴をXMPサイドカーファイルまたはデータベースに記録する方式を採用しています。カラーマネジメントはLittleCMSエンジンを使用し、カラープロファイルの精度ではLightroom同等以上という評価もあります。特に近年の「Darktable 4.x系」ではシグモイドカーブに基づく新しいトーンマッピングパイプライン（scene-referred workflow）が導入され、ハイライト・シャドウの質感表現が飛躍的に向上しました。
+
+      HN上では「2年前にLightroomからDarktableに移行したが、慣れるまでの学習コストはあるものの慣れたら手放せない——サブスク費用も年間5万円以上の節約になった」「UIがLightroomとは全く異なるため最初の2週間が壁——YouTube講座が豊富なので乗り越えられる」「最大の課題はプリセット共有コミュニティの規模がLightroomより小さい点——しかし増えてきている」という127コメントが展開されました。
+    </div>
+    <div class="slate-items">
+      <div class="slate-item">
+        <div>
+          <div class="slate-label">主要機能とLightroomとの比較</div>
+          <div class="slate-text">RAWデコード：LibRawベースで600機種以上のカメラRAWに対応。Lightroomの対応範囲とほぼ同等。カラーグレーディング：カラーチェッカー・カラーミキサー・カラーバランスRGBなど高度なカラーコントロール。Darktable 4.xの新パイプラインはfilm-emulationに優れる。モジュールシステム：50以上の編集モジュールをスタッキング可能——Lightroomのパネル構成より複雑だが柔軟性が高い。Fuji X-Trans対応：FujiのXトランスセンサーのデモザイクアルゴリズムに独自実装（XTRANS-C）があり、Lightroomより高品質という評価がある。GPU加速：OpenCL経由でNVIDIA・AMD GPUによる高速処理が可能</div>
+        </div>
+      </div>
+      <div class="slate-item">
+        <div>
+          <div class="slate-label">始め方と学習リソース</div>
+          <div class="slate-text">インストール：darktable.org からmacOS（.dmg）・Windows（.exe）・Linux（各ディストリパッケージ）で入手可能。無料・オープンソース（GPLv3）。まず読むべき：公式マニュアル（docs.darktable.org）はDarktable 4.x系に対応した詳細なリファレンス。動画学習：YouTube「Boris Hajdukovic」「Darktable Tutorial」チャンネルが初心者向けに体系的。おすすめ設定（最初にやること）：scene-referredワークフローをデフォルトに設定、自動補正を最小化、カメラ別のカラープロファイルを適用。移行ツール：LightroomプリセットをDarktable形式に変換するツール（lrcat2darktable等）がコミュニティで開発されている</div>
+        </div>
+      </div>
+      <div class="slate-item">
+        <div>
+          <div class="slate-label">なぜ2026年に再びトレンドに</div>
+          <div class="slate-text">Adobeの価格改定：Adobe Creative Cloudのフォトプランが2026年に再値上げ、日本での月額が更に上昇したことで移行を検討するユーザーが増加。Darktable 4.8リリース：本年初のメジャーアップデートでUIの大幅改善・新しいカラーキャリブレーション機能・Wacom/Apple Pencilサポート強化が実装された。AI除去ツール：Lightroomに対抗するAI背景除去・スポット修正機能の改善が実装され、「AI機能の差」が縮まりつつある。写真コミュニティ：Reddit r/linux・r/photography・r/GIMP等でDarktable移行スレッドが定期的に高評価を獲得している</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: darktable.org</span>
+      <span>265 ポイント</span>
+      <span>127 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.darktable.org/" target="_blank">Darktableを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49096654" target="_blank">HN議論 (127)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="darktable-open-source-photo-software" data-type="like" onclick="toggleFlag('darktable-open-source-photo-software','Darktable——プロ仕様オープンソース写真現像ソフトが再びトレンドに','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="darktable-open-source-photo-software" data-type="dislike" onclick="toggleFlag('darktable-open-source-photo-software','Darktable——プロ仕様オープンソース写真現像ソフトが再びトレンドに','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 10 — Theo Conjecture Solves Math Problem ══════════════════════ -->
+<section class="story story-10" id="s10">
+  <div class="story-num">10</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / 数学 / 定理証明 / 組み合わせ数学 / Theo Conjecture / AI数学者 / 未解決問題 / firstprinciples — AI数学システム「Theo」が35年以上未解決だった数学的予想を解決し、従来の理論では予測されていなかった項を発見。AI数学研究の新たな到達点。24ポイント・7コメント。2026-07-30</div>
+    <h2 class="story-headline">
+      AIが35年来の<br>数学未解決問題を解く——<br><span style="color:#ff60b0">誰も予測しなかった<br>項が出現</span>
+    </h2>
+    <div class="story-body">
+      First Principlesが「Theo Conjecture solves 35-year-old math problem, finds a term no one predicted」と題した記事を公開し、24ポイント・7コメントを集めました。AI数学証明システム「Theo」（Conjectureが開発）が1990年代から未解決だった組み合わせ数学の予想を完全解決しただけでなく、解の中に従来の数学的直観では予測されていなかった新しい項（term）が含まれていたという、AI数学研究における新たな転換点となる発表です。
+
+      「Theo」はConjecturという数学研究スタートアップが開発したAI定理証明システムで、人間の数学者と共同で働くことを想定して設計されています。今回解決された問題は「K-uniform hypergraphのコロリング問題」に関連する35年前の予想で、問題の性質上すでに多くの数学者が試みていましたが、どのアプローチも機能しませんでした。Theoは従来の数学者が見落としていた補助定理（lemma）の組み合わせを見つけ出し、証明を構築。その過程で現れた予期せぬ項はランダム構造の挙動に関する新たな洞察を含んでいます。
+
+      HN上では「AlphaProof・DeepMindの数学AIとの違いは何か——Theoのアプローチはinteractive theorem prover（Lean・Coq等）ベースか、それともLLMベースか」「35年未解決問題の解が出たこと自体は本物なら大きな出来事だが、まだ独立検証された査読論文が出ていない段階——主張の検証を待つべき」「見つかった予期せぬ項の数学的意味が気になる——それ自体が新しい数学の扉を開く可能性がある」という7コメントが展開されました。
+    </div>
+    <div class="mag-items">
+      <div class="mag-item">
+        <div>
+          <div class="mag-label">解決された問題とは</div>
+          <div class="mag-text">K-uniform hypergraph coloring問題：通常のグラフ（辺が2頂点を結ぶ）を一般化したhypergraph（辺がk個の頂点を結ぶ）に対するコロリング問題。具体的な予想：「k-uniform hypergraphのχ（クロマティック数）の下限がどのように振る舞うか」という1990年代に提示された精密な漸近的評価。難しい理由：確率的手法（Lovász Local Lemma等）・アルゲブリック手法など多くのアプローチが試みられたが、予想の下限との厳密な一致が得られなかった。予期せぬ項：解の漸近展開に現れた余剰項が、既存理論では説明できない新しい組み合わせ的構造を示唆している</div>
+        </div>
+      </div>
+      <div class="mag-item">
+        <div>
+          <div class="mag-label">Theoの手法</div>
+          <div class="mag-text">Interactive Theorem Prover連携：TheoはLean 4との統合を持ち、生成した証明ステップをLeanで形式検証することで証明の正しさを保証する設計。補助定理の自動探索：数学論文データベースから関連補助定理を検索・組み合わせ・適用する「lemma synthesis」能力が核心。人間との協働：Theoは「候補証明ステップ」を提示し、人間の数学者が承認・方向修正を行うインタラクティブな協働モデル。DeepMindとの違い：AlphaProofは主にオリンピック数学問題を対象にするのに対し、TheoはResearch-level数学の未解決問題に特化している</div>
+        </div>
+      </div>
+      <div class="mag-item">
+        <div>
+          <div class="mag-label">AI数学研究の展望</div>
+          <div class="mag-text">証明のハードル：AIが「解いた」と主張するためには査読付き論文での独立検証が必要——本記事執筆時点では未査読段階。注目される背景：2025年のDeepMind AlphaProof（IMO問題を解く）・Terence Tao・Timothy Gowers等のFields賞受賞者がAI数学ツールを積極活用し始めた流れの延長線上にある。未解決問題への応用：Collatz予想・Birch-Swinnerton-Dyer予想・Riemann予想など100年以上の未解決問題への応用が模索されている。次のステップ：Conjectureは証明をarXivおよびLean theorem prover形式で公開予定——数学コミュニティによる独立検証を経て正式な解決宣言となる見込み</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: firstprinciples.com</span>
+      <span>24 ポイント</span>
+      <span>7 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://firstprinciples.com/blog-article/ai-system-theo-conjecture-solves-35-year-old-math-conjecture" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49102525" target="_blank">HN議論 (7)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="theo-conjecture-solves-math-problem-35-years" data-type="like" onclick="toggleFlag('theo-conjecture-solves-math-problem-35-years','AIが35年来の数学未解決問題を解く——誰も予測しなかった項が出現','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="theo-conjecture-solves-math-problem-35-years" data-type="dislike" onclick="toggleFlag('theo-conjecture-solves-math-problem-35-years','AIが35年来の数学未解決問題を解く——誰も予測しなかった項が出現','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ════════════════════════════════════════════════════════════════ -->
+<footer class="site-footer">
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand">Morning Edition</div>
+      <div class="footer-meta">
+        Hacker News キュレーション · 2026年7月30日 · Issue No.092<br>
+        毎朝、厳選10本をお届け
+      </div>
+    </div>
+    <button class="export-btn" onclick="exportFeedback()">📋 フィードバックをコピー</button>
+  </div>
+  <div class="footer-note">
+    ⭐ 興味あり / ✕ 興味なし ボタンで次回のキュレーションが改善されます。Chrome/Edgeでは自動保存、その他ではボタンでクリップボードにコピーしてください。
+  </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  const FEEDBACK_KEY = 'morning-edition-feedback-v2';
+  const TODAY = '2026-07-30';
+  let _dirHandle = null;
+
+  async function getDir(forcePrompt) {
+    if (_dirHandle && !forcePrompt) return _dirHandle;
+    if (!window.showDirectoryPicker) return null;
+    try {
+      _dirHandle = await window.showDirectoryPicker({ mode: 'readwrite', id: 'morning-edition', startIn: 'documents' });
+      return _dirHandle;
+    } catch { return null; }
+  }
+
+  async function writeJSON(dirHandle, fb) {
+    const fileHandle = await dirHandle.getFileHandle('feedback.json', { create: true });
+    const writable = await fileHandle.createWritable();
+    await writable.write(JSON.stringify({ ...fb, updatedAt: new Date().toISOString() }, null, 2));
+    await writable.close();
+  }
+
+  function showToast(msg, isErr) {
+    const el = document.getElementById('toast');
+    el.textContent = msg;
+    el.className = 'toast' + (isErr ? ' error' : '');
+    requestAnimationFrame(() => el.classList.add('show'));
+    clearTimeout(el._timer);
+    el._timer = setTimeout(() => el.classList.remove('show'), 3000);
+  }
+
+  function getFeedback() {
+    try { return JSON.parse(localStorage.getItem(FEEDBACK_KEY) || '{"liked":{},"disliked":{}}'); }
+    catch { return { liked: {}, disliked: {} }; }
+  }
+  function saveFeedback(fb) { localStorage.setItem(FEEDBACK_KEY, JSON.stringify(fb)); }
+
+  async function autoSave(fb) {
+    let dir = await getDir();
+    if (!dir) {
+      showToast('📁 Daily News フォルダを選択してください', true);
+      dir = await getDir(true);
+      if (!dir) { showToast('保存をキャンセルしました', true); return; }
+    }
+    try {
+      await writeJSON(dir, fb);
+      showToast('✓ feedback.json を自動保存しました（次回キュレーションに反映）');
+    } catch (e) {
+      showToast('保存エラー: ' + e.message, true);
+    }
+  }
+
+  async function toggleFlag(storyId, title, type) {
+    const fb = getFeedback();
+    fb.liked = fb.liked || {};
+    fb.disliked = fb.disliked || {};
+    const likeBtn    = document.querySelector(`.flag-btn.like-btn[data-story="${storyId}"]`);
+    const dislikeBtn = document.querySelector(`.flag-btn.dislike-btn[data-story="${storyId}"]`);
+    if (type === 'like') {
+      if (fb.liked[storyId]) {
+        delete fb.liked[storyId];
+        likeBtn?.classList.remove('active');
+      } else {
+        fb.liked[storyId] = { title, date: TODAY };
+        delete fb.disliked[storyId];
+        likeBtn?.classList.add('active');
+        dislikeBtn?.classList.remove('active');
+      }
+    } else {
+      if (fb.disliked[storyId]) {
+        delete fb.disliked[storyId];
+        dislikeBtn?.classList.remove('active');
+      } else {
+        fb.disliked[storyId] = { title, date: TODAY };
+        delete fb.liked[storyId];
+        dislikeBtn?.classList.add('active');
+        likeBtn?.classList.remove('active');
+      }
+    }
+    saveFeedback(fb);
+    await autoSave(fb);
+  }
+
+  function exportFeedback() {
+    const fb = getFeedback();
+    const json = JSON.stringify({ ...fb, exportedAt: new Date().toISOString() }, null, 2);
+    navigator.clipboard.writeText(json)
+      .then(() => showToast('📋 クリップボードにコピーしました'))
+      .catch(() => {
+        const el = document.createElement('textarea');
+        el.value = json; document.body.appendChild(el); el.select();
+        document.execCommand('copy'); document.body.removeChild(el);
+        showToast('📋 クリップボードにコピーしました');
+      });
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const fb = getFeedback();
+    document.querySelectorAll('.flag-btn').forEach(btn => {
+      const id   = btn.dataset.story;
+      const type = btn.dataset.type;
+      if ((type === 'like' && fb.liked?.[id]) || (type === 'dislike' && fb.disliked?.[id])) {
+        btn.classList.add('active');
+      }
+    });
+  });
+</script>
+</body>
+</html>
