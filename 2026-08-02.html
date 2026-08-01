@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Morning Edition — 2026年8月2日</title>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --font: 'M PLUS Rounded 1c', 'Hiragino Sans', 'Noto Sans JP', sans-serif; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); background: #111; color: #fff; overflow-x: hidden; }
+
+    .masthead { background: #fff; color: #000; padding: 3rem 4rem 2.5rem; border-bottom: 6px solid #000; position: relative; overflow: hidden; }
+    .masthead::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: repeating-linear-gradient(90deg, #000 0, #000 12px, transparent 12px, transparent 20px); }
+    .masthead-kicker { font-size: 0.85rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: #777; margin-bottom: 0.6rem; }
+    .masthead-title { font-size: clamp(3.5rem, 9vw, 7.5rem); font-weight: 900; line-height: 0.88; letter-spacing: -0.04em; margin-bottom: 1.8rem; }
+    .masthead-meta { display: flex; gap: 3rem; align-items: baseline; flex-wrap: wrap; }
+    .masthead-date { font-size: 1.5rem; font-weight: 700; }
+    .masthead-subtitle { font-size: 1rem; font-weight: 400; color: #555; max-width: 480px; line-height: 1.5; }
+    .masthead-issue { margin-left: auto; text-align: right; }
+    .masthead-issue span { display: block; }
+    .masthead-issue .iss-label { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: #999; }
+    .masthead-issue .iss-num { font-size: 2.2rem; font-weight: 900; color: #000; }
+
+    .toc { background: #1a1a1a; padding: 1.5rem 4rem; display: flex; gap: 1.5rem; flex-wrap: wrap; border-bottom: 1px solid #333; }
+    .toc a { color: #aaa; text-decoration: none; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; transition: color 0.2s; }
+    .toc a:hover { color: #fff; }
+    .toc-num { color: #555; margin-right: 0.3em; }
+
+    .story { position: relative; overflow: hidden; }
+    .story-inner { max-width: 1200px; margin: 0 auto; padding: 5rem 4rem; position: relative; z-index: 1; }
+    .story-num { font-size: clamp(6rem, 18vw, 16rem); font-weight: 900; line-height: 0.8; letter-spacing: -0.06em; opacity: 0.08; position: absolute; top: 1rem; right: 2rem; user-select: none; }
+    .story-badge { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.35em 0.9em; border-radius: 2px; margin-bottom: 1.5rem; }
+    .direct-badge { background: #FFD700; color: #000; }
+    .story-kicker { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; opacity: 0.6; margin-bottom: 0.8rem; }
+    .story-headline { font-size: clamp(2rem, 5vw, 4rem); font-weight: 900; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+    .story-body { font-size: clamp(1rem, 1.5vw, 1.2rem); font-weight: 400; line-height: 1.8; max-width: 680px; opacity: 0.88; margin-bottom: 2rem; }
+    .story-meta { display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center; font-size: 0.8rem; font-weight: 700; opacity: 0.5; }
+    .story-links { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem; }
+    .story-link { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.6em 1.4em; border-radius: 3px; text-decoration: none; transition: opacity 0.2s, transform 0.15s; }
+    .story-link:hover { opacity: 0.75; transform: translateY(-1px); }
+
+    .feedback-buttons { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .flag-btn { background: none; border: 1px solid currentColor; color: inherit; font-family: var(--font); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.5em 1em; border-radius: 3px; cursor: pointer; opacity: 0.32; transition: opacity 0.2s, background 0.2s, color 0.2s, border-color 0.2s, transform 0.15s; }
+    .flag-btn:hover { opacity: 0.72; transform: translateY(-1px); }
+    .flag-btn.like-btn.active { opacity: 1; background: rgba(255,215,0,0.15); border-color: #FFD700; color: #FFD700 !important; }
+    .flag-btn.dislike-btn.active { opacity: 1; background: rgba(255,60,60,0.12); border-color: #FF4444; color: #FF4444 !important; }
+
+    .toast { position: fixed; bottom: 2rem; right: 2rem; background: #1a1a1a; color: #fff; font-family: var(--font); font-size: 0.82rem; font-weight: 700; padding: 0.75em 1.4em; border-radius: 4px; border-left: 3px solid #00C853; z-index: 9999; opacity: 0; transform: translateY(10px); transition: opacity 0.25s, transform 0.25s; pointer-events: none; box-shadow: 0 4px 24px rgba(0,0,0,0.45); }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    .toast.error { border-left-color: #FF5252; }
+
+    /* Story 1 — White */
+    .story-1 { background: #fff; color: #000; min-height: 90vh; display: flex; flex-direction: column; justify-content: center; }
+    .story-1 .story-num { color: #000; opacity: 0.04; }
+    .story-1 .story-kicker { color: #555; opacity: 1; }
+    .story-1 .story-headline { color: #000; }
+    .story-1 .story-body { color: #111; }
+    .story-1 .story-meta { color: #000; }
+    .story-1 .story-link.primary { background: #1a1a1a; color: #fff; }
+    .story-1 .story-link.secondary { background: #f0f0f0; color: #000; }
+    .story-1 .flag-btn { color: #000; }
+    .story-1-accent { position: absolute; bottom: 0; left: 0; width: 100%; height: 8px; background: linear-gradient(90deg, #ff6600, #ffaa00, #ff6600); }
+    .story-1 .headline-accent { display: inline-block; background: linear-gradient(135deg, #cc4400 0%, #ff8800 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .blue-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1.2rem; margin: 2rem 0; max-width: 680px; }
+    .blue-card { border: 2px solid rgba(255,102,0,0.18); background: rgba(255,102,0,0.04); border-radius: 6px; padding: 1.3rem 1.5rem; }
+    .blue-card-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.2em; text-transform: uppercase; color: #cc4400; margin-bottom: 0.4rem; }
+    .blue-card-value { font-size: 1.05rem; font-weight: 900; color: #000; line-height: 1.3; }
+    .blue-card-sub { font-size: 0.75rem; color: #555; margin-top: 0.3rem; line-height: 1.4; }
+
+    /* Story 2 — Dark navy/teal */
+    .story-2 { background: #00080c; color: #b8f0ff; min-height: 80vh; }
+    .story-2::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(0,160,200,0.14) 0%, transparent 65%); }
+    .story-2 .story-num { color: #00A0C8; opacity: 0.07; }
+    .story-2 .story-kicker { color: #20C8E8; opacity: 1; }
+    .story-2 .story-headline { color: #e0f8ff; }
+    .story-2 .story-body { color: #b8f0ff; }
+    .story-2 .story-meta { color: #20C8E8; opacity: 0.5; }
+    .story-2 .story-link.primary { background: #004058; color: #80e8ff; }
+    .story-2 .story-link.secondary { background: rgba(0,160,200,0.08); color: #90d8f0; border: 1px solid rgba(0,160,200,0.22); }
+    .story-2 .flag-btn { color: #b8f0ff; }
+    .teal-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .teal-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(0,160,200,0.07); border-left: 3px solid #00A0C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .teal-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20C8E8; margin-bottom: 0.3rem; }
+    .teal-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 3 — Dark red */
+    .story-3 { background: #0a0000; color: #fff; min-height: 80vh; }
+    .story-3::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(200,20,20,0.16) 0%, transparent 65%); }
+    .story-3 .story-num { color: #C81414; opacity: 0.07; }
+    .story-3 .story-kicker { color: #E84040; opacity: 1; }
+    .story-3 .story-headline { color: #fff; }
+    .story-3 .story-body { color: rgba(255,255,255,0.88); }
+    .story-3 .story-meta { color: #E84040; opacity: 0.5; }
+    .story-3 .story-link.primary { background: #6a0000; color: #fff; }
+    .story-3 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-3 .flag-btn { color: #fff; }
+    .red-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .red-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(200,20,20,0.07); border-left: 3px solid #C81414; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .red-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E84040; margin-bottom: 0.3rem; }
+    .red-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 4 — Dark green */
+    .story-4 { background: #020c04; color: #c8f0d0; min-height: 80vh; }
+    .story-4::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(20,160,70,0.16) 0%, transparent 65%); }
+    .story-4 .story-num { color: #14A046; opacity: 0.07; }
+    .story-4 .story-kicker { color: #30C060; opacity: 1; }
+    .story-4 .story-headline { color: #e0ffe8; }
+    .story-4 .story-body { color: #c8f0d0; }
+    .story-4 .story-meta { color: #30C060; opacity: 0.5; }
+    .story-4 .story-link.primary { background: #063820; color: #80ffb0; }
+    .story-4 .story-link.secondary { background: rgba(20,160,70,0.08); color: #a0e8b0; border: 1px solid rgba(20,160,70,0.22); }
+    .story-4 .flag-btn { color: #c8f0d0; }
+    .green-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .green-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(20,160,70,0.07); border-left: 3px solid #14A046; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .green-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #30C060; margin-bottom: 0.3rem; }
+    .green-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 5 — Dark purple */
+    .story-5 { background: #040010; color: #d8c8ff; min-height: 75vh; }
+    .story-5::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(90,40,200,0.17) 0%, transparent 65%); }
+    .story-5 .story-num { color: #5A28C8; opacity: 0.07; }
+    .story-5 .story-kicker { color: #8050E0; opacity: 1; }
+    .story-5 .story-headline { color: #f0e8ff; }
+    .story-5 .story-body { color: #d8c8ff; }
+    .story-5 .story-meta { color: #8050E0; opacity: 0.5; }
+    .story-5 .story-link.primary { background: #200860; color: #d0a8ff; }
+    .story-5 .story-link.secondary { background: rgba(90,40,200,0.08); color: #c0a0f0; border: 1px solid rgba(90,40,200,0.22); }
+    .story-5 .flag-btn { color: #d8c8ff; }
+    .purple-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .purple-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(90,40,200,0.07); border-left: 3px solid #5A28C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .purple-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #8050E0; margin-bottom: 0.3rem; }
+    .purple-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 6 — Dark cyan */
+    .story-6 { background: #000c10; color: #b8e8f0; min-height: 75vh; }
+    .story-6::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 40%, rgba(0,130,160,0.14) 0%, transparent 65%); }
+    .story-6 .story-num { color: #0080A0; opacity: 0.07; }
+    .story-6 .story-kicker { color: #20B0D0; opacity: 1; }
+    .story-6 .story-headline { color: #e0f4ff; }
+    .story-6 .story-body { color: #b8e8f0; }
+    .story-6 .story-meta { color: #20B0D0; opacity: 0.5; }
+    .story-6 .story-link.primary { background: #003848; color: #80d8f0; }
+    .story-6 .story-link.secondary { background: rgba(0,130,160,0.08); color: #90cce0; border: 1px solid rgba(0,130,160,0.22); }
+    .story-6 .flag-btn { color: #b8e8f0; }
+    .cyan-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .cyan-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(0,130,160,0.07); border-left: 3px solid #0080A0; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .cyan-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20B0D0; margin-bottom: 0.3rem; }
+    .cyan-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 7 — Dark amber */
+    .story-7 { background: #0a0300; color: #ffe0b8; min-height: 75vh; }
+    .story-7::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(210,90,20,0.18) 0%, transparent 65%); }
+    .story-7 .story-num { color: #D05A14; opacity: 0.07; }
+    .story-7 .story-kicker { color: #E88040; opacity: 1; }
+    .story-7 .story-headline { color: #fff0d8; }
+    .story-7 .story-body { color: #ffe0b8; }
+    .story-7 .story-meta { color: #E88040; opacity: 0.5; }
+    .story-7 .story-link.primary { background: #6a2400; color: #ffc880; }
+    .story-7 .story-link.secondary { background: rgba(210,90,20,0.08); color: #ffb870; border: 1px solid rgba(210,90,20,0.22); }
+    .story-7 .flag-btn { color: #ffe0b8; }
+    .amber-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .amber-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(210,90,20,0.07); border-left: 3px solid #D05A14; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .amber-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E88040; margin-bottom: 0.3rem; }
+    .amber-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 8 — Dark gold */
+    .story-8 { background: #080500; color: #fff; min-height: 70vh; }
+    .story-8::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,145,10,0.15) 0%, transparent 65%); }
+    .story-8 .story-num { color: #BE9110; opacity: 0.06; }
+    .story-8 .story-kicker { color: #D4A820; opacity: 1; }
+    .story-8 .story-headline { color: #fff; }
+    .story-8 .story-body { color: rgba(255,255,255,0.88); }
+    .story-8 .story-meta { color: #D4A820; opacity: 0.5; }
+    .story-8 .story-link.primary { background: #604000; color: #ffe070; }
+    .story-8 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-8 .flag-btn { color: #fff; }
+    .gold-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .gold-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(190,145,10,0.07); border-left: 3px solid #BE9110; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .gold-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #D4A820; margin-bottom: 0.3rem; }
+    .gold-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 9 — Slate blue */
+    .story-9 { background: #040810; color: #c8d8f0; min-height: 70vh; }
+    .story-9::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 35%, rgba(50,90,170,0.16) 0%, transparent 65%); }
+    .story-9 .story-num { color: #3258A8; opacity: 0.07; }
+    .story-9 .story-kicker { color: #5878C8; opacity: 1; }
+    .story-9 .story-headline { color: #e8f0ff; }
+    .story-9 .story-body { color: #c8d8f0; }
+    .story-9 .story-meta { color: #5878C8; opacity: 0.5; }
+    .story-9 .story-link.primary { background: #101e50; color: #fff; }
+    .story-9 .story-link.secondary { background: rgba(50,90,170,0.08); color: #b0c8e8; border: 1px solid rgba(50,90,170,0.22); }
+    .story-9 .flag-btn { color: #c8d8f0; }
+    .slate-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .slate-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(50,90,170,0.07); border-left: 3px solid #3258A8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .slate-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #5878C8; margin-bottom: 0.3rem; }
+    .slate-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 10 — Magenta */
+    .story-10 { background: #080004; color: #ffc8e8; min-height: 70vh; }
+    .story-10::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,20,90,0.15) 0%, transparent 65%); }
+    .story-10 .story-num { color: #BE1458; opacity: 0.07; }
+    .story-10 .story-kicker { color: #E04080; opacity: 1; }
+    .story-10 .story-headline { color: #fff0f8; }
+    .story-10 .story-body { color: #ffc8e8; }
+    .story-10 .story-meta { color: #E04080; opacity: 0.5; }
+    .story-10 .story-link.primary { background: #500030; color: #ffb0d8; }
+    .story-10 .story-link.secondary { background: rgba(190,20,90,0.08); color: #f090c0; border: 1px solid rgba(190,20,90,0.22); }
+    .story-10 .flag-btn { color: #ffc8e8; }
+    .mag-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .mag-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(190,20,90,0.07); border-left: 3px solid #BE1458; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .mag-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E04080; margin-bottom: 0.3rem; }
+    .mag-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .site-footer { background: #000; color: #555; padding: 3rem 4rem; display: flex; flex-direction: column; gap: 1.5rem; border-top: 1px solid #222; }
+    .footer-top { display: flex; gap: 2rem; align-items: center; flex-wrap: wrap; justify-content: space-between; }
+    .footer-brand { font-size: 1.4rem; font-weight: 900; color: #fff; }
+    .footer-meta { font-size: 0.75rem; line-height: 1.6; }
+    .export-btn { background: #222; border: 1px solid #444; color: #fff; font-family: var(--font); font-size: 0.8rem; font-weight: 700; padding: 0.7em 1.5em; border-radius: 3px; cursor: pointer; letter-spacing: 0.08em; transition: background 0.2s; }
+    .export-btn:hover { background: #333; }
+    .footer-note { font-size: 0.7rem; opacity: 0.5; }
+
+    @media (max-width: 768px) {
+      .masthead, .toc, .story-inner, .site-footer { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .story-num { display: none; }
+      .masthead-meta { gap: 1rem; }
+      .masthead-issue { margin-left: 0; }
+      .blue-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+<nav style="background:#1a1a1a;border-bottom:1px solid #333;padding:0.55rem 2rem;font-family:'M PLUS Rounded 1c','Hiragino Sans','Noto Sans JP',sans-serif;position:sticky;top:0;z-index:999;">
+  <a href="./index.html" style="color:#aaa;text-decoration:none;font-size:0.8rem;font-weight:700;letter-spacing:0.03em;display:inline-flex;align-items:center;gap:0.4rem;transition:color 0.15s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#aaa'">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    アーカイブへ戻る
+  </a>
+</nav>
+
+<header class="masthead">
+  <div class="masthead-kicker">Hacker News — Morning Edition</div>
+  <h1 class="masthead-title">Morning<br>Edition</h1>
+  <div class="masthead-meta">
+    <div>
+      <div class="masthead-date">2026年8月2日 日曜日</div>
+      <div class="masthead-subtitle">AI・開発ツール・プライバシー・サイエンス — あなたのための10本</div>
+    </div>
+    <div class="masthead-issue">
+      <span class="iss-label">Issue</span>
+      <span class="iss-num">No.095</span>
+    </div>
+  </div>
+</header>
+
+<nav class="toc">
+  <a href="#s1"><span class="toc-num">01</span>CursorがAPIコスト情報を削除——透明性への問い</a>
+  <a href="#s2"><span class="toc-num">02</span>Flint——AIと話す新しいビジュアライゼーション言語</a>
+  <a href="#s3"><span class="toc-num">03</span>国連サイバー犯罪条約——カナダが署名した監視条約の真相</a>
+  <a href="#s4"><span class="toc-num">04</span>RipGrepがクラッシュする——muslバイナリのセグフォルト追跡</a>
+  <a href="#s5"><span class="toc-num">05</span>GoogleはどうRSSを壊したか——2023年の総括</a>
+  <a href="#s6"><span class="toc-num">06</span>NetBSD 11.0リリース——BSDの老舗が新章を開く</a>
+  <a href="#s7"><span class="toc-num">07</span>64ビットアセンブリの芸術——x86-64の決定版</a>
+  <a href="#s8"><span class="toc-num">08</span>カーネル健全性バグのポストモーテム——定理証明器Leanの欠陥</a>
+  <a href="#s9"><span class="toc-num">09</span>ESP32でLinuxを動かした——IoTチップで「不可能」に挑む</a>
+  <a href="#s10"><span class="toc-num">10</span>7.6PBのAI学習データにシークレットが混入——HuggingFace調査</a>
+</nav>
+
+<!-- ═══ STORY 1 — Cursor removed cost info ════════════════════════════════════ -->
+<section class="story story-1" id="s1">
+  <div class="story-num">01</div>
+  <div class="story-inner">
+    <div class="story-badge direct-badge">⚡ あなたに直接関係</div>
+    <div class="story-kicker">Cursor / AIコードエディタ / コスト透明性 / 使用量 / APIトークン / 開発ツール / 料金 / フォーラム — CursorがUsageページおよびCSVエクスポートからコスト・トークン情報を削除。271ポイント・119コメント。2026-08-02</div>
+    <h2 class="story-headline">
+      Cursorが<br><span class="headline-accent">APIコスト情報</span>を<br>削除した——<br>透明性への問い
+    </h2>
+    <div class="story-body">
+      Cursor（AIコードエディタ）の公式フォーラムに「Usage pageのトークン量とコスト情報が消えた」という投稿が寄せられ、271ポイント・119コメントを集めました。以前はUsageページおよびCSVエクスポートからトークン消費量と推定コストを確認できましたが、アップデート後にこれらの情報が非表示になりました。
+
+      AIコーディングツールを業務で使う開発者にとって、コストの可視性は重要な問題です。月額固定制のサブスクリプションであれば上限があるとはいえ、「自分がどれだけ使っているか」を把握したいユーザーは多く、チームで使う場合はコスト配分の根拠としても活用されていました。フォーラムでは「なぜ削除したのかの説明がない」「他社ツール（GitHub Copilot等）との比較でコストを評価していたのに」という声が上がっています。
+
+      HNコメントでは「SaaSが使用量データを隠す理由はだいたい1つ——見せると競合と比較されるから」「開発者ツールにおけるコスト透明性はLegal/Complianceの要件になりつつある——特にエンタープライズ契約では」「Cursor自体のAPIコストとサブスクリプション収益の関係が不透明になるという批判もある」という119コメントが展開されました。
+    </div>
+    <div class="blue-grid">
+      <div class="blue-card">
+        <div class="blue-card-label">削除された情報</div>
+        <div class="blue-card-value">トークン量・コスト</div>
+        <div class="blue-card-sub">UsageページのトークンカウントとCSVエクスポートの費用内訳が非表示に。どのモデルをどれだけ使ったかが確認できなくなった</div>
+      </div>
+      <div class="blue-card">
+        <div class="blue-card-label">ユーザーへの影響</div>
+        <div class="blue-card-value">コスト管理不能</div>
+        <div class="blue-card-sub">個人ユーザーは自己監視できず、チームでは部門別コスト配分の根拠データを失った。エンタープライズ契約では説明責任の問題になりうる</div>
+      </div>
+      <div class="blue-card">
+        <div class="blue-card-label">Cursorの現状対応</div>
+        <div class="blue-card-value">説明なし</div>
+        <div class="blue-card-sub">フォーラム投稿時点でCursor側からの公式説明はなし。コミュニティからの反発が高まっており、透明性の回復を求める声が続いている</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: forum.cursor.com</span>
+      <span>271 ポイント</span>
+      <span>119 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://forum.cursor.com/t/usage-page-to-token-amount-what/167153" target="_blank">フォーラムを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49135257" target="_blank">HN議論 (119)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="cursor-removed-cost-info" data-type="like" onclick="toggleFlag('cursor-removed-cost-info','CursorがAPIコスト情報を削除——透明性への問い','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="cursor-removed-cost-info" data-type="dislike" onclick="toggleFlag('cursor-removed-cost-info','CursorがAPIコスト情報を削除——透明性への問い','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+    <div class="story-1-accent"></div>
+  </div>
+</section>
+
+<!-- ═══ STORY 2 — Flint Visualization Language ════════════════════════════════ -->
+<section class="story story-2" id="s2">
+  <div class="story-num">02</div>
+  <div class="story-inner">
+    <div class="story-kicker">Microsoft / ビジュアライゼーション / 宣言型言語 / AI / チャート / データ可視化 / DSL / オープンソース — MicrosoftがAI時代向けのビジュアライゼーション言語「Flint」を公開。241ポイント・66コメント。2026-08-02</div>
+    <h2 class="story-headline">
+      Flint——<br><span style="color:#20d8f0">AIと話す</span><br>新しいビジュアライ<br>ゼーション言語
+    </h2>
+    <div class="story-body">
+      Microsoftが「Flint: A Visualization Language for the AI Era」を公開し、241ポイント・66コメントを集めました。FlintはAIとの協働を前提に設計された宣言型のデータビジュアライゼーション言語です。自然言語でチャートの意図を記述すると、AIがFlintコードに変換・実行する使い方を想定しており、従来のD3.jsやVegaよりもAIが解釈・生成しやすいシンプルな構文を持ちます。
+
+      従来のビジュアライゼーションライブラリはプログラマー向けに設計されており、LLMが正確なコードを生成するには複雑な構文を学習する必要がありました。Flintは「AIが読み書きしやすいビジュアライゼーションのための中間言語」として機能するよう設計されており、構文はJSONに近い宣言型スタイルです。インタラクティブなデモサイトでは、自然言語の指示からFlintコードが生成され即座にチャートが描画される様子を確認できます。
+
+      HNコメントでは「VegaやVega-Liteと何が違うのか——すでに宣言型のビジュアライゼーションDSLは存在する」「Microsoftのリサーチプロジェクトが本番ツールになるまでの道のりが長いのはいつものこと」「AIネイティブなDSLというコンセプト自体は面白い——LLMとの統合を最初から考えた言語設計は今後増えていくだろう」という66コメントが展開されました。
+    </div>
+    <div class="teal-items">
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">Flintの設計思想</div>
+          <div class="teal-text">AIファーストの構文：LLMが正確に生成・解釈できるシンプルで曖昧さのない構文。宣言型：「何を表示するか」を記述し「どう描画するか」はFlintエンジンが担当。自然言語との橋渡し：「売上を月別の棒グラフで、前年比も線で重ねて表示」→FlintコードをAIが生成→即座に描画。既存ライブラリとの関係：内部的にはCanvasやSVGを使い、Flintコードは高水準の中間表現として機能する。</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">従来DSLとの比較</div>
+          <div class="teal-text">Vega/Vega-Lite（UW製）：宣言型だが仕様が大きくLLMの生成精度がばらつく。D3.js：柔軟性は最高だがコード量が多くAIが誤りやすい。Observable Plot：シンプルだが依然としてJavaScriptを前提にする。Flintの狙い：構文の表現力を絞る代わりにAIの生成精度を上げる——これはトレードオフであり、複雑なカスタム可視化には向かない設計。</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">開発者への実用性</div>
+          <div class="teal-text">今すぐ使えるか：デモサイトはあるが、npmパッケージや本番利用のガイドラインはまだ整備途上。統合の方向性：CopilotやClaude等と統合して「データ分析の口頭指示→チャート生成」パイプラインを作るユースケースが想定される。注意点：Microsoftリサーチの公開物はAPIが変わることが多い——本番プロジェクトへの組み込みはプロジェクトの成熟度を見てから判断が無難。</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: microsoft.github.io/flint-chart</span>
+      <span>241 ポイント</span>
+      <span>66 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://microsoft.github.io/flint-chart/" target="_blank">Flintを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49130604" target="_blank">HN議論 (66)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="flint-visualization-language-ai-era" data-type="like" onclick="toggleFlag('flint-visualization-language-ai-era','Flint——AIと話す新しいビジュアライゼーション言語','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="flint-visualization-language-ai-era" data-type="dislike" onclick="toggleFlag('flint-visualization-language-ai-era','Flint——AIと話す新しいビジュアライゼーション言語','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 3 — Canada UN Cybercrime Convention ════════════════════════════ -->
+<section class="story story-3" id="s3">
+  <div class="story-num">03</div>
+  <div class="story-inner">
+    <div class="story-kicker">プライバシー / 監視 / 国連 / サイバー犯罪条約 / カナダ / Michael Geist / 国際条約 / EFF — カナダが国連サイバー犯罪条約に署名。批評家は「監視条約の偽装」と呼ぶ。237ポイント・128コメント。2026-08-02</div>
+    <h2 class="story-headline">
+      国連サイバー<br>犯罪条約——<br><span style="color:#ff6060">カナダが署名した<br>監視条約の真相</span>
+    </h2>
+    <div class="story-body">
+      カナダのインターネット法の第一人者Michael Geistが「A Surveillance Treaty in Disguise: The Trouble with Canada's Quiet Decision to Sign the UN Cybercrime Convention」を公開し、237ポイント・128コメントを集めました。カナダ政府がほとんど公開討論なしに国連サイバー犯罪条約に署名したことを批判し、この条約が実質的に各国政府の監視能力を拡大する内容を含むと警告する内容です。
+
+      問題の核心は条約の「捜査協力条項」です。締結国はサイバー犯罪捜査において相互に協力する義務を負いますが、この条項が権威主義的な国々による「反体制活動家・ジャーナリスト・LGBTQ+コミュニティへの監視・摘発」に利用される可能性をEFFや人権団体が指摘してきました。ロシアや中国が強く推進した条約であることも懸念材料の一つです。「サイバー犯罪」の定義が広く曖昧であるため、プライバシー・言論の自由に関わる活動が摘発対象になりうると批評家は主張しています。
+
+      HNコメントでは「EFFは2年前からこの条約に反対してきた——署名国が増えるにつれ後退が難しくなる」「カナダは民主主義陣営の中では比較的プライバシー保護に積極的だったが、この署名で立場が後退した」「サイバー犯罪の国際協力自体は必要だが、条約の文言が曖昧すぎる——修正が必要だった」という128コメントが展開されました。
+    </div>
+    <div class="red-items">
+      <div class="red-item">
+        <div>
+          <div class="red-label">条約の問題点</div>
+          <div class="red-text">広すぎる「サイバー犯罪」定義：コンピューターを使った犯罪を広くカバーする定義が、政治的・社会的活動への悪用を可能にする。相互協力義務：締結国は他の締結国の捜査に協力しなければならない——権威主義国の「サイバー犯罪捜査」への協力を拒否する法的根拠が薄れる。人権保護の不足：条約本文に人権保護の実効的な保障が欠けているとEFF・国際特赦委員会が批判。署名国の顔ぶれ：ロシア・中国など監視国家として知られる国々が推進した条約に民主主義国が署名することの象徴的な問題。</div>
+        </div>
+      </div>
+      <div class="red-item">
+        <div>
+          <div class="red-label">カナダの「静かな署名」</div>
+          <div class="red-text">公開討論なし：条約への署名は議会や市民社会への事前通知なく行われた——Geistはこの「静かな決定」を特に問題視している。批准と署名の違い：署名は条約内容への同意を示す最初のステップ。正式な法的拘束力を持つには批准が必要——カナダ議会での批准審議が今後の焦点になる。停止する機会：批准前であれば反対運動によって条約の効力を止められる可能性がある——Geistはこの記事で市民と議員への呼びかけを行っている。過去の事例：同様の国際条約（ACTA等）がプライバシー団体の反対で批准されなかった例がある。</div>
+        </div>
+      </div>
+      <div class="red-item">
+        <div>
+          <div class="red-label">開発者・技術者への含意</div>
+          <div class="red-text">セキュリティリサーチへの影響：脆弱性調査・ペネトレーションテスト・バグバウンティが「サイバー犯罪」として国際的に摘発されるリスクが理論上高まる。暗号化・プライバシーツール：Torや暗号化通信ツールの使用・開発が「サイバー犯罪幇助」として標的にされる可能性。ジャーナリスト・内部告発者：匿名通信を使ってデータを公開する行為が条約の射程に入りうる——ソース保護の国際的な前提が揺らぐ。Geistの提言：条約を批准しないか、人権保護条項の追加を条件に批准するよう議会に求めることをカナダ市民に呼びかけている。</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: michaelgeist.ca</span>
+      <span>237 ポイント</span>
+      <span>128 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.michaelgeist.ca/2026/07/a-surveillance-treaty-in-disguise-the-trouble-with-canadas-quiet-decision-to-sign-the-un-cybercrime-convention/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49134694" target="_blank">HN議論 (128)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="canada-un-cybercrime-surveillance" data-type="like" onclick="toggleFlag('canada-un-cybercrime-surveillance','国連サイバー犯罪条約——カナダが署名した監視条約の真相','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="canada-un-cybercrime-surveillance" data-type="dislike" onclick="toggleFlag('canada-un-cybercrime-surveillance','国連サイバー犯罪条約——カナダが署名した監視条約の真相','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 4 — RipGrep musl segfault ══════════════════════════════════════ -->
+<section class="story story-4" id="s4">
+  <div class="story-num">04</div>
+  <div class="story-inner">
+    <div class="story-kicker">RipGrep / musl / セグフォルト / バグ / Rust / メモリアロケーター / デバッグ / BurntSushi — 大規模検索時にrg（RipGrep）のmuslバイナリが稀にクラッシュするバグが報告。233ポイント・158コメント。2026-08-02</div>
+    <h2 class="story-headline">
+      RipGrepが<br><span style="color:#40ff80">大規模検索で</span><br>クラッシュする——<br>muslの落とし穴
+    </h2>
+    <div class="story-body">
+      RipGrep（高速grepツール）の公式GitHubにIssue #3494「RipGrep musl binaries occasionally segfault during very-large searches」が報告され、233ポイント・158コメントを集めました。静的リンクされたmuslバイナリが、非常に大きなファイルやディレクトリに対して検索を実行した際に稀にセグメンテーションフォルトを起こすというバグです。再現性が低い「Heisenbug」型の問題であり、原因究明に多くの議論が交わされています。
+
+      musl（軽量Cライブラリ）はglibc（GNU Cライブラリ）の代替として、静的リンクバイナリを作るために広く使われます。RipGrepのmuslビルドは「依存関係なしで動く単一バイナリ」として人気があり、CI環境やDockerコンテナでよく使われます。問題の根は musl のメモリアロケーターにある可能性が指摘されており、glibcとは異なるスタックサイズの扱いやスレッドの初期化タイミングがRustの非同期ランタイムと微妙に干渉している疑いがあります。
+
+      HNコメントでは「muslはglibcの完全な代替ではない——特にスレッドとシグナル処理の微妙な違いが本番でのみ現れるバグを生む」「静的リンクは配布の利便性は上がるが、libc依存のエッジケースを全部自分でテストしなければならないというトレードオフがある」「Rustで書かれていてもlibc FFIを経由する部分は依然としてC世界のバグに晒される——FFI境界は常に危険」という158コメントが展開されました。
+    </div>
+    <div class="green-items">
+      <div class="green-item">
+        <div>
+          <div class="green-label">musl vs glibc の主な違い</div>
+          <div class="green-text">スタックサイズ：muslのデフォルトスレッドスタックサイズはglibcより小さい——大量のデータを処理する再帰的コードがスタックオーバーフローを起こしやすい。メモリアロケーター：muslのmallocはシンプルで軽量だが、glibcのptmallocのようなスレッドキャッシュを持たない——多スレッド下での競合が異なる挙動を示す。POSIX準拠の差異：muslはよりPOSIX準拠に近いが、Linuxのglibcにしか存在しない拡張APIを使うコードは動作しない。静的リンクのトレードオフ：単一バイナリの配布が容易な反面、libcのバグ修正が自動では取り込まれない——セキュリティパッチを受け取るにはバイナリの再ビルドが必要。</div>
+        </div>
+      </div>
+      <div class="green-item">
+        <div>
+          <div class="green-label">現在の回避策</div>
+          <div class="green-text">glibcビルドを使う：RipGrepの公式リリースにはmuslビルドとglibcビルドの両方がある——クラッシュが再現する場合はglibcバイナリへの切り替えが最も確実な回避策。ripgrepのバージョン確認：古いバージョンで問題なければダウングレードして様子を見る。再現条件の絞り込み：「非常に大規模なディレクトリ」でのみ発生するため、小さなサブディレクトリを個別に検索して回避できる場合がある。ファイルシステムの確認：NFSやその他のネットワークファイルシステム上での検索は別の問題を引き起こすことがある——ローカルディスクで再現するかを確認する。</div>
+        </div>
+      </div>
+      <div class="green-item">
+        <div>
+          <div class="green-label">開発者への教訓</div>
+          <div class="green-text">muslバイナリのテスト：静的muslビルドを配布する場合、大規模な実際のワークロードでの負荷テストをCI/CDに組み込む——ユニットテストだけでは再現しないバグがある。libcの選択を意識する：Dockerイメージに alpine（musl）を使う場合、アプリの動作がDebian/Ubuntu（glibc）と完全一致しない可能性を認識する——特にメモリ集約型・マルチスレッドアプリ。クラッシュレポートの充実：Rustアプリでも本番クラッシュをログに残す仕組みを持つ——バックトレース・環境変数・ファイル規模などをまとめてIssueに貼れると開発者が助かる。BurntSushiへの協力：現在も再現ケースの収集中——再現できた場合はIssue #3494にenv・rg --version・検索対象のサイズを記載して報告が有効。</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: github.com/BurntSushi/ripgrep</span>
+      <span>233 ポイント</span>
+      <span>158 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://github.com/BurntSushi/ripgrep/issues/3494" target="_blank">Issue を見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49133889" target="_blank">HN議論 (158)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="ripgrep-musl-segfault" data-type="like" onclick="toggleFlag('ripgrep-musl-segfault','RipGrepが大規模検索でクラッシュする——muslの落とし穴','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="ripgrep-musl-segfault" data-type="dislike" onclick="toggleFlag('ripgrep-musl-segfault','RipGrepが大規模検索でクラッシュする——muslの落とし穴','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 5 — How Google destroyed RSS ═══════════════════════════════════ -->
+<section class="story story-5" id="s5">
+  <div class="story-num">05</div>
+  <div class="story-inner">
+    <div class="story-kicker">RSS / Google Reader / オープンウェブ / 歴史 / フィード / 分散メディア / Google / openrss.org — GoogleがRSSの普及をどう妨げたかを論じた2023年の記事が再び注目を集める。227ポイント・59コメント。2026-08-02</div>
+    <h2 class="story-headline">
+      Googleは<br><span style="color:#a060ff">どうRSSを<br>壊したか</span>——<br>13年後の総括
+    </h2>
+    <div class="story-body">
+      openrss.orgのブログ記事「How Google helped destroy adoption of RSS feeds」（2023年）が再びHNのフロントページに登場し、227ポイント・59コメントを集めました。2013年のGoogle Reader廃止がRSSエコシステムに与えた壊滅的な影響を振り返り、Googleがオープンなウェブの分散インフラをどう弱体化させたかを分析した内容です。
+
+      Google Readerは2005年から2013年まで運営され、最盛期には数千万のアクティブユーザーを持つRSSリーダーのデファクトスタンダードでした。Googleはその後、SNSとリアルタイムフィードへの注目を理由にReader廃止を決定しました。しかしこの決定はRSSというプロトコル自体の衰退を加速させました——多くのブログ・ニュースサイトがRSSフィードの品質を下げ、SNSのアルゴリズムフィードがコンテンツ配信の主役になっていった過程を記事は詳述しています。
+
+      HNコメントでは「RSSはまだ生きている——Substack・Ghost・Podcastのバックエンドにはほぼ必ずRSSが使われている」「問題はRSSが技術者以外に使われなくなったこと——一般ユーザーはアルゴリズムフィードに慣れた」「NetNewsWire・FreshRSS・Minifluxなど優れたRSSクライアントは今も活発に開発されている——ニッチだが根強い」という59コメントが展開されました。
+    </div>
+    <div class="purple-items">
+      <div class="purple-item">
+        <div>
+          <div class="purple-label">RSSとは何だったか</div>
+          <div class="purple-text">技術的な意味：Webサイトが更新を機械可読な形式（XML）で配信する標準プロトコル——読者がRSSリーダーに登録することで、アルゴリズムを介さずにコンテンツが届く。オープンウェブの哲学：特定のプラットフォームに依存せず、コンテンツと読者が直接つながる——Twitterのタイムライン・FacebookのNewsfeedとは根本的に異なる「プラットフォーム不在のフィード」。最盛期の普及率：2000年代後半、テクノロジー系ブログ・新聞・ポッドキャストのほぼすべてがRSSフィードを持っていた。Google Readerの役割：単なるリーダーを超え、RSSフィードの品質を測る事実上の検証機として機能——ReaderでうまくレンダリングされないフィードはRSSとして「失格」だった。</div>
+        </div>
+      </div>
+      <div class="purple-item">
+        <div>
+          <div class="purple-label">崩壊の経緯</div>
+          <div class="purple-text">2013年：GoogleがReader廃止を発表（「利用が低下している」という理由）→ 当時の強烈な反発にもかかわらず廃止を実行。連鎖崩壊：Readerがいなくなるとサードパーティのリーダーが多数立ち上がったが、ユーザーベースが分散して規模の経済が失われた。サイト側の対応：RSSフィードの維持コストに見合うトラフィックが見込めなくなり、多くのメディアがフィードを完全版から抜粋版に変更・または廃止。SNSへの移行：Twitter・Facebookがアルゴリズムフィードを武器にオーディエンスを囲い込み、パブリッシャーがRSSよりSNSを優先するように。Googleの罪：Readerを廃止しただけでなく、RSS対抗製品（Google Buzz・Google+）がことごとく失敗してオープンな代替が育たなかった。</div>
+        </div>
+      </div>
+      <div class="purple-item">
+        <div>
+          <div class="purple-label">2026年のRSSを使う理由</div>
+          <div class="purple-text">アルゴリズム不在：自分が選んだソースから全件届く——Twitterのおすすめアルゴリズムに左右されない。プライバシー：読者のデータが特定のプラットフォームに渡らない。静粛さ：通知がない——自分のペースで読む。エンジニアに最適な今のRSSクライアント：FreshRSS（セルフホスト、無料）・Miniflux（セルフホスト、Go製で軽量）・NetNewsWire（Mac/iOS、無料オープンソース）。購読すべきRSSフィード：HN自身（news.ycombinator.com/rss）・NIST CVE・自分が使うライブラリのGitHub Releases（releases.atom）・好きなブログ。</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: openrss.org</span>
+      <span>227 ポイント</span>
+      <span>59 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://openrss.org/blog/how-google-helped-destroy-adoption-of-rss-feeds" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49136821" target="_blank">HN議論 (59)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="google-destroyed-rss-feeds" data-type="like" onclick="toggleFlag('google-destroyed-rss-feeds','GoogleはどうRSSを壊したか——13年後の総括','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="google-destroyed-rss-feeds" data-type="dislike" onclick="toggleFlag('google-destroyed-rss-feeds','GoogleはどうRSSを壊したか——13年後の総括','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 6 — NetBSD 11.0 ════════════════════════════════════════════════ -->
+<section class="story story-6" id="s6">
+  <div class="story-num">06</div>
+  <div class="story-inner">
+    <div class="story-kicker">NetBSD / BSD / OS / リリース / UNIX / カーネル / ポータビリティ / システムプログラミング — NetBSD 11.0が正式リリース。移植性で名高いBSD系OSのメジャーアップデート。175ポイント・70コメント。2026-08-02</div>
+    <h2 class="story-headline">
+      NetBSD 11.0<br>リリース——<br><span style="color:#20d0f0">BSDの老舗が<br>新章を開く</span>
+    </h2>
+    <div class="story-body">
+      NetBSD 11.0が正式リリースされ、175ポイント・70コメントを集めました。「もっとも多くのプラットフォームで動くOS」を標榜するNetBSDのメジャーバージョンアップです。NetBSDは歴史的に移植性（portability）を最重視しており、x86からARMまで幅広いアーキテクチャで動作します。NetBSD 9.xから11.0へのジャンプはNetBSD 10系列が特別な理由から欠番になったためです。
+
+      NetBSD 11.0の主な改善点には、ネットワークスタックの性能向上・新しいファイルシステムサポート・セキュリティ強化（ASLR改善・カーネルの攻撃面縮小）・最新のARMおよびRISC-Vアーキテクチャへの対応強化が含まれます。また、pkgsrcパッケージ管理システムが更新されており、最新のソフトウェアをNetBSD上でビルド・実行するための環境が整備されています。NetBSDは組み込みシステム・ルーター・ネットワーク機器などのベースOSとしても使われています。
+
+      HNコメントでは「NetBSDの真の価値はソースコードの品質と移植性——他のOSへのコード輸出源としてBSDライセンスとともに重要」「FreeBSDに比べてユーザーベースは小さいが、移植性の実験場として研究者には重要なプラットフォーム」「OpenBSDのセキュリティフォーカスとNetBSDのポータビリティフォーカスは相補的——両方のコードが互いを参照している」という70コメントが展開されました。
+    </div>
+    <div class="cyan-items">
+      <div class="cyan-item">
+        <div>
+          <div class="cyan-label">NetBSD 11.0の主な変更点</div>
+          <div class="cyan-text">カーネルの改善：SMPスケーラビリティの向上・メモリ管理サブシステムの最適化・ネットワークスタックの低レイテンシ化。セキュリティ：カーネルASLR（アドレス空間配置ランダム化）の強化・特権分離の改善・デフォルトの安全設定の引き締め。アーキテクチャサポート：ARM64（AArch64）とRISC-V 64ビットのサポートが充実——シングルボードコンピューターやエンベデッドSoCへの対応拡大。ネットワーク：ネットワークインターフェースの再設計・新しいネットワークドライバの追加・IPv6の安定性向上。pkgsrc：NetBSD独自のパッケージシステムは25,000以上のパッケージをサポート——macOSやLinuxでも動作する唯一の移植性あるパッケージ管理システム。</div>
+        </div>
+      </div>
+      <div class="cyan-item">
+        <div>
+          <div class="cyan-label">BSD系OSの比較</div>
+          <div class="cyan-text">NetBSD：最大の強みは移植性——電子レンジからスーパーコンピューターまで動かすことを目標にしてきた。FreeBSD：サーバー用途で最も広く使われるBSD——PlayStation 4/5・Netflix・WhatsAppなどの本番インフラで採用。OpenBSD：セキュリティ最重視——デフォルト設定での安全性・コード監査・プロアクティブなセキュリティ機能で有名。DragonFlyBSD：高性能並行処理に特化——HAMMERファイルシステムが独自の強み。共通点：すべてBSDライセンス（GPL汚染なし）・UNIX的な設計哲学・高品質なコードベース。</div>
+        </div>
+      </div>
+      <div class="cyan-item">
+        <div>
+          <div class="cyan-label">NetBSDが使われる場所</div>
+          <div class="cyan-text">組み込みシステム：ルーター・ネットワークアプライアンス・産業用制御システム。研究・教育：OS開発・カーネル研究・組み込みシステム教育のプラットフォーム。レトロコンピューティング：古いSPARCやVAXなどのハードウェアで動く唯一のモダンOSとして動態保存に使われる。クロスプラットフォーム開発：pkgsrcがmacOS・Linux・NetBSD共通で使えるため、クロスプラットフォームビルドの基盤として機能。試してみる：QEMUでNetBSD x86-64を起動してみることは、UNIX系OS設計の学習として価値がある。</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: blog.netbsd.org</span>
+      <span>175 ポイント</span>
+      <span>70 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://blog.netbsd.org/tnf/entry/netbsd_11_0_released" target="_blank">リリースノートを読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49136736" target="_blank">HN議論 (70)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="netbsd-11-released" data-type="like" onclick="toggleFlag('netbsd-11-released','NetBSD 11.0リリース——BSDの老舗が新章を開く','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="netbsd-11-released" data-type="dislike" onclick="toggleFlag('netbsd-11-released','NetBSD 11.0リリース——BSDの老舗が新章を開く','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 7 — The Art of 64-bit Assembly ═════════════════════════════════ -->
+<section class="story story-7" id="s7">
+  <div class="story-num">07</div>
+  <div class="story-inner">
+    <div class="story-kicker">アセンブリ / x86-64 / No Starch Press / Randall Hyde / 低レベルプログラミング / MASM / コンピューターアーキテクチャ / 書籍 — 「The Art of 64-bit Assembly」第2版がNo Starch Pressから発売。163ポイント・73コメント。2026-08-02</div>
+    <h2 class="story-headline">
+      64ビット<br><span style="color:#ff9040">アセンブリの</span><br>芸術——<br>x86-64の決定版
+    </h2>
+    <div class="story-body">
+      「The Art of 64-bit Assembly, Volume 2」がNo Starch Pressから発売され、163ポイント・73コメントを集めました。著者はRandall Hyde——「The Art of Assembly Language」の著者として長年アセンブリ言語教育の分野で知られる人物です。本書はx86-64アーキテクチャ向けのアセンブリプログラミングを、現代的な観点から体系的に解説しています。
+
+      本書の特徴は「HLA（High Level Assembler）」ではなく、実際の業界標準ツールであるMASM（Microsoft Macro Assembler）を使う点です。前作の課題であった「実用的でないHLAへの依存」を解消し、Windows環境でのリアルなx86-64アセンブリプログラミングを扱います。CPUレジスター・メモリモデル・呼び出し規約（Windows x64 ABI）・SIMD命令（SSE/AVX）・最適化技法まで幅広くカバーしています。
+
+      HNコメントでは「低レベルの仕組みを理解しないまま高レベル言語だけを使い続けるのは建物の基礎を知らないまま施工するようなもの——アセンブリの勉強は遠回りに見えて近道」「MASMを選んだのは賢い——業界での採用率が高くWindowsドライバー開発・ゲームエンジン最適化・セキュリティリサーチで直接使える」「第2版はSIMD命令の扱いが充実している——機械学習の推論カーネルを手で最適化する人には必携」という73コメントが展開されました。
+    </div>
+    <div class="amber-items">
+      <div class="amber-item">
+        <div>
+          <div class="amber-label">なぜ今アセンブリを学ぶか</div>
+          <div class="amber-text">パフォーマンスチューニング：コンパイラが最適化しきれないホットパスをアセンブリで書く——行列積・FFT・画像処理などの内側ループで2〜10倍の高速化が可能なケースがある。セキュリティ研究：バイナリ解析・リバースエンジニアリング・脆弱性研究にはアセンブリの読み書き能力が不可欠。OSカーネル・ドライバー：コンテキストスイッチ・割り込みハンドラ・ブートローダーはアセンブリなしでは書けない。デバッグの深度：gdbでソースがない最適化されたバイナリをデバッグするとき、アセンブリが読めるかどうかで解決速度が劇的に変わる。AIとの組み合わせ：LLMはアセンブリを「書く」のが苦手——自分で書けると、AIの誤りを検出・修正できるという希少なスキルになる。</div>
+        </div>
+      </div>
+      <div class="amber-item">
+        <div>
+          <div class="amber-label">本書のカバー範囲</div>
+          <div class="amber-text">x86-64基礎：レジスター（RAX・RBX・RCX・RDX・RSP・RBP・RSI・RDI・R8〜R15）の役割・メモリアドレッシングモード・算術・論理命令。制御フロー：ジャンプ命令・ループ・関数呼び出しとリターン・スタックフレームの管理。Windows x64 ABI：関数の呼び出し規約（どのレジスターで引数を渡すか・どのレジスターを保存するか）・ホームスペース・シャドウスペース。SIMD（SSE/AVX）：128ビットXMM・256ビットYMMレジスターを使った並列データ処理——浮動小数点・整数ベクトル演算。最適化：命令レイテンシ・スループット・分岐予測・キャッシュラインを意識したコード。HLA（High Level Assembler）：Hydeが開発したアセンブリの上位方言——本書ではオプション扱い。</div>
+        </div>
+      </div>
+      <div class="amber-item">
+        <div>
+          <div class="amber-label">始め方と補完リソース</div>
+          <div class="amber-text">環境構築：MASM（Visual Studio無料版に含まれる）またはNASM（クロスプラットフォーム）から始める——NASM構文の方が教育目的ではシンプルで入門に向いている。補完リソース：Agner Fog「Optimizing Software in C++」はコンパイラ最適化の視点から読むと本書と相補的。Intel SDM（Software Developer's Manual）：x86-64の全命令仕様——オンラインで無料、分厚いが正確な一次資料。godbolt.org（Compiler Explorer）：C/C++/Rustコードをブラウザで書いてリアルタイムにアセンブリ出力を確認できる——「コンパイラは自分のコードをどう最適化するか」を視覚的に学べる最高のツール。入門の順序：アセンブリ初心者はまずCとポインタを理解してから本書に進むと吸収が早い。</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: nostarch.com</span>
+      <span>163 ポイント</span>
+      <span>73 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://nostarch.com/art-64-bit-assembly-v2" target="_blank">書籍を見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49134599" target="_blank">HN議論 (73)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="art-64-bit-assembly" data-type="like" onclick="toggleFlag('art-64-bit-assembly','64ビットアセンブリの芸術——x86-64の決定版','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="art-64-bit-assembly" data-type="dislike" onclick="toggleFlag('art-64-bit-assembly','64ビットアセンブリの芸術——x86-64の決定版','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 8 — Kernel Soundness Bug Postmortem ════════════════════════════ -->
+<section class="story story-8" id="s8">
+  <div class="story-num">08</div>
+  <div class="story-inner">
+    <div class="story-kicker">Lean / 定理証明器 / カーネル / 健全性バグ / 形式検証 / プログラミング言語 / ポストモーテム / leodemoura — Lean 4カーネルの健全性バグ#14576のポストモーテム。形式証明の基盤に欠陥が発見された経緯と対策。89ポイント・33コメント。2026-08-02</div>
+    <h2 class="story-headline">
+      カーネル健全性<br>バグの<br><span style="color:#d4a820">ポストモーテム——</span><br>定理証明器の欠陥
+    </h2>
+    <div class="story-body">
+      Lean 4（定理証明器・プログラミング言語）の主要開発者Leonardo de Mouraが「Postmortem for Kernel Soundness Bug #14576」を公開し、89ポイント・33コメントを集めました。Leanのカーネル（証明検証器のコア部分）に健全性バグ（soundness bug）が発見された経緯・原因・修正・教訓を詳細に記述したポストモーテムです。
+
+      健全性（soundness）はLeanのような定理証明器にとって最も根本的な性質です。「健全なシステム」とは「偽の命題を証明できないシステム」を意味します——もし健全性バグがあると、「1 = 2」のような明らかに偽の命題の証明を作ることができてしまいます。バグ#14576は、特定の型の等価性判定（definitional equality）に関するコーナーケースで発生し、理論的には任意の偽の命題を証明する証明項を構築できる状態でした。
+
+      HNコメントでは「定理証明器のカーネルはできる限り小さく保つことが重要——デ・ブライン基準（De Bruijn criterion）：カーネル外部は不健全でよい、カーネル内部だけを厳密に保つ」「Leanのカーネルは比較的大きいという批判が以前からあった——今回のバグはその懸念を裏付ける」「de Mouraが透明性高くポストモーテムを公開したことは信頼の根拠——コミュニティはバグ後も使い続けると思う」という33コメントが展開されました。
+    </div>
+    <div class="gold-items">
+      <div class="gold-item">
+        <div>
+          <div class="gold-label">健全性バグとは何か</div>
+          <div class="gold-text">定理証明器の目的：数学的命題が正しいかどうかを機械的に検証すること——コンパイラのようにコードの正しさを人間に代わって証明する。健全性の定義：「証明できる命題はすべて真である」という性質——これが崩れると証明システム全体の信頼性が失われる。完全性との違い：完全性は「真の命題はすべて証明できる」——哥デルの不完全性定理により、十分強い公理系では完全性は達成できないが、健全性は必須。今回のバグの影響：理論的には偽の定理を証明できたが、実際に悪用した証明は確認されていない。修正後の扱い：バグ前に生成された証明は再度検証が必要——Leanコミュニティに対して再ビルドを呼びかけ。</div>
+        </div>
+      </div>
+      <div class="gold-item">
+        <div>
+          <div class="gold-label">バグの技術的詳細</div>
+          <div class="gold-text">場所：Leanカーネルの型等価性チェック（definitional equality）コンポーネント。原因：特定の再帰型（recursive types）とその投影（projections）が絡むケースで、型の同一性判定が誤った結果を返した。発見経緯：コミュニティメンバーが疑わしい証明を作成できることに気づき報告。修正：カーネルの等価性チェックアルゴリズムを修正し、当該ケースを正しく処理するように。影響範囲：このバグを使った悪意ある証明の作成は技術的に可能だったが、発見・修正までに悪用された証明は見つかっていない。</div>
+        </div>
+      </div>
+      <div class="gold-item">
+        <div>
+          <div class="gold-label">形式検証の信頼性への示唆</div>
+          <div class="gold-text">カーネルを小さく保つ重要性：デ・ブライン基準——「証明システムのカーネル（証明検証器のコア）は最小限にすべき」——カーネルが小さいほど健全性バグが混入するリスクが低い。Coq・Agda・Isabelle：これらの定理証明器はLeanよりカーネルが小さく、同様のバグが混入するリスクが相対的に低いと言われる。「信頼できるコンピューティングベース（TCB）」の問題：どんな形式検証ツールも最終的には人間が書いたソフトウェアの上で動く——その基盤自体が正しいかを保証する問題は無限後退になる。実用的教訓：形式検証を「絶対的な保証」ではなく「バグ検出の強力なツール」として扱う——ソフトウェアの重要な部分を形式検証することは依然として価値が高い。</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: leodemoura.github.io</span>
+      <span>89 ポイント</span>
+      <span>33 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://leodemoura.github.io/blog/2026-8-1-postmortem-for-kernel-soundness-bug-14576/" target="_blank">ポストモーテムを読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49137060" target="_blank">HN議論 (33)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="kernel-soundness-bug-postmortem" data-type="like" onclick="toggleFlag('kernel-soundness-bug-postmortem','カーネル健全性バグのポストモーテム——定理証明器Leanの欠陥','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="kernel-soundness-bug-postmortem" data-type="dislike" onclick="toggleFlag('kernel-soundness-bug-postmortem','カーネル健全性バグのポストモーテム——定理証明器Leanの欠陥','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 9 — Linux on ESP32 ═════════════════════════════════════════════ -->
+<section class="story story-9" id="s9">
+  <div class="story-num">09</div>
+  <div class="story-inner">
+    <div class="story-kicker">ESP32 / Linux / 組み込み / IoT / ハードウェア / Xtensa / RISC-V / GrieferPig — ESP32-S3でLinuxを起動することに成功。IoT向け超小型チップで「不可能」とされた試みが現実に。82ポイント・32コメント。2026-08-02</div>
+    <h2 class="story-headline">
+      ESP32で<br>Linuxを<br><span style="color:#8080ff">動かした——</span><br>IoTチップの限界
+    </h2>
+    <div class="story-body">
+      GitHubリポジトリ「esp32-s31-linux」（GrieferPig）が公開され、82ポイント・32コメントを集めました。Espressif製のIoT向けマイクロコントローラーESP32-S3上でLinuxカーネルを起動することに成功したプロジェクトです。ESP32-S3はWi-Fi・Bluetoothを内蔵した低価格チップで、通常はESP-IDF（Espressifのフレームワーク）またはArduinoで使われます。
+
+      ESP32-S3はデュアルコアXtensa LX7プロセッサを240MHzで動作させ、最大512KBのSRAMと外部PSRAMをサポートしますが、Linuxカーネルには最低でも数MBのRAMが必要とされます。このプロジェクトでは外部PSRAMを最大限活用し、高度に最小化・カスタマイズされたLinuxカーネルを使うことでこれを実現しています。実用的な用途はほぼなく、純粋に「できるかどうか」という工学的探求として意味があります。
+
+      HNコメントでは「ESP32でLinuxを動かすことより、なぜ動かしたいのかを問うべきだ——しかしそれがエンジニアリングの醍醐味でもある」「MMU（メモリ管理ユニット）がないXtensaでLinuxを動かすのは理論上不可能なはずだが——おそらくuClinuxか特殊な実装を使っている」「同じ発想でRP2040にLinuxを動かした人もいた——マイコンでLinuxを動かすことのハードルが年々下がっている」という32コメントが展開されました。
+    </div>
+    <div class="slate-items">
+      <div class="slate-item">
+        <div>
+          <div class="slate-label">技術的な挑戦</div>
+          <div class="slate-text">MMUの問題：通常のLinuxカーネルはMMU（メモリ管理ユニット）を前提とするが、ESP32はMMUを持たない——MMUなしでLinuxを動かすにはuClinux（組み込み向けMMUレスLinux）が必要。RAM制約：ESP32-S3は内蔵512KB SRAMのみでは不足——外部PSRAM（オクタルSPI接続、最大32MB）を活用してLinuxの最小要件を満たす。フラッシュ実行：ESP32のコードはQSPIフラッシュから読み出してRAMにロードされる——Linuxイメージの展開とメモリ配置の工夫が必要。速度：240MHzのXtensa LX7はLinuxのブートに数分かかると推定——実用的な速度は期待できない。電力：Wi-Fi非使用時でも数十mA——バッテリー動作での運用は現実的ではない。</div>
+        </div>
+      </div>
+      <div class="slate-item">
+        <div>
+          <div class="slate-label">マイコンLinuxの系譜</div>
+          <div class="slate-text">RP2040 Linux：Raspberry Pi FoundationのRP2040（Cortex-M0+、264KB SRAM）でLinuxを起動するプロジェクト——MMUなしのuClinuxを使用。CH32V003 Linux：わずか2KB SRAMのRISC-Vチップでランレングス圧縮されたLinuxを起動——2023年のHNで話題に。本物のLinux向けマイコン：Microchip SAMA5（Cortex-A5、MMUあり）やSTM32MP1（デュアルCortex-A7）のような「アプリケーションプロセッサ」はMMUを持ちフルLinuxが動く。「不可能を可能に」という文化：マイコンで何か無茶なことを動かすことはHNコミュニティが好む題材——技術的な探求心と遊び心の表れ。</div>
+        </div>
+      </div>
+      <div class="slate-item">
+        <div>
+          <div class="slate-label">本当に小さいLinuxを動かしたい場合</div>
+          <div class="slate-text">OpenWrt：ルーター向けの実用的な軽量Linux——数MB RAMで動作。Buildroot：カスタム組み込みLinuxを作るツール——必要なコンポーネントだけ入れた最小イメージを作れる。Yocto：産業用組み込みLinuxのデファクトスタンダードツールチェーン。実用的なMMU付きチップ：Allwinner V3s（Cortex-A7、64MB DRAM内蔵・$2以下）やSIPeed Longan Nano（RISC-V GD32VF103）はLinuxが実用的に動く最小クラスのチップ。Alpine Linux：コンテナや組み込みでのmuslベースの軽量Linux——本番用途の組み込みLinuxとして適切。</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: github.com/GrieferPig/esp32-s31-linux</span>
+      <span>82 ポイント</span>
+      <span>32 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://github.com/GrieferPig/esp32-s31-linux" target="_blank">GitHubを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49087499" target="_blank">HN議論 (32)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="linux-on-esp32" data-type="like" onclick="toggleFlag('linux-on-esp32','ESP32でLinuxを動かした——IoTチップの限界','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="linux-on-esp32" data-type="dislike" onclick="toggleFlag('linux-on-esp32','ESP32でLinuxを動かした——IoTチップの限界','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 10 — Scanning HuggingFace Training Data for Secrets ══════════ -->
+<section class="story story-10" id="s10">
+  <div class="story-num">10</div>
+  <div class="story-inner">
+    <div class="story-kicker">セキュリティ / HuggingFace / AIトレーニングデータ / シークレット / TruffleHog / データ漏洩 / 機械学習 / サプライチェーン — TruffleHogが7.6PBのHuggingFace学習データをスキャンしシークレット漏洩を発見。21ポイント・4コメント。2026-08-02</div>
+    <h2 class="story-headline">
+      7.6PBの<br>AI学習データに<br><span style="color:#ff60b0">シークレットが<br>混入</span>していた
+    </h2>
+    <div class="story-body">
+      TruffleSecurityが「Scanning 7.6 Petabytes of HuggingFace Training Data for Secrets」を公開し、21ポイント・4コメントを集めました。シークレットスキャンツールTruffleHogを使ってHuggingFaceに公開されているAI学習用データセット（総計7.6ペタバイト）をスキャンし、実際のAPIキー・認証情報・秘密鍵が含まれていることを発見した調査報告です。
+
+      AIモデルの学習データはしばしばCommon Crawl（ウェブのスナップショット）・GitHubのパブリックリポジトリのダンプ・コード共有サイトの内容を含みます。これらのソースにはユーザーが誤ってコミットしたシークレット（AWSキー・Stripe APIキー・GitHubトークン等）が混入することがあります。LLMがこれらのデータで訓練されると、モデルの出力としてシークレットが再生成されるリスクがあるという問題が以前から指摘されていましたが、実際にどれだけのシークレットが学習データに含まれているかを実測した調査は少なかった。
+
+      HNコメントでは「このシークレットが有効かどうかを試すことは違法だが、データが公開されている以上悪意ある行為者がスキャンしていないとは言えない」「LLMが訓練データ中のシークレットを記憶・出力するリスクは以前から理論的に指摘されていた——今回の調査はそのリスクの具体的な規模感を示している」「Common Crawlのシークレット汚染問題はデータキュレーションパイプラインで対策が必要——AI企業の学習データ衛生に新たな基準が必要」という4コメントが展開されました。
+    </div>
+    <div class="mag-items">
+      <div class="mag-item">
+        <div>
+          <div class="mag-label">何が見つかったか</div>
+          <div class="mag-text">スキャン対象：HuggingFaceに公開されている学習データセット——コードデータセット・WebクロールデータセットなどAIの訓練に使われるもの。検出されたシークレットの種類：AWSアクセスキー・GitHub Personal Access Token・Stripe APIキー・Slack Bot Token・Google Cloud認証情報・OpenAI APIキーなど。有効性の確認：TruffleSecurityはシークレットが有効かどうかを直接試すことはせず（倫理・法律上の理由）、フォーマットベースの検出のみ実施。データの出所：コードを含む学習データセット（GitHubダンプやCodetaniumなど）に集中——Webクロールデータよりコードデータにシークレットが多く含まれる。</div>
+        </div>
+      </div>
+      <div class="mag-item">
+        <div>
+          <div class="mag-label">なぜAI特有のリスクか</div>
+          <div class="mag-text">訓練データの記憶：LLMは訓練データを一定の割合で「記憶」することが知られている——特に繰り返し登場するパターン（シークレットのフォーマット）は記憶されやすい。抽出攻撃（Extraction Attack）：プロンプトを工夫することでLLMに訓練データを出力させる攻撃が研究されている——シークレットが含まれていると、モデルがそれを「生成」してしまうリスク。間接的な流出：直接出力されなくても、シークレットを含む文脈がモデルの振る舞いに影響する可能性がある。モデルが多くの人に使われるほどリスクが拡大：GPT-4やClaudeのような大規模モデルが同じシークレットを含む訓練データで学習していた場合、世界規模のリスクになる。</div>
+        </div>
+      </div>
+      <div class="mag-item">
+        <div>
+          <div class="mag-label">開発者・AIチームへの対策</div>
+          <div class="mag-text">シークレットのローテーション：もし自分のコードがGitHubに公開されていた時期があるなら、その間に使っていたシークレットは全てローテーション済みであることを確認する——公開リポジトリにコミットしたシークレットは「漏洩済み」として扱う。学習データのクリーニング：AIプロダクトを開発しているチームはデータパイプラインにシークレットスキャン（TruffleHog・detect-secrets）を組み込む——学習前にデータセットをクリーニングする。モデルの出力監視：LLMの出力にシークレットのパターンが現れていないかを監視する——特に外部に公開するAPIやチャットボットで実施。GitGuardian・GitHub Secret Scanning：コードリポジトリへのシークレットコミットを自動検出するサービス——プッシュ時にリアルタイムで検出してリボークを促す。</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: trufflesecurity.com</span>
+      <span>21 ポイント</span>
+      <span>4 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://trufflesecurity.com/blog/scanning-7-6-petabytes-of-ai-training-data-for-secrets" target="_blank">調査報告を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49136955" target="_blank">HN議論 (4)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="scanning-huggingface-training-secrets" data-type="like" onclick="toggleFlag('scanning-huggingface-training-secrets','7.6PBのAI学習データにシークレットが混入していた','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="scanning-huggingface-training-secrets" data-type="dislike" onclick="toggleFlag('scanning-huggingface-training-secrets','7.6PBのAI学習データにシークレットが混入していた','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ════════════════════════════════════════════════════════════════ -->
+<footer class="site-footer">
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand">Morning Edition</div>
+      <div class="footer-meta">
+        Hacker News キュレーション · 2026年8月2日 · Issue No.095<br>
+        毎朝、厳選10本をお届け
+      </div>
+    </div>
+    <button class="export-btn" onclick="exportFeedback()">📋 フィードバックをコピー</button>
+  </div>
+  <div class="footer-note">
+    ⭐ 興味あり / ✕ 興味なし ボタンで次回のキュレーションが改善されます。Chrome/Edgeでは自動保存、その他ではボタンでクリップボードにコピーしてください。
+  </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  const FEEDBACK_KEY = 'morning-edition-feedback-v2';
+  const TODAY = '2026-08-02';
+  let _dirHandle = null;
+
+  async function getDir(forcePrompt) {
+    if (_dirHandle && !forcePrompt) return _dirHandle;
+    if (!window.showDirectoryPicker) return null;
+    try {
+      _dirHandle = await window.showDirectoryPicker({ mode: 'readwrite', id: 'morning-edition', startIn: 'documents' });
+      return _dirHandle;
+    } catch { return null; }
+  }
+
+  async function writeJSON(dirHandle, fb) {
+    const fileHandle = await dirHandle.getFileHandle('feedback.json', { create: true });
+    const writable = await fileHandle.createWritable();
+    await writable.write(JSON.stringify({ ...fb, updatedAt: new Date().toISOString() }, null, 2));
+    await writable.close();
+  }
+
+  function showToast(msg, isErr) {
+    const el = document.getElementById('toast');
+    el.textContent = msg;
+    el.className = 'toast' + (isErr ? ' error' : '');
+    requestAnimationFrame(() => el.classList.add('show'));
+    clearTimeout(el._timer);
+    el._timer = setTimeout(() => el.classList.remove('show'), 3000);
+  }
+
+  function getFeedback() {
+    try { return JSON.parse(localStorage.getItem(FEEDBACK_KEY) || '{"liked":{},"disliked":{}}'); }
+    catch { return { liked: {}, disliked: {} }; }
+  }
+  function saveFeedback(fb) { localStorage.setItem(FEEDBACK_KEY, JSON.stringify(fb)); }
+
+  async function autoSave(fb) {
+    let dir = await getDir();
+    if (!dir) {
+      showToast('📁 Daily News フォルダを選択してください', true);
+      dir = await getDir(true);
+      if (!dir) { showToast('保存をキャンセルしました', true); return; }
+    }
+    try {
+      await writeJSON(dir, fb);
+      showToast('✓ feedback.json を自動保存しました（次回キュレーションに反映）');
+    } catch (e) {
+      showToast('保存エラー: ' + e.message, true);
+    }
+  }
+
+  async function toggleFlag(storyId, title, type) {
+    const fb = getFeedback();
+    fb.liked = fb.liked || {};
+    fb.disliked = fb.disliked || {};
+    const likeBtn    = document.querySelector(`.flag-btn.like-btn[data-story="${storyId}"]`);
+    const dislikeBtn = document.querySelector(`.flag-btn.dislike-btn[data-story="${storyId}"]`);
+    if (type === 'like') {
+      if (fb.liked[storyId]) {
+        delete fb.liked[storyId];
+        likeBtn?.classList.remove('active');
+      } else {
+        fb.liked[storyId] = { title, date: TODAY };
+        delete fb.disliked[storyId];
+        likeBtn?.classList.add('active');
+        dislikeBtn?.classList.remove('active');
+      }
+    } else {
+      if (fb.disliked[storyId]) {
+        delete fb.disliked[storyId];
+        dislikeBtn?.classList.remove('active');
+      } else {
+        fb.disliked[storyId] = { title, date: TODAY };
+        delete fb.liked[storyId];
+        dislikeBtn?.classList.add('active');
+        likeBtn?.classList.remove('active');
+      }
+    }
+    saveFeedback(fb);
+    await autoSave(fb);
+  }
+
+  function exportFeedback() {
+    const fb = getFeedback();
+    const json = JSON.stringify({ ...fb, exportedAt: new Date().toISOString() }, null, 2);
+    navigator.clipboard.writeText(json)
+      .then(() => showToast('📋 クリップボードにコピーしました'))
+      .catch(() => {
+        const el = document.createElement('textarea');
+        el.value = json; document.body.appendChild(el); el.select();
+        document.execCommand('copy'); document.body.removeChild(el);
+        showToast('📋 クリップボードにコピーしました');
+      });
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const fb = getFeedback();
+    document.querySelectorAll('.flag-btn').forEach(btn => {
+      const id   = btn.dataset.story;
+      const type = btn.dataset.type;
+      if ((type === 'like' && fb.liked?.[id]) || (type === 'dislike' && fb.disliked?.[id])) {
+        btn.classList.add('active');
+      }
+    });
+  });
+</script>
+</body>
+</html>
