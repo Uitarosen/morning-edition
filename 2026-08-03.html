@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Morning Edition — 2026年8月3日</title>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --font: 'M PLUS Rounded 1c', 'Hiragino Sans', 'Noto Sans JP', sans-serif; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); background: #111; color: #fff; overflow-x: hidden; }
+
+    .masthead { background: #fff; color: #000; padding: 3rem 4rem 2.5rem; border-bottom: 6px solid #000; position: relative; overflow: hidden; }
+    .masthead::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: repeating-linear-gradient(90deg, #000 0, #000 12px, transparent 12px, transparent 20px); }
+    .masthead-kicker { font-size: 0.85rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: #777; margin-bottom: 0.6rem; }
+    .masthead-title { font-size: clamp(3.5rem, 9vw, 7.5rem); font-weight: 900; line-height: 0.88; letter-spacing: -0.04em; margin-bottom: 1.8rem; }
+    .masthead-meta { display: flex; gap: 3rem; align-items: baseline; flex-wrap: wrap; }
+    .masthead-date { font-size: 1.5rem; font-weight: 700; }
+    .masthead-subtitle { font-size: 1rem; font-weight: 400; color: #555; max-width: 480px; line-height: 1.5; }
+    .masthead-issue { margin-left: auto; text-align: right; }
+    .masthead-issue span { display: block; }
+    .masthead-issue .iss-label { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: #999; }
+    .masthead-issue .iss-num { font-size: 2.2rem; font-weight: 900; color: #000; }
+
+    .toc { background: #1a1a1a; padding: 1.5rem 4rem; display: flex; gap: 1.5rem; flex-wrap: wrap; border-bottom: 1px solid #333; }
+    .toc a { color: #aaa; text-decoration: none; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; transition: color 0.2s; }
+    .toc a:hover { color: #fff; }
+    .toc-num { color: #555; margin-right: 0.3em; }
+
+    .story { position: relative; overflow: hidden; }
+    .story-inner { max-width: 1200px; margin: 0 auto; padding: 5rem 4rem; position: relative; z-index: 1; }
+    .story-num { font-size: clamp(6rem, 18vw, 16rem); font-weight: 900; line-height: 0.8; letter-spacing: -0.06em; opacity: 0.08; position: absolute; top: 1rem; right: 2rem; user-select: none; }
+    .story-badge { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.35em 0.9em; border-radius: 2px; margin-bottom: 1.5rem; }
+    .direct-badge { background: #FFD700; color: #000; }
+    .story-kicker { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; opacity: 0.6; margin-bottom: 0.8rem; }
+    .story-headline { font-size: clamp(2rem, 5vw, 4rem); font-weight: 900; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+    .story-body { font-size: clamp(1rem, 1.5vw, 1.2rem); font-weight: 400; line-height: 1.8; max-width: 680px; opacity: 0.88; margin-bottom: 2rem; }
+    .story-meta { display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center; font-size: 0.8rem; font-weight: 700; opacity: 0.5; }
+    .story-links { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem; }
+    .story-link { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.6em 1.4em; border-radius: 3px; text-decoration: none; transition: opacity 0.2s, transform 0.15s; }
+    .story-link:hover { opacity: 0.75; transform: translateY(-1px); }
+
+    .feedback-buttons { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .flag-btn { background: none; border: 1px solid currentColor; color: inherit; font-family: var(--font); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.5em 1em; border-radius: 3px; cursor: pointer; opacity: 0.32; transition: opacity 0.2s, background 0.2s, color 0.2s, border-color 0.2s, transform 0.15s; }
+    .flag-btn:hover { opacity: 0.72; transform: translateY(-1px); }
+    .flag-btn.like-btn.active { opacity: 1; background: rgba(255,215,0,0.15); border-color: #FFD700; color: #FFD700 !important; }
+    .flag-btn.dislike-btn.active { opacity: 1; background: rgba(255,60,60,0.12); border-color: #FF4444; color: #FF4444 !important; }
+
+    .toast { position: fixed; bottom: 2rem; right: 2rem; background: #1a1a1a; color: #fff; font-family: var(--font); font-size: 0.82rem; font-weight: 700; padding: 0.75em 1.4em; border-radius: 4px; border-left: 3px solid #00C853; z-index: 9999; opacity: 0; transform: translateY(10px); transition: opacity 0.25s, transform 0.25s; pointer-events: none; box-shadow: 0 4px 24px rgba(0,0,0,0.45); }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    .toast.error { border-left-color: #FF5252; }
+
+    /* Story 1 — White */
+    .story-1 { background: #fff; color: #000; min-height: 90vh; display: flex; flex-direction: column; justify-content: center; }
+    .story-1 .story-num { color: #000; opacity: 0.04; }
+    .story-1 .story-kicker { color: #555; opacity: 1; }
+    .story-1 .story-headline { color: #000; }
+    .story-1 .story-body { color: #111; }
+    .story-1 .story-meta { color: #000; }
+    .story-1 .story-link.primary { background: #1a1a1a; color: #fff; }
+    .story-1 .story-link.secondary { background: #f0f0f0; color: #000; }
+    .story-1 .flag-btn { color: #000; }
+    .story-1-accent { position: absolute; bottom: 0; left: 0; width: 100%; height: 8px; background: linear-gradient(90deg, #ff6600, #ffaa00, #ff6600); }
+    .story-1 .headline-accent { display: inline-block; background: linear-gradient(135deg, #cc4400 0%, #ff8800 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .blue-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1.2rem; margin: 2rem 0; max-width: 680px; }
+    .blue-card { border: 2px solid rgba(255,102,0,0.18); background: rgba(255,102,0,0.04); border-radius: 6px; padding: 1.3rem 1.5rem; }
+    .blue-card-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.2em; text-transform: uppercase; color: #cc4400; margin-bottom: 0.4rem; }
+    .blue-card-value { font-size: 1.05rem; font-weight: 900; color: #000; line-height: 1.3; }
+    .blue-card-sub { font-size: 0.75rem; color: #555; margin-top: 0.3rem; line-height: 1.4; }
+
+    /* Story 2 — Dark navy/teal */
+    .story-2 { background: #00080c; color: #b8f0ff; min-height: 80vh; }
+    .story-2::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(0,160,200,0.14) 0%, transparent 65%); }
+    .story-2 .story-num { color: #00A0C8; opacity: 0.07; }
+    .story-2 .story-kicker { color: #20C8E8; opacity: 1; }
+    .story-2 .story-headline { color: #e0f8ff; }
+    .story-2 .story-body { color: #b8f0ff; }
+    .story-2 .story-meta { color: #20C8E8; opacity: 0.5; }
+    .story-2 .story-link.primary { background: #004058; color: #80e8ff; }
+    .story-2 .story-link.secondary { background: rgba(0,160,200,0.08); color: #90d8f0; border: 1px solid rgba(0,160,200,0.22); }
+    .story-2 .flag-btn { color: #b8f0ff; }
+    .teal-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .teal-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(0,160,200,0.07); border-left: 3px solid #00A0C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .teal-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20C8E8; margin-bottom: 0.3rem; }
+    .teal-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 3 — Dark red */
+    .story-3 { background: #0a0000; color: #fff; min-height: 80vh; }
+    .story-3::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(200,20,20,0.16) 0%, transparent 65%); }
+    .story-3 .story-num { color: #C81414; opacity: 0.07; }
+    .story-3 .story-kicker { color: #E84040; opacity: 1; }
+    .story-3 .story-headline { color: #fff; }
+    .story-3 .story-body { color: rgba(255,255,255,0.88); }
+    .story-3 .story-meta { color: #E84040; opacity: 0.5; }
+    .story-3 .story-link.primary { background: #6a0000; color: #fff; }
+    .story-3 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-3 .flag-btn { color: #fff; }
+    .red-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .red-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(200,20,20,0.07); border-left: 3px solid #C81414; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .red-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E84040; margin-bottom: 0.3rem; }
+    .red-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 4 — Dark green */
+    .story-4 { background: #020c04; color: #c8f0d0; min-height: 80vh; }
+    .story-4::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(20,160,70,0.16) 0%, transparent 65%); }
+    .story-4 .story-num { color: #14A046; opacity: 0.07; }
+    .story-4 .story-kicker { color: #30C060; opacity: 1; }
+    .story-4 .story-headline { color: #e0ffe8; }
+    .story-4 .story-body { color: #c8f0d0; }
+    .story-4 .story-meta { color: #30C060; opacity: 0.5; }
+    .story-4 .story-link.primary { background: #063820; color: #80ffb0; }
+    .story-4 .story-link.secondary { background: rgba(20,160,70,0.08); color: #a0e8b0; border: 1px solid rgba(20,160,70,0.22); }
+    .story-4 .flag-btn { color: #c8f0d0; }
+    .green-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .green-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(20,160,70,0.07); border-left: 3px solid #14A046; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .green-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #30C060; margin-bottom: 0.3rem; }
+    .green-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 5 — Dark purple */
+    .story-5 { background: #040010; color: #d8c8ff; min-height: 75vh; }
+    .story-5::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(90,40,200,0.17) 0%, transparent 65%); }
+    .story-5 .story-num { color: #5A28C8; opacity: 0.07; }
+    .story-5 .story-kicker { color: #8050E0; opacity: 1; }
+    .story-5 .story-headline { color: #f0e8ff; }
+    .story-5 .story-body { color: #d8c8ff; }
+    .story-5 .story-meta { color: #8050E0; opacity: 0.5; }
+    .story-5 .story-link.primary { background: #200860; color: #d0a8ff; }
+    .story-5 .story-link.secondary { background: rgba(90,40,200,0.08); color: #c0a0f0; border: 1px solid rgba(90,40,200,0.22); }
+    .story-5 .flag-btn { color: #d8c8ff; }
+    .purple-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .purple-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(90,40,200,0.07); border-left: 3px solid #5A28C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .purple-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #8050E0; margin-bottom: 0.3rem; }
+    .purple-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 6 — Dark cyan */
+    .story-6 { background: #000c10; color: #b8e8f0; min-height: 75vh; }
+    .story-6::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 40%, rgba(0,130,160,0.14) 0%, transparent 65%); }
+    .story-6 .story-num { color: #0080A0; opacity: 0.07; }
+    .story-6 .story-kicker { color: #20B0D0; opacity: 1; }
+    .story-6 .story-headline { color: #e0f4ff; }
+    .story-6 .story-body { color: #b8e8f0; }
+    .story-6 .story-meta { color: #20B0D0; opacity: 0.5; }
+    .story-6 .story-link.primary { background: #003848; color: #80d8f0; }
+    .story-6 .story-link.secondary { background: rgba(0,130,160,0.08); color: #90cce0; border: 1px solid rgba(0,130,160,0.22); }
+    .story-6 .flag-btn { color: #b8e8f0; }
+    .cyan-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .cyan-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(0,130,160,0.07); border-left: 3px solid #0080A0; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .cyan-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20B0D0; margin-bottom: 0.3rem; }
+    .cyan-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 7 — Dark amber */
+    .story-7 { background: #0a0300; color: #ffe0b8; min-height: 75vh; }
+    .story-7::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(210,90,20,0.18) 0%, transparent 65%); }
+    .story-7 .story-num { color: #D05A14; opacity: 0.07; }
+    .story-7 .story-kicker { color: #E88040; opacity: 1; }
+    .story-7 .story-headline { color: #fff0d8; }
+    .story-7 .story-body { color: #ffe0b8; }
+    .story-7 .story-meta { color: #E88040; opacity: 0.5; }
+    .story-7 .story-link.primary { background: #6a2400; color: #ffc880; }
+    .story-7 .story-link.secondary { background: rgba(210,90,20,0.08); color: #ffb870; border: 1px solid rgba(210,90,20,0.22); }
+    .story-7 .flag-btn { color: #ffe0b8; }
+    .amber-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .amber-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(210,90,20,0.07); border-left: 3px solid #D05A14; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .amber-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E88040; margin-bottom: 0.3rem; }
+    .amber-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 8 — Dark gold */
+    .story-8 { background: #080500; color: #fff; min-height: 70vh; }
+    .story-8::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,145,10,0.15) 0%, transparent 65%); }
+    .story-8 .story-num { color: #BE9110; opacity: 0.06; }
+    .story-8 .story-kicker { color: #D4A820; opacity: 1; }
+    .story-8 .story-headline { color: #fff; }
+    .story-8 .story-body { color: rgba(255,255,255,0.88); }
+    .story-8 .story-meta { color: #D4A820; opacity: 0.5; }
+    .story-8 .story-link.primary { background: #604000; color: #ffe070; }
+    .story-8 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-8 .flag-btn { color: #fff; }
+    .gold-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .gold-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(190,145,10,0.07); border-left: 3px solid #BE9110; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .gold-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #D4A820; margin-bottom: 0.3rem; }
+    .gold-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 9 — Slate blue */
+    .story-9 { background: #040810; color: #c8d8f0; min-height: 70vh; }
+    .story-9::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 35%, rgba(50,90,170,0.16) 0%, transparent 65%); }
+    .story-9 .story-num { color: #3258A8; opacity: 0.07; }
+    .story-9 .story-kicker { color: #5878C8; opacity: 1; }
+    .story-9 .story-headline { color: #e8f0ff; }
+    .story-9 .story-body { color: #c8d8f0; }
+    .story-9 .story-meta { color: #5878C8; opacity: 0.5; }
+    .story-9 .story-link.primary { background: #101e50; color: #fff; }
+    .story-9 .story-link.secondary { background: rgba(50,90,170,0.08); color: #b0c8e8; border: 1px solid rgba(50,90,170,0.22); }
+    .story-9 .flag-btn { color: #c8d8f0; }
+    .slate-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .slate-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(50,90,170,0.07); border-left: 3px solid #3258A8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .slate-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #5878C8; margin-bottom: 0.3rem; }
+    .slate-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 10 — Magenta */
+    .story-10 { background: #080004; color: #ffc8e8; min-height: 70vh; }
+    .story-10::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,20,90,0.15) 0%, transparent 65%); }
+    .story-10 .story-num { color: #BE1458; opacity: 0.07; }
+    .story-10 .story-kicker { color: #E04080; opacity: 1; }
+    .story-10 .story-headline { color: #fff0f8; }
+    .story-10 .story-body { color: #ffc8e8; }
+    .story-10 .story-meta { color: #E04080; opacity: 0.5; }
+    .story-10 .story-link.primary { background: #500030; color: #ffb0d8; }
+    .story-10 .story-link.secondary { background: rgba(190,20,90,0.08); color: #f090c0; border: 1px solid rgba(190,20,90,0.22); }
+    .story-10 .flag-btn { color: #ffc8e8; }
+    .mag-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .mag-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(190,20,90,0.07); border-left: 3px solid #BE1458; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .mag-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E04080; margin-bottom: 0.3rem; }
+    .mag-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .site-footer { background: #000; color: #555; padding: 3rem 4rem; display: flex; flex-direction: column; gap: 1.5rem; border-top: 1px solid #222; }
+    .footer-top { display: flex; gap: 2rem; align-items: center; flex-wrap: wrap; justify-content: space-between; }
+    .footer-brand { font-size: 1.4rem; font-weight: 900; color: #fff; }
+    .footer-meta { font-size: 0.75rem; line-height: 1.6; }
+    .export-btn { background: #222; border: 1px solid #444; color: #fff; font-family: var(--font); font-size: 0.8rem; font-weight: 700; padding: 0.7em 1.5em; border-radius: 3px; cursor: pointer; letter-spacing: 0.08em; transition: background 0.2s; }
+    .export-btn:hover { background: #333; }
+    .footer-note { font-size: 0.7rem; opacity: 0.5; }
+
+    @media (max-width: 768px) {
+      .masthead, .toc, .story-inner, .site-footer { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .story-num { display: none; }
+      .masthead-meta { gap: 1rem; }
+      .masthead-issue { margin-left: 0; }
+      .blue-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+<nav style="background:#1a1a1a;border-bottom:1px solid #333;padding:0.55rem 2rem;font-family:'M PLUS Rounded 1c','Hiragino Sans','Noto Sans JP',sans-serif;position:sticky;top:0;z-index:999;">
+  <a href="./index.html" style="color:#aaa;text-decoration:none;font-size:0.8rem;font-weight:700;letter-spacing:0.03em;display:inline-flex;align-items:center;gap:0.4rem;transition:color 0.15s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#aaa'">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    アーカイブへ戻る
+  </a>
+</nav>
+
+<header class="masthead">
+  <div class="masthead-kicker">Hacker News — Morning Edition</div>
+  <h1 class="masthead-title">Morning<br>Edition</h1>
+  <div class="masthead-meta">
+    <div>
+      <div class="masthead-date">2026年8月3日 月曜日</div>
+      <div class="masthead-subtitle">AI・開発ツール・プライバシー・サイエンス — あなたのための10本</div>
+    </div>
+    <div class="masthead-issue">
+      <span class="iss-label">Issue</span>
+      <span class="iss-num">No.096</span>
+    </div>
+  </div>
+</header>
+
+<nav class="toc">
+  <a href="#s1"><span class="toc-num">01</span>Karpathyの「Pelican」——AIベンチマークに新たな視点</a>
+  <a href="#s2"><span class="toc-num">02</span>Bor——Linuxデスクトップのポリシー管理をOSSで</a>
+  <a href="#s3"><span class="toc-num">03</span>Kakehashi——LinuxARMでmacOSバイナリを動かす実験</a>
+  <a href="#s4"><span class="toc-num">04</span>F*——証明指向の汎用プログラミング言語</a>
+  <a href="#s5"><span class="toc-num">05</span>eBayハラスメント事件——5600万ドルの代償</a>
+  <a href="#s6"><span class="toc-num">06</span>開発者がツールに執着する理由——信頼のエンコード</a>
+  <a href="#s7"><span class="toc-num">07</span>AIベンチマーク「ハプスブルク顎のカエル」で各モデルを評価</a>
+  <a href="#s8"><span class="toc-num">08</span>EU年齢確認プロジェクトがハードウェア証明を義務化</a>
+  <a href="#s9"><span class="toc-num">09</span>ハニーポットネットワークで収集したSSH認証情報の分析</a>
+  <a href="#s10"><span class="toc-num">10</span>ノートテイキングと個人知識管理——深掘り解説</a>
+</nav>
+
+<!-- ═══ STORY 1 — Karpathy's Pelican ═══════════════════════════════════════════ -->
+<section class="story story-1" id="s1">
+  <div class="story-num">01</div>
+  <div class="story-inner">
+    <div class="story-badge direct-badge">⚡ あなたに直接関係</div>
+    <div class="story-kicker">Andrej Karpathy / AI / ベンチマーク / LLM評価 / Twitter(X) / 機械学習 / 開発ツール / モデル比較 — Karpathyが投稿したAI評価に関するツイートがHNトップへ。335ポイント・270コメント。2026-08-03</div>
+    <h2 class="story-headline">
+      Karpathyの<br><span class="headline-accent">「Pelican」</span>——<br>AIベンチマークに<br>新たな視点
+    </h2>
+    <div class="story-body">
+      元OpenAI・TeslaのAI責任者であり、現在はAI教育・研究に注力するAndrej Karpathyが「Pelican」と題した投稿をX（旧Twitter）に公開し、HNで335ポイント・270コメントを集めました。Karpathyはしばしば独自の視点でLLMの能力・限界・評価方法について発信しており、今回も現在のAIモデルに対するシンプルかつ鋭い評価プロンプトや観察が大きな反響を呼んでいます。
+
+      「Pelican（ペリカン）」というキーワードは、AIモデルが特定の常識的タスク（動物の特徴・行動・生態など具体的な知識）をどう処理するかを試す文脈で使われており、Karpathyが提示する「見た目は簡単だが実は難しいテスト」の一例です。現在の大規模言語モデルはトークンの統計的パターンに強い一方、「それは何色か」「どこに住んでいるか」「何を食べるか」といった基礎的な事実の組み合わせで予想外に失敗することがあります。
+
+      HNコメントでは「Karpathyのこうした観察は開発者として非常に示唆に富む——モデルのデプロイ前に同様の常識テストを組み込んでいるチームは少ない」「LLMがペリカンについて流暢に話せても、それが『知っている』ことを意味するかどうかは全く別の問題——哲学的にも工学的にも重要な区別」「GPT-4o・Gemini・Claude等で試してみたが結果がバラバラ——モデルごとの差異が可視化できて有益」という270コメントが展開されました。
+    </div>
+    <div class="blue-grid">
+      <div class="blue-card">
+        <div class="blue-card-label">Karpathyの観点</div>
+        <div class="blue-card-value">常識の壁</div>
+        <div class="blue-card-sub">LLMは流暢な文章生成が得意だが、具体的な事実の組み合わせや常識的推論で予想外に躓く——その「壁」を可視化するのがKarpathyの得意技</div>
+      </div>
+      <div class="blue-card">
+        <div class="blue-card-label">なぜ重要か</div>
+        <div class="blue-card-value">モデル評価の盲点</div>
+        <div class="blue-card-sub">ベンチマーク（MMLU・GSM8K等）が高スコアでも実用タスクで失敗するケースが多い——シンプルな具体的質問でモデルの「実力」を測る重要性</div>
+      </div>
+      <div class="blue-card">
+        <div class="blue-card-label">開発者への示唆</div>
+        <div class="blue-card-value">本番前テスト</div>
+        <div class="blue-card-sub">AIプロダクトをデプロイする前に、ドメイン特有の「常識テスト」を用意しておくことがユーザー体験の劣化防止に有効——Karpathyのアプローチを参考に</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: twitter.com/karpathy</span>
+      <span>335 ポイント</span>
+      <span>270 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://twitter.com/karpathy/status/2083749667410727319" target="_blank">ツイートを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49140998" target="_blank">HN議論 (270)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="karpathys-pelican" data-type="like" onclick="toggleFlag('karpathys-pelican','Karpathyの「Pelican」——AIベンチマークに新たな視点','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="karpathys-pelican" data-type="dislike" onclick="toggleFlag('karpathys-pelican','Karpathyの「Pelican」——AIベンチマークに新たな視点','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+    <div class="story-1-accent"></div>
+  </div>
+</section>
+
+<!-- ═══ STORY 2 — Bor policy management ════════════════════════════════════════ -->
+<section class="story story-2" id="s2">
+  <div class="story-num">02</div>
+  <div class="story-inner">
+    <div class="story-kicker">Linux / ポリシー管理 / オープンソース / セキュリティ / デスクトップ / Show HN / プライバシー / システム管理 — Linuxデスクトップ向けOSSポリシー管理ツール「Bor」v0.8.0がリリース。161ポイント・20コメント。2026-08-03</div>
+    <h2 class="story-headline">
+      Bor——<br><span style="color:#20d8f0">Linuxデスクトップの</span><br>ポリシー管理を<br>OSSで
+    </h2>
+    <div class="story-body">
+      オープンソースのLinuxデスクトップ向けポリシー管理ツール「Bor」がv0.8.0をリリースし、Show HNとして161ポイント・20コメントを集めました。BorはWindowsのグループポリシー（GPO）に相当する機能をLinuxデスクトップ環境に提供するツールです。企業・教育機関・マルチユーザー環境でLinuxデスクトップを展開する際のポリシー適用・設定管理を統一的に行えるよう設計されています。
+
+      現在のLinux企業デプロイにおけるポリシー管理の欠如は長年の課題でした。Windowsでは管理者がGPOでアプリの設定・アクセス制御・セキュリティポリシーを一元管理できますが、LinuxではGNOME設定・dconf・SELinux/AppArmorを個別に管理する必要があり、統一的な管理インターフェースが存在しませんでした。BorはYAMLベースのポリシー定義を採用し、GNOMEデスクトップの設定・アプリのパーミッション・ネットワーク制限を宣言的に記述できます。
+
+      HNコメントでは「Linuxをエンタープライズで使う上でのGPO相当の不在は長年の痛点——FlatpakのPortalやPolkitとの統合がどうなるか注目している」「systemdのユニットやdconf/GSettingsのバックエンドをどう扱っているかが気になる——既存のAdmxテンプレートとの互換性も」「macOSにもMDMプロファイルがある——LinuxのBorはその方向性で有望だがディストリビューション間の差異が課題」という20コメントが展開されました。
+    </div>
+    <div class="teal-items">
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">Borができること</div>
+          <div class="teal-text">GNOME設定のポリシー強制：dconf/GSettingsを通じてデスクトップ設定（壁紙固定・機能制限・アクセシビリティ設定）を管理。アプリのパーミッション管理：Flatpakアプリのポータルパーミッション（カメラ・マイク・ファイルアクセス）をポリシーで制御。ネットワーク制限：特定のネットワーク設定や接続プロファイルの適用・制限。ユーザー/マシン別ポリシー：マシン全体・特定ユーザー・グループ別にポリシーを定義可能。YAMLベースの宣言型設定：インフラコードとして管理できるGit親和性の高い設定形式。</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">エンタープライズLinuxの文脈</div>
+          <div class="teal-text">なぜ今必要か：Chromebook代替・開発者ワークステーション・教育機関でのLinuxデスクトップ採用が増加——統一ポリシー管理の需要が高まっている。既存の代替手段：Ansible/Puppet/Chefでも設定管理は可能だが、デスクトップGUIの細かい設定に特化したツールではなかった。FreeIPA/Samba AD連携：将来的にActive DirectoryやFreeIPAのポリシーと連携できると企業採用が加速する——v0.8.0での対応状況は要確認。セキュリティコンプライアンス：CIS Benchmarks準拠の設定を宣言的に適用・監査できるようになる可能性。</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">試してみる</div>
+          <div class="teal-text">インストール：getbor.dev からdeb/rpm/Flatpakパッケージが配布されている——v0.8.0はGNOMEデスクトップが対象（KDE対応はロードマップ上）。最小構成で始める：まずローカルのYAMLポリシーファイルを使って自分のマシンで動作確認——ネットワークサーバーなしで単体動作する。Gitで管理：ポリシーファイルをGitリポジトリで管理してCI/CDでポリシーのバリデーションを走らせる使い方が推奨パターン。コントリビューション：Issueトラッカーに「KDEサポート」「Active Directory連携」が上がっている——Linuxデスクトップ管理に興味があれば参加の機会あり。</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: getbor.dev</span>
+      <span>161 ポイント</span>
+      <span>20 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://getbor.dev/blog/2026-08-02-bor-v080-release/" target="_blank">リリースノートを読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49142569" target="_blank">HN議論 (20)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="bor-linux-policy-management" data-type="like" onclick="toggleFlag('bor-linux-policy-management','Bor——Linuxデスクトップのポリシー管理をOSSで','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="bor-linux-policy-management" data-type="dislike" onclick="toggleFlag('bor-linux-policy-management','Bor——Linuxデスクトップのポリシー管理をOSSで','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 3 — Kakehashi ══════════════════════════════════════════════════════ -->
+<section class="story story-3" id="s3">
+  <div class="story-num">03</div>
+  <div class="story-inner">
+    <div class="story-kicker">macOS / Linux / ARM / バイナリ互換 / ユーザースペース / GitHub / Show HN / システムプログラミング — Linux ARM上でmacOSバイナリを動かす実験的ユーザースペース「Kakehashi」が公開。136ポイント・34コメント。2026-08-03</div>
+    <h2 class="story-headline">
+      Kakehashi——<br><span style="color:#ff6060">Linux ARMで</span><br>macOSバイナリを<br>動かす
+    </h2>
+    <div class="story-body">
+      「wie-project/kakehashi」がGitHubで公開され、Show HNとして136ポイント・34コメントを集めました。KakehashiはLinux ARM環境上でmacOS（Darwin）バイナリを実行することを目指す実験的なユーザースペース実装です。「橋」（かけはし）という名前の通り、macOSとLinuxの間に橋を架けようとする野心的なプロジェクトです。
+
+      macOSバイナリを他のOSで実行するためには、macOS固有のシステムコール（XNUカーネルのmach・BSD系syscall）・Objective-Cランタイム・CoreFoundation等のフレームワーク・動的リンカーをエミュレートまたは再実装する必要があります。KakehashiはLinuxのユーザースペース（システムコールの上の層）でこれを実現しようとしており、darlingプロジェクト（macOSをLinuxで動かすレイヤー）に近いアプローチですが、ARM64に特化した軽量実装を目指しています。
+
+      HNコメントでは「Darlingがすでにこれをやっているが、あちらはmacOS全体の再実装を目指している——Kakehashiがより軽量・特化した実装を目指しているなら差別化になりうる」「Apple SiliconのLinuxとmacOSのABI互換性は一部あるが、システムコールレイヤーは全く異なる——mach_msgの再実装がボトルネックになるはず」「Wine/Protonがx86 Windowsバイナリの実行でやってきたことをmacOSでやろうとしている——Wineの成熟度は25年かけて達成したもの」という34コメントが展開されました。
+    </div>
+    <div class="red-items">
+      <div class="red-item">
+        <div>
+          <div class="red-label">技術的な課題</div>
+          <div class="red-text">XNUシステムコール：macOSはBSD系とMach系の2種類のシステムコールを混在して使う——Linux上でmach_msg（プロセス間通信の根幹）を再実装することが最大の壁。Objective-Cランタイム：GNUstep版のObjCランタイムは存在するが、Apple版との完全互換ではない——特にランタイムの型システムと動的ディスパッチの差異が問題。動的リンカー（dyld）：macOSのバイナリはdyldに依存したシンボル解決を行う——これをLinux上で再現するには膨大なマッピング作業が必要。コード署名：macOS 10.15以降はコード署名の検証が厳格化——バイナリを他の環境で動かすと署名検証が失敗するケースがある。</div>
+        </div>
+      </div>
+      <div class="red-item">
+        <div>
+          <div class="red-label">類似プロジェクトとの比較</div>
+          <div class="red-text">Darling：最も成熟したmacOS互換レイヤー——カーネルモジュールを使ったより深いシステムコールフック。GNUstep：Objective-CランタイムとCocoaフレームワークのOSS再実装——ネイティブアプリより開発者ツール向け。Wine/Proton：Windowsバイナリ向けの先輩格——25年の開発で現在のゲーム互換性レベルに到達。Rosetta 2：Appleが作ったARM←→x86変換レイヤー——クローズドソースかつAppleハード専用なので参考にはなるが追従不能。Kakehashiの差別化点：ARM64に特化した軽量ユーザースペース実装というアプローチ——カーネルモジュール不要で試せることが利点。</div>
+        </div>
+      </div>
+      <div class="red-item">
+        <div>
+          <div class="red-label">現実的な応用可能性</div>
+          <div class="red-text">現状：実験段階——macOSの複雑なフレームワークに依存するアプリを動かすには程遠い段階。有望なユースケース：CLIツール（Objective-Cフレームワークに依存しないシンプルなバイナリ）の互換実行。ARM LinuxサーバーでmacOS向けのCLIバイナリを動かすニッチな用途。開発者への価値：macOS・Linux間のクロスプラットフォーム開発をしている場合、動作の差異を調査するツールとして使える可能性。貢献の機会：XNUシステムコールのマッピング・Objective-Cランタイムの実装・テストケースの追加——低レベルプログラミングの実践として非常に学びになるプロジェクト。</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: github.com/wie-project/kakehashi</span>
+      <span>136 ポイント</span>
+      <span>34 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://github.com/wie-project/kakehashi" target="_blank">GitHubを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49145937" target="_blank">HN議論 (34)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="kakehashi-macos-binaries-linux-arm" data-type="like" onclick="toggleFlag('kakehashi-macos-binaries-linux-arm','Kakehashi——Linux ARMでmacOSバイナリを動かす','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="kakehashi-macos-binaries-linux-arm" data-type="dislike" onclick="toggleFlag('kakehashi-macos-binaries-linux-arm','Kakehashi——Linux ARMでmacOSバイナリを動かす','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 4 — F* language ════════════════════════════════════════════════════ -->
+<section class="story story-4" id="s4">
+  <div class="story-num">04</div>
+  <div class="story-inner">
+    <div class="story-kicker">F* / 形式検証 / プログラミング言語 / 証明 / MSR / INRIA / 型システム / 関数型プログラミング — MicrosoftリサーチとINRIAが共同開発した証明指向汎用言語「F*」が注目を集める。135ポイント・59コメント。2026-08-03</div>
+    <h2 class="story-headline">
+      F*——<br><span style="color:#40ff80">証明指向の</span><br>汎用プログラミング<br>言語
+    </h2>
+    <div class="story-body">
+      Microsoft Research（MSR）とINRIAが共同開発する証明指向の汎用プログラミング言語「F*」（fstar-lang.org）がHNに取り上げられ、135ポイント・59コメントを集めました。F*はMLファミリーの関数型言語に依存型（dependent types）と効果システム（effect system）を組み合わせた言語で、通常のプログラムを書きながらそのプロパティを数学的に証明できることが特徴です。
+
+      F*の最大の特徴は「プログラムを書く」と「そのプログラムが正しいことを証明する」が同一の言語内で完結する点です。例えば「この関数はリストが空でない場合のみ最初の要素を返す」「この暗号化関数は入力のサイズに関わらず一定時間で実行される（タイミング攻撃耐性）」といったプロパティをF*の型システムで表現・証明できます。実際にMicrosoftはEverCrypt（形式検証済み暗号ライブラリ）をF*で開発しており、これはFirefoxのNSSライブラリに採用されています。
+
+      HNコメントでは「F*を本番で使っているチームが実際にいる——EverCryptはOpenSSLの代替として一部のMozillaコードに使われており、実績がある」「依存型はすごいが学習曲線が急すぎる——Idris・Agdaと同様にプログラマーより数学者向けという印象」「Rustのborrow checkerが安全性の一側面を型で証明するように、F*はより広い安全性の証明を可能にする——方向性は正しい、普及のスピードが問題」という59コメントが展開されました。
+    </div>
+    <div class="green-items">
+      <div class="green-item">
+        <div>
+          <div class="green-label">F*の核心技術</div>
+          <div class="green-text">依存型（Dependent Types）：型がプログラムの値に依存できる——例：「長さがnのリスト」を型として表現でき、「長さ3のリストしか受け付けない関数」を型安全に書ける。効果システム（Effect System）：関数の副作用（IOを起こすか、例外を投げるか、状態を変更するか）を型でトラッキング——Haskellのモナドに似ているが、より表現力が高い。SMTソルバー統合：Z3（Microsoftのオープンソース定理証明器）と連携して証明の多くを自動化——プログラマーが全て手動で証明する必要はない。抽出（Extraction）：検証済みF*コードをOCaml・C・Wasm等に変換して実際に実行可能なバイナリを生成——証明は消えてランタイムオーバーヘッドがない。</div>
+        </div>
+      </div>
+      <div class="green-item">
+        <div>
+          <div class="green-label">実績のある採用事例</div>
+          <div class="green-text">EverCrypt：形式検証済みの暗号ライブラリ——AES-GCM・ChaCha20-Poly1305・SHA-2/3・P-256などの実装が数学的に正しさを証明済み。Firefox：EverCryptのコードがFirefoxのNSS（ネットワークセキュリティサービス）に採用——数億のユーザーが間接的にF*の成果物に触れている。miTLS：TLS 1.3のF*による形式検証実装——TLSプロトコルの安全性をコードレベルで証明。Project Everest：Microsoft Researchのプロジェクト——HTTPSスタック全体を形式検証済みで実装することを目指し、F*を中核に使用。</div>
+        </div>
+      </div>
+      <div class="green-item">
+        <div>
+          <div class="green-label">始め方と学習リソース</div>
+          <div class="green-text">前提知識：MLファミリーの関数型言語（OCaml・SML・F#）の経験と型理論の基礎があると学習効率が高い。公式チュートリアル：fstar-lang.orgのProof-Oriented Programming in F*（POPLmark challenge等を通じた実践的な入門）。なぜ今学ぶか：暗号実装・セキュリティクリティカルなコード・形式検証の研究に携わるなら最高の実践環境。現実的な使い方：F*でコア部分を証明してOCamlやCに抽出するという「安全なコアを形式検証で、残りは普通の言語で」というハイブリッドアプローチが実用的。IDEサポート：VScodeのF*拡張が利用可能——構文ハイライトと証明の状態確認ができる。</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: fstar-lang.org</span>
+      <span>135 ポイント</span>
+      <span>59 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://fstar-lang.org/" target="_blank">F*公式サイト →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49143925" target="_blank">HN議論 (59)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="fstar-proof-oriented-language" data-type="like" onclick="toggleFlag('fstar-proof-oriented-language','F*——証明指向の汎用プログラミング言語','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="fstar-proof-oriented-language" data-type="dislike" onclick="toggleFlag('fstar-proof-oriented-language','F*——証明指向の汎用プログラミング言語','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 5 — eBay harassment $56M ══════════════════════════════════════════ -->
+<section class="story story-5" id="s5">
+  <div class="story-num">05</div>
+  <div class="story-inner">
+    <div class="story-kicker">eBay / ハラスメント / 訴訟 / プライバシー / サイバーストーキング / 企業責任 / FT / 5600万ドル — eBayの元幹部らによるブロガーへの組織的ハラスメント事件が5600万ドルの賠償で決着。109ポイント・43コメント。2026-08-03</div>
+    <h2 class="story-headline">
+      「この女性を<br>潰せ」——<br><span style="color:#a060ff">eBay事件が<br>5600万ドルで決着</span>
+    </h2>
+    <div class="story-body">
+      Financial Timesが報じたeBayのハラスメント事件解決ニュース「'Crush this lady': how eBay harassment campaign led to $56M payout」がHNで109ポイント・43コメントを集めました。この事件は2019〜2020年にeBayの元幹部が、eBayを批判的に報道していたニュースレター執筆者夫妻に対して組織的な嫌がらせキャンペーンを実施したという前代未聞の企業ハラスメント事件です。
+
+      事件の経緯は衝撃的です。eBay幹部チームはEcommerceBytes（オンライン販売者向けニュースレター）を運営するDavid・Ina Steiner夫妻の報道に激怒し、「この女性を潰せ（Crush this lady）」と指示。元CEOのDevin Wenig（後に辞任）を含む幹部の指示のもと、eBayの元セキュリティチームが夫妻の自宅に豚の首・昆虫・弔問カード・生きたゴキブリを匿名で送りつけ、SNSで個人情報を晒し、車で自宅周辺を監視するという犯罪行為に及びました。
+
+      HNコメントでは「企業のセキュリティチームがこのような指示に従ったことが最も恐ろしい——『上司に言われたから』という倫理的盲目が組織犯罪を可能にする」「5600万ドルは大きな額に見えるが、eBayの規模からすれば痛くも痒くもない——個人の刑事責任こそが重要な抑止力」「ジャーナリスト・ブロガーへの組織的な恫喝が実際に起きた証拠——テック企業のメディア関係者への態度を考える上で重要な事例」という43コメントが展開されました。
+    </div>
+    <div class="purple-items">
+      <div class="purple-item">
+        <div>
+          <div class="purple-label">事件の経緯</div>
+          <div class="purple-text">標的：EcommerceBytes（eBay販売者向けニュースレター）を運営するDavid・Ina Steiner夫妻——eBayのポリシー変更・手数料・販売者への待遇を批判的に報道していた。指令：当時のeBay幹部（元CEOのDevin Wenig含む）が「この女性を潰せ」と指示——社内Slackでのメッセージが証拠として残っていた。実行内容：豚の首・蠕虫・弔問カード・生きたゴキブリを自宅に匿名で送付、SNSでの個人情報拡散、自宅周辺の車による監視・尾行。逮捕と訴追：2020年にFBIが元eBayセキュリティ職員7名を逮捕——一部は刑事有罪判決を受けた。民事解決：eBayがSteiner夫妻に5600万ドルの賠償で合意。</div>
+        </div>
+      </div>
+      <div class="purple-item">
+        <div>
+          <div class="purple-label">企業責任の観点</div>
+          <div class="purple-text">なぜこれが起きたか：幹部が直接指示した組織的犯罪——個人の逸脱ではなく企業文化・権力構造の問題。コーポレートガバナンスの失敗：「上司の指示」がいかなる倫理審査も通過せずに実行された——セキュリティチームに「No」を言う文化がなかった。Devin Wenig（元CEO）の責任：刑事訴追はされなかったが会社を辞任——CEO層がそのような言葉を発したことの組織的な影響は長期に及ぶ。5600万ドルの意味：eBayにとって財務的打撃は軽微——しかし評判の損害・人材採用への影響・規制当局の目は長く残る。</div>
+        </div>
+      </div>
+      <div class="purple-item">
+        <div>
+          <div class="purple-label">テック業界とメディアへの示唆</div>
+          <div class="purple-text">批判的メディアへのリスク：テック企業を批判的に報道するジャーナリスト・ブロガーへの恫喝は今回が初めてではない——多くは水面下に留まる。デジタル安全とプライバシー：批判的な報道をする人物はドックスキング（個人情報暴露）のリスクを認識すべき——自宅住所・ルーティン・家族情報の公開情報への露出を最小化する。報告のしやすさ：今回のFBIへの報告・証拠保全が有効だった——匿名の嫌がらせを受けた場合は証拠を記録し法執行機関に相談。開発者・内部告発者へ：会社の内部で倫理的に問題のある指示を受けた場合の対処法——法律相談・内部通報チャネル・外部窓口の把握が重要。</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: ft.com</span>
+      <span>109 ポイント</span>
+      <span>43 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.ft.com/content/06ec1b03-d4af-40cf-b12a-4ba5a410f6d2" target="_blank">FT記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49147435" target="_blank">HN議論 (43)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="ebay-harassment-campaign-56m-payout" data-type="like" onclick="toggleFlag('ebay-harassment-campaign-56m-payout','eBayハラスメント事件——5600万ドルの代償','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="ebay-harassment-campaign-56m-payout" data-type="dislike" onclick="toggleFlag('ebay-harassment-campaign-56m-payout','eBayハラスメント事件——5600万ドルの代償','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 6 — Developers attached to tools/trust ════════════════════════════ -->
+<section class="story story-6" id="s6">
+  <div class="story-num">06</div>
+  <div class="story-inner">
+    <div class="story-kicker">開発ツール / 信頼 / 開発者文化 / ツール選択 / Stack Overflow / エンジニアリング / プロダクティビティ / UX — 開発者がツールに執着するのは信頼がエンコードされているから、という論考。102ポイント・47コメント。2026-08-03</div>
+    <h2 class="story-headline">
+      開発者が<br><span style="color:#20d0f0">ツールに執着</span><br>する理由——<br>信頼のエンコード
+    </h2>
+    <div class="story-body">
+      Stack Overflowブログに掲載された「Developers are attached to tools because tools encode trust」が102ポイント・47コメントを集めました。開発者がVim・Emacs・特定のIDEやフレームワークに強い愛着を持つ現象を、単なる「慣れ」ではなく「ツールへの信頼のエンコード」という観点から論じた記事です。ツール選択が実は深い認知的・感情的な意味を持つことを示しています。
+
+      論考の核心はこうです：開発者がツールを使い込む過程で、そのツールの「予測可能な動作」を学習します。「このコマンドはこう動く」「このショートカットはこのタイミングで使える」という知識の集積が信頼になります。ツールを変えるということは、その蓄積した信頼を捨てて新しい信頼を構築し直すコストを支払うことを意味します。AIコーディングツールが急速に普及する現代において、開発者のツール選択には「AIがどれだけ自分の意図を理解するか」という新しい信頼の次元が加わっていると筆者は指摘します。
+
+      HNコメントでは「これはソフトウェア以外でも同じ——大工が特定のハンマーを30年使い続けるのも同じ理由だ」「開発者がツールに執着するのは合理的——コンテキストスイッチのコストが高く、ツールへの深い理解は生産性に直結する」「この観点からすると、AIコーディングアシスタントが信頼を獲得するには一貫した予測可能な動作が最重要——驚かせるより確実に動くことの方が価値が高い」という47コメントが展開されました。
+    </div>
+    <div class="cyan-items">
+      <div class="cyan-item">
+        <div>
+          <div class="cyan-label">信頼のエンコードとは何か</div>
+          <div class="cyan-text">認知的信頼の構築：ツールを使い込む中で「このツールはこう動く」という予測モデルを脳内に構築——この予測が外れないことが「信頼」。流動的知識から固定的知識へ：最初は意識して操作するが、習熟すると無意識に動かせるようになる——この段階でツールは「思考の延長」になる。コンテキストスイッチのコスト：ツールを変えるとこの認知モデルを再構築しなければならない——単に新しい操作を覚えるだけでなく、予測可能性の再構築が必要。信頼と愛着の違い：開発者のツール愛着は感情的なブランドロイヤルティではなく、認知的な信頼の蓄積——「このツールは自分を裏切らない」という確信。</div>
+        </div>
+      </div>
+      <div class="cyan-item">
+        <div>
+          <div class="cyan-label">AIツール時代の信頼</div>
+          <div class="cyan-text">新しい信頼の次元：AIコーディングアシスタントへの信頼は「このAIは自分の意図を理解する」という新しい種類——従来のツール信頼とは異なる不確実性を含む。予測可能性の欠如：LLMは同じ入力でも異なる出力を返すことがある——これが「信頼のエンコード」を困難にする。Cursor・GitHub Copilot・Claudeへの評価：HNコミュニティが特定のAIツールに不満を表明するとき、その多くは「予測可能性」への不満——「驚かせるな、確実に動け」。信頼構築の新戦略：AIツールが信頼を得るには一貫した動作・説明可能な判断・ユーザーの意図との整合性を重視する設計が必要——これはAIプロダクトの設計原則として重要。</div>
+        </div>
+      </div>
+      <div class="cyan-item">
+        <div>
+          <div class="cyan-label">実践的な示唆</div>
+          <div class="cyan-text">ツール選択の判断基準：新しいツールを評価するとき「信頼構築のコスト」と「長期的な生産性向上」を天秤にかける——流行だからというだけでツールを変える理由はない。チームへの導入戦略：新しいツールをチームに導入するとき、メンバーが信頼を構築できる十分な時間を確保する——2〜4週間の集中的な試用期間の設定が有効。AIアシスタントとの付き合い方：特定のAIの「クセ」を学んで予測可能性を高める——プロンプトスタイルの固定・システムプロンプトの活用・失敗パターンのログが信頼構築を加速。ツール変更の意思決定：チームがツールを変えることに抵抗するとき、「信頼の移転コスト」を明示的に計画に含める——抵抗は怠惰ではなく合理的な認知コスト管理。</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: stackoverflow.blog</span>
+      <span>102 ポイント</span>
+      <span>47 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://stackoverflow.blog/2026/07/29/developers-are-attached-to-tools-because-tools-encode-trust/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49097961" target="_blank">HN議論 (47)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="developers-attached-tools-trust" data-type="like" onclick="toggleFlag('developers-attached-tools-trust','開発者がツールに執着する理由——信頼のエンコード','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="developers-attached-tools-trust" data-type="dislike" onclick="toggleFlag('developers-attached-tools-trust','開発者がツールに執着する理由——信頼のエンコード','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 7 — AI benchmark frog ══════════════════════════════════════════════ -->
+<section class="story story-7" id="s7">
+  <div class="story-num">07</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / SVG生成 / ベンチマーク / LLM比較 / 画像生成 / プロンプト / GPT / Claude — 「ハプスブルク顎のカエルのSVGを生成して」という個人的AIベンチマークでモデルを比較。59ポイント・32コメント。2026-08-03</div>
+    <h2 class="story-headline">
+      「ハプスブルク顎の<br><span style="color:#ff9040">カエルを描いて」</span>——<br>AIを試す<br>個人的尺度
+    </h2>
+    <div class="story-body">
+      「My personal AI benchmark: 'Generate an SVG of a frog with a Habsburg jaw.'」（frogs.vaguespac.es）が59ポイント・32コメントを集めました。著者が複数のAIモデル（GPT・Claude・Gemini等）に「ハプスブルク王家の特徴的な突出した顎を持つカエルのSVGを生成してください」というプロンプトを投げ、その結果を比較・展示するユニークなベンチマークサイトです。
+
+      このベンチマークが面白い理由は、複数の能力を同時に測定しているからです。「SVGの生成」（構造化されたコードの生成）・「カエルの形状の理解」（視覚的な知識）・「ハプスブルク顎の理解」（歴史的・形態的な知識）・これらの組み合わせを「SVGコードとして表現する」（コードと視覚表現の橋渡し）が一つのプロンプトで問われます。標準的なベンチマーク（MMLU・HumanEval等）では測れない「創造的かつ具体的な指示への対応能力」を捉えているのが特徴です。
+
+      HNコメントでは「このベンチマークは笑えるように見えて実は深い——具体的で曖昧さのないビジュアル要件をコードに落とす能力は実用的なスキル」「Claudeが一番マシなSVGを生成していたが、顎の突出度合いが微妙——ハプスブルク家の写真を見せて再現させるともっと正確になるか試したい」「こういうクリエイティブな個人ベンチマークがなぜ重要か：実際の使用感はMMULの数値より個人的なキモいカエルの再現精度で分かることがある」という32コメントが展開されました。
+    </div>
+    <div class="amber-items">
+      <div class="amber-item">
+        <div>
+          <div class="amber-label">なぜSVG生成がいいベンチマークか</div>
+          <div class="amber-text">複合スキルの測定：テキスト理解・空間的推論・コード生成・視覚的知識の全てを一つのタスクで評価できる。正解が曖昧：「正しいSVG」は一つではない——創造性・解釈・実装の質を評価できる。即座に視覚確認：生成されたSVGをそのままブラウザで開いて評価できる——テキスト出力より直観的。難易度調整：「カエル」→「ハプスブルク顎のカエル」→「ルネサンス衣装を着たハプスブルク顎のカエル」と難易度を段階的に上げられる。コード品質の確認：SVGの構文が正しいか・パスが意図した形状を描いているかをプログラムで検証可能。</div>
+        </div>
+      </div>
+      <div class="amber-item">
+        <div>
+          <div class="amber-label">モデル間の比較傾向</div>
+          <div class="amber-text">構造的な正確さ：ほとんどのモデルが構文的に正しいSVGを生成できる——ここでの差は小さい。ハプスブルク顎の解釈：「顎が突き出ている」というレベルから「下顎前突（prognathism）の特徴的な形状」まで解釈の精度に差がある。カエルの自然な形状：SVGで自然なカエルの形を描く際に、四肢・目・体のバランスがモデルによって大きく異なる。指示への忠実さ：プロンプトの全要素（SVG形式・カエル・ハプスブルク顎）を同時に満たすか、どれかを無視するかでモデルの差が出る。反復改善：「もっと顎を突出させて」という追加指示に対する対応力でも差がある。</div>
+        </div>
+      </div>
+      <div class="amber-item">
+        <div>
+          <div class="amber-label">自分でAIを評価する方法</div>
+          <div class="amber-text">個人ベンチマークの作り方：自分が日常的に使うタスクを3〜5個選ぶ——コードレビュー・メール文案・技術説明・データ変換など。繰り返し実行：同じプロンプトを定期的（月1回など）に実行して結果を記録——モデルアップデートの影響を時系列で追える。比較サイトの活用：LMSys Chatbot Arena（複数モデルを匿名で比較）・Evals（OpenAI）・OpenCompass（オープンソース評価）。SVGチャレンジを試す：frogs.vaguespac.es のプロンプトを手元の環境で実行して個人的な感想を持つ——公式ベンチマークとの乖離を発見できることがある。評価の限界：個人ベンチマークはバイアスがかかりやすい——好きなモデルに有利なプロンプトを選んでしまいがち。</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: frogs.vaguespac.es</span>
+      <span>59 ポイント</span>
+      <span>32 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://frogs.vaguespac.es/" target="_blank">ベンチマークを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49147622" target="_blank">HN議論 (32)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="ai-benchmark-frog-habsburg-jaw" data-type="like" onclick="toggleFlag('ai-benchmark-frog-habsburg-jaw','AIベンチマーク「ハプスブルク顎のカエル」で各モデルを評価','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="ai-benchmark-frog-habsburg-jaw" data-type="dislike" onclick="toggleFlag('ai-benchmark-frog-habsburg-jaw','AIベンチマーク「ハプスブルク顎のカエル」で各モデルを評価','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 8 — EU Age Verification ════════════════════════════════════════════ -->
+<section class="story story-8" id="s8">
+  <div class="story-num">08</div>
+  <div class="story-inner">
+    <div class="story-kicker">EU / 年齢確認 / プライバシー / ハードウェア証明 / TPM / デジタルID / 規制 / 監視 — EUの年齢確認プロジェクトがハードウェア結合証明（hardware-bound attestation）を義務化。52ポイント・20コメント。2026-08-03</div>
+    <h2 class="story-headline">
+      EU年齢確認が<br><span style="color:#d4a820">ハードウェア証明</span>を<br>義務化——<br>プライバシーへの影響
+    </h2>
+    <div class="story-body">
+      EUの年齢確認プロジェクトがハードウェア結合証明（hardware-bound attestation）を義務化する方針を打ち出し、Linuxiacの報道がHNで52ポイント・20コメントを集めました。年齢確認のためにデバイスのTPM（Trusted Platform Module）やSecure Enclaveと連携した証明書を使用することを求めるもので、プライバシー擁護者から強い懸念が示されています。
+
+      EUは未成年者をオンラインの有害コンテンツ（ポルノ・暴力・ギャンブル等）から保護するため、特定のウェブサービスに年齢確認を義務づける法整備を進めています。従来の年齢確認（クレジットカード番号の入力・ID書類のアップロード等）はプライバシーリスクが高く、偽造も容易でした。ハードウェア証明アプローチは「政府発行のデジタルIDがデバイスのTPM/Secure Enclaveに格納されており、それを検証する」という仕組みで、個人の詳細情報を開示せず年齢だけを証明できると提唱されています。
+
+      HNコメントでは「ゼロ知識証明を使えばプライバシーを保ちながら年齢確認ができる——ハードウェア証明を義務化する必要はない、既存のZKP技術で解決できるはずだ」「これはAndroidのPlay Integrity APIやAppleのApp Attest的なアプローチ——デバイスのハードウェア状態をサービスプロバイダーに開示するプラットフォームロックインを強化する」「Linuxユーザー・自前デバイスビルダーは対応できない——既存のTPM/Secure Enclaveを持つデバイスしか使えなくなる」という20コメントが展開されました。
+    </div>
+    <div class="gold-items">
+      <div class="gold-item">
+        <div>
+          <div class="gold-label">ハードウェア証明とは何か</div>
+          <div class="gold-text">TPM（Trusted Platform Module）：デバイスに搭載されたセキュリティチップ——暗号鍵の安全な保管・ソフトウェアの改ざん検知・リモート証明が可能。Secure Enclave（Apple）/ TrustZone（ARM）：CPUに統合されたセキュアな実行環境——iPhoneの顔認証・指紋データ・ペイメントカード情報を保護する領域。リモート証明（Remote Attestation）：デバイスが「私は正規のハードウェアで、改ざんされていない」ことをサーバーに証明する仕組み——Googleのsafetynet・Appleのdevice checkが既存の実装。年齢確認への応用：政府が発行したデジタル年齢証明書をTPMに格納し、「18歳以上であること」だけをゼロ知識的にウェブサービスに提示する——理想的にはプライバシーを保ちながら確認できる。</div>
+        </div>
+      </div>
+      <div class="gold-item">
+        <div>
+          <div class="gold-label">プライバシーの懸念点</div>
+          <div class="gold-text">追跡可能性：ハードウェア証明はデバイス固有の識別子に紐づく——どのサービスに何回アクセスしたかが（理論上）追跡可能になりうる。プラットフォーム依存：AppleとGoogleのデバイスのみ対応となれば、デバイス多様性とソフトウェアの自由が損なわれる。範囲の拡張リスク：「年齢確認」で導入されたインフラが、後に他の目的（思想・行動の監視）に転用されるスライディングスコープの懸念。実装の差異：EUが仕様を定めても、デバイスメーカー・OSプロバイダーの実装によってプライバシー特性が大きく変わる——最悪の実装が基準になるリスク。</div>
+        </div>
+      </div>
+      <div class="gold-item">
+        <div>
+          <div class="gold-label">技術者が注目すべき動向</div>
+          <div class="gold-text">ゼロ知識証明の可能性：ZKP（zk-SNARKs等）を使えばハードウェア証明なしに「18歳以上」だけを証明できる——EU eIDASとの統合でプライバシー保護型の年齢確認が実現する可能性。EUデジタルウォレット（EUDI）：EU市民向けのデジタルIDウォレット——年齢確認もここに統合される可能性がある。開発者への影響：EUユーザー向けのサービスに年齢確認が必要になる場合、どのAPIを使うかの技術選択が将来のコンプライアンス要件に影響。OSS・Linuxコミュニティの反応：TPM必須要件はLinuxコミュニティと相性が悪い——代替の証明方式の議論が活発化している。</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: linuxiac.com</span>
+      <span>52 ポイント</span>
+      <span>20 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://linuxiac.com/eu-age-verification-project-mandates-hardware-bound-attestation/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49148128" target="_blank">HN議論 (20)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="eu-age-verification-hardware-attestation" data-type="like" onclick="toggleFlag('eu-age-verification-hardware-attestation','EU年齢確認がハードウェア証明を義務化——プライバシーへの影響','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="eu-age-verification-hardware-attestation" data-type="dislike" onclick="toggleFlag('eu-age-verification-hardware-attestation','EU年齢確認がハードウェア証明を義務化——プライバシーへの影響','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 9 — SSH Honeypot ════════════════════════════════════════════════════ -->
+<section class="story story-9" id="s9">
+  <div class="story-num">09</div>
+  <div class="story-inner">
+    <div class="story-kicker">セキュリティ / SSH / ハニーポット / 認証情報 / サイバー攻撃 / ブルートフォース / 脅威インテリジェンス / uphillsecurity — ハニーポットネットワークでSSH認証情報を収集・分析した調査レポート。30ポイント・23コメント。2026-08-03</div>
+    <h2 class="story-headline">
+      ハニーポットで<br><span style="color:#8080ff">SSH認証情報を</span><br>収集——<br>攻撃者の実態
+    </h2>
+    <div class="story-body">
+      Uphill Securityが公開した「Harvesting SSH Credentials: Insights from My Honeypot Network」が30ポイント・23コメントを集めました。複数のVPSにSSHハニーポット（わざと脆弱に見せたサーバー）を設置し、攻撃者が試みる認証情報（ユーザー名・パスワードの組み合わせ）を収集・分析した実地調査です。攻撃者の手法・使用する認証情報のパターン・地理的分布などが詳細に報告されています。
+
+      調査から明らかになった実態は興味深いものです。最も多く試される認証情報は「root/root」「admin/admin」「ubuntu/ubuntu」「pi/raspberry」など、デフォルト認証情報が圧倒的多数を占めます。攻撃者はブルートフォースではなく事前に用意されたパスワードリスト（credential stuffing）を使って高速に試行します。1つのIPアドレスから数分間に数千回の試行が行われることも珍しくなく、ほとんどの攻撃は自動化されたボットによるものです。
+
+      HNコメントでは「pi/raspberryがいまだにTop5に入っているのはRaspberry Piユーザーがデフォルトパスワードを変えないケースが多いから——IoTデバイスのデフォルト認証情報問題は解決していない」「SSHをデフォルトポートで公開している時点で毎日数万回の試行がある——ポート変更とfail2banだけで99%の自動攻撃を防げる」「ハニーポットの法的グレーゾーン——攻撃者のIPを収集してブロックリストを共有することは許されるが、攻撃者の活動を傍受・記録する境界線の認識が必要」という23コメントが展開されました。
+    </div>
+    <div class="slate-items">
+      <div class="slate-item">
+        <div>
+          <div class="slate-label">収集データのハイライト</div>
+          <div class="slate-text">最頻出ユーザー名：root（圧倒的多数）・admin・ubuntu・pi・oracle・postgres・git・deploy・ansible・hadoop。最頻出パスワード：123456・password・admin・root・12345・raspberry・pass・test・1234・qwerty——単純なものが上位を独占。デフォルト認証情報の占有率：試行の60〜70%がIoTデバイス・クラウドイメージのデフォルト認証情報——攻撃者は「設定を変えていないユーザー」をまず狙う。攻撃速度：1つのIPから1秒間に10〜100回の試行が一般的——1時間で数万回に達する。試行元の地理分布：中国・ロシア・米国・オランダ（VPSが多い）・ブラジルからの試行が多い——ただしTor/VPN経由のため実際の起源は不明な場合が多い。</div>
+        </div>
+      </div>
+      <div class="slate-item">
+        <div>
+          <div class="slate-label">攻撃者の手法</div>
+          <div class="slate-text">クレデンシャルスタッフィング：辞書攻撃と異なり、実際に漏洩したパスワードリスト（Dark Webで流通）を使用——同一のパスワードを多数のサービスで使い回しているユーザーが標的。自動化ツール：Masscan（ポートスキャン）・Hydra（ブルートフォース）・独自の攻撃スクリプトが主要ツール——セットアップに数分、数千台のサーバーを同時スキャンできる。スキャンの段階：まず22番ポートの開放を確認→デフォルト認証情報を試行→成功したら追加のペイロードを展開（マイニング・ボット化・ラテラルムーブメント）。バリエーション試行：root→root, root→toor, root→password等のパターンを1つの接続で試行——fail2banが短い試行カウントに設定されていると検知されやすい。</div>
+        </div>
+      </div>
+      <div class="slate-item">
+        <div>
+          <div class="slate-label">今すぐできる防御策</div>
+          <div class="slate-text">パスワード認証を無効化：sshd_configで「PasswordAuthentication no」——公開鍵認証のみにするだけで自動攻撃の99%以上を無効化できる。デフォルトポートの変更：22番から別のポートへ——セキュリティ向上より「ログのノイズ削減」として有効。fail2ban/SSHGuard：一定回数の失敗でIPをブロック——デフォルト設定（5回失敗で10分ブロック）より短く設定が推奨。AllowUsers / AllowGroups：ssh接続を許可するユーザーを明示的に限定——rootログインは「PermitRootLogin no」で禁止。定期監視：「journalctl -u sshd | grep Failed」でSSH失敗ログを確認——異常なパターンに気づく習慣を。</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: uphillsecurity.com</span>
+      <span>30 ポイント</span>
+      <span>23 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://uphillsecurity.com/articles/harvesting-ssh-credentials-insights-from-my-honeypot-network/" target="_blank">調査レポートを読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49146605" target="_blank">HN議論 (23)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="harvesting-ssh-credentials-honeypot" data-type="like" onclick="toggleFlag('harvesting-ssh-credentials-honeypot','ハニーポットネットワークで収集したSSH認証情報の分析','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="harvesting-ssh-credentials-honeypot" data-type="dislike" onclick="toggleFlag('harvesting-ssh-credentials-honeypot','ハニーポットネットワークで収集したSSH認証情報の分析','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 10 — Note-Taking and PKM ═══════════════════════════════════════════ -->
+<section class="story story-10" id="s10">
+  <div class="story-num">10</div>
+  <div class="story-inner">
+    <div class="story-kicker">ノートテイキング / 個人知識管理 / PKM / 生産性 / 思考法 / Obsidian / Zettelkasten / actionable — ノートテイキングと個人知識管理の深掘り解説記事。68ポイント・20コメント。2026-08-03</div>
+    <h2 class="story-headline">
+      ノートテイキングと<br><span style="color:#ff70c0">個人知識管理</span>——<br>思考を蓄積する<br>技術
+    </h2>
+    <div class="story-body">
+      「Note-Taking and Personal Knowledge Management」（unattributed.cc）が68ポイント・20コメントを集めました。単なるノートアプリの比較ではなく、人間の思考・学習・記憶の特性を踏まえた上でノートテイキングをどう設計するか、知識管理のシステムをどう構築するかを深く掘り下げた記事です。Zettelkastenを代表とする様々な手法の哲学的背景から実践的な適用まで幅広く論じています。
+
+      記事の核心的な主張は「ノートは記録のためではなく思考のため」というものです。多くの人はノートを「後で参照するための情報の倉庫」として使いますが、本当に価値を生む使い方は「ノートを書くプロセス自体が思考を深める」「ノートとノートのつながりが新しいアイデアを生む」という考え方です。Niklas Luhmannが数十年かけて6万枚のカードを使って社会学の理論を構築したZettelkastenの哲学が、現代のObsidian・Roam Research・Logseqといったツールにどう体現されているかを解説しています。
+
+      HNコメントでは「最高のノートシステムは使わなくなったシステム——複雑すぎるシステムはメンテナンスが目的化して本末転倒になる。シンプルさが継続性の鍵」「Zettelkastenの本質はカードの物理的制約が思考のアトミック化を強制したこと——デジタルツールで同じ効果を得るには自己規律が必要」「AIでノート管理が変わりつつある——NotebookLM・Obsidian AI・Mem.aiなどがノートをインデックス化してRAGで質問応答できるようにしている、検索が変わる」という20コメントが展開されました。
+    </div>
+    <div class="mag-items">
+      <div class="mag-item">
+        <div>
+          <div class="mag-label">主要な手法の比較</div>
+          <div class="mag-text">Zettelkasten：Niklas Luhmannが開発したカードベースの知識管理システム——各ノートは1つのアイデアのみを含み（アトミック性）、他のノートへのリンクで意味が生まれる。GTD（Getting Things Done）：David Allenのタスク管理システム——ノートより行動のキャプチャに特化、プロジェクト管理に向く。Cornell Note System：授業・会議のノートに有効——ページをメモ・キュー・要約の3エリアに分割する構造化手法。BulletJournaling：Ryder Carrollが開発したアナログ手帳術——タスク・イベント・ノートを統一フォーマットで管理。Building a Second Brain（BASB）：Tiago Forte提唱——CODEフレームワーク（Capture・Organize・Distill・Express）でデジタルノートを行動の基盤にする。</div>
+        </div>
+      </div>
+      <div class="mag-item">
+        <div>
+          <div class="mag-label">現代ツールの選び方</div>
+          <div class="mag-text">Obsidian：ローカルMarkdownファイル、バックリンク、グラフビュー——データの所有権を重視する人に最適。無料・拡張機能が豊富。Logseq：ブロックベースのアウトライナー、グラフ構造——Roam Researchに近い思考のフロー向き。オープンソース。Notion：データベース・テンプレート・コラボレーション——チームでの情報共有やプロジェクト管理に強い。Roam Research：双方向リンクの先駆者——ネットワーク的な思考を好む研究者・書き手に根強い人気。月額課金。Apple Notes / Obsidian シンプル版：「複雑なシステムを維持できない」と感じた人が最終的に落ち着く場所——継続性が最重要。</div>
+        </div>
+      </div>
+      <div class="mag-item">
+        <div>
+          <div class="mag-label">今すぐ実践できる原則</div>
+          <div class="mag-text">アトミック性：1つのノートには1つのアイデアだけ——「後で整理しよう」は永遠にやってこない。書いた瞬間に完結させる習慣。自分の言葉で書く：コピペではなく要約・言い換え——アウトプット負荷が理解の深化を強制する。リンクの文化：新しいノートを書いたら既存のノートと繋げる——リンクがないノートは孤立した情報で終わる。定期レビュー：週1回・月1回で「浮いているノート」を整理——古いノートが新しいプロジェクトにつながることがある。AIとの統合：重要なノートをAIに読み込ませてQ&A・要約・関連付けをさせる——NotebookLMやClaudeのProjectsが有効。</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: unattributed.cc</span>
+      <span>68 ポイント</span>
+      <span>20 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://unattributed.cc/note-taking-and-personal-knowledge-management" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49084324" target="_blank">HN議論 (20)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="note-taking-personal-knowledge-management" data-type="like" onclick="toggleFlag('note-taking-personal-knowledge-management','ノートテイキングと個人知識管理——思考を蓄積する技術','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="note-taking-personal-knowledge-management" data-type="dislike" onclick="toggleFlag('note-taking-personal-knowledge-management','ノートテイキングと個人知識管理——思考を蓄積する技術','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ════════════════════════════════════════════════════════════════════ -->
+<footer class="site-footer">
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand">Morning Edition</div>
+      <div class="footer-meta">
+        Hacker News キュレーション · 2026年8月3日 · Issue No.096<br>
+        毎朝、厳選10本をお届け
+      </div>
+    </div>
+    <button class="export-btn" onclick="exportFeedback()">📋 フィードバックをコピー</button>
+  </div>
+  <div class="footer-note">
+    ⭐ 興味あり / ✕ 興味なし ボタンで次回のキュレーションが改善されます。Chrome/Edgeでは自動保存、その他ではボタンでクリップボードにコピーしてください。
+  </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  const FEEDBACK_KEY = 'morning-edition-feedback-v2';
+  const TODAY = '2026-08-03';
+  let _dirHandle = null;
+
+  async function getDir(forcePrompt) {
+    if (_dirHandle && !forcePrompt) return _dirHandle;
+    if (!window.showDirectoryPicker) return null;
+    try {
+      _dirHandle = await window.showDirectoryPicker({ mode: 'readwrite', id: 'morning-edition', startIn: 'documents' });
+      return _dirHandle;
+    } catch { return null; }
+  }
+
+  async function writeJSON(dirHandle, fb) {
+    const fileHandle = await dirHandle.getFileHandle('feedback.json', { create: true });
+    const writable = await fileHandle.createWritable();
+    await writable.write(JSON.stringify({ ...fb, updatedAt: new Date().toISOString() }, null, 2));
+    await writable.close();
+  }
+
+  function showToast(msg, isErr) {
+    const el = document.getElementById('toast');
+    el.textContent = msg;
+    el.className = 'toast' + (isErr ? ' error' : '');
+    requestAnimationFrame(() => el.classList.add('show'));
+    clearTimeout(el._timer);
+    el._timer = setTimeout(() => el.classList.remove('show'), 3000);
+  }
+
+  function getFeedback() {
+    try { return JSON.parse(localStorage.getItem(FEEDBACK_KEY) || '{"liked":{},"disliked":{}}'); }
+    catch { return { liked: {}, disliked: {} }; }
+  }
+  function saveFeedback(fb) { localStorage.setItem(FEEDBACK_KEY, JSON.stringify(fb)); }
+
+  async function autoSave(fb) {
+    let dir = await getDir();
+    if (!dir) {
+      showToast('📁 Daily News フォルダを選択してください', true);
+      dir = await getDir(true);
+      if (!dir) { showToast('保存をキャンセルしました', true); return; }
+    }
+    try {
+      await writeJSON(dir, fb);
+      showToast('✓ feedback.json を自動保存しました（次回キュレーションに反映）');
+    } catch (e) {
+      showToast('保存エラー: ' + e.message, true);
+    }
+  }
+
+  async function toggleFlag(storyId, title, type) {
+    const fb = getFeedback();
+    fb.liked = fb.liked || {};
+    fb.disliked = fb.disliked || {};
+    const likeBtn    = document.querySelector(`.flag-btn.like-btn[data-story="${storyId}"]`);
+    const dislikeBtn = document.querySelector(`.flag-btn.dislike-btn[data-story="${storyId}"]`);
+    if (type === 'like') {
+      if (fb.liked[storyId]) {
+        delete fb.liked[storyId];
+        likeBtn?.classList.remove('active');
+      } else {
+        fb.liked[storyId] = { title, date: TODAY };
+        delete fb.disliked[storyId];
+        likeBtn?.classList.add('active');
+        dislikeBtn?.classList.remove('active');
+      }
+    } else {
+      if (fb.disliked[storyId]) {
+        delete fb.disliked[storyId];
+        dislikeBtn?.classList.remove('active');
+      } else {
+        fb.disliked[storyId] = { title, date: TODAY };
+        delete fb.liked[storyId];
+        dislikeBtn?.classList.add('active');
+        likeBtn?.classList.remove('active');
+      }
+    }
+    saveFeedback(fb);
+    await autoSave(fb);
+  }
+
+  function exportFeedback() {
+    const fb = getFeedback();
+    const json = JSON.stringify({ ...fb, exportedAt: new Date().toISOString() }, null, 2);
+    navigator.clipboard.writeText(json)
+      .then(() => showToast('📋 クリップボードにコピーしました'))
+      .catch(() => {
+        const el = document.createElement('textarea');
+        el.value = json; document.body.appendChild(el); el.select();
+        document.execCommand('copy'); document.body.removeChild(el);
+        showToast('📋 クリップボードにコピーしました');
+      });
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const fb = getFeedback();
+    document.querySelectorAll('.flag-btn').forEach(btn => {
+      const id   = btn.dataset.story;
+      const type = btn.dataset.type;
+      if ((type === 'like' && fb.liked?.[id]) || (type === 'dislike' && fb.disliked?.[id])) {
+        btn.classList.add('active');
+      }
+    });
+  });
+</script>
+</body>
+</html>
