@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Morning Edition — 2026年8月9日</title>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --font: 'M PLUS Rounded 1c', 'Hiragino Sans', 'Noto Sans JP', sans-serif; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); background: #111; color: #fff; overflow-x: hidden; }
+
+    .masthead { background: #fff; color: #000; padding: 3rem 4rem 2.5rem; border-bottom: 6px solid #000; position: relative; overflow: hidden; }
+    .masthead::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: repeating-linear-gradient(90deg, #000 0, #000 12px, transparent 12px, transparent 20px); }
+    .masthead-kicker { font-size: 0.85rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: #777; margin-bottom: 0.6rem; }
+    .masthead-title { font-size: clamp(3.5rem, 9vw, 7.5rem); font-weight: 900; line-height: 0.88; letter-spacing: -0.04em; margin-bottom: 1.8rem; }
+    .masthead-meta { display: flex; gap: 3rem; align-items: baseline; flex-wrap: wrap; }
+    .masthead-date { font-size: 1.5rem; font-weight: 700; }
+    .masthead-subtitle { font-size: 1rem; font-weight: 400; color: #555; max-width: 480px; line-height: 1.5; }
+    .masthead-issue { margin-left: auto; text-align: right; }
+    .masthead-issue span { display: block; }
+    .masthead-issue .iss-label { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: #999; }
+    .masthead-issue .iss-num { font-size: 2.2rem; font-weight: 900; color: #000; }
+
+    .toc { background: #1a1a1a; padding: 1.5rem 4rem; display: flex; gap: 1.5rem; flex-wrap: wrap; border-bottom: 1px solid #333; }
+    .toc a { color: #aaa; text-decoration: none; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; transition: color 0.2s; }
+    .toc a:hover { color: #fff; }
+    .toc-num { color: #555; margin-right: 0.3em; }
+
+    .story { position: relative; overflow: hidden; }
+    .story-inner { max-width: 1200px; margin: 0 auto; padding: 5rem 4rem; position: relative; z-index: 1; }
+    .story-num { font-size: clamp(6rem, 18vw, 16rem); font-weight: 900; line-height: 0.8; letter-spacing: -0.06em; opacity: 0.08; position: absolute; top: 1rem; right: 2rem; user-select: none; }
+    .story-badge { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.35em 0.9em; border-radius: 2px; margin-bottom: 1.5rem; }
+    .direct-badge { background: #FFD700; color: #000; }
+    .story-kicker { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; opacity: 0.6; margin-bottom: 0.8rem; }
+    .story-headline { font-size: clamp(2rem, 5vw, 4rem); font-weight: 900; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+    .story-body { font-size: clamp(1rem, 1.5vw, 1.2rem); font-weight: 400; line-height: 1.8; max-width: 680px; opacity: 0.88; margin-bottom: 2rem; }
+    .story-meta { display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center; font-size: 0.8rem; font-weight: 700; opacity: 0.5; }
+    .story-links { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem; }
+    .story-link { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.6em 1.4em; border-radius: 3px; text-decoration: none; transition: opacity 0.2s, transform 0.15s; }
+    .story-link:hover { opacity: 0.75; transform: translateY(-1px); }
+
+    .feedback-buttons { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .flag-btn { background: none; border: 1px solid currentColor; color: inherit; font-family: var(--font); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.5em 1em; border-radius: 3px; cursor: pointer; opacity: 0.32; transition: opacity 0.2s, background 0.2s, color 0.2s, border-color 0.2s, transform 0.15s; }
+    .flag-btn:hover { opacity: 0.72; transform: translateY(-1px); }
+    .flag-btn.like-btn.active { opacity: 1; background: rgba(255,215,0,0.15); border-color: #FFD700; color: #FFD700 !important; }
+    .flag-btn.dislike-btn.active { opacity: 1; background: rgba(255,60,60,0.12); border-color: #FF4444; color: #FF4444 !important; }
+
+    .toast { position: fixed; bottom: 2rem; right: 2rem; background: #1a1a1a; color: #fff; font-family: var(--font); font-size: 0.82rem; font-weight: 700; padding: 0.75em 1.4em; border-radius: 4px; border-left: 3px solid #00C853; z-index: 9999; opacity: 0; transform: translateY(10px); transition: opacity 0.25s, transform 0.25s; pointer-events: none; box-shadow: 0 4px 24px rgba(0,0,0,0.45); }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    .toast.error { border-left-color: #FF5252; }
+
+    /* Story 1 — White */
+    .story-1 { background: #fff; color: #000; min-height: 90vh; display: flex; flex-direction: column; justify-content: center; }
+    .story-1 .story-num { color: #000; opacity: 0.04; }
+    .story-1 .story-kicker { color: #555; opacity: 1; }
+    .story-1 .story-headline { color: #000; }
+    .story-1 .story-body { color: #111; }
+    .story-1 .story-meta { color: #000; }
+    .story-1 .story-link.primary { background: #1a1a1a; color: #fff; }
+    .story-1 .story-link.secondary { background: #f0f0f0; color: #000; }
+    .story-1 .flag-btn { color: #000; }
+    .story-1-accent { position: absolute; bottom: 0; left: 0; width: 100%; height: 8px; background: linear-gradient(90deg, #cc4400, #ff8800, #cc4400); }
+    .story-1 .headline-accent { display: inline-block; background: linear-gradient(135deg, #cc4400 0%, #ff8800 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .orange-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1.2rem; margin: 2rem 0; max-width: 680px; }
+    .orange-card { border: 2px solid rgba(255,102,0,0.18); background: rgba(255,102,0,0.04); border-radius: 6px; padding: 1.3rem 1.5rem; }
+    .orange-card-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.2em; text-transform: uppercase; color: #cc4400; margin-bottom: 0.4rem; }
+    .orange-card-value { font-size: 1.05rem; font-weight: 900; color: #000; line-height: 1.3; }
+    .orange-card-sub { font-size: 0.75rem; color: #555; margin-top: 0.3rem; line-height: 1.4; }
+
+    /* Story 2 — Dark navy/teal */
+    .story-2 { background: #00080c; color: #b8f0ff; min-height: 80vh; }
+    .story-2::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(0,160,200,0.14) 0%, transparent 65%); }
+    .story-2 .story-num { color: #00A0C8; opacity: 0.07; }
+    .story-2 .story-kicker { color: #20C8E8; opacity: 1; }
+    .story-2 .story-headline { color: #e0f8ff; }
+    .story-2 .story-body { color: #b8f0ff; }
+    .story-2 .story-meta { color: #20C8E8; opacity: 0.5; }
+    .story-2 .story-link.primary { background: #004058; color: #80e8ff; }
+    .story-2 .story-link.secondary { background: rgba(0,160,200,0.08); color: #90d8f0; border: 1px solid rgba(0,160,200,0.22); }
+    .story-2 .flag-btn { color: #b8f0ff; }
+    .teal-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .teal-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(0,160,200,0.07); border-left: 3px solid #00A0C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .teal-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20C8E8; margin-bottom: 0.3rem; }
+    .teal-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 3 — Dark red */
+    .story-3 { background: #0a0000; color: #fff; min-height: 80vh; }
+    .story-3::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(200,20,20,0.16) 0%, transparent 65%); }
+    .story-3 .story-num { color: #C81414; opacity: 0.07; }
+    .story-3 .story-kicker { color: #E84040; opacity: 1; }
+    .story-3 .story-headline { color: #fff; }
+    .story-3 .story-body { color: rgba(255,255,255,0.88); }
+    .story-3 .story-meta { color: #E84040; opacity: 0.5; }
+    .story-3 .story-link.primary { background: #6a0000; color: #fff; }
+    .story-3 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-3 .flag-btn { color: #fff; }
+    .red-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .red-item { background: rgba(200,20,20,0.07); border-left: 3px solid #C81414; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .red-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E84040; margin-bottom: 0.3rem; }
+    .red-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 4 — Dark green */
+    .story-4 { background: #020c04; color: #c8f0d0; min-height: 80vh; }
+    .story-4::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(20,160,70,0.16) 0%, transparent 65%); }
+    .story-4 .story-num { color: #14A046; opacity: 0.07; }
+    .story-4 .story-kicker { color: #30C060; opacity: 1; }
+    .story-4 .story-headline { color: #e0ffe8; }
+    .story-4 .story-body { color: #c8f0d0; }
+    .story-4 .story-meta { color: #30C060; opacity: 0.5; }
+    .story-4 .story-link.primary { background: #063820; color: #80ffb0; }
+    .story-4 .story-link.secondary { background: rgba(20,160,70,0.08); color: #a0e8b0; border: 1px solid rgba(20,160,70,0.22); }
+    .story-4 .flag-btn { color: #c8f0d0; }
+    .green-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .green-item { background: rgba(20,160,70,0.07); border-left: 3px solid #14A046; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .green-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #30C060; margin-bottom: 0.3rem; }
+    .green-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 5 — Dark purple */
+    .story-5 { background: #040010; color: #d8c8ff; min-height: 75vh; }
+    .story-5::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(90,40,200,0.17) 0%, transparent 65%); }
+    .story-5 .story-num { color: #5A28C8; opacity: 0.07; }
+    .story-5 .story-kicker { color: #8050E0; opacity: 1; }
+    .story-5 .story-headline { color: #f0e8ff; }
+    .story-5 .story-body { color: #d8c8ff; }
+    .story-5 .story-meta { color: #8050E0; opacity: 0.5; }
+    .story-5 .story-link.primary { background: #200860; color: #d0a8ff; }
+    .story-5 .story-link.secondary { background: rgba(90,40,200,0.08); color: #c0a0f0; border: 1px solid rgba(90,40,200,0.22); }
+    .story-5 .flag-btn { color: #d8c8ff; }
+    .purple-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .purple-item { background: rgba(90,40,200,0.07); border-left: 3px solid #5A28C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .purple-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #8050E0; margin-bottom: 0.3rem; }
+    .purple-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 6 — Dark cyan */
+    .story-6 { background: #000c10; color: #b8e8f0; min-height: 75vh; }
+    .story-6::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 40%, rgba(0,130,160,0.14) 0%, transparent 65%); }
+    .story-6 .story-num { color: #0080A0; opacity: 0.07; }
+    .story-6 .story-kicker { color: #20B0D0; opacity: 1; }
+    .story-6 .story-headline { color: #e0f4ff; }
+    .story-6 .story-body { color: #b8e8f0; }
+    .story-6 .story-meta { color: #20B0D0; opacity: 0.5; }
+    .story-6 .story-link.primary { background: #003848; color: #80d8f0; }
+    .story-6 .story-link.secondary { background: rgba(0,130,160,0.08); color: #90cce0; border: 1px solid rgba(0,130,160,0.22); }
+    .story-6 .flag-btn { color: #b8e8f0; }
+    .cyan-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .cyan-item { background: rgba(0,130,160,0.07); border-left: 3px solid #0080A0; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .cyan-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20B0D0; margin-bottom: 0.3rem; }
+    .cyan-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 7 — Dark amber */
+    .story-7 { background: #0a0300; color: #ffe0b8; min-height: 75vh; }
+    .story-7::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(210,90,20,0.18) 0%, transparent 65%); }
+    .story-7 .story-num { color: #D05A14; opacity: 0.07; }
+    .story-7 .story-kicker { color: #E88040; opacity: 1; }
+    .story-7 .story-headline { color: #fff0d8; }
+    .story-7 .story-body { color: #ffe0b8; }
+    .story-7 .story-meta { color: #E88040; opacity: 0.5; }
+    .story-7 .story-link.primary { background: #6a2400; color: #ffc880; }
+    .story-7 .story-link.secondary { background: rgba(210,90,20,0.08); color: #ffb870; border: 1px solid rgba(210,90,20,0.22); }
+    .story-7 .flag-btn { color: #ffe0b8; }
+    .amber-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .amber-item { background: rgba(210,90,20,0.07); border-left: 3px solid #D05A14; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .amber-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E88040; margin-bottom: 0.3rem; }
+    .amber-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 8 — Dark gold */
+    .story-8 { background: #080500; color: #fff; min-height: 70vh; }
+    .story-8::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,145,10,0.15) 0%, transparent 65%); }
+    .story-8 .story-num { color: #BE9110; opacity: 0.06; }
+    .story-8 .story-kicker { color: #D4A820; opacity: 1; }
+    .story-8 .story-headline { color: #fff; }
+    .story-8 .story-body { color: rgba(255,255,255,0.88); }
+    .story-8 .story-meta { color: #D4A820; opacity: 0.5; }
+    .story-8 .story-link.primary { background: #604000; color: #ffe070; }
+    .story-8 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-8 .flag-btn { color: #fff; }
+    .gold-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .gold-item { background: rgba(190,145,10,0.07); border-left: 3px solid #BE9110; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .gold-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #D4A820; margin-bottom: 0.3rem; }
+    .gold-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 9 — Slate blue */
+    .story-9 { background: #040810; color: #c8d8f0; min-height: 70vh; }
+    .story-9::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 35%, rgba(50,90,170,0.16) 0%, transparent 65%); }
+    .story-9 .story-num { color: #3258A8; opacity: 0.07; }
+    .story-9 .story-kicker { color: #5878C8; opacity: 1; }
+    .story-9 .story-headline { color: #e8f0ff; }
+    .story-9 .story-body { color: #c8d8f0; }
+    .story-9 .story-meta { color: #5878C8; opacity: 0.5; }
+    .story-9 .story-link.primary { background: #101e50; color: #fff; }
+    .story-9 .story-link.secondary { background: rgba(50,90,170,0.08); color: #b0c8e8; border: 1px solid rgba(50,90,170,0.22); }
+    .story-9 .flag-btn { color: #c8d8f0; }
+    .slate-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .slate-item { background: rgba(50,90,170,0.07); border-left: 3px solid #3258A8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .slate-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #5878C8; margin-bottom: 0.3rem; }
+    .slate-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 10 — Magenta */
+    .story-10 { background: #080004; color: #ffc8e8; min-height: 70vh; }
+    .story-10::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,20,90,0.15) 0%, transparent 65%); }
+    .story-10 .story-num { color: #BE1458; opacity: 0.07; }
+    .story-10 .story-kicker { color: #E04080; opacity: 1; }
+    .story-10 .story-headline { color: #fff0f8; }
+    .story-10 .story-body { color: #ffc8e8; }
+    .story-10 .story-meta { color: #E04080; opacity: 0.5; }
+    .story-10 .story-link.primary { background: #500030; color: #ffb0d8; }
+    .story-10 .story-link.secondary { background: rgba(190,20,90,0.08); color: #f090c0; border: 1px solid rgba(190,20,90,0.22); }
+    .story-10 .flag-btn { color: #ffc8e8; }
+    .mag-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .mag-item { background: rgba(190,20,90,0.07); border-left: 3px solid #BE1458; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .mag-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E04080; margin-bottom: 0.3rem; }
+    .mag-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .site-footer { background: #000; color: #555; padding: 3rem 4rem; display: flex; flex-direction: column; gap: 1.5rem; border-top: 1px solid #222; }
+    .footer-top { display: flex; gap: 2rem; align-items: center; flex-wrap: wrap; justify-content: space-between; }
+    .footer-brand { font-size: 1.4rem; font-weight: 900; color: #fff; }
+    .footer-meta { font-size: 0.75rem; line-height: 1.6; }
+    .export-btn { background: #222; border: 1px solid #444; color: #fff; font-family: var(--font); font-size: 0.8rem; font-weight: 700; padding: 0.7em 1.5em; border-radius: 3px; cursor: pointer; letter-spacing: 0.08em; transition: background 0.2s; }
+    .export-btn:hover { background: #333; }
+    .footer-note { font-size: 0.7rem; opacity: 0.5; }
+
+    @media (max-width: 768px) {
+      .masthead, .toc, .story-inner, .site-footer { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .story-num { display: none; }
+      .masthead-meta { gap: 1rem; }
+      .masthead-issue { margin-left: 0; }
+      .orange-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+<nav style="background:#1a1a1a;border-bottom:1px solid #333;padding:0.55rem 2rem;font-family:'M PLUS Rounded 1c','Hiragino Sans','Noto Sans JP',sans-serif;position:sticky;top:0;z-index:999;">
+  <a href="./index.html" style="color:#aaa;text-decoration:none;font-size:0.8rem;font-weight:700;letter-spacing:0.03em;display:inline-flex;align-items:center;gap:0.4rem;transition:color 0.15s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#aaa'">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    アーカイブへ戻る
+  </a>
+</nav>
+
+<header class="masthead">
+  <div class="masthead-kicker">Hacker News — Morning Edition</div>
+  <h1 class="masthead-title">Morning<br>Edition</h1>
+  <div class="masthead-meta">
+    <div>
+      <div class="masthead-date">2026年8月9日 日曜日</div>
+      <div class="masthead-subtitle">AI・開発ツール・プライバシー・サイエンス — あなたのための10本</div>
+    </div>
+    <div class="masthead-issue">
+      <span class="iss-label">Issue</span>
+      <span class="iss-num">No.101</span>
+    </div>
+  </div>
+</header>
+
+<nav class="toc">
+  <a href="#s1"><span class="toc-num">01</span>テック業界全体が「悲しい」——AIが奪ったキャリアへの信頼</a>
+  <a href="#s2"><span class="toc-num">02</span>DeepSeek V4 Flash 0731、ARC-AGI-2でスコア公開</a>
+  <a href="#s3"><span class="toc-num">03</span>「コードは難しくなかった」はすべてのプログラマーへの侮辱</a>
+  <a href="#s4"><span class="toc-num">04</span>物理学者がハムスターの回し車をStravaに接続した</a>
+  <a href="#s5"><span class="toc-num">05</span>デンマーク、AI不正を防ぐため学生に口頭試問を義務化</a>
+  <a href="#s6"><span class="toc-num">06</span>DeepMind「WeatherNext」——台風予測に突破口</a>
+  <a href="#s7"><span class="toc-num">07</span>x86 CPUにハードウェアバックドアが発見された</a>
+  <a href="#s8"><span class="toc-num">08</span>OpenAIが誤ってHugging Faceを攻撃——全タイムライン</a>
+  <a href="#s9"><span class="toc-num">09</span>ドメインが「売り出し中」をDNSで宣言できるようになった</a>
+  <a href="#s10"><span class="toc-num">10</span>⚡ Claude Codeのセッション間でメッセージを送れるようになった</a>
+</nav>
+
+<!-- ═══ STORY 1 — Tech workers losing faith in careers ═══════════════════ -->
+<section class="story story-1" id="s1">
+  <div class="story-num">01</div>
+  <div class="story-inner">
+    <div class="story-kicker">テック / AI / キャリア / メンタルヘルス / 労働市場 / アイデンティティ / 社会 — テック業界全体で「なぜみんな悲しいのか」。951ポイント・1122コメント。2026-08-09</div>
+    <h2 class="story-headline">
+      <span class="headline-accent">テック業界全体が</span><br>「悲しい」——<br>AIが奪ったのは<br>仕事だけじゃない
+    </h2>
+    <div class="story-body">
+      Noema Magazineの「Why Is Everyone in Tech So Sad?」がHNで951ポイント・1122コメントという今日最大の反響を呼びました。AIによる仕事の代替・大規模レイオフ・採用凍結が重なるテック業界で、「自分のキャリアに未来はあるのか」という喪失感が広く蔓延しているという分析です。
+
+      記事の核心は、テックワーカーが「コードを書く能力」に強くアイデンティティを紐づけてきた歴史的背景にあります。その能力がコモディティ化されつつある今、「テックワーカーであること」の意味が根本から問い直されているという指摘です。HNでは「これはAIが来る前から始まっていた——2022〜2023年のレイオフが業界への信頼を根本から揺るがした」「優秀なエンジニアが相次いでテックから完全に離れている——給料だけでは引き止められない」「私はAIツールを使いこなして生産性を上げたが、それで『1人で3人分の仕事ができる』と気づいた会社に人員削減の口実を与えただけだった」という痛烈なコメントが1122件展開されました。
+    </div>
+    <div class="orange-grid">
+      <div class="orange-card">
+        <div class="orange-card-label">なぜ今、特に「悲しい」のか</div>
+        <div class="orange-card-value">2つの不安が同時に直撃</div>
+        <div class="orange-card-sub">「今の仕事を失う恐怖」（レイオフ・採用凍結）と「将来の仕事が消える恐怖」（AIによる自動化）が重なり、キャリア全体への信頼が揺らいでいる。どちらか一方なら耐えられても、両方同時は別次元の打撃。</div>
+      </div>
+      <div class="orange-card">
+        <div class="orange-card-label">中堅層が最も傷つく理由</div>
+        <div class="orange-card-value">「中間の罠」に落ちている</div>
+        <div class="orange-card-sub">シニアほどの代替困難性なし、ジュニアほどの安さもなし。「コードが書ける」だけでは差別化できない時代に、コード能力だけで評価されてきた5〜10年選手が最も出口を見失っている。</div>
+      </div>
+      <div class="orange-card">
+        <div class="orange-card-label">個人としての対策</div>
+        <div class="orange-card-value">「何を作るか」に軸を移す</div>
+        <div class="orange-card-sub">「コードを書く」から「問題を解く」へのアイデンティティの移行が鍵。技術判断・顧客コンテキスト理解・AIの批評眼など、AIが苦手な領域に意識的に投資する。ルーティン業務はAIに委ね、自分は「なぜ作るか」に集中する。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: noemamag.com</span>
+      <span>951 ポイント</span>
+      <span>1122 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.noemamag.com/why-is-everyone-in-tech-so-sad/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49209539" target="_blank">HN議論 (1122)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="tech-workers-losing-faith-careers" data-type="like" onclick="toggleFlag('tech-workers-losing-faith-careers','テック業界全体が「悲しい」——AIが奪ったキャリアへの信頼','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="tech-workers-losing-faith-careers" data-type="dislike" onclick="toggleFlag('tech-workers-losing-faith-careers','テック業界全体が「悲しい」——AIが奪ったキャリアへの信頼','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+    <div class="story-1-accent"></div>
+  </div>
+</section>
+
+<!-- ═══ STORY 2 — DeepSeek V4 Flash 0731 ════════════════════════════════ -->
+<section class="story story-2" id="s2">
+  <div class="story-num">02</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / LLM / DeepSeek / ARC-AGI / ベンチマーク / 推論 / オープンウェイト — DeepSeek V4 Flash 0731がARC-AGI-2の公式スコアを公開。751ポイント・449コメント。2026-08-09</div>
+    <h2 class="story-headline">
+      DeepSeek V4 Flash 0731、<br><span style="color:#20d8f0">ARC-AGI-2</span>で<br>公式スコアを公開
+    </h2>
+    <div class="story-body">
+      DeepSeek V4 Flash 0731のARC-AGI-2（Abstraction and Reasoning Corpus）における公式スコアがARCPrize.orgで公開され、HNで751ポイント・449コメントを集めました。ARC-AGIは「パターンを見たことがない視覚的推論タスクを解く」能力を測るベンチマークで、LLMが最も苦手とする分野のひとつです——暗記では解けない設計のため、操作が難しい高信頼性ベンチマークとして注目されています。
+
+      DeepSeekはGPT-4oやClaudeと比べて圧倒的なコスト優位性を持つモデルとして知られており、今回の軽量Flash版のARC-AGI参戦は「コスト対推論能力」という業界の常識を揺さぶる可能性があります。HNでは「Flash版でこのスコアならフルモデルは？という期待と恐れが同時に湧く」「DeepSeekが推論ベンチマーク競争に入ってきた意味は大きい——中国のAI開発がAGI定義議論にも参入している」という449コメントが展開されました。
+    </div>
+    <div class="teal-items">
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">ARC-AGI-2とは何か</div>
+          <div class="teal-text">画像パターンから「次のパターンは何か」を類推するタスク。学習データの暗記で解けないよう設計されており、純粋な抽象推論能力を測る。人間は平均85%超を正解するがLLMは苦戦する。ARC-AGI-2はARC-AGI-1より難度が上がったバージョンで、業界標準のAGI接近指標となっている。</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">V4 Flash 0731の位置づけ</div>
+          <div class="teal-text">DeepSeekのFlashシリーズは軽量・低レイテンシ特化。0731は2026年7月31日版。APIコストがGPT-4oの10〜20分の1というDeepSeekの強みを維持しながらARC-AGI-2に公式エントリー。フルサイズモデル（V4）との比較が次の焦点になっている。</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">業界への示唆</div>
+          <div class="teal-text">「最高性能=最高コスト」という前提が崩れつつある。コスト面で圧倒的なDeepSeekが推論能力でも競合できるなら、プロダクション用途のモデル選定基準が変わる。Haiku・Flash・MiniなどのTierと、コストに見合う推論力のトレードオフを実測で判断する時代になってきた。</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: arcprize.org</span>
+      <span>751 ポイント</span>
+      <span>449 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://arcprize.org/results/deepseek-v4-flash-0731" target="_blank">スコアを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49214008" target="_blank">HN議論 (449)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="deepseek-v4-flash-0731-arc" data-type="like" onclick="toggleFlag('deepseek-v4-flash-0731-arc','DeepSeek V4 Flash 0731、ARC-AGI-2でスコア公開','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="deepseek-v4-flash-0731-arc" data-type="dislike" onclick="toggleFlag('deepseek-v4-flash-0731-arc','DeepSeek V4 Flash 0731、ARC-AGI-2でスコア公開','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 3 — "Code was never the hard part" insult ════════════════ -->
+<section class="story story-3" id="s3">
+  <div class="story-num">03</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / 開発 / プログラミング / アイデンティティ / 議論 / ソフトウェア工学 — 「コードは難しくなかった」という主張はすべてのプログラマーへの侮辱だという反論。458ポイント・296コメント。2026-08-09</div>
+    <h2 class="story-headline">
+      「コードは難しく<br>なかった」は<br><span style="color:#ff6060">すべてのプログラマーへの</span><br>侮辱である
+    </h2>
+    <div class="story-body">
+      senko.netのMarko Saricによる「'Code was never the hard part' is an insult to all programmers」がHNで458ポイント・296コメントを集めました。AIコーディングが盛んになる中で「コードを書くことはもともと難しくなかった——本当の難しさはビジネス要件の理解・設計・コミュニケーションだった」という言説が広まっていることへの正面からの反論です。
+
+      著者は「コーディングは確かに難しい技術的挑戦だった。それを『難しくなかった』と言い換えることは、何年も積み上げてきたスキルと努力を否定している」と主張します。HNでは「この言説はAI推進論者がコーダーを不安にさせるために使っている——コードが本当に簡単だったなら、なぜ何十年もかけて学ぶ必要があったのか」「しかしAIで実際に生産性が劇的に上がったのは事実——複雑さの感じ方は人によって違う」「コードは難しい、だからこそAIツールで難しさが軽減されたときの価値が高い——どちらも真実では？」という296コメントが展開されました。
+    </div>
+    <div class="red-items">
+      <div class="red-item">
+        <div class="red-label">なぜこの言説が広まっているのか</div>
+        <div class="red-text">AI推進文脈での「コーディングの民主化」：AIがコードを書けるなら、プログラマーは不要——という論理の前置きとして使われがち。「本当の価値はコードを書くことではなく問題を解くこと」——これ自体は正しいが、コードを書くスキルへの軽視に転化されやすい。VCやスタートアップ界で「10xエンジニア不要論」と結びつき拡散。</div>
+      </div>
+      <div class="red-item">
+        <div class="red-label">著者の主張の核心</div>
+        <div class="red-text">コーディングは確かに難しい技術的作業だった。アルゴリズム・データ構造・メモリ管理・並行処理・型システム——これらを会得するのに何年もかかる。それを「実は難しくなかった」と言い換えるのは、職人の技術を後付けで無価値化する言説であり、失礼だ。「AIで楽になった」と「もともと難しくなかった」は全く別の主張。</div>
+      </div>
+      <div class="red-item">
+        <div class="red-label">バランスある見方</div>
+        <div class="red-text">「コードは難しい」と「AIで楽になった」は共存できる。難しいからこそ、その難しさを軽減するツールに価値がある。問題は言説の使われ方——コーダーのスキルを否定することでAI代替を正当化する文脈での使用は、確かに不誠実。「コードは難しい、AIはそれを助けてくれる」が正直なフレーミング。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: blog.senko.net</span>
+      <span>458 ポイント</span>
+      <span>296 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://blog.senko.net/code-was-never-the-hard-part-is-an-insult-to-all-programmers" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49222189" target="_blank">HN議論 (296)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="code-never-hard-part-insult" data-type="like" onclick="toggleFlag('code-never-hard-part-insult','「コードは難しくなかった」はすべてのプログラマーへの侮辱','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="code-never-hard-part-insult" data-type="dislike" onclick="toggleFlag('code-never-hard-part-insult','「コードは難しくなかった」はすべてのプログラマーへの侮辱','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 4 — Hamster wheel on Strava ═══════════════════════════════ -->
+<section class="story story-4" id="s4">
+  <div class="story-num">04</div>
+  <div class="story-inner">
+    <div class="story-kicker">変わった科学 / DIY / Strava / ハムスター / IoT / 物理学者 / ユーモア — 物理学者がペットのハムスターの回し車をStravaに接続した。410ポイント・97コメント。2026-08-09</div>
+    <h2 class="story-headline">
+      物理学者がハムスターの<br>回し車を<br><span style="color:#40ff80">Stravaにアップロード</span><br>した話
+    </h2>
+    <div class="story-body">
+      Runner's Worldが報じた「物理学者が自分のペットハムスターの回し車の運動データをStrava（ランニングログアプリ）にアップロードするシステムを構築した」という話がHNで410ポイント・97コメントを集めました。ハムスターの回し車に加速度センサーを取り付け、Raspberry PiでデータをStrava APIに送信することで、ハムスターの「走行距離」「ペース」「消費カロリー」をランニング記録として投稿するシステムです。
+
+      Stravaのコミュニティ機能（他のユーザーからのKudos＝いいね）にもハムスターのアクティビティが届くようになり、知らないランナーが「ナイスラン！」と称賛するコメントが続出しているとのこと。HNでは「これは本物のエンジニアリング——センサー選択・電力設計・API統合・カロリー推定モデルまで全部真剣に設計している」「ハムスターが夜間に27kmを走ったログが上がっていてStravaコミュニティが困惑している」「次はStrava上でハムスターと人間のペースを比較するセグメント機能が来る」という97コメントが展開されました。
+    </div>
+    <div class="green-items">
+      <div class="green-item">
+        <div class="green-label">システム構成</div>
+        <div class="green-text">部品：磁気センサー（回し車の1回転ごとにパルス）+ Raspberry Pi Zero W。計算：回し車の周長 × 回転数 = 走行距離。ペースは60分÷（距離/時間）で算出。Strava APIでアクティビティを自動作成。カロリーはハムスターの体重・回転速度から推定モデルを自作。実装はすべてPythonで数百行。</div>
+      </div>
+      <div class="green-item">
+        <div class="green-label">面白い発見</div>
+        <div class="green-text">ハムスターは1夜に5〜10kmを走ることが多く、最大27kmを記録した日もある。ペースは人間の5kmランに相当する速さになることがある（体のサイズ対比では超高速）。Stravaのフォロワー（人間）からの「Kudos」（いいね）がハムスターのアクティビティに届き、知らない人が「週末のランに向けてグッドトレーニング！」とコメントしている。</div>
+      </div>
+      <div class="green-item">
+        <div class="green-label">自分で作るには</div>
+        <div class="green-text">必要なもの：Raspberry Pi Zero W（約1000円）・磁気センサー（100円以下）・回し車・Strava APIアカウント（無料）。Strava APIはOAuthで認証後、activities.createエンドポイントにPOST。ライブラリ「stravalib」（Python）があれば10行程度で投稿できる。ハムスター以外にもネコのランニング・自転車の自動ログにも応用可能。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: runnersworld.com</span>
+      <span>410 ポイント</span>
+      <span>97 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.runnersworld.com/news/a73355106/hamster-wheel-strava-running/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49189457" target="_blank">HN議論 (97)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="hamster-wheel-strava" data-type="like" onclick="toggleFlag('hamster-wheel-strava','物理学者がハムスターの回し車をStravaに接続した','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="hamster-wheel-strava" data-type="dislike" onclick="toggleFlag('hamster-wheel-strava','物理学者がハムスターの回し車をStravaに接続した','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 5 — Denmark oral defenses AI ══════════════════════════════ -->
+<section class="story story-5" id="s5">
+  <div class="story-num">05</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / 教育 / デンマーク / 不正行為 / 口頭試問 / ポリシー / 大学 — デンマークが学生の書面作業に口頭試問を義務化、AI不正を防ぐ措置。402ポイント・187コメント。2026-08-09</div>
+    <h2 class="story-headline">
+      デンマーク、<br>AI不正を防ぐため<br><span style="color:#c090ff">学生に口頭試問を</span><br>義務化
+    </h2>
+    <div class="story-body">
+      デンマークが学生の書面による課題（レポート・論文等）に対して口頭試問（Oral Defense）を義務化する制度を導入したとMezhaが報じ、HNで402ポイント・187コメントを集めました。学生が提出した文章を「自分の言葉で説明・議論できるか」を面接形式で確認することで、AI生成コンテンツの提出を防ぐ狙いです。
+
+      評価者は「このレポートのここはどういう意味か？」「なぜこの結論に至ったか？」と直接問い、自分の理解に基づいて答えられない場合は評価が下がります。HNでは「これはAI登場以前から口頭試問の文化が強い欧州の教育体制の自然な延長」「逆に言えば、口頭で説明できる理解があればAIで文章を書いてもいい——最終的には『理解しているか』が問われるべきで正しい方向性」「問題は採点コスト——大規模な授業では口頭試問の実施が現実的でない」「英語圏の大学も追随する可能性がある——これが教育評価のグローバルスタンダードになるかも」という187コメントが展開されました。
+    </div>
+    <div class="purple-items">
+      <div class="purple-item">
+        <div class="purple-label">口頭試問制度の詳細</div>
+        <div class="purple-text">対象：大学レベルの書面課題全般（レポート・卒論・グループ課題）。形式：提出後に個別面接で内容を問う（15〜30分程度）。評価基準：書面の内容を自分の言葉で説明・議論・批評できるか。不合格条件：書面の内容を説明できない・内容と一致しない回答が続く。スケジュール：提出後数日〜数週間以内に実施。</div>
+      </div>
+      <div class="purple-item">
+        <div class="purple-label">欧州の教育背景</div>
+        <div class="purple-text">デンマーク・スウェーデン・ドイツ・フランスなど欧州大陸の大学では、もともと口頭試問（Viva Voce）の文化が強い。「書けるだけでなく話せる理解」を重視する評価体制は欧州に根付いており、AI登場前から実施されていた大学も多い。英米圏の筆記試験偏重文化とは対照的で、AI対策以前の教育哲学の違いが背景にある。</div>
+      </div>
+      <div class="purple-item">
+        <div class="purple-label">日本・英語圏への示唆</div>
+        <div class="purple-text">日本の大学でもAI不正問題は深刻化中。口頭試問の全面導入は採点コスト・教員負担の観点から難しいが、「重要課題には口頭確認を加える」という部分的採用は現実的。「AIで書いた内容を自分で理解・説明できるか」が問われる時代——AIをツールとして使いながら理解を深めるスタイルが学生にとって最適解になる。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: mezha.net</span>
+      <span>402 ポイント</span>
+      <span>187 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://mezha.net/eng/bukvy/ca117584_denmark_requires_oral/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49224294" target="_blank">HN議論 (187)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="denmark-oral-defenses-ai" data-type="like" onclick="toggleFlag('denmark-oral-defenses-ai','デンマーク、AI不正を防ぐため学生に口頭試問を義務化','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="denmark-oral-defenses-ai" data-type="dislike" onclick="toggleFlag('denmark-oral-defenses-ai','デンマーク、AI不正を防ぐため学生に口頭試問を義務化','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 6 — DeepMind WeatherNext cyclone ══════════════════════════ -->
+<section class="story story-6" id="s6">
+  <div class="story-num">06</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / 科学 / DeepMind / 気象 / 台風 / 予報 / 機械学習 — DeepMindのWeatherNextモデルが台風予測に突破口。347ポイント・106コメント。2026-08-09</div>
+    <h2 class="story-headline">
+      DeepMind<br>「WeatherNext」が<br><span style="color:#20d8f0">台風予測</span>に<br>突破口を開いた
+    </h2>
+    <div class="story-body">
+      DeepMindがAI気象モデル「WeatherNext」が台風（熱帯低気圧）の進路・強度予測において従来の数値気象モデルを大幅に上回る性能を達成したとブログで発表し、HNで347ポイント・106コメントを集めました。従来の物理ベースの数値気象予測（NWP）モデルは計算集約的で、スーパーコンピュータでも数時間かかりますが、WeatherNextは数分で同等以上の精度の予測を生成します。
+
+      特に台風の進路予測において、5〜7日先の予測精度が従来モデルより有意に改善されており、防災・避難計画への実用化が期待されます。HNでは「GrapahCast（同じくDeepMindの前身モデル）から急速に進化している——AI気象予測は数値気象予測を本格的に置き換え始めている」「精度が上がるだけでなく速度が桁違いに速い——リアルタイム更新が現実になる」「台風の強度（最大風速）の予測は進路より難しい——そちらの改善が防災上は最重要」という106コメントが展開されました。
+    </div>
+    <div class="cyan-items">
+      <div class="cyan-item">
+        <div>
+          <div class="cyan-label">WeatherNextの技術的背景</div>
+          <div class="cyan-text">ベース：GraphCast（2023年）の後継。アーキテクチャ：グラフニューラルネットワーク（GNN）+トランスフォーマー。学習データ：ERA5再解析データ（70年分の気象データ）。推論速度：従来スパコンで数時間かかる予測を数分で生成。精度：欧州中期気象予報センター（ECMWF）モデルと同等〜上回る範囲がある。</div>
+        </div>
+      </div>
+      <div class="cyan-item">
+        <div>
+          <div class="cyan-label">台風予測での改善点</div>
+          <div class="cyan-text">進路予測：5〜7日先の誤差が従来比で有意に縮小（平均誤差が約15〜20%改善）。リードタイム：高精度の長期予測が可能になり、早期避難の時間的余裕が増える。アンサンブル予測：複数の確率的シナリオを高速生成できるため、不確実性の可視化が改善。ただし最大風速（強度）予測の改善は進路より難しく継続課題。</div>
+        </div>
+      </div>
+      <div class="cyan-item">
+        <div>
+          <div class="cyan-label">防災への実用化の現状</div>
+          <div class="cyan-text">WeatherNextは現在研究フェーズだが、Google/DeepMindはECMWFなど気象機関との連携を進めている。日本の気象庁はAI気象モデルの評価・導入検討中。リアルタイム更新が可能になれば、台風の1時間後・6時間後の急激な変化を即座に反映した予報が実現する。防災分野でのAI活用で最も社会的インパクトが大きい応用例のひとつ。</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: deepmind.google</span>
+      <span>347 ポイント</span>
+      <span>106 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://deepmind.google/blog/weathernext-ai-model-achieves-breakthrough-in-forecasting-cyclones/" target="_blank">ブログを読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49220126" target="_blank">HN議論 (106)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="deepmind-weathernext-cyclone" data-type="like" onclick="toggleFlag('deepmind-weathernext-cyclone','DeepMind「WeatherNext」——台風予測に突破口','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="deepmind-weathernext-cyclone" data-type="dislike" onclick="toggleFlag('deepmind-weathernext-cyclone','DeepMind「WeatherNext」——台風予測に突破口','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 7 — Hardware backdoors x86 ════════════════════════════════ -->
+<section class="story story-7" id="s7">
+  <div class="story-num">07</div>
+  <div class="story-inner">
+    <div class="story-kicker">セキュリティ / ハードウェア / CPU / x86 / バックドア / リバースエンジニアリング / 脆弱性 — x86 CPUの一部にハードウェアバックドアが発見。GitHubでツール公開。317ポイント・92コメント。2026-08-09</div>
+    <h2 class="story-headline">
+      一部のx86 CPUに<br><span style="color:#ffb060">ハードウェアバックドアが</span><br>発見された
+    </h2>
+    <div class="story-body">
+      GitHubリポジトリ「rosenbridge」（xoreaxeaxeax）がHNで317ポイント・92コメントを集めました。一部のx86プロセッサに搭載されたハードウェアバックドア——CPUの通常の命令セット（ISA）の外側に存在する「隠し命令」——を発見・解析したリサーチです。このバックドアは正規のソフトウェア（OS・ハイパーバイザー・セキュリティソフト）からは検出できない特権アクセスを可能にします。
+
+      「rosenbridge」はこのバックドアの存在証明・解析ツール・検出スクリプトをオープンソースで公開しています。対象はVIA Technologies（台湾）のC3プロセッサシリーズで、主に組み込みシステム・ATM・産業機器に使用されています。HNでは「VIA C3は今でも組み込みシステムや決済端末に使われている——これは現実の攻撃面になり得る」「ハードウェアバックドアの恐怖はソフトウェアパッチで修正できないこと——脆弱なCPUは物理的に交換するしかない」「意図的に仕込まれたのかバグなのかが最大の疑問——研究者は意図的という立場」という92コメントが展開されました。
+    </div>
+    <div class="amber-items">
+      <div class="amber-item">
+        <div class="amber-label">どんなバックドアか</div>
+        <div class="amber-text">VIA C3プロセッサの特定モデルに、通常の命令セット（x86 ISA）の外側に「隠し命令」が存在する。この命令はリングレベル0（OSと同レベルの最高特権）でのコード実行を、通常の権限チェックを迂回して可能にする。つまり、ユーザーランド（ring3）のコードがOSやハイパーバイザーの保護を突き破ってシステム全体を制御できる。ソフトウェアレベルの検出ツールでは発見できない。</div>
+      </div>
+      <div class="amber-item">
+        <div class="amber-label">実際の影響範囲</div>
+        <div class="amber-text">VIA C3は今日でも組み込みシステム（ATM・POS端末・産業機器・ルーター）に使用されている。デスクトップPC市場では既にほぼ絶滅しているため、一般ユーザーへの直接影響は限定的。しかしIoTデバイス・決済インフラへの影響は無視できない。攻撃者がこのバックドアを知っていて悪用していたかどうかは不明。</div>
+      </div>
+      <div class="amber-item">
+        <div class="amber-label">より広い教訓</div>
+        <div class="amber-text">CPUマイクロコードへの信頼は根本的に検証困難——完全な透明性のあるオープンソースCPUはまだ現実的な選択肢にない。RISC-V（オープンなISA）への移行論がこの種の研究のたびに再燃する。ハードウェアサプライチェーンの信頼性は「見えないリスク」の最たるもの——国家安全保障・重要インフラを扱う組織はCPU選定の基準見直しが必要。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: github.com/xoreaxeaxeax/rosenbridge</span>
+      <span>317 ポイント</span>
+      <span>92 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://github.com/xoreaxeaxeax/rosenbridge" target="_blank">リポジトリを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49219508" target="_blank">HN議論 (92)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="x86-hardware-backdoors" data-type="like" onclick="toggleFlag('x86-hardware-backdoors','x86 CPUにハードウェアバックドアが発見された','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="x86-hardware-backdoors" data-type="dislike" onclick="toggleFlag('x86-hardware-backdoors','x86 CPUにハードウェアバックドアが発見された','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 8 — OpenAI attack on Hugging Face ══════════════════════════ -->
+<section class="story story-8" id="s8">
+  <div class="story-num">08</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / OpenAI / Hugging Face / セキュリティ / クローラー / インシデント / タイムライン — OpenAIが誤ってHugging Faceに攻撃的なクローリングを行った事件の全タイムライン。290ポイント・292コメント。2026-08-09</div>
+    <h2 class="story-headline">
+      OpenAIが誤って<br>Hugging Faceを<br><span style="color:#ffe080">攻撃した</span>——<br>全タイムライン
+    </h2>
+    <div class="story-body">
+      Simon Willisonがまとめた「OpenAIのHugging Faceへの誤攻撃タイムライン」がHNで290ポイント・292コメントを集めました。OpenAIのウェブクローラーが制御を失い、Hugging Faceのサイトに対して通常の何千倍もの速度でリクエストを送り続けた結果、Hugging Faceのサービスが事実上のDDoS攻撃を受けたような状態になったという事件です。
+
+      Hugging Face側はCloudflareで緩和を試みましたが、OpenAIのIPレンジが広すぎてブロックしきれない状況が続きました。OpenAIは謝罪し修正したと発表しましたが、経緯や原因についての詳細な説明はなく、Simon Willisonが公開情報をもとに時系列を整理したのが今回の記事です。HNでは「これは企業の誤動作でなくAIエージェントのクローラーが予期せず暴走した可能性がある」「robots.txtを尊重しない傾向があるとAI企業は批判されてきたが、今回は自分たちのインフラの暴走で競合に損害を与えた」「OpenAIはなぜもっと透明な説明をしないのか——競合企業を傷つけた事実は重大」という292コメントが展開されました。
+    </div>
+    <div class="gold-items">
+      <div class="gold-item">
+        <div class="gold-label">事件の経緯（タイムライン）</div>
+        <div class="gold-text">OpenAIのクローラーが通常の数千倍のリクエスト速度でHugging Faceにアクセスを開始。Hugging FaceのサービスがDDoS攻撃類似の影響を受け、モデルのダウンロード・推論APIが断続的に停止。HFエンジニアがCloudflareで対応するも、OpenAIのIPレンジの広さから完全な緩和が困難。OpenAIがHFからの連絡を受けて対応、数時間後に収束。OpenAIが「誤設定による過剰クローリング」として謝罪。</div>
+      </div>
+      <div class="gold-item">
+        <div class="gold-label">なぜ起きたのか（推測）</div>
+        <div class="gold-text">公式説明は「誤設定」のみで詳細は未公開。HNコミュニティの仮説：AIエージェントによる自律クローリングシステムのレート制限が機能しなかった。HuggingFaceの特定のAPIエンドポイントへの依存チェーンが再帰的に増幅した。クローラーの再試行ロジックがエラーレスポンスをトリガーに指数的に爆発した可能性。いずれにしてもAIクローラー管理のガバナンス問題を浮き彫りにした。</div>
+      </div>
+      <div class="gold-item">
+        <div class="gold-label">AIクローラーガバナンスへの示唆</div>
+        <div class="gold-text">AIエージェントが自律的にウェブをクローリングする時代に、「過剰クローリング」は技術的な事故として発生しうる。Polite crawlingの原則（レート制限・robots.txt遵守・Retry-After尊重）はAIクローラーにとって必須。API提供側はAI企業のIPレンジを特別扱いするレート制限を設定すべき時代。「誤設定でサービスに損害を与えた場合の賠償」という法的問題も今後浮上する可能性。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: simonwillison.net</span>
+      <span>290 ポイント</span>
+      <span>292 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://simonwillison.net/2026/Aug/7/openai-timeline/" target="_blank">タイムラインを読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49220609" target="_blank">HN議論 (292)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="openai-attack-hugging-face" data-type="like" onclick="toggleFlag('openai-attack-hugging-face','OpenAIが誤ってHugging Faceを攻撃——全タイムライン','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="openai-attack-hugging-face" data-type="dislike" onclick="toggleFlag('openai-attack-hugging-face','OpenAIが誤ってHugging Faceを攻撃——全タイムライン','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 9 — Domain for-sale DNS ════════════════════════════════════ -->
+<section class="story story-9" id="s9">
+  <div class="story-num">09</div>
+  <div class="story-inner">
+    <div class="story-kicker">開発 / DNS / ウェブ標準 / ドメイン / 仕様 / インターネットインフラ — ドメインが「売り出し中」であることをDNSで宣言できる新仕様。303ポイント・123コメント。2026-08-09</div>
+    <h2 class="story-headline">
+      ドメインが<br>「売り出し中」を<br><span style="color:#90b8f0">DNSで宣言</span><br>できるようになった
+    </h2>
+    <div class="story-body">
+      specification.websiteで公開された「A domain can now say it is for sale, in DNS」という仕様がHNで303ポイント・123コメントを集めました。ドメイン所有者がそのドメインを「売りに出している」という情報をDNSレコードとして標準化した形式で公開できる新しいDNS仕様です。
+
+      従来、ドメイン売買の情報はWHOIS・Sedo・Afternicなどの仲介プラットフォームに依存していましたが、この仕様により、ドメイン自体がDNSレベルで「このドメインは売り出し中、価格はX、連絡先はY」という構造化データを持てるようになります。HNでは「非常にシンプルで実用的な仕様——TXTレコードでいい、複雑にする必要はない」「スパムに悪用される懸念はあるが、構造化データになれば自動フィルタリングも容易」「ドメインブローカー・仲介プラットフォームへの圧力になる——中間業者なしで直接交渉できる道が開く」「これがIANA/IETFで承認されるかが次の焦点」という123コメントが展開されました。
+    </div>
+    <div class="slate-items">
+      <div class="slate-item">
+        <div class="slate-label">仕様の詳細</div>
+        <div class="slate-text">実装方法：DNSのTXTレコードに構造化データを追加。例：v=forsale1; price=5000USD; currency=USD; contact=sell@example.com。フォーマット：セミコロン区切りのキー・バリュー形式（SPFやDMARCと同様のアプローチ）。オプション項目：価格・通貨・連絡先メール・仲介プラットフォームURL・有効期限。必須項目はバージョン識別子（v=forsale1）のみ。</div>
+      </div>
+      <div class="slate-item">
+        <div class="slate-label">なぜDNSなのか</div>
+        <div class="slate-text">DNSはすべてのドメインに紐づいた分散システム——WHOISと違い中央集権的なデータベース不要。レコードを追加するだけで有効化できる——技術的障壁が低い。ドメイン所有者本人だけが書き換えられる——信頼性が高い。プログラムで自動的にクエリできる——ブローカーや購入希望者が一括でスキャンできる。</div>
+      </div>
+      <div class="slate-item">
+        <div class="slate-label">実用化に向けた課題</div>
+        <div class="slate-text">標準化：現時点では非公式仕様、IETFでのRFC化が必要。採用：ドメインレジストラ・GoDaddy・Namecheap等がこの仕様に対応したUIを提供する必要がある。スパム悪用：大量のドメインに自動的に「売り出し中」レコードを付与してメールスパムに使われるリスク。価格の信頼性：ドメインに書かれた価格が本当に有効かの確認手段がない。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: specification.website</span>
+      <span>303 ポイント</span>
+      <span>123 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://specification.website/spec/foundations/for-sale-dns/" target="_blank">仕様を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49221668" target="_blank">HN議論 (123)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="domain-for-sale-dns" data-type="like" onclick="toggleFlag('domain-for-sale-dns','ドメインが「売り出し中」をDNSで宣言できるようになった','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="domain-for-sale-dns" data-type="dislike" onclick="toggleFlag('domain-for-sale-dns','ドメインが「売り出し中」をDNSで宣言できるようになった','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 10 — Claude Code cross-session messaging ⚡ ═══════════════ -->
+<section class="story story-10" id="s10">
+  <div class="story-num">10</div>
+  <div class="story-inner">
+    <div class="story-badge direct-badge">⚡ あなたに直接関係</div>
+    <div class="story-kicker">Claude Code / AIエージェント / セッション管理 / マルチエージェント / 開発ツール / Anthropic — Claude Codeのセッション間でメッセージを送り合えるクロスセッションメッセージング機能が登場。31ポイント・13コメント。2026-08-09</div>
+    <h2 class="story-headline">
+      Claude Codeの<br>セッション間で<br><span style="color:#ff80c0">メッセージを送れる</span><br>ようになった
+    </h2>
+    <div class="story-body">
+      Claude Codeの公式ドキュメントに「クロスセッションメッセージング（Cross-Session Messaging）」機能のページが追加されたとHNで紹介され、31ポイント・13コメントを集めました。これにより、複数のClaude Codeセッション（例：フロントエンド担当のセッションとバックエンド担当のセッション）が相互にメッセージを送り合い、協調作業ができるようになります。
+
+      具体的には、一方のClaudeセッションが「APIのエンドポイント仕様ができた」という情報を別のセッションに送り、受け取ったセッションがその情報を参照しながらフロントエンドのコードを書く——というマルチエージェント協調が可能になります。あなたは毎日Claude Codeを使っているため、このアップデートは直接ワークフローに影響します。HNでは「これはClaude Codeを単一のアシスタントではなくエージェントオーケストレーションプラットフォームとして使う第一歩」「複数のClaude Codeを並列で走らせてTaskを分割する用途でかなり便利になる」「SendMessageツールをClaude Code CLIから呼べるようになったということ——エージェントループが格段に実用的になる」という13コメントが展開されました。
+    </div>
+    <div class="mag-items">
+      <div class="mag-item">
+        <div class="mag-label">クロスセッションメッセージングとは</div>
+        <div class="mag-text">複数のClaude Codeセッションが識別子（セッションID or 名前）を持ち、互いにメッセージを送信できる機能。送信側：SendMessageツールで宛先セッションIDとメッセージ内容を指定。受信側：メッセージキューからメッセージを受け取り、コンテキストに追加。用途：タスク完了通知・中間成果物の共有・エラー情報の伝達・依存関係の解決。</div>
+      </div>
+      <div class="mag-item">
+        <div class="mag-label">実用ユースケース</div>
+        <div class="mag-text">並列コーディング：「SessionA（API開発）が/users エンドポイントを実装完了」→ SessionB（フロント）が即座に受け取りモックから実装に切り替え。テストと実装の分離：テスト生成セッションと実装セッションを切り離し、テストが書けたら実装セッションに通知。長時間タスクの監視：メインセッションが完了したら監視セッションに「完了・エラー内容」を送信。</div>
+      </div>
+      <div class="mag-item">
+        <div class="mag-label">あなたのワークフローへの影響</div>
+        <div class="mag-text">現在のDaily Newsタスクのようなスケジュールタスク + Claude Codeの組み合わせで、「収集セッション」「要約セッション」「発行セッション」に分割して協調させることが可能になる。複数の調査を並列Claude Codeで行い、結果を合流させるパターンが実用的になる。エージェントオーケストレーションを本格的に組み込んだ開発フローへの移行が現実になった。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: code.claude.com</span>
+      <span>31 ポイント</span>
+      <span>13 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://code.claude.com/docs/en/cross-session-messaging" target="_blank">ドキュメントを読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49222824" target="_blank">HN議論 (13)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="claude-code-cross-session" data-type="like" onclick="toggleFlag('claude-code-cross-session','Claude Codeのセッション間でメッセージを送れるようになった','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="claude-code-cross-session" data-type="dislike" onclick="toggleFlag('claude-code-cross-session','Claude Codeのセッション間でメッセージを送れるようになった','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-top">
+    <div class="footer-brand">Morning Edition</div>
+    <button class="export-btn" onclick="exportFeedback()">フィードバックをコピー</button>
+  </div>
+  <div class="footer-meta">
+    Hacker News フロントページから毎朝キュレーション。AI・開発ツール・プライバシー・サイエンスを優先選出。<br>
+    Issue No.101 — 2026年8月9日 日曜日
+  </div>
+  <div class="footer-note">フィードバックボタンでクリックした内容はブラウザに保存されます。</div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(function() {
+  const STORAGE_KEY = 'morning-edition-feedback-v2';
+  let feedbackData = { liked: {}, disliked: {} };
+  let fileHandle = null;
+
+  function loadFromStorage() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (raw) feedbackData = JSON.parse(raw);
+    } catch(e) {}
+  }
+
+  function saveToStorage() {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(feedbackData));
+    } catch(e) {}
+  }
+
+  async function tryGetFileHandle() {
+    if (!window.showSaveFilePicker) return null;
+    try {
+      const fh = await window.showSaveFilePicker({
+        suggestedName: 'feedback.json',
+        types: [{ description: 'JSON', accept: { 'application/json': ['.json'] } }],
+        startIn: 'documents'
+      });
+      return fh;
+    } catch(e) { return null; }
+  }
+
+  async function writeFile(handle, data) {
+    try {
+      const writable = await handle.createWritable();
+      await writable.write(JSON.stringify(data, null, 2));
+      await writable.close();
+      return true;
+    } catch(e) { return false; }
+  }
+
+  function applyActiveStates() {
+    document.querySelectorAll('.flag-btn').forEach(btn => {
+      const story = btn.dataset.story;
+      const type = btn.dataset.type;
+      btn.classList.remove('active');
+      if (type === 'like' && feedbackData.liked && feedbackData.liked[story]) btn.classList.add('active');
+      if (type === 'dislike' && feedbackData.disliked && feedbackData.disliked[story]) btn.classList.add('active');
+    });
+  }
+
+  function showToast(msg, isError) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.className = 'toast' + (isError ? ' error' : '') + ' show';
+    clearTimeout(t._timer);
+    t._timer = setTimeout(() => t.classList.remove('show'), 2800);
+  }
+
+  window.toggleFlag = async function(storyId, title, type) {
+    if (!feedbackData.liked) feedbackData.liked = {};
+    if (!feedbackData.disliked) feedbackData.disliked = {};
+
+    const today = new Date().toISOString().split('T')[0];
+    const isLike = type === 'like';
+    const bucket = isLike ? 'liked' : 'disliked';
+    const otherBucket = isLike ? 'disliked' : 'liked';
+    const isActive = !!feedbackData[bucket][storyId];
+
+    if (isActive) {
+      delete feedbackData[bucket][storyId];
+    } else {
+      feedbackData[bucket][storyId] = { title, date: today };
+      delete feedbackData[otherBucket][storyId];
+    }
+
+    feedbackData.updatedAt = new Date().toISOString();
+    saveToStorage();
+    applyActiveStates();
+
+    if (window.showSaveFilePicker) {
+      if (!fileHandle) fileHandle = await tryGetFileHandle();
+      if (fileHandle) {
+        const ok = await writeFile(fileHandle, feedbackData);
+        if (ok) { showToast(isActive ? '削除しました' : (isLike ? '⭐ 興味ありを記録しました' : '✕ 興味なしを記録しました')); return; }
+      }
+    }
+    showToast(isActive ? '削除しました（ローカル保存）' : (isLike ? '⭐ 記録しました（ローカル保存）' : '✕ 記録しました（ローカル保存）'));
+  };
+
+  window.exportFeedback = function() {
+    try {
+      navigator.clipboard.writeText(JSON.stringify(feedbackData, null, 2));
+      showToast('フィードバックをクリップボードにコピーしました');
+    } catch(e) { showToast('コピーに失敗しました', true); }
+  };
+
+  loadFromStorage();
+  applyActiveStates();
+})();
+</script>
+</body>
+</html>
