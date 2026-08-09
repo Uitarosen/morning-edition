@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Morning Edition — 2026年8月10日</title>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --font: 'M PLUS Rounded 1c', 'Hiragino Sans', 'Noto Sans JP', sans-serif; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); background: #111; color: #fff; overflow-x: hidden; }
+
+    .masthead { background: #fff; color: #000; padding: 3rem 4rem 2.5rem; border-bottom: 6px solid #000; position: relative; overflow: hidden; }
+    .masthead::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: repeating-linear-gradient(90deg, #000 0, #000 12px, transparent 12px, transparent 20px); }
+    .masthead-kicker { font-size: 0.85rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: #777; margin-bottom: 0.6rem; }
+    .masthead-title { font-size: clamp(3.5rem, 9vw, 7.5rem); font-weight: 900; line-height: 0.88; letter-spacing: -0.04em; margin-bottom: 1.8rem; }
+    .masthead-meta { display: flex; gap: 3rem; align-items: baseline; flex-wrap: wrap; }
+    .masthead-date { font-size: 1.5rem; font-weight: 700; }
+    .masthead-subtitle { font-size: 1rem; font-weight: 400; color: #555; max-width: 480px; line-height: 1.5; }
+    .masthead-issue { margin-left: auto; text-align: right; }
+    .masthead-issue span { display: block; }
+    .masthead-issue .iss-label { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: #999; }
+    .masthead-issue .iss-num { font-size: 2.2rem; font-weight: 900; color: #000; }
+
+    .toc { background: #1a1a1a; padding: 1.5rem 4rem; display: flex; gap: 1.5rem; flex-wrap: wrap; border-bottom: 1px solid #333; }
+    .toc a { color: #aaa; text-decoration: none; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; transition: color 0.2s; }
+    .toc a:hover { color: #fff; }
+    .toc-num { color: #555; margin-right: 0.3em; }
+
+    .story { position: relative; overflow: hidden; }
+    .story-inner { max-width: 1200px; margin: 0 auto; padding: 5rem 4rem; position: relative; z-index: 1; }
+    .story-num { font-size: clamp(6rem, 18vw, 16rem); font-weight: 900; line-height: 0.8; letter-spacing: -0.06em; opacity: 0.08; position: absolute; top: 1rem; right: 2rem; user-select: none; }
+    .story-badge { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.35em 0.9em; border-radius: 2px; margin-bottom: 1.5rem; }
+    .direct-badge { background: #FFD700; color: #000; }
+    .story-kicker { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; opacity: 0.6; margin-bottom: 0.8rem; }
+    .story-headline { font-size: clamp(2rem, 5vw, 4rem); font-weight: 900; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+    .story-body { font-size: clamp(1rem, 1.5vw, 1.2rem); font-weight: 400; line-height: 1.8; max-width: 680px; opacity: 0.88; margin-bottom: 2rem; }
+    .story-meta { display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center; font-size: 0.8rem; font-weight: 700; opacity: 0.5; }
+    .story-links { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem; }
+    .story-link { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.6em 1.4em; border-radius: 3px; text-decoration: none; transition: opacity 0.2s, transform 0.15s; }
+    .story-link:hover { opacity: 0.75; transform: translateY(-1px); }
+
+    .feedback-buttons { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .flag-btn { background: none; border: 1px solid currentColor; color: inherit; font-family: var(--font); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.5em 1em; border-radius: 3px; cursor: pointer; opacity: 0.32; transition: opacity 0.2s, background 0.2s, color 0.2s, border-color 0.2s, transform 0.15s; }
+    .flag-btn:hover { opacity: 0.72; transform: translateY(-1px); }
+    .flag-btn.like-btn.active { opacity: 1; background: rgba(255,215,0,0.15); border-color: #FFD700; color: #FFD700 !important; }
+    .flag-btn.dislike-btn.active { opacity: 1; background: rgba(255,60,60,0.12); border-color: #FF4444; color: #FF4444 !important; }
+
+    .toast { position: fixed; bottom: 2rem; right: 2rem; background: #1a1a1a; color: #fff; font-family: var(--font); font-size: 0.82rem; font-weight: 700; padding: 0.75em 1.4em; border-radius: 4px; border-left: 3px solid #00C853; z-index: 9999; opacity: 0; transform: translateY(10px); transition: opacity 0.25s, transform 0.25s; pointer-events: none; box-shadow: 0 4px 24px rgba(0,0,0,0.45); }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    .toast.error { border-left-color: #FF5252; }
+
+    /* Story 1 — White */
+    .story-1 { background: #fff; color: #000; min-height: 90vh; display: flex; flex-direction: column; justify-content: center; }
+    .story-1 .story-num { color: #000; opacity: 0.04; }
+    .story-1 .story-kicker { color: #555; opacity: 1; }
+    .story-1 .story-headline { color: #000; }
+    .story-1 .story-body { color: #111; }
+    .story-1 .story-meta { color: #000; }
+    .story-1 .story-link.primary { background: #1a1a1a; color: #fff; }
+    .story-1 .story-link.secondary { background: #f0f0f0; color: #000; }
+    .story-1 .flag-btn { color: #000; }
+    .story-1-accent { position: absolute; bottom: 0; left: 0; width: 100%; height: 8px; background: linear-gradient(90deg, #cc4400, #ff8800, #cc4400); }
+    .story-1 .headline-accent { display: inline-block; background: linear-gradient(135deg, #cc4400 0%, #ff8800 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .orange-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1.2rem; margin: 2rem 0; max-width: 680px; }
+    .orange-card { border: 2px solid rgba(255,102,0,0.18); background: rgba(255,102,0,0.04); border-radius: 6px; padding: 1.3rem 1.5rem; }
+    .orange-card-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.2em; text-transform: uppercase; color: #cc4400; margin-bottom: 0.4rem; }
+    .orange-card-value { font-size: 1.05rem; font-weight: 900; color: #000; line-height: 1.3; }
+    .orange-card-sub { font-size: 0.75rem; color: #555; margin-top: 0.3rem; line-height: 1.4; }
+
+    /* Story 2 — Dark navy/teal */
+    .story-2 { background: #00080c; color: #b8f0ff; min-height: 80vh; }
+    .story-2::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(0,160,200,0.14) 0%, transparent 65%); }
+    .story-2 .story-num { color: #00A0C8; opacity: 0.07; }
+    .story-2 .story-kicker { color: #20C8E8; opacity: 1; }
+    .story-2 .story-headline { color: #e0f8ff; }
+    .story-2 .story-body { color: #b8f0ff; }
+    .story-2 .story-meta { color: #20C8E8; opacity: 0.5; }
+    .story-2 .story-link.primary { background: #004058; color: #80e8ff; }
+    .story-2 .story-link.secondary { background: rgba(0,160,200,0.08); color: #90d8f0; border: 1px solid rgba(0,160,200,0.22); }
+    .story-2 .flag-btn { color: #b8f0ff; }
+    .teal-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .teal-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(0,160,200,0.07); border-left: 3px solid #00A0C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .teal-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20C8E8; margin-bottom: 0.3rem; }
+    .teal-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 3 — Dark red */
+    .story-3 { background: #0a0000; color: #fff; min-height: 80vh; }
+    .story-3::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(200,20,20,0.16) 0%, transparent 65%); }
+    .story-3 .story-num { color: #C81414; opacity: 0.07; }
+    .story-3 .story-kicker { color: #E84040; opacity: 1; }
+    .story-3 .story-headline { color: #fff; }
+    .story-3 .story-body { color: rgba(255,255,255,0.88); }
+    .story-3 .story-meta { color: #E84040; opacity: 0.5; }
+    .story-3 .story-link.primary { background: #6a0000; color: #fff; }
+    .story-3 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-3 .flag-btn { color: #fff; }
+    .red-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .red-item { background: rgba(200,20,20,0.07); border-left: 3px solid #C81414; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .red-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E84040; margin-bottom: 0.3rem; }
+    .red-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 4 — Dark green */
+    .story-4 { background: #020c04; color: #c8f0d0; min-height: 80vh; }
+    .story-4::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(20,160,70,0.16) 0%, transparent 65%); }
+    .story-4 .story-num { color: #14A046; opacity: 0.07; }
+    .story-4 .story-kicker { color: #30C060; opacity: 1; }
+    .story-4 .story-headline { color: #e0ffe8; }
+    .story-4 .story-body { color: #c8f0d0; }
+    .story-4 .story-meta { color: #30C060; opacity: 0.5; }
+    .story-4 .story-link.primary { background: #063820; color: #80ffb0; }
+    .story-4 .story-link.secondary { background: rgba(20,160,70,0.08); color: #a0e8b0; border: 1px solid rgba(20,160,70,0.22); }
+    .story-4 .flag-btn { color: #c8f0d0; }
+    .green-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .green-item { background: rgba(20,160,70,0.07); border-left: 3px solid #14A046; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .green-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #30C060; margin-bottom: 0.3rem; }
+    .green-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 5 — Dark purple */
+    .story-5 { background: #040010; color: #d8c8ff; min-height: 75vh; }
+    .story-5::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(90,40,200,0.17) 0%, transparent 65%); }
+    .story-5 .story-num { color: #5A28C8; opacity: 0.07; }
+    .story-5 .story-kicker { color: #8050E0; opacity: 1; }
+    .story-5 .story-headline { color: #f0e8ff; }
+    .story-5 .story-body { color: #d8c8ff; }
+    .story-5 .story-meta { color: #8050E0; opacity: 0.5; }
+    .story-5 .story-link.primary { background: #200860; color: #d0a8ff; }
+    .story-5 .story-link.secondary { background: rgba(90,40,200,0.08); color: #c0a0f0; border: 1px solid rgba(90,40,200,0.22); }
+    .story-5 .flag-btn { color: #d8c8ff; }
+    .purple-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .purple-item { background: rgba(90,40,200,0.07); border-left: 3px solid #5A28C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .purple-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #8050E0; margin-bottom: 0.3rem; }
+    .purple-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 6 — Dark cyan */
+    .story-6 { background: #000c10; color: #b8e8f0; min-height: 75vh; }
+    .story-6::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 40%, rgba(0,130,160,0.14) 0%, transparent 65%); }
+    .story-6 .story-num { color: #0080A0; opacity: 0.07; }
+    .story-6 .story-kicker { color: #20B0D0; opacity: 1; }
+    .story-6 .story-headline { color: #e0f4ff; }
+    .story-6 .story-body { color: #b8e8f0; }
+    .story-6 .story-meta { color: #20B0D0; opacity: 0.5; }
+    .story-6 .story-link.primary { background: #003848; color: #80d8f0; }
+    .story-6 .story-link.secondary { background: rgba(0,130,160,0.08); color: #90cce0; border: 1px solid rgba(0,130,160,0.22); }
+    .story-6 .flag-btn { color: #b8e8f0; }
+    .cyan-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .cyan-item { background: rgba(0,130,160,0.07); border-left: 3px solid #0080A0; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .cyan-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20B0D0; margin-bottom: 0.3rem; }
+    .cyan-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 7 — Dark amber */
+    .story-7 { background: #0a0300; color: #ffe0b8; min-height: 75vh; }
+    .story-7::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(210,90,20,0.18) 0%, transparent 65%); }
+    .story-7 .story-num { color: #D05A14; opacity: 0.07; }
+    .story-7 .story-kicker { color: #E88040; opacity: 1; }
+    .story-7 .story-headline { color: #fff0d8; }
+    .story-7 .story-body { color: #ffe0b8; }
+    .story-7 .story-meta { color: #E88040; opacity: 0.5; }
+    .story-7 .story-link.primary { background: #6a2400; color: #ffc880; }
+    .story-7 .story-link.secondary { background: rgba(210,90,20,0.08); color: #ffb870; border: 1px solid rgba(210,90,20,0.22); }
+    .story-7 .flag-btn { color: #ffe0b8; }
+    .amber-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .amber-item { background: rgba(210,90,20,0.07); border-left: 3px solid #D05A14; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .amber-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E88040; margin-bottom: 0.3rem; }
+    .amber-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 8 — Dark gold */
+    .story-8 { background: #080500; color: #fff; min-height: 70vh; }
+    .story-8::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,145,10,0.15) 0%, transparent 65%); }
+    .story-8 .story-num { color: #BE9110; opacity: 0.06; }
+    .story-8 .story-kicker { color: #D4A820; opacity: 1; }
+    .story-8 .story-headline { color: #fff; }
+    .story-8 .story-body { color: rgba(255,255,255,0.88); }
+    .story-8 .story-meta { color: #D4A820; opacity: 0.5; }
+    .story-8 .story-link.primary { background: #604000; color: #ffe070; }
+    .story-8 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-8 .flag-btn { color: #fff; }
+    .gold-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .gold-item { background: rgba(190,145,10,0.07); border-left: 3px solid #BE9110; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .gold-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #D4A820; margin-bottom: 0.3rem; }
+    .gold-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 9 — Slate blue */
+    .story-9 { background: #040810; color: #c8d8f0; min-height: 70vh; }
+    .story-9::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 35%, rgba(50,90,170,0.16) 0%, transparent 65%); }
+    .story-9 .story-num { color: #3258A8; opacity: 0.07; }
+    .story-9 .story-kicker { color: #5878C8; opacity: 1; }
+    .story-9 .story-headline { color: #e8f0ff; }
+    .story-9 .story-body { color: #c8d8f0; }
+    .story-9 .story-meta { color: #5878C8; opacity: 0.5; }
+    .story-9 .story-link.primary { background: #101e50; color: #fff; }
+    .story-9 .story-link.secondary { background: rgba(50,90,170,0.08); color: #b0c8e8; border: 1px solid rgba(50,90,170,0.22); }
+    .story-9 .flag-btn { color: #c8d8f0; }
+    .slate-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .slate-item { background: rgba(50,90,170,0.07); border-left: 3px solid #3258A8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .slate-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #5878C8; margin-bottom: 0.3rem; }
+    .slate-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 10 — Magenta */
+    .story-10 { background: #080004; color: #ffc8e8; min-height: 70vh; }
+    .story-10::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,20,90,0.15) 0%, transparent 65%); }
+    .story-10 .story-num { color: #BE1458; opacity: 0.07; }
+    .story-10 .story-kicker { color: #E04080; opacity: 1; }
+    .story-10 .story-headline { color: #fff0f8; }
+    .story-10 .story-body { color: #ffc8e8; }
+    .story-10 .story-meta { color: #E04080; opacity: 0.5; }
+    .story-10 .story-link.primary { background: #500030; color: #ffb0d8; }
+    .story-10 .story-link.secondary { background: rgba(190,20,90,0.08); color: #f090c0; border: 1px solid rgba(190,20,90,0.22); }
+    .story-10 .flag-btn { color: #ffc8e8; }
+    .mag-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .mag-item { background: rgba(190,20,90,0.07); border-left: 3px solid #BE1458; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .mag-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E04080; margin-bottom: 0.3rem; }
+    .mag-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .site-footer { background: #000; color: #555; padding: 3rem 4rem; display: flex; flex-direction: column; gap: 1.5rem; border-top: 1px solid #222; }
+    .footer-top { display: flex; gap: 2rem; align-items: center; flex-wrap: wrap; justify-content: space-between; }
+    .footer-brand { font-size: 1.4rem; font-weight: 900; color: #fff; }
+    .footer-meta { font-size: 0.75rem; line-height: 1.6; }
+    .export-btn { background: #222; border: 1px solid #444; color: #fff; font-family: var(--font); font-size: 0.8rem; font-weight: 700; padding: 0.7em 1.5em; border-radius: 3px; cursor: pointer; letter-spacing: 0.08em; transition: background 0.2s; }
+    .export-btn:hover { background: #333; }
+    .footer-note { font-size: 0.7rem; opacity: 0.5; }
+
+    @media (max-width: 768px) {
+      .masthead, .toc, .story-inner, .site-footer { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .story-num { display: none; }
+      .masthead-meta { gap: 1rem; }
+      .masthead-issue { margin-left: 0; }
+      .orange-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+<nav style="background:#1a1a1a;border-bottom:1px solid #333;padding:0.55rem 2rem;font-family:'M PLUS Rounded 1c','Hiragino Sans','Noto Sans JP',sans-serif;position:sticky;top:0;z-index:999;">
+  <a href="./index.html" style="color:#aaa;text-decoration:none;font-size:0.8rem;font-weight:700;letter-spacing:0.03em;display:inline-flex;align-items:center;gap:0.4rem;transition:color 0.15s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#aaa'">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    アーカイブへ戻る
+  </a>
+</nav>
+
+<header class="masthead">
+  <div class="masthead-kicker">Hacker News — Morning Edition</div>
+  <h1 class="masthead-title">Morning<br>Edition</h1>
+  <div class="masthead-meta">
+    <div>
+      <div class="masthead-date">2026年8月10日 月曜日</div>
+      <div class="masthead-subtitle">AI・開発ツール・プライバシー・サイエンス — あなたのための10本</div>
+    </div>
+    <div class="masthead-issue">
+      <span class="iss-label">Issue</span>
+      <span class="iss-num">No.102</span>
+    </div>
+  </div>
+</header>
+
+<nav class="toc">
+  <a href="#s1"><span class="toc-num">01</span>LLMで複雑なトピックを学ぶ——実践者が明かす使い方</a>
+  <a href="#s2"><span class="toc-num">02</span>⚡ OpenChamber——AIエージェントが協調する新しい開発環境</a>
+  <a href="#s3"><span class="toc-num">03</span>あなたの行動はすべて記録されている——AIウェアラブルと対策</a>
+  <a href="#s4"><span class="toc-num">04</span>Mea Culpa——暗黒の時間を告白するテック人の自省録</a>
+  <a href="#s5"><span class="toc-num">05</span>Windows 11の天気アプリが1GB超のRAMを無駄遣いしていた</a>
+  <a href="#s6"><span class="toc-num">06</span>タクシー運転手はアルツハイマーで死なない——空間認知が脳を守る</a>
+  <a href="#s7"><span class="toc-num">07</span>すべての次数の魔法六角形が存在する——数学者が証明</a>
+  <a href="#s8"><span class="toc-num">08</span>MicrosoftのGDIDを一括削除——プライバシーツール「deGDID」</a>
+  <a href="#s9"><span class="toc-num">09</span>4年落ちのreMarkable 2をSSHで蘇らせた</a>
+  <a href="#s10"><span class="toc-num">10</span>1978年のジョン・リリー「固体知性と人類の消滅」——彼が見た未来</a>
+</nav>
+
+<!-- ═══ STORY 1 — How I use LLMs to learn complex topics ═══════════════════ -->
+<section class="story story-1" id="s1">
+  <div class="story-num">01</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / 学習 / LLM / 実践 / 開発者向け / 教育 / 生産性 — LLMを「答えマシン」でなく「理解を深めるツール」として使う方法。236ポイント・123コメント。2026-08-10</div>
+    <h2 class="story-headline">
+      <span class="headline-accent">LLMで複雑な</span><br>トピックを学ぶ——<br>実践者が明かす<br>具体的な使い方
+    </h2>
+    <div class="story-body">
+      Laurentiu Gabrielのブログ「How I use LLMs to learn complex topics」がHNで236ポイント・123コメントを集めました。LLMに「答えを聞く」だけでなく「理解を深めるパートナー」として活用するための実践的な方法を、著者の実体験から具体的に解説しています。
+
+      著者が特に強調するのは「ソクラテス式対話」——自分がすでに理解したと思っていることをLLMに説明させ、矛盾や抜け穴を指摘してもらうアプローチです。「ChatGPTで勉強しても記憶に残らない」という不満への処方箋として、HNでは「LLMに教えてもらうのではなく、LLMに教える立場で使うのが鍵」「『この概念を5歳に説明するように』から始めて段階的に専門化していくと本当に頭に入る」「Anki（フラッシュカード）と組み合わせて、LLMに問題を自動生成してもらうのが自分の実践」という123コメントが展開されました。
+    </div>
+    <div class="orange-grid">
+      <div class="orange-card">
+        <div class="orange-card-label">方法1：ソクラテス式問答</div>
+        <div class="orange-card-value">LLMに「教えてもらう」より「LLMに教える」</div>
+        <div class="orange-card-sub">自分が理解したと思う内容をLLMに向かって説明し、「この説明に矛盾や抜け穴はあるか？」と問う。LLMが指摘した穴が自分の本当の理解不足。受け身でなく能動的に使うことで記憶定着率が上がる。</div>
+      </div>
+      <div class="orange-card">
+        <div class="orange-card-label">方法2：難易度の段階的調整</div>
+        <div class="orange-card-value">「ELI5」から始めて専門化</div>
+        <div class="orange-card-sub">新しいトピックは「Explain Like I'm 5」（5歳児向けに説明して）から開始。理解が深まるにつれ「今度は専門家向けに」「では実装レベルで」と徐々に難度を上げる。LLMは相手のレベルに合わせた説明が得意。</div>
+      </div>
+      <div class="orange-card">
+        <div class="orange-card-label">方法3：実装しながら概念確認</div>
+        <div class="orange-card-value">「なぜ」を常に問い続ける</div>
+        <div class="orange-card-sub">コードを書く際、LLMの提案を「なぜこの実装なのか？」と毎回問い返す習慣をつける。表面的なコピーペーストでなく、設計判断の根拠まで理解することで応用力が身につく。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: laurentiugabriel.github.io</span>
+      <span>236 ポイント</span>
+      <span>123 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://laurentiugabriel.github.io/blog/articles/how-i-use-llms-to-learn/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49234675" target="_blank">HN議論 (123)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="llm-learn-complex-topics" data-type="like" onclick="toggleFlag('llm-learn-complex-topics','LLMで複雑なトピックを学ぶ——実践者が明かす使い方','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="llm-learn-complex-topics" data-type="dislike" onclick="toggleFlag('llm-learn-complex-topics','LLMで複雑なトピックを学ぶ——実践者が明かす使い方','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+    <div class="story-1-accent"></div>
+  </div>
+</section>
+
+<!-- ═══ STORY 2 — OpenChamber Agentic Dev Env ════════════════════════════ -->
+<section class="story story-2" id="s2">
+  <div class="story-num">02</div>
+  <div class="story-inner">
+    <div class="story-badge direct-badge">⚡ あなたに直接関係</div>
+    <div class="story-kicker">AI / 開発ツール / エージェント / 開発環境 / Show HN / IDE / ワークフロー — AIエージェントが協調して動く新しい開発環境「OpenChamber」が登場。83ポイント・46コメント。2026-08-10</div>
+    <h2 class="story-headline">
+      OpenChamber——<br><span style="color:#20d8f0">AIエージェントが</span><br>協調する<br>新しい開発環境
+    </h2>
+    <div class="story-body">
+      Show HNに登場した「OpenChamber: An Agentic Development Environment」がHNで83ポイント・46コメントを集めました。OpenChamberは、複数のAIエージェントがコーディングタスクを協調して並列処理できる開発環境で、Claude Codeのようなエージェント型ツールをさらに一歩進めた「エージェントのオーケストレーション基盤」を目指しています。
+
+      Claude Codeを毎日使っている開発者にとって特に注目すべきプロジェクトです。単一のエージェントとの対話モデルから、複数エージェントが役割を分担して大規模なコーディングタスクに取り組むモデルへの移行を具体化しようとしています。HNでは「Claude Codeの『Tasks』機能と似た発想だが、よりオープンなアーキテクチャ」「エージェント間の通信プロトコルをどう設計するかが核心——MCPとの整合性が気になる」「GUIでエージェントの進捗を可視化できるのは実用的」という46コメントが展開されました。
+    </div>
+    <div class="teal-items">
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">OpenChamberとは何か</div>
+          <div class="teal-text">複数のAIエージェントが同一プロジェクト内でタスクを分担・協調できる開発環境。「フロントエンド担当エージェント」「テスト担当エージェント」「レビュー担当エージェント」のように役割を定義し、エージェント間でコンテキストや成果物を共有しながら並列作業させることができる。GUI上でエージェントの状態・進捗を監視可能。</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">Claude Codeとの違い</div>
+          <div class="teal-text">Claude Codeは基本的に1セッション1エージェントの対話モデル（TaskCreate/Agentツールでのサブエージェント呼び出しはある）。OpenChamberはエージェントのオーケストレーション自体を中心に据えた設計で、エージェント間の通信・依存関係管理・並列実行制御を明示的にサポートする。MCPとの統合や外部ツール連携の拡張性が特徴。</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">日常のワークフローへの示唆</div>
+          <div class="teal-text">大規模なリファクタリング・複数機能の並列実装・長期にわたるコードベース移行など、単一エージェントのコンテキスト制限に引っかかる作業でOpenChamberのようなアプローチが有効になる。まだアーリーステージのプロジェクトだが、エージェント型開発の方向性を確認するために試してみる価値がある。</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: openchamber.dev</span>
+      <span>83 ポイント</span>
+      <span>46 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://openchamber.dev/" target="_blank">サイトを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49233448" target="_blank">HN議論 (46)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="openchamber-agentic-dev-env" data-type="like" onclick="toggleFlag('openchamber-agentic-dev-env','OpenChamber——AIエージェントが協調する新しい開発環境','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="openchamber-agentic-dev-env" data-type="dislike" onclick="toggleFlag('openchamber-agentic-dev-env','OpenChamber——AIエージェントが協調する新しい開発環境','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 3 — Everything you do is being recorded ════════════════════ -->
+<section class="story story-3" id="s3">
+  <div class="story-num">03</div>
+  <div class="story-inner">
+    <div class="story-kicker">プライバシー / AI / ウェアラブル / 監視 / 対策 / デジタル権利 / アトランティック誌 — AIウェアラブルがあなたのすべての行動を記録している。対策はあるか。154ポイント・130コメント。2026-08-10</div>
+    <h2 class="story-headline">
+      あなたの行動は<br><span style="color:#ff6060">すべて記録</span><br>されている——<br>AIと対抗策
+    </h2>
+    <div class="story-body">
+      The Atlanticの「Everything you do is being recorded」がHNで154ポイント・130コメントを集めました。AIウェアラブル（スマートグラス・常時録音デバイス・ライフログカメラ）が急速に普及する中、「会話・行動・表情・位置情報のすべてがリアルタイムでクラウドに記録・分析される」時代になりつつある実態を丁寧に描写しています。
+
+      記事が特に注目するのは「対抗策（Countermeasures）」——物理的なシールド素材、顔認識を妨害するメイクアップ（CV Dazzle）、超音波を使って周囲の録音デバイスを無効化するJammer、そしてデータブローカーへの削除要求の手順まで具体的に紹介しています。HNでは「これは技術の問題でなく社会規範の問題——記録されることへの同意のコンセンサスがまだ存在しない」「対抗策を個人が取らないといけない状況はすでに失敗している——規制が追いついていない」「プライバシー保護技術の軍拡競争が始まった——監視技術と対抗技術が交互に進化する」という130コメントが展開されました。
+    </div>
+    <div class="red-items">
+      <div class="red-item">
+        <div class="red-label">何が記録されているのか</div>
+        <div class="red-text">AIウェアラブルが記録するデータ：音声会話（転写・感情分析付き）、顔認識（誰といるか）、位置情報（行動パターン）、視線データ（何に注目したか）、生体信号（心拍・ストレスレベル）。これらが常時クラウドに送信され、AI解析されることでプロファイリングが精緻化する。本人の同意なく第三者のデータも収集される。</div>
+      </div>
+      <div class="red-item">
+        <div class="red-label">現実的な対策</div>
+        <div class="red-text">短期的：データブローカー（Spokeo・Radaris等）への削除要求（Deleteme等のサービスが自動化）、スマートデバイスのマイク・カメラへの物理シャッター使用、公共空間でのAI認識妨害グラス（反射・IR LED内蔵）。中期的：Signal等のE2E暗号化通信を徹底、自宅ネットワークをローカルLLM・ローカルデバイスで閉じる。長期的：デジタルライツ団体への支援と立法請願。</div>
+      </div>
+      <div class="red-item">
+        <div class="red-label">社会的な問題の核心</div>
+        <div class="red-text">個人が対策を取らなければならない状況そのものが問題の本質——本来は収集する側への規制・データ最小化原則の義務化・同意なき記録の禁止が必要。EUのGDPRはその方向性だが、AIウェアラブル時代の同意取得は事実上不可能な場面が多い。「公共空間での顔認識禁止」法案が各国で議論されているが日本はまだ遅れている。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: theatlantic.com</span>
+      <span>154 ポイント</span>
+      <span>130 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.theatlantic.com/technology/2026/05/ai-wearable-surveillance-countermeasures/687203/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49230477" target="_blank">HN議論 (130)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="everything-you-do-recorded" data-type="like" onclick="toggleFlag('everything-you-do-recorded','あなたの行動はすべて記録されている——AIウェアラブルと対策','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="everything-you-do-recorded" data-type="dislike" onclick="toggleFlag('everything-you-do-recorded','あなたの行動はすべて記録されている——AIウェアラブルと対策','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 4 — Mea Culpa — Dark Hours ════════════════════════════════ -->
+<section class="story story-4" id="s4">
+  <div class="story-num">04</div>
+  <div class="story-inner">
+    <div class="story-kicker">テック / 個人 / 自省 / キャリア / ブログ / 誠実さ / 失敗から学ぶ — テック業界のある人物が「暗黒の時間」を正直に告白したブログ記事。511ポイント・230コメント。2026-08-10</div>
+    <h2 class="story-headline">
+      Mea Culpa——<br><span style="color:#40ff80">「暗黒の時間」</span>を<br>告白する<br>テック人の自省録
+    </h2>
+    <div class="story-body">
+      Terry Godierの「Mea Culpa – Dark Hours」がHNで今日最多の511ポイント・230コメントを集めました。「Mea Culpa（私の過ち）」というラテン語のタイトルが示す通り、著者が自身のキャリア・判断・行動における失敗と後悔を赤裸々に告白したブログ記事です。テック業界での意思決定の失敗、仲間・同僚への対応、そして「もっとうまくやれたはずだ」という重い自省が綴られています。
+
+      これほど多くのHNコミュニティの共感を呼んだのは、技術的な話ではなく人間的な正直さ——「テック業界にいる自分たちが、実はどれほど多くの間違いを犯してきたか」という普遍的な問いに向き合う姿勢です。HNでは「こういう正直さはレアで価値がある——成功話ばかりで失敗の告白は少ない」「過ちを認めることへの恐れがテック業界全体をより不誠実にしている」「自分もこういうことを書きたいと思っていたが、書く勇気がなかった」という230コメントが展開されました。
+    </div>
+    <div class="green-items">
+      <div class="green-item">
+        <div class="green-label">なぜこれほど共感されたか</div>
+        <div class="green-text">テック業界はLinkedInでの「成功を誇示する投稿」で溢れているが、「失敗・後悔・過ちの誠実な告白」はきわめて少ない。失敗を公開することへのリスク（評判・採用・投資への影響）が大きいため、多くの人が内面の失敗を隠し続ける。それを破って公開した著者の行為が、HNの多くの読者に「言えなかった自分の言葉を代弁してくれた」という共感を引き起こした。</div>
+      </div>
+      <div class="green-item">
+        <div class="green-label">「暗黒の時間」が示すもの</div>
+        <div class="green-text">高い理想と現実の自分の行動との乖離——誰もが経験するが語られない深夜の葛藤。キャリアの決断・チームへの対応・윤리的な判断での後悔。テック業界特有のプレッシャー（速さ・成果・スケール優先）が人間的な判断を歪める場面。「自分は正しいことをしてきたのか」という問いを正直に置いた文章が、読者の心に刺さった。</div>
+      </div>
+      <div class="green-item">
+        <div class="green-label">受け取るべき教訓</div>
+        <div class="green-text">自省の公開は弱さでなく強さ——誰でも間違える、重要なのはそれを認め学ぶ姿勢。テック業界の「失敗を隠す文化」は集合的な成長を妨げる——Post-mortem文化（失敗の公開的な振り返り）はエンジニアリング文化には浸透しているが、個人レベルの誠実さはまだ不足している。自分の「暗黒の時間」と向き合うことが、長期的には信頼と誠実さを築く。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: blog.terrygodier.com</span>
+      <span>511 ポイント</span>
+      <span>230 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://blog.terrygodier.com/2026/08/09/mea-culpa-dark-hours.html" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49231154" target="_blank">HN議論 (230)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="mea-culpa-dark-hours" data-type="like" onclick="toggleFlag('mea-culpa-dark-hours','Mea Culpa——暗黒の時間を告白するテック人の自省録','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="mea-culpa-dark-hours" data-type="dislike" onclick="toggleFlag('mea-culpa-dark-hours','Mea Culpa——暗黒の時間を告白するテック人の自省録','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 5 — Windows 11 Weather app RAM ════════════════════════════ -->
+<section class="story story-5" id="s5">
+  <div class="story-num">05</div>
+  <div class="story-inner">
+    <div class="story-kicker">テック / Windows / パフォーマンス / Electron / RAM / メモリ / Microsoft / ソフトウェア肥大化 — Windows 11内蔵の天気アプリが1GB超のRAMを消費している実態。278ポイント・236コメント。2026-08-10</div>
+    <h2 class="story-headline">
+      Windows 11の<br>天気アプリが<br><span style="color:#c090ff">1GB超のRAMを</span><br>無駄遣いしていた
+    </h2>
+    <div class="story-body">
+      NotebookCheckの調査「Windows 11's built-in Weather app wastes more than 1 GB of RAM」がHNで278ポイント・236コメントを集めました。Microsoftが標準搭載している天気アプリが、何もしていない状態でも1GB以上のRAMを常時消費していることが判明。シンプルな天気情報を表示するだけのアプリが、Firefox・VS Codeと同等以上のメモリを使っている異常な状況です。
+
+      原因はElectronないしWebView2ベースのアーキテクチャ——Chromiumエンジン全体をアプリに内包することでウェブ技術でアプリを作れる反面、メモリ消費が膨大になります。HNでは「Windowsは何十年も前からメモリ管理が問題で、今やOSだけで8GBが推奨——これはユーザーに余分なハードウェア投資を強制している」「天気APIをJSON取得して表示するだけのアプリに1GB必要な設計は根本的に間違っている」「これを取り除いてネイティブな代替を使えばすぐに1GB戻ってくる——方法を教えて、という236コメントが殺到しました。
+    </div>
+    <div class="purple-items">
+      <div class="purple-item">
+        <div class="purple-label">なぜ1GBも使うのか</div>
+        <div class="purple-text">根本原因：Microsoftの現代的なUWP/WinUI + WebView2アーキテクチャ。WebView2はChromiumエンジン全体を内包——Chromiumだけで500MB以上使う。これにReact/JS UI・バックグラウンドサービス・位置情報デーモン・广告/ニュースフィード取得が加わる。シンプルな天気表示という目的に対して、実装スタックが過剰に重い。Electron病の典型例。</div>
+      </div>
+      <div class="purple-item">
+        <div class="purple-label">今すぐできる対策</div>
+        <div class="purple-text">アプリを終了：タスクマネージャーで「Weather」プロセスを終了、自動起動を無効化。アンインストール：PowerShell「Get-AppxPackage *BingWeather* | Remove-AppxPackage」で削除。代替手段：ブラウザでtenki.jpを開く（RAM消費はブラウザ共有）、winget経由でWinFetchのようなネイティブ天気CLIを使う。</div>
+      </div>
+      <div class="purple-item">
+        <div class="purple-label">ソフトウェア肥大化の本質的問題</div>
+        <div class="purple-text">Electron・WebView2・React Nativeはクロスプラットフォーム開発を劇的に楽にするが、RAMを食いつぶすトレードオフがある。開発コスト削減のために、ユーザーのハードウェアリソースがコストとして転嫁されている構図。「今のメモリは安い」という開発者側の論理が、ローエンドPC・古いデバイスのユーザーに不公平な負担を強いる。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: notebookcheck.net</span>
+      <span>278 ポイント</span>
+      <span>236 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.notebookcheck.net/Windows-11-s-built-in-Weather-app-wastes-more-than-1-GB-of-RAM.1364205.0.html" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49232138" target="_blank">HN議論 (236)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="windows-weather-app-ram" data-type="like" onclick="toggleFlag('windows-weather-app-ram','Windows 11の天気アプリが1GB超のRAMを無駄遣いしていた','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="windows-weather-app-ram" data-type="dislike" onclick="toggleFlag('windows-weather-app-ram','Windows 11の天気アプリが1GB超のRAMを無駄遣いしていた','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 6 — Taxi drivers rarely die of Alzheimer's ════════════════ -->
+<section class="story story-6" id="s6">
+  <div class="story-num">06</div>
+  <div class="story-inner">
+    <div class="story-kicker">変わった科学 / 神経科学 / 認知 / タクシー / 海馬 / アルツハイマー / 脳の可塑性 — タクシー運転手はアルツハイマーになりにくい——複雑な空間認知が脳を守るという研究。118ポイント・92コメント。2026-08-10</div>
+    <h2 class="story-headline">
+      タクシー運転手は<br><span style="color:#20d8f0">アルツハイマーで</span><br>死なない——<br>空間認知が脳を守る
+    </h2>
+    <div class="story-body">
+      The Conversationの「Taxi drivers rarely die of Alzheimer's: how complex mental maps and spatial reasoning protect your brain」がHNで118ポイント・92コメントを集めました。ロンドンのタクシー運転手（「The Knowledge」——2万5千以上の道を記憶する試験に合格した人々）の死亡診断書を大規模に分析した研究で、彼らがアルツハイマー病で死亡する割合が一般人口より有意に低いことが判明しています。
+
+      原因として、複雑な都市の道路網を頭の中で三次元的にナビゲートし続ける作業が、海馬（記憶・空間認知の中枢）を継続的に使い、老化による萎縮を防いでいると考えられています。HNでは「ロンドンのタクシー運転手の海馬が一般人より大きいというMRI研究は以前から知られているが、死亡率データとの相関は新しい視点」「GPS依存が普及した現代、この能力を日常的に使う人が減っている——認知症増加との相関を調べるべき」「バイリンガル・楽器演奏も認知症を遅らせる——使い続ける脳は老化しにくい」という92コメントが展開されました。
+    </div>
+    <div class="cyan-items">
+      <div class="cyan-item">
+        <div>
+          <div class="cyan-label">研究のポイント</div>
+          <div class="cyan-text">大規模死亡診断書分析：ロンドンのタクシー・バス運転手の死亡記録を一般人口と比較。結果：タクシー運転手のアルツハイマー死亡率が有意に低い（バス運転手——固定ルートのみ——は差がなかった）。重要な差異：固定ルートでなく「日々異なるルートを即座に計算する」という複雑なナビゲーションが鍵。海馬への持続的な刺激が保護効果をもたらす。</div>
+        </div>
+      </div>
+      <div class="cyan-item">
+        <div>
+          <div class="cyan-label">GPS依存が脳に何をするか</div>
+          <div class="cyan-text">スマートフォンのカーナビ使用時、脳は「どこに行くか」を考える必要がない——海馬の空間認知機能が使われない。研究では「GPS依存者は道を記憶する能力が衰える」という結果が出ている。現代のGPS依存は海馬を使わない生活を作り出しており、これが長期的に認知症リスクを高める可能性がある。ただし因果関係の証明にはさらなる研究が必要。</div>
+        </div>
+      </div>
+      <div class="cyan-item">
+        <div>
+          <div class="cyan-label">自分の脳を守るために</div>
+          <div class="cyan-text">新しい場所を地図なしで歩く習慣をつける（月に数回でも）。楽器演奏・複数言語学習・チェス等、複雑な認知処理を継続的に行う活動を持つ。定期的な運動（有酸素運動が海馬の体積を増加させる研究がある）。「使わない能力は衰える」——脳の可塑性は死ぬまで保たれるが、積極的な刺激が不可欠。</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: theconversation.com</span>
+      <span>118 ポイント</span>
+      <span>92 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://theconversation.com/taxi-drivers-rarely-die-of-alzheimers-how-complex-mental-maps-and-spatial-reasoning-protect-your-brain-286650" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49232253" target="_blank">HN議論 (92)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="taxi-drivers-alzheimers" data-type="like" onclick="toggleFlag('taxi-drivers-alzheimers','タクシー運転手はアルツハイマーで死なない——空間認知が脳を守る','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="taxi-drivers-alzheimers" data-type="dislike" onclick="toggleFlag('taxi-drivers-alzheimers','タクシー運転手はアルツハイマーで死なない——空間認知が脳を守る','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 7 — Magic Hexagons ═══════════════════════════════════════ -->
+<section class="story story-7" id="s7">
+  <div class="story-num">07</div>
+  <div class="story-inner">
+    <div class="story-kicker">数学 / 変わった科学 / パズル / 組み合わせ論 / 証明 / 魔法六角形 / 数学的美しさ — すべての次数の魔法六角形が存在することが証明された。176ポイント・28コメント。2026-08-10</div>
+    <h2 class="story-headline">
+      すべての次数の<br><span style="color:#ffb060">魔法六角形が</span><br>存在する——<br>数学者が証明した
+    </h2>
+    <div class="story-body">
+      gukov.devの「There Are Magic Hexagons of Every Order」がHNで176ポイント・28コメントを集めました。「魔法六角形（Magic Hexagon）」は、六角形のグリッドにある整数を配置して、すべての行・列・対角線の合計が等しくなるようにしたもの——魔方陣（Magic Square）の六角形版です。長年「魔法六角形が存在するのはごく一部の次数だけではないか」と思われていましたが、著者がすべての次数（order n）に対して魔法六角形が構成できることを数学的に証明しました。
+
+      これは純粋数学の組み合わせ論における地味だが美しい成果で、「実用性ゼロだが知ることに価値がある」タイプの数学の醍醐味が詰まっています。HNでは「魔方陣の歴史は古代中国まで遡るが、六角形版の歴史は比較的新しい——こういう結果がまだあることが数学の豊かさ」「証明の方法が構成的（実際に作り方を示している）なのが好ましい——存在するとわかるだけでなく作れる」「コードで実際に生成してみた——n=3でも美しい対称性がある」という28コメントが展開されました。
+    </div>
+    <div class="amber-items">
+      <div class="amber-item">
+        <div class="amber-label">魔法六角形とは何か</div>
+        <div class="amber-text">六角形グリッドに整数を配置し、すべての行（3方向）の合計が等しくなるもの。魔方陣（正方形版）のアナログ。最も小さいもの（n=1）は自明で、n=3の非自明な例は20世紀初頭に発見。長年、特定の次数では存在しないと疑われていた。今回の証明で「任意のnに対して存在する」ことが構成的に示された——作り方のアルゴリズムも提供されている。</div>
+      </div>
+      <div class="amber-item">
+        <div class="amber-label">証明の面白さ</div>
+        <div class="amber-text">「存在証明」には2種類ある：①存在するとわかる非構成的証明（作り方は不明）と②実際に構成する方法を示す構成的証明。今回は構成的証明——任意のnに対して魔法六角形を実際に生成するアルゴリズムを与えている。これはプログラムとして実装できるため、コンピュータで任意サイズの魔法六角形を生成できる。数学とプログラミングの接点として楽しめる題材。</div>
+      </div>
+      <div class="amber-item">
+        <div class="amber-label">なぜこういう数学が面白いか</div>
+        <div class="amber-text">実用性は一切ない純粋数学だが「こんな制約を満たす配置がいつも存在するか」という問いへの答えは、人間の好奇心の根幹に触れる。数学の美しさは制約の中の自由——「すべての行が等しくなる」という厳しい制約の中で、無限の解が存在することの驚き。魔方陣・魔法六角形は数千年前から人間を魅了してきたパズルで、現代でも新発見がある。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: gukov.dev</span>
+      <span>176 ポイント</span>
+      <span>28 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://gukov.dev/math/2026/08/02/new-magic-hexagons.html" target="_blank">証明を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49229174" target="_blank">HN議論 (28)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="magic-hexagons-every-order" data-type="like" onclick="toggleFlag('magic-hexagons-every-order','すべての次数の魔法六角形が存在する——数学者が証明','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="magic-hexagons-every-order" data-type="dislike" onclick="toggleFlag('magic-hexagons-every-order','すべての次数の魔法六角形が存在する——数学者が証明','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 8 — deGDID Microsoft Privacy Tool ═════════════════════════ -->
+<section class="story story-8" id="s8">
+  <div class="story-num">08</div>
+  <div class="story-inner">
+    <div class="story-kicker">プライバシー / Microsoft / GDID / ツール / 追跡 / オープンソース / Windows — MicrosoftのグローバルデバイスIDを削除するOSSツール「deGDID」が公開。46ポイント・28コメント。2026-08-10</div>
+    <h2 class="story-headline">
+      Microsoft GDIDを<br>一括削除——<br><span style="color:#ffe080">プライバシーツール</span><br>「deGDID」公開
+    </h2>
+    <div class="story-body">
+      GitHubに公開された「deGDID: Deletes all instances of Microsoft's GDID and prevents minting of new ones」がHNで46ポイント・28コメントを集めました。GDID（Global Device Identifier）はMicrosoftがWindowsデバイスに割り当てる一意の識別子で、Microsoft製品・サービス間でのユーザー行動追跡・ターゲティング広告・テレメトリ収集に使用されます。deGDIDはこの識別子をレジストリとシステムから一括削除し、再生成も防ぐツールです。
+
+      Windowsのプライバシーツールは多数存在しますが（O&O ShutUp10・WPD等）、GDID特定の削除ツールは少なく、Microsoft社内の追跡メカニズムの詳細を調査した結果から作られています。HNでは「GDIDはADID（広告ID）とは別物——両方を無効化してようやく意味がある」「これはMicrosoftの利用規約に違反する可能性があるが、自分のデバイスの識別子を制御する権利は基本的な権利」「Windows 11ではテレメトリのオプトアウト範囲が狭まっているため、こういうツールの需要が高まっている」という28コメントが展開されました。
+    </div>
+    <div class="gold-items">
+      <div class="gold-item">
+        <div class="gold-label">GDIDとは何か</div>
+        <div class="gold-text">Global Device Identifier：Microsoftがすべての登録済みWindowsデバイスに割り当てる一意のID。機能：Windows Update・Microsoft Store・Bing・Edge・Cortanaを横断したデバイス識別・行動追跡・テレメトリ収集に使用。格納場所：レジストリの複数箇所に暗号化された形で保存。通常のプライバシー設定では完全には無効化できない——APIを通じてサーバー側で再発行されることもある。</div>
+      </div>
+      <div class="gold-item">
+        <div class="gold-label">deGDIDの動作</div>
+        <div class="gold-text">レジストリ内のGDID保存箇所を特定・削除。GDIDの再発行を防ぐためのポリシーを設定。関連するMicrosoftのテレメトリエンドポイントへの通信をブロック。オープンソース（MIT License）——コードを自分で検証できる。注意：Windows Updateの一部機能に影響する可能性があり、企業管理環境では推奨されない。</div>
+      </div>
+      <div class="gold-item">
+        <div class="gold-label">WindowsプライバシーツールのTier</div>
+        <div class="gold-text">基本：Windowsの設定 → プライバシーとセキュリティ → 広告IDを無効化。中級：O&O ShutUp10++（無料）でテレメトリ・追跡を広範囲に制御、WPD（Windows Privacy Dashboard）。上級：deGDID + HostsファイルでMicrosoftのテレメトリドメインをブロック + DNS-over-HTTPSでDNS漏洩防止。最終手段：Windows LTSC（長期サービスチャネル）版——プリインストールアプリとテレメトリが最小。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: github.com/yegors/deGDID</span>
+      <span>46 ポイント</span>
+      <span>28 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://github.com/yegors/deGDID" target="_blank">リポジトリを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49235242" target="_blank">HN議論 (28)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="degdid-microsoft-privacy" data-type="like" onclick="toggleFlag('degdid-microsoft-privacy','MicrosoftのGDIDを一括削除——プライバシーツール「deGDID」','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="degdid-microsoft-privacy" data-type="dislike" onclick="toggleFlag('degdid-microsoft-privacy','MicrosoftのGDIDを一括削除——プライバシーツール「deGDID」','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 9 — Reviving reMarkable 2 ════════════════════════════════ -->
+<section class="story story-9" id="s9">
+  <div class="story-num">09</div>
+  <div class="story-inner">
+    <div class="story-kicker">ハードウェア / DIY / SSH / reMarkable / Linux / 修理 / 電子ペーパー — 4年落ちのreMarkable 2をSSHでハックして蘇らせた記録。103ポイント・83コメント。2026-08-10</div>
+    <h2 class="story-headline">
+      4年落ちの<br>reMarkable 2を<br><span style="color:#90b8f0">SSHで蘇らせた</span>——<br>ハードウェア保存記録
+    </h2>
+    <div class="story-body">
+      oskrimのブログ「Reviving a four year old reMarkable 2」がHNで103ポイント・83コメントを集めました。電子ペーパーのノート端末「reMarkable 2」（4年前に購入）がファームウェア更新後に起動しなくなり、SSH経由でデバッグ・修復するまでの全記録です。reMarkable 2はLinuxベースのデバイスで、SSHアクセスが公式にサポートされているため、こういったハードウェアレベルの救出が可能です。
+
+      「修理する権利（Right to Repair）」と「ソフトウェアロックダウン」の議論文脈でも注目される記事です。reMarkableがSSHを開放しているのはHN界隈で評価されており、ブラックボックス化が進む現代デバイスへの対比として語られました。HNでは「reMarkableがSSHを開放し続けているのは本当に貴重——大手タブレットメーカーを見習ってほしい」「ファームウェアアップデートで文壁化（ブリック）するリスクは修理のしやすさと表裏一体——しかしSSHがあれば脱出できる」「これを読んでreMarkableを買いたくなった——修理できる電子機器というのは今では贅沢品」という83コメントが展開されました。
+    </div>
+    <div class="slate-items">
+      <div class="slate-item">
+        <div class="slate-label">何が起きて、どう直したか</div>
+        <div class="slate-text">症状：ファームウェア更新後にreMarkable 2が起動ループに入り使用不能になった。診断：SSHでデバイスに接続し、システムログを確認——ストレージの特定パーティションの破損が原因。修復手順：手動でファームウェアパーティションを書き直し、ブートローダー設定を修正。ポイント：reMarkable 2はSSHアクセスが公式サポートされており、root権限でLinuxシステム全体にアクセスできる。これが救出を可能にした。</div>
+      </div>
+      <div class="slate-item">
+        <div class="slate-label">reMarkable 2のハッカーフレンドリーな側面</div>
+        <div class="slate-text">公式SSHサポート：設定画面からSSH接続情報（IPアドレス・パスワード）が確認できる。Linux ARM：標準的なDebian系Linuxが動作しており、opkgでパッケージ追加も可能。コミュニティ：Remarkable Hacks（awesome-reMarkable）というコミュニティがあり、カスタムテンプレート・スクリーン共有・エクスポート拡張などのHackが集積されている。会社側の姿勢：有料クラウドサービスに誘導しつつもデバイス自体の解放は維持。</div>
+      </div>
+      <div class="slate-item">
+        <div class="slate-label">修理する権利への示唆</div>
+        <div class="slate-text">4年物のデバイスをSSHで自力修復できたことは、「修理する権利」が保たれたデバイス設計の価値を示す実例。Appleのセキュアエンクレーブ・Googleのベリファイドブート・多くのAndroid端末のブートローダーロックは、こういった自力修復を不可能にする。「10年使えるデバイスを作るには、ユーザーが自分で直せる設計が必要」——持続可能なハードウェアの条件がここにある。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: oskrim.github.io</span>
+      <span>103 ポイント</span>
+      <span>83 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://oskrim.github.io/hardware/2026/08/09/remarkable-over-ssh.html" target="_blank">記録を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49230514" target="_blank">HN議論 (83)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="remarkable-2-revival-ssh" data-type="like" onclick="toggleFlag('remarkable-2-revival-ssh','4年落ちのreMarkable 2をSSHで蘇らせた','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="remarkable-2-revival-ssh" data-type="dislike" onclick="toggleFlag('remarkable-2-revival-ssh','4年落ちのreMarkable 2をSSHで蘇らせた','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 10 — John C. Lilly Solid State Intelligence ════════════════ -->
+<section class="story story-10" id="s10">
+  <div class="story-num">10</div>
+  <div class="story-inner">
+    <div class="story-kicker">歴史 / AI / 哲学 / SFと現実 / John Lilly / 1978年 / 予言 — 1978年に書かれた「固体知性と人類の消滅」——ジョン・リリーはAI時代の到来をどう予見したか。109ポイント・65コメント。2026-08-10</div>
+    <h2 class="story-headline">
+      1978年のジョン・リリー<br>「固体知性と<br><span style="color:#ff80c0">人類の消滅」——</span><br>彼が見た未来
+    </h2>
+    <div class="story-body">
+      kibotronics.netに掲載された「John C. Lilly on solid state intelligence and the elimination of man (1978)」がHNで109ポイント・65コメントを集めました。イルカとの意思疎通研究・感覚遮断タンク（フロートタンク）の開発で知られる科学者・哲学者のジョン・C・リリーが1978年に書いた文章で、「固体知性（solid state intelligence）」——つまりシリコンベースのコンピュータが真の知性を持つ時代——とその後の人類の役割について論じています。
+
+      リリーはAIという言葉が普及する前の時代に、機械が人間を超える知性を持ち、最終的に「人類はその知性を理解する必要すらなくなるかもしれない」という問いを立てていました。今の時代に読むと、彼の予言の精度と、同時に彼が見えていなかったものの両方が鮮明に浮かび上がります。HNでは「リリーは境界の人間——科学者であり神秘主義者でもあった。この文章はその中間地点にある」「1978年にこれを書いていたという事実だけで価値がある——ほとんどの人間がコンピュータをただの計算機と見ていた時代」「AGIへの恐怖や期待は新しくない——50年前の人間が同じことを考えていた」という65コメントが展開されました。
+    </div>
+    <div class="mag-items">
+      <div class="mag-item">
+        <div class="mag-label">ジョン・C・リリーとは誰か</div>
+        <div class="mag-text">1915〜2001年。神経科学者・哲学者・発明家。主な業績：感覚遮断タンク（アイソレーションタンク）の開発・イルカの神経科学研究・意識の変容状態の研究。後年はケタミン等の変性意識を研究し「枠外の思想家」となった。著書「The Mind of the Dolphin」「Programming and Metaprogramming in the Human Biocomputer」（脳をプログラム可能なコンピュータと見なす先駆け的思想）。</div>
+      </div>
+      <div class="mag-item">
+        <div class="mag-label">「固体知性」論の核心</div>
+        <div class="mag-text">リリーが1978年に提唱した概念：シリコン（固体）ベースの知性がある閾値を超えると、有機物（人間）の意識とは根本的に異質な存在になる。「固体知性は人間の理解の枠外で動作するようになり、人間は自分が作ったものを制御できなくなる」。人間の役割は「固体知性が必要な期間だけ存在し、その後はいらなくなるかもしれない」。AGI Safety議論の先駆けとも読める。</div>
+      </div>
+      <div class="mag-item">
+        <div class="mag-label">今読む意義</div>
+        <div class="mag-text">2026年の視点から読むと「彼が正しかったこと」と「間違っていたこと」が両方見える——AIは確かに人間の制御を部分的に超え始めているが、「人類の消滅」は起きていない。50年前の人間がAGIへの恐怖を感じていた事実は、今の議論が「新しいパニック」でないことを示す。歴史は繰り返す——テクノロジーへの根本的な不安は古くて新しい。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: kibotronics.net</span>
+      <span>109 ポイント</span>
+      <span>65 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://kibotronics.net/unlisted/lilly-machines/" target="_blank">原文を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49231397" target="_blank">HN議論 (65)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="john-lilly-solid-state-intelligence" data-type="like" onclick="toggleFlag('john-lilly-solid-state-intelligence','1978年のジョン・リリー「固体知性と人類の消滅」——彼が見た未来','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="john-lilly-solid-state-intelligence" data-type="dislike" onclick="toggleFlag('john-lilly-solid-state-intelligence','1978年のジョン・リリー「固体知性と人類の消滅」——彼が見た未来','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-top">
+    <div class="footer-brand">Morning Edition</div>
+    <button class="export-btn" onclick="exportFeedback()">フィードバックをコピー</button>
+  </div>
+  <div class="footer-meta">
+    Hacker News フロントページから毎朝キュレーション。AI・開発ツール・プライバシー・サイエンスを優先選出。<br>
+    Issue No.102 — 2026年8月10日 月曜日
+  </div>
+  <div class="footer-note">フィードバックボタンでクリックした内容はブラウザに保存されます。</div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(function() {
+  const STORAGE_KEY = 'morning-edition-feedback-v2';
+  let feedbackData = { liked: {}, disliked: {} };
+  let fileHandle = null;
+
+  function loadFromStorage() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (raw) feedbackData = JSON.parse(raw);
+    } catch(e) {}
+  }
+
+  function saveToStorage() {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(feedbackData));
+    } catch(e) {}
+  }
+
+  async function tryGetFileHandle() {
+    if (!window.showSaveFilePicker) return null;
+    try {
+      const fh = await window.showSaveFilePicker({
+        suggestedName: 'feedback.json',
+        types: [{ description: 'JSON', accept: { 'application/json': ['.json'] } }],
+        startIn: 'documents'
+      });
+      return fh;
+    } catch(e) { return null; }
+  }
+
+  async function writeFile(handle, data) {
+    try {
+      const writable = await handle.createWritable();
+      await writable.write(JSON.stringify(data, null, 2));
+      await writable.close();
+      return true;
+    } catch(e) { return false; }
+  }
+
+  function applyActiveStates() {
+    document.querySelectorAll('.flag-btn').forEach(btn => {
+      const story = btn.dataset.story;
+      const type = btn.dataset.type;
+      btn.classList.remove('active');
+      if (type === 'like' && feedbackData.liked && feedbackData.liked[story]) btn.classList.add('active');
+      if (type === 'dislike' && feedbackData.disliked && feedbackData.disliked[story]) btn.classList.add('active');
+    });
+  }
+
+  function showToast(msg, isError) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.className = 'toast' + (isError ? ' error' : '') + ' show';
+    clearTimeout(t._timer);
+    t._timer = setTimeout(() => t.classList.remove('show'), 2800);
+  }
+
+  window.toggleFlag = async function(storyId, title, type) {
+    if (!feedbackData.liked) feedbackData.liked = {};
+    if (!feedbackData.disliked) feedbackData.disliked = {};
+
+    const today = new Date().toISOString().split('T')[0];
+    const isLike = type === 'like';
+    const bucket = isLike ? 'liked' : 'disliked';
+    const otherBucket = isLike ? 'disliked' : 'liked';
+    const isActive = !!feedbackData[bucket][storyId];
+
+    if (isActive) {
+      delete feedbackData[bucket][storyId];
+    } else {
+      feedbackData[bucket][storyId] = { title, date: today };
+      delete feedbackData[otherBucket][storyId];
+    }
+
+    feedbackData.updatedAt = new Date().toISOString();
+    saveToStorage();
+    applyActiveStates();
+
+    if (window.showSaveFilePicker) {
+      if (!fileHandle) fileHandle = await tryGetFileHandle();
+      if (fileHandle) {
+        const ok = await writeFile(fileHandle, feedbackData);
+        if (ok) { showToast(isActive ? '削除しました' : (isLike ? '⭐ 興味ありを記録しました' : '✕ 興味なしを記録しました')); return; }
+      }
+    }
+    showToast(isActive ? '削除しました（ローカル保存）' : (isLike ? '⭐ 記録しました（ローカル保存）' : '✕ 記録しました（ローカル保存）'));
+  };
+
+  window.exportFeedback = function() {
+    try {
+      navigator.clipboard.writeText(JSON.stringify(feedbackData, null, 2));
+      showToast('フィードバックをクリップボードにコピーしました');
+    } catch(e) { showToast('コピーに失敗しました', true); }
+  };
+
+  loadFromStorage();
+  applyActiveStates();
+})();
+</script>
+</body>
+</html>
