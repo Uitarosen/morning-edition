@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Morning Edition — 2026年8月12日</title>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --font: 'M PLUS Rounded 1c', 'Hiragino Sans', 'Noto Sans JP', sans-serif; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); background: #111; color: #fff; overflow-x: hidden; }
+
+    .masthead { background: #fff; color: #000; padding: 3rem 4rem 2.5rem; border-bottom: 6px solid #000; position: relative; overflow: hidden; }
+    .masthead::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: repeating-linear-gradient(90deg, #000 0, #000 12px, transparent 12px, transparent 20px); }
+    .masthead-kicker { font-size: 0.85rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: #777; margin-bottom: 0.6rem; }
+    .masthead-title { font-size: clamp(3.5rem, 9vw, 7.5rem); font-weight: 900; line-height: 0.88; letter-spacing: -0.04em; margin-bottom: 1.8rem; }
+    .masthead-meta { display: flex; gap: 3rem; align-items: baseline; flex-wrap: wrap; }
+    .masthead-date { font-size: 1.5rem; font-weight: 700; }
+    .masthead-subtitle { font-size: 1rem; font-weight: 400; color: #555; max-width: 480px; line-height: 1.5; }
+    .masthead-issue { margin-left: auto; text-align: right; }
+    .masthead-issue span { display: block; }
+    .masthead-issue .iss-label { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: #999; }
+    .masthead-issue .iss-num { font-size: 2.2rem; font-weight: 900; color: #000; }
+
+    .toc { background: #1a1a1a; padding: 1.5rem 4rem; display: flex; gap: 1.5rem; flex-wrap: wrap; border-bottom: 1px solid #333; }
+    .toc a { color: #aaa; text-decoration: none; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; transition: color 0.2s; }
+    .toc a:hover { color: #fff; }
+    .toc-num { color: #555; margin-right: 0.3em; }
+
+    .story { position: relative; overflow: hidden; }
+    .story-inner { max-width: 1200px; margin: 0 auto; padding: 5rem 4rem; position: relative; z-index: 1; }
+    .story-num { font-size: clamp(6rem, 18vw, 16rem); font-weight: 900; line-height: 0.8; letter-spacing: -0.06em; opacity: 0.08; position: absolute; top: 1rem; right: 2rem; user-select: none; }
+    .story-badge { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.35em 0.9em; border-radius: 2px; margin-bottom: 1.5rem; }
+    .direct-badge { background: #FFD700; color: #000; }
+    .story-kicker { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; opacity: 0.6; margin-bottom: 0.8rem; }
+    .story-headline { font-size: clamp(2rem, 5vw, 4rem); font-weight: 900; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+    .story-body { font-size: clamp(1rem, 1.5vw, 1.2rem); font-weight: 400; line-height: 1.8; max-width: 680px; opacity: 0.88; margin-bottom: 2rem; }
+    .story-meta { display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center; font-size: 0.8rem; font-weight: 700; opacity: 0.5; }
+    .story-links { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem; }
+    .story-link { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.6em 1.4em; border-radius: 3px; text-decoration: none; transition: opacity 0.2s, transform 0.15s; }
+    .story-link:hover { opacity: 0.75; transform: translateY(-1px); }
+
+    .feedback-buttons { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .flag-btn { background: none; border: 1px solid currentColor; color: inherit; font-family: var(--font); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.5em 1em; border-radius: 3px; cursor: pointer; opacity: 0.32; transition: opacity 0.2s, background 0.2s, color 0.2s, border-color 0.2s, transform 0.15s; }
+    .flag-btn:hover { opacity: 0.72; transform: translateY(-1px); }
+    .flag-btn.like-btn.active { opacity: 1; background: rgba(255,215,0,0.15); border-color: #FFD700; color: #FFD700 !important; }
+    .flag-btn.dislike-btn.active { opacity: 1; background: rgba(255,60,60,0.12); border-color: #FF4444; color: #FF4444 !important; }
+
+    .toast { position: fixed; bottom: 2rem; right: 2rem; background: #1a1a1a; color: #fff; font-family: var(--font); font-size: 0.82rem; font-weight: 700; padding: 0.75em 1.4em; border-radius: 4px; border-left: 3px solid #00C853; z-index: 9999; opacity: 0; transform: translateY(10px); transition: opacity 0.25s, transform 0.25s; pointer-events: none; box-shadow: 0 4px 24px rgba(0,0,0,0.45); }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    .toast.error { border-left-color: #FF5252; }
+
+    /* Story 1 — White */
+    .story-1 { background: #fff; color: #000; min-height: 90vh; display: flex; flex-direction: column; justify-content: center; }
+    .story-1 .story-num { color: #000; opacity: 0.04; }
+    .story-1 .story-kicker { color: #555; opacity: 1; }
+    .story-1 .story-headline { color: #000; }
+    .story-1 .story-body { color: #111; }
+    .story-1 .story-meta { color: #000; }
+    .story-1 .story-link.primary { background: #1a1a1a; color: #fff; }
+    .story-1 .story-link.secondary { background: #f0f0f0; color: #000; }
+    .story-1 .flag-btn { color: #000; }
+    .story-1-accent { position: absolute; bottom: 0; left: 0; width: 100%; height: 8px; background: linear-gradient(90deg, #cc4400, #ff8800, #cc4400); }
+    .story-1 .headline-accent { display: inline-block; background: linear-gradient(135deg, #cc4400 0%, #ff8800 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .orange-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1.2rem; margin: 2rem 0; max-width: 680px; }
+    .orange-card { border: 2px solid rgba(255,102,0,0.18); background: rgba(255,102,0,0.04); border-radius: 6px; padding: 1.3rem 1.5rem; }
+    .orange-card-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.2em; text-transform: uppercase; color: #cc4400; margin-bottom: 0.4rem; }
+    .orange-card-value { font-size: 1.05rem; font-weight: 900; color: #000; line-height: 1.3; }
+    .orange-card-sub { font-size: 0.75rem; color: #555; margin-top: 0.3rem; line-height: 1.4; }
+
+    /* Story 2 — Dark navy/teal */
+    .story-2 { background: #00080c; color: #b8f0ff; min-height: 80vh; }
+    .story-2::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(0,160,200,0.14) 0%, transparent 65%); }
+    .story-2 .story-num { color: #00A0C8; opacity: 0.07; }
+    .story-2 .story-kicker { color: #20C8E8; opacity: 1; }
+    .story-2 .story-headline { color: #e0f8ff; }
+    .story-2 .story-body { color: #b8f0ff; }
+    .story-2 .story-meta { color: #20C8E8; opacity: 0.5; }
+    .story-2 .story-link.primary { background: #004058; color: #80e8ff; }
+    .story-2 .story-link.secondary { background: rgba(0,160,200,0.08); color: #90d8f0; border: 1px solid rgba(0,160,200,0.22); }
+    .story-2 .flag-btn { color: #b8f0ff; }
+    .teal-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .teal-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(0,160,200,0.07); border-left: 3px solid #00A0C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .teal-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20C8E8; margin-bottom: 0.3rem; }
+    .teal-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 3 — Dark red */
+    .story-3 { background: #0a0000; color: #fff; min-height: 80vh; }
+    .story-3::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(200,20,20,0.16) 0%, transparent 65%); }
+    .story-3 .story-num { color: #C81414; opacity: 0.07; }
+    .story-3 .story-kicker { color: #E84040; opacity: 1; }
+    .story-3 .story-headline { color: #fff; }
+    .story-3 .story-body { color: rgba(255,255,255,0.88); }
+    .story-3 .story-meta { color: #E84040; opacity: 0.5; }
+    .story-3 .story-link.primary { background: #6a0000; color: #fff; }
+    .story-3 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-3 .flag-btn { color: #fff; }
+    .red-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .red-item { background: rgba(200,20,20,0.07); border-left: 3px solid #C81414; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .red-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E84040; margin-bottom: 0.3rem; }
+    .red-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 4 — Dark green */
+    .story-4 { background: #020c04; color: #c8f0d0; min-height: 80vh; }
+    .story-4::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(20,160,70,0.16) 0%, transparent 65%); }
+    .story-4 .story-num { color: #14A046; opacity: 0.07; }
+    .story-4 .story-kicker { color: #30C060; opacity: 1; }
+    .story-4 .story-headline { color: #e0ffe8; }
+    .story-4 .story-body { color: #c8f0d0; }
+    .story-4 .story-meta { color: #30C060; opacity: 0.5; }
+    .story-4 .story-link.primary { background: #063820; color: #80ffb0; }
+    .story-4 .story-link.secondary { background: rgba(20,160,70,0.08); color: #a0e8b0; border: 1px solid rgba(20,160,70,0.22); }
+    .story-4 .flag-btn { color: #c8f0d0; }
+    .green-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .green-item { background: rgba(20,160,70,0.07); border-left: 3px solid #14A046; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .green-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #30C060; margin-bottom: 0.3rem; }
+    .green-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 5 — Dark purple */
+    .story-5 { background: #040010; color: #d8c8ff; min-height: 75vh; }
+    .story-5::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(90,40,200,0.17) 0%, transparent 65%); }
+    .story-5 .story-num { color: #5A28C8; opacity: 0.07; }
+    .story-5 .story-kicker { color: #8050E0; opacity: 1; }
+    .story-5 .story-headline { color: #f0e8ff; }
+    .story-5 .story-body { color: #d8c8ff; }
+    .story-5 .story-meta { color: #8050E0; opacity: 0.5; }
+    .story-5 .story-link.primary { background: #200860; color: #d0a8ff; }
+    .story-5 .story-link.secondary { background: rgba(90,40,200,0.08); color: #c0a0f0; border: 1px solid rgba(90,40,200,0.22); }
+    .story-5 .flag-btn { color: #d8c8ff; }
+    .purple-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .purple-item { background: rgba(90,40,200,0.07); border-left: 3px solid #5A28C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .purple-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #8050E0; margin-bottom: 0.3rem; }
+    .purple-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 6 — Dark cyan */
+    .story-6 { background: #000c10; color: #b8e8f0; min-height: 75vh; }
+    .story-6::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 40%, rgba(0,130,160,0.14) 0%, transparent 65%); }
+    .story-6 .story-num { color: #0080A0; opacity: 0.07; }
+    .story-6 .story-kicker { color: #20B0D0; opacity: 1; }
+    .story-6 .story-headline { color: #e0f4ff; }
+    .story-6 .story-body { color: #b8e8f0; }
+    .story-6 .story-meta { color: #20B0D0; opacity: 0.5; }
+    .story-6 .story-link.primary { background: #003848; color: #80d8f0; }
+    .story-6 .story-link.secondary { background: rgba(0,130,160,0.08); color: #90cce0; border: 1px solid rgba(0,130,160,0.22); }
+    .story-6 .flag-btn { color: #b8e8f0; }
+    .cyan-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .cyan-item { background: rgba(0,130,160,0.07); border-left: 3px solid #0080A0; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .cyan-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20B0D0; margin-bottom: 0.3rem; }
+    .cyan-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 7 — Dark amber */
+    .story-7 { background: #0a0300; color: #ffe0b8; min-height: 75vh; }
+    .story-7::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(210,90,20,0.18) 0%, transparent 65%); }
+    .story-7 .story-num { color: #D05A14; opacity: 0.07; }
+    .story-7 .story-kicker { color: #E88040; opacity: 1; }
+    .story-7 .story-headline { color: #fff0d8; }
+    .story-7 .story-body { color: #ffe0b8; }
+    .story-7 .story-meta { color: #E88040; opacity: 0.5; }
+    .story-7 .story-link.primary { background: #6a2400; color: #ffc880; }
+    .story-7 .story-link.secondary { background: rgba(210,90,20,0.08); color: #ffb870; border: 1px solid rgba(210,90,20,0.22); }
+    .story-7 .flag-btn { color: #ffe0b8; }
+    .amber-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .amber-item { background: rgba(210,90,20,0.07); border-left: 3px solid #D05A14; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .amber-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E88040; margin-bottom: 0.3rem; }
+    .amber-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 8 — Dark gold */
+    .story-8 { background: #080500; color: #fff; min-height: 70vh; }
+    .story-8::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,145,10,0.15) 0%, transparent 65%); }
+    .story-8 .story-num { color: #BE9110; opacity: 0.06; }
+    .story-8 .story-kicker { color: #D4A820; opacity: 1; }
+    .story-8 .story-headline { color: #fff; }
+    .story-8 .story-body { color: rgba(255,255,255,0.88); }
+    .story-8 .story-meta { color: #D4A820; opacity: 0.5; }
+    .story-8 .story-link.primary { background: #604000; color: #ffe070; }
+    .story-8 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-8 .flag-btn { color: #fff; }
+    .gold-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .gold-item { background: rgba(190,145,10,0.07); border-left: 3px solid #BE9110; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .gold-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #D4A820; margin-bottom: 0.3rem; }
+    .gold-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 9 — Slate blue */
+    .story-9 { background: #040810; color: #c8d8f0; min-height: 70vh; }
+    .story-9::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 35%, rgba(50,90,170,0.16) 0%, transparent 65%); }
+    .story-9 .story-num { color: #3258A8; opacity: 0.07; }
+    .story-9 .story-kicker { color: #5878C8; opacity: 1; }
+    .story-9 .story-headline { color: #e8f0ff; }
+    .story-9 .story-body { color: #c8d8f0; }
+    .story-9 .story-meta { color: #5878C8; opacity: 0.5; }
+    .story-9 .story-link.primary { background: #101e50; color: #fff; }
+    .story-9 .story-link.secondary { background: rgba(50,90,170,0.08); color: #b0c8e8; border: 1px solid rgba(50,90,170,0.22); }
+    .story-9 .flag-btn { color: #c8d8f0; }
+    .slate-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .slate-item { background: rgba(50,90,170,0.07); border-left: 3px solid #3258A8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .slate-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #5878C8; margin-bottom: 0.3rem; }
+    .slate-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 10 — Magenta */
+    .story-10 { background: #080004; color: #ffc8e8; min-height: 70vh; }
+    .story-10::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,20,90,0.15) 0%, transparent 65%); }
+    .story-10 .story-num { color: #BE1458; opacity: 0.07; }
+    .story-10 .story-kicker { color: #E04080; opacity: 1; }
+    .story-10 .story-headline { color: #fff0f8; }
+    .story-10 .story-body { color: #ffc8e8; }
+    .story-10 .story-meta { color: #E04080; opacity: 0.5; }
+    .story-10 .story-link.primary { background: #500030; color: #ffb0d8; }
+    .story-10 .story-link.secondary { background: rgba(190,20,90,0.08); color: #f090c0; border: 1px solid rgba(190,20,90,0.22); }
+    .story-10 .flag-btn { color: #ffc8e8; }
+    .mag-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .mag-item { background: rgba(190,20,90,0.07); border-left: 3px solid #BE1458; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .mag-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E04080; margin-bottom: 0.3rem; }
+    .mag-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .site-footer { background: #000; color: #555; padding: 3rem 4rem; display: flex; flex-direction: column; gap: 1.5rem; border-top: 1px solid #222; }
+    .footer-top { display: flex; gap: 2rem; align-items: center; flex-wrap: wrap; justify-content: space-between; }
+    .footer-brand { font-size: 1.4rem; font-weight: 900; color: #fff; }
+    .footer-meta { font-size: 0.75rem; line-height: 1.6; }
+    .export-btn { background: #222; border: 1px solid #444; color: #fff; font-family: var(--font); font-size: 0.8rem; font-weight: 700; padding: 0.7em 1.5em; border-radius: 3px; cursor: pointer; letter-spacing: 0.08em; transition: background 0.2s; }
+    .export-btn:hover { background: #333; }
+    .footer-note { font-size: 0.7rem; opacity: 0.5; }
+
+    @media (max-width: 768px) {
+      .masthead, .toc, .story-inner, .site-footer { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .story-num { display: none; }
+      .masthead-meta { gap: 1rem; }
+      .masthead-issue { margin-left: 0; }
+      .orange-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+<nav style="background:#1a1a1a;border-bottom:1px solid #333;padding:0.55rem 2rem;font-family:'M PLUS Rounded 1c','Hiragino Sans','Noto Sans JP',sans-serif;position:sticky;top:0;z-index:999;">
+  <a href="./index.html" style="color:#aaa;text-decoration:none;font-size:0.8rem;font-weight:700;letter-spacing:0.03em;display:inline-flex;align-items:center;gap:0.4rem;transition:color 0.15s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#aaa'">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    アーカイブへ戻る
+  </a>
+</nav>
+
+<header class="masthead">
+  <div class="masthead-kicker">Hacker News — Morning Edition</div>
+  <h1 class="masthead-title">Morning<br>Edition</h1>
+  <div class="masthead-meta">
+    <div>
+      <div class="masthead-date">2026年8月12日 水曜日</div>
+      <div class="masthead-subtitle">AI・開発ツール・プライバシー・サイエンス — あなたのための10本</div>
+    </div>
+    <div class="masthead-issue">
+      <span class="iss-label">Issue</span>
+      <span class="iss-num">No.103</span>
+    </div>
+  </div>
+</header>
+
+<nav class="toc">
+  <a href="#s1"><span class="toc-num">01</span>⚡ プロプライエタリLLM APIから推論トレースを盗む——研究者が手法を公開</a>
+  <a href="#s2"><span class="toc-num">02</span>⚡ antirezがApple Silicon向けネイティブH3推論エンジンを書いた</a>
+  <a href="#s3"><span class="toc-num">03</span>Mojo 1.0リリース——PythonライクでCより速い言語が正式版に</a>
+  <a href="#s4"><span class="toc-num">04</span>Apple SiliconのmacOS VMでllama.cppを高速化する——GPU越え実験</a>
+  <a href="#s5"><span class="toc-num">05</span>ロンドン地下鉄が乗客の顔スキャンを開始——ライブ顔認識拡大</a>
+  <a href="#s6"><span class="toc-num">06</span>GitHub CopilotをMitMプロキシに通したら何が見えたか</a>
+  <a href="#s7"><span class="toc-num">07</span>OpenAIの倫理責任者が就任1年未満で退社——内部で何が起きているか</a>
+  <a href="#s8"><span class="toc-num">08</span>Show HN: Git-knife——コミット履歴をスプレッドシートで編集するツール</a>
+  <a href="#s9"><span class="toc-num">09</span>圧縮は予測である——情報理論の深いつながり</a>
+  <a href="#s10"><span class="toc-num">10</span>ペンプロッターでホログラムを作る——変わった実験の記録</a>
+</nav>
+
+<!-- ═══ STORY 1 — Stealing Reasoning Traces ════════════════════════════════ -->
+<section class="story story-1" id="s1">
+  <div class="story-num">01</div>
+  <div class="story-inner">
+    <div class="story-badge direct-badge">⚡ あなたに直接関係</div>
+    <div class="story-kicker">AI / LLM / セキュリティ / 推論 / Claude / OpenAI / プロプライエタリ API / 研究 — プロプライエタリLLM APIの内部推論トレースを抽出する攻撃手法。426ポイント・170コメント。2026-08-12</div>
+    <h2 class="story-headline">
+      <span class="headline-accent">プロプライエタリLLMの</span><br>推論トレースを<br>盗む——<br>研究者が手法を公開
+    </h2>
+    <div class="story-body">
+      「Stealing Reasoning Traces from Proprietary LLM APIs」がHNで426ポイント・170コメントを集めました。ClaudeやGPT-4などのLLMが内部で行う「思考プロセス（推論トレース）」——本来はユーザーに公開されないはずの中間思考——を、APIの出力パターンを分析することで統計的に復元する手法を研究者たちが発表した論文です。
+
+      ClaudeのExtended Thinkingのように一部のモデルは思考プロセスを意図的に公開していますが、公開しない設定でも推論が出力に残す「指紋」から内部状態を推測できることが示されました。HNでは「これはモデルプロバイダーのビジネスモデルへの脅威——推論コストが高いモデルの内部ロジックが丸裸になる」「Claudeは元々CoT（Chain-of-Thought）を公開する設計方針だが、公開しないモデルがこれに晒されると差別化が崩れる」「タイミングサイドチャネル攻撃に似た発想——APIの応答時間パターンも情報を漏らす可能性がある」という170コメントが展開されました。
+    </div>
+    <div class="orange-grid">
+      <div class="orange-card">
+        <div class="orange-card-label">攻撃の仕組み</div>
+        <div class="orange-card-value">出力の「指紋」から推論を復元</div>
+        <div class="orange-card-sub">LLMが内部思考を行った後、最終出力にはその痕跡が残る——トークン選択の確率分布、応答のタイミング、語彙選択のパターンなど。これらをブラックボックスAPIから大量に収集し、統計的モデルを構築することで内部推論の概要を再構成できる。</div>
+      </div>
+      <div class="orange-card">
+        <div class="orange-card-label">影響範囲</div>
+        <div class="orange-card-value">IP・安全性・ビジネスモデルへの脅威</div>
+        <div class="orange-card-sub">プロプライエタリな推論戦略（プロンプト処理、CoT構造）の知的財産流出。安全性フィルタの内部ロジック把握によるバイパス設計への悪用。高コストな推論を低コストで模倣するモデル蒸留への応用。これらの問題がまとめて発生しうる。</div>
+      </div>
+      <div class="orange-card">
+        <div class="orange-card-label">あなたへの示唆</div>
+        <div class="orange-card-value">Extended Thinkingは透明性の選択</div>
+        <div class="orange-card-sub">Claudeのように思考プロセスを明示する設計は、隠すより攻撃面が小さい可能性がある——隠しても結局推測される。Claude Codeでの日常使用では推論の可視性むしろユーザーに価値を提供する。ただしAPIキー・プロンプト設計はセキュリティとして管理が必要。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: stolen-thoughts.com</span>
+      <span>426 ポイント</span>
+      <span>170 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://stolen-thoughts.com/" target="_blank">論文を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49257876" target="_blank">HN議論 (170)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="stealing-reasoning-traces-llm" data-type="like" onclick="toggleFlag('stealing-reasoning-traces-llm','プロプライエタリLLM APIから推論トレースを盗む——研究者が手法を公開','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="stealing-reasoning-traces-llm" data-type="dislike" onclick="toggleFlag('stealing-reasoning-traces-llm','プロプライエタリLLM APIから推論トレースを盗む——研究者が手法を公開','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+    <div class="story-1-accent"></div>
+  </div>
+</section>
+
+<!-- ═══ STORY 2 — antirez H3-metal Apple Silicon ══════════════════════════ -->
+<section class="story story-2" id="s2">
+  <div class="story-num">02</div>
+  <div class="story-inner">
+    <div class="story-badge direct-badge">⚡ あなたに直接関係</div>
+    <div class="story-kicker">AI / Apple Silicon / ローカルLLM / Metal / C言語 / antirez / MiniMax / 推論エンジン — Redisの作者antirezがApple Silicon向けMiniMax-H3のネイティブ推論エンジンをCで実装。417ポイント・93コメント。2026-08-12</div>
+    <h2 class="story-headline">
+      antirezが<br><span style="color:#20d8f0">Apple Silicon向け</span><br>ネイティブH3<br>推論エンジンを書いた
+    </h2>
+    <div class="story-body">
+      Redisの作者として知られるSalvatore Sanfilippo（antirez）が公開した「H3-metal: Native MiniMax-H3 inference for Apple Silicon」がHNで417ポイント・93コメントを集めました。MiniMax-H3という新しいハイブリッドアーキテクチャ（SSMとAttentionを組み合わせた）モデルを、AppleのMetalフレームワークを使ってApple SiliconのGPUに直接最適化したC実装です。
+
+      antirezは「既存のllama.cpp等のフレームワークを使わず、H3アーキテクチャの特性に合わせてゼロから書くことで、Apple SiliconのUnified Memory帯域幅を最大限活用できる」と説明しています。HNでは「antirezはRedis以来ずっとC1本で戦ってきた——Metalを直接叩く選択が彼らしい」「H3のSSM（State Space Model）部分は計算グラフがTransformerと違うため、汎用フレームワークより特化実装が有利になりやすい」「Mac mini M4でどのくらいのトークン/秒が出るか試した人いる？」という93コメントが展開されました。
+    </div>
+    <div class="teal-items">
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">MiniMax-H3とは何か</div>
+          <div class="teal-text">MiniMaxが開発したハイブリッドアーキテクチャモデル。純粋なTransformerでなく、SSM（State Space Model、Mambaなど）とAttentionを組み合わせた構造。SSMは長いシーケンスの処理が線形コストでできる（Transformerは2乗コスト）ため、長文処理・ローカル推論に有利。H3はその中でも特にAttention代替として設計されたSSMバリアント。</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">Apple Siliconへの最適化ポイント</div>
+          <div class="teal-text">Unified Memory（CPUとGPUが同じメモリプールを共有）を活用し、データ転送オーバーヘッドを排除。Metal Shaderで行列演算を直接GPU上に実装。H3のSSMはリカレント演算（前状態を使う）のため、Metalのシェーダーパイプラインとの相性を考慮した設計が必要で、汎用フレームワークより手書きの特化実装が性能を出しやすい。</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">MacでLLMを走らせるための示唆</div>
+          <div class="teal-text">現状のローカルLLM最速はllama.cpp + Metal（Transformer系）だが、SSM系モデルが普及すればH3-metalのような特化実装が競争力を持つ。Apple Silicon M4以降のMLX・CoreML対応も進んでいる。antirezのような低レイヤー実装は性能の天井を確認するベンチマーク的価値もあり、llama.cppへの実装フィードバックにつながることが多い。</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: github.com/antirez/h3.c</span>
+      <span>417 ポイント</span>
+      <span>93 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://github.com/antirez/h3.c" target="_blank">リポジトリを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49252179" target="_blank">HN議論 (93)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="h3-metal-apple-silicon-inference" data-type="like" onclick="toggleFlag('h3-metal-apple-silicon-inference','antirezがApple Silicon向けネイティブH3推論エンジンを書いた','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="h3-metal-apple-silicon-inference" data-type="dislike" onclick="toggleFlag('h3-metal-apple-silicon-inference','antirezがApple Silicon向けネイティブH3推論エンジンを書いた','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 3 — Mojo 1.0 ═══════════════════════════════════════════════ -->
+<section class="story story-3" id="s3">
+  <div class="story-num">03</div>
+  <div class="story-inner">
+    <div class="story-kicker">プログラミング言語 / Mojo / Modular / AI / Python互換 / 高速化 / 1.0リリース — PythonライクでCレベルの速度を目指すMojoが1.0に到達。223ポイント・97コメント。2026-08-12</div>
+    <h2 class="story-headline">
+      Mojo 1.0——<br><span style="color:#ff6060">Pythonのように書いて</span><br>Cより速く<br>動く言語が正式版に
+    </h2>
+    <div class="story-body">
+      ModularがMojo 1.0のリリースを発表し、HNで223ポイント・97コメントを集めました。MojoはChris Lattner（Swift・LLVMの生みの親）が率いるModularが開発している、Pythonの構文・エコシステムと互換を保ちながらCレベルの速度とシステムプログラミング能力を実現することを目指す言語です。1.0はその最初のStableリリースを意味します。
+
+      AI/MLの世界ではPythonが支配的ですが、推論の高速化・ハードウェア最適化においてCやCUDAを使わざるを得ない摩擦が長年の課題でした。Mojoはその「橋渡し」——Pythonで書いたコードをそのまま高速化、型・所有権・SIMD・GPUカーネルまで同一言語で扱えることを目指しています。HNでは「1.0はすごい節目だが、Pythonとの完全な互換性はまだ道半ばでは」「Rustと競合するのか補完するのか——Mojoの得意領域は数値計算・MLに絞ったほうが刺さる」「LLVMとMLIRを活用したコンパイラ基盤は本物——Lattnerだから信用できる」という97コメントが展開されました。
+    </div>
+    <div class="red-items">
+      <div class="red-item">
+        <div class="red-label">Mojoが解決しようとしていること</div>
+        <div class="red-text">AIエンジニアの「2言語地獄」——試作はPythonで書けるが高速化にはC/CUDA/Tritonが必要で、言語の切り替えコストが大きい。Mojoは同一コードベースでPythonレベルの抽象化と、CUDAカーネルレベルの制御を提供することを目指す。特にMLコンパイラ（MLIR）との統合でハードウェア最適化を言語レベルで扱える設計。</div>
+      </div>
+      <div class="red-item">
+        <div class="red-label">1.0が意味すること</div>
+        <div class="red-text">Stable ABI・Language Stability——破壊的変更なしでの前進を約束。パッケージマネージャ（Magic）の改善。Python相互運用性の向上——Pythonコードとの混在がより自然になった。ただしPython完全互換はまだ「目標」段階。Max（Modularのデプロイプラットフォーム）との統合が強化され、モデルサービングでの実用が近づいた。</div>
+      </div>
+      <div class="red-item">
+        <div class="red-label">実際に試すべきか</div>
+        <div class="red-text">今すぐ業務利用は時期尚早。エコシステム（サードパーティパッケージ）がまだPythonより貧弱。ただし数値計算・推論エンジン・カスタムオペレータを書く文脈では既に実用性がある。AIエンジニアなら「自分のNumpyホットパスをMojoで書き直す」実験が始め方として最適。1.0の安定性保証で「本番に持ち込める選択肢」の候補に入った。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: modular.com</span>
+      <span>223 ポイント</span>
+      <span>97 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.modular.com/blog/modular-26-5-mojo-1-0-is-here" target="_blank">発表記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49261128" target="_blank">HN議論 (97)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="mojo-1-0-release" data-type="like" onclick="toggleFlag('mojo-1-0-release','Mojo 1.0リリース——PythonライクでCより速い言語が正式版に','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="mojo-1-0-release" data-type="dislike" onclick="toggleFlag('mojo-1-0-release','Mojo 1.0リリース——PythonライクでCより速い言語が正式版に','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 4 — Apple Silicon macOS VMs LLM Inference ══════════════════ -->
+<section class="story story-4" id="s4">
+  <div class="story-num">04</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / Apple Silicon / VM / llama.cpp / GPU / macOS / ローカルLLM / 実験 — macOS VMにGPUパススルーでllama.cppをホスト並みの速度で動かす実験記録。270ポイント・42コメント。2026-08-12</div>
+    <h2 class="story-headline">
+      Apple Silicon VMで<br><span style="color:#40ff80">llama.cppを</span><br>GPU込みで<br>高速動作させた
+    </h2>
+    <div class="story-body">
+      trycuaのブログ「Apple Silicon and macOS VMs: Faster LLM Inference with llama.cpp」がHNで270ポイント・42コメントを集めました。Apple Silicon上でmacOSのVM（仮想マシン）を動かし、そのVM内でllama.cppを使ってローカルLLM推論を実行する際に、GPUアクセラレーションを有効にする方法を詳細に解説した技術記事です。
+
+      通常、VMはホストのGPUにアクセスできないため推論速度が大幅に低下しますが、AppleのVirtualization.frameworkを使ったVMでは特定の条件下でMetalGPUパススルーが可能なことが示されました。HNでは「VM内でllama.cppをベアメタルと比較して何%速度低下するかが一番気になった——記事に数字がある」「これはCI/CDでLLMを使うワークフローに実用的——本番はMacStudio、テストはVM、というパターンが成立する」「UTMやOrbStackを使っているが、このパススルー設定は試したことなかった」という42コメントが展開されました。
+    </div>
+    <div class="green-items">
+      <div class="green-item">
+        <div class="green-label">なぜVMでLLMを動かしたいのか</div>
+        <div class="green-text">コンテナ化・分離環境でのモデル運用（本番に近い環境での開発テスト）。複数モデルの並列起動と独立管理。スナップショットによる環境再現性。セキュリティ分離（モデルとホストシステムを分ける）。Apple SiliconのシングルマシンでこれをGPU速度で実現できるかが焦点だった。</div>
+      </div>
+      <div class="green-item">
+        <div class="green-label">GPUパススルーの仕組み</div>
+        <div class="green-text">Apple Virtualization.frameworkがmacOS 13以降でMetalのパススルーをサポート。VMゲスト側でも対応したドライバとllama.cppのMetalバックエンドが必要。設定手順はcuaのGitHubに詳細があり、再現性が確認されている。CPU推論と比べ10倍以上の速度向上が得られ、ホスト直接実行の70〜85%の速度に達することが示されている。</div>
+      </div>
+      <div class="green-item">
+        <div class="green-label">実用への応用</div>
+        <div class="green-text">開発者がローカルMacで本番近似環境のLLMサービスをテストするワークフローが現実的になる。Claude Codeのような開発エージェントをサンドボックスVM内で動作させ、ホストへの副作用を制限するセキュリティ構成。llama.cppサーバーをVM内で起動しホストからAPI接続する——ホストを汚さずにモデルを管理する構成。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: github.com/trycua/cua</span>
+      <span>270 ポイント</span>
+      <span>42 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://github.com/trycua/cua/blob/main/blog/gpu-passthrough-macos-vms.md" target="_blank">技術記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49259339" target="_blank">HN議論 (42)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="apple-silicon-macos-vms-llm-inference" data-type="like" onclick="toggleFlag('apple-silicon-macos-vms-llm-inference','Apple SiliconのmacOS VMでllama.cppを高速化する','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="apple-silicon-macos-vms-llm-inference" data-type="dislike" onclick="toggleFlag('apple-silicon-macos-vms-llm-inference','Apple SiliconのmacOS VMでllama.cppを高速化する','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 5 — London Underground Facial Recognition ═══════════════════ -->
+<section class="story story-5" id="s5">
+  <div class="story-num">05</div>
+  <div class="story-inner">
+    <div class="story-kicker">プライバシー / 顔認識 / 監視 / イギリス / 公共交通 / AI / 市民権 / デジタル権利 — ロンドン地下鉄駅にライブ顔認識システムが導入拡大。163ポイント・199コメント。2026-08-12</div>
+    <h2 class="story-headline">
+      ロンドン地下鉄が<br><span style="color:#c090ff">乗客の顔スキャン</span>を<br>開始——<br>ライブ顔認識拡大
+    </h2>
+    <div class="story-body">
+      英国交通警察（BTP）が「ロンドン地下鉄駅へのライブ顔認識（LFR）の試験拡大」を発表し、HNで163ポイント・199コメントを集めました。地下鉄構内に設置したカメラがリアルタイムで乗客の顔をスキャンし、指名手配犯・失踪者・テロリスト容疑者などを含むウォッチリストと照合するシステムで、英国では地上鉄道・ショッピングモールでの試験を経て地下鉄への展開が始まりました。
+
+      英国はEUのGDPR下にありながらも公共空間でのAI顔認識について比較的寛容な法的解釈を維持してきた国です。一方で市民権団体はシステムの誤認識率・監視国家化・特定コミュニティへの不均衡な影響を根拠に反対しています。HNでは「英国は中国と比べ民主主義だと言われるが、顔認識インフラの展開速度は同じ方向を向いている」「誤認識された無実の人が駅で拘束されるリスクを誰が補償するのか」「ロンドンに住んでいるが、地下鉄を使うたびにデータベースに顔が登録されると思うと移住を考える」という199コメントが展開されました。
+    </div>
+    <div class="purple-items">
+      <div class="purple-item">
+        <div class="purple-label">ライブ顔認識（LFR）とは</div>
+        <div class="purple-text">設置カメラが通過する全員の顔をリアルタイム解析し、ウォッチリストと照合するシステム。静止画の顔認識（後から画像を照合）と違い、全員が対象——同意なし、知らないうちにスキャンされる。英国警察は2019年から試験を開始、Londonのショッピング街・フットボールスタジアム等で実施後、今回地下鉄への本格展開。</div>
+      </div>
+      <div class="purple-item">
+        <div class="purple-label">誤認識率と「冤罪リスク」</div>
+        <div class="purple-text">英国警察のLFR試験での誤認識率（False Positive）：過去の試験では15〜81%のアラートが誤検知という報告がある。誤検知された市民は警察官に呼び止められるリスク。特に有色人種・女性・高齢者で精度が低いことが複数研究で示されている。「有罪の者を捕まえる技術」でなく「無実の者を止める技術」になるリスク。</div>
+      </div>
+      <div class="purple-item">
+        <div class="purple-label">日本への示唆</div>
+        <div class="purple-text">日本では大阪万博・主要駅での顔認識実証実験が進行中。英国の事例はそのロードマップの先行指標。顔認識義務化・常設化に対する市民的抵抗の枠組み（法整備・訴訟・ボイコット）が日本ではまだ形成されていない。「技術が先行して制度が追いつかない」英国パターンは他国でも繰り返される。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: btp.police.uk</span>
+      <span>163 ポイント</span>
+      <span>199 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.btp.police.uk/news/btp/news/england/btp-expands-live-facial-recognition-lfr-trial-into-london-underground-stations/" target="_blank">公式発表を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49255496" target="_blank">HN議論 (199)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="london-underground-facial-recognition" data-type="like" onclick="toggleFlag('london-underground-facial-recognition','ロンドン地下鉄が乗客の顔スキャンを開始——ライブ顔認識拡大','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="london-underground-facial-recognition" data-type="dislike" onclick="toggleFlag('london-underground-facial-recognition','ロンドン地下鉄が乗客の顔スキャンを開始——ライブ顔認識拡大','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 6 — GitHub Copilot MitM Proxy ══════════════════════════════ -->
+<section class="story story-6" id="s6">
+  <div class="story-num">06</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / 開発ツール / セキュリティ / GitHub Copilot / MitM / プロキシ / プライバシー / コード解析 — GitHub CopilotをMitMプロキシ越しに使い、何のデータが送信されているかを調査した記録。139ポイント・19コメント。2026-08-12</div>
+    <h2 class="story-headline">
+      GitHub Copilotを<br><span style="color:#20d8f0">MitMプロキシに</span><br>通したら<br>何が見えたか
+    </h2>
+    <div class="story-body">
+      Lighthousenewsletterの「I put GitHub Copilot behind a MitM proxy」がHNで139ポイント・19コメントを集めました。GitHub Copilotの通信を中間者（Man-in-the-Middle）プロキシでインターセプトし、エディタからGitHubのサーバーに送信されているデータ——コードの断片、ファイルのコンテキスト、メタデータ——を分析した技術的調査報告です。
+
+      VSCodeとJetBrainsのCopilot拡張機能が何をいつ送信しているかを可視化することで、「AIコーディングアシスタントを使うとどれだけのコードが外部サーバーに送信されるか」の実態が明らかになりました。HNでは「思っていたより送信頻度が高い——タイプするたびに断片が飛ぶ」「機密コードのあるリポジトリでCopilotを使うリスクは企業が真剣に評価すべき」「Claude for Workでも同様の調査をしたい——企業向け製品は通信内容の開示が義務付けられるべき」という19コメントが展開されました。
+    </div>
+    <div class="cyan-items">
+      <div class="cyan-item">
+        <div>
+          <div class="cyan-label">何が送信されていたか</div>
+          <div class="cyan-text">現在編集中のファイルの全テキスト（コード補完リクエストごと）。開いている他のファイルの断片（関連コンテキストとして）。カーソル位置・言語種別・エディタバージョンなどのメタデータ。補完を受け入れたか拒否したかの行動データ（モデル学習フィードバック用）。送信頻度：タイプ停止後約350msのデバウンスで毎回送信。</div>
+        </div>
+      </div>
+      <div class="cyan-item">
+        <div>
+          <div class="cyan-label">企業・個人への影響</div>
+          <div class="cyan-text">機密コード（未公開アルゴリズム・APIキー含むコード・顧客データを扱うコード）がGitHubサーバーを通過する。GitHubの利用規約ではCopilot Businessはコードをモデル学習に使わないとされているが、ログ保持・セキュリティ分析目的のデータ処理はある。オフライン・エアギャップ環境では使用不可。企業のGitHub Business契約でDLP（データ漏洩防止）ポリシーを設定する必要がある。</div>
+        </div>
+      </div>
+      <div class="cyan-item">
+        <div>
+          <div class="cyan-label">代替と対策</div>
+          <div class="cyan-text">完全ローカル実行：Continue.dev + Ollamaでローカルモデルを使う（通信ゼロ）。プロキシ監視：mitmproxyでCopilot通信を組織内でモニタリングする。機密ファイルの除外：.copilotignore（Copilotのコンテキスト除外設定）でシークレット含むファイルを指定。VSCode「Copilot Chat」の除外パターン設定。Claude CodeはAnthropicのAPIを使うが同様の調査をする価値がある。</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: lighthousenewsletter.com</span>
+      <span>139 ポイント</span>
+      <span>19 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.lighthousenewsletter.com/p/i-put-github-copilot-behind-a-mitm" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49256057" target="_blank">HN議論 (19)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="github-copilot-mitm-proxy-analysis" data-type="like" onclick="toggleFlag('github-copilot-mitm-proxy-analysis','GitHub CopilotをMitMプロキシに通したら何が見えたか','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="github-copilot-mitm-proxy-analysis" data-type="dislike" onclick="toggleFlag('github-copilot-mitm-proxy-analysis','GitHub CopilotをMitMプロキシに通したら何が見えたか','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 7 — OpenAI Ethics Head Leaves ══════════════════════════════ -->
+<section class="story story-7" id="s7">
+  <div class="story-num">07</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI業界 / OpenAI / 倫理 / 組織 / AI安全 / 内部 / FT / リーダーシップ — OpenAIの倫理責任者が就任1年以内に退社——AI企業の「倫理部門」の実態。194ポイント・277コメント。2026-08-12</div>
+    <h2 class="story-headline">
+      OpenAIの<br><span style="color:#ffb060">倫理責任者が</span><br>就任1年で<br>退社した
+    </h2>
+    <div class="story-body">
+      Financial Timesの「OpenAI's head of ethics leaves less than a year after joining」がHNで194ポイント・277コメントを集めました。OpenAIが昨年採用した倫理・責任あるAI部門のトップが、就任から1年未満で退社したことが報じられました。具体的な退社理由は明かされていませんが、OpenAIでは過去にも安全チームや倫理関連のリーダー複数名が短期間で退社しており、このパターンに注目が集まっています。
+
+      HNでは「OpenAIの安全チーム解体・縮小の流れと一致する——倫理はマーケティングのためのポジションになっている」「こういう役職に就いた人は内部でどれだけ権力を持てるのか——予算・拒否権・報告ラインが不明瞭なままでは機能しない」「AnthropicがOpenAIから分裂したのも元は安全方針の対立——この問題は繰り返し起きる」という277コメントが展開されました。
+    </div>
+    <div class="amber-items">
+      <div class="amber-item">
+        <div class="amber-label">退社が示すパターン</div>
+        <div class="amber-text">OpenAIでの倫理・安全関連の退社歴：Jan Leike（安全チーム共同責任者、2024年退社）、Ilya Sutskever（共同創業者、2024年退社）、その他の安全研究者複数名。いずれも「内部で安全方針が意思決定に十分反映されない」という問題意識を退社後に示唆している。倫理・安全ポジションの高回転率は組織のデコレーション的配置を疑わせる。</div>
+      </div>
+      <div class="amber-item">
+        <div class="amber-label">「倫理責任者」の実態問題</div>
+        <div class="amber-text">企業の倫理役職には「窓口倫理（Decorative Ethics）」と「実権倫理」の2種類がある。窓口倫理：PR・規制対応のため存在するが、製品決定への実質的拒否権なし。実権倫理：製品ロードマップ・リリース判断に関与できる。前者は有能な人材が長続きしない——「意見は聞くが決定権はない」ポジションに留まり続けることができる人間は少ない。</div>
+      </div>
+      <div class="amber-item">
+        <div class="amber-label">AnthropicとOpenAIの対比</div>
+        <div class="amber-text">Anthropicは安全性を中核の競争優位として位置づけ、Constitutional AI・Responsible Scaling Policy等を外部に約束として公開している。OpenAIは安全を強調しつつも製品速度を優先する判断が繰り返し見える——GPT-4のリリース前評価短縮、o1の推論公開制限解除など。倫理担当者の相次ぐ退社はこの「言行一致」問題の外部サインとして機能する。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: ft.com</span>
+      <span>194 ポイント</span>
+      <span>277 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.ft.com/content/e49dfb75-f841-4466-a577-f7aaff8779a0" target="_blank">FT記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49257160" target="_blank">HN議論 (277)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="openai-ethics-head-leaves" data-type="like" onclick="toggleFlag('openai-ethics-head-leaves','OpenAIの倫理責任者が就任1年未満で退社','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="openai-ethics-head-leaves" data-type="dislike" onclick="toggleFlag('openai-ethics-head-leaves','OpenAIの倫理責任者が就任1年未満で退社','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 8 — Git-knife ════════════════════════════════════════════════ -->
+<section class="story story-8" id="s8">
+  <div class="story-num">08</div>
+  <div class="story-inner">
+    <div class="story-kicker">開発ツール / Git / コミット履歴 / Show HN / スプレッドシート / オープンソース / CLI / 生産性 — コミットメッセージ・著者・日時をスプレッドシートUIで編集できるGitツール。113ポイント・80コメント。2026-08-12</div>
+    <h2 class="story-headline">
+      Show HN: Git-knife——<br><span style="color:#ffe080">コミット履歴を</span><br>スプレッドシートで<br>自由に編集する
+    </h2>
+    <div class="story-body">
+      Show HNに登場した「Git-knife: edit commit messages, authors, and dates like a spreadsheet」がHNで113ポイント・80コメントを集めました。Gitのコミット履歴（メッセージ・著者・日付・順序）をターミナル上のスプレッドシートUIで視覚的に編集できるツールです。`git rebase -i`の代替として、複数コミットを一覧表示し、セルを直接編集する感覚でコミット情報を変更できます。
+
+      `git rebase -i`は強力ですが、学習コストが高く「エディタが開いて何をすればいいか分からない」という体験がGit初心者の障壁になっています。Git-knifeはその複雑さをスプレッドシート的インターフェースで解消しようとします。HNでは「rebaseの操作ミスでコミット消したことがある——这のUIなら視覚的に確認できて安全」「著者・日時の一括変更は会社の名前変更・メールアドレス変更時に本当に欲しかった機能」「git-filterrepo等の強力なツールの橋渡しとして位置づけができる」という80コメントが展開されました。
+    </div>
+    <div class="gold-items">
+      <div class="gold-item">
+        <div class="gold-label">できること</div>
+        <div class="gold-text">コミットメッセージの一括インライン編集。著者名・メールアドレスの変更（複数コミット同時）。コミット日時（author date・committer date）の変更。コミット順序のドラッグ（UIに依存）。すべてgit rebase --onto等を内部で実行。操作前にdry-runで変更プレビュー可能。</div>
+      </div>
+      <div class="gold-item">
+        <div class="gold-label">使いどころ</div>
+        <div class="gold-text">PRを出す前の「コミットメッセージ整理」作業の高速化。個人開発で日付・著者を一括補正したいとき（複数マシン・メアドの統一）。チーム引き継ぎ時のコミット著者情報の整理。学習目的：rebaseの内部動作をUIで確認しながら理解する。注意：パブリックブランチの履歴書き換えは他の開発者を壊す——ローカル整理専用で使う。</div>
+      </div>
+      <div class="gold-item">
+        <div class="gold-label">類似ツールとの比較</div>
+        <div class="gold-text">git rebase -i：強力だがテキストエディタ操作が必要。git commit --amend：直前コミットのみ。git-filter-repo：大規模履歴書き換えに最適だがコマンドが複雑。lazygit：TUIのGitクライアントでrebaseもできる。Git-knifeの差別化は「スプレッドシート」感覚のUIと、メタデータ（著者・日時）の一括変更に特化した点。lazygitユーザーは重複を感じるかもしれないが、非エンジニアにも使いやすいUIが狙い。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: github.com/TheRealYT/git-knife</span>
+      <span>113 ポイント</span>
+      <span>80 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://github.com/TheRealYT/git-knife" target="_blank">リポジトリを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49259611" target="_blank">HN議論 (80)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="git-knife-commit-editor" data-type="like" onclick="toggleFlag('git-knife-commit-editor','Show HN: Git-knife——コミット履歴をスプレッドシートで編集するツール','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="git-knife-commit-editor" data-type="dislike" onclick="toggleFlag('git-knife-commit-editor','Show HN: Git-knife——コミット履歴をスプレッドシートで編集するツール','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 9 — Compression is Prediction ══════════════════════════════ -->
+<section class="story story-9" id="s9">
+  <div class="story-num">09</div>
+  <div class="story-inner">
+    <div class="story-kicker">情報理論 / 圧縮 / 予測 / AI / LLM / Kolmogorov / CS理論 / 数学 — 「圧縮とは予測である」——データ圧縮とAI予測の深いつながり。144ポイント・61コメント。2026-08-12</div>
+    <h2 class="story-headline">
+      圧縮は<br><span style="color:#90b8f0">予測である——</span><br>情報理論の<br>深いつながり
+    </h2>
+    <div class="story-body">
+      ngrokのブログ「Compression is prediction」がHNで144ポイント・61コメントを集めました。データ圧縮（gzip・LZ77等）と機械学習の予測（GPT等のLLM）が、情報理論的に同じ問題——「次のデータをどれだけ正確に予測できるか」——を解いているという洞察を、具体的な例で丁寧に説明しています。
+
+      「良い圧縮アルゴリズムは良い予測器であり、良い予測器は良い圧縮器である」というコルモゴロフ複雑性の直感を、GPTのような言語モデルがなぜ「圧縮器として使える」かという現代的な文脈で展開しています。HNでは「GPT-4でテキストを圧縮するとgzipより小さくなる実験があった——言語モデルが情報理論的に意味を持つことの証明」「Shannon情報量の定義に戻ると、圧縮・予測・確率は同じコインの3面だとわかる」「この洞察を理解すると、なぜLLMが知性を持っているように見えるかの説明になる」という61コメントが展開されました。
+    </div>
+    <div class="slate-items">
+      <div class="slate-item">
+        <div class="slate-label">圧縮と予測がなぜ同じなのか</div>
+        <div class="slate-text">データ圧縮の本質：「次のビットが何か予測して、予測通りなら短く、外れなら長く符号化する」。Huffman符号・算術符号はこの原理で動く。LLMの本質：「次のトークンの確率分布を予測する」。実装は全く違うが、解いている問題は同じ——情報理論の「エントロピー」が共通の基盤。良い予測器（LLM）は良い圧縮器として使えることが数学的に証明できる。</div>
+      </div>
+      <div class="slate-item">
+        <div class="slate-label">LLMが「知性を持っているように見える」理由</div>
+        <div class="slate-text">テキストを高精度で予測するには、そのテキストが生まれた「世界のモデル」を内部に持つ必要がある。「猫は___に座る」→「マット」を予測するためには、猫の習性・物理の常識が必要。LLMがテキスト予測の精度を上げるほど、世界モデルが精緻になる。知性とは「現実世界を内部にモデル化する能力」とも言え、圧縮と知性が同じ問題に収束する。</div>
+      </div>
+      <div class="slate-item">
+        <div class="slate-label">実用的な示唆</div>
+        <div class="slate-text">LLMの「困惑度（Perplexity）」はモデルがテキストをどれだけ圧縮できるかの直接的な指標——性能評価に使われている理由がここにある。gzipをテキスト分類の特徴量として使う（Jiang et al. 2023）研究がある——圧縮率が近いテキストは意味的に近い。AIエージェントのコンテキスト管理でも「不要情報の圧縮（サマリ化）」は予測的圧縮の応用。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: ngrok.com/blog</span>
+      <span>144 ポイント</span>
+      <span>61 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://ngrok.com/blog/compression-is-prediction" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49263497" target="_blank">HN議論 (61)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="compression-is-prediction" data-type="like" onclick="toggleFlag('compression-is-prediction','圧縮は予測である——情報理論の深いつながり','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="compression-is-prediction" data-type="dislike" onclick="toggleFlag('compression-is-prediction','圧縮は予測である——情報理論の深いつながり','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 10 — Pen Plotter Holograms ═════════════════════════════════ -->
+<section class="story story-10" id="s10">
+  <div class="story-num">10</div>
+  <div class="story-inner">
+    <div class="story-kicker">変わった科学 / 創造的技術 / ホログラム / ペンプロッター / 光学 / DIY / 干渉縞 / ハードウェアハック — ペンプロッターで実際のホログラムを作る——奇妙で美しい実験。73ポイント・6コメント。2026-08-12</div>
+    <h2 class="story-headline">
+      ペンプロッターで<br><span style="color:#ff80c0">ホログラムを</span><br>作る——<br>光の魔法を手書き
+    </h2>
+    <div class="story-body">
+      Jordan Matelskyのブログ「Making holograms with a pen plotter」がHNで73ポイント・6コメントを集めました。3Dホログラムとは「光の干渉縞を記録した平面」——その干渉縞パターンを計算し、ペンプロッター（機械式ペン描画装置）で反射材料（アルミフォイルを貼った紙など）に直接描くことで、実際に光を3D的に回折させるホログラムを手作りした実験記録です。
+
+      本物のホログラムはレーザーと感光材料が必要というのが常識でしたが、Matelskyは計算機合成ホログラム（CGH）の原理を使い、高精度なペンプロッターで干渉縞を機械的に「描く」アプローチを実現しました。HNでは「これは知識があれば誰でも再現できる——必要なのはAxidraw等のプロッターと反射材料だけ」「CGHの原理は教科書にあるが実際に手で作った記録は珍しい——実装の詳細が素晴らしい」「光学の美しさ——計算したパターンを描いたら本当に3D像が見えるというのは毎回驚く」という6コメントが展開されました。
+    </div>
+    <div class="mag-items">
+      <div class="mag-item">
+        <div class="mag-label">ホログラムの仕組み</div>
+        <div class="mag-text">光の波は干渉する——2つの波が重なると強め合い・打ち消し合うパターン（干渉縞）が生まれる。ホログラムはその干渉縞を記録した素材。特定の角度で光を当てると干渉縞が元の2つの波を再現し、観察者には3D像が見える。通常はレーザー光と感光材料（フォトポリマー等）で記録するが、計算機合成ホログラム（CGH）は干渉縞を数式から計算して人工的に生成できる。</div>
+      </div>
+      <div class="mag-item">
+        <div class="mag-label">ペンプロッターで描く方法</div>
+        <div class="mag-text">CGHの干渉縞パターンを計算（Pythonで実装可能）。AxidrawなどのXYプロッターに反射材料（アルミフォイル・金属フィルム）をセット。計算したパターンに従い、ペン先（または針）で材料に細かい線・点を描く（実際には溝を刻む）。完成品に白色光やLEDを当てると、回折した光が3D像を再現する。精度が高いほど像が鮮明になる。</div>
+      </div>
+      <div class="mag-item">
+        <div class="mag-label">なぜこれが面白いか</div>
+        <div class="mag-text">「コンピュータで計算したものを物理世界に刻み込んで光学現象を起こす」という直接性が魅力。レーザーや暗室が不要——理論と安い材料と精密機械だけで光の物理を再現できる。ペンプロッターという「時代遅れ」のハードウェアが、最先端の光学技術と組み合わさる意外性。3Dプリンターで造形する感覚で「光学素子を描く」時代への入口。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: blog.jordan.matelsky.com</span>
+      <span>73 ポイント</span>
+      <span>6 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://blog.jordan.matelsky.com/Penplotter-holography/" target="_blank">実験記録を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49262811" target="_blank">HN議論 (6)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="pen-plotter-holograms" data-type="like" onclick="toggleFlag('pen-plotter-holograms','ペンプロッターでホログラムを作る——変わった実験の記録','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="pen-plotter-holograms" data-type="dislike" onclick="toggleFlag('pen-plotter-holograms','ペンプロッターでホログラムを作る——変わった実験の記録','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-top">
+    <div class="footer-brand">Morning Edition</div>
+    <button class="export-btn" onclick="exportFeedback()">フィードバックをコピー</button>
+  </div>
+  <div class="footer-meta">
+    Hacker News フロントページから毎朝キュレーション。AI・開発ツール・プライバシー・サイエンスを優先選出。<br>
+    Issue No.103 — 2026年8月12日 水曜日
+  </div>
+  <div class="footer-note">フィードバックボタンでクリックした内容はブラウザに保存されます。</div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(function() {
+  const STORAGE_KEY = 'morning-edition-feedback-v2';
+  let feedbackData = { liked: {}, disliked: {} };
+  let fileHandle = null;
+
+  function loadFromStorage() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (raw) feedbackData = JSON.parse(raw);
+    } catch(e) {}
+  }
+
+  function saveToStorage() {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(feedbackData));
+    } catch(e) {}
+  }
+
+  async function tryGetFileHandle() {
+    if (!window.showSaveFilePicker) return null;
+    try {
+      const fh = await window.showSaveFilePicker({
+        suggestedName: 'feedback.json',
+        types: [{ description: 'JSON', accept: { 'application/json': ['.json'] } }],
+        startIn: 'documents'
+      });
+      return fh;
+    } catch(e) { return null; }
+  }
+
+  async function writeFile(handle, data) {
+    try {
+      const writable = await handle.createWritable();
+      await writable.write(JSON.stringify(data, null, 2));
+      await writable.close();
+      return true;
+    } catch(e) { return false; }
+  }
+
+  function applyActiveStates() {
+    document.querySelectorAll('.flag-btn').forEach(btn => {
+      const story = btn.dataset.story;
+      const type = btn.dataset.type;
+      btn.classList.remove('active');
+      if (type === 'like' && feedbackData.liked && feedbackData.liked[story]) btn.classList.add('active');
+      if (type === 'dislike' && feedbackData.disliked && feedbackData.disliked[story]) btn.classList.add('active');
+    });
+  }
+
+  function showToast(msg, isError) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.className = 'toast' + (isError ? ' error' : '') + ' show';
+    clearTimeout(t._timer);
+    t._timer = setTimeout(() => t.classList.remove('show'), 2800);
+  }
+
+  window.toggleFlag = async function(storyId, title, type) {
+    if (!feedbackData.liked) feedbackData.liked = {};
+    if (!feedbackData.disliked) feedbackData.disliked = {};
+
+    const today = new Date().toISOString().split('T')[0];
+    const isLike = type === 'like';
+    const bucket = isLike ? 'liked' : 'disliked';
+    const otherBucket = isLike ? 'disliked' : 'liked';
+    const isActive = !!feedbackData[bucket][storyId];
+
+    if (isActive) {
+      delete feedbackData[bucket][storyId];
+    } else {
+      feedbackData[bucket][storyId] = { title, date: today };
+      delete feedbackData[otherBucket][storyId];
+    }
+
+    feedbackData.updatedAt = new Date().toISOString();
+    saveToStorage();
+    applyActiveStates();
+
+    if (window.showSaveFilePicker) {
+      if (!fileHandle) fileHandle = await tryGetFileHandle();
+      if (fileHandle) {
+        const ok = await writeFile(fileHandle, feedbackData);
+        if (ok) { showToast(isActive ? '削除しました' : (isLike ? '⭐ 興味ありを記録しました' : '✕ 興味なしを記録しました')); return; }
+      }
+    }
+    showToast(isActive ? '削除しました（ローカル保存）' : (isLike ? '⭐ 記録しました（ローカル保存）' : '✕ 記録しました（ローカル保存）'));
+  };
+
+  window.exportFeedback = function() {
+    try {
+      navigator.clipboard.writeText(JSON.stringify(feedbackData, null, 2));
+      showToast('フィードバックをクリップボードにコピーしました');
+    } catch(e) { showToast('コピーに失敗しました', true); }
+  };
+
+  loadFromStorage();
+  applyActiveStates();
+})();
+</script>
+</body>
+</html>
