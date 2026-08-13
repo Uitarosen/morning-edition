@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Morning Edition — 2026年8月14日</title>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --font: 'M PLUS Rounded 1c', 'Hiragino Sans', 'Noto Sans JP', sans-serif; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); background: #111; color: #fff; overflow-x: hidden; }
+
+    .masthead { background: #fff; color: #000; padding: 3rem 4rem 2.5rem; border-bottom: 6px solid #000; position: relative; overflow: hidden; }
+    .masthead::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: repeating-linear-gradient(90deg, #000 0, #000 12px, transparent 12px, transparent 20px); }
+    .masthead-kicker { font-size: 0.85rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: #777; margin-bottom: 0.6rem; }
+    .masthead-title { font-size: clamp(3.5rem, 9vw, 7.5rem); font-weight: 900; line-height: 0.88; letter-spacing: -0.04em; margin-bottom: 1.8rem; }
+    .masthead-meta { display: flex; gap: 3rem; align-items: baseline; flex-wrap: wrap; }
+    .masthead-date { font-size: 1.5rem; font-weight: 700; }
+    .masthead-subtitle { font-size: 1rem; font-weight: 400; color: #555; max-width: 480px; line-height: 1.5; }
+    .masthead-issue { margin-left: auto; text-align: right; }
+    .masthead-issue span { display: block; }
+    .masthead-issue .iss-label { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: #999; }
+    .masthead-issue .iss-num { font-size: 2.2rem; font-weight: 900; color: #000; }
+
+    .toc { background: #1a1a1a; padding: 1.5rem 4rem; display: flex; gap: 1.5rem; flex-wrap: wrap; border-bottom: 1px solid #333; }
+    .toc a { color: #aaa; text-decoration: none; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; transition: color 0.2s; }
+    .toc a:hover { color: #fff; }
+    .toc-num { color: #555; margin-right: 0.3em; }
+
+    .story { position: relative; overflow: hidden; }
+    .story-inner { max-width: 1200px; margin: 0 auto; padding: 5rem 4rem; position: relative; z-index: 1; }
+    .story-num { font-size: clamp(6rem, 18vw, 16rem); font-weight: 900; line-height: 0.8; letter-spacing: -0.06em; opacity: 0.08; position: absolute; top: 1rem; right: 2rem; user-select: none; }
+    .story-badge { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.35em 0.9em; border-radius: 2px; margin-bottom: 1.5rem; }
+    .direct-badge { background: #FFD700; color: #000; }
+    .story-kicker { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; opacity: 0.6; margin-bottom: 0.8rem; }
+    .story-headline { font-size: clamp(2rem, 5vw, 4rem); font-weight: 900; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+    .story-body { font-size: clamp(1rem, 1.5vw, 1.2rem); font-weight: 400; line-height: 1.8; max-width: 680px; opacity: 0.88; margin-bottom: 2rem; }
+    .story-meta { display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center; font-size: 0.8rem; font-weight: 700; opacity: 0.5; }
+    .story-links { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem; }
+    .story-link { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.6em 1.4em; border-radius: 3px; text-decoration: none; transition: opacity 0.2s, transform 0.15s; }
+    .story-link:hover { opacity: 0.75; transform: translateY(-1px); }
+
+    .feedback-buttons { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .flag-btn { background: none; border: 1px solid currentColor; color: inherit; font-family: var(--font); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.5em 1em; border-radius: 3px; cursor: pointer; opacity: 0.32; transition: opacity 0.2s, background 0.2s, color 0.2s, border-color 0.2s, transform 0.15s; }
+    .flag-btn:hover { opacity: 0.72; transform: translateY(-1px); }
+    .flag-btn.like-btn.active { opacity: 1; background: rgba(255,215,0,0.15); border-color: #FFD700; color: #FFD700 !important; }
+    .flag-btn.dislike-btn.active { opacity: 1; background: rgba(255,60,60,0.12); border-color: #FF4444; color: #FF4444 !important; }
+
+    .toast { position: fixed; bottom: 2rem; right: 2rem; background: #1a1a1a; color: #fff; font-family: var(--font); font-size: 0.82rem; font-weight: 700; padding: 0.75em 1.4em; border-radius: 4px; border-left: 3px solid #00C853; z-index: 9999; opacity: 0; transform: translateY(10px); transition: opacity 0.25s, transform 0.25s; pointer-events: none; box-shadow: 0 4px 24px rgba(0,0,0,0.45); }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    .toast.error { border-left-color: #FF5252; }
+
+    /* Story 1 — White */
+    .story-1 { background: #fff; color: #000; min-height: 90vh; display: flex; flex-direction: column; justify-content: center; }
+    .story-1 .story-num { color: #000; opacity: 0.04; }
+    .story-1 .story-kicker { color: #555; opacity: 1; }
+    .story-1 .story-headline { color: #000; }
+    .story-1 .story-body { color: #111; }
+    .story-1 .story-meta { color: #000; }
+    .story-1 .story-link.primary { background: #1a1a1a; color: #fff; }
+    .story-1 .story-link.secondary { background: #f0f0f0; color: #000; }
+    .story-1 .flag-btn { color: #000; }
+    .story-1-accent { position: absolute; bottom: 0; left: 0; width: 100%; height: 8px; background: linear-gradient(90deg, #cc4400, #ff8800, #cc4400); }
+    .story-1 .headline-accent { display: inline-block; background: linear-gradient(135deg, #cc4400 0%, #ff8800 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .orange-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1.2rem; margin: 2rem 0; max-width: 680px; }
+    .orange-card { border: 2px solid rgba(255,102,0,0.18); background: rgba(255,102,0,0.04); border-radius: 6px; padding: 1.3rem 1.5rem; }
+    .orange-card-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.2em; text-transform: uppercase; color: #cc4400; margin-bottom: 0.4rem; }
+    .orange-card-value { font-size: 1.05rem; font-weight: 900; color: #000; line-height: 1.3; }
+    .orange-card-sub { font-size: 0.75rem; color: #555; margin-top: 0.3rem; line-height: 1.4; }
+
+    /* Story 2 — Dark navy/teal */
+    .story-2 { background: #00080c; color: #b8f0ff; min-height: 80vh; }
+    .story-2::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(0,160,200,0.14) 0%, transparent 65%); }
+    .story-2 .story-num { color: #00A0C8; opacity: 0.07; }
+    .story-2 .story-kicker { color: #20C8E8; opacity: 1; }
+    .story-2 .story-headline { color: #e0f8ff; }
+    .story-2 .story-body { color: #b8f0ff; }
+    .story-2 .story-meta { color: #20C8E8; opacity: 0.5; }
+    .story-2 .story-link.primary { background: #004058; color: #80e8ff; }
+    .story-2 .story-link.secondary { background: rgba(0,160,200,0.08); color: #90d8f0; border: 1px solid rgba(0,160,200,0.22); }
+    .story-2 .flag-btn { color: #b8f0ff; }
+    .teal-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .teal-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(0,160,200,0.07); border-left: 3px solid #00A0C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .teal-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20C8E8; margin-bottom: 0.3rem; }
+    .teal-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 3 — Dark red */
+    .story-3 { background: #0a0000; color: #fff; min-height: 80vh; }
+    .story-3::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(200,20,20,0.16) 0%, transparent 65%); }
+    .story-3 .story-num { color: #C81414; opacity: 0.07; }
+    .story-3 .story-kicker { color: #E84040; opacity: 1; }
+    .story-3 .story-headline { color: #fff; }
+    .story-3 .story-body { color: rgba(255,255,255,0.88); }
+    .story-3 .story-meta { color: #E84040; opacity: 0.5; }
+    .story-3 .story-link.primary { background: #6a0000; color: #fff; }
+    .story-3 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-3 .flag-btn { color: #fff; }
+    .red-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .red-item { background: rgba(200,20,20,0.07); border-left: 3px solid #C81414; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .red-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E84040; margin-bottom: 0.3rem; }
+    .red-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 4 — Dark green */
+    .story-4 { background: #020c04; color: #c8f0d0; min-height: 80vh; }
+    .story-4::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(20,160,70,0.16) 0%, transparent 65%); }
+    .story-4 .story-num { color: #14A046; opacity: 0.07; }
+    .story-4 .story-kicker { color: #30C060; opacity: 1; }
+    .story-4 .story-headline { color: #e0ffe8; }
+    .story-4 .story-body { color: #c8f0d0; }
+    .story-4 .story-meta { color: #30C060; opacity: 0.5; }
+    .story-4 .story-link.primary { background: #063820; color: #80ffb0; }
+    .story-4 .story-link.secondary { background: rgba(20,160,70,0.08); color: #a0e8b0; border: 1px solid rgba(20,160,70,0.22); }
+    .story-4 .flag-btn { color: #c8f0d0; }
+    .green-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .green-item { background: rgba(20,160,70,0.07); border-left: 3px solid #14A046; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .green-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #30C060; margin-bottom: 0.3rem; }
+    .green-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 5 — Dark purple */
+    .story-5 { background: #040010; color: #d8c8ff; min-height: 75vh; }
+    .story-5::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(90,40,200,0.17) 0%, transparent 65%); }
+    .story-5 .story-num { color: #5A28C8; opacity: 0.07; }
+    .story-5 .story-kicker { color: #8050E0; opacity: 1; }
+    .story-5 .story-headline { color: #f0e8ff; }
+    .story-5 .story-body { color: #d8c8ff; }
+    .story-5 .story-meta { color: #8050E0; opacity: 0.5; }
+    .story-5 .story-link.primary { background: #200860; color: #d0a8ff; }
+    .story-5 .story-link.secondary { background: rgba(90,40,200,0.08); color: #c0a0f0; border: 1px solid rgba(90,40,200,0.22); }
+    .story-5 .flag-btn { color: #d8c8ff; }
+    .purple-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .purple-item { background: rgba(90,40,200,0.07); border-left: 3px solid #5A28C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .purple-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #8050E0; margin-bottom: 0.3rem; }
+    .purple-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 6 — Dark cyan */
+    .story-6 { background: #000c10; color: #b8e8f0; min-height: 75vh; }
+    .story-6::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 40%, rgba(0,130,160,0.14) 0%, transparent 65%); }
+    .story-6 .story-num { color: #0080A0; opacity: 0.07; }
+    .story-6 .story-kicker { color: #20B0D0; opacity: 1; }
+    .story-6 .story-headline { color: #e0f4ff; }
+    .story-6 .story-body { color: #b8e8f0; }
+    .story-6 .story-meta { color: #20B0D0; opacity: 0.5; }
+    .story-6 .story-link.primary { background: #003848; color: #80d8f0; }
+    .story-6 .story-link.secondary { background: rgba(0,130,160,0.08); color: #90cce0; border: 1px solid rgba(0,130,160,0.22); }
+    .story-6 .flag-btn { color: #b8e8f0; }
+    .cyan-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .cyan-item { background: rgba(0,130,160,0.07); border-left: 3px solid #0080A0; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .cyan-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20B0D0; margin-bottom: 0.3rem; }
+    .cyan-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 7 — Dark amber */
+    .story-7 { background: #0a0300; color: #ffe0b8; min-height: 75vh; }
+    .story-7::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(210,90,20,0.18) 0%, transparent 65%); }
+    .story-7 .story-num { color: #D05A14; opacity: 0.07; }
+    .story-7 .story-kicker { color: #E88040; opacity: 1; }
+    .story-7 .story-headline { color: #fff0d8; }
+    .story-7 .story-body { color: #ffe0b8; }
+    .story-7 .story-meta { color: #E88040; opacity: 0.5; }
+    .story-7 .story-link.primary { background: #6a2400; color: #ffc880; }
+    .story-7 .story-link.secondary { background: rgba(210,90,20,0.08); color: #ffb870; border: 1px solid rgba(210,90,20,0.22); }
+    .story-7 .flag-btn { color: #ffe0b8; }
+    .amber-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .amber-item { background: rgba(210,90,20,0.07); border-left: 3px solid #D05A14; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .amber-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E88040; margin-bottom: 0.3rem; }
+    .amber-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 8 — Dark gold */
+    .story-8 { background: #080500; color: #fff; min-height: 70vh; }
+    .story-8::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,145,10,0.15) 0%, transparent 65%); }
+    .story-8 .story-num { color: #BE9110; opacity: 0.06; }
+    .story-8 .story-kicker { color: #D4A820; opacity: 1; }
+    .story-8 .story-headline { color: #fff; }
+    .story-8 .story-body { color: rgba(255,255,255,0.88); }
+    .story-8 .story-meta { color: #D4A820; opacity: 0.5; }
+    .story-8 .story-link.primary { background: #604000; color: #ffe070; }
+    .story-8 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-8 .flag-btn { color: #fff; }
+    .gold-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .gold-item { background: rgba(190,145,10,0.07); border-left: 3px solid #BE9110; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .gold-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #D4A820; margin-bottom: 0.3rem; }
+    .gold-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 9 — Slate blue */
+    .story-9 { background: #040810; color: #c8d8f0; min-height: 70vh; }
+    .story-9::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 35%, rgba(50,90,170,0.16) 0%, transparent 65%); }
+    .story-9 .story-num { color: #3258A8; opacity: 0.07; }
+    .story-9 .story-kicker { color: #5878C8; opacity: 1; }
+    .story-9 .story-headline { color: #e8f0ff; }
+    .story-9 .story-body { color: #c8d8f0; }
+    .story-9 .story-meta { color: #5878C8; opacity: 0.5; }
+    .story-9 .story-link.primary { background: #101e50; color: #fff; }
+    .story-9 .story-link.secondary { background: rgba(50,90,170,0.08); color: #b0c8e8; border: 1px solid rgba(50,90,170,0.22); }
+    .story-9 .flag-btn { color: #c8d8f0; }
+    .slate-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .slate-item { background: rgba(50,90,170,0.07); border-left: 3px solid #3258A8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .slate-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #5878C8; margin-bottom: 0.3rem; }
+    .slate-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 10 — Magenta */
+    .story-10 { background: #080004; color: #ffc8e8; min-height: 70vh; }
+    .story-10::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,20,90,0.15) 0%, transparent 65%); }
+    .story-10 .story-num { color: #BE1458; opacity: 0.07; }
+    .story-10 .story-kicker { color: #E04080; opacity: 1; }
+    .story-10 .story-headline { color: #fff0f8; }
+    .story-10 .story-body { color: #ffc8e8; }
+    .story-10 .story-meta { color: #E04080; opacity: 0.5; }
+    .story-10 .story-link.primary { background: #500030; color: #ffb0d8; }
+    .story-10 .story-link.secondary { background: rgba(190,20,90,0.08); color: #f090c0; border: 1px solid rgba(190,20,90,0.22); }
+    .story-10 .flag-btn { color: #ffc8e8; }
+    .mag-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .mag-item { background: rgba(190,20,90,0.07); border-left: 3px solid #BE1458; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .mag-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E04080; margin-bottom: 0.3rem; }
+    .mag-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .site-footer { background: #000; color: #555; padding: 3rem 4rem; display: flex; flex-direction: column; gap: 1.5rem; border-top: 1px solid #222; }
+    .footer-top { display: flex; gap: 2rem; align-items: center; flex-wrap: wrap; justify-content: space-between; }
+    .footer-brand { font-size: 1.4rem; font-weight: 900; color: #fff; }
+    .footer-meta { font-size: 0.75rem; line-height: 1.6; }
+    .export-btn { background: #222; border: 1px solid #444; color: #fff; font-family: var(--font); font-size: 0.8rem; font-weight: 700; padding: 0.7em 1.5em; border-radius: 3px; cursor: pointer; letter-spacing: 0.08em; transition: background 0.2s; }
+    .export-btn:hover { background: #333; }
+    .footer-note { font-size: 0.7rem; opacity: 0.5; }
+
+    @media (max-width: 768px) {
+      .masthead, .toc, .story-inner, .site-footer { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .story-num { display: none; }
+      .masthead-meta { gap: 1rem; }
+      .masthead-issue { margin-left: 0; }
+      .orange-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+<nav style="background:#1a1a1a;border-bottom:1px solid #333;padding:0.55rem 2rem;font-family:'M PLUS Rounded 1c','Hiragino Sans','Noto Sans JP',sans-serif;position:sticky;top:0;z-index:999;">
+  <a href="./index.html" style="color:#aaa;text-decoration:none;font-size:0.8rem;font-weight:700;letter-spacing:0.03em;display:inline-flex;align-items:center;gap:0.4rem;transition:color 0.15s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#aaa'">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    アーカイブへ戻る
+  </a>
+</nav>
+
+<header class="masthead">
+  <div class="masthead-kicker">Hacker News — Morning Edition</div>
+  <h1 class="masthead-title">Morning<br>Edition</h1>
+  <div class="masthead-meta">
+    <div>
+      <div class="masthead-date">2026年8月14日 金曜日</div>
+      <div class="masthead-subtitle">AI・開発ツール・プライバシー・サイエンス — あなたのための10本</div>
+    </div>
+    <div class="masthead-issue">
+      <span class="iss-label">Issue</span>
+      <span class="iss-num">No.105</span>
+    </div>
+  </div>
+</header>
+
+<nav class="toc">
+  <a href="#s1"><span class="toc-num">01</span>⚡ DeepSeek Harnessが開発者プレビュー公開——AIエージェント開発の新プラットフォーム</a>
+  <a href="#s2"><span class="toc-num">02</span>Gemini 3.7 Flash登場——GoogleがAIモデルの速度と精度を両立</a>
+  <a href="#s3"><span class="toc-num">03</span>DRAMを「スパゲッティ化」する——メモリ攻撃の新手法がGitHubに公開</a>
+  <a href="#s4"><span class="toc-num">04</span>CerebrasがGPT-5.6を超高速推論——Sol Ultrafastの仕組みを解説</a>
+  <a href="#s5"><span class="toc-num">05</span>Mistral OCR 4.1リリース——ドキュメント読み取り精度が大幅向上</a>
+  <a href="#s6"><span class="toc-num">06</span>「退屈な技術を選べ」——11年後も刺さるエンジニアリング哲学の名論文</a>
+  <a href="#s7"><span class="toc-num">07</span>同じプロンプト、11モデルで試す——Netlifyが比較実験を公開</a>
+  <a href="#s8"><span class="toc-num">08</span>週末10ドルで50万ドメインの検索エンジンを構築した話</a>
+  <a href="#s9"><span class="toc-num">09</span>「理解」が新たなボトルネックになった——AI時代の開発論</a>
+  <a href="#s10"><span class="toc-num">10</span>⚡ Bullet——YC S26発のコーディングエージェントが速度で勝負</a>
+</nav>
+
+<!-- ═══ STORY 1 — DeepSeek Harness ════════════════════════════════════════ -->
+<section class="story story-1" id="s1">
+  <div class="story-num">01</div>
+  <div class="story-inner">
+    <div class="story-badge direct-badge">⚡ あなたに直接関係</div>
+    <div class="story-kicker">AI開発ツール / DeepSeek / ハーネス / エージェント / 開発者プレビュー / フレームワーク — DeepSeekがAIエージェント開発向けプラットフォーム「Harness」を開発者プレビュー公開。514ポイント・230コメント。2026-08-13</div>
+    <h2 class="story-headline">
+      <span class="headline-accent">DeepSeek Harness</span><br>開発者プレビュー——<br>AIエージェント開発の<br>新プラットフォーム
+    </h2>
+    <div class="story-body">
+      DeepSeekが「Harness」と題したAIエージェント開発向けプラットフォームの開発者プレビューを公開し、HNで514ポイント・230コメントを集めました。DeepSeekは格安・高性能なLLMで知られる中国発のAI企業ですが、Harnessはモデル単体の提供を超えて、AIエージェントの構築・テスト・デプロイを一貫して行えるインフラを目指したプラットフォームとして設計されています。
+
+      Harnessは開発者がカスタムツール（ウェブ検索・コード実行・データベース操作など）をエージェントに接続し、複数のエージェントを協調させるオーケストレーション機能、動作ログの可視化・デバッグ機能を統合提供します。HNでは「Claude CodeやOpenAI Agentsとの差別化が何なのか——DeepSeekのコスパが真の強みになれば選択肢になる」「エージェントフレームワークの乱立が加速している——標準化の議論が必要」「開発者プレビューの段階でドキュメントが薄い——もう少し成熟してから判断したい」「DeepSeekの低コストAPIとHarnessを組み合わせた場合のコスト効率が興味深い」という230コメントが展開されました。
+    </div>
+    <div class="orange-grid">
+      <div class="orange-card">
+        <div class="orange-card-label">Harnessとは何か</div>
+        <div class="orange-card-value">AIエージェント開発・実行基盤の統合プラットフォーム</div>
+        <div class="orange-card-sub">ツール接続（API・DB・コード実行）、マルチエージェントオーケストレーション、実行ログ可視化、デプロイまでを一体で提供。LangChainやLlamaIndexとの違いはDeepSeekの低コストモデルと深く統合される点。開発者プレビューはhttps://deepseek.com/harness/en/から登録可能。</div>
+      </div>
+      <div class="orange-card">
+        <div class="orange-card-label">AIエージェントフレームワーク比較</div>
+        <div class="orange-card-value">Harness vs. Claude Code vs. OpenAI Agents SDK</div>
+        <div class="orange-card-sub">Claude CodeはAnthropicモデル特化・開発者のローカル環境統合に強み。OpenAI Agents SDKはGPTモデルとの深い統合。HarnessはDeepSeekの低コストAPI＋マルチモデル対応を打ち出す。いずれも「ツール呼び出し・ループ制御・状態管理」の基本は同じで、差別化はエコシステムとコスト。</div>
+      </div>
+      <div class="orange-card">
+        <div class="orange-card-label">DeepSeekのコスト優位</div>
+        <div class="orange-card-value">1Mトークンあたり$0.14——Claude Sonnetの約25分の1</div>
+        <div class="orange-card-sub">DeepSeek V4 ProのAPIコストはAnthropic・OpenAIの最上位モデルと比較して大幅に安価。エージェントが多数のLLM呼び出しを行う場合、コスト差は指数的に広がる。ただし中国サーバーへのデータ送信リスクは用途により評価が必要。機密性の低い大量処理タスクでは実質的な選択肢になり得る。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: deepseek.com/harness</span>
+      <span>514 ポイント</span>
+      <span>230 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://deepseek.com/harness/en/" target="_blank">Harnessを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49285244" target="_blank">HN議論 (230)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="deepseek-harness" data-type="like" onclick="toggleFlag('deepseek-harness','DeepSeek Harnessが開発者プレビュー公開——AIエージェント開発の新プラットフォーム','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="deepseek-harness" data-type="dislike" onclick="toggleFlag('deepseek-harness','DeepSeek Harnessが開発者プレビュー公開——AIエージェント開発の新プラットフォーム','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+    <div class="story-1-accent"></div>
+  </div>
+</section>
+
+<!-- ═══ STORY 2 — Gemini 3.7 Flash ═══════════════════════════════════════ -->
+<section class="story story-2" id="s2">
+  <div class="story-num">02</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / Google / Gemini / モデルリリース / 高速推論 / マルチモーダル / Flash / API — GoogleがGemini 3.7 Flashを正式リリース。492ポイント・305コメント。2026-08-13</div>
+    <h2 class="story-headline">
+      Gemini 3.7 Flash——<br><span style="color:#20d8f0">Googleが速度と精度の</span><br>新バランスを<br>提示する
+    </h2>
+    <div class="story-body">
+      GoogleがGemini 3.7 Flashを正式リリースし、HNで492ポイント・305コメントを集めました。GeminiのFlashシリーズはProシリーズより小型・高速・低コストに設計されたモデルラインで、3.7 Flashは前バージョンから推論速度・日本語含む多言語対応・マルチモーダル処理（画像・音声・動画）を強化した更新です。Google AI StudioおよびVertex AI APIから即日利用可能です。
+
+      特に注目されているのはレイテンシの改善で、テキスト生成の初回トークンまでの時間が短縮されリアルタイムアプリケーション（チャットボット・コード補完・音声対話）への適合性が増しています。HNでは「Gemini Flashシリーズはコスパが最良のモデルの一つになりつつある——Claude Haiku・GPT-4o miniとのポジション争いが激化」「Googleが出す価格設定は毎回競合を意識した意図的なものに見える——2026年の価格競争はユーザーに恩恵」「長いコンテキストウィンドウ（1Mトークン）がFlashでも維持されているのが強み」「日本語の品質が前バージョンから実際に改善されているかテストが必要」という305コメントが展開されました。
+    </div>
+    <div class="teal-items">
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">Gemini 3.7 Flashのスペック</div>
+          <div class="teal-text">最大コンテキスト：1,048,576トークン（100万トークン超）。マルチモーダル：テキスト・画像・音声・動画・PDF対応。APIコスト：入力$0.075/1Mトークン、出力$0.30/1Mトークン（Pro比較で大幅安価）。Gemini 3.7 Proと同じ知識カットオフ（2025年後半）。Google Search Grounding対応で最新情報を参照可能。</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">使いどころ</div>
+          <div class="teal-text">大量テキスト処理（ドキュメント要約・OCR後処理・ログ解析）でコスト効率が最大化。リアルタイム対話・チャットボットではレイテンシ改善の恩恵が大きい。長文PDFの一括解析（1Mトークンウィンドウ活用）は他モデルに優位な場面がある。コーディングタスクはPro・Claude・GPT-4よりやや劣るという評価が多い——用途で使い分けが合理的。</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">フロンティアモデル競争の構図</div>
+          <div class="teal-text">2026年時点でSmall/Fastモデル（Flash/Haiku/mini系）の戦場が最も競争が激しい。Claude Haiku 4.5・GPT-4o mini・Gemini 3.7 Flash・DeepSeek V4がほぼ同じ価格帯で性能を競っている。使用量が多いAPIレイヤーではコスト差が直接収益に影響するため、モデル選択の経済的合理性がより重要になっている。</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: blog.google</span>
+      <span>492 ポイント</span>
+      <span>305 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-3-7-flash/" target="_blank">発表を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49289112" target="_blank">HN議論 (305)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="gemini-3-7-flash" data-type="like" onclick="toggleFlag('gemini-3-7-flash','Gemini 3.7 Flash登場——GoogleがAIモデルの速度と精度を両立','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="gemini-3-7-flash" data-type="dislike" onclick="toggleFlag('gemini-3-7-flash','Gemini 3.7 Flash登場——GoogleがAIモデルの速度と精度を両立','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 3 — Spaghettifying DRAM ════════════════════════════════════ -->
+<section class="story story-3" id="s3">
+  <div class="story-num">03</div>
+  <div class="story-inner">
+    <div class="story-kicker">ハードウェア / セキュリティ / DRAM / メモリ攻撃 / Rowhammer / GitHub / エクスプロイト / 変わった科学 — DRAMを物理的に「スパゲッティ化」するメモリ攻撃手法の概念実証がGitHubで公開。442ポイント・130コメント。2026-08-13</div>
+    <h2 class="story-headline">
+      DRAMを<br><span style="color:#ff6060">「スパゲッティ化」する</span><br>メモリ攻撃——<br>新手法がGitHubに
+    </h2>
+    <div class="story-body">
+      セキュリティ研究者matt_dが「Spaghettifying DRAM」と題した概念実証コードをGitHubで公開し、HNで442ポイント・130コメントを集めました。タイトルの「スパゲッティ化」は物理学用語（ブラックホールに落ちる物体が引き伸ばされる現象）から借りた命名で、DRAMの特定行を繰り返しアクセスすることで隣接行にビットフリップを引き起こす「Rowhammer」攻撃の新しい亜種実装です。
+
+      従来のRowhammer攻撃に対して多くのDIMM・CPU・OSレベルの緩和策が実装されてきましたが、この実装は複数の緩和策を組み合わせて回避するアプローチを取っており、特定の構成ではまだ有効であることを示しています。リポジトリ名の「skitter-creek-bath-salts」というユーモラスな名前もHNで話題になりました。HNでは「Rowhammerは2014年から知られているが、2026年になっても完全な解決策がないのは設計上の根本的な問題がある」「DDR5のオンダイECC（OEC）がこれに対してどこまで有効かが焦点」「GitHubがPoCコードを削除するかどうか——公開の是非の議論も」という130コメントが展開されました。
+    </div>
+    <div class="red-items">
+      <div class="red-item">
+        <div class="red-label">Rowhammer攻撃とは</div>
+        <div class="red-text">DRAMの物理的特性（隣接セル間の電荷漏れ）を利用した攻撃。特定のメモリ行を高頻度でアクセスすると隣接行のビットが反転する現象（ビットフリップ）を意図的に誘発する。特権昇格・カーネル権限取得・仮想マシン脱出など深刻な権限昇格に悪用された実績がある。2014年のGoogle Project Zero発見以来、多くの緩和策が実装されたが根本解決には至っていない。</div>
+      </div>
+      <div class="red-item">
+        <div class="red-label">スパゲッティ化手法の新規性</div>
+        <div class="red-text">既存のRowhammer緩和策（Target Row Refresh=TRR、pTRR、Blast Radius制限）を複数の角度から同時に回避するパターンを組み合わせた実装。特定の商用DIMMs構成でビットフリップを誘発することに成功。DDR4世代の特定チップでは依然として有効であることを実証。DDR5のオンダイECCは多くのケースで有効だが、エラー率の高い構成では補正能力を超える場合がある。</div>
+      </div>
+      <div class="red-item">
+        <div class="red-label">対策の現状</div>
+        <div class="red-text">DDR5への移行がRowhammer対策として最も効果的——ただし全てのDDR5 DIMMが同等の保護を持つわけではない。ECC（Error-Correcting Code）メモリを使うことでビットフリップの多くを補正・検出可能。OSレベルの緩和策（Linuxの/proc/sys/vm/page_isolation設定等）は完全ではない。クラウド環境では仮想化のレイヤーがある程度の保護を提供するが、共有物理メモリが攻撃対象になり得る。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: github.com/xoreaxeaxeax</span>
+      <span>442 ポイント</span>
+      <span>130 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://github.com/xoreaxeaxeax/skitter-creek-bath-salts" target="_blank">リポジトリを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49286341" target="_blank">HN議論 (130)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="spaghettifying-dram" data-type="like" onclick="toggleFlag('spaghettifying-dram','DRAMを「スパゲッティ化」する——メモリ攻撃の新手法がGitHubに公開','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="spaghettifying-dram" data-type="dislike" onclick="toggleFlag('spaghettifying-dram','DRAMを「スパゲッティ化」する——メモリ攻撃の新手法がGitHubに公開','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 4 — GPT-5.6 Sol Ultrafast ════════════════════════════════════ -->
+<section class="story story-4" id="s4">
+  <div class="story-num">04</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / Cerebras / GPT-5.6 / OpenAI / 高速推論 / 専用チップ / トークン毎秒 / インフラ — CerebrasがOpenAIのGPT-5.6をSol Ultrafastモードで加速する仕組みを解説。321ポイント・123コメント。2026-08-13</div>
+    <h2 class="story-headline">
+      GPT-5.6 Sol Ultrafast——<br><span style="color:#40ff80">Cerebrasが語る</span><br>超高速AIの<br>仕組み
+    </h2>
+    <div class="story-body">
+      CerebrasがブログでOpenAIのGPT-5.6をCerebras独自チップ「CS-3」で動かす「Sol Ultrafast」の技術詳細を公開し、HNで321ポイント・123コメントを集めました。Cerebrasは従来のGPUクラスターとは根本的に異なるアーキテクチャのAI専用チップを開発しており、トークン生成速度（tokens/sec）でGPUベースの推論インフラを大幅に上回る結果を示しています。
+
+      GPT-5.6のSol Ultrafastモードでは2,000トークン/秒以上の生成速度を実現しており、リアルタイム音声対話やストリーミングコード生成で体験が大きく変わると主張しています。HNでは「トークン速度が2000/secに達すると、人間の読み取り速度（約300wpm≒約75トークン/sec）を遥かに超えるため体験品質は変わらない——本当にそれが必要なアプリケーションは何か」「Cerebras CSチップはオフチップメモリ帯域幅のボトルネックがないのが速度の源——アーキテクチャが根本的に違う」「GPUクラスターよりずっと消費電力効率が良いというのは本当か」という123コメントが展開されました。
+    </div>
+    <div class="green-items">
+      <div class="green-item">
+        <div class="green-label">Cerebrasチップの仕組み</div>
+        <div class="green-text">Cerebrasの「ウェハースケールエンジン（WSE）」は1枚のシリコンウェハー上に数百万のコアと超大量のオンチップSRAMを配置する設計。GPUがHBMメモリとの帯域幅ボトルネックを抱えるのに対し、Cerebrasはほぼ全ての重みパラメータをオンチップSRAMに収容可能（大型モデルは分散）——メモリ転送のオーバーヘッドが桁違いに小さい。</div>
+      </div>
+      <div class="green-item">
+        <div class="green-label">Sol Ultrafastの実際の活用場面</div>
+        <div class="green-text">音声AIエージェント（応答レイテンシ100ms以下が求められる）、高頻度自動化タスク（大量テスト生成・ドキュメント生成）、リアルタイムコード補完。「人間が読める速度を超えたら意味がない」という指摘は一部正しいが、ストリーミングではなくバッチ処理・複数並列処理では速度向上が直接コスト削減・スループット向上につながる。</div>
+      </div>
+      <div class="green-item">
+        <div class="green-label">GPU vs 専用チップの未来</div>
+        <div class="green-text">現在のAIインフラはNVIDIA GPUが支配的だが、CerebrasやGroq・Tenstorrent等の専用推論チップが特定ワークロードで優位を持つ構図が固まりつつある。訓練はGPUクラスターが引き続き主流、推論特化では専用チップがコスト・電力効率で競合する可能性。OpenAIがCerebrasと提携してGPT-5.6の推論を提供しているのは、コスト効率とユーザー体験の両立を目指した実験的取り組み。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: cerebras.ai/blog</span>
+      <span>321 ポイント</span>
+      <span>123 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.cerebras.ai/blog/accelerating-gpt-5-6-sol-ultrafast-with-openai" target="_blank">ブログを読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49289844" target="_blank">HN議論 (123)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="gpt-5-6-sol-ultrafast" data-type="like" onclick="toggleFlag('gpt-5-6-sol-ultrafast','CerebrasがGPT-5.6を超高速推論——Sol Ultrafastの仕組みを解説','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="gpt-5-6-sol-ultrafast" data-type="dislike" onclick="toggleFlag('gpt-5-6-sol-ultrafast','CerebrasがGPT-5.6を超高速推論——Sol Ultrafastの仕組みを解説','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 5 — Mistral OCR 4.1 ════════════════════════════════════════ -->
+<section class="story story-5" id="s5">
+  <div class="story-num">05</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / Mistral / OCR / ドキュメント処理 / 文字認識 / API / 実用ツール — Mistral AIがドキュメント特化OCRモデル「OCR 4.1」をリリース。209ポイント・83コメント。2026-08-13</div>
+    <h2 class="story-headline">
+      Mistral OCR 4.1——<br><span style="color:#c090ff">ドキュメント読み取りの</span><br>精度が<br>大幅に向上
+    </h2>
+    <div class="story-body">
+      Mistral AIが文書・画像のOCR（光学文字認識）に特化した新モデル「OCR 4.1」をリリースし、HNで209ポイント・83コメントを集めました。OCR 4.1は前バージョンから手書き文字認識・複雑なレイアウト（表・図・複数カラム）の処理・数式認識・非ラテン文字への対応が強化されており、PDFからの構造化データ抽出をAPIで直接行える設計になっています。
+
+      OCRのユースケースとしては請求書・領収書処理、契約書の自動解析、学術論文のデジタル化、歴史文書のアーカイブ化が主なものとして挙げられています。HNでは「MistralのOCRはDoctrとの比較でどうか——特にPDFの表解析の精度が実務では重要」「非ラテン文字（日本語・中国語・アラビア語）のサポートが実際にどの程度の品質か」「価格設定がAzure Form RecognizerやAWS Textractと比べてどうか——エンタープライズ採用の鍵」「オープンソースバージョンもいつか出るのか」という83コメントが展開されました。
+    </div>
+    <div class="purple-items">
+      <div class="purple-item">
+        <div class="purple-label">OCR 4.1の主な機能</div>
+        <div class="purple-text">対応形式：PDF・PNG・JPEG・TIFF・BMP。出力形式：Markdown・JSON（構造化）・プレーンテキスト。数式認識：LaTeX形式での出力に対応。表解析：行・列・セル構造を保持したJSON出力。多言語：100以上の言語対応（日本語含む）。手書き文字：筆記体を含む手書きの認識精度が向上。APIはREST経由でMistral APIキーで即座に利用可能。</div>
+      </div>
+      <div class="purple-item">
+        <div class="purple-label">実務での活用アイデア</div>
+        <div class="purple-text">請求書・納品書の自動データ抽出（勘定科目・金額・日付・取引先）→会計システム連携。技術仕様書・マニュアルのPDFからMarkdown変換→RAGのナレッジベース構築。古い紙文書のアーカイブ化→全文検索可能なデータベース化。名刺・ホワイトボード写真からのテキスト抽出。LLMと組み合わせてOCR→要約・分類の自動パイプラインが作れる。</div>
+      </div>
+      <div class="purple-item">
+        <div class="purple-label">競合との違い</div>
+        <div class="purple-text">Azure Form Recognizer・AWS Textract・Google Document AIは大企業向けエンタープライズ製品で料金が高め。Mistral OCR 4.1はAPIファーストで開発者が試しやすい設計。オープンソースのTesseract OSSに比べて精度は大幅に上回るが、商用利用には費用が発生。DocTR（オープンソース）は精度でMistralには劣るが完全無料・オフライン動作可能——プライバシー重視の用途で選択肢。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: docs.mistral.ai</span>
+      <span>209 ポイント</span>
+      <span>83 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://docs.mistral.ai/models/ocr-4-1" target="_blank">ドキュメントを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49288889" target="_blank">HN議論 (83)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="mistral-ocr-4-1" data-type="like" onclick="toggleFlag('mistral-ocr-4-1','Mistral OCR 4.1リリース——ドキュメント読み取り精度が大幅向上','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="mistral-ocr-4-1" data-type="dislike" onclick="toggleFlag('mistral-ocr-4-1','Mistral OCR 4.1リリース——ドキュメント読み取り精度が大幅向上','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 6 — Choose Boring Technology ═══════════════════════════════ -->
+<section class="story story-6" id="s6">
+  <div class="story-num">06</div>
+  <div class="story-inner">
+    <div class="story-kicker">エンジニアリング哲学 / アーキテクチャ / 技術選定 / クラシック論文 / ソフトウェア設計 / 名エッセイ — Dan McKinley氏の2015年名論文がHNで再浮上。189ポイント・98コメント。2026-08-13</div>
+    <h2 class="story-headline">
+      「退屈な技術を<br><span style="color:#20d8f0">選べ」——</span><br>11年後も刺さる<br>エンジニア哲学
+    </h2>
+    <div class="story-body">
+      Dan McKinley氏の2015年のエッセイ「Choose Boring Technology」が再びHNトップに浮上し、189ポイント・98コメントを集めました。McKinley氏はかつてEtsyのエンジニアとして、なぜ常に最新・最先端の技術スタックを採用することが組織的に有害なのかを論じた名エッセイです。「退屈な技術（Boring Technology）」とはPostgreSQL・Python・Nginx・Redisのような「予測可能な動作・成熟したエコシステム・豊富な事例」を持つ技術のことです。
+
+      「イノベーション・トークン」という概念が特に有名で、「チームにはアーキテクチャ上の新しい選択ができる回数に上限がある——限られたトークンをどこに使うかが競争優位を決める」という考え方です。2026年にAIが急速に普及している今、「AIをどこに採用するか」というトークンをどのプロジェクトで使うかという現代的な解釈でも読めるとして再注目されています。HNでは「このエッセイがまだ定期的にトップに上がり続けることが、メッセージが届いていないことの証拠」「AIの時代には『退屈なAI（最も信頼性の高い・予測可能なモデル）を選べ』という同じ原則が適用できる」という98コメントが展開されました。
+    </div>
+    <div class="cyan-items">
+      <div class="cyan-item">
+        <div>
+          <div class="cyan-label">イノベーション・トークンとは</div>
+          <div class="cyan-text">McKinley氏が提唱した概念：チームが保有する「新しいことを試す体力」は有限。新技術の採用には学習コスト・デバッグコスト・採用コスト・オペレーションコストが伴う。これらを「トークン」として考えると、どの問題に新技術を投資するかの選択が明確になる。全ての問題に最新技術を使おうとするチームは、最も重要な問題への投資余力がなくなる。</div>
+        </div>
+      </div>
+      <div class="cyan-item">
+        <div>
+          <div class="cyan-label">2026年のAI時代における読み方</div>
+          <div class="cyan-text">「AIをどのプロジェクトに投入するか」という選択がイノベーション・トークンの典型的な現代版。全ての機能にLLMを使おうとするのは「最新技術信仰」と同じ過ちに陥る可能性がある。「このタスクはルールベースで十分か、LLMが本当に必要か」という問いを常に持つことが、AIプロジェクトの失敗を避ける第一歩。退屈なAI（最も広く使われている・サポートが充実している・動作が予測可能なモデル）を選ぶことにも同じ原則が適用できる。</div>
+        </div>
+      </div>
+      <div class="cyan-item">
+        <div>
+          <div class="cyan-label">退屈な技術リスト（2026年版）</div>
+          <div class="cyan-text">データベース：PostgreSQL（依然として最良のデフォルト）。キャッシュ：Redis。キュー：PostgreSQLのSKIP LOCKED、または充分に使われてきたRabbitMQ/SQS。Webサーバー：nginx/caddy。言語：Python/Go/TypeScript（用途による）。LLMインフラ：最も実績のあるAnthropicまたはOpenAIのAPI——独自モデルの自前ファインチューニングはトークンを大量消費する高リスク選択。</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: mcfunley.com</span>
+      <span>189 ポイント</span>
+      <span>98 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://mcfunley.com/choose-boring-technology" target="_blank">エッセイを読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49289512" target="_blank">HN議論 (98)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="choose-boring-technology" data-type="like" onclick="toggleFlag('choose-boring-technology','「退屈な技術を選べ」——11年後も刺さるエンジニアリング哲学の名論文','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="choose-boring-technology" data-type="dislike" onclick="toggleFlag('choose-boring-technology','「退屈な技術を選べ」——11年後も刺さるエンジニアリング哲学の名論文','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 7 — AI Model Comparison ═══════════════════════════════════ -->
+<section class="story story-7" id="s7">
+  <div class="story-num">07</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / モデル比較 / ベンチマーク / Netlify / 実践実験 / 開発者向け / 選択支援 — Netlifyが同一プロンプトを11種類のAIモデルに投げて比較した実験を公開。157ポイント・68コメント。2026-08-13</div>
+    <h2 class="story-headline">
+      同じプロンプト、<br><span style="color:#ffb060">11モデルで試す——</span><br>AIモデル選択の<br>実践ガイド
+    </h2>
+    <div class="story-body">
+      Netlifyが「Choosing an AI model: one prompt, 11 models, different results」と題した比較実験の結果を公開し、HNで157ポイント・68コメントを集めました。Netlifyの開発者チームが、Webサイト構築に関連するプロンプト（コード生成・解説・最適化提案）を全く同じ内容で11種類のモデルに投げ込み、回答の品質・スタイル・精度を比較した記事です。
+
+      テスト対象モデルはClaude（Sonnet/Haiku）・GPT-4o・Gemini 3.7・Grok 4・DeepSeek V4・Mistral Large・Llama 4など主要モデルを網羅。単純にスコアを出すのではなく「どの用途でどのモデルが優位か」を具体的な回答例と合わせて示しており、実際にモデル選択に迷っている開発者に役立つ構成です。HNでは「このような実際のユースケースでの比較は公式ベンチマークより意思決定に役立つ」「プロンプトの書き方でモデルの優劣が変わることも示してほしかった」「NetlifyのCDNとAIを組み合わせた製品への布石でもあるかもしれない」という68コメントが展開されました。
+    </div>
+    <div class="amber-items">
+      <div class="amber-item">
+        <div class="amber-label">11モデルの比較ポイント</div>
+        <div class="amber-text">コード生成（HTMLとJavaScript）：Claude Sonnet・GPT-4oが最も正確でエラーが少ない傾向。コード解説の分かりやすさ：Geminiは詳しいが冗長、Haikuは簡潔すぎる場面がある。デバッグ支援：全モデルで品質にばらつきが大きい——問題の複雑さに応じて優劣が逆転。パフォーマンス最適化提案：Deep Seek V4がコスト効率で最良の選択になるケースも。日本語での回答品質：Claude・GPT-4oが優位、Grokはやや苦手。</div>
+      </div>
+      <div class="amber-item">
+        <div class="amber-label">実践的な選択フレームワーク</div>
+        <div class="amber-text">Netlifyの提案：「まず最良のモデル（Claude Sonnet/GPT-4o）で要件を固め、コスト最適化フェーズで安価なモデルに切り替えられるか評価する」。大量呼び出しが発生するバッチ処理・自動化：DeepSeekまたはGemini Flash（コスト重視）。品質が最重要なユーザー向けプロダクト：Claude Sonnet/GPT-4o（品質重視）。最初の試作・プロトタイプ：Haiku/Flash（速度と手軽さ）。</div>
+      </div>
+      <div class="amber-item">
+        <div class="amber-label">あなたにとっての示唆</div>
+        <div class="amber-text">Claude Codeをメインで使っているあなたには「選ばなかった11個のモデル」との差が可視化される比較記事。特に「DeepSeekで8割が解決できるなら、残り2割のためにAnthropicを使う」という選択的利用の検討材料になる。コードが機密ではないオープンソースプロジェクトや個人プロジェクトではコスト最適化の余地がある。Netlify記事のプロンプトを自分のユースケースに差し替えて試すのが最も実用的なアクション。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: netlify.com/blog</span>
+      <span>157 ポイント</span>
+      <span>68 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.netlify.com/blog/one-prompt-11-models-very-different-results/" target="_blank">比較記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49285327" target="_blank">HN議論 (68)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="ai-model-comparison" data-type="like" onclick="toggleFlag('ai-model-comparison','同じプロンプト、11モデルで試す——Netlifyが比較実験を公開','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="ai-model-comparison" data-type="dislike" onclick="toggleFlag('ai-model-comparison','同じプロンプト、11モデルで試す——Netlifyが比較実験を公開','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 8 — Search Engine for $10 ═════════════════════════════════ -->
+<section class="story story-8" id="s8">
+  <div class="story-num">08</div>
+  <div class="story-inner">
+    <div class="story-kicker">インディーハッカー / 検索エンジン / メイカー向け / 週末プロジェクト / コスト最適化 / 500kドメイン — 週末10ドルで50万ドメイン対象の検索エンジン「Marlin」を構築した記録。129ポイント・72コメント。2026-08-13</div>
+    <h2 class="story-headline">
+      週末10ドルで<br><span style="color:#ffe080">50万ドメインの</span><br>検索エンジンを<br>作った
+    </h2>
+    <div class="story-body">
+      個人開発者のAlex Morley Finchが週末にメイカー向け50万ドメイン検索エンジン「Marlin」を10ドルのコストで構築した詳細レポートをGitHub Pagesで公開し、HNで129ポイント・72コメントを集めました。Marlinはプロダクトハンターや起業家向けに、「特定のツール・SaaS・インディーアプリ」を探せる特化型検索エンジンです。
+
+      コスト10ドルの内訳はドメインデータのソース（有料APIの初回クレジット利用）のみで、インフラはCloudflare Workers・R2（無料枠）・静的HTML生成で構成されています。50万件のドメインリストをクロールし、メタデータを抽出してインデックス化、全文検索UIを静的ファイルとして配信する設計です。HNでは「アーキテクチャが非常によく考えられている——CloudflareのFreeプランだけでここまでできる」「インデックス品質が50万件でどれくらいスパムやゴミドメインを除外できているか」「個人開発者がこの規模のプロダクトを週末で出せる時代になった——AI支援の恩恵が明確」という72コメントが展開されました。
+    </div>
+    <div class="gold-items">
+      <div class="gold-item">
+        <div class="gold-label">技術スタック</div>
+        <div class="gold-text">インフラ：Cloudflare Workers + R2（オブジェクトストレージ）——どちらも無料枠内。インデックスデータ：静的JSONとして生成、R2に保存。フロントエンド：バニラJS + 静的HTML、GitHub Pagesで配信。クローリング：Python + BeautifulSoup、50万件のドメインメタデータ取得。検索：クライアントサイドJSによるFulltext検索（Lunr.js等）——サーバーレス。データソース：ProductHunt API・IndieHackers等のOSSリスト。</div>
+      </div>
+      <div class="gold-item">
+        <div class="gold-label">コスト10ドルを実現した方法</div>
+        <div class="gold-text">大部分のインフラをServerless/無料枠で賄うことが鍵。Cloudflare Workers Free：100万リクエスト/日まで無料。R2 Free：10GBまで無料。GitHub Pages：静的サイトは無料。クローリング費用：Cloud APIの無料クレジット初回利用で10ドル以内。商用サービスなら月数百〜数千ドルになるインフラを、Cloudflareのエコシステムと静的ファイル設計で無コストに近づけている。</div>
+      </div>
+      <div class="gold-item">
+        <div class="gold-label">応用アイデア</div>
+        <div class="gold-text">同じアーキテクチャを自分のユースケースに応用：特定業界のツールカタログ、オープンソースライブラリの検索エンジン、社内ナレッジベースの検索フロントエンド。Cloudflare Workers + R2の組み合わせはサーバーレスデータ処理のコスト効率が極めて高い——次の個人プロジェクトのインフラ選定候補。AI（LLMによるメタデータ拡充・分類）を組み合わせれば品質をさらに向上できる余地がある。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: alexmorleyfinch.github.io</span>
+      <span>129 ポイント</span>
+      <span>72 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://alexmorleyfinch.github.io/marlin/history/v1/article/the_birth.html" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49285718" target="_blank">HN議論 (72)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="search-engine-10-dollars" data-type="like" onclick="toggleFlag('search-engine-10-dollars','週末10ドルで50万ドメインの検索エンジンを構築した話','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="search-engine-10-dollars" data-type="dislike" onclick="toggleFlag('search-engine-10-dollars','週末10ドルで50万ドメインの検索エンジンを構築した話','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 9 — Understanding is the new bottleneck ═══════════════════ -->
+<section class="story story-9" id="s9">
+  <div class="story-num">09</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / 認知 / ソフトウェア開発 / 理解 / ボトルネック / 思考 / 哲学 — Geoffrey Litt氏がAI時代の開発論「理解が新たなボトルネック」を論じる。91ポイント・57コメント。2026-08-13</div>
+    <h2 class="story-headline">
+      「理解」が<br><span style="color:#e8f0ff">新たなボトルネック</span><br>になった——<br>AI時代の開発論
+    </h2>
+    <div class="story-body">
+      Geoffrey Litt氏がブログ「Understanding is the new bottleneck」でAI時代のソフトウェア開発における本質的な変化を論じ、HNで91ポイント・57コメントを集めました。Litt氏は「かつてのソフトウェア開発のボトルネックは『コードを書く速度』だったが、AIが実装速度を大幅に向上させた結果、今日のボトルネックは『何を作るべきかを正しく理解すること』になった」と主張しています。
+
+      「コードを書ける人」から「問題を正確に定義できる人・AIの出力が正しいかを判断できる人」へという能力シフトが起きており、技術的な実装スキルではなくドメイン知識・批判的思考・ユーザー理解が競争優位の源泉になりつつあるという議論です。HNでは「これはプログラミング教育の根本を変える主張——『コーディング教育』より『問題定義教育』が重要になる」「AIが書いたコードが正しいかどうかを判断するには、依然としてコードを読める必要がある——理解のハードルが消えたわけではない」「AIを使いこなす上で一番難しいのは要件定義であることは経験的に同意する」という57コメントが展開されました。
+    </div>
+    <div class="slate-items">
+      <div class="slate-item">
+        <div class="slate-label">「理解」とは何か</div>
+        <div class="slate-text">Litt氏の定義：ユーザーが本当に抱えている問題を正確に特定する力。AIに投げる前に「何を解くべきか」を定式化する力。AIの出力が正しい方向を向いているかを評価する力。システム全体がどう機能するかをメンタルモデルとして持つ力。「コードを書く」という行為が自動化されても、これらの能力は代替されない——という主張。これは従来の「シニアエンジニアとジュニアエンジニアの差」にも通じる概念。</div>
+      </div>
+      <div class="slate-item">
+        <div class="slate-label">Claude Codeを使う上での実感</div>
+        <div class="slate-text">Claude Codeを日常使用するあなたにとって、この論点は体感として共鳴するかもしれない：「Claudeに上手く指示を出せる人とそうでない人の差はコーディングスキルではなく問題定義スキルにある」。良いプロンプトを書くことと良いコードを書くことの共通点は「要件を曖昧さなく表現する力」。AIが増幅するのは実装速度だが、増幅しないのは「何を作るかの判断力」——これが2026年の競争優位の核心。</div>
+      </div>
+      <div class="slate-item">
+        <div class="slate-label">組織・チームへの含意</div>
+        <div class="slate-text">採用基準の変化：「コードを書けるか」より「問題を分解・定義できるか」「ドメイン知識があるか」。教育の変化：コーディングキャンプより「要件定義・ユーザーリサーチ・システム設計」への投資が重要になる。インターン・新卒の価値：実装コードをAIが代替しても「ドメイン知識を持つ若い人材の視点」は依然として価値がある。エンジニアの価値再定義：「コードを書く工場」から「問題を解くコンサルタント」へのシフトが加速。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: geoffreylitt.com</span>
+      <span>91 ポイント</span>
+      <span>57 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.geoffreylitt.com/2026/07/02/understanding-is-the-new-bottleneck" target="_blank">論考を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49290299" target="_blank">HN議論 (57)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="understanding-bottleneck" data-type="like" onclick="toggleFlag('understanding-bottleneck','「理解」が新たなボトルネックになった——AI時代の開発論','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="understanding-bottleneck" data-type="dislike" onclick="toggleFlag('understanding-bottleneck','「理解」が新たなボトルネックになった——AI時代の開発論','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 10 — Bullet Coding Agent ══════════════════════════════════ -->
+<section class="story story-10" id="s10">
+  <div class="story-num">10</div>
+  <div class="story-inner">
+    <div class="story-badge direct-badge">⚡ あなたに直接関係</div>
+    <div class="story-kicker">コーディングエージェント / YC S26 / 開発ツール / AI / 速度重視 / Show HN / スタートアップ — Y Combinator S26のBulletが「より速いコーディングエージェント」としてShow HNに登場。68ポイント・42コメント。2026-08-13</div>
+    <h2 class="story-headline">
+      Bullet——<br><span style="color:#f090c0">YC S26発の</span><br>コーディングエージェントが<br>速度で勝負
+    </h2>
+    <div class="story-body">
+      Y Combinator S26バッチのBulletが「Launch HN: Bullet (YC S26) – A Faster Coding Agent」としてHNに登場し、68ポイント・42コメントを集めました。BulletはClaudeやGPT-4をバックエンドに使いつつ、コーディングエージェントとしての応答速度・UX・コンテキスト管理を独自に最適化したプロダクトとして、Claude Code・Cursor・WindsurfなどAIコーディングツールの混戦市場に参入しました。
+
+      差別化ポイントとして挙げているのは「既存エージェントよりも応答サイクルが速い」「長いプロジェクトコンテキストをより効率的に管理できる」「バックグラウンド並列タスク実行」で、ユーザーがコードを書いている間に別のエージェントが関連タスクを先行処理する設計です。HNでは「Claude Codeとどう違うのか——Anthropicが直接APIを提供している以上、差別化のハードルは高い」「YCバッジがあるからといって市場での生存が保証されるわけではない——AIコーディングツールの競争は特に過酷」「スピード勝負はCerebrasのような推論インフラのコスト優位がある企業が有利——スタートアップには難しい」という42コメントが展開されました。
+    </div>
+    <div class="mag-items">
+      <div class="mag-item">
+        <div class="mag-label">AIコーディングツール市場の現状</div>
+        <div class="mag-text">2026年時点でClaude Code（Anthropic）・Cursor（最大手IDE統合）・Windsurf（旧Codeium）・GitHub Copilot（Microsoft/GitHub）・Replit AI・Devinなど多数のプレイヤーが競合。市場は急成長中だが勝者が明確ではない段階——特定ワークロード・ユーザー層で各ツールが優位を持つ。新規参入のBulletは「速度」という明確な差別化軸を持つが、大手ツールも継続的に速度を改善しているため持続的な優位性を保てるかが課題。</div>
+      </div>
+      <div class="mag-item">
+        <div class="mag-label">Bulletの技術的アプローチ</div>
+        <div class="mag-text">公開された情報ではLLMのバックエンドをClaude/GPT-4で共有しながら「エージェントループの最適化」「コンテキスト管理の効率化」「並列タスク実行」で速度を実現。具体的な技術詳細はまだ限定的——実際に試してみることが最も確実な評価方法。www.codewithbullet.comから早期アクセス申請が可能。Claude Codeをすでに使っているユーザーには「比較体験」のための試用として価値がある。</div>
+      </div>
+      <div class="mag-item">
+        <div class="mag-label">YCスタートアップ×AIコーディングの生存戦略</div>
+        <div class="mag-text">YC S26バッチには複数のAIコーディングツールが含まれているとされる——市場の過熱を示す。生存するための鍵は「Claude Code・Cursorが弱い特定のニッチ」を見つけること：特定言語特化（Rust・Goのみ）、企業のコードベースへの深い統合（社内セキュリティポリシー対応）、特定ワークフロー（CI/CD統合・レビュー自動化）など。「全部盛り汎用エージェント」での大手との正面勝負は困難。Bulletがどのニッチに最終的に集中するかに注目。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: codewithbullet.com</span>
+      <span>68 ポイント</span>
+      <span>42 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.codewithbullet.com" target="_blank">Bulletを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49283063" target="_blank">HN議論 (42)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="bullet-coding-agent" data-type="like" onclick="toggleFlag('bullet-coding-agent','Bullet——YC S26発のコーディングエージェントが速度で勝負','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="bullet-coding-agent" data-type="dislike" onclick="toggleFlag('bullet-coding-agent','Bullet——YC S26発のコーディングエージェントが速度で勝負','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-top">
+    <div class="footer-brand">Morning Edition</div>
+    <button class="export-btn" onclick="exportFeedback()">フィードバックをコピー</button>
+  </div>
+  <div class="footer-meta">
+    Hacker News フロントページから毎朝キュレーション。AI・開発ツール・プライバシー・サイエンスを優先選出。<br>
+    Issue No.105 — 2026年8月14日 金曜日
+  </div>
+  <div class="footer-note">フィードバックボタンでクリックした内容はブラウザに保存されます。</div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(function() {
+  const STORAGE_KEY = 'morning-edition-feedback-v2';
+  let feedbackData = { liked: {}, disliked: {} };
+  let fileHandle = null;
+
+  function loadFromStorage() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (raw) feedbackData = JSON.parse(raw);
+    } catch(e) {}
+  }
+
+  function saveToStorage() {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(feedbackData));
+    } catch(e) {}
+  }
+
+  async function tryGetFileHandle() {
+    if (!window.showSaveFilePicker) return null;
+    try {
+      const fh = await window.showSaveFilePicker({
+        suggestedName: 'feedback.json',
+        types: [{ description: 'JSON', accept: { 'application/json': ['.json'] } }],
+        startIn: 'documents'
+      });
+      return fh;
+    } catch(e) { return null; }
+  }
+
+  async function writeFile(handle, data) {
+    try {
+      const writable = await handle.createWritable();
+      await writable.write(JSON.stringify(data, null, 2));
+      await writable.close();
+      return true;
+    } catch(e) { return false; }
+  }
+
+  function applyActiveStates() {
+    document.querySelectorAll('.flag-btn').forEach(btn => {
+      const story = btn.dataset.story;
+      const type = btn.dataset.type;
+      btn.classList.remove('active');
+      if (type === 'like' && feedbackData.liked && feedbackData.liked[story]) btn.classList.add('active');
+      if (type === 'dislike' && feedbackData.disliked && feedbackData.disliked[story]) btn.classList.add('active');
+    });
+  }
+
+  function showToast(msg, isError) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.className = 'toast' + (isError ? ' error' : '') + ' show';
+    clearTimeout(t._timer);
+    t._timer = setTimeout(() => t.classList.remove('show'), 2800);
+  }
+
+  window.toggleFlag = async function(storyId, title, type) {
+    if (!feedbackData.liked) feedbackData.liked = {};
+    if (!feedbackData.disliked) feedbackData.disliked = {};
+
+    const today = new Date().toISOString().split('T')[0];
+    const isLike = type === 'like';
+    const bucket = isLike ? 'liked' : 'disliked';
+    const otherBucket = isLike ? 'disliked' : 'liked';
+    const isActive = !!feedbackData[bucket][storyId];
+
+    if (isActive) {
+      delete feedbackData[bucket][storyId];
+    } else {
+      feedbackData[bucket][storyId] = { title, date: today };
+      delete feedbackData[otherBucket][storyId];
+    }
+
+    feedbackData.updatedAt = new Date().toISOString();
+    saveToStorage();
+    applyActiveStates();
+
+    if (window.showSaveFilePicker) {
+      if (!fileHandle) fileHandle = await tryGetFileHandle();
+      if (fileHandle) {
+        const ok = await writeFile(fileHandle, feedbackData);
+        if (ok) { showToast(isActive ? '削除しました' : (isLike ? '⭐ 興味ありを記録しました' : '✕ 興味なしを記録しました')); return; }
+      }
+    }
+    showToast(isActive ? '削除しました（ローカル保存）' : (isLike ? '⭐ 記録しました（ローカル保存）' : '✕ 記録しました（ローカル保存）'));
+  };
+
+  window.exportFeedback = function() {
+    try {
+      navigator.clipboard.writeText(JSON.stringify(feedbackData, null, 2));
+      showToast('フィードバックをクリップボードにコピーしました');
+    } catch(e) { showToast('コピーに失敗しました', true); }
+  };
+
+  loadFromStorage();
+  applyActiveStates();
+})();
+</script>
+</body>
+</html>
