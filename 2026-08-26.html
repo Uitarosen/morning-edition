@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Morning Edition — 2026年8月26日</title>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --font: 'M PLUS Rounded 1c', 'Hiragino Sans', 'Noto Sans JP', sans-serif; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); background: #111; color: #fff; overflow-x: hidden; }
+
+    .masthead { background: #fff; color: #000; padding: 3rem 4rem 2.5rem; border-bottom: 6px solid #000; position: relative; overflow: hidden; }
+    .masthead::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: repeating-linear-gradient(90deg, #000 0, #000 12px, transparent 12px, transparent 20px); }
+    .masthead-kicker { font-size: 0.85rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: #777; margin-bottom: 0.6rem; }
+    .masthead-title { font-size: clamp(3.5rem, 9vw, 7.5rem); font-weight: 900; line-height: 0.88; letter-spacing: -0.04em; margin-bottom: 1.8rem; }
+    .masthead-meta { display: flex; gap: 3rem; align-items: baseline; flex-wrap: wrap; }
+    .masthead-date { font-size: 1.5rem; font-weight: 700; }
+    .masthead-subtitle { font-size: 1rem; font-weight: 400; color: #555; max-width: 480px; line-height: 1.5; }
+    .masthead-issue { margin-left: auto; text-align: right; }
+    .masthead-issue span { display: block; }
+    .masthead-issue .iss-label { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: #999; }
+    .masthead-issue .iss-num { font-size: 2.2rem; font-weight: 900; color: #000; }
+
+    .toc { background: #1a1a1a; padding: 1.5rem 4rem; display: flex; gap: 1.5rem; flex-wrap: wrap; border-bottom: 1px solid #333; }
+    .toc a { color: #aaa; text-decoration: none; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; transition: color 0.2s; }
+    .toc a:hover { color: #fff; }
+    .toc-num { color: #555; margin-right: 0.3em; }
+
+    .story { position: relative; overflow: hidden; }
+    .story-inner { max-width: 1200px; margin: 0 auto; padding: 5rem 4rem; position: relative; z-index: 1; }
+    .story-num { font-size: clamp(6rem, 18vw, 16rem); font-weight: 900; line-height: 0.8; letter-spacing: -0.06em; opacity: 0.08; position: absolute; top: 1rem; right: 2rem; user-select: none; }
+    .story-badge { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.35em 0.9em; border-radius: 2px; margin-bottom: 1.5rem; }
+    .direct-badge { background: #FFD700; color: #000; }
+    .story-kicker { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; opacity: 0.6; margin-bottom: 0.8rem; }
+    .story-headline { font-size: clamp(2rem, 5vw, 4rem); font-weight: 900; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+    .story-body { font-size: clamp(1rem, 1.5vw, 1.2rem); font-weight: 400; line-height: 1.8; max-width: 680px; opacity: 0.88; margin-bottom: 2rem; }
+    .story-meta { display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center; font-size: 0.8rem; font-weight: 700; opacity: 0.5; }
+    .story-links { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem; }
+    .story-link { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.6em 1.4em; border-radius: 3px; text-decoration: none; transition: opacity 0.2s, transform 0.15s; }
+    .story-link:hover { opacity: 0.75; transform: translateY(-1px); }
+
+    .feedback-buttons { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .flag-btn { background: none; border: 1px solid currentColor; color: inherit; font-family: var(--font); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.5em 1em; border-radius: 3px; cursor: pointer; opacity: 0.32; transition: opacity 0.2s, background 0.2s, color 0.2s, border-color 0.2s, transform 0.15s; }
+    .flag-btn:hover { opacity: 0.72; transform: translateY(-1px); }
+    .flag-btn.like-btn.active { opacity: 1; background: rgba(255,215,0,0.15); border-color: #FFD700; color: #FFD700 !important; }
+    .flag-btn.dislike-btn.active { opacity: 1; background: rgba(255,60,60,0.12); border-color: #FF4444; color: #FF4444 !important; }
+
+    .toast { position: fixed; bottom: 2rem; right: 2rem; background: #1a1a1a; color: #fff; font-family: var(--font); font-size: 0.82rem; font-weight: 700; padding: 0.75em 1.4em; border-radius: 4px; border-left: 3px solid #00C853; z-index: 9999; opacity: 0; transform: translateY(10px); transition: opacity 0.25s, transform 0.25s; pointer-events: none; box-shadow: 0 4px 24px rgba(0,0,0,0.45); }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    .toast.error { border-left-color: #FF5252; }
+
+    /* Story 1 — White */
+    .story-1 { background: #fff; color: #000; min-height: 90vh; display: flex; flex-direction: column; justify-content: center; }
+    .story-1 .story-num { color: #000; opacity: 0.04; }
+    .story-1 .story-kicker { color: #555; opacity: 1; }
+    .story-1 .story-headline { color: #000; }
+    .story-1 .story-body { color: #111; }
+    .story-1 .story-meta { color: #000; }
+    .story-1 .story-link.primary { background: #1a1a1a; color: #fff; }
+    .story-1 .story-link.secondary { background: #f0f0f0; color: #000; }
+    .story-1 .flag-btn { color: #000; }
+    .story-1-accent { position: absolute; bottom: 0; left: 0; width: 100%; height: 8px; background: linear-gradient(90deg, #0066cc, #00aaff, #0066cc); }
+    .story-1 .headline-accent { display: inline-block; background: linear-gradient(135deg, #0044bb 0%, #0099ff 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .orange-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1.2rem; margin: 2rem 0; max-width: 680px; }
+    .orange-card { border: 2px solid rgba(0,102,204,0.18); background: rgba(0,102,204,0.04); border-radius: 6px; padding: 1.3rem 1.5rem; }
+    .orange-card-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.2em; text-transform: uppercase; color: #0055bb; margin-bottom: 0.4rem; }
+    .orange-card-value { font-size: 1.05rem; font-weight: 900; color: #000; line-height: 1.3; }
+    .orange-card-sub { font-size: 0.75rem; color: #555; margin-top: 0.3rem; line-height: 1.4; }
+
+    /* Story 2 — Dark navy/teal */
+    .story-2 { background: #00080c; color: #b8f0ff; min-height: 80vh; }
+    .story-2::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(0,160,200,0.14) 0%, transparent 65%); }
+    .story-2 .story-num { color: #00A0C8; opacity: 0.07; }
+    .story-2 .story-kicker { color: #20C8E8; opacity: 1; }
+    .story-2 .story-headline { color: #e0f8ff; }
+    .story-2 .story-body { color: #b8f0ff; }
+    .story-2 .story-meta { color: #20C8E8; opacity: 0.5; }
+    .story-2 .story-link.primary { background: #004058; color: #80e8ff; }
+    .story-2 .story-link.secondary { background: rgba(0,160,200,0.08); color: #90d8f0; border: 1px solid rgba(0,160,200,0.22); }
+    .story-2 .flag-btn { color: #b8f0ff; }
+    .teal-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .teal-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(0,160,200,0.07); border-left: 3px solid #00A0C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .teal-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20C8E8; margin-bottom: 0.3rem; }
+    .teal-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 3 — Dark red */
+    .story-3 { background: #0a0000; color: #fff; min-height: 80vh; }
+    .story-3::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(200,20,20,0.16) 0%, transparent 65%); }
+    .story-3 .story-num { color: #C81414; opacity: 0.07; }
+    .story-3 .story-kicker { color: #E84040; opacity: 1; }
+    .story-3 .story-headline { color: #fff; }
+    .story-3 .story-body { color: rgba(255,255,255,0.88); }
+    .story-3 .story-meta { color: #E84040; opacity: 0.5; }
+    .story-3 .story-link.primary { background: #6a0000; color: #fff; }
+    .story-3 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-3 .flag-btn { color: #fff; }
+    .red-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .red-item { background: rgba(200,20,20,0.07); border-left: 3px solid #C81414; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .red-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E84040; margin-bottom: 0.3rem; }
+    .red-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 4 — Dark green */
+    .story-4 { background: #020c04; color: #c8f0d0; min-height: 80vh; }
+    .story-4::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(20,160,70,0.16) 0%, transparent 65%); }
+    .story-4 .story-num { color: #14A046; opacity: 0.07; }
+    .story-4 .story-kicker { color: #30C060; opacity: 1; }
+    .story-4 .story-headline { color: #e0ffe8; }
+    .story-4 .story-body { color: #c8f0d0; }
+    .story-4 .story-meta { color: #30C060; opacity: 0.5; }
+    .story-4 .story-link.primary { background: #063820; color: #80ffb0; }
+    .story-4 .story-link.secondary { background: rgba(20,160,70,0.08); color: #a0e8b0; border: 1px solid rgba(20,160,70,0.22); }
+    .story-4 .flag-btn { color: #c8f0d0; }
+    .green-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .green-item { background: rgba(20,160,70,0.07); border-left: 3px solid #14A046; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .green-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #30C060; margin-bottom: 0.3rem; }
+    .green-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 5 — Dark purple */
+    .story-5 { background: #040010; color: #d8c8ff; min-height: 75vh; }
+    .story-5::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(90,40,200,0.17) 0%, transparent 65%); }
+    .story-5 .story-num { color: #5A28C8; opacity: 0.07; }
+    .story-5 .story-kicker { color: #8050E0; opacity: 1; }
+    .story-5 .story-headline { color: #f0e8ff; }
+    .story-5 .story-body { color: #d8c8ff; }
+    .story-5 .story-meta { color: #8050E0; opacity: 0.5; }
+    .story-5 .story-link.primary { background: #200860; color: #d0a8ff; }
+    .story-5 .story-link.secondary { background: rgba(90,40,200,0.08); color: #c0a0f0; border: 1px solid rgba(90,40,200,0.22); }
+    .story-5 .flag-btn { color: #d8c8ff; }
+    .purple-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .purple-item { background: rgba(90,40,200,0.07); border-left: 3px solid #5A28C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .purple-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #8050E0; margin-bottom: 0.3rem; }
+    .purple-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 6 — Dark cyan */
+    .story-6 { background: #000c10; color: #b8e8f0; min-height: 75vh; }
+    .story-6::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 40%, rgba(0,130,160,0.14) 0%, transparent 65%); }
+    .story-6 .story-num { color: #0080A0; opacity: 0.07; }
+    .story-6 .story-kicker { color: #20B0D0; opacity: 1; }
+    .story-6 .story-headline { color: #e0f4ff; }
+    .story-6 .story-body { color: #b8e8f0; }
+    .story-6 .story-meta { color: #20B0D0; opacity: 0.5; }
+    .story-6 .story-link.primary { background: #003848; color: #80d8f0; }
+    .story-6 .story-link.secondary { background: rgba(0,130,160,0.08); color: #90cce0; border: 1px solid rgba(0,130,160,0.22); }
+    .story-6 .flag-btn { color: #b8e8f0; }
+    .cyan-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .cyan-item { background: rgba(0,130,160,0.07); border-left: 3px solid #0080A0; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .cyan-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20B0D0; margin-bottom: 0.3rem; }
+    .cyan-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 7 — Dark amber */
+    .story-7 { background: #0a0300; color: #ffe0b8; min-height: 75vh; }
+    .story-7::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(210,90,20,0.18) 0%, transparent 65%); }
+    .story-7 .story-num { color: #D05A14; opacity: 0.07; }
+    .story-7 .story-kicker { color: #E88040; opacity: 1; }
+    .story-7 .story-headline { color: #fff0d8; }
+    .story-7 .story-body { color: #ffe0b8; }
+    .story-7 .story-meta { color: #E88040; opacity: 0.5; }
+    .story-7 .story-link.primary { background: #6a2400; color: #ffc880; }
+    .story-7 .story-link.secondary { background: rgba(210,90,20,0.08); color: #ffb870; border: 1px solid rgba(210,90,20,0.22); }
+    .story-7 .flag-btn { color: #ffe0b8; }
+    .amber-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .amber-item { background: rgba(210,90,20,0.07); border-left: 3px solid #D05A14; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .amber-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E88040; margin-bottom: 0.3rem; }
+    .amber-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 8 — Dark gold */
+    .story-8 { background: #080500; color: #fff; min-height: 70vh; }
+    .story-8::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,145,10,0.15) 0%, transparent 65%); }
+    .story-8 .story-num { color: #BE9110; opacity: 0.06; }
+    .story-8 .story-kicker { color: #D4A820; opacity: 1; }
+    .story-8 .story-headline { color: #fff; }
+    .story-8 .story-body { color: rgba(255,255,255,0.88); }
+    .story-8 .story-meta { color: #D4A820; opacity: 0.5; }
+    .story-8 .story-link.primary { background: #604000; color: #ffe070; }
+    .story-8 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-8 .flag-btn { color: #fff; }
+    .gold-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .gold-item { background: rgba(190,145,10,0.07); border-left: 3px solid #BE9110; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .gold-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #D4A820; margin-bottom: 0.3rem; }
+    .gold-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 9 — Slate blue */
+    .story-9 { background: #040810; color: #c8d8f0; min-height: 70vh; }
+    .story-9::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 35%, rgba(50,90,170,0.16) 0%, transparent 65%); }
+    .story-9 .story-num { color: #3258A8; opacity: 0.07; }
+    .story-9 .story-kicker { color: #5878C8; opacity: 1; }
+    .story-9 .story-headline { color: #e8f0ff; }
+    .story-9 .story-body { color: #c8d8f0; }
+    .story-9 .story-meta { color: #5878C8; opacity: 0.5; }
+    .story-9 .story-link.primary { background: #101e50; color: #fff; }
+    .story-9 .story-link.secondary { background: rgba(50,90,170,0.08); color: #b0c8e8; border: 1px solid rgba(50,90,170,0.22); }
+    .story-9 .flag-btn { color: #c8d8f0; }
+    .slate-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .slate-item { background: rgba(50,90,170,0.07); border-left: 3px solid #3258A8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .slate-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #5878C8; margin-bottom: 0.3rem; }
+    .slate-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 10 — Magenta */
+    .story-10 { background: #080004; color: #ffc8e8; min-height: 70vh; }
+    .story-10::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,20,90,0.15) 0%, transparent 65%); }
+    .story-10 .story-num { color: #BE1458; opacity: 0.07; }
+    .story-10 .story-kicker { color: #E04080; opacity: 1; }
+    .story-10 .story-headline { color: #fff0f8; }
+    .story-10 .story-body { color: #ffc8e8; }
+    .story-10 .story-meta { color: #E04080; opacity: 0.5; }
+    .story-10 .story-link.primary { background: #500030; color: #ffb0d8; }
+    .story-10 .story-link.secondary { background: rgba(190,20,90,0.08); color: #f090c0; border: 1px solid rgba(190,20,90,0.22); }
+    .story-10 .flag-btn { color: #ffc8e8; }
+    .mag-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .mag-item { background: rgba(190,20,90,0.07); border-left: 3px solid #BE1458; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .mag-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E04080; margin-bottom: 0.3rem; }
+    .mag-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .site-footer { background: #000; color: #555; padding: 3rem 4rem; display: flex; flex-direction: column; gap: 1.5rem; border-top: 1px solid #222; }
+    .footer-top { display: flex; gap: 2rem; align-items: center; flex-wrap: wrap; justify-content: space-between; }
+    .footer-brand { font-size: 1.4rem; font-weight: 900; color: #fff; }
+    .footer-meta { font-size: 0.75rem; line-height: 1.6; }
+    .export-btn { background: #222; border: 1px solid #444; color: #fff; font-family: var(--font); font-size: 0.8rem; font-weight: 700; padding: 0.7em 1.5em; border-radius: 3px; cursor: pointer; letter-spacing: 0.08em; transition: background 0.2s; }
+    .export-btn:hover { background: #333; }
+    .footer-note { font-size: 0.7rem; opacity: 0.5; }
+
+    @media (max-width: 768px) {
+      .masthead, .toc, .story-inner, .site-footer { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .story-num { display: none; }
+      .masthead-meta { gap: 1rem; }
+      .masthead-issue { margin-left: 0; }
+      .orange-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+<nav style="background:#1a1a1a;border-bottom:1px solid #333;padding:0.55rem 2rem;font-family:'M PLUS Rounded 1c','Hiragino Sans','Noto Sans JP',sans-serif;position:sticky;top:0;z-index:999;">
+  <a href="./index.html" style="color:#aaa;text-decoration:none;font-size:0.8rem;font-weight:700;letter-spacing:0.03em;display:inline-flex;align-items:center;gap:0.4rem;transition:color 0.15s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#aaa'">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    アーカイブへ戻る
+  </a>
+</nav>
+
+<header class="masthead">
+  <div class="masthead-kicker">Hacker News — Morning Edition</div>
+  <h1 class="masthead-title">Morning<br>Edition</h1>
+  <div class="masthead-meta">
+    <div>
+      <div class="masthead-date">2026年8月26日 水曜日</div>
+      <div class="masthead-subtitle">AI・開発ツール・プライバシー・サイエンス — あなたのための10本</div>
+    </div>
+    <div class="masthead-issue">
+      <span class="iss-label">Issue</span>
+      <span class="iss-num">No.109</span>
+    </div>
+  </div>
+</header>
+
+<nav class="toc">
+  <a href="#s1"><span class="toc-num">01</span>AppleがM6とM5 Ultraを発表——AI計算能力が大幅飛躍</a>
+  <a href="#s2"><span class="toc-num">02</span>Nitterが利用停止命令を受ける——プライバシー友好型Twitterフロントエンドの終焉か</a>
+  <a href="#s3"><span class="toc-num">03</span>OpenAI独自チップ「Jalapeño」がNvidia Blackwellを超えたとの報告</a>
+  <a href="#s4"><span class="toc-num">04</span>Firefox 157がJPEG XLをデフォルト有効に——全プラットフォーム対応</a>
+  <a href="#s5"><span class="toc-num">05</span>裏庭にオフィスを建てた——費用と工程の完全記録</a>
+  <a href="#s6"><span class="toc-num">06</span>FDAが初の着用型ケトン＋血糖同時モニタリング機器を承認</a>
+  <a href="#s7"><span class="toc-num">07</span>ブラックホールの特異点は「点」ではなく「面」だった——arXiv新論文</a>
+  <a href="#s8"><span class="toc-num">08</span>Show HN: LatticeDB——SQLiteのようにグラフDBを組み込み可能に</a>
+  <a href="#s9"><span class="toc-num">09</span>C2PA対応カメラは現実の前で機能しない——Androidの実装検証</a>
+  <a href="#s10"><span class="toc-num">10</span>Pythonの`str.lower()`はセキュリティ脆弱性になる——Seth Larsonの解説</a>
+</nav>
+
+<!-- ═══ STORY 1 — Apple M6 and M5 Ultra ══════════════════════════════════════════ -->
+<section class="story story-1" id="s1">
+  <div class="story-num">01</div>
+  <div class="story-inner">
+    <div class="story-kicker">Apple / M6 / M5 Ultra / Mac / AI / チップ / ハードウェア / Mac Studio / Mac mini — AppleがM6とM5 Ultraを発表。Mac Studio・Mac miniも同時更新。871ポイント・799コメント。2026-08-26</div>
+    <h2 class="story-headline">
+      AppleがM6と<br>M5 Ultraを発表——<br><span class="headline-accent">AI計算能力が大幅飛躍</span>
+    </h2>
+    <div class="story-body">
+      Appleが昨日（8月25日）、次世代チップ「M6」と「M5 Ultra」を発表しました。M6は標準的なMacラインナップ向けの新世代チップで、AIコンピュート能力の「大幅な飛躍」を謳っています。M5 Ultraは最上位のプロフェッショナル向けチップで、Mac Studioに搭載されます。合わせて新型Mac Studio（M5 Max/M5 Ultra搭載）と新型Mac mini（M6/M5 Pro搭載）も発表されました。HNでは871ポイント・799コメントという本日最大の反響を呼んでいます。
+
+      M6の登場は、Appleシリコンの進化が着実に続いていることを示しています。特にAI推論性能の向上は、Apple Intelligenceの機能拡充と直結しており、ローカルで動かすモデルの規模や応答速度に直接影響します。Mac miniのM6搭載はコストパフォーマンス面でも注目で、開発者・クリエイターにとって新たな選択肢となります。
+    </div>
+    <div class="orange-grid">
+      <div class="orange-card">
+        <div class="orange-card-label">M6の特徴</div>
+        <div class="orange-card-value">AI計算能力の「大幅な飛躍」</div>
+        <div class="orange-card-sub">M6はAppleシリコンの新世代。Apple Intelligenceの機能を支えるNeural Engineが強化され、ローカルでのLLM推論がより高速・大規模に。Mac mini（M6）は開発者向けの手頃なエントリーポイントとして注目される。M5 Proも引き続きMac miniの上位構成に採用。</div>
+      </div>
+      <div class="orange-card">
+        <div class="orange-card-label">M5 Ultra / Mac Studio</div>
+        <div class="orange-card-value">プロフェッショナル向け最高峰チップ</div>
+        <div class="orange-card-sub">M5 UltraはM5 Maxを2つ接続したUltra Fusionアーキテクチャ。新型Mac StudioはM5 MaxとM5 Ultraの2構成。ビデオ制作・音楽制作・ML研究向けの圧倒的なメモリ帯域幅と処理能力。HNでは「Mac ProなしでMac Studioがプロの最高峰になった時代」と指摘する声も。</div>
+      </div>
+      <div class="orange-card">
+        <div class="orange-card-label">HNコミュニティの反応</div>
+        <div class="orange-card-value">「M6のローカルAI性能が鍵」と開発者層が注目</div>
+        <div class="orange-card-sub">最も多かった議論：M6搭載Mac miniが「ローカルLLMを動かす最安のAppleシリコン環境」として開発者に魅力的かどうか。llama.cppやOllamaで大きなモデルを動かすには統合メモリが重要——M6のメモリ構成の詳細待ちという意見も多数。「Nvidiaへの依存からの脱却」として捉える声もあった。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: apple.com/newsroom</span>
+      <span>871 ポイント</span>
+      <span>799 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.apple.com/newsroom/2026/08/apple-introduces-m6-and-m5-ultra-for-a-big-leap-in-performance-and-ai-compute/" target="_blank">M6発表を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49433292" target="_blank">HN議論 (799)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="apple-m6-m5-ultra" data-type="like" onclick="toggleFlag('apple-m6-m5-ultra','AppleがM6とM5 Ultraを発表——AI計算能力が大幅飛躍','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="apple-m6-m5-ultra" data-type="dislike" onclick="toggleFlag('apple-m6-m5-ultra','AppleがM6とM5 Ultraを発表——AI計算能力が大幅飛躍','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+    <div class="story-1-accent"></div>
+  </div>
+</section>
+
+<!-- ═══ STORY 2 — Nitter C&D ═══════════════════════════════════════════════════ -->
+<section class="story story-2" id="s2">
+  <div class="story-num">02</div>
+  <div class="story-inner">
+    <div class="story-kicker">プライバシー / Nitter / Twitter / X / C&D / オープンWeb / フロントエンド / 検閲 — NitterがX/Twitterから利用停止命令（C&D）を受けたと報告。450ポイント・304コメント。2026-08-26</div>
+    <h2 class="story-headline">
+      Nitterが<br><span style="color:#20d8f0">利用停止命令を受ける——</span><br>プライバシー友好型<br>Twitterフロントエンドの危機
+    </h2>
+    <div class="story-body">
+      プライバシー重視のTwitter/Xフロントエンド「Nitter」のGitHubリポジトリにCease &amp; Desist（C&D、利用停止命令）を受けたという報告が掲載され、450ポイント・304コメントを集めました。NitterはJavaScriptなし・アカウントなしでTwitterのコンテンツを閲覧できる代替フロントエンドとして、プライバシーを重視するユーザーに広く利用されてきました。
+
+      Nitterは以前にもX社のAPIアクセス制限強化によって機能が大幅に低下していましたが、今回のC&Dは法的措置としてより深刻です。HNでは「Invidious（YouTube代替フロントエンド）やRedirectsなど同様のプロジェクトへの影響はどうなるか」という懸念が広がり、オープンWebとプラットフォームの法的コントロールをめぐる議論が展開されました。
+    </div>
+    <div class="teal-items">
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">Nitterとは何だったか</div>
+          <div class="teal-text">Nitterは2019年にzedeus氏が開発したオープンソースのTwitterフロントエンド。特徴：アカウント不要でツイートを閲覧可能・JavaScript完全不要・広告なし・トラッキングなし・Twitterのスクレイピング経由でコンテンツ取得。RSSフィードの生成機能も人気で、ニュース集約や情報収集ツールとして活用されていた。2023年のX API有料化・Guest Token廃止以降、多くのパブリックインスタンスが機能停止したが、プライベートインスタンス運営者を中心に細々と継続されていた。</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">C&Dの内容と法的根拠</div>
+          <div class="teal-text">X社のC&Dが主張する内容（HN報告に基づく）：①Xの利用規約違反（スクレイピング禁止条項）②著作権侵害（コンテンツの無断再配布）③商標侵害（Twitterロゴ等の使用）。同様の先例：YouTube（Invidious・Piped）・Instagram（Bibliogram）・Reddit（リダイレクト型フロントエンド）も同様のプレッシャーを受けてきた。法的観点：HNのコメントでは「スクレイピング自体がどこまで法的に保護されるか」についてhiQ v. LinkedInの判決（スクレイピングは必ずしも違法でない）が引用されたが、利用規約違反の問題は別途存在するとの指摘も多い。</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">代替手段と今後のオープンWeb</div>
+          <div class="teal-text">Nitterが消えた場合の代替：①Mastodon・Bluesky・Nostr等の分散型SNS移行（根本的解決策）②browser extensionによるX.com上でのUI改善（Tweetdeckカスタマイザー等）③Twitterへの直接アクセス（プライバシーリスクを受け入れる）。HNで指摘された重要なポイント：「プラットフォームに依存したフロントエンドは常に法的リスクを抱える——本当のオープンWebを取り戻すには分散型プロトコルに移行するしかない」。Bluesky（AT Protocol）はAPIが完全に公開されており、Nitterに相当するフロントエンドを誰でも作れる設計になっていることも言及された。</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: github.com/zedeus/nitter</span>
+      <span>450 ポイント</span>
+      <span>304 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://github.com/zedeus/nitter/issues/1442" target="_blank">GitHubイシューを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49437283" target="_blank">HN議論 (304)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="nitter-cease-desist" data-type="like" onclick="toggleFlag('nitter-cease-desist','Nitterが利用停止命令を受ける——プライバシー友好型Twitterフロントエンドの危機','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="nitter-cease-desist" data-type="dislike" onclick="toggleFlag('nitter-cease-desist','Nitterが利用停止命令を受ける——プライバシー友好型Twitterフロントエンドの危機','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 3 — OpenAI Jalapeño chip ════════════════════════════════════════════ -->
+<section class="story story-3" id="s3">
+  <div class="story-num">03</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / OpenAI / Jalapeño / Nvidia / Blackwell / カスタムチップ / 半導体 / SemiAnalysis — OpenAI独自チップ「Jalapeño」がNvidia Blackwellを超えるパフォーマンスと報告。237ポイント・160コメント。2026-08-26</div>
+    <h2 class="story-headline">
+      OpenAI独自チップ<br><span style="color:#ff6060">「Jalapeño」が</span><br>Nvidia Blackwellを<br>超えたとの報告
+    </h2>
+    <div class="story-body">
+      半導体・AI業界の深層分析で知られるSemiAnalysisニュースレターが「OpenAI Jalapeño: Better than Nvidia Blackwell」と題した記事を公開し、237ポイント・160コメントを集めました。OpenAIが独自開発を進めているAI推論チップ「Jalapeño」が、Nvidiaの最新世代チップ「Blackwell」と比較してコスト効率・推論性能で優位に立つ可能性があるという内容です。
+
+      OpenAIは長らくMicrosoftのAzureインフラとNvidia GPUに依存してきましたが、独自チップ開発によってコスト構造と供給チェーンの自律性を高める戦略を進めています。SemiAnalysisはAI業界の技術的詳細に強い信頼性を持つ媒体であり、HNでは「もしこれが本当なら半導体業界の勢力図が変わる」という期待と懐疑論が交錯しました。
+    </div>
+    <div class="red-items">
+      <div class="red-item">
+        <div class="red-label">Jalapeñoとは何か</div>
+        <div class="red-text">OpenAIの独自ASIC（特定用途向けIC）プロジェクト。AI推論に特化した設計で、汎用GPU（Nvidia）よりも推論ワークロードに最適化されているとされる。開発パートナー：TSMC（製造）・BroadcomまたはMarvell（パッケージング）が関与していると報告。想定用途：ChatGPT・OpenAI APIの推論処理をNvidiaへの依存なしで実行。先行例：Google（TPU）・Amazon（Trainium/Inferentia）・Meta（MTIA）がすでに独自チップで推論コストを削減しており、OpenAIはその追随を図る。</div>
+      </div>
+      <div class="red-item">
+        <div class="red-label">「Blackwellを超えた」の意味</div>
+        <div class="red-text">SemiAnalysisの主張の核心：特定の推論ワークロードでJalapeñoが「コスト当たりのトークン生成数」でBlackwellを上回るという評価。重要な文脈：①これはすべてのワークロードで優れるわけではなく、OpenAIのChatGPT推論という特定のユースケースに最適化されている。②Blackwellは学習にも使えるが、JalapeñoはInference-only設計。③量産化・安定供給・ソフトウェアエコシステムの成熟にはNvidiaが依然として圧倒的優位。HNコメントでは「TOPS（テラOPS）比較だけでは不十分——メモリ帯域幅・効率・プログラマビリティが重要」という技術的議論も展開された。</div>
+      </div>
+      <div class="red-item">
+        <div class="red-label">AI業界のチップ自給戦略の意味</div>
+        <div class="red-text">Nvidiaへの依存度低下がAI業界に与える影響：①AIモデル提供のコストが下がり、OpenAI APIの値下げ余地が生まれる。②Nvidiaの市場独占が崩れ始める可能性——すでにAMD・Intel・Google・AmazonがNvidiaに対抗するチップを展開。Claude（Anthropic）への影響：AnthropicはAWS（Trainium/Inferentia）との深い提携を発表しており、同様の独自チップ戦略の恩恵を受ける方向にある。HNの結論：「AI推論チップ戦争は2026-2027年に本格化する——Nvidiaの独占時代の終わりの始まり」という見方が多数。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: newsletter.semianalysis.com</span>
+      <span>237 ポイント</span>
+      <span>160 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://newsletter.semianalysis.com/p/openai-jalapeno-better-than-nvidia" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49434378" target="_blank">HN議論 (160)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="openai-jalapeno-chip" data-type="like" onclick="toggleFlag('openai-jalapeno-chip','OpenAI独自チップ「Jalapeño」がNvidia Blackwellを超えたとの報告','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="openai-jalapeno-chip" data-type="dislike" onclick="toggleFlag('openai-jalapeno-chip','OpenAI独自チップ「Jalapeño」がNvidia Blackwellを超えたとの報告','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 4 — Firefox 157 JPEG XL ═══════════════════════════════════════════ -->
+<section class="story story-4" id="s4">
+  <div class="story-num">04</div>
+  <div class="story-inner">
+    <div class="story-kicker">Firefox / JPEG XL / 画像フォーマット / Web標準 / Mozilla / 圧縮 / 開発 / ブラウザ — Firefox 157が全プラットフォームでJPEG XLをデフォルト有効化へ。214ポイント・45コメント。2026-08-26</div>
+    <h2 class="story-headline">
+      Firefox 157が<br><span style="color:#40ff80">JPEG XLを</span><br>デフォルト有効に——<br>全プラットフォーム対応
+    </h2>
+    <div class="story-body">
+      Mozillaの開発者メーリングリストで、Firefox 157（次期バージョン）においてJPEG XL（.jxl）を全プラットフォームでデフォルト有効にする計画が告知され、214ポイント・45コメントを集めました。これまでFirefoxはJPEG XLを実験的フラグ（about:config）経由でのみサポートしていましたが、正式にデフォルト有効になることでWebでの実用的な普及が一段と進む見込みです。
+
+      JPEG XLはJPEG 2000の後継として設計された次世代画像フォーマットで、従来のJPEGと比較して約20-50%のファイルサイズ削減を実現しつつ、ロスレス圧縮・高ダイナミックレンジ・アニメーション対応など豊富な機能を持ちます。ChromeがJPEG XLサポートを一度削除した後に再追加し、SafariもiOS 17から対応済みです。Firefox 157の対応で、主要ブラウザ全体でデフォルトサポートが揃う形となります。
+    </div>
+    <div class="green-items">
+      <div class="green-item">
+        <div class="green-label">JPEG XLとは何か——技術的概要</div>
+        <div class="green-text">JPEG XLはISO/IEC 18181として標準化された次世代画像コーデック。主な特徴：①JPEGの1/2のファイルサイズで同等品質（ロッシー圧縮）②完全ロスレス圧縮も対応③既存JPEGファイルをロスレスで再エンコード可能（ファイルサイズ約20%削減）④最大32ビット/チャンネルのHDR対応⑤アニメーション対応（APNGやGIFの代替）⑥プログレッシブデコードでTTFB（最初のバイトまでの時間）短縮。Webサイトのパフォーマンス改善に直接貢献するフォーマットで、画像重視のサイト（Eコマース・写真ギャラリー・ニュースメディア）の恩恵が大きい。</div>
+      </div>
+      <div class="green-item">
+        <div class="green-label">なぜFirefoxの対応が重要か</div>
+        <div class="green-text">ブラウザ対応状況：Chrome（デスクトップ・Android）✓ / Safari（iOS 17+・macOS Sonoma+）✓ / Firefox 157（今回の発表）✓ → 主要ブラウザ全体でデフォルトサポートが揃う。Webデベロッパーへの意味：「全ブラウザ対応」になることで初めてWebサイトにJPEG XLを安心してデプロイできる。フォールバック不要のWorld Wide実用展開が可能に。CDN・サーバー側：Cloudflare Images・imgix等はすでにJPEG XLを提供しており、Accept-Headerを見てブラウザに応じて最適フォーマットを配信する構成が一般化しつつある。</div>
+      </div>
+      <div class="green-item">
+        <div class="green-label">開発者が今すぐできること</div>
+        <div class="green-text">Webサイトへの実装ステップ：①`&lt;picture&gt;` + `&lt;source type="image/jxl"&gt;` でJXL/WebP/JPEGのフォールバックチェーン。②サーバー・CDNでAccept: image/jxlヘッダーを検出してJXLを配信。変換ツール：cjxlコマンド（libjxl）・Squoosh（ブラウザUI）・ImageMagick（6.9.12以降）・ffmpeg（--enable-libjxl）。HNコメント：「WebPはGoogleが推進したせいで普及に時間がかかったが、JPEG XLはISO標準で中立なため標準化が進みやすい」。注意点：Edge（Chromium版）も同様にChrome系として対応済みのため、実質的に全主要ブラウザ統一が近い。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: groups.google.com/mozilla/dev-platform</span>
+      <span>214 ポイント</span>
+      <span>45 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://groups.google.com/a/mozilla.org/g/dev-platform/c/3YMV4MS34KA?pli=1" target="_blank">アナウンスを読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49437946" target="_blank">HN議論 (45)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="firefox-jpeg-xl-default" data-type="like" onclick="toggleFlag('firefox-jpeg-xl-default','Firefox 157がJPEG XLをデフォルト有効に——全プラットフォーム対応','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="firefox-jpeg-xl-default" data-type="dislike" onclick="toggleFlag('firefox-jpeg-xl-default','Firefox 157がJPEG XLをデフォルト有効に——全プラットフォーム対応','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 5 — Backyard office build ═══════════════════════════════════════════ -->
+<section class="story story-5" id="s5">
+  <div class="story-num">05</div>
+  <div class="story-inner">
+    <div class="story-kicker">DIY / 在宅ワーク / バックヤードオフィス / 建築 / コスト / リモートワーク / imkylelambert / actionable — 裏庭にオフィスを建てた体験記と費用明細。224ポイント・168コメント。2026-08-26</div>
+    <h2 class="story-headline">
+      裏庭に<br><span style="color:#c090ff">オフィスを建てた——</span><br>費用と工程の<br>完全記録
+    </h2>
+    <div class="story-body">
+      デジタルアーティスト・Kyle Lambertがimkylelambert.comに投稿した「Building a backyard office: the build and cost breakdown」が224ポイント・168コメントを集めました。自宅の裏庭に独立したホームオフィス小屋を建設した際の全プロセスと費用内訳を詳細に公開した記事で、在宅ワーカーやリモートワーカーに大きな反響を呼んでいます。
+
+      ホームオフィスを自宅内から独立させることで「仕事と生活の分離」を物理的に実現するアプローチは、コロナ禍以降に急増したトレンドです。Kyle氏は設計・建設会社の選定・内装・電気工事・断熱材など各工程の判断基準と実際のコストを透明に公開しており、同様のプロジェクトを検討しているHNコミュニティのメンバーから多くの実践的な質問が寄せられました。
+    </div>
+    <div class="purple-items">
+      <div class="purple-item">
+        <div class="purple-label">プロジェクトの概要とコスト</div>
+        <div class="purple-text">建設物の規模：約10-15平米程度の独立した小屋（Accessory Dwelling Unit / ADU の小型版）。コストの主要項目：基礎工事・構造材・断熱・窓・電気配線・内装仕上げ・エアコン・データ回線引き込みなど。HNでコメント参加者が共有した同様の事例：「米国では許可申請（Building Permit）のコストと期間が地域差が大きく、これがDIYオフィス最大の変数になる」「TOLKOのような既製プレハブか、カスタム工務店かの選択がコストを大きく左右する」。注意点：固定資産税の評価額が上がる場合がある——自治体に確認が必要。</div>
+      </div>
+      <div class="purple-item">
+        <div class="purple-label">設計上の重要な判断ポイント</div>
+        <div class="purple-text">電気：高出力ワークステーション・モニター複数台・エアコンを考慮すると専用の200V回線が必要になることが多い。断熱：裏庭小屋は温度変化が激しくなりがちで、壁・天井・床すべての断熱が重要——特に夏の日本では屋根断熱が鍵。データ配線：光ファイバーを庭まで引き込む場合、地中埋設（防護管使用）が信頼性が高い。Wi-Fiで済ます場合はアクセスポイントの屋外設置を検討。防音：記事内でKyle氏は防音対策についても触れており、特にビデオ会議の音質に影響する外部騒音の遮断が重要な設計要素になった。</div>
+      </div>
+      <div class="purple-item">
+        <div class="purple-label">HNの反応——日本のコンテキストでの考察</div>
+        <div class="purple-text">HNコメントで議論されたトピック：①裏庭オフィスのROI——賃貸オフィスコストとの比較でほとんどの場合2-4年で元が取れるという計算例が複数投稿。②DIY vs 工務店——「DIYなら費用は半分以下になるが、建築基準法・許可申請・電気工事士資格の問題がある」。③日本での実現可能性：日本の都市部では敷地の制約上難しいケースが多いが、郊外・地方では実現しやすい。「離れ」という日本の伝統的な建築形式との類似性を指摘する国際ユーザーも。心理的効果：「家から物理的に出る」ことの精神的メリット——通勤の代替として10-30mの「出勤」が思った以上に切り替えに効く。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: imkylelambert.com</span>
+      <span>224 ポイント</span>
+      <span>168 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.imkylelambert.com/articles/building-a-backyard-office-the-build-and-cost-breakdown" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49434645" target="_blank">HN議論 (168)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="backyard-office-build" data-type="like" onclick="toggleFlag('backyard-office-build','裏庭にオフィスを建てた——費用と工程の完全記録','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="backyard-office-build" data-type="dislike" onclick="toggleFlag('backyard-office-build','裏庭にオフィスを建てた——費用と工程の完全記録','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 6 — FDA wearable ketone glucose ════════════════════════════════════ -->
+<section class="story story-6" id="s6">
+  <div class="story-num">06</div>
+  <div class="story-inner">
+    <div class="story-kicker">健康 / FDA / ウェアラブル / ケトン / 血糖 / 代謝 / 医療機器 / 承認 — FDAが初の着用型ケトン＋血糖同時モニタリング機器を承認。163ポイント・108コメント。2026-08-26</div>
+    <h2 class="story-headline">
+      FDAが初の<br><span style="color:#20d0d0">着用型ケトン＋</span><br>血糖同時モニタリング<br>機器を承認
+    </h2>
+    <div class="story-body">
+      米食品医薬品局（FDA）が、皮膚に貼り付けるだけでケトン体レベルと血糖値を同時・継続的にモニタリングできる世界初のウェアラブル医療機器を承認したと発表し、163ポイント・108コメントを集めました。従来の持続血糖モニター（CGM）は血糖値のみを測定するものでしたが、この機器はケトン代謝の状態も同時に把握できる点が画期的です。
+
+      ケトン体の持続モニタリングは、1型糖尿病患者の糖尿病性ケトアシドーシス（DKA）の早期発見に重要なだけでなく、低糖質ダイエット・断食・パフォーマンス最適化を目的とする健康意識の高い一般人にも需要があります。HNでは医療的必要性と一般消費者向けヘルステック双方の観点から活発な議論が展開されました。
+    </div>
+    <div class="cyan-items">
+      <div class="cyan-item">
+        <div>
+          <div class="cyan-label">技術的な仕組み——2種類の指標を同時測定</div>
+          <div class="cyan-text">従来のCGM（持続血糖モニター：FreeStyleLibre・Dexcom等）：間質液（皮下の体液）中のグルコース濃度を電気化学センサーで測定。今回の機器：同一センサーパッチで間質液のグルコースとケトン体（主にβ-ヒドロキシ酪酸）の両方を測定。センシング原理：グルコースオキシダーゼとβ-ヒドロキシ酪酸デヒドロゲナーゼの2種の酵素を使った電気化学的検出——二重酵素センサーの設計が技術的難所。精度：医療用途として承認されており、従来の指先穿刺法との相関が高いことがFDAの基準をクリア。</div>
+        </div>
+      </div>
+      <div class="cyan-item">
+        <div>
+          <div class="cyan-label">医療上の意義——糖尿病管理の変革</div>
+          <div class="cyan-text">1型糖尿病患者：DKA（糖尿病性ケトアシドーシス）は血糖値が正常範囲内でもケトン体が急上昇することがある——これまでは尿ケトン検査（定性）か血液ケトン計測（スポット）でしか確認できなかった。常時ケトンモニタリングが可能になることで：①DKAの早期警告（生命にかかわる緊急事態の予防）②インスリン量調整の精度向上③食事・運動による代謝変化のリアルタイム把握。HNのコメント：「これは2型糖尿病・妊娠糖尿病患者にとっても有益——とりわけ食後の代謝応答を把握する上で」。</div>
+        </div>
+      </div>
+      <div class="cyan-item">
+        <div>
+          <div class="cyan-label">一般消費者・パフォーマンス最適化への応用</div>
+          <div class="cyan-text">糖尿病以外の潜在的ユーザー：①ケトジェニックダイエット実践者——「自分がケトーシス状態にあるかどうか」を指先穿刺なしでリアルタイム確認。②持久系アスリート——脂質代謝とグルコース代謝の切り替え（「ファットアダプテーション」）の把握。③間欠断食実践者——断食によるケトン体上昇のモニタリング。HNの懸念：「医療用承認機器が一般消費者にオフラベルで広く使われることへの情報リテラシー問題——ケトン値と健康状態の解釈は専門知識が必要」。価格と普及：CGMの価格推移を考えると、当初は高価格帯でも数年で一般化する可能性が高い。</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: fda.gov/news-events</span>
+      <span>163 ポイント</span>
+      <span>108 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.fda.gov/news-events/press-announcements/fda-authorizes-first-wearable-device-continuously-monitors-both-ketone-levels-and-blood-sugar" target="_blank">FDA発表を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49439017" target="_blank">HN議論 (108)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="fda-wearable-ketone-glucose" data-type="like" onclick="toggleFlag('fda-wearable-ketone-glucose','FDAが初の着用型ケトン＋血糖同時モニタリング機器を承認','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="fda-wearable-ketone-glucose" data-type="dislike" onclick="toggleFlag('fda-wearable-ketone-glucose','FDAが初の着用型ケトン＋血糖同時モニタリング機器を承認','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 7 — Black hole singularity surface ═══════════════════════════════════ -->
+<section class="story story-7" id="s7">
+  <div class="story-num">07</div>
+  <div class="story-inner">
+    <div class="story-kicker">宇宙物理学 / ブラックホール / 特異点 / arXiv / 一般相対論 / 量子重力 / 理論物理学 / 変な科学 — ブラックホールの特異点が「点」ではなく「面」だという新理論がarXivに登場。151ポイント・104コメント。2026-08-26</div>
+    <h2 class="story-headline">
+      ブラックホールの<br><span style="color:#ffb060">特異点は「点」ではなく</span><br>「面」だった——<br>arXiv新論文
+    </h2>
+    <div class="story-body">
+      arXivに投稿された理論物理学の論文「Black hole singularity is a surface not a point」（arXiv:2608.21590）が151ポイント・104コメントを集めました。ブラックホールの中心にある「特異点（singularity）」は、従来の一般相対性理論では時空の曲率が無限大になる「点」として記述されてきましたが、この論文はその従来像を覆し、特異点が実際には「面（surface）」としての幾何学的構造を持つと主張しています。
+
+      特異点をめぐる問題はアインシュタインの一般相対性理論と量子力学を統一する「量子重力理論」の核心的課題の一つです。ループ量子重力やループ量子宇宙論など様々なアプローチが特異点の「解消」を試みてきましたが、本論文は新しい数学的記述によって特異点の性質を再定義しようとするアプローチをとっています。
+    </div>
+    <div class="amber-items">
+      <div class="amber-item">
+        <div class="amber-label">従来の「特異点」とは何か</div>
+        <div class="amber-text">一般相対性理論における特異点：ブラックホールの中心（またはビッグバンの始まり）で時空の曲率が無限大になる点。Penrose-Hawkingの特異点定理（1965-1970）：一般相対性理論と「合理的な」エネルギー条件が成立すれば特異点は必然的に存在する、と数学的に証明。問題点：物理的な無限大は「理論の破綻」を意味する——GRが適用できなくなる領域の存在を示しているにすぎず、特異点の物理的実態は不明。「特異点は本当は存在しない——それはGRの限界を示す道標にすぎない」という立場が量子重力研究者に多い。</div>
+      </div>
+      <div class="amber-item">
+        <div class="amber-label">「面としての特異点」——論文の主張</div>
+        <div class="amber-text">本論文のアプローチ：時空の位相構造（トポロジー）を詳しく解析すると、ブラックホール内部の特異点は数学的に「0次元の点」ではなく「2次元の面（閉じた膜）」として記述できるという結論。これが持つ含意：①特異点を「通り抜ける」ことの数学的定式化が変わる可能性。②ブラックホールの蒸発（ホーキング輻射）との整合性の解析に新しい視点を提供。③バウンスコスモロジー（ブラックホール→ベイビーユニバース）モデルとの接続。HNの指摘：「arXiv preprint であり、まだ査読を通過していない——この種の主張はしばしば数学的に正しくても物理的解釈で争いが生まれる」。</div>
+      </div>
+      <div class="amber-item">
+        <div class="amber-label">HNコミュニティの反応と科学的文脈</div>
+        <div class="amber-text">HNで最多upvoteのコメント：「特異点の構造を再定義する論文は毎年数本出るが、それぞれが既存の宇宙論観測データと矛盾しないかを証明するハードルが高い」。物理学者コメント：「面としての特異点は数学的に興味深い——しかしそれが観測可能な予言を何か変えるかどうかが重要。LIGO・EHTのデータとの整合性は?」。一般読者の興味：「特異点の形が違っても、ブラックホールに落ちたら何が起きるかは変わるのか?」——これも論文が議論している問いの一つ。量子重力研究の現状：LQG（ループ量子重力）・弦理論・因果集合理論など複数の競合理論があり、特異点問題は最も基本的な未解決問題の一つとして残っている。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: arxiv.org</span>
+      <span>151 ポイント</span>
+      <span>104 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://arxiv.org/abs/2608.21590" target="_blank">論文を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49437210" target="_blank">HN議論 (104)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="black-hole-singularity-surface" data-type="like" onclick="toggleFlag('black-hole-singularity-surface','ブラックホールの特異点は「点」ではなく「面」だった——arXiv新論文','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="black-hole-singularity-surface" data-type="dislike" onclick="toggleFlag('black-hole-singularity-surface','ブラックホールの特異点は「点」ではなく「面」だった——arXiv新論文','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 8 — LatticeDB graph database ═════════════════════════════════════════ -->
+<section class="story story-8" id="s8">
+  <div class="story-num">08</div>
+  <div class="story-inner">
+    <div class="story-kicker">開発ツール / グラフDB / SQLite / Show HN / データベース / 組み込み / LatticeDB / jeffhajewski — SQLiteのような組み込みグラフデータベースLatticeDBが登場。84ポイント・27コメント。2026-08-26</div>
+    <h2 class="story-headline">
+      Show HN:<br><span style="color:#ffe080">LatticeDB——</span><br>SQLiteのように<br>グラフDBを組み込み可能に
+    </h2>
+    <div class="story-body">
+      jeffhajewskiがGitHubに公開した「LatticeDB – Like SQLite but for graph databases」がShow HNとして投稿され、84ポイント・27コメントを集めました。グラフデータベースの主流実装（Neo4j・Amazon Neptune等）はサーバー型が中心で、SQLiteのように「アプリに組み込む」スタイルのグラフDBは実用的な選択肢が限られていました。LatticeDBはそのギャップを埋めることを目指したオープンソースプロジェクトです。
+
+      グラフデータベースは、ノード（頂点）とエッジ（辺）で関係性を表すデータモデルで、ソーシャルネットワーク分析・推薦システム・知識グラフ・依存関係解析など、リレーショナルDBでは複雑なJOINが必要になるユースケースに特に強みを持ちます。SQLiteのような「ゼロ設定・シングルファイル・組み込み可能」なグラフDBは、ローカルアプリ・CLI・Webアプリのバックエンドに有用です。
+    </div>
+    <div class="gold-items">
+      <div class="gold-item">
+        <div class="gold-label">LatticeDBの特徴と設計</div>
+        <div class="gold-text">設計思想：「SQLiteがRDBの組み込み標準であるように、グラフDBの組み込み標準を目指す」。主な特徴（GitHubより）：シングルファイルのデータストア・追加依存ゼロ・Cypher風のクエリ言語対応・Rustで実装（メモリ安全・高速）。ユースケース例：依存関係グラフ（パッケージ管理）・知識グラフ・ルーティング・ACL（アクセス制御リスト）のロール継承。比較：DuckDB（組み込み分析DB）・SQLite（組み込みRDB）はあるが、組み込みグラフDBは空白地帯——LatticeDBはその空白を狙っている。</div>
+      </div>
+      <div class="gold-item">
+        <div class="gold-label">HNの技術的議論</div>
+        <div class="gold-text">好意的なコメント：「グラフDBのユースケースはあるのに、Neo4j以外の実用的選択肢が少なすぎた——組み込み型はまさに欲しいもの」「Rustで書かれているのは良い選択——FFIでPython・Node・GoからバインドしてSQLiteのように使えそう」。懐疑的なコメント：「SQLiteはBtreeという枯れた実装の上に30年の実績がある——グラフDBの組み込みは本当にSQLiteと同じ用途に使えるか疑問」「アジャセンシーリストをSQLiteのRDBで管理する方が多くのケースで十分では?」。クエリ言語：Cypher（Neo4jのクエリ言語）風の実装はグラフDB経験者に学習コストが低い。</div>
+      </div>
+      <div class="gold-item">
+        <div class="gold-label">グラフDBが輝くユースケース</div>
+        <div class="gold-text">RDBより明らかに有利な場面：①多段の関係探索（「友達の友達の友達」「パッケージAが依存するパッケージのすべての推移的依存」）——SQLではN段の再帰CTEが必要でパフォーマンスが劣化。②動的なスキーマが必要なデータ——ノードのプロパティが多様で事前定義が難しいケース。③経路探索・最短経路——ソーシャルグラフ・道路ネットワーク・ワークフロー。開発者が今試せること：GitHubリポジトリをクローンしてRustの`cargo run`で試せる状態。APIと実用性の成熟度は今後のスター数・コントリビューターによって決まる段階。Claude Codeで使うなら：依存関係グラフの可視化・コードベースの関数呼び出し関係の解析などが有力な用途。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: github.com/jeffhajewski/latticedb</span>
+      <span>84 ポイント</span>
+      <span>27 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://github.com/jeffhajewski/latticedb" target="_blank">GitHubを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49437049" target="_blank">HN議論 (27)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="latticedb-graph-database" data-type="like" onclick="toggleFlag('latticedb-graph-database','Show HN: LatticeDB——SQLiteのようにグラフDBを組み込み可能に','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="latticedb-graph-database" data-type="dislike" onclick="toggleFlag('latticedb-graph-database','Show HN: LatticeDB——SQLiteのようにグラフDBを組み込み可能に','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 9 — C2PA cameras vs reality ════════════════════════════════════════ -->
+<section class="story story-9" id="s9">
+  <div class="story-num">09</div>
+  <div class="story-inner">
+    <div class="story-kicker">プライバシー / セキュリティ / C2PA / Android / カメラ / コンテンツ認証 / 改ざん / 検証 — C2PAカメラの実装がAndroidで現実的な攻撃に耐えられないことを実証。35ポイント・10コメント。2026-08-26</div>
+    <h2 class="story-headline">
+      C2PA対応カメラは<br><span style="color:#a0c8ff">現実の前で</span><br>機能しない——<br>Android実装の検証
+    </h2>
+    <div class="story-body">
+      セキュリティ研究者のDavid Buchananが公開した「C2PA Cameras Do Not Survive Contact with Reality」が35ポイント・10コメントを集めました。AI生成コンテンツや改ざん画像の拡散を防ぐために策定されたコンテンツ認証標準「C2PA（Coalition for Content Provenance and Authenticity）」のAndroid実装を実際に検証した結果、現実の攻撃シナリオに対して簡単に回避・偽造できることを実証した内容です。
+
+      C2PAはAdobeやMicrosoftなどが主導する規格で、画像・動画に暗号署名を埋め込むことで「この写真は本物のカメラで撮影されたものだ」を証明することを目指しています。しかしDavid Buchananの研究は、AndroidのCamera API実装の構造的問題によって、この信頼の基盤が根本から破られることを示しています。
+    </div>
+    <div class="slate-items">
+      <div class="slate-item">
+        <div class="slate-label">C2PAとは何か——コンテンツ認証の仕組み</div>
+        <div class="slate-text">C2PA（Content Authenticity Initiative）の設計：カメラ（ハードウェア）がシャッターを切る瞬間に秘密鍵で画像に署名→公開鍵で誰でも「これは本物のカメラで撮った写真」を検証できる。信頼の連鎖：カメラメーカー（Sony・Nikonなど）が秘密鍵をTPM（セキュリティチップ）に格納→改ざん不可能→署名が有効なら「本物」と判定。主な採用例：Leica M11-P（C2PA対応カメラの先行例）・一部Sony Xperia・Qualcomm Snapdragon搭載スマートフォン。目標：「このAI生成画像を本物の写真として流す」という偽情報の拡散を技術的に防ぐ。</div>
+      </div>
+      <div class="slate-item">
+        <div class="slate-label">David Buchananが発見した問題</div>
+        <div class="slate-text">Androidの構造的問題：AndroidのCamera APIでは、カメラセンサーから画像データが「Camera HAL（ハードウェアアブストラクションレイヤー）」を経由してアプリに渡る。この経路上で、カメラアプリ（ユーザー空間）がHALに割り込める設計になっているため、「署名前の画像データを差し替える」ことが技術的に可能。具体的な攻撃：①「C2PA対応カメラアプリ」を名乗る改ざんアプリを作成→②実際のカメラで撮った画像の代わりにAI生成画像をHAL経由で注入→③C2PA署名は改ざんされた画像に対して発行される。結果：「本物のカメラで撮影済み」という署名付きのAI生成画像が作れてしまう。</div>
+      </div>
+      <div class="slate-item">
+        <div class="slate-label">含意と対策の限界</div>
+        <div class="slate-text">HNコメントの評価：「C2PAはハードウェアセキュリティ（TEE・TPM）に依存しているが、Androidエコシステムの多様性と開放性がそのモデルに根本的に合わない」。iOSとの比較：iOS/Appleシリコンはソフトウェアスタック全体をAppleが制御するため、攻撃面が小さい——ただしAppleがC2PA実装を完了させているかは別問題。根本的な問いに戻る：「コンテンツ認証は正しいアプローチか?」——偽情報の問題はメディアリテラシー・プラットフォームのモデレーション・文化的解決が主軸であり、技術的証明は補助的役割にとどまるという見方が多数派。研究の価値：実装の穴を早期に発見することで改善を促す——批判的セキュリティ研究の正当な役割。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: da.vidbuchanan.co.uk</span>
+      <span>35 ポイント</span>
+      <span>10 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.da.vidbuchanan.co.uk/blog/android-c2pa.html" target="_blank">研究を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49439499" target="_blank">HN議論 (10)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="c2pa-cameras-reality" data-type="like" onclick="toggleFlag('c2pa-cameras-reality','C2PA対応カメラは現実の前で機能しない——Android実装の検証','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="c2pa-cameras-reality" data-type="dislike" onclick="toggleFlag('c2pa-cameras-reality','C2PA対応カメラは現実の前で機能しない——Android実装の検証','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 10 — str.lower() security vulnerability ════════════════════════════ -->
+<section class="story story-10" id="s10">
+  <div class="story-num">10</div>
+  <div class="story-inner">
+    <div class="story-kicker">Python / セキュリティ / str.lower() / Unicode / 大文字小文字変換 / 脆弱性 / Seth Larson / 文字コード — Pythonのstr.lower()がセキュリティ脆弱性になる理由をSeth Larsonが解説。25ポイント・12コメント。2026-08-26</div>
+    <h2 class="story-headline">
+      Pythonの<br><span style="color:#ff88c0">`str.lower()`は</span><br>セキュリティ脆弱性<br>になる——Seth Larsonの解説
+    </h2>
+    <div class="story-body">
+      Python Security Expertとして知られるSeth Larsonがsethmlarson.devに投稿した「When str.lower() is a security vulnerability in Python」が25ポイント・12コメントを集めました。Pythonの組み込みメソッド`str.lower()`が特定の条件下でセキュリティ上の問題を引き起こす可能性について、具体的なシナリオと根本原因を解説した記事です。
+
+      `str.lower()`は文字列を小文字に変換するPythonの基本メソッドで、URL正規化・ユーザー入力の比較・大文字小文字を区別しないマッチングなど非常に広く使われています。しかしUnicodeの大文字小文字変換にはロケールや文字の種類によって「予想外の変換」が起きるケースがあり、これがセキュリティロジックと組み合わさると深刻な問題になります。
+    </div>
+    <div class="mag-items">
+      <div class="mag-item">
+        <div class="mag-label">問題の核心——Unicodeの大文字小文字変換の落とし穴</div>
+        <div class="mag-text">最も有名なケース：トルコ語の「I」問題。英語のアルファベット「I」の小文字は「i」。しかしトルコ語では「I」の小文字は「ı」（ドットなしのı）で、「İ」（ドット付き大文字）の小文字が「i」。ロケール依存のlower()では「I」→「ı」という変換が起きる。セキュリティへの影響例：①URL正規化で「/ADMIN」→str.lower()→「/admin」とする処理でロケールによって異なる結果になる。②ユーザー名の正規化・重複チェックで「IPHONE」と「iphone」が同一視されるが、「iPhone」がTurkish localeで変換されると異なる文字列になる。③大文字小文字を無視したパスワード比較——まず行うべきではないが、もしやるならさらに危険。</div>
+      </div>
+      <div class="mag-item">
+        <div class="mag-label">Seth Larsonが挙げる具体的な攻撃シナリオ</div>
+        <div class="mag-text">拡張子チェックのバイパス例：ファイルアップロード処理で「.EXE」ファイルを拒否するために`ext = filename.split('.')[-1].lower()`→`if ext == 'exe': reject()`という実装をした場合、特定のUnicode文字を含む拡張子が`.lower()`後に「exe」と異なる文字列になるケースが存在する（ただしPythonの標準動作では英語ロケールでの発生リスクは低い）。より確実なリスク：`casefold()`と`lower()`の違い——Pythonは`str.casefold()`を持ち、これはより積極的なUnicode正規化を行う。ドイツ語のß（エスツェット）は`lower()`では「ß」のままだが、`casefold()`では「ss」に変換される。これが両方向の変換で使われると予期しない一致が生まれる。</div>
+      </div>
+      <div class="mag-item">
+        <div class="mag-label">安全な実装のためのガイドライン</div>
+        <div class="mag-text">セキュリティ上安全な比較のためのルール：①セキュリティロジック（認証・認可・ファイルタイプチェック）でのlower()/upper()使用は最小限に——比較する前に意図を明確にする。②ロケール非依存の比較が必要な場合はASCIIのみに制限：`''.join(c for c in s if c.isascii()).lower()`またはASCIIアサーションを追加。③ファイル拡張子チェックなど安全に関わる処理はホワイトリスト方式で——`if ext in {'jpg','png','gif'}`。④casefold()の使用も文脈を理解した上で——検索・表示目的には適切だが認証・認可処理では注意が必要。HNの評価：「知っているようで知らなかった穴——特にUnicodeを扱うWebアプリを書くすべてのPython開発者が知るべき内容」。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: sethmlarson.dev</span>
+      <span>25 ポイント</span>
+      <span>12 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://sethmlarson.dev/when-str-lower-is-a-security-vulnerability" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49440410" target="_blank">HN議論 (12)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="str-lower-security-vuln" data-type="like" onclick="toggleFlag('str-lower-security-vuln','Pythonのstr.lower()はセキュリティ脆弱性になる——Seth Larsonの解説','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="str-lower-security-vuln" data-type="dislike" onclick="toggleFlag('str-lower-security-vuln','Pythonのstr.lower()はセキュリティ脆弱性になる——Seth Larsonの解説','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-top">
+    <div class="footer-brand">Morning Edition</div>
+    <button class="export-btn" onclick="exportFeedback()">フィードバックをエクスポート</button>
+  </div>
+  <div class="footer-meta">
+    Hacker Newsから厳選した10本 — 毎朝お届け<br>
+    フィードバックボタン（⭐/✕）は自動保存されます
+  </div>
+  <div class="footer-note">No.109 — 2026年8月26日 水曜日</div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const FEEDBACK_KEY = 'morning-edition-feedback-v2';
+const TODAY = '2026-08-26';
+
+function loadFeedback() {
+  try { return JSON.parse(localStorage.getItem(FEEDBACK_KEY) || '{"liked":{},"disliked":{}}'); }
+  catch { return { liked: {}, disliked: {} }; }
+}
+
+function saveFeedback(data) {
+  data.updatedAt = new Date().toISOString();
+  localStorage.setItem(FEEDBACK_KEY, JSON.stringify(data));
+  tryAutoSave(data);
+}
+
+async function tryAutoSave(data) {
+  if (!('showSaveFilePicker' in window)) return;
+  try {
+    if (!window._feedbackFileHandle) {
+      window._feedbackFileHandle = await window.showSaveFilePicker({
+        suggestedName: 'feedback.json',
+        types: [{ description: 'JSON', accept: { 'application/json': ['.json'] } }]
+      });
+    }
+    const writable = await window._feedbackFileHandle.createWritable();
+    await writable.write(JSON.stringify(data, null, 2));
+    await writable.close();
+  } catch {}
+}
+
+function toggleFlag(storyId, title, type) {
+  const fb = loadFeedback();
+  const other = type === 'like' ? 'disliked' : 'liked';
+  const own = type === 'like' ? 'liked' : 'disliked';
+  const active = fb[own][storyId];
+  if (active) { delete fb[own][storyId]; }
+  else { delete fb[other][storyId]; fb[own][storyId] = { title, date: TODAY }; }
+  saveFeedback(fb);
+  renderButtons();
+  showToast(active ? 'フィードバックを解除しました' : (type === 'like' ? '⭐ 興味ありとして記録しました' : '✕ 興味なしとして記録しました'));
+}
+
+function renderButtons() {
+  const fb = loadFeedback();
+  document.querySelectorAll('.flag-btn').forEach(btn => {
+    const id = btn.dataset.story;
+    const t = btn.dataset.type;
+    btn.classList.remove('active');
+    if (t === 'like' && fb.liked[id]) btn.classList.add('active');
+    if (t === 'dislike' && fb.disliked[id]) btn.classList.add('active');
+  });
+}
+
+function showToast(msg, isErr) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast' + (isErr ? ' error' : '');
+  t.classList.add('show');
+  clearTimeout(t._timer);
+  t._timer = setTimeout(() => t.classList.remove('show'), 2800);
+}
+
+function exportFeedback() {
+  const fb = loadFeedback();
+  const json = JSON.stringify(fb, null, 2);
+  navigator.clipboard.writeText(json).then(
+    () => showToast('フィードバックをクリップボードにコピーしました'),
+    () => showToast('コピーに失敗しました', true)
+  );
+}
+
+document.addEventListener('DOMContentLoaded', renderButtons);
+</script>
+</body>
+</html>
