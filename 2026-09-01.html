@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Morning Edition — 2026年9月1日</title>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --font: 'M PLUS Rounded 1c', 'Hiragino Sans', 'Noto Sans JP', sans-serif; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); background: #111; color: #fff; overflow-x: hidden; }
+
+    .masthead { background: #fff; color: #000; padding: 3rem 4rem 2.5rem; border-bottom: 6px solid #000; position: relative; overflow: hidden; }
+    .masthead::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: repeating-linear-gradient(90deg, #000 0, #000 12px, transparent 12px, transparent 20px); }
+    .masthead-kicker { font-size: 0.85rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: #777; margin-bottom: 0.6rem; }
+    .masthead-title { font-size: clamp(3.5rem, 9vw, 7.5rem); font-weight: 900; line-height: 0.88; letter-spacing: -0.04em; margin-bottom: 1.8rem; }
+    .masthead-meta { display: flex; gap: 3rem; align-items: baseline; flex-wrap: wrap; }
+    .masthead-date { font-size: 1.5rem; font-weight: 700; }
+    .masthead-subtitle { font-size: 1rem; font-weight: 400; color: #555; max-width: 480px; line-height: 1.5; }
+    .masthead-issue { margin-left: auto; text-align: right; }
+    .masthead-issue span { display: block; }
+    .masthead-issue .iss-label { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: #999; }
+    .masthead-issue .iss-num { font-size: 2.2rem; font-weight: 900; color: #000; }
+
+    .toc { background: #1a1a1a; padding: 1.5rem 4rem; display: flex; gap: 1.5rem; flex-wrap: wrap; border-bottom: 1px solid #333; }
+    .toc a { color: #aaa; text-decoration: none; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; transition: color 0.2s; }
+    .toc a:hover { color: #fff; }
+    .toc-num { color: #555; margin-right: 0.3em; }
+
+    .story { position: relative; overflow: hidden; }
+    .story-inner { max-width: 1200px; margin: 0 auto; padding: 5rem 4rem; position: relative; z-index: 1; }
+    .story-num { font-size: clamp(6rem, 18vw, 16rem); font-weight: 900; line-height: 0.8; letter-spacing: -0.06em; opacity: 0.08; position: absolute; top: 1rem; right: 2rem; user-select: none; }
+    .story-badge { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.35em 0.9em; border-radius: 2px; margin-bottom: 1.5rem; }
+    .direct-badge { background: #FFD700; color: #000; }
+    .story-kicker { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; opacity: 0.6; margin-bottom: 0.8rem; }
+    .story-headline { font-size: clamp(2rem, 5vw, 4rem); font-weight: 900; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+    .story-body { font-size: clamp(1rem, 1.5vw, 1.2rem); font-weight: 400; line-height: 1.8; max-width: 680px; opacity: 0.88; margin-bottom: 2rem; }
+    .story-meta { display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center; font-size: 0.8rem; font-weight: 700; opacity: 0.5; }
+    .story-links { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem; }
+    .story-link { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.6em 1.4em; border-radius: 3px; text-decoration: none; transition: opacity 0.2s, transform 0.15s; }
+    .story-link:hover { opacity: 0.75; transform: translateY(-1px); }
+
+    .feedback-buttons { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .flag-btn { background: none; border: 1px solid currentColor; color: inherit; font-family: var(--font); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.5em 1em; border-radius: 3px; cursor: pointer; opacity: 0.32; transition: opacity 0.2s, background 0.2s, color 0.2s, border-color 0.2s, transform 0.15s; }
+    .flag-btn:hover { opacity: 0.72; transform: translateY(-1px); }
+    .flag-btn.like-btn.active { opacity: 1; background: rgba(255,215,0,0.15); border-color: #FFD700; color: #FFD700 !important; }
+    .flag-btn.dislike-btn.active { opacity: 1; background: rgba(255,60,60,0.12); border-color: #FF4444; color: #FF4444 !important; }
+
+    .toast { position: fixed; bottom: 2rem; right: 2rem; background: #1a1a1a; color: #fff; font-family: var(--font); font-size: 0.82rem; font-weight: 700; padding: 0.75em 1.4em; border-radius: 4px; border-left: 3px solid #00C853; z-index: 9999; opacity: 0; transform: translateY(10px); transition: opacity 0.25s, transform 0.25s; pointer-events: none; box-shadow: 0 4px 24px rgba(0,0,0,0.45); }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    .toast.error { border-left-color: #FF5252; }
+
+    /* Story 1 — White */
+    .story-1 { background: #fff; color: #000; min-height: 90vh; display: flex; flex-direction: column; justify-content: center; }
+    .story-1 .story-num { color: #000; opacity: 0.04; }
+    .story-1 .story-kicker { color: #555; opacity: 1; }
+    .story-1 .story-headline { color: #000; }
+    .story-1 .story-body { color: #111; }
+    .story-1 .story-meta { color: #000; }
+    .story-1 .story-link.primary { background: #1a1a1a; color: #fff; }
+    .story-1 .story-link.secondary { background: #f0f0f0; color: #000; }
+    .story-1 .flag-btn { color: #000; }
+    .story-1-accent { position: absolute; bottom: 0; left: 0; width: 100%; height: 8px; background: linear-gradient(90deg, #cc4400, #ff6622, #cc4400); }
+    .story-1 .headline-accent { display: inline-block; background: linear-gradient(135deg, #aa2200 0%, #ff5500 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .orange-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1.2rem; margin: 2rem 0; max-width: 680px; }
+    .orange-card { border: 2px solid rgba(204,68,0,0.18); background: rgba(204,68,0,0.04); border-radius: 6px; padding: 1.3rem 1.5rem; }
+    .orange-card-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.2em; text-transform: uppercase; color: #aa3300; margin-bottom: 0.4rem; }
+    .orange-card-value { font-size: 1.05rem; font-weight: 900; color: #000; line-height: 1.3; }
+    .orange-card-sub { font-size: 0.75rem; color: #555; margin-top: 0.3rem; line-height: 1.4; }
+
+    /* Story 2 — Dark navy/teal */
+    .story-2 { background: #00080c; color: #b8f0ff; min-height: 80vh; }
+    .story-2::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(0,160,200,0.14) 0%, transparent 65%); }
+    .story-2 .story-num { color: #00A0C8; opacity: 0.07; }
+    .story-2 .story-kicker { color: #20C8E8; opacity: 1; }
+    .story-2 .story-headline { color: #e0f8ff; }
+    .story-2 .story-body { color: #b8f0ff; }
+    .story-2 .story-meta { color: #20C8E8; opacity: 0.5; }
+    .story-2 .story-link.primary { background: #004058; color: #80e8ff; }
+    .story-2 .story-link.secondary { background: rgba(0,160,200,0.08); color: #90d8f0; border: 1px solid rgba(0,160,200,0.22); }
+    .story-2 .flag-btn { color: #b8f0ff; }
+    .teal-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .teal-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(0,160,200,0.07); border-left: 3px solid #00A0C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .teal-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20C8E8; margin-bottom: 0.3rem; }
+    .teal-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 3 — Dark red */
+    .story-3 { background: #0a0000; color: #fff; min-height: 80vh; }
+    .story-3::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(200,20,20,0.16) 0%, transparent 65%); }
+    .story-3 .story-num { color: #C81414; opacity: 0.07; }
+    .story-3 .story-kicker { color: #E84040; opacity: 1; }
+    .story-3 .story-headline { color: #fff; }
+    .story-3 .story-body { color: rgba(255,255,255,0.88); }
+    .story-3 .story-meta { color: #E84040; opacity: 0.5; }
+    .story-3 .story-link.primary { background: #6a0000; color: #fff; }
+    .story-3 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-3 .flag-btn { color: #fff; }
+    .red-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .red-item { background: rgba(200,20,20,0.07); border-left: 3px solid #C81414; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .red-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E84040; margin-bottom: 0.3rem; }
+    .red-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 4 — Dark green */
+    .story-4 { background: #020c04; color: #c8f0d0; min-height: 80vh; }
+    .story-4::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(20,160,70,0.16) 0%, transparent 65%); }
+    .story-4 .story-num { color: #14A046; opacity: 0.07; }
+    .story-4 .story-kicker { color: #30C060; opacity: 1; }
+    .story-4 .story-headline { color: #e0ffe8; }
+    .story-4 .story-body { color: #c8f0d0; }
+    .story-4 .story-meta { color: #30C060; opacity: 0.5; }
+    .story-4 .story-link.primary { background: #063820; color: #80ffb0; }
+    .story-4 .story-link.secondary { background: rgba(20,160,70,0.08); color: #a0e8b0; border: 1px solid rgba(20,160,70,0.22); }
+    .story-4 .flag-btn { color: #c8f0d0; }
+    .green-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .green-item { background: rgba(20,160,70,0.07); border-left: 3px solid #14A046; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .green-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #30C060; margin-bottom: 0.3rem; }
+    .green-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 5 — Dark purple */
+    .story-5 { background: #040010; color: #d8c8ff; min-height: 75vh; }
+    .story-5::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(90,40,200,0.17) 0%, transparent 65%); }
+    .story-5 .story-num { color: #5A28C8; opacity: 0.07; }
+    .story-5 .story-kicker { color: #8050E0; opacity: 1; }
+    .story-5 .story-headline { color: #f0e8ff; }
+    .story-5 .story-body { color: #d8c8ff; }
+    .story-5 .story-meta { color: #8050E0; opacity: 0.5; }
+    .story-5 .story-link.primary { background: #200860; color: #d0a8ff; }
+    .story-5 .story-link.secondary { background: rgba(90,40,200,0.08); color: #c0a0f0; border: 1px solid rgba(90,40,200,0.22); }
+    .story-5 .flag-btn { color: #d8c8ff; }
+    .purple-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .purple-item { background: rgba(90,40,200,0.07); border-left: 3px solid #5A28C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .purple-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #8050E0; margin-bottom: 0.3rem; }
+    .purple-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 6 — Dark cyan */
+    .story-6 { background: #000c10; color: #b8e8f0; min-height: 75vh; }
+    .story-6::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 40%, rgba(0,130,160,0.14) 0%, transparent 65%); }
+    .story-6 .story-num { color: #0080A0; opacity: 0.07; }
+    .story-6 .story-kicker { color: #20B0D0; opacity: 1; }
+    .story-6 .story-headline { color: #e0f4ff; }
+    .story-6 .story-body { color: #b8e8f0; }
+    .story-6 .story-meta { color: #20B0D0; opacity: 0.5; }
+    .story-6 .story-link.primary { background: #003848; color: #80d8f0; }
+    .story-6 .story-link.secondary { background: rgba(0,130,160,0.08); color: #90cce0; border: 1px solid rgba(0,130,160,0.22); }
+    .story-6 .flag-btn { color: #b8e8f0; }
+    .cyan-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .cyan-item { background: rgba(0,130,160,0.07); border-left: 3px solid #0080A0; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .cyan-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20B0D0; margin-bottom: 0.3rem; }
+    .cyan-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 7 — Dark amber */
+    .story-7 { background: #0a0300; color: #ffe0b8; min-height: 75vh; }
+    .story-7::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(210,90,20,0.18) 0%, transparent 65%); }
+    .story-7 .story-num { color: #D05A14; opacity: 0.07; }
+    .story-7 .story-kicker { color: #E88040; opacity: 1; }
+    .story-7 .story-headline { color: #fff0d8; }
+    .story-7 .story-body { color: #ffe0b8; }
+    .story-7 .story-meta { color: #E88040; opacity: 0.5; }
+    .story-7 .story-link.primary { background: #6a2400; color: #ffc880; }
+    .story-7 .story-link.secondary { background: rgba(210,90,20,0.08); color: #ffb870; border: 1px solid rgba(210,90,20,0.22); }
+    .story-7 .flag-btn { color: #ffe0b8; }
+    .amber-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .amber-item { background: rgba(210,90,20,0.07); border-left: 3px solid #D05A14; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .amber-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E88040; margin-bottom: 0.3rem; }
+    .amber-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 8 — Dark gold */
+    .story-8 { background: #080500; color: #fff; min-height: 70vh; }
+    .story-8::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,145,10,0.15) 0%, transparent 65%); }
+    .story-8 .story-num { color: #BE9110; opacity: 0.06; }
+    .story-8 .story-kicker { color: #D4A820; opacity: 1; }
+    .story-8 .story-headline { color: #fff; }
+    .story-8 .story-body { color: rgba(255,255,255,0.88); }
+    .story-8 .story-meta { color: #D4A820; opacity: 0.5; }
+    .story-8 .story-link.primary { background: #604000; color: #ffe070; }
+    .story-8 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-8 .flag-btn { color: #fff; }
+    .gold-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .gold-item { background: rgba(190,145,10,0.07); border-left: 3px solid #BE9110; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .gold-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #D4A820; margin-bottom: 0.3rem; }
+    .gold-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 9 — Slate blue */
+    .story-9 { background: #040810; color: #c8d8f0; min-height: 70vh; }
+    .story-9::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 35%, rgba(50,90,170,0.16) 0%, transparent 65%); }
+    .story-9 .story-num { color: #3258A8; opacity: 0.07; }
+    .story-9 .story-kicker { color: #5878C8; opacity: 1; }
+    .story-9 .story-headline { color: #e8f0ff; }
+    .story-9 .story-body { color: #c8d8f0; }
+    .story-9 .story-meta { color: #5878C8; opacity: 0.5; }
+    .story-9 .story-link.primary { background: #101e50; color: #fff; }
+    .story-9 .story-link.secondary { background: rgba(50,90,170,0.08); color: #b0c8e8; border: 1px solid rgba(50,90,170,0.22); }
+    .story-9 .flag-btn { color: #c8d8f0; }
+    .slate-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .slate-item { background: rgba(50,90,170,0.07); border-left: 3px solid #3258A8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .slate-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #5878C8; margin-bottom: 0.3rem; }
+    .slate-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 10 — Magenta */
+    .story-10 { background: #080004; color: #ffc8e8; min-height: 70vh; }
+    .story-10::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,20,90,0.15) 0%, transparent 65%); }
+    .story-10 .story-num { color: #BE1458; opacity: 0.07; }
+    .story-10 .story-kicker { color: #E04080; opacity: 1; }
+    .story-10 .story-headline { color: #fff0f8; }
+    .story-10 .story-body { color: #ffc8e8; }
+    .story-10 .story-meta { color: #E04080; opacity: 0.5; }
+    .story-10 .story-link.primary { background: #500030; color: #ffb0d8; }
+    .story-10 .story-link.secondary { background: rgba(190,20,90,0.08); color: #f090c0; border: 1px solid rgba(190,20,90,0.22); }
+    .story-10 .flag-btn { color: #ffc8e8; }
+    .mag-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .mag-item { background: rgba(190,20,90,0.07); border-left: 3px solid #BE1458; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .mag-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E04080; margin-bottom: 0.3rem; }
+    .mag-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .site-footer { background: #000; color: #555; padding: 3rem 4rem; display: flex; flex-direction: column; gap: 1.5rem; border-top: 1px solid #222; }
+    .footer-top { display: flex; gap: 2rem; align-items: center; flex-wrap: wrap; justify-content: space-between; }
+    .footer-brand { font-size: 1.4rem; font-weight: 900; color: #fff; }
+    .footer-meta { font-size: 0.75rem; line-height: 1.6; }
+    .export-btn { background: #222; border: 1px solid #444; color: #fff; font-family: var(--font); font-size: 0.8rem; font-weight: 700; padding: 0.7em 1.5em; border-radius: 3px; cursor: pointer; letter-spacing: 0.08em; transition: background 0.2s; }
+    .export-btn:hover { background: #333; }
+    .footer-note { font-size: 0.7rem; opacity: 0.5; }
+
+    @media (max-width: 768px) {
+      .masthead, .toc, .story-inner, .site-footer { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .story-num { display: none; }
+      .masthead-meta { gap: 1rem; }
+      .masthead-issue { margin-left: 0; }
+      .orange-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+<nav style="background:#1a1a1a;border-bottom:1px solid #333;padding:0.55rem 2rem;font-family:'M PLUS Rounded 1c','Hiragino Sans','Noto Sans JP',sans-serif;position:sticky;top:0;z-index:999;">
+  <a href="./index.html" style="color:#aaa;text-decoration:none;font-size:0.8rem;font-weight:700;letter-spacing:0.03em;display:inline-flex;align-items:center;gap:0.4rem;transition:color 0.15s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#aaa'">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    アーカイブへ戻る
+  </a>
+</nav>
+
+<header class="masthead">
+  <div class="masthead-kicker">Hacker News — Morning Edition</div>
+  <h1 class="masthead-title">Morning<br>Edition</h1>
+  <div class="masthead-meta">
+    <div>
+      <div class="masthead-date">2026年9月1日 火曜日</div>
+      <div class="masthead-subtitle">AI・開発ツール・プライバシー・サイエンス — あなたのための10本</div>
+    </div>
+    <div class="masthead-issue">
+      <span class="iss-label">Issue</span>
+      <span class="iss-num">No.111</span>
+    </div>
+  </div>
+</header>
+
+<nav class="toc">
+  <a href="#s1"><span class="toc-num">01</span>Claude Code Opus 5のAuto Modeを破る——セキュリティ研究</a>
+  <a href="#s2"><span class="toc-num">02</span>OpenShot 4.0——録画・編集・カラーが刷新されたOSSビデオエディタ</a>
+  <a href="#s3"><span class="toc-num">03</span>防犯カメラをBirdNET-Goで鳥の自動識別システムに改造した</a>
+  <a href="#s4"><span class="toc-num">04</span>Apple、Mac Mini・StudioへのAI需要急増に不意を突かれる</a>
+  <a href="#s5"><span class="toc-num">05</span>軍の売店の冷凍庫がハッキングされたかもしれない</a>
+  <a href="#s6"><span class="toc-num">06</span>GoogleがMV2拡張機能を削除——uBlock Originも含む</a>
+  <a href="#s7"><span class="toc-num">07</span>インターネット中央集権化とNATの原罪</a>
+  <a href="#s8"><span class="toc-num">08</span>1つのHTMLファイルで歩けるASCIIサイバーパンク都市</a>
+  <a href="#s9"><span class="toc-num">09</span>スマートフォンLEDとAIで隠しカメラを検出する</a>
+  <a href="#s10"><span class="toc-num">10</span>MITでの塩化ジメチル水銀曝露事故</a>
+</nav>
+
+<!-- ═══ STORY 1 — Breaking Claude Code Opus 5 Auto Mode ══════════════════════════════ -->
+<section class="story story-1" id="s1">
+  <div class="story-num">01</div>
+  <div class="story-inner">
+    <div class="story-badge direct-badge">⚡ あなたに直接関係</div>
+    <div class="story-kicker">AI / Claude / Anthropic / セキュリティ / プロンプトインジェクション / Auto Mode / Opus 5 / embracethered — embracethered.comによるClaude Code Opus 5 Auto Modeのセキュリティ研究。327ポイント・110コメント。2026-09-01</div>
+    <h2 class="story-headline">
+      Claude Code<br><span class="headline-accent">Opus 5の<br>Auto Modeを破る——</span><br>セキュリティ研究
+    </h2>
+    <div class="story-body">
+      セキュリティ研究者のembracethered.comが「Breaking Claude Code Opus 5 Auto Mode」を公開し、327ポイント・110コメントを集めました。Claude CodeのAuto Mode（自動承認モード）において、悪意のあるプロンプトインジェクションやコードリポジトリ内の仕掛けを通じて、本来ユーザーの確認が必要な操作（ファイル削除・外部コマンド実行・機密情報の送信）を無断で実行させることができるという研究です。
+
+      Auto Modeの強力さと自律性が生み出す新しい攻撃面——「AIエージェントを操ってそのコンテキスト内で悪意ある操作を実行させる」という脅威モデルは、Claude Codeを業務で使用している開発者にとって直接関係する内容です。研究者はAnthropicに事前通知した上で責任ある開示を行っています。
+    </div>
+    <div class="orange-grid">
+      <div class="orange-card">
+        <div class="orange-card-label">攻撃の仕組み</div>
+        <div class="orange-card-value">リポジトリ内の隠された指示でAIを操作</div>
+        <div class="orange-card-sub">研究者が実証した手法：①コードコメント・READMEファイル・設定ファイル内に「Claude Codeへの指示」を埋め込む。②Auto Modeで実行中のClaudeがそのファイルを読むと、埋め込まれた指示に従って意図しない動作（curl送信・環境変数の外部転送・ファイル削除）を実行する。③ユーザーはAuto Modeのため確認ダイアログが表示されず、操作に気づかない。</div>
+      </div>
+      <div class="orange-card">
+        <div class="orange-card-label">Anthropicの対応</div>
+        <div class="orange-card-value">研究を受けてAuto Modeの制限を強化</div>
+        <div class="orange-card-sub">Anthropicは本研究を「責任ある開示」として受け取り、いくつかの緩和策を実施済みとのこと。具体的には：①破壊的操作（rm・curl等）はAuto Modeでも再確認を要求するよう変更。②システムプロンプトレベルでの「Auto Mode有効フラグ」をコンテキストから読み取れる形で提供し、モデルが自身の実行環境を認識できるようにする対策を検討中。</div>
+      </div>
+      <div class="orange-card">
+        <div class="orange-card-label">今すぐできる対策</div>
+        <div class="orange-card-value">信頼できないリポジトリでAuto Modeを使わない</div>
+        <div class="orange-card-sub">HNコミュニティと研究者が推奨する実践的対策：①クローンしたばかりの外部リポジトリでAuto Modeを起動しない。②`CLAUDE.md`や`.claude/`ディレクトリの内容を必ず事前確認する。③重要な操作は`--dangerously-skip-permissions`フラグなしで実行し、確認プロンプトを有効に保つ。④AIエージェントがアクセスするファイルを「コード」として扱い、サプライチェーンセキュリティと同様の意識を持つ。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: embracethered.com</span>
+      <span>327 ポイント</span>
+      <span>110 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://embracethered.com/blog/posts/2026/breaking-claude-code-opus-5-and-automode/" target="_blank">研究を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49506819" target="_blank">HN議論 (110)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="breaking-claude-opus5-auto-mode" data-type="like" onclick="toggleFlag('breaking-claude-opus5-auto-mode','Claude Code Opus 5のAuto Modeを破る——セキュリティ研究','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="breaking-claude-opus5-auto-mode" data-type="dislike" onclick="toggleFlag('breaking-claude-opus5-auto-mode','Claude Code Opus 5のAuto Modeを破る——セキュリティ研究','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+    <div class="story-1-accent"></div>
+  </div>
+</section>
+
+<!-- ═══ STORY 2 — OpenShot 4.0 ═══════════════════════════════════════════════════════ -->
+<section class="story story-2" id="s2">
+  <div class="story-num">02</div>
+  <div class="story-inner">
+    <div class="story-kicker">開発ツール / OSS / ビデオ編集 / OpenShot / Python / Qt / 録画 / カラーグレーディング — OpenShot 4.0リリース。録画・編集・カラーが全面刷新。505ポイント・116コメント。2026-09-01</div>
+    <h2 class="story-headline">
+      OpenShot 4.0——<br><span style="color:#20d8f0">録画・編集・カラーが<br>刷新された<br>OSSビデオエディタ</span>
+    </h2>
+    <div class="story-body">
+      オープンソースのビデオエディタ「OpenShot」のメジャーアップデートとなるバージョン4.0が公開され、505ポイント・116コメントを集め本日最多ポイントを記録しました。3.0から続くBlender統合・マルチトラック編集の基盤を維持しつつ、新たにスクリーン録画機能・AI支援カラーグレーディング・リアルタイムプレビューの大幅改善が加わっています。
+
+      OpenShotはPythonとQtで構築されたクロスプラットフォームの動画編集ソフトウェアで、Windows・Mac・Linuxをサポートします。「DaVinci Resolveの無料版を使えばいい」という声も多い中、「OpenShotは完全OSSでサードパーティのサーバーに繋がらない」という点を評価するユーザーも多く、プライバシーを重視する開発者・コンテンツクリエイターから支持を集めています。
+    </div>
+    <div class="teal-items">
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">4.0の主要な新機能</div>
+          <div class="teal-text">スクリーン録画の統合：外部ソフトウェア不要でデスクトップ・ウィンドウ・カメラを同時録画しタイムラインに直接取り込める。AIカラーグレーディング：映像の色調を自動分析し、フィルムルック・シネマルックなどのプリセットを適用するAI支援ツールが追加。パフォーマンス改善：FFmpegバックエンドの刷新によりプレビューのフレームドロップが大幅に減少。エフェクトエンジン：OpenFX互換プラグインのサポートが強化され、After Effectsプラグインのポートも容易に。</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">HNコミュニティの評価</div>
+          <div class="teal-text">肯定的な評価：「DaVinci Resolveは素晴らしいが、アカウントが必要でBlackmagicのサーバーに繋がる——完全ローカルで動くOSSという選択肢は貴重」。技術的な議論：「PythonアプリでビデオエディタはGILの問題をどう解決しているのか」→開発者が「コアの処理はC++/libopenshot、PythonはUIと連携のみ」と回答。比較：Kdenlive・Shotcut・Davinci Resolve Freeと比較するスレッドが盛況。「OpenShot 4.0は入門〜中級者向けとしてかなり良い線に来ている」という評価が多数。</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">試してみる価値があるシナリオ</div>
+          <div class="teal-text">OpenShot 4.0が特に役立つユースケース：①技術系チュートリアル動画の制作——スクリーン録画の統合でワークフローが簡素化。②プライバシーを重視した動画編集——クラウド機能一切なし、処理は全てローカル。③Linux開発者——DaVinci Resolveより軽量でパッケージ管理が容易。④Blenderアニメーションとの統合——公式Blender連携が引き続き機能。入手：openshot.org または各プラットフォームのパッケージマネージャ（snap/flatpak/homebrew）。</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: openshot.org</span>
+      <span>505 ポイント</span>
+      <span>116 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.openshot.org/blog/2026/08/30/openshot-40-record-edit-color-like-never-before/" target="_blank">リリースノートを読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49507822" target="_blank">HN議論 (116)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="openshot-4-open-source" data-type="like" onclick="toggleFlag('openshot-4-open-source','OpenShot 4.0——録画・編集・カラーが刷新されたOSSビデオエディタ','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="openshot-4-open-source" data-type="dislike" onclick="toggleFlag('openshot-4-open-source','OpenShot 4.0——録画・編集・カラーが刷新されたOSSビデオエディタ','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 3 — Security cameras → bird AI ══════════════════════════════════════════ -->
+<section class="story story-3" id="s3">
+  <div class="story-num">03</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / DIY / 鳥類識別 / BirdNET-Go / ホームラボ / コンピュータービジョン / 音声AI / actionable — 防犯カメラをBirdNET-GoでAI鳥識別システムに改造した体験記。305ポイント・82コメント。2026-09-01</div>
+    <h2 class="story-headline">
+      防犯カメラを<br><span style="color:#ff6060">BirdNET-Goで<br>鳥の自動識別<br>システムに改造した</span>
+    </h2>
+    <div class="story-body">
+      jasontucker.blogのJason Tucker氏が「How I Turned My Security Cameras into an Automatic Bird Identification System with BirdNET-Go」を公開し、305ポイント・82コメントを集めました。既存のIPカメラシステムと、コーネル大学が開発した鳥の鳴き声識別AIエンジン「BirdNET」のGo実装である「BirdNET-Go」を組み合わせ、庭を訪れる鳥を自動的に識別・記録するシステムを構築した実践的な記事です。
+
+      音声認識・コンピュータービジョン・ホームオートメーションの3つの要素を組み合わせたこのプロジェクトは「やってみたい」と思わせる完成度で、HNではBirdNETの技術的な詳細から「自分もやってみた」という実例まで多様なコメントが集まりました。ローカルで動作するAIシステムの具体的な活用例として参考になります。
+    </div>
+    <div class="red-items">
+      <div class="red-item">
+        <div class="red-label">システムの構成</div>
+        <div class="red-text">使用した主なコンポーネント：①既存のIPカメラ（RTSPストリーム対応のもの）②BirdNET-Go——コーネル大学のBirdNETモデルをGoで実装したサーバー。音声ストリームをリアルタイムで分析し6,000種以上の鳥を識別できる。③Home AssistantまたはHTTPエンドポイントによる通知・記録。④オプション：カメラの映像と識別結果を組み合わせた「いつ・どの鳥が来たか」のログダッシュボード。ハードウェア要件：Raspberry Pi 4またはIntel NUC程度のローカルサーバーで十分動作。音声認識はカメラ内蔵マイクでも可、専用マイクを追加するとより高精度。</div>
+      </div>
+      <div class="red-item">
+        <div class="red-label">BirdNET-Goとは何か</div>
+        <div class="red-text">BirdNETの概要：コーネル大学鳥類学研究室（Cornell Lab of Ornithology）とチェムニッツ工科大学が共同開発した鳥の鳴き声識別AIモデル。6,000種以上の鳥に対応し、精度は専門家レベルに近い。BirdNET-Goの特徴：Goで書かれた軽量サーバー実装で、REST APIとWebSocketインターフェースを提供。RTSPストリームを直接受け取って推論できる。完全ローカル動作——データはクラウドに送信されない。ライセンス：MITライセンスでオープンソース。GitHubで公開（tphakala/birdnet-go）。</div>
+      </div>
+      <div class="red-item">
+        <div class="red-label">HNの反応と応用アイデア</div>
+        <div class="red-text">コメントから拾ったアイデア：①「猫や犬の識別に同じパイプラインを応用した」——カスタムモデルの訓練で任意の対象を識別。②「BirdNETをHome Assistantのオートメーションに繋いで、稀少な鳥が来たときだけ通知させている」。③「音声だけでなく映像も使いたい——YOLOv10との組み合わせで鳥の種類＋姿の同時識別を試みている」。地域別の課題：「日本の鳥種でのBirdNETの精度は?」という質問に「北東アジア種のサポートが強化されており、ウグイス・キビタキなど主要種は認識できる」との回答。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: jasontucker.blog</span>
+      <span>305 ポイント</span>
+      <span>82 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://jasontucker.blog/how-i-turned-my-security-cameras-into-an-automatic-bird-identification-system-with-birdnet-go/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49511856" target="_blank">HN議論 (82)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="security-camera-bird-ai" data-type="like" onclick="toggleFlag('security-camera-bird-ai','防犯カメラをBirdNET-Goで鳥の自動識別システムに改造した','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="security-camera-bird-ai" data-type="dislike" onclick="toggleFlag('security-camera-bird-ai','防犯カメラをBirdNET-Goで鳥の自動識別システムに改造した','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 4 — Apple Mac Mini / Mac Studio AI demand ══════════════════════════════ -->
+<section class="story story-4" id="s4">
+  <div class="story-num">04</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / Apple / ハードウェア / Mac Mini / Mac Studio / M4 / ローカルLLM / 需要 / サプライチェーン — AppleがAI需要によるMac Mini・Mac Studio不足を予測できなかった。238ポイント・265コメント。2026-09-01</div>
+    <h2 class="story-headline">
+      Apple、<br><span style="color:#40ff80">Mac Mini・Studioへの<br>AI需要急増に<br>不意を突かれる</span>
+    </h2>
+    <div class="story-body">
+      MacRumorsが「Apple caught off guard by AI demand for Mac Mini and Mac Studio」を報告し、238ポイント・265コメントを集めました。M4チップを搭載したMac Miniと Mac Studioが、ローカルLLM実行・AIモデルの微調整・推論ワークロード向けのコスト効率の高いプラットフォームとして開発者・研究者に急速に採用されており、Appleのサプライチェーンが需要に追いつかない状況になっているとの報告です。
+
+      AppleシリコンはUnified Memory Architectureにより、CPUとGPUが同一のメモリ空間を共有します。これにより64GB〜192GBの大容量メモリを持つMac StudioがLlama・Mistral・Gemmaといった大規模モデルのローカル実行環境として注目され、NVIDIAのGPUと比較したコストパフォーマンスの高さが評価されています。
+    </div>
+    <div class="green-items">
+      <div class="green-item">
+        <div class="green-label">なぜMac StudioがAI用途で人気なのか</div>
+        <div class="green-text">AppleシリコンのAI向け優位性：①Unified Memory——CPU・GPU・Neural Engineが同一の高速メモリを共有するため、VRAMの制約なしに大容量モデルをロードできる。Mac Studio M4 Ultraは最大192GBのユニファイドメモリを搭載可能。②コスト：192GBメモリ・NVIDIAの同等VRAM構成に比べ数分の一の価格。③消費電力：サーバー向けGPUと比較して劇的に低い消費電力。実際の用途：70Bパラメータ級のLlama-3.3・Command R+などを快適に推論できる。mlx-lm（Apple ML eXploration framework）との組み合わせで微調整も可能。</div>
+      </div>
+      <div class="green-item">
+        <div class="green-label">需要の実態とHNの反応</div>
+        <div class="green-text">MacRumorsが報告した状況：出荷遅延が数週間〜数ヶ月に及ぶ地域も。法人・教育機関からの大口注文が個人向け在庫を圧迫。HNコメントから：「自分もMac Studioをローカル推論サーバーとして使っている——M4 Ultraの192GBは70Bモデルを量子化なしで動かせる唯一の一般向け選択肢に近い」。批判的な声：「Appleは開発者のAIユースケースをまだ正式に最適化していない——llama.cppコミュニティが先行している状況」。比較：「同価格帯のNVIDIA RTX 6000 Ada（48GB VRAM）と比べると、メモリ容量では圧倒的にMac Studioが有利」。</div>
+      </div>
+      <div class="green-item">
+        <div class="green-label">今後の展望と代替選択肢</div>
+        <div class="green-text">Appleの対応：供給増強を進めているが、短期的な解決は困難との見通し。注目される動き：WWDC 2026でAppleが「Apple Intelligence for Developers」の拡張APIを発表。ローカルモデルホスティングの公式サポートが来年に向けて強化される可能性。代替選択肢（HNで挙がったもの）：①Mac miniの複数台クラスタ（コスト重視）②NVIDIA RTX 6000 Ada（VRAM重視）③AMD Instinct MI300Xクラウドインスタンス④Google TPU v5eのスポットインスタンス。「待てるなら待つべき——Mac Studio M4 Ultraの供給が安定すれば最有力選択肢」という声も。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: macrumors.com</span>
+      <span>238 ポイント</span>
+      <span>265 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.macrumors.com/2026/08/30/apple-unexpected-mac-mini-and-studio-demand/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49508982" target="_blank">HN議論 (265)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="apple-mac-mini-studio-ai-demand" data-type="like" onclick="toggleFlag('apple-mac-mini-studio-ai-demand','Apple、Mac Mini・StudioへのAI需要急増に不意を突かれる','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="apple-mac-mini-studio-ai-demand" data-type="dislike" onclick="toggleFlag('apple-mac-mini-studio-ai-demand','Apple、Mac Mini・StudioへのAI需要急増に不意を突かれる','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 5 — Military commissary freezers hacked ════════════════════════════════ -->
+<section class="story story-5" id="s5">
+  <div class="story-num">05</div>
+  <div class="story-inner">
+    <div class="story-kicker">セキュリティ / IoT / OT / 軍事施設 / 冷凍庫 / インフラハック / SCADA / 産業制御 / signalandsilence — 軍の売店の冷凍庫がハッキングされたかもしれない——実体験レポート。197ポイント・116コメント。2026-09-01</div>
+    <h2 class="story-headline">
+      軍の売店の<br><span style="color:#c090ff">冷凍庫がハッキング<br>されたかも<br>しれない</span>
+    </h2>
+    <div class="story-body">
+      signalandsilence.substackのライターが「I think the military commissary's freezers were hacked」という体験レポートを公開し、197ポイント・116コメントを集めました。米軍の売店（commissary）で、冷凍食品を保管するすべての冷凍庫が同時に温度設定を失い、一晩で大量の食品が解凍・廃棄されるという事態が発生。筆者がOT（Operational Technology）セキュリティの観点からその原因を推測・分析した内容です。
+
+      工場・施設インフラのスマート化が進む中、ネットワーク接続された産業制御システム（ICS/SCADA）のセキュリティが脆弱なケースは珍しくなく、「冷凍庫のIoT化」というありふれた現代の設備が重要インフラへの攻撃面になり得るという事実を具体的な事例で示しています。
+    </div>
+    <div class="purple-items">
+      <div class="purple-item">
+        <div class="purple-label">何が起きたのか</div>
+        <div class="purple-text">事件の概要：米軍売店の全冷凍庫が同夜に正常温度から逸脱し、翌朝には大量の冷凍食品が廃棄不可避の状態に。特徴的な点：①全ての冷凍庫が「同時に」異常を起こした——個別の機械故障ではなく、一括管理システムへの干渉を示唆。②温度ログには異常なコマンドの痕跡があったと筆者は主張。③施設のITセキュリティ担当は「調査中」としてそれ以上の情報を開示しなかった。筆者の分析：施設の温度管理はBACnet・Modbus等の産業プロトコルで接続された統合管理システムに依存しており、そこへの不正アクセスが疑われる。</div>
+      </div>
+      <div class="purple-item">
+        <div class="purple-label">OTセキュリティの現実</div>
+        <div class="purple-text">HNの議論が掘り下げたOT（Operational Technology）セキュリティの問題：①多くの施設制御システムはインターネット時代より前に設計されており、認証・暗号化が皆無か著しく弱い。②メーカーがリモート管理のためにデフォルトでポートを開放するケースが後を絶たない。③「エアギャップ」（物理的分離）が信じられているが、メンテナンス用のセルラー接続・ベンダーのリモートアクセスなどで実際には繋がっているケースが多い。実例：Shodan.ioで「BACnet」「Modbus」を検索すると、認証なしで到達できる産業制御機器が世界中で数万台見つかる。</div>
+      </div>
+      <div class="purple-item">
+        <div class="purple-label">HNの反応と教訓</div>
+        <div class="purple-text">コメントで多く指摘された点：「軍施設でこのレベルのOTセキュリティなら、民間の食料品チェーン・病院・電力施設はさらに脆弱なはず」。懐疑的な声：「単純な機器故障や設定ミスの可能性があり、ハッキングと断定するには証拠が足りない」——著者も可能性として論じていることを注記。重要な教訓：①コネクテッドIoT機器の導入前にネットワーク分離ポリシーを定める②産業制御システムのデフォルト認証情報を必ず変更する③ログは改ざん不可能な形式で外部に保存する④ベンダーのリモートアクセスは最小権限・時限付きで管理する。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: signalandsilence.substack.com</span>
+      <span>197 ポイント</span>
+      <span>116 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://signalandsilence.substack.com/p/i-think-someone-hacked-the-commissary" target="_blank">レポートを読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49508506" target="_blank">HN議論 (116)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="military-commissary-freezers-hacked" data-type="like" onclick="toggleFlag('military-commissary-freezers-hacked','軍の売店の冷凍庫がハッキングされたかもしれない','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="military-commissary-freezers-hacked" data-type="dislike" onclick="toggleFlag('military-commissary-freezers-hacked','軍の売店の冷凍庫がハッキングされたかもしれない','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 6 — Google removes MV2 / UBlock Origin ═════════════════════════════════ -->
+<section class="story story-6" id="s6">
+  <div class="story-num">06</div>
+  <div class="story-inner">
+    <div class="story-kicker">プライバシー / ブラウザ / Chrome / Google / Manifest V2 / uBlock Origin / 広告ブロック / 拡張機能 / webiterate — GoogleがMV2拡張機能をChromeウェブストアから削除。uBlock Originも対象に。161ポイント・117コメント。2026-09-01</div>
+    <h2 class="story-headline">
+      GoogleがMV2<br><span style="color:#20d0d0">拡張機能を<br>ウェブストアから削除——</span><br>uBlock Originも含む
+    </h2>
+    <div class="story-body">
+      GoogleがManifest V2（MV2）ベースのChrome拡張機能をChromeウェブストアから正式に削除し始め、最も人気の広告ブロッカー「uBlock Origin」も対象になっていると報告されました。161ポイント・117コメントを集め、プライバシーとウェブの自由を重視するHNユーザーから強い反応を引き起こしています。
+
+      Manifest V3（MV3）への移行はGoogleが長年推進してきた変更で、「セキュリティの向上」を名目としつつも広告ブロック機能を実質的に制限するものとして批判を受け続けてきました。MV2に依存するuBlock Originは完全なMV3版（uBlock Origin Lite）への移行を進めてきましたが、フル機能からは劣ると評価されており、ユーザーへの影響は避けられない状況です。
+    </div>
+    <div class="cyan-items">
+      <div class="cyan-item">
+        <div>
+          <div class="cyan-label">MV2からMV3への変更で何が変わるのか</div>
+          <div class="cyan-text">技術的な変更点：MV2では拡張機能がリクエストを動的にインターセプト・変更できる（webRequest API）。MV3ではルールベースのdeclarativeNetRequest APIに置き換えられ、①同時に適用できるルール数に上限が設けられた（30,000件、MV2は事実上無制限）②動的なリクエスト分析ができなくなった③コスメティックフィルタリングの一部機能が制限された。広告ブロッカーへの影響：uBlock Originはフィルタリストを動的に適用する高度な機能に依存しており、MV3のルール上限ではfanboy-social・uAssets等の大規模リストを完全に適用できない。</div>
+        </div>
+      </div>
+      <div class="cyan-item">
+        <div>
+          <div class="cyan-label">ユーザーの選択肢</div>
+          <div class="cyan-text">現時点での代替手段：①Firefox＋uBlock Origin（MV2継続サポート）——最も確実な選択肢。FirefoxはMV2を今後も維持すると表明。②Brave Browser——組み込みの広告ブロッカーがエンジンレベルで動作するためMV2/V3の制限を受けない。③Arc Browser（MV3対応）——独自のコンテンツブロック機能を持つ。④uBlock Origin Lite（MV3版）——機能は限定されるがChromeで継続利用可能。⑤Pi-hole等のDNSレベルブロッキング——ネットワーク全体に適用、ブラウザに依存しない。HNで最多upvoteのアドバイス：「これを機にFirefoxに乗り換えることを真剣に検討すべき」。</div>
+        </div>
+      </div>
+      <div class="cyan-item">
+        <div>
+          <div class="cyan-label">HNの反応と今後の展開</div>
+          <div class="cyan-text">強い反発：「Googleは検索・ブラウザ・広告の三位一体で広告エコシステムを支配しており、広告ブロックの制限はそのビジネスモデルへの直接的な利益誘導」という批判が多数。Googleの主張：「MV3はセキュリティを向上させる——拡張機能がリクエストを動的に変更できることはプライバシーリスク」。反論：「その論理なら広告ネットワーク自身がトラッカーで動いている矛盾をどう説明するのか」。長期的な影響：Chromeのシェアが依然80%近くある中でのこの変更は、ウェブ広告エコシステム全体に影響する——既にFirefoxのダウンロード数が増加しているとの報告あり。</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: webiterate.dev</span>
+      <span>161 ポイント</span>
+      <span>117 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://webiterate.dev/google-removed-extensions-ublock-origin-108/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49514878" target="_blank">HN議論 (117)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="google-removes-mv2-extensions-ubo" data-type="like" onclick="toggleFlag('google-removes-mv2-extensions-ubo','GoogleがMV2拡張機能をウェブストアから削除——uBlock Originも含む','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="google-removes-mv2-extensions-ubo" data-type="dislike" onclick="toggleFlag('google-removes-mv2-extensions-ubo','GoogleがMV2拡張機能をウェブストアから削除——uBlock Originも含む','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 7 — Internet centralization and NAT ════════════════════════════════════ -->
+<section class="story story-7" id="s7">
+  <div class="story-num">07</div>
+  <div class="story-inner">
+    <div class="story-kicker">ネットワーク / インターネット / NAT / IPv6 / 中央集権化 / P2P / インフラ / 歴史 / dreamstation — インターネット中央集権化の原因はNATにある——技術的深掘り。150ポイント・111コメント。2026-09-01</div>
+    <h2 class="story-headline">
+      インターネット<br><span style="color:#ffb060">中央集権化と<br>NATの原罪</span>
+    </h2>
+    <div class="story-body">
+      dreamstation.systemsに投稿された「Internet centralization and the original sin of NAT」が150ポイント・111コメントを集めました。今日のインターネットが少数の巨大プラットフォームに依存する中央集権的な構造になってしまった技術的根本原因として「NAT（Network Address Translation）」を取り上げ、P2P通信・自己ホスト・エンドツーエンドの対等接続がいかにNATによって困難になったかを論じた意欲的な論考です。
+
+      「あなたのPCは今、インターネット上の他のコンピューターに直接接続できない」——この当たり前のように受け入れられている制約が、ウェブのアーキテクチャをクライアント・サーバーモデルに固定し、大規模な中継インフラを持つ企業だけが実用的なサービスを提供できる構造を生んだというのが著者の主張です。
+    </div>
+    <div class="amber-items">
+      <div class="amber-item">
+        <div class="amber-label">NATがインターネットを変えた方法</div>
+        <div class="amber-text">NATの技術的影響：IPv4アドレス枯渇への応急処置として普及したNATは、全てのデバイスがユニークなIPアドレスを持つという「インターネットの本来の設計」を壊した。結果として生じた問題：①任意の2台のPCがNAT越しに直接通信するには「ホールパンチング」等のハックが必要。②自宅サーバーへの外部からの接続が事実上不可能になり、「サーバーを自分で立てる」文化が廃れた。③WebRTC・Torrent・BitcoinなどP2P技術がNATを回避するために複雑な中継（STUN/TURNサーバー）に依存することになった。④中継を提供できる大規模インフラを持つ企業が不可欠な存在となり、中央集権化が進んだ。</div>
+      </div>
+      <div class="amber-item">
+        <div class="amber-label">IPv6は解決策になれるか</div>
+        <div class="amber-text">IPv6によるNAT問題の解消：IPv6では全デバイスがグローバルにユニークなアドレスを持てる——理論的にNATは不要で、P2P・自己ホストが復権できる。現実：2026年時点でIPv6の普及率はグローバルで50〜60%程度。日本では主要ISPの対応が進んでいるが、家庭用ルーターのIPv6デフォルト設定が適切でないケースが多い。HNコメント：「ISPがIPv6のデプロイを急がなかったのはNATが事実上のファイアウォールになっていてセキュリティコストを削減できたから——IPv6化すると各デバイスが露出するため正式なファイアウォール管理が必要になる」。</div>
+      </div>
+      <div class="amber-item">
+        <div class="amber-label">HNの議論——「設計より経済」</div>
+        <div class="amber-text">最も支持されたカウンター論点：「NATは原因ではなく症状——Googleがウェブを支配したのはNATのせいではなくネットワーク効果とビジネスモデルの問題」。著者の回答：「その通りだが、技術的に同等の土俵さえあれば競争はより開かれていた——分散型ソーシャルメディアがActivityPub上で育ちつつあることがその証拠」。日本への示唆：日本は固定回線のIPv6対応が進んでいる方の国の一つ。NTT・KDDI・ソフトバンクの主要ISPはIPv6 IPoEを提供しており、自宅サーバーの復権に最も適した環境の一つ。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: dreamstation.systems</span>
+      <span>150 ポイント</span>
+      <span>111 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://dreamstation.systems/personal/ntppost.html" target="_blank">論考を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49504905" target="_blank">HN議論 (111)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="internet-centralization-nat" data-type="like" onclick="toggleFlag('internet-centralization-nat','インターネット中央集権化とNATの原罪','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="internet-centralization-nat" data-type="dislike" onclick="toggleFlag('internet-centralization-nat','インターネット中央集権化とNATの原罪','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 8 — ASCII cyberpunk city in HTML ═══════════════════════════════════════ -->
+<section class="story story-8" id="s8">
+  <div class="story-num">08</div>
+  <div class="story-inner">
+    <div class="story-kicker">クリエイティブ / HTML / ASCII / サイバーパンク / ゲーム / デモシーン / JavaScript / keithcarolus — 1つのHTMLファイルで歩けるASCIIサイバーパンク都市。147ポイント・26コメント。2026-09-01</div>
+    <h2 class="story-headline">
+      1つのHTMLファイルで<br><span style="color:#ffe080">歩けるASCI<br>サイバーパンク都市</span>
+    </h2>
+    <div class="story-body">
+      keithcarolusがYouTubeに投稿した「A walkable ASCII cyberpunk city in one HTML file」のデモ映像が147ポイント・26コメントを集めました。キーボードで歩き回れるASCIIアート都市が、外部ライブラリを使わず純粋なHTML・CSS・JavaScriptの1ファイルに収まって動作するという技術的な驚きと、サイバーパンクな視覚的完成度を兼ね備えた作品です。
+
+      デモシーン文化の流れを汲む「技術的制約の中での創造性」を体現したこの作品は、HNのコメント欄でWebの表現力への驚きと「自分でもこんなものを作りたい」という刺激を与えています。動くASCIIアートのパフォーマンス最適化・視差効果・キャラクター移動システムの実装についての技術的考察も寄せられました。
+    </div>
+    <div class="gold-items">
+      <div class="gold-item">
+        <div class="gold-label">技術的な見どころ</div>
+        <div class="gold-text">実装上の注目点：①3D視差効果——ASCIIキャラクターの前景・中景・背景を異なる速度でスクロールさせることで奥行きを演出。②パフォーマンス——数千のASCIIセルを毎フレーム再描画するため、DOM操作ではなくcanvasまたは単一のpre/textarea要素での一括更新を採用。③プロシージャル生成——都市のレイアウト・建物のシルエット・ネオンサインをコードで生成しているためファイルサイズが最小限に。④ライトエフェクト——特定のASCII文字に色・明滅アニメーションを重ねてネオンを表現。「どうやって1ファイルに収めたのか」という質問への著者の回答が特にHNで人気を集めた。</div>
+      </div>
+      <div class="gold-item">
+        <div class="gold-label">HNコミュニティの反応</div>
+        <div class="gold-text">コメントから抽出した反応：「ブラウザがここまでの表現力を持つようになったことに改めて驚く——10年前のデモシーン作品が今やブラウザで動く」。自作への刺激：「これを見てASCII roguelikeエンジンを書き始めた」という宣言が複数。技術比較：「p5.jsやthree.jsを使えばもっと簡単だが、それを使わないことに意義がある——制約が創造性を引き出す」。実用的な応用：「ポートフォリオサイトのインタラクティブな背景にこのアプローチを使いたい」という声も。デモシーン文化への言及：Demoscene.fi・pouet.netなどのデモシーンコミュニティが紹介され、「ブラウザデモシーン」の作品集へのリンクも共有された。</div>
+      </div>
+      <div class="gold-item">
+        <div class="gold-label">触発された「ブラウザ1ファイル芸」の系譜</div>
+        <div class="gold-text">HNで共有された類似プロジェクト：①「Dwitter」——140文字のJavaScriptアニメーション共有コミュニティ。②「JS1k」——1KBのJavaScript作品コンテスト（現在は非公式継続）。③「Shadertoy」——GLSLシェーダー1ファイルでリアルタイム3D描画。④「One File Games」——HTMLファイル1つで完結するゲームのコレクション（itch.io等）。日本発の類似文化：「1行プログラミング」コンテストや、ニコニコ技術部でのブラウザ芸の伝統とも接続する。「ウェブの本質的な表現力への回帰——全ての依存関係をゼロにしたとき、何が残るか」という問いかけが興味深い。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: youtube.com (keithcarolus)</span>
+      <span>147 ポイント</span>
+      <span>26 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.youtube.com/watch?v=3YtygAx_C6A" target="_blank">デモを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49512975" target="_blank">HN議論 (26)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="ascii-cyberpunk-html" data-type="like" onclick="toggleFlag('ascii-cyberpunk-html','1つのHTMLファイルで歩けるASCIIサイバーパンク都市','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="ascii-cyberpunk-html" data-type="dislike" onclick="toggleFlag('ascii-cyberpunk-html','1つのHTMLファイルで歩けるASCIIサイバーパンク都市','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 9 — Smartphone LED detects hidden cameras ══════════════════════════════ -->
+<section class="story story-9" id="s9">
+  <div class="story-num">09</div>
+  <div class="story-inner">
+    <div class="story-kicker">プライバシー / AI / カメラ検出 / スマートフォン / POSTECH / セキュリティ / アコモデーション / 旅行 — スマートフォンのLEDとAIで隠しカメラを検出する技術。103ポイント・31コメント。2026-09-01</div>
+    <h2 class="story-headline">
+      スマートフォン<br><span style="color:#a0c8ff">LEDとAIで<br>隠しカメラを<br>検出する</span>
+    </h2>
+    <div class="story-body">
+      韓国のPOSTECH（浦項工科大学校）の研究者が開発した、スマートフォンのフラッシュLEDを使って隠しカメラのレンズからの反射光をAIで識別するシステムが朝鮮日報英語版で紹介され、103ポイント・31コメントを集めました。民泊・ホテルの部屋に設置された隠しカメラの検出を誰でも手持ちのスマートフォンで行えるようにすることを目的とした研究で、特別な機器なしに実用的なプライバシー保護を実現しようとする試みです。
+
+      不法な隠しカメラ（いわゆる「盗撮カメラ」）による被害は日本でも社会問題となっており、宿泊施設・更衣室・トイレなどでの設置事例が後を絶ちません。スマートフォンで簡単に検出できる技術の実用化は、プライバシー保護の観点から大きな意義を持ちます。
+    </div>
+    <div class="slate-items">
+      <div class="slate-item">
+        <div class="slate-label">技術の仕組み</div>
+        <div class="slate-text">POSTECHシステムの動作原理：①スマートフォンのカメラでフラッシュLEDを点滅させながら室内を撮影する。②カメラレンズの光学特性により、隠しカメラのレンズは特徴的な反射パターン（明るい点・「猫の目」のような光彩）を生じる。③AIモデルがリアルタイムで映像フレームを分析し、この反射パターンを検出して「隠しカメラの可能性がある」とアラートを出す。既存手法との違い：従来の検出器（RF波探知機・赤外線カメラ）は専用機器が必要だが、本システムは市販のスマートフォンのみで動作する。精度：論文では暗所・明所・様々な偽装形態（煙感知器・時計・充電器型）で高い検出率を達成したと報告。</div>
+      </div>
+      <div class="slate-item">
+        <div class="slate-label">実用化の課題</div>
+        <div class="slate-text">HNで指摘された課題：①誤検知の問題——眼鏡のレンズ・光沢のある物体なども同様の反射を示す可能性があり、実環境での精度維持が課題。②WiFi接続型カメラはRFスキャナーの方が確実に検出できる——この技術が優位性を持つのはオフライン録画型の小型カメラ。③アプリとして公開されているか——論文レベルでの研究のため、一般向けアプリはまだ存在しない。代替の現実的手法：①スマートフォンカメラ（赤外線フィルターが弱いもの）でリモコンを映しながら室内を見渡す——赤外線カメラは可視光線でも反応する場合がある。②Fing・WiFi Analyzerアプリでネットワーク上の不審デバイスを探す。</div>
+      </div>
+      <div class="slate-item">
+        <div class="slate-label">社会的な意義と今後</div>
+        <div class="slate-text">HNの議論：「技術が民主化されるほど、個人がプライバシーを自衛できるようになる——これはその好例」。「韓国・日本・東南アジアのホテル・民泊での被害件数を考えると、アプリとして広く普及してほしい」。期待される展開：POSTECHはスマートフォンアプリとして一般向けに展開することを検討しているとのこと。類似技術：Apple・Googleもプライバシー保護AIの研究を進めており、OSレベルでの統合（デバイスが定期的に周囲をスキャンして隠しカメラを検出するなど）の可能性も議論された。Airbnb・Booking.comのポリシー：プラットフォームは隠しカメラを明確に禁止しているが、発見・執行は宿泊者任せになっている現状への批判も。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: chosun.com (英語版)</span>
+      <span>103 ポイント</span>
+      <span>31 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.chosun.com/english/industry-en/2026/08/30/SBFXUIJQYZEARKP5T4FBAY25HQ/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49496292" target="_blank">HN議論 (31)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="smartphone-led-hidden-cameras-ai" data-type="like" onclick="toggleFlag('smartphone-led-hidden-cameras-ai','スマートフォンLEDとAIで隠しカメラを検出する','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="smartphone-led-hidden-cameras-ai" data-type="dislike" onclick="toggleFlag('smartphone-led-hidden-cameras-ai','スマートフォンLEDとAIで隠しカメラを検出する','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 10 — Dimethyl Mercury at MIT ═══════════════════════════════════════════ -->
+<section class="story story-10" id="s10">
+  <div class="story-num">10</div>
+  <div class="story-inner">
+    <div class="story-kicker">科学 / 化学 / MIT / 安全事故 / 塩化ジメチル水銀 / 有機水銀 / ラボ安全 / andrew_n_carr — MITでの塩化ジメチル水銀曝露事故——1997年のKaren Wetterhahn事件の再来。95ポイント・61コメント。2026-09-01</div>
+    <h2 class="story-headline">
+      MITでの<br><span style="color:#ff90c0">塩化ジメチル水銀<br>曝露事故</span>
+    </h2>
+    <div class="story-body">
+      研究者のandrew_n_carrがTwitter/Xに投稿したMITでの塩化ジメチル水銀（dimethyl mercury）曝露インシデントの報告が95ポイント・61コメントを集めました。塩化ジメチル水銀は極めて強い神経毒性を持つ有機水銀化合物で、1997年にダートマス大学の著名な化学者Karen Wetterhahn教授がラテックス手袋越しのわずかな曝露で死亡した事件が科学コミュニティに深刻な教訓をもたらした化学物質として知られています。
+
+      今回のMITのインシデントの詳細・曝露者の状況・被害の程度は報告時点では公式に確認されていないため、HNでは情報の信頼性についての慎重な議論が行われています。ただし、この物質の性質上、「可能性」として語るだけでも化学者・研究者コミュニティには警鐘として機能します。
+    </div>
+    <div class="mag-items">
+      <div class="mag-item">
+        <div class="mag-label">塩化ジメチル水銀とは何か</div>
+        <div class="mag-text">物質の特性：塩化ジメチル水銀（(CH₃)₂Hg、dimethylmercury）は有機水銀化合物の中でも最も毒性が強いものの一つ。摂取・吸入・皮膚接触のいずれでも体内に蓄積し、中枢神経系を破壊する。恐ろしい点：①ラテックス・PVCなどの一般的な防護手袋を数秒で透過する。②曝露から症状が現れるまでに数ヶ月かかる（潜伏期間）——「異常を感じたときにはすでに深刻な神経障害が始まっている」。③治療法が確立していない——キレート療法（DMPS・DMSA）の効果が限定的。Karen Wetterhahn事件（1997年）：数滴（0.1mL程度）の曝露で約10ヶ月後に死亡。この事件以降、有機水銀の研究における安全規制が全米で大幅に強化された。</div>
+      </div>
+      <div class="mag-item">
+        <div class="mag-label">1997年以降の変化と現在の使用状況</div>
+        <div class="mag-text">Wetterhahn事件後の変化：①NIH・NSFが有機水銀研究への助成に厳格な安全要件を追加。②多くの大学でdimethylmercuryの使用を全面禁止または事実上不可能な条件（専用チャンバー・ラミネート防護手袋・二重手袋義務）に制限。③「これほど危険な物質を研究に使う必要があるのか」という問い直しが行われ、代替化合物への移行が進んだ。現在の使用：NMRスペクトロスコピーの標準試薬として一部研究では依然として使用されるが、代替基準物質（DSS・TMS等）への移行が進み、需要は激減している。今回のMITインシデントが事実であれば：なぜ現在もこの物質が使用されているのかという疑問と、既存の安全プロトコルが機能していたかどうかの調査が求められる。</div>
+      </div>
+      <div class="mag-item">
+        <div class="mag-label">HNの反応と科学コミュニティへの示唆</div>
+        <div class="mag-text">慎重な姿勢：「Twitter投稿1件での報告であり、MIT・Massachusetts General Hospital・CDCからの公式確認がない——現時点では噂の段階」という声が多数。科学コミュニティへの影響：実験化学者・安全管理者の間で「自施設のdimethylmercury在庫と廃棄状況の確認」を促すきっかけになったという声。重要なリソース：Wetterhahn事件についての論文「Fatal Poisoning by Dimethylmercury」（NEJM 1998）とAnesthesia & Analgesia誌の安全プロトコルが再度共有された。HNで最も共感されたコメント：「Karenの死は化学ラボ安全の教科書に載るべき事例——何千人もの研究者の命を救ったかもしれない悲劇」。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: twitter.com (andrew_n_carr)</span>
+      <span>95 ポイント</span>
+      <span>61 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://twitter.com/andrew_n_carr/status/2093524390390694232" target="_blank">投稿を確認する →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49487099" target="_blank">HN議論 (61)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="mit-dimethyl-mercury-exposure" data-type="like" onclick="toggleFlag('mit-dimethyl-mercury-exposure','MITでの塩化ジメチル水銀曝露事故','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="mit-dimethyl-mercury-exposure" data-type="dislike" onclick="toggleFlag('mit-dimethyl-mercury-exposure','MITでの塩化ジメチル水銀曝露事故','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-top">
+    <div class="footer-brand">Morning Edition</div>
+    <button class="export-btn" onclick="exportFeedback()">フィードバックをエクスポート</button>
+  </div>
+  <div class="footer-meta">
+    Hacker News フロントページから厳選した10本 — 2026年9月1日 火曜日 / Issue No.111<br>
+    フィードバックはブラウザに保存され、次回の選定に反映されます。
+  </div>
+  <div class="footer-note">Generated by Morning Edition autonomous agent · Powered by HN Algolia API</div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  const DB_NAME = 'morning-edition-feedback';
+  const DB_VERSION = 2;
+  const STORE_NAME = 'feedback';
+  let db = null;
+
+  function openDB() {
+    return new Promise((resolve, reject) => {
+      if (db) { resolve(db); return; }
+      const req = indexedDB.open(DB_NAME, DB_VERSION);
+      req.onupgradeneeded = e => {
+        const d = e.target.result;
+        if (!d.objectStoreNames.contains(STORE_NAME)) {
+          d.createObjectStore(STORE_NAME, { keyPath: 'id' });
+        }
+      };
+      req.onsuccess = e => { db = e.target.result; resolve(db); };
+      req.onerror = e => reject(e);
+    });
+  }
+
+  async function saveFeedback(id, title, type) {
+    try {
+      const d = await openDB();
+      const tx = d.transaction(STORE_NAME, 'readwrite');
+      const store = tx.objectStore(STORE_NAME);
+      const existing = await new Promise(res => { const r = store.get(id); r.onsuccess = e => res(e.target.result); r.onerror = () => res(null); });
+      if (existing && existing.type === type) {
+        store.delete(id);
+        return null;
+      }
+      store.put({ id, title, type, date: new Date().toISOString() });
+      return type;
+    } catch (e) {
+      try {
+        const key = 'me_fb_' + id;
+        const existing = localStorage.getItem(key);
+        if (existing && JSON.parse(existing).type === type) { localStorage.removeItem(key); return null; }
+        localStorage.setItem(key, JSON.stringify({ id, title, type, date: new Date().toISOString() }));
+        return type;
+      } catch (e2) { return type; }
+    }
+  }
+
+  async function loadFeedback(id) {
+    try {
+      const d = await openDB();
+      return new Promise(res => {
+        const tx = d.transaction(STORE_NAME, 'readonly');
+        const r = tx.objectStore(STORE_NAME).get(id);
+        r.onsuccess = e => res(e.target.result ? e.target.result.type : null);
+        r.onerror = () => res(null);
+      });
+    } catch (e) {
+      try { const v = localStorage.getItem('me_fb_' + id); return v ? JSON.parse(v).type : null; } catch (e2) { return null; }
+    }
+  }
+
+  function showToast(msg, isError) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.className = 'toast' + (isError ? ' error' : '');
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2200);
+  }
+
+  async function toggleFlag(storyId, title, type) {
+    const result = await saveFeedback(storyId, title, type);
+    updateButtons(storyId, result);
+    if (result === 'like') showToast('⭐ 興味ありとして記録しました');
+    else if (result === 'dislike') showToast('✕ 興味なしとして記録しました');
+    else showToast('フィードバックを解除しました');
+    await syncToFile();
+  }
+
+  function updateButtons(storyId, activeType) {
+    document.querySelectorAll(`[data-story="${storyId}"]`).forEach(btn => {
+      btn.classList.remove('active');
+      if (btn.dataset.type === activeType) btn.classList.add('active');
+    });
+  }
+
+  async function syncToFile() {
+    try {
+      const all = await getAllFeedback();
+      const json = JSON.stringify({ liked: all.filter(f => f.type === 'like').map(f => f.id), disliked: all.filter(f => f.type === 'dislike').map(f => f.id), entries: all }, null, 2);
+      if ('showSaveFilePicker' in window) {
+        const opts = { suggestedName: 'feedback.json', types: [{ description: 'JSON', accept: { 'application/json': ['.json'] } }] };
+        try {
+          if (!window._feedbackHandle) return;
+          const writable = await window._feedbackHandle.createWritable();
+          await writable.write(json); await writable.close();
+        } catch (e) {}
+      }
+    } catch (e) {}
+  }
+
+  async function getAllFeedback() {
+    try {
+      const d = await openDB();
+      return new Promise(res => {
+        const tx = d.transaction(STORE_NAME, 'readonly');
+        const r = tx.objectStore(STORE_NAME).getAll();
+        r.onsuccess = e => res(e.target.result || []);
+        r.onerror = () => res([]);
+      });
+    } catch (e) {
+      try {
+        const items = [];
+        for (let i = 0; i < localStorage.length; i++) {
+          const k = localStorage.key(i);
+          if (k && k.startsWith('me_fb_')) { try { items.push(JSON.parse(localStorage.getItem(k))); } catch (e2) {} }
+        }
+        return items;
+      } catch (e2) { return []; }
+    }
+  }
+
+  async function exportFeedback() {
+    try {
+      const all = await getAllFeedback();
+      const json = JSON.stringify({ liked: all.filter(f => f.type === 'like').map(f => f.id), disliked: all.filter(f => f.type === 'dislike').map(f => f.id), entries: all }, null, 2);
+      if ('showSaveFilePicker' in window) {
+        const handle = await window.showSaveFilePicker({ suggestedName: 'feedback.json', types: [{ description: 'JSON', accept: { 'application/json': ['.json'] } }] });
+        window._feedbackHandle = handle;
+        const writable = await handle.createWritable();
+        await writable.write(json); await writable.close();
+        showToast('feedback.json を保存しました');
+      } else {
+        const a = document.createElement('a');
+        a.href = 'data:application/json;charset=utf-8,' + encodeURIComponent(json);
+        a.download = 'feedback.json'; a.click();
+        showToast('feedback.json をダウンロードしました');
+      }
+    } catch (e) { showToast('エクスポートに失敗しました', true); }
+  }
+
+  async function initButtons() {
+    const storyIds = [
+      'breaking-claude-opus5-auto-mode','openshot-4-open-source','security-camera-bird-ai',
+      'apple-mac-mini-studio-ai-demand','military-commissary-freezers-hacked',
+      'google-removes-mv2-extensions-ubo','internet-centralization-nat',
+      'ascii-cyberpunk-html','smartphone-led-hidden-cameras-ai','mit-dimethyl-mercury-exposure'
+    ];
+    for (const id of storyIds) {
+      const type = await loadFeedback(id);
+      if (type) updateButtons(id, type);
+    }
+  }
+
+  initButtons();
+</script>
+</body>
+</html>
