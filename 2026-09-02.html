@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Morning Edition — 2026年9月2日</title>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --font: 'M PLUS Rounded 1c', 'Hiragino Sans', 'Noto Sans JP', sans-serif; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); background: #111; color: #fff; overflow-x: hidden; }
+
+    .masthead { background: #fff; color: #000; padding: 3rem 4rem 2.5rem; border-bottom: 6px solid #000; position: relative; overflow: hidden; }
+    .masthead::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: repeating-linear-gradient(90deg, #000 0, #000 12px, transparent 12px, transparent 20px); }
+    .masthead-kicker { font-size: 0.85rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: #777; margin-bottom: 0.6rem; }
+    .masthead-title { font-size: clamp(3.5rem, 9vw, 7.5rem); font-weight: 900; line-height: 0.88; letter-spacing: -0.04em; margin-bottom: 1.8rem; }
+    .masthead-meta { display: flex; gap: 3rem; align-items: baseline; flex-wrap: wrap; }
+    .masthead-date { font-size: 1.5rem; font-weight: 700; }
+    .masthead-subtitle { font-size: 1rem; font-weight: 400; color: #555; max-width: 480px; line-height: 1.5; }
+    .masthead-issue { margin-left: auto; text-align: right; }
+    .masthead-issue span { display: block; }
+    .masthead-issue .iss-label { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: #999; }
+    .masthead-issue .iss-num { font-size: 2.2rem; font-weight: 900; color: #000; }
+
+    .toc { background: #1a1a1a; padding: 1.5rem 4rem; display: flex; gap: 1.5rem; flex-wrap: wrap; border-bottom: 1px solid #333; }
+    .toc a { color: #aaa; text-decoration: none; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; transition: color 0.2s; }
+    .toc a:hover { color: #fff; }
+    .toc-num { color: #555; margin-right: 0.3em; }
+
+    .story { position: relative; overflow: hidden; }
+    .story-inner { max-width: 1200px; margin: 0 auto; padding: 5rem 4rem; position: relative; z-index: 1; }
+    .story-num { font-size: clamp(6rem, 18vw, 16rem); font-weight: 900; line-height: 0.8; letter-spacing: -0.06em; opacity: 0.08; position: absolute; top: 1rem; right: 2rem; user-select: none; }
+    .story-badge { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.35em 0.9em; border-radius: 2px; margin-bottom: 1.5rem; }
+    .direct-badge { background: #FFD700; color: #000; }
+    .story-kicker { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; opacity: 0.6; margin-bottom: 0.8rem; }
+    .story-headline { font-size: clamp(2rem, 5vw, 4rem); font-weight: 900; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+    .story-body { font-size: clamp(1rem, 1.5vw, 1.2rem); font-weight: 400; line-height: 1.8; max-width: 680px; opacity: 0.88; margin-bottom: 2rem; }
+    .story-meta { display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center; font-size: 0.8rem; font-weight: 700; opacity: 0.5; }
+    .story-links { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem; }
+    .story-link { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.6em 1.4em; border-radius: 3px; text-decoration: none; transition: opacity 0.2s, transform 0.15s; }
+    .story-link:hover { opacity: 0.75; transform: translateY(-1px); }
+
+    .feedback-buttons { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .flag-btn { background: none; border: 1px solid currentColor; color: inherit; font-family: var(--font); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.5em 1em; border-radius: 3px; cursor: pointer; opacity: 0.32; transition: opacity 0.2s, background 0.2s, color 0.2s, border-color 0.2s, transform 0.15s; }
+    .flag-btn:hover { opacity: 0.72; transform: translateY(-1px); }
+    .flag-btn.like-btn.active { opacity: 1; background: rgba(255,215,0,0.15); border-color: #FFD700; color: #FFD700 !important; }
+    .flag-btn.dislike-btn.active { opacity: 1; background: rgba(255,60,60,0.12); border-color: #FF4444; color: #FF4444 !important; }
+
+    .toast { position: fixed; bottom: 2rem; right: 2rem; background: #1a1a1a; color: #fff; font-family: var(--font); font-size: 0.82rem; font-weight: 700; padding: 0.75em 1.4em; border-radius: 4px; border-left: 3px solid #00C853; z-index: 9999; opacity: 0; transform: translateY(10px); transition: opacity 0.25s, transform 0.25s; pointer-events: none; box-shadow: 0 4px 24px rgba(0,0,0,0.45); }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    .toast.error { border-left-color: #FF5252; }
+
+    /* Story 1 — White */
+    .story-1 { background: #fff; color: #000; min-height: 90vh; display: flex; flex-direction: column; justify-content: center; }
+    .story-1 .story-num { color: #000; opacity: 0.04; }
+    .story-1 .story-kicker { color: #555; opacity: 1; }
+    .story-1 .story-headline { color: #000; }
+    .story-1 .story-body { color: #111; }
+    .story-1 .story-meta { color: #000; }
+    .story-1 .story-link.primary { background: #1a1a1a; color: #fff; }
+    .story-1 .story-link.secondary { background: #f0f0f0; color: #000; }
+    .story-1 .flag-btn { color: #000; }
+    .story-1-accent { position: absolute; bottom: 0; left: 0; width: 100%; height: 8px; background: linear-gradient(90deg, #cc4400, #ff6622, #cc4400); }
+    .story-1 .headline-accent { display: inline-block; background: linear-gradient(135deg, #aa2200 0%, #ff5500 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .orange-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1.2rem; margin: 2rem 0; max-width: 680px; }
+    .orange-card { border: 2px solid rgba(204,68,0,0.18); background: rgba(204,68,0,0.04); border-radius: 6px; padding: 1.3rem 1.5rem; }
+    .orange-card-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.2em; text-transform: uppercase; color: #aa3300; margin-bottom: 0.4rem; }
+    .orange-card-value { font-size: 1.05rem; font-weight: 900; color: #000; line-height: 1.3; }
+    .orange-card-sub { font-size: 0.75rem; color: #555; margin-top: 0.3rem; line-height: 1.4; }
+
+    /* Story 2 — Dark navy/teal */
+    .story-2 { background: #00080c; color: #b8f0ff; min-height: 80vh; }
+    .story-2::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(0,160,200,0.14) 0%, transparent 65%); }
+    .story-2 .story-num { color: #00A0C8; opacity: 0.07; }
+    .story-2 .story-kicker { color: #20C8E8; opacity: 1; }
+    .story-2 .story-headline { color: #e0f8ff; }
+    .story-2 .story-body { color: #b8f0ff; }
+    .story-2 .story-meta { color: #20C8E8; opacity: 0.5; }
+    .story-2 .story-link.primary { background: #004058; color: #80e8ff; }
+    .story-2 .story-link.secondary { background: rgba(0,160,200,0.08); color: #90d8f0; border: 1px solid rgba(0,160,200,0.22); }
+    .story-2 .flag-btn { color: #b8f0ff; }
+    .teal-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .teal-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(0,160,200,0.07); border-left: 3px solid #00A0C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .teal-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20C8E8; margin-bottom: 0.3rem; }
+    .teal-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 3 — Dark red */
+    .story-3 { background: #0a0000; color: #fff; min-height: 80vh; }
+    .story-3::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(200,20,20,0.16) 0%, transparent 65%); }
+    .story-3 .story-num { color: #C81414; opacity: 0.07; }
+    .story-3 .story-kicker { color: #E84040; opacity: 1; }
+    .story-3 .story-headline { color: #fff; }
+    .story-3 .story-body { color: rgba(255,255,255,0.88); }
+    .story-3 .story-meta { color: #E84040; opacity: 0.5; }
+    .story-3 .story-link.primary { background: #6a0000; color: #fff; }
+    .story-3 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-3 .flag-btn { color: #fff; }
+    .red-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .red-item { background: rgba(200,20,20,0.07); border-left: 3px solid #C81414; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .red-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E84040; margin-bottom: 0.3rem; }
+    .red-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 4 — Dark green */
+    .story-4 { background: #020c04; color: #c8f0d0; min-height: 80vh; }
+    .story-4::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(20,160,70,0.16) 0%, transparent 65%); }
+    .story-4 .story-num { color: #14A046; opacity: 0.07; }
+    .story-4 .story-kicker { color: #30C060; opacity: 1; }
+    .story-4 .story-headline { color: #e0ffe8; }
+    .story-4 .story-body { color: #c8f0d0; }
+    .story-4 .story-meta { color: #30C060; opacity: 0.5; }
+    .story-4 .story-link.primary { background: #063820; color: #80ffb0; }
+    .story-4 .story-link.secondary { background: rgba(20,160,70,0.08); color: #a0e8b0; border: 1px solid rgba(20,160,70,0.22); }
+    .story-4 .flag-btn { color: #c8f0d0; }
+    .green-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .green-item { background: rgba(20,160,70,0.07); border-left: 3px solid #14A046; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .green-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #30C060; margin-bottom: 0.3rem; }
+    .green-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 5 — Dark purple */
+    .story-5 { background: #040010; color: #d8c8ff; min-height: 75vh; }
+    .story-5::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(90,40,200,0.17) 0%, transparent 65%); }
+    .story-5 .story-num { color: #5A28C8; opacity: 0.07; }
+    .story-5 .story-kicker { color: #8050E0; opacity: 1; }
+    .story-5 .story-headline { color: #f0e8ff; }
+    .story-5 .story-body { color: #d8c8ff; }
+    .story-5 .story-meta { color: #8050E0; opacity: 0.5; }
+    .story-5 .story-link.primary { background: #200860; color: #d0a8ff; }
+    .story-5 .story-link.secondary { background: rgba(90,40,200,0.08); color: #c0a0f0; border: 1px solid rgba(90,40,200,0.22); }
+    .story-5 .flag-btn { color: #d8c8ff; }
+    .purple-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .purple-item { background: rgba(90,40,200,0.07); border-left: 3px solid #5A28C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .purple-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #8050E0; margin-bottom: 0.3rem; }
+    .purple-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 6 — Dark cyan */
+    .story-6 { background: #000c10; color: #b8e8f0; min-height: 75vh; }
+    .story-6::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 40%, rgba(0,130,160,0.14) 0%, transparent 65%); }
+    .story-6 .story-num { color: #0080A0; opacity: 0.07; }
+    .story-6 .story-kicker { color: #20B0D0; opacity: 1; }
+    .story-6 .story-headline { color: #e0f4ff; }
+    .story-6 .story-body { color: #b8e8f0; }
+    .story-6 .story-meta { color: #20B0D0; opacity: 0.5; }
+    .story-6 .story-link.primary { background: #003848; color: #80d8f0; }
+    .story-6 .story-link.secondary { background: rgba(0,130,160,0.08); color: #90cce0; border: 1px solid rgba(0,130,160,0.22); }
+    .story-6 .flag-btn { color: #b8e8f0; }
+    .cyan-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .cyan-item { background: rgba(0,130,160,0.07); border-left: 3px solid #0080A0; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .cyan-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20B0D0; margin-bottom: 0.3rem; }
+    .cyan-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 7 — Dark amber */
+    .story-7 { background: #0a0300; color: #ffe0b8; min-height: 75vh; }
+    .story-7::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(210,90,20,0.18) 0%, transparent 65%); }
+    .story-7 .story-num { color: #D05A14; opacity: 0.07; }
+    .story-7 .story-kicker { color: #E88040; opacity: 1; }
+    .story-7 .story-headline { color: #fff0d8; }
+    .story-7 .story-body { color: #ffe0b8; }
+    .story-7 .story-meta { color: #E88040; opacity: 0.5; }
+    .story-7 .story-link.primary { background: #6a2400; color: #ffc880; }
+    .story-7 .story-link.secondary { background: rgba(210,90,20,0.08); color: #ffb870; border: 1px solid rgba(210,90,20,0.22); }
+    .story-7 .flag-btn { color: #ffe0b8; }
+    .amber-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .amber-item { background: rgba(210,90,20,0.07); border-left: 3px solid #D05A14; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .amber-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E88040; margin-bottom: 0.3rem; }
+    .amber-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 8 — Dark gold */
+    .story-8 { background: #080500; color: #fff; min-height: 70vh; }
+    .story-8::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,145,10,0.15) 0%, transparent 65%); }
+    .story-8 .story-num { color: #BE9110; opacity: 0.06; }
+    .story-8 .story-kicker { color: #D4A820; opacity: 1; }
+    .story-8 .story-headline { color: #fff; }
+    .story-8 .story-body { color: rgba(255,255,255,0.88); }
+    .story-8 .story-meta { color: #D4A820; opacity: 0.5; }
+    .story-8 .story-link.primary { background: #604000; color: #ffe070; }
+    .story-8 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-8 .flag-btn { color: #fff; }
+    .gold-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .gold-item { background: rgba(190,145,10,0.07); border-left: 3px solid #BE9110; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .gold-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #D4A820; margin-bottom: 0.3rem; }
+    .gold-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 9 — Slate blue */
+    .story-9 { background: #040810; color: #c8d8f0; min-height: 70vh; }
+    .story-9::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 35%, rgba(50,90,170,0.16) 0%, transparent 65%); }
+    .story-9 .story-num { color: #3258A8; opacity: 0.07; }
+    .story-9 .story-kicker { color: #5878C8; opacity: 1; }
+    .story-9 .story-headline { color: #e8f0ff; }
+    .story-9 .story-body { color: #c8d8f0; }
+    .story-9 .story-meta { color: #5878C8; opacity: 0.5; }
+    .story-9 .story-link.primary { background: #101e50; color: #fff; }
+    .story-9 .story-link.secondary { background: rgba(50,90,170,0.08); color: #b0c8e8; border: 1px solid rgba(50,90,170,0.22); }
+    .story-9 .flag-btn { color: #c8d8f0; }
+    .slate-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .slate-item { background: rgba(50,90,170,0.07); border-left: 3px solid #3258A8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .slate-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #5878C8; margin-bottom: 0.3rem; }
+    .slate-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 10 — Magenta */
+    .story-10 { background: #080004; color: #ffc8e8; min-height: 70vh; }
+    .story-10::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,20,90,0.15) 0%, transparent 65%); }
+    .story-10 .story-num { color: #BE1458; opacity: 0.07; }
+    .story-10 .story-kicker { color: #E04080; opacity: 1; }
+    .story-10 .story-headline { color: #fff0f8; }
+    .story-10 .story-body { color: #ffc8e8; }
+    .story-10 .story-meta { color: #E04080; opacity: 0.5; }
+    .story-10 .story-link.primary { background: #500030; color: #ffb0d8; }
+    .story-10 .story-link.secondary { background: rgba(190,20,90,0.08); color: #f090c0; border: 1px solid rgba(190,20,90,0.22); }
+    .story-10 .flag-btn { color: #ffc8e8; }
+    .mag-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .mag-item { background: rgba(190,20,90,0.07); border-left: 3px solid #BE1458; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .mag-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E04080; margin-bottom: 0.3rem; }
+    .mag-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .site-footer { background: #000; color: #555; padding: 3rem 4rem; display: flex; flex-direction: column; gap: 1.5rem; border-top: 1px solid #222; }
+    .footer-top { display: flex; gap: 2rem; align-items: center; flex-wrap: wrap; justify-content: space-between; }
+    .footer-brand { font-size: 1.4rem; font-weight: 900; color: #fff; }
+    .footer-meta { font-size: 0.75rem; line-height: 1.6; }
+    .export-btn { background: #222; border: 1px solid #444; color: #fff; font-family: var(--font); font-size: 0.8rem; font-weight: 700; padding: 0.7em 1.5em; border-radius: 3px; cursor: pointer; letter-spacing: 0.08em; transition: background 0.2s; }
+    .export-btn:hover { background: #333; }
+    .footer-note { font-size: 0.7rem; opacity: 0.5; }
+
+    @media (max-width: 768px) {
+      .masthead, .toc, .story-inner, .site-footer { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .story-num { display: none; }
+      .masthead-meta { gap: 1rem; }
+      .masthead-issue { margin-left: 0; }
+      .orange-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+<nav style="background:#1a1a1a;border-bottom:1px solid #333;padding:0.55rem 2rem;font-family:'M PLUS Rounded 1c','Hiragino Sans','Noto Sans JP',sans-serif;position:sticky;top:0;z-index:999;">
+  <a href="./index.html" style="color:#aaa;text-decoration:none;font-size:0.8rem;font-weight:700;letter-spacing:0.03em;display:inline-flex;align-items:center;gap:0.4rem;transition:color 0.15s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#aaa'">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    アーカイブへ戻る
+  </a>
+</nav>
+
+<header class="masthead">
+  <div class="masthead-kicker">Hacker News — Morning Edition</div>
+  <h1 class="masthead-title">Morning<br>Edition</h1>
+  <div class="masthead-meta">
+    <div>
+      <div class="masthead-date">2026年9月2日 水曜日</div>
+      <div class="masthead-subtitle">AI・開発ツール・プライバシー・サイエンス — あなたのための10本</div>
+    </div>
+    <div class="masthead-issue">
+      <span class="iss-label">Issue</span>
+      <span class="iss-num">No.112</span>
+    </div>
+  </div>
+</header>
+
+<nav class="toc">
+  <a href="#s1"><span class="toc-num">01</span>Claude Fable 5.1 と Claude Mythos 5.1 — Anthropicが2モデルを発表</a>
+  <a href="#s2"><span class="toc-num">02</span>AnkiDroid: Google PlayがOpen Collective寄付リンクを拒否</a>
+  <a href="#s3"><span class="toc-num">03</span>1.5時間で学習した小型トランスフォーマーが多くのLLMを超えた</a>
+  <a href="#s4"><span class="toc-num">04</span>Play StoreがAuroraStoreをブロック——GrapheneOSユーザーに打撃</a>
+  <a href="#s5"><span class="toc-num">05</span>Firefox for iOS に広告ブロッカーが登場</a>
+  <a href="#s6"><span class="toc-num">06</span>Ed ZitronのAI懐疑論的予測はどれほど正確だったか</a>
+  <a href="#s7"><span class="toc-num">07</span>Jujutsuの作者がERSCに参加</a>
+  <a href="#s8"><span class="toc-num">08</span>ChatGPT/CodexアプリにLibreOffice一式が同梱されていた</a>
+  <a href="#s9"><span class="toc-num">09</span>48GB Macで104GB Qwen3.8-Flash-Nextを約12tok/sで動かす</a>
+  <a href="#s10"><span class="toc-num">10</span>Dyson CameraJet — カメラ付き電動歯ブラシ</a>
+</nav>
+
+<!-- ═══ STORY 1 — Claude Fable 5.1 & Claude Mythos 5.1 ══════════════════════════════ -->
+<section class="story story-1" id="s1">
+  <div class="story-num">01</div>
+  <div class="story-inner">
+    <div class="story-badge direct-badge">⚡ あなたに直接関係</div>
+    <div class="story-kicker">AI / Claude / Anthropic / Fable 5.1 / Mythos 5.1 / 新モデル / LLM / クリエイティブ — Anthropicが Claude Fable 5.1 と Claude Mythos 5.1 を発表。755ポイント・716コメント。2026-09-02</div>
+    <h2 class="story-headline">
+      Claude Fable 5.1<br><span class="headline-accent">と Claude Mythos 5.1——</span><br>Anthropicが2モデルを発表
+    </h2>
+    <div class="story-body">
+      Anthropicが「Claude Fable 5.1」と「Claude Mythos 5.1」の2モデルを同時発表し、HNで755ポイント・716コメントという今日最大の反響を集めました。Claude Fableは長文コンテキストでのクリエイティブライティング・物語生成・世界観構築に特化したモデルとして設計されており、Mythos 5.1はより強力な推論能力と複雑な多段階タスクへの対応力を強化したフラッグシップモデルです。
+
+      両モデルとも5.xファミリーに属し、既存のClaude Sonnet・Opus・Haikuラインナップを補完する形で投入されます。クリエイター向けとエンタープライズ向けの用途を明確に分けた製品戦略は、Anthropicが単一モデルの性能競争から「ユースケース特化型」への移行を進めていることを示しています。
+    </div>
+    <div class="orange-grid">
+      <div class="orange-card">
+        <div class="orange-card-label">Claude Fable 5.1</div>
+        <div class="orange-card-value">クリエイティブ特化の長文モデル</div>
+        <div class="orange-card-sub">長編小説・脚本・ゲームシナリオ・世界観設計に最適化。HNでは「ゲーム開発のNPC対話・ロア生成が劇的に向上した」「長い物語のコンテキストを保ちながら一貫したキャラクターを維持できる」といった開発者の報告が相次ぐ。API価格は従来のOpusより低く設定される見通し。</div>
+      </div>
+      <div class="orange-card">
+        <div class="orange-card-label">Claude Mythos 5.1</div>
+        <div class="orange-card-value">推論強化のフラッグシップ</div>
+        <div class="orange-card-sub">複数ステップの計画・コード生成・数学的推論で改善を報告。Claude Code上でMythosをベースモデルとして使用できるオプションが追加予定。HNのベンチマーク共有スレッドでは「SWE-bench・AIME・GPQAで前世代比で大きく向上」という報告多数。Opusと同等以上の能力をより低コストで提供するとされる。</div>
+      </div>
+      <div class="orange-card">
+        <div class="orange-card-label">HNの反応と注目点</div>
+        <div class="orange-card-value">「モデル名の増殖」への疑問と期待が交錯</div>
+        <div class="orange-card-sub">批判的な声：「Sonnet・Opus・Haiku・Fable・Mythosと名前が増えすぎて、どれを使えばいいかわからない」。肯定的な声：「用途別モデルは理にかなっている——クリエイティブタスクにOpusの全能力は不要だった」。開発者の注目：APIを通じた両モデルへのアクセスが本日より開始。Claude.aiの有料プランユーザーも即日利用可能。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: anthropic.com</span>
+      <span>755 ポイント</span>
+      <span>716 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.anthropic.com/claude-fable-and-mythos-5-1" target="_blank">発表を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49525378" target="_blank">HN議論 (716)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="claude-fable-mythos-5-1" data-type="like" onclick="toggleFlag('claude-fable-mythos-5-1','Claude Fable 5.1 と Claude Mythos 5.1 — Anthropicが2モデルを発表','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="claude-fable-mythos-5-1" data-type="dislike" onclick="toggleFlag('claude-fable-mythos-5-1','Claude Fable 5.1 と Claude Mythos 5.1 — Anthropicが2モデルを発表','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+    <div class="story-1-accent"></div>
+  </div>
+</section>
+
+<!-- ═══ STORY 2 — AnkiDroid Google Play donation link ════════════════════════════════ -->
+<section class="story story-2" id="s2">
+  <div class="story-num">02</div>
+  <div class="story-inner">
+    <div class="story-kicker">プラットフォーム / Google Play / OSS / AnkiDroid / 寄付 / Open Collective / 独占禁止 / デジタル市場 — Google PlayがAnkiDroidのOpen Collective寄付リンクを拒否。791ポイント・228コメント。2026-09-02</div>
+    <h2 class="story-headline">
+      AnkiDroid:<br><span style="color:#20d8f0">Google Playが<br>Open Collective<br>寄付リンクを拒否</span>
+    </h2>
+    <div class="story-body">
+      人気のオープンソース暗記アプリ「AnkiDroid」がGitHubで報告した問題が791ポイント・228コメントを集め、本日最多ポイントを記録しました。AnkiDroidがアプリ内にOpen Collectiveへの寄付リンクを追加したところ、GoogleがPlay Storeのポリシー違反として削除または修正を要求したという内容です。
+
+      GoogleはPlay Storeのポリシーとして「ユーザーがアプリ内でグーグルの決済システムを迂回して直接寄付・支払いを行えるリンクを許可しない」という立場を取っています。非営利OSSプロジェクトへの寄付リンクにまでこのポリシーが適用されることに、HNでは強い批判が集まりました。
+    </div>
+    <div class="teal-items">
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">何が問題なのか</div>
+          <div class="teal-text">AnkiDroidはオープンソース・無料・広告なしのアプリで、運営費をOpen Collectiveを通じたコミュニティ寄付で賄っている。Googleのポリシーは「アプリ内課金・デジタルコンテンツの決済はGoogleの決済システムを使わなければならない」というものだが、寄付（非商業的）にまでこれを適用することの法的・倫理的妥当性に疑問が呈されている。EUのDMA（デジタル市場法）はアプリストアの外部決済リンクを許可するよう要求しており、EU地域のGoogle Playでは既に緩和が進んでいるが、米国・日本では未変更のルールが維持されている。</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">HNの反応</div>
+          <div class="teal-text">最もupvoteされたコメント：「Googleが非営利OSSプロジェクトへの寄付リンクを削除するのは、独占的なプラットフォームとしての権限乱用。Appleも同様だが、少なくとも規制当局が圧力をかけている」。対照的な意見：「ポリシーの線引きは難しい——寄付と販売の区別が曖昧なケースも多い」。実践的な対応：AnkiDroidのメンテナーは「ストア概要ページ（アプリ内ではなくPlayストアのリスティングページ）にリンクを移すことで回避できる可能性がある」と述べている。</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">OSSプロジェクトへの影響</div>
+          <div class="teal-text">AnkiDroidに限らず、多くのOSSアプリがGoogle PlayのポリシーによってOpen Collective・Patreon・GitHub Sponsorsへの直接リンクを削除されるリスクに直面している。対応策として採られているアプローチ：①ウェブサイト（about.html等）でのリンク掲載のみにする②F-Droid（代替Androidアプリストア）版にのみリンクを含める③ストアのdeveloper explanation欄を活用する。F-Droid版のAnkiDroidはGoogle Playの制約を受けないため、寄付リンクを問題なく含められる。</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: github.com/ankidroid</span>
+      <span>791 ポイント</span>
+      <span>228 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://github.com/ankidroid/Anki-Android/issues/21656" target="_blank">Issue を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49520022" target="_blank">HN議論 (228)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="ankidroid-google-play-donation-link" data-type="like" onclick="toggleFlag('ankidroid-google-play-donation-link','AnkiDroid: Google PlayがOpen Collective寄付リンクを拒否','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="ankidroid-google-play-donation-link" data-type="dislike" onclick="toggleFlag('ankidroid-google-play-donation-link','AnkiDroid: Google PlayがOpen Collective寄付リンクを拒否','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 3 — Small transformer beats LLMs ═══════════════════════════════════════ -->
+<section class="story story-3" id="s3">
+  <div class="story-num">03</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / 機械学習 / トランスフォーマー / 小型モデル / ARC / ベンチマーク / セルフホスト / mvakde — 1.5時間で学習した小型トランスフォーマーが多くのLLMを超えた。521ポイント・146コメント。2026-09-02</div>
+    <h2 class="story-headline">
+      1.5時間で<br><span style="color:#ff6060">学習した小型<br>トランスフォーマーが<br>多くのLLMを超えた</span>
+    </h2>
+    <div class="story-body">
+      mvakde.github.ioに投稿された「I trained a small transformer in 1.5hrs and it beats many LLMs」が521ポイント・146コメントを集めました。著者のMvakde氏が個人用GPUで1.5時間のトレーニングで構築した小型トランスフォーマーモデルが、ARC（Abstraction and Reasoning Corpus）ベンチマークにおいてGPT-4oやClaude 3 Sonnetなどの大規模LLMを上回るスコアを達成したという実験報告です。
+
+      ARCは視覚的なパターン認識と抽象的推論を測る特殊なベンチマークで、汎用LLMが苦手とするタスクであることが知られています。「特定タスクに特化した小型モデルが大規模汎用モデルを超える」という事実は、「もっと大きく、もっと高コストに」というAI開発の主流に一石を投じています。
+    </div>
+    <div class="red-items">
+      <div class="red-item">
+        <div class="red-label">なぜ小型モデルがARCで勝てるのか</div>
+        <div class="red-text">ARC（Abstraction and Reasoning Corpus）の特性：視覚的なグリッドパターンを見てルールを推論するタスクで、大量テキストで事前学習したLLMは本質的に苦手。理由：①ARCはin-context learningではなく、新しいルールを問題ごとに推論する能力を問う②LLMは言語パターンのメモリゼーションに依存しており、真の抽象推論は別の仕組みが必要③著者のモデルはARCの問題形式に特化したアーキテクチャとデータ拡張を採用し、汎用的な能力を犠牲に特化性能を最大化した。著者の主張：「これはLLMが劣るという証明ではなく、タスクに合ったツールを選ぶことの重要性の証明」。</div>
+      </div>
+      <div class="red-item">
+        <div class="red-label">技術的な詳細</div>
+        <div class="red-text">モデルの概要：パラメータ数は非公開だが「small」と表現——推定数百万〜数千万パラメータ。学習環境：個人用GPU（RTX 4090相当）で1.5時間。データ：ARC training setのみ。主な工夫：①タスク特化のデータ拡張（回転・反転・色置換）②プログラム合成と組み合わせたハイブリッドアプローチ③評価時のtest-time computeの最適化（複数サンプル生成→投票）。ARC-AGI 2024の公式リーダーボードでの位置：著者の報告によると上位10〜20%に相当するスコアを達成。</div>
+      </div>
+      <div class="red-item">
+        <div class="red-label">HNの評価と批判</div>
+        <div class="red-text">懐疑的な声（最多upvote）：「タイトルが誤解を招く——ARCという特定ベンチマークで比較したに過ぎず、『多くのLLMを超えた』というのは表現が強すぎる。汎用能力では比較にならない」。肯定的な評価：「それでも重要な示唆がある——1.5時間と個人GPUで達成できるのは、タスク特化モデルのROIが劇的に高いことを示す」。実用的な含意：企業がLLM APIを使う前に「この問題に特化した小型モデルを訓練する方が安くて速くて性能が高い」という場合がある——その見極め方のデモとして価値がある。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: mvakde.github.io</span>
+      <span>521 ポイント</span>
+      <span>146 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://mvakde.github.io/blog/44-on-arc-1/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49519939" target="_blank">HN議論 (146)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="small-transformer-beats-llms" data-type="like" onclick="toggleFlag('small-transformer-beats-llms','1.5時間で学習した小型トランスフォーマーが多くのLLMを超えた','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="small-transformer-beats-llms" data-type="dislike" onclick="toggleFlag('small-transformer-beats-llms','1.5時間で学習した小型トランスフォーマーが多くのLLMを超えた','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 4 — Play Store blocks AuroraStore / GrapheneOS ═════════════════════════ -->
+<section class="story story-4" id="s4">
+  <div class="story-num">04</div>
+  <div class="story-inner">
+    <div class="story-kicker">プライバシー / Android / GrapheneOS / AuroraStore / Google / プラットフォーム / セキュリティ / 脱Google — Play StoreがAuroraStoreをブロック——GrapheneOSユーザーに直撃。437ポイント・179コメント。2026-09-02</div>
+    <h2 class="story-headline">
+      Play Storeが<br><span style="color:#40ff80">AuroraStoreを<br>ブロック——<br>GrapheneOSに打撃</span>
+    </h2>
+    <div class="story-body">
+      Googleがプライバシー重視のAndroidユーザーに人気のサードパーティクライアント「AuroraStore」をPlay Storeのバックエンドから締め出し、437ポイント・179コメントを集めました。AuroraStoreはGoogleアカウントなしでPlay Storeのアプリを匿名でダウンロードできるクライアントとして、GrapheneOSやCalyxOSのユーザーが脱Google環境を維持しながらAndroidアプリを利用するための重要なツールです。
+
+      AuroraStoreはPlay Storeのアプリ取得APIに匿名ダミーアカウントを経由してアクセスする仕組みで、Googleは利用規約違反として定期的にアクセスをブロックしてきました。今回のブロックは従来より広範囲で、回避策が機能しにくい状況になっているとの報告です。
+    </div>
+    <div class="green-items">
+      <div class="green-item">
+        <div class="green-label">AuroraStoreとGrapheneOSの関係</div>
+        <div class="green-text">GrapheneOSの位置づけ：プライバシーとセキュリティに特化したAndroid派生OS。GoogleモバイルサービスなしでPixelデバイス上で動作し、Sandboxed Google Play（隔離されたGoogle Play環境）を選択的に利用できる。AuroraStoreの役割：Sandboxed Google Playを完全に利用しない・または持たないユーザーが、Googleアカウントを作成・ログインせずにPlay Storeのアプリ（Google製以外の大多数のアプリ）を入手するための手段。ブロックの影響：AuroraStoreを主要なアプリ源として使っているユーザーはF-Droid（OSSのみ）か直接APKサイドローディングに後退せざるを得ない。</div>
+      </div>
+      <div class="green-item">
+        <div class="green-label">HNの反応と代替手段</div>
+        <div class="green-text">コミュニティから寄せられた対応策：①Sandboxed Google Play（GrapheneOSの推奨機能）に移行——隔離されたサンドボックスでGoogle Playを動かし、トラッキングをOS側で制限する。②F-Droid + IzzyOnDroid リポジトリの活用——OSSアプリの多くはここで入手可能。③直接APKダウンロード（Apkmirror等）——署名検証を手動で行う必要がある。GrapheneOSプロジェクトのコメント（公式）：「Sandboxed Google Playを使用することを推奨する——これは我々が開発した安全な方法であり、AuroraStoreは常に不安定だった」。</div>
+      </div>
+      <div class="green-item">
+        <div class="green-label">構造的な問題</div>
+        <div class="green-text">根本的な問題：Androidは「オープンソース」だがGoogle Playエコシステムは閉鎖的で、主要なアプリの大多数はPlay Store経由でのみ安定して入手できる。EU DMAの影響：欧州ではサイドローディングの容易化とサードパーティストアへのアクセス拡大がGoogleに義務付けられているが、日本・米国では制約が残る。長期的な展望：AuroraStoreはGoogleとの「いたちごっこ」を続けるが、Googleがバックエンド認証を強化するほど困難になる。「脱Google Android」は可能だが、快適さとのトレードオフが増している——今回のブロックはその現実を改めて示した。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: gitlab.com/AuroraOSS</span>
+      <span>437 ポイント</span>
+      <span>179 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://gitlab.com/AuroraOSS/AuroraStore/-/work_items/1566" target="_blank">Issue を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49523754" target="_blank">HN議論 (179)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="play-store-blocks-aurora-grapheneos" data-type="like" onclick="toggleFlag('play-store-blocks-aurora-grapheneos','Play StoreがAuroraStoreをブロック——GrapheneOSユーザーに打撃','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="play-store-blocks-aurora-grapheneos" data-type="dislike" onclick="toggleFlag('play-store-blocks-aurora-grapheneos','Play StoreがAuroraStoreをブロック——GrapheneOSユーザーに打撃','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 5 — Firefox Ad Blocker for iOS ═════════════════════════════════════════ -->
+<section class="story story-5" id="s5">
+  <div class="story-num">05</div>
+  <div class="story-inner">
+    <div class="story-kicker">プライバシー / Firefox / iOS / Safari / 広告ブロック / Mozilla / ブラウザ / モバイル — Firefox for iOSに広告ブロッカーが正式搭載。243ポイント・87コメント。2026-09-02</div>
+    <h2 class="story-headline">
+      Firefox for iOSに<br><span style="color:#c090ff">広告ブロッカーが<br>登場——<br>Safari拡張不要に</span>
+    </h2>
+    <div class="story-body">
+      Mozillaが「Introducing Ad Blocker for Firefox on iOS」を公式ブログで発表し、243ポイント・87コメントを集めました。Firefox for iOSにネイティブの広告ブロック機能が統合され、別途Safari拡張機能やアドオンをインストールすることなくFirefox内で広告・トラッカーをブロックできるようになりました。
+
+      iOSではAppleのポリシーにより全ブラウザがWebKitエンジンを使用する必要があり、FirefoxはSafariと同じ描画エンジン上で動作します。ただしコンテンツブロック機能はMozillaが独自に実装できるため、今回のネイティブ統合は技術的に可能であり、「iOS上でもFirefoxを選ぶ理由が増えた」とHNで歓迎されています。
+    </div>
+    <div class="purple-items">
+      <div class="purple-item">
+        <div class="purple-label">機能の詳細</div>
+        <div class="purple-text">提供される保護：①広告のブロック——主要な広告ネットワーク（Google Ads・Meta Audience Network等）をデフォルトでブロック。②トラッカーのブロック——クロスサイトトラッキングCookieとフィンガープリンティングスクリプトを遮断。③フィッシング保護——既知の悪意あるサイトへのアクセスを警告。技術基盤：EasyListおよびEasyPrivacyをベースとしたフィルタリスト。更新頻度：週次で自動更新。カスタマイズ：特定のサイトを許可リストに追加する「例外設定」が利用可能。デフォルト：新規インストール時は有効、既存ユーザーへのロールアウトは段階的に展開。</div>
+      </div>
+      <div class="purple-item">
+        <div class="purple-label">なぜ今なのか</div>
+        <div class="purple-text">タイミングの背景：ChromeのManifest V3移行（uBlock Origin等MV2拡張機能の削除）が進む中、「まともな広告ブロックが使えるブラウザ」の希少性が高まっている。iOSでの状況：SafariはコンテンツブロッカーAPIを提供しており、AdGuard・1Blockerなどの拡張機能が利用可能だが、設定が複雑。Firefox組み込みは「インストールするだけで機能する」シンプルさを提供。競合との比較：Braveはデフォルトで強力な広告ブロックを搭載しており、今回のFirefox新機能はBraveのiOSでの主要な差別化要因の一つに追いついた形。</div>
+      </div>
+      <div class="purple-item">
+        <div class="purple-label">HNの反応</div>
+        <div class="purple-text">歓迎する声：「iOSのFirefoxユーザーにとって長年望んでいた機能——やっと使う理由ができた」。現実的な指摘：「iOSでは結局WebKitなので、デスクトップFirefoxとは全くの別物。プライバシー目的ならBrave・Firefox Focus・DuckDuckGoブラウザの組み合わせの方が強い」。Mozillaの戦略的意義：「Firefoxのモバイルシェアは1〜2%程度で伸び悩んでいる——広告ブロックの組み込みは新規ユーザー獲得のための差別化策として正しい判断」。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: blog.mozilla.org</span>
+      <span>243 ポイント</span>
+      <span>87 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://blog.mozilla.org/en/firefox/ad-blocker-on-ios/" target="_blank">発表を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49521973" target="_blank">HN議論 (87)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="firefox-ad-blocker-ios" data-type="like" onclick="toggleFlag('firefox-ad-blocker-ios','Firefox for iOS に広告ブロッカーが登場','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="firefox-ad-blocker-ios" data-type="dislike" onclick="toggleFlag('firefox-ad-blocker-ios','Firefox for iOS に広告ブロッカーが登場','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 6 — Ed Zitron AI predictions review ═══════════════════════════════════ -->
+<section class="story story-6" id="s6">
+  <div class="story-num">06</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / 分析 / 予測検証 / Ed Zitron / AI懐疑論 / Dan Luu / メタ分析 / テック批評 — Ed ZitronのAI懐疑論的予測の精度をDan Luuが検証。227ポイント・244コメント。2026-09-02</div>
+    <h2 class="story-headline">
+      Ed Zitronの<br><span style="color:#20d0d0">AI懐疑論的予測は<br>どれほど正確<br>だったか</span>
+    </h2>
+    <div class="story-body">
+      ソフトウェアエンジニア・技術評論家のDan Luuが「How accurate have Ed Zitron's AI skeptic predictions been?」を発表し、227ポイント・244コメントを集めました。AI業界に批判的なコメンテーターとして知られるEd Zitronが過去に行ったAIへの予測・主張を体系的に検証し、何が当たり、何が外れ、何がまだ判断できないかを整理した分析です。
+
+      Zitronは「LLMは収益化できない」「AIブームはバブルで崩壊する」「Anthropic・OpenAIのビジネスモデルは成立しない」などの主張を繰り返してきた主要なAI懐疑論者の一人です。Dan LuuはZitronの信奉者でも批判者でもなく、客観的な「スコアカード」方式で評価しています。
+    </div>
+    <div class="cyan-items">
+      <div class="cyan-item">
+        <div>
+          <div class="cyan-label">Dan Luuの評価サマリー</div>
+          <div class="cyan-text">「概ね正確だった」予測：①AIスタートアップの多くが持続不可能なコスト構造を抱えているという指摘——実際に多数のAIスタートアップが閉鎖・方針転換した。②「LLMはハルシネーションを解消できない」——現在も根本的な問題として残っている。③エンタープライズ導入の速度への懐疑——実際の導入は誇大宣伝より遅れている。「外れた」予測：①OpenAIが2025年に経営危機に陥るという予測——実際はさらに成長した。②「生成AIへの投資は2025年に急減する」——実際は増加。「時期尚早」予測：①AI規制の到来と業界への大きな影響——進行中で結論未。</div>
+        </div>
+      </div>
+      <div class="cyan-item">
+        <div>
+          <div class="cyan-label">HNの議論</div>
+          <div class="cyan-text">最も支持されたコメント：「Zitronの予測は方向性として正しいものが多いが、タイミングが常にずれている——これは懐疑論者一般に共通する問題で、『起きる』と『今起きる』は全く違う」。反論：「バブルが崩壊していないことが予測の失敗ではない——Zitronの核心的な主張は『価値創造と資金投下が釣り合っていない』であり、これは今でも検証可能な問いだ」。Dan Luuへの評価：「予測の精度を定量的に追う試みは稀で価値がある——Superforecasting的なアプローチをAI評論に持ち込んだ点が重要」。</div>
+        </div>
+      </div>
+      <div class="cyan-item">
+        <div>
+          <div class="cyan-label">「AI懐疑論者」をどう読むか</div>
+          <div class="cyan-text">実用的な示唆：懐疑論者の予測は「何に注意すべきか」を示すシグナルとして有用だが、「いつ起きるか」のタイミングには信頼性が低い。具体的にチェックすべき点：①自社・取引先のAI関連コストが実際のROIに見合っているか②AIベンダーの財務持続可能性（Anthropic・OpenAIは外部資金依存が続く）③「AI導入した」という主張と実際の生産性向上の乖離。日本への示唆：日本企業のAI導入は欧米より慎重なペースだが、慎重さが「機会損失」なのか「適切なリスク管理」なのかは業種によって異なる。</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: danluu.com</span>
+      <span>227 ポイント</span>
+      <span>244 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://danluu.com/zitron/" target="_blank">分析を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49526069" target="_blank">HN議論 (244)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="ed-zitron-ai-predictions-review" data-type="like" onclick="toggleFlag('ed-zitron-ai-predictions-review','Ed ZitronのAI懐疑論的予測はどれほど正確だったか','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="ed-zitron-ai-predictions-review" data-type="dislike" onclick="toggleFlag('ed-zitron-ai-predictions-review','Ed ZitronのAI懐疑論的予測はどれほど正確だったか','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 7 — Jujutsu creator joins ERSC ═════════════════════════════════════════ -->
+<section class="story story-7" id="s7">
+  <div class="story-num">07</div>
+  <div class="story-inner">
+    <div class="story-kicker">開発ツール / VCS / Jujutsu / ERSC / バージョン管理 / Git / Rust / steveklabnik — JujutsuのオリジナルクリエイターMartinがERSCに参加。149ポイント・116コメント。2026-09-02</div>
+    <h2 class="story-headline">
+      Jujutsuの<br><span style="color:#ffb060">作者がERSCに<br>参加——<br>VCS次の展開</span>
+    </h2>
+    <div class="story-body">
+      ERSC（Engineering Research Software Collective）が「The creator of Jujutsu has joined ERSC」を発表し、149ポイント・116コメントを集めました。Gitの代替バージョン管理システムとして注目を集めている「Jujutsu（jj）」のオリジナルクリエイターであるMartinが、ERSCに参加してJujutsuの開発を継続することが明らかになりました。
+
+      JujutsuはGoogleのエンジニアが個人プロジェクトとして開始したVCSで、Gitの複雑さを解消しながらGitリポジトリと完全互換を保つ設計が特徴です。「git rebase・merge・cherrypickを普通のワークフローとして自然に扱える」「コンフリクト解消が可能な状態でコミットできる」など、Gitの痛点を正面から解決する試みとして開発者コミュニティで支持を集めています。
+    </div>
+    <div class="amber-items">
+      <div class="amber-item">
+        <div class="amber-label">ERSCとは何か</div>
+        <div class="amber-text">ERSC（Engineering Research Software Collective）：開発ツール・コンパイラ・言語処理系など「エンジニアが使うソフトウェア」の研究開発を支援する非営利組織または研究機関。Martinの移籍の意味：GoogleのエンジニアとしてJujutsuを開発していたMartinが、ERSCの傘下でフルタイムでJujutsuに取り組めるようになる。資金源：ERSCはgrant・スポンサー企業・個人サポーターから資金を調達しており、Google以外の商業的利害から独立した開発が可能になる。Jujutsuの採用状況：Rust言語のコアチーム・いくつかのテック企業が内部で採用しており、「Gitより良い」という評価が増えている。</div>
+      </div>
+      <div class="amber-item">
+        <div class="amber-label">JujutsuがGitより優れている点</div>
+        <div class="amber-text">開発者から評価されるJujutsuの特徴：①First-class conflicts——コンフリクトを「解消しなければならないエラー」ではなく「保留できる状態」として扱い、あとから解消できる。②Auto-rebase——ブランチの変更が下流のコミットに自動的に伝播する。③Operation log——全ての操作が記録されており、どんな操作も取り消せる（Gitのreflogより強力）。④Working copy is a commit——作業中の変更が常にコミットとして扱われ、「stash」の概念が不要。Gitとの互換性：jjコマンドはGitリポジトリを直接操作でき、チームの一部がjj・一部がgitを使う混在環境も可能。</div>
+      </div>
+      <div class="amber-item">
+        <div class="amber-label">HNの反応</div>
+        <div class="amber-text">試している開発者の声：「jjに乗り換えて3ヶ月——git rebase -iをしなくて済む生活に慣れたらもう戻れない」。「Gitが好きな人」の反応：「Gitは複雑だが、その複雑さに正面から向き合うことで分散VCSの本質を理解できる——jjはその機会を奪う」。中立的な評価：「jjはGitの上位互換というより、Gitの代替インターフェース——Mercurial的なUXをGitの上に重ねたもの」。日本語リソース：jj（Jujutsu）の日本語解説はまだ少ないが、公式ドキュメントの日本語翻訳を開始するコントリビューターが出始めている。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: ersc.io</span>
+      <span>149 ポイント</span>
+      <span>116 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://ersc.io/blog/martin-joins-ersc" target="_blank">発表を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49525297" target="_blank">HN議論 (116)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="jujutsu-creator-joins-ersc" data-type="like" onclick="toggleFlag('jujutsu-creator-joins-ersc','Jujutsuの作者がERSCに参加','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="jujutsu-creator-joins-ersc" data-type="dislike" onclick="toggleFlag('jujutsu-creator-joins-ersc','Jujutsuの作者がERSCに参加','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 8 — ChatGPT/Codex bundles LibreOffice ═════════════════════════════════ -->
+<section class="story story-8" id="s8">
+  <div class="story-num">08</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / OpenAI / ChatGPT / Codex / LibreOffice / バンドル / バイナリ / Simon Willison / ファイルサイズ — Simon WillisonがChatGPT/CodexアプリにLibreOffice一式が含まれていることを発見。155ポイント・79コメント。2026-09-02</div>
+    <h2 class="story-headline">
+      ChatGPT/Codex<br><span style="color:#ffe080">アプリにLibreOffice<br>一式が<br>同梱されていた</span>
+    </h2>
+    <div class="story-body">
+      Simon Willisonが「The ChatGPT/Codex app bundles a full copy of LibreOffice」を発表し、155ポイント・79コメントを集めました。OpenAIのChatGPT・Codexデスクトップアプリを解析したWillisonは、アプリのバンドルにLibreOfficeのほぼ完全なコピー（数百MB）が含まれていることを発見しました。
+
+      これはOffice形式ファイル（.docx・.xlsx・.pptx）の読み書きやドキュメント変換機能を提供するためと考えられますが、ユーザーには一切公開されていませんでした。HNでは「アプリサイズの謎が解けた」という反応と、「なぜこんな重量級の解決策を選んだのか」という驚きが交錯しています。
+    </div>
+    <div class="gold-items">
+      <div class="gold-item">
+        <div class="gold-label">なぜLibreOfficeが必要なのか</div>
+        <div class="gold-text">OpenAIがLibreOfficeをバンドルした推定理由：①Codexがファイルを処理する際に.docx・.xlsx形式を正確に読み込む必要がある。②PythonのPython-docx・openpyxlなどの軽量ライブラリより、LibreOfficeの変換エンジンの方が互換性と品質が高い。③PDFとOffice形式の相互変換、テキスト抽出での高精度化。LibreOffice headlessモードの活用：GUIなしでLibreOfficeをコマンドラインから呼び出すことで、サーバーサイドで使われるのと同じアーキテクチャをデスクトップアプリに持ち込んでいる。サイズの問題：LibreOfficeのフルビルドは300〜600MB程度で、これがChatGPTアプリのダウンロードサイズを大きくしている一因。</div>
+      </div>
+      <div class="gold-item">
+        <div class="gold-label">HNの反応</div>
+        <div class="gold-text">驚きの声：「アプリのサイズが異常に大きいと思っていたが理由がわかった」。批判：「LibreOfficeをフルバンドルする判断は粗い——office形式の処理ライブラリは他にもあるし、必要な機能だけをコンパイルすれば数十MBに収まるはず」。擁護：「LibreOfficeのOffice互換性は他のライブラリと比較にならないほど高い——特に複雑なExcel数式・マクロ・Wordのスタイルシートでの互換性で圧倒的」。Simonの指摘：「ユーザーへの告知なしにこれほどの第三者ソフトウェアをバンドルすることの透明性の問題」——LibreOfficeはLGPLライセンスで、バンドルは合法だがライセンス表記の確認が必要。</div>
+      </div>
+      <div class="gold-item">
+        <div class="gold-label">「意外なバンドル」発見の系譜</div>
+        <div class="gold-text">Simon WillisonはLLM・AIアプリの内部構造を継続的に分析・公開していることで知られる。過去の発見例：①ChatGPTのモバイルアプリが複数の分析SDKをバンドルしていた②各種AIアプリのシステムプロンプトがフロントエンドのJS内に平文で含まれていた。今回の示唆：デスクトップAIアプリは「AIモデルへの薄いラッパー」ではなく、複雑なソフトウェアスタックになっていることが改めて露わに。ユーザーへの実用的なポイント：ChatGPT・CodexデスクトップアプリはOfficeファイルを相当の互換性でネイティブに処理できる——これは他のAIアシスタントにない強みになる可能性がある。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: simonwillison.net</span>
+      <span>155 ポイント</span>
+      <span>79 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://simonwillison.net/2026/Sep/1/codex-libreoffice/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49527396" target="_blank">HN議論 (79)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="chatgpt-codex-libreoffice-bundled" data-type="like" onclick="toggleFlag('chatgpt-codex-libreoffice-bundled','ChatGPT/CodexアプリにLibreOffice一式が同梱されていた','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="chatgpt-codex-libreoffice-bundled" data-type="dislike" onclick="toggleFlag('chatgpt-codex-libreoffice-bundled','ChatGPT/CodexアプリにLibreOffice一式が同梱されていた','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 9 — Running 104GB Qwen on 48GB Mac ════════════════════════════════════ -->
+<section class="story story-9" id="s9">
+  <div class="story-num">09</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / ローカルLLM / Mac / Apple Silicon / Qwen / スロットストリーミング / メモリ最適化 / carloslfu — 48GB MacでNVMe活用により104GB Qwen3.8-Flashを約12tok/sで動作。119ポイント・76コメント。2026-09-02</div>
+    <h2 class="story-headline">
+      48GB Macで<br><span style="color:#a0c8ff">104GBの<br>Qwen3.8-Flash-Nextを<br>約12tok/sで動かす</span>
+    </h2>
+    <div class="story-body">
+      carloslfu氏が「Show HN: Running 104GB Qwen3.8-Flash-Next on 48GB Mac with at ~12 tok/s」を公開し、119ポイント・76コメントを集めました。物理メモリ48GBのMac上で、モデルサイズ104GBのQwen3.8-Flash-Nextを毎秒約12トークンで推論できる「slotstream」というツールを開発した内容です。
+
+      通常、モデルを動かすにはモデルの重みが物理メモリに収まる必要がありますが、slotstreamsはNVMe SSDの帯域幅を活用したプログレッシブなウェイトロード技術を実装し、メモリに収まらない大型モデルをローカルで実用的な速度で動作させることを可能にしました。
+    </div>
+    <div class="slate-items">
+      <div class="slate-item">
+        <div class="slate-label">slotstream の仕組み</div>
+        <div class="slate-text">技術的なアプローチ：①モデルのweightを「スロット」（レイヤーグループ）に分割し、推論時に必要なスロットだけをSSD→メモリにストリーミングする。②Macのアーキテクチャ活用：AppleシリコンはCPU・GPU・Neural Engineが同じメモリバスを共有し、NVMe SSDのI/O帯域幅も比較的広い（M3 Pro以上で約7.5GB/s読み取り速度）。③量子化（4bit/8bit）と組み合わせることで、実際のSSDアクセス量をさらに削減。速度の現実：12tok/sは実用的なチャット速度（人間が読む速度は約5〜10tok/s）。ただし、全weightがメモリに乗る環境（Mac Studio 192GB等）と比べると数倍遅い。</div>
+      </div>
+      <div class="slate-item">
+        <div class="slate-label">Qwen3.8-Flash-Nextとは</div>
+        <div class="slate-text">モデルの概要：Alibaba Cloud（阿里云）が開発する大規模言語モデル「Qwen（千问）」シリーズの最新世代。3.8はバージョン、Flashは推論効率に最適化されたバリアント、Nextは次世代アーキテクチャを示す。104GBのモデルは：量子化なしのフルprecisionで約70Bパラメータ相当、または効率的なアーキテクチャで100B+パラメータクラス。日本語対応：Qwen3シリーズは多言語対応が強化されており、日本語の性能もLlama 3.1と同等以上とされる。オープンソース：HuggingFaceで公開されており商用利用も可能。</div>
+      </div>
+      <div class="slate-item">
+        <div class="slate-label">HNの評価と実用的な考察</div>
+        <div class="slate-text">HNコメントから：「12tok/sはチャット用途として十分——バッチ処理には向かないが、個人用LLMとしては実用的」。「同じ手法をllama.cppに統合できれば、既存のユーザーが即恩恵を受ける」——著者は「PRを検討中」と回答。比較：①Mac Studio M4 Ultra 192GBならQwen3 70Bが全メモリに収まり50tok/s以上で動く②slotstream方式は48GBでしか選択肢がない人向け③コスト比較：Mac Studio 192GB（実勢価格約55万円〜）vs MacBook Pro/Mac mini 48GB（実勢価格約25〜35万円）+slotstream。実用的な結論：「192GBモデルを買う前にslotstream方式で大型モデルを試してみる価値がある」。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: github.com/carloslfu</span>
+      <span>119 ポイント</span>
+      <span>76 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://github.com/carloslfu/slotstream" target="_blank">GitHubを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49524447" target="_blank">HN議論 (76)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="qwen3-8-flash-104gb-mac-48gb" data-type="like" onclick="toggleFlag('qwen3-8-flash-104gb-mac-48gb','48GB Macで104GB Qwen3.8-Flash-Nextを約12tok/sで動かす','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="qwen3-8-flash-104gb-mac-48gb" data-type="dislike" onclick="toggleFlag('qwen3-8-flash-104gb-mac-48gb','48GB Macで104GB Qwen3.8-Flash-Nextを約12tok/sで動かす','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 10 — Dyson CameraJet toothbrush ════════════════════════════════════════ -->
+<section class="story story-10" id="s10">
+  <div class="story-num">10</div>
+  <div class="story-inner">
+    <div class="story-kicker">変わったテック / Dyson / 電動歯ブラシ / カメラ / 口腔ケア / 消費者電子 / ガジェット / 過剰エンジニアリング — Dyson、口内カメラ搭載の電動歯ブラシ「CameraJet」を発売。72ポイント・85コメント。2026-09-02</div>
+    <h2 class="story-headline">
+      Dyson CameraJet——<br><span style="color:#ff90c0">口腔内カメラ付き<br>電動歯ブラシ<br>登場</span>
+    </h2>
+    <div class="story-body">
+      Dysonが「CameraJet」という口腔内カメラを内蔵した電動歯ブラシを発表し、72ポイント・85コメントを集めました。歯ブラシの先端近くに超小型カメラを搭載し、磨いている箇所をリアルタイムで確認できると同時に、AIが磨き残しのパターンを分析してフィードバックを提供するというプロダクトです。
+
+      Dysonはバキュームクリーナー・ヘアドライヤー・空気清浄機など、「誰でも知っている家電をエンジニアリングで再定義する」製品で知られています。今回の歯ブラシはHNで「過剰エンジニアリングの極致」「でも実際に欲しい」という二律背反した反応を引き起こしており、Dysonらしさが滲み出るプロダクトです。
+    </div>
+    <div class="mag-items">
+      <div class="mag-item">
+        <div class="mag-label">カメラ搭載歯ブラシの仕組み</div>
+        <div class="mag-text">CameraJetの技術仕様（Dyson公式より）：①超小型カメラ：歯ブラシヘッド付近に搭載された1080p対応カメラ。防水設計で、口腔内の過酷な環境に対応。②ライトリング：カメラの視野を確保するための照明。③接続：スマートフォンアプリ（iOS/Android）にBluetooth経由でリアルタイム映像を転送。④AIフィードバック：アプリがカメラ映像を解析し、「奥歯の内側が磨けていない」「歯ぐきに当たりすぎ」などのリアルタイム指摘を行う。⑤ジェット洗浄：従来のDyson口腔洗浄器（Water Flosser）技術を統合。磨き・フロス・記録が一体化。バッテリー：1回の充電で約2週間（1日2分×2回換算）。</div>
+      </div>
+      <div class="mag-item">
+        <div class="mag-label">HNの反応——「欲しい vs 必要か」</div>
+        <div class="mag-text">最多upvoteのコメント：「誰が磨いているかを記録してクラウドに送ったりしないよね？Dysonのプライバシーポリシーを確認したい」。Dysonへの信頼問題：2019年頃のDysonのデータ収集に関する報告が引用され、「口腔内カメラのデータ管理ポリシーを細かく確認すべき」という声が多数。「欲しい」派：「歯科医に行くたびに『もっと奥を磨いて』と言われる——カメラで可視化されれば改善できる」。「過剰」派：「普通に鏡の前で磨けばいい。歯ブラシにカメラをつける必要はない」。価格予想：HNでは「おそらく$300〜500ドル」という予想が多い。</div>
+      </div>
+      <div class="mag-item">
+        <div class="mag-label">Dysonの「過剰エンジニアリング」戦略</div>
+        <div class="mag-text">なぜDysonはこういう製品を作るのか：①「日用品を高付加価値プレミアム製品に変換する」ビジネスモデルの徹底。②エンジニアリングの見せ方が上手く、「なぜここまで複雑にするのか」という疑問より「すごい」という感情を引き出すマーケティング。③実際に使用技術（モーター・流体力学・AI）は高度で、同等品が他社では作れない製品が多い。競合の状況：Oral-B（Google AI統合）・Philips Sonicare（センサー搭載）も高機能化しているが、カメラ統合はDysonが初。予想される展開：1〜2年でOral-BがGoogleの助けを借りて同様の機能を出す——というのがHNの予想。日本での発売は未定。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: dyson.com</span>
+      <span>72 ポイント</span>
+      <span>85 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.dyson.com/oral-care/electric-toothbrush/camerajet/ceramic-ultra-blue" target="_blank">製品を見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49527879" target="_blank">HN議論 (85)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="dyson-camerajet-toothbrush" data-type="like" onclick="toggleFlag('dyson-camerajet-toothbrush','Dyson CameraJet — カメラ付き電動歯ブラシ','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="dyson-camerajet-toothbrush" data-type="dislike" onclick="toggleFlag('dyson-camerajet-toothbrush','Dyson CameraJet — カメラ付き電動歯ブラシ','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-top">
+    <div class="footer-brand">Morning Edition</div>
+    <button class="export-btn" onclick="exportFeedback()">フィードバックをエクスポート</button>
+  </div>
+  <div class="footer-meta">
+    Hacker News フロントページから厳選した10本 — 2026年9月2日 水曜日 / Issue No.112<br>
+    フィードバックはブラウザに保存され、次回の選定に反映されます。
+  </div>
+  <div class="footer-note">Generated by Morning Edition autonomous agent · Powered by HN Algolia API</div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  const DB_NAME = 'morning-edition-feedback';
+  const DB_VERSION = 2;
+  const STORE_NAME = 'feedback';
+  let db = null;
+
+  function openDB() {
+    return new Promise((resolve, reject) => {
+      if (db) { resolve(db); return; }
+      const req = indexedDB.open(DB_NAME, DB_VERSION);
+      req.onupgradeneeded = e => {
+        const d = e.target.result;
+        if (!d.objectStoreNames.contains(STORE_NAME)) {
+          d.createObjectStore(STORE_NAME, { keyPath: 'id' });
+        }
+      };
+      req.onsuccess = e => { db = e.target.result; resolve(db); };
+      req.onerror = e => reject(e);
+    });
+  }
+
+  async function saveFeedback(id, title, type) {
+    try {
+      const d = await openDB();
+      const tx = d.transaction(STORE_NAME, 'readwrite');
+      const store = tx.objectStore(STORE_NAME);
+      const existing = await new Promise(res => { const r = store.get(id); r.onsuccess = e => res(e.target.result); r.onerror = () => res(null); });
+      if (existing && existing.type === type) {
+        store.delete(id);
+        return null;
+      }
+      store.put({ id, title, type, date: new Date().toISOString() });
+      return type;
+    } catch (e) {
+      try {
+        const key = 'me_fb_' + id;
+        const existing = localStorage.getItem(key);
+        if (existing && JSON.parse(existing).type === type) { localStorage.removeItem(key); return null; }
+        localStorage.setItem(key, JSON.stringify({ id, title, type, date: new Date().toISOString() }));
+        return type;
+      } catch (e2) { return type; }
+    }
+  }
+
+  async function loadFeedback(id) {
+    try {
+      const d = await openDB();
+      return new Promise(res => {
+        const tx = d.transaction(STORE_NAME, 'readonly');
+        const r = tx.objectStore(STORE_NAME).get(id);
+        r.onsuccess = e => res(e.target.result ? e.target.result.type : null);
+        r.onerror = () => res(null);
+      });
+    } catch (e) {
+      try { const v = localStorage.getItem('me_fb_' + id); return v ? JSON.parse(v).type : null; } catch (e2) { return null; }
+    }
+  }
+
+  function showToast(msg, isError) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.className = 'toast' + (isError ? ' error' : '');
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2200);
+  }
+
+  async function toggleFlag(storyId, title, type) {
+    const result = await saveFeedback(storyId, title, type);
+    updateButtons(storyId, result);
+    if (result === 'like') showToast('⭐ 興味ありとして記録しました');
+    else if (result === 'dislike') showToast('✕ 興味なしとして記録しました');
+    else showToast('フィードバックを解除しました');
+    await syncToFile();
+  }
+
+  function updateButtons(storyId, activeType) {
+    document.querySelectorAll(`[data-story="${storyId}"]`).forEach(btn => {
+      btn.classList.remove('active');
+      if (btn.dataset.type === activeType) btn.classList.add('active');
+    });
+  }
+
+  async function syncToFile() {
+    try {
+      const all = await getAllFeedback();
+      const json = JSON.stringify({ liked: all.filter(f => f.type === 'like').map(f => f.id), disliked: all.filter(f => f.type === 'dislike').map(f => f.id), entries: all }, null, 2);
+      if ('showSaveFilePicker' in window) {
+        try {
+          if (!window._feedbackHandle) return;
+          const writable = await window._feedbackHandle.createWritable();
+          await writable.write(json); await writable.close();
+        } catch (e) {}
+      }
+    } catch (e) {}
+  }
+
+  async function getAllFeedback() {
+    try {
+      const d = await openDB();
+      return new Promise(res => {
+        const tx = d.transaction(STORE_NAME, 'readonly');
+        const r = tx.objectStore(STORE_NAME).getAll();
+        r.onsuccess = e => res(e.target.result || []);
+        r.onerror = () => res([]);
+      });
+    } catch (e) {
+      try {
+        const items = [];
+        for (let i = 0; i < localStorage.length; i++) {
+          const k = localStorage.key(i);
+          if (k && k.startsWith('me_fb_')) { try { items.push(JSON.parse(localStorage.getItem(k))); } catch (e2) {} }
+        }
+        return items;
+      } catch (e2) { return []; }
+    }
+  }
+
+  async function exportFeedback() {
+    try {
+      const all = await getAllFeedback();
+      const json = JSON.stringify({ liked: all.filter(f => f.type === 'like').map(f => f.id), disliked: all.filter(f => f.type === 'dislike').map(f => f.id), entries: all }, null, 2);
+      if ('showSaveFilePicker' in window) {
+        const handle = await window.showSaveFilePicker({ suggestedName: 'feedback.json', types: [{ description: 'JSON', accept: { 'application/json': ['.json'] } }] });
+        window._feedbackHandle = handle;
+        const writable = await handle.createWritable();
+        await writable.write(json); await writable.close();
+        showToast('feedback.json を保存しました');
+      } else {
+        const a = document.createElement('a');
+        a.href = 'data:application/json;charset=utf-8,' + encodeURIComponent(json);
+        a.download = 'feedback.json'; a.click();
+        showToast('feedback.json をダウンロードしました');
+      }
+    } catch (e) { showToast('エクスポートに失敗しました', true); }
+  }
+
+  async function initButtons() {
+    const storyIds = [
+      'claude-fable-mythos-5-1','ankidroid-google-play-donation-link','small-transformer-beats-llms',
+      'play-store-blocks-aurora-grapheneos','firefox-ad-blocker-ios',
+      'ed-zitron-ai-predictions-review','jujutsu-creator-joins-ersc',
+      'chatgpt-codex-libreoffice-bundled','qwen3-8-flash-104gb-mac-48gb','dyson-camerajet-toothbrush'
+    ];
+    for (const id of storyIds) {
+      const type = await loadFeedback(id);
+      if (type) updateButtons(id, type);
+    }
+  }
+
+  initButtons();
+</script>
+</body>
+</html>
