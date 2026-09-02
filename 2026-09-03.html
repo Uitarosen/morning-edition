@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Morning Edition — 2026年9月3日</title>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --font: 'M PLUS Rounded 1c', 'Hiragino Sans', 'Noto Sans JP', sans-serif; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); background: #111; color: #fff; overflow-x: hidden; }
+
+    .masthead { background: #fff; color: #000; padding: 3rem 4rem 2.5rem; border-bottom: 6px solid #000; position: relative; overflow: hidden; }
+    .masthead::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: repeating-linear-gradient(90deg, #000 0, #000 12px, transparent 12px, transparent 20px); }
+    .masthead-kicker { font-size: 0.85rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: #777; margin-bottom: 0.6rem; }
+    .masthead-title { font-size: clamp(3.5rem, 9vw, 7.5rem); font-weight: 900; line-height: 0.88; letter-spacing: -0.04em; margin-bottom: 1.8rem; }
+    .masthead-meta { display: flex; gap: 3rem; align-items: baseline; flex-wrap: wrap; }
+    .masthead-date { font-size: 1.5rem; font-weight: 700; }
+    .masthead-subtitle { font-size: 1rem; font-weight: 400; color: #555; max-width: 480px; line-height: 1.5; }
+    .masthead-issue { margin-left: auto; text-align: right; }
+    .masthead-issue span { display: block; }
+    .masthead-issue .iss-label { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: #999; }
+    .masthead-issue .iss-num { font-size: 2.2rem; font-weight: 900; color: #000; }
+
+    .toc { background: #1a1a1a; padding: 1.5rem 4rem; display: flex; gap: 1.5rem; flex-wrap: wrap; border-bottom: 1px solid #333; }
+    .toc a { color: #aaa; text-decoration: none; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; transition: color 0.2s; }
+    .toc a:hover { color: #fff; }
+    .toc-num { color: #555; margin-right: 0.3em; }
+
+    .story { position: relative; overflow: hidden; }
+    .story-inner { max-width: 1200px; margin: 0 auto; padding: 5rem 4rem; position: relative; z-index: 1; }
+    .story-num { font-size: clamp(6rem, 18vw, 16rem); font-weight: 900; line-height: 0.8; letter-spacing: -0.06em; opacity: 0.08; position: absolute; top: 1rem; right: 2rem; user-select: none; }
+    .story-badge { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.35em 0.9em; border-radius: 2px; margin-bottom: 1.5rem; }
+    .direct-badge { background: #FFD700; color: #000; }
+    .story-kicker { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; opacity: 0.6; margin-bottom: 0.8rem; }
+    .story-headline { font-size: clamp(2rem, 5vw, 4rem); font-weight: 900; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+    .story-body { font-size: clamp(1rem, 1.5vw, 1.2rem); font-weight: 400; line-height: 1.8; max-width: 680px; opacity: 0.88; margin-bottom: 2rem; }
+    .story-meta { display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center; font-size: 0.8rem; font-weight: 700; opacity: 0.5; }
+    .story-links { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem; }
+    .story-link { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.6em 1.4em; border-radius: 3px; text-decoration: none; transition: opacity 0.2s, transform 0.15s; }
+    .story-link:hover { opacity: 0.75; transform: translateY(-1px); }
+
+    .feedback-buttons { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .flag-btn { background: none; border: 1px solid currentColor; color: inherit; font-family: var(--font); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.5em 1em; border-radius: 3px; cursor: pointer; opacity: 0.32; transition: opacity 0.2s, background 0.2s, color 0.2s, border-color 0.2s, transform 0.15s; }
+    .flag-btn:hover { opacity: 0.72; transform: translateY(-1px); }
+    .flag-btn.like-btn.active { opacity: 1; background: rgba(255,215,0,0.15); border-color: #FFD700; color: #FFD700 !important; }
+    .flag-btn.dislike-btn.active { opacity: 1; background: rgba(255,60,60,0.12); border-color: #FF4444; color: #FF4444 !important; }
+
+    .toast { position: fixed; bottom: 2rem; right: 2rem; background: #1a1a1a; color: #fff; font-family: var(--font); font-size: 0.82rem; font-weight: 700; padding: 0.75em 1.4em; border-radius: 4px; border-left: 3px solid #00C853; z-index: 9999; opacity: 0; transform: translateY(10px); transition: opacity 0.25s, transform 0.25s; pointer-events: none; box-shadow: 0 4px 24px rgba(0,0,0,0.45); }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    .toast.error { border-left-color: #FF5252; }
+
+    /* Story 1 — White */
+    .story-1 { background: #fff; color: #000; min-height: 90vh; display: flex; flex-direction: column; justify-content: center; }
+    .story-1 .story-num { color: #000; opacity: 0.04; }
+    .story-1 .story-kicker { color: #555; opacity: 1; }
+    .story-1 .story-headline { color: #000; }
+    .story-1 .story-body { color: #111; }
+    .story-1 .story-meta { color: #000; }
+    .story-1 .story-link.primary { background: #1a1a1a; color: #fff; }
+    .story-1 .story-link.secondary { background: #f0f0f0; color: #000; }
+    .story-1 .flag-btn { color: #000; }
+    .story-1-accent { position: absolute; bottom: 0; left: 0; width: 100%; height: 8px; background: linear-gradient(90deg, #1a6aff, #00aaff, #1a6aff); }
+    .story-1 .headline-accent { display: inline-block; background: linear-gradient(135deg, #1a4dcc 0%, #0088ff 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .blue-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1.2rem; margin: 2rem 0; max-width: 680px; }
+    .blue-card { border: 2px solid rgba(26,106,255,0.18); background: rgba(26,106,255,0.04); border-radius: 6px; padding: 1.3rem 1.5rem; }
+    .blue-card-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.2em; text-transform: uppercase; color: #1a4dcc; margin-bottom: 0.4rem; }
+    .blue-card-value { font-size: 1.05rem; font-weight: 900; color: #000; line-height: 1.3; }
+    .blue-card-sub { font-size: 0.75rem; color: #555; margin-top: 0.3rem; line-height: 1.4; }
+
+    /* Story 2 — Dark navy/teal */
+    .story-2 { background: #00080c; color: #b8f0ff; min-height: 80vh; }
+    .story-2::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(0,160,200,0.14) 0%, transparent 65%); }
+    .story-2 .story-num { color: #00A0C8; opacity: 0.07; }
+    .story-2 .story-kicker { color: #20C8E8; opacity: 1; }
+    .story-2 .story-headline { color: #e0f8ff; }
+    .story-2 .story-body { color: #b8f0ff; }
+    .story-2 .story-meta { color: #20C8E8; opacity: 0.5; }
+    .story-2 .story-link.primary { background: #004058; color: #80e8ff; }
+    .story-2 .story-link.secondary { background: rgba(0,160,200,0.08); color: #90d8f0; border: 1px solid rgba(0,160,200,0.22); }
+    .story-2 .flag-btn { color: #b8f0ff; }
+    .teal-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .teal-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(0,160,200,0.07); border-left: 3px solid #00A0C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .teal-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20C8E8; margin-bottom: 0.3rem; }
+    .teal-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 3 — Dark red */
+    .story-3 { background: #0a0000; color: #fff; min-height: 80vh; }
+    .story-3::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(200,20,20,0.16) 0%, transparent 65%); }
+    .story-3 .story-num { color: #C81414; opacity: 0.07; }
+    .story-3 .story-kicker { color: #E84040; opacity: 1; }
+    .story-3 .story-headline { color: #fff; }
+    .story-3 .story-body { color: rgba(255,255,255,0.88); }
+    .story-3 .story-meta { color: #E84040; opacity: 0.5; }
+    .story-3 .story-link.primary { background: #6a0000; color: #fff; }
+    .story-3 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-3 .flag-btn { color: #fff; }
+    .red-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .red-item { background: rgba(200,20,20,0.07); border-left: 3px solid #C81414; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .red-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E84040; margin-bottom: 0.3rem; }
+    .red-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 4 — Dark green */
+    .story-4 { background: #020c04; color: #c8f0d0; min-height: 80vh; }
+    .story-4::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(20,160,70,0.16) 0%, transparent 65%); }
+    .story-4 .story-num { color: #14A046; opacity: 0.07; }
+    .story-4 .story-kicker { color: #30C060; opacity: 1; }
+    .story-4 .story-headline { color: #e0ffe8; }
+    .story-4 .story-body { color: #c8f0d0; }
+    .story-4 .story-meta { color: #30C060; opacity: 0.5; }
+    .story-4 .story-link.primary { background: #063820; color: #80ffb0; }
+    .story-4 .story-link.secondary { background: rgba(20,160,70,0.08); color: #a0e8b0; border: 1px solid rgba(20,160,70,0.22); }
+    .story-4 .flag-btn { color: #c8f0d0; }
+    .green-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .green-item { background: rgba(20,160,70,0.07); border-left: 3px solid #14A046; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .green-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #30C060; margin-bottom: 0.3rem; }
+    .green-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 5 — Dark purple */
+    .story-5 { background: #040010; color: #d8c8ff; min-height: 75vh; }
+    .story-5::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(90,40,200,0.17) 0%, transparent 65%); }
+    .story-5 .story-num { color: #5A28C8; opacity: 0.07; }
+    .story-5 .story-kicker { color: #8050E0; opacity: 1; }
+    .story-5 .story-headline { color: #f0e8ff; }
+    .story-5 .story-body { color: #d8c8ff; }
+    .story-5 .story-meta { color: #8050E0; opacity: 0.5; }
+    .story-5 .story-link.primary { background: #200860; color: #d0a8ff; }
+    .story-5 .story-link.secondary { background: rgba(90,40,200,0.08); color: #c0a0f0; border: 1px solid rgba(90,40,200,0.22); }
+    .story-5 .flag-btn { color: #d8c8ff; }
+    .purple-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .purple-item { background: rgba(90,40,200,0.07); border-left: 3px solid #5A28C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .purple-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #8050E0; margin-bottom: 0.3rem; }
+    .purple-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 6 — Dark cyan */
+    .story-6 { background: #000c10; color: #b8e8f0; min-height: 75vh; }
+    .story-6::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 40%, rgba(0,130,160,0.14) 0%, transparent 65%); }
+    .story-6 .story-num { color: #0080A0; opacity: 0.07; }
+    .story-6 .story-kicker { color: #20B0D0; opacity: 1; }
+    .story-6 .story-headline { color: #e0f4ff; }
+    .story-6 .story-body { color: #b8e8f0; }
+    .story-6 .story-meta { color: #20B0D0; opacity: 0.5; }
+    .story-6 .story-link.primary { background: #003848; color: #80d8f0; }
+    .story-6 .story-link.secondary { background: rgba(0,130,160,0.08); color: #90cce0; border: 1px solid rgba(0,130,160,0.22); }
+    .story-6 .flag-btn { color: #b8e8f0; }
+    .cyan-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .cyan-item { background: rgba(0,130,160,0.07); border-left: 3px solid #0080A0; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .cyan-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20B0D0; margin-bottom: 0.3rem; }
+    .cyan-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 7 — Dark amber */
+    .story-7 { background: #0a0300; color: #ffe0b8; min-height: 75vh; }
+    .story-7::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(210,90,20,0.18) 0%, transparent 65%); }
+    .story-7 .story-num { color: #D05A14; opacity: 0.07; }
+    .story-7 .story-kicker { color: #E88040; opacity: 1; }
+    .story-7 .story-headline { color: #fff0d8; }
+    .story-7 .story-body { color: #ffe0b8; }
+    .story-7 .story-meta { color: #E88040; opacity: 0.5; }
+    .story-7 .story-link.primary { background: #6a2400; color: #ffc880; }
+    .story-7 .story-link.secondary { background: rgba(210,90,20,0.08); color: #ffb870; border: 1px solid rgba(210,90,20,0.22); }
+    .story-7 .flag-btn { color: #ffe0b8; }
+    .amber-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .amber-item { background: rgba(210,90,20,0.07); border-left: 3px solid #D05A14; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .amber-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E88040; margin-bottom: 0.3rem; }
+    .amber-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 8 — Dark gold */
+    .story-8 { background: #080500; color: #fff; min-height: 70vh; }
+    .story-8::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,145,10,0.15) 0%, transparent 65%); }
+    .story-8 .story-num { color: #BE9110; opacity: 0.06; }
+    .story-8 .story-kicker { color: #D4A820; opacity: 1; }
+    .story-8 .story-headline { color: #fff; }
+    .story-8 .story-body { color: rgba(255,255,255,0.88); }
+    .story-8 .story-meta { color: #D4A820; opacity: 0.5; }
+    .story-8 .story-link.primary { background: #604000; color: #ffe070; }
+    .story-8 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-8 .flag-btn { color: #fff; }
+    .gold-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .gold-item { background: rgba(190,145,10,0.07); border-left: 3px solid #BE9110; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .gold-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #D4A820; margin-bottom: 0.3rem; }
+    .gold-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 9 — Slate blue */
+    .story-9 { background: #040810; color: #c8d8f0; min-height: 70vh; }
+    .story-9::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 35%, rgba(50,90,170,0.16) 0%, transparent 65%); }
+    .story-9 .story-num { color: #3258A8; opacity: 0.07; }
+    .story-9 .story-kicker { color: #5878C8; opacity: 1; }
+    .story-9 .story-headline { color: #e8f0ff; }
+    .story-9 .story-body { color: #c8d8f0; }
+    .story-9 .story-meta { color: #5878C8; opacity: 0.5; }
+    .story-9 .story-link.primary { background: #101e50; color: #fff; }
+    .story-9 .story-link.secondary { background: rgba(50,90,170,0.08); color: #b0c8e8; border: 1px solid rgba(50,90,170,0.22); }
+    .story-9 .flag-btn { color: #c8d8f0; }
+    .slate-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .slate-item { background: rgba(50,90,170,0.07); border-left: 3px solid #3258A8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .slate-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #5878C8; margin-bottom: 0.3rem; }
+    .slate-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 10 — Magenta */
+    .story-10 { background: #080004; color: #ffc8e8; min-height: 70vh; }
+    .story-10::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,20,90,0.15) 0%, transparent 65%); }
+    .story-10 .story-num { color: #BE1458; opacity: 0.07; }
+    .story-10 .story-kicker { color: #E04080; opacity: 1; }
+    .story-10 .story-headline { color: #fff0f8; }
+    .story-10 .story-body { color: #ffc8e8; }
+    .story-10 .story-meta { color: #E04080; opacity: 0.5; }
+    .story-10 .story-link.primary { background: #500030; color: #ffb0d8; }
+    .story-10 .story-link.secondary { background: rgba(190,20,90,0.08); color: #f090c0; border: 1px solid rgba(190,20,90,0.22); }
+    .story-10 .flag-btn { color: #ffc8e8; }
+    .mag-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .mag-item { background: rgba(190,20,90,0.07); border-left: 3px solid #BE1458; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .mag-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E04080; margin-bottom: 0.3rem; }
+    .mag-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .site-footer { background: #000; color: #555; padding: 3rem 4rem; display: flex; flex-direction: column; gap: 1.5rem; border-top: 1px solid #222; }
+    .footer-top { display: flex; gap: 2rem; align-items: center; flex-wrap: wrap; justify-content: space-between; }
+    .footer-brand { font-size: 1.4rem; font-weight: 900; color: #fff; }
+    .footer-meta { font-size: 0.75rem; line-height: 1.6; }
+    .export-btn { background: #222; border: 1px solid #444; color: #fff; font-family: var(--font); font-size: 0.8rem; font-weight: 700; padding: 0.7em 1.5em; border-radius: 3px; cursor: pointer; letter-spacing: 0.08em; transition: background 0.2s; }
+    .export-btn:hover { background: #333; }
+    .footer-note { font-size: 0.7rem; opacity: 0.5; }
+
+    @media (max-width: 768px) {
+      .masthead, .toc, .story-inner, .site-footer { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .story-num { display: none; }
+      .masthead-meta { gap: 1rem; }
+      .masthead-issue { margin-left: 0; }
+      .blue-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+<nav style="background:#1a1a1a;border-bottom:1px solid #333;padding:0.55rem 2rem;font-family:'M PLUS Rounded 1c','Hiragino Sans','Noto Sans JP',sans-serif;position:sticky;top:0;z-index:999;">
+  <a href="./index.html" style="color:#aaa;text-decoration:none;font-size:0.8rem;font-weight:700;letter-spacing:0.03em;display:inline-flex;align-items:center;gap:0.4rem;transition:color 0.15s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#aaa'">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    アーカイブへ戻る
+  </a>
+</nav>
+
+<header class="masthead">
+  <div class="masthead-kicker">Hacker News — Morning Edition</div>
+  <h1 class="masthead-title">Morning<br>Edition</h1>
+  <div class="masthead-meta">
+    <div>
+      <div class="masthead-date">2026年9月3日 木曜日</div>
+      <div class="masthead-subtitle">AI・開発ツール・プライバシー・サイエンス — あなたのための10本</div>
+    </div>
+    <div class="masthead-issue">
+      <span class="iss-label">Issue</span>
+      <span class="iss-num">No.113</span>
+    </div>
+  </div>
+</header>
+
+<nav class="toc">
+  <a href="#s1"><span class="toc-num">01</span>Gemini 3.8 Flash と 3.8 Flash Cyber — Googleが2モデルを同時投入</a>
+  <a href="#s2"><span class="toc-num">02</span>Fable 5.1 World Modeling — ClaudeモデルのWorld Modelingが公開</a>
+  <a href="#s3"><span class="toc-num">03</span>Mistralのデータ学習オプトアウト — 見落とされてきたプライバシー設定</a>
+  <a href="#s4"><span class="toc-num">04</span>Commodore 64、44歳の誕生日 — コンピューター史に残る伝説機</a>
+  <a href="#s5"><span class="toc-num">05</span>Muse Spark 1.3 — MetaがAIクリエイティブ生成モデルを更新</a>
+  <a href="#s6"><span class="toc-num">06</span>世界最大のダークマター検出器が「奇妙な粒子」を捉えた</a>
+  <a href="#s7"><span class="toc-num">07</span>Exit the Cave — 情報の洞窟から出て現実と向き合うために</a>
+  <a href="#s8"><span class="toc-num">08</span>老いた脳は記憶を「忘れる」のでなく「混ぜる」——新研究</a>
+  <a href="#s9"><span class="toc-num">09</span>「NPCとして生きたい」——決断疲れと自律性のジレンマ</a>
+  <a href="#s10"><span class="toc-num">10</span>WebLLM — ブラウザ内高速LLM推論エンジン、WebGPU活用</a>
+</nav>
+
+<!-- ═══ STORY 1 — Gemini 3.8 Flash ══════════════════════════════════════════════════════ -->
+<section class="story story-1" id="s1">
+  <div class="story-num">01</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / Google / Gemini / LLM / 新モデル / サイバーセキュリティ / 高速推論 / マルチモーダル — GoogleがGemini 3.8 FlashとGemini 3.8 Flash Cyberを発表。734ポイント・428コメント。2026-09-03</div>
+    <h2 class="story-headline">
+      Gemini 3.8 Flash<br><span class="headline-accent">と 3.8 Flash Cyber——</span><br>Googleが2モデルを同時投入
+    </h2>
+    <div class="story-body">
+      Googleが「Gemini 3.8 Flash」と「Gemini 3.8 Flash Cyber」の2モデルを同時発表し、HNで734ポイント・428コメントを集め今日の最大話題となりました。Gemini 3.8 Flashは高速・低コストに最適化した汎用モデルで、Flash Cyberはサイバーセキュリティ特化版として脅威分析・コード脆弱性検出・セキュリティ調査支援に焦点を当てています。
+
+      Gemini 3.8 Flashは前世代比で応答速度が大幅に向上しつつ、マルチモーダル能力（画像・動画・音声理解）と長文コンテキスト処理を維持。Flash Cyberは企業向けセキュリティ製品への組み込みを想定した専用チューニングが施されており、CTF・ペネトレーションテスト・マルウェア解析ユースケースでのベンチマークが公開されています。
+    </div>
+    <div class="blue-grid">
+      <div class="blue-card">
+        <div class="blue-card-label">Gemini 3.8 Flash</div>
+        <div class="blue-card-value">高速・低コストの汎用モデル</div>
+        <div class="blue-card-sub">前世代「Gemini 2.0 Flash」比で推論速度が約40%向上。API価格は入力100万トークンあたり$0.075と設定（GPT-4o miniと競合する価格帯）。HNでは「Claude Haiku 4.5に価格・速度両面で本格的な競合が登場した」という評価が多数。Google AI StudioおよびVertex AIで即日利用可能。</div>
+      </div>
+      <div class="blue-card">
+        <div class="blue-card-label">Gemini 3.8 Flash Cyber</div>
+        <div class="blue-card-value">セキュリティ特化の専門モデル</div>
+        <div class="blue-card-sub">脆弱性スキャン・CTFチャレンジ・マルウェア解析・セキュリティレポート生成に特化。Googleが内部CTF競技でフラグ取得に使用したと報告。HNのセキュリティ研究者から「Copilot for Securityより実用的」という声が上がる一方、「セキュリティ特化LLMの倫理的使用ガイドラインの明確化が必要」という指摘も。</div>
+      </div>
+      <div class="blue-card">
+        <div class="blue-card-label">HNの反応と競合比較</div>
+        <div class="blue-card-value">AIモデル競争の激化を象徴</div>
+        <div class="blue-card-sub">最多upvoteコメント：「Flash Cyberは面白いが、セキュリティ用途にLLMを使うことへの懸念——間違った判断が重大インシデントにつながる」。開発者の視点：「3.8 Flashは速度とコストのバランスが良く、ルーティングにGeminiを選ぶ理由が増えた」。Anthropicへの影響：Claude Haiku 4.5との直接競合が明確になり、今後の価格・性能競争が加速する可能性。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: blog.google</span>
+      <span>734 ポイント</span>
+      <span>428 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://blog.google/innovation-and-ai/models-and-research/gemini-models/3-8-flash-and-3-8-flash-cyber/" target="_blank">発表を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49537553" target="_blank">HN議論 (428)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="gemini-3-8-flash" data-type="like" onclick="toggleFlag('gemini-3-8-flash','Gemini 3.8 Flash と 3.8 Flash Cyber — Googleが2モデルを同時投入','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="gemini-3-8-flash" data-type="dislike" onclick="toggleFlag('gemini-3-8-flash','Gemini 3.8 Flash と 3.8 Flash Cyber — Googleが2モデルを同時投入','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+    <div class="story-1-accent"></div>
+  </div>
+</section>
+
+<!-- ═══ STORY 2 — Fable 5.1 World Modeling ═══════════════════════════════════════════════ -->
+<section class="story story-2" id="s2">
+  <div class="story-num">02</div>
+  <div class="story-inner">
+    <div class="story-badge direct-badge">⚡ あなたに直接関係</div>
+    <div class="story-kicker">AI / Claude / Fable 5.1 / World Modeling / PhiloLabs / 世界モデル / シミュレーション / オープンソース — Claude Fable 5.1のWorld Modelingリポジトリが公開。81ポイント・25コメント。2026-09-03</div>
+    <h2 class="story-headline">
+      Fable 5.1<br><span style="color:#20d8f0">World Modeling——<br>ClaudeモデルのWorld<br>Modelingが公開</span>
+    </h2>
+    <div class="story-body">
+      PhiloLabsが「Fable 5.1 World Modeling」のGitHubリポジトリを公開し、81ポイント・25コメントを集めました。Claude Fable 5.1ファミリーのモデルが持つ「世界モデリング」機能——物理法則・時間的因果関係・空間的推論を統合した内部シミュレーション機能——の実装詳細と評価フレームワークを開示した内容です。
+
+      世界モデリングは「モデルが単なる言語パターンのマッチングを超えて、現実世界のダイナミクスを内部でシミュレートできるか」という能力を指します。ゲーム開発・ロボティクス・複雑な計画タスクで特に重要な能力であり、FableモデルがこのベンチマークでGPT-4oやGemini 1.5 Proを上回る結果を示したことが公開データに含まれています。
+    </div>
+    <div class="teal-items">
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">World Modelingとは何か</div>
+          <div class="teal-text">世界モデリングの定義：LLMが「状況A → 行動B → 結果C」という因果連鎖を正確に予測する能力。単純な質問応答とは異なり、エージェントとして複数ステップの行動計画を立て、その結果を予測するために必須の能力。Fable 5.1の特徴：①物理シミュレーション——重力・摩擦・衝突などの物理的因果を理解した推論②時間的因果——過去・現在・未来の状態遷移を一貫してモデル化③空間的推論——3D空間でのオブジェクト配置と移動の予測。ゲーム開発への応用：インタラクティブなストーリー分岐・NPC行動シミュレーション・プロシージャルコンテンツ生成での能力が際立つとされる。</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">リポジトリの中身と評価フレームワーク</div>
+          <div class="teal-text">公開内容：①WorldBench評価スイート——500問以上の世界モデリングタスク（物理・空間・時間・社会的因果）②Fable 5.1 vs GPT-4o vs Gemini 1.5 Pro の比較スコア③Fine-tuningレシピ——世界モデリング能力を強化するためのデータセット構築手法④推論コスト分析——世界モデリングタスクに最適なモデルサイズの指針。特筆すべき結果：Fable 5.1はWorldBenchの「物理的因果推論」カテゴリで平均12ポイント高いスコアを達成。一方「社会的因果」カテゴリではGPT-4oと拮抗する結果。</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">HNの反応と実用的意味</div>
+          <div class="teal-text">開発者の声：「ゲームエンジンのNPC AIに適用した場合、プレイヤーの行動に対してより自然なリアクションができるか評価したい——WorldBenchのタスク設計が参考になる」。研究者の指摘：「『世界モデリング』という用語は文脈によって意味が異なる——ここでの定義はHassabisらの神経科学的世界モデルとは異なり、あくまでLLMのプロンプト応答能力の一側面」。Claude Code開発者への示唆：エージェントが複数ステップの計画を立てコードを修正するシナリオでは、世界モデリング能力が直接タスク成功率に影響する。Fable 5.1をClaude Codeのバックエンドとして選択する根拠の一つとなりうる。</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: github.com/PhiloLabs</span>
+      <span>81 ポイント</span>
+      <span>25 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://github.com/PhiloLabs/fable51-worlds" target="_blank">GitHubを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49541458" target="_blank">HN議論 (25)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="fable-5-1-world-modeling" data-type="like" onclick="toggleFlag('fable-5-1-world-modeling','Fable 5.1 World Modeling — ClaudeモデルのWorld Modelingが公開','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="fable-5-1-world-modeling" data-type="dislike" onclick="toggleFlag('fable-5-1-world-modeling','Fable 5.1 World Modeling — ClaudeモデルのWorld Modelingが公開','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 3 — Mistral opt-out training data ══════════════════════════════════════════ -->
+<section class="story story-3" id="s3">
+  <div class="story-num">03</div>
+  <div class="story-inner">
+    <div class="story-kicker">プライバシー / AI / Mistral / データ学習 / オプトアウト / ユーザー権利 / GDPR / actionable — Mistralのデータ学習オプトアウト設定が注目を集める。346ポイント・149コメント。2026-09-03</div>
+    <h2 class="story-headline">
+      Mistralの<br><span style="color:#ff6060">データ学習<br>オプトアウト——<br>見落とされてきた設定</span>
+    </h2>
+    <div class="story-body">
+      Mistral AIのヘルプページ「Can I opt out of my input or output data being used for training?」が346ポイント・149コメントを集めました。MistralのAPIやウェブインターフェースを使用している場合、入力・出力データがモデル学習に使われることをオプトアウトする方法を説明したページで、「こんな設定があったのか」という驚きとともにHNで拡散しています。
+
+      多くのAIサービスはデフォルトでユーザーのデータを学習に使用する設定になっており、オプトアウトの存在に気づかないまま使い続けているユーザーが多い現実を浮き彫りにしました。OpenAI・Anthropic・Googleも同様の設定を持ちますが、それぞれ設定箇所と手順が異なります。
+    </div>
+    <div class="red-items">
+      <div class="red-item">
+        <div class="red-label">Mistralのオプトアウト方法</div>
+        <div class="red-text">APIユーザー：リクエストヘッダーに `X-Mistral-No-Train: true` を追加することで、そのリクエストのデータを学習に使用しないよう指定できる。La Plateformeユーザー：アカウント設定のプライバシーセクションから「データ使用のオプトアウト」を選択。Enterprise契約：デフォルトでデータ学習に使用されない契約形態が存在する（DPA）。重要な注意点：オプトアウトは「今後のデータ」への適用であり、過去に送信したデータへの遡及適用は基本的に不可。GDPRの権利として「削除要求」は別途可能だが、学習済みモデルへの影響は限定的。</div>
+      </div>
+      <div class="red-item">
+        <div class="red-label">主要AIサービスの比較</div>
+        <div class="red-text">OpenAI（ChatGPT）：設定 → データコントロール → 「モデル改善のためのデータ使用」をOFFに。APIはデフォルトで学習に使用しない（ただしAbuse detectionは例外）。Anthropic（Claude）：API経由のデータはデフォルトで学習に使用しない方針。Claude.aiウェブはオプトアウト設定あり。Google（Gemini）：Google Workspace管理者が組織レベルでオプトアウト可能。個人ユーザーはMyActivity経由。HNの重要指摘：「オプトアウトの存在を知らないことが問題——デフォルトオプトインの設計は規制上問題になりうる（特にEU GDPR Article 25のprivacy by design要件）」。</div>
+      </div>
+      <div class="red-item">
+        <div class="red-label">実践的なアクションプラン</div>
+        <div class="red-text">今日できること：①使用しているAIサービスのプライバシー設定を確認し、データ学習オプトアウトを設定する。②APIキーを使っている場合はコードにオプトアウトヘッダーを追加。③企業・チームで使用している場合は管理者設定を確認。Mistral特有の推奨：機密情報を含む業務でLa Plateformeを使用している場合、即刻オプトアウト設定を有効にするか、Enterprise契約への移行を検討。法的観点：日本の個人情報保護法（改正版）でもAI学習目的のデータ利用には本人の同意が必要——オプトアウトの存在を知らずに利用していた場合、事業者側の説明責任が問われる可能性。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: help.mistral.ai</span>
+      <span>346 ポイント</span>
+      <span>149 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://help.mistral.ai/en/articles/455207-can-i-opt-out-of-my-input-or-output-data-being-used-for-training" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49535284" target="_blank">HN議論 (149)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="mistral-opt-out-training-data" data-type="like" onclick="toggleFlag('mistral-opt-out-training-data','Mistralのデータ学習オプトアウト — 見落とされてきたプライバシー設定','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="mistral-opt-out-training-data" data-type="dislike" onclick="toggleFlag('mistral-opt-out-training-data','Mistralのデータ学習オプトアウト — 見落とされてきたプライバシー設定','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 4 — Commodore 64 44th anniversary ══════════════════════════════════════════ -->
+<section class="story story-4" id="s4">
+  <div class="story-num">04</div>
+  <div class="story-inner">
+    <div class="story-kicker">テック歴史 / Commodore 64 / レトロコンピューティング / 1982 / 44周年 / ホームコンピューター / ゲーム / ノスタルジア — Commodore 64が1982年9月1日に発売してから44年。310ポイント・160コメント。2026-09-03</div>
+    <h2 class="story-headline">
+      Commodore 64、<br><span style="color:#40ff80">44歳の誕生日——<br>史上最も売れた<br>コンピューターの軌跡</span>
+    </h2>
+    <div class="story-body">
+      「Commodore 64 released September 1, 1982」という記事が310ポイント・160コメントを集めました。1982年9月1日にCBM（Commodore Business Machines）が発売した8ビットホームコンピューター「Commodore 64（C64）」が44周年を迎えたことへの追悼と回顧録です。
+
+      C64は史上最も売れた単一モデルのパーソナルコンピューターとしてギネス世界記録に認定されており、推定販売台数は1,250万〜1,700万台とされています。1982年当時の価格は$595（現在価値で約$1,800相当）でしたが、競合のApple IIやIBM PCと比較して圧倒的に安く、ホームコンピューティングを大衆化した存在として歴史に刻まれています。
+    </div>
+    <div class="green-items">
+      <div class="green-item">
+        <div class="green-label">C64がコンピューター文化に与えた影響</div>
+        <div class="green-text">音楽と音響：SID（Sound Interface Device）チップは当時のゲーム機では実現できなかった豊かな音楽表現を可能にし、チップチューンという音楽ジャンルを生み出した。ゲーム文化：Elite・Impossible Mission・The Last Ninja など多くのクラシックゲームがC64で生まれ、今日のゲームデザインに影響を与えた。デモシーン：限られたハードウェアで視覚的・聴覚的な表現を極める「デモシーン」文化がC64コミュニティから発展し、現在のグラフィックプログラミング文化の原点となった。プログラミング教育：BASIC言語が起動時から利用可能で、多くのプログラマーがC64でコードを書き始めた——HNの多くのベテラン開発者がC64を「最初のコンピューター」として挙げている。</div>
+      </div>
+      <div class="green-item">
+        <div class="green-label">C64の技術的な特徴</div>
+        <div class="green-text">スペック概要：CPU MOS Technology 6510（1MHz）、RAM 64KB、グラフィック VIC-II（最大320×200解像度、16色）、音声 SID MOS 6581/8580（3オシレーター、フィルター付き）。革新性：64KBのRAMは当時としては大容量で「64」という製品名の由来。VIC-IIとSIDの組み合わせはライバル機を圧倒する表現力を持ち、特にゲームとデモ向けに多用された。現在でも動く：C64エミュレーター（VICE等）はすべての主要プラットフォームで動作し、オリジナルソフトウェアの多くがInternet Archive等で保存・公開されている。</div>
+      </div>
+      <div class="green-item">
+        <div class="green-label">HNのコメント——思い出と反省</div>
+        <div class="green-text">最も共感を呼んだコメント：「C64でプログラミングを始めた——BASICのPEEKとPOKEでメモリを直接触ることで、ハードウェアとソフトウェアの境界が体感できた。今の抽象化だらけの開発環境では得られない学び」。デモシーン出身の声：「C64のデモシーンは現代のシェーダーアートの父——Farbrausch・Conspiracy・TRSI のルーツはC64にある」。批判的な視点：「ノスタルジーが美化しすぎている——当時のC64ゲームは今やると動作が遅くてフラストレーションが溜まる。エミュレーターで試した現代の子どもは数分で飽きる」。コンセンサス：「C64は時代を超えたハードウェア設計と文化的インパクトを持った唯一無二の存在」。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: dfarq.homeip.net</span>
+      <span>310 ポイント</span>
+      <span>160 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://dfarq.homeip.net/commodore-64-released-september-1-1982/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49533497" target="_blank">HN議論 (160)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="commodore-64-anniversary" data-type="like" onclick="toggleFlag('commodore-64-anniversary','Commodore 64、44歳の誕生日 — コンピューター史に残る伝説機','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="commodore-64-anniversary" data-type="dislike" onclick="toggleFlag('commodore-64-anniversary','Commodore 64、44歳の誕生日 — コンピューター史に残る伝説機','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 5 — Muse Spark 1.3 ═════════════════════════════════════════════════════════ -->
+<section class="story story-5" id="s5">
+  <div class="story-num">05</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / Meta / Muse Spark / 音楽生成 / クリエイティブAI / マルチモーダル / オープンソース / developer.meta.com — MetaがMuse Spark 1.3を発表。271ポイント・170コメント。2026-09-03</div>
+    <h2 class="story-headline">
+      Muse Spark 1.3——<br><span style="color:#c090ff">MetaのAIクリエイティブ<br>生成モデルが<br>大幅アップデート</span>
+    </h2>
+    <div class="story-body">
+      MetaがAIクリエイティブ生成モデル「Muse Spark 1.3」を発表し、271ポイント・170コメントを集めました。Muse Sparkは音楽・映像・インタラクティブコンテンツ生成に特化したMetaのAIモデルファミリーで、今回のバージョン1.3では生成品質・スタイル制御・マルチモーダル統合が強化されています。
+
+      特筆すべきは、Muse Spark 1.3がMetaのDeveloper Portalを通じてAPIとして提供され、ゲーム・映像・音楽制作分野のサードパーティ開発者が直接統合できる体制が整ったことです。InstagramやReelsなどのMetaプラットフォームへの組み込みも予定されており、クリエイターエコノミーへの影響が注目されています。
+    </div>
+    <div class="purple-items">
+      <div class="purple-item">
+        <div class="purple-label">Muse Spark 1.3の新機能</div>
+        <div class="purple-text">音楽生成の強化：①スタイル参照——既存楽曲のスタイル・ジャンル・ムードを参照しながら新曲を生成（著作権クリアされた参照のみ）②マルチインストルメント——ドラム・ベース・メロディ・ハーモニーを独立してコントロール可能③長さ制御——8小節〜5分以上の楽曲を一貫したスタイルで生成。映像統合：音楽と同期した映像・アニメーション・エフェクトの自動生成（実験的機能）。インタラクティブ生成：ユーザーの入力（ハミング・リズムタップ）から楽曲を展開する機能——ゲームのジェネレーティブBGMへの応用が想定される。</div>
+      </div>
+      <div class="purple-item">
+        <div class="purple-label">著作権と倫理的問題</div>
+        <div class="purple-text">HNで最も議論を呼んだ点：①「スタイル参照」機能が既存アーティストの音楽スタイルを学習・模倣することへの倫理的・法的疑問。②MetaはSuno・Udioと同様の著作権訴訟リスクを抱えるか——HNのコメントでは「Metaの法務チームとリソースを考えると、中小企業と同じリスクは負わない」という見方が多い。Metaの立場：「Muse Sparkは人間のアーティストを補助するツールであり、代替するものではない——クリエイターがより短時間でより多くのコンテンツを制作できるようにする」。業界の懸念：レコード会社3大メジャー（Universal・Sony・Warner）は「Metaとの対話を求める」という声明を発表予定との報道。</div>
+      </div>
+      <div class="purple-item">
+        <div class="purple-label">開発者への実用的な視点</div>
+        <div class="purple-text">APIアクセス：Meta Developer Portalで申請すると早期アクセスが可能。料金は生成時間ベースで、1分の音楽生成あたり約$0.08（推定）。競合比較：Suno v4・Udio・Google MusicLM・OpenAI Jukebox系のモデルと比較した場合、Muse Spark 1.3は「制御性の高さ」で差別化。ゲーム開発者の注目：BGMをプロシージャルに変化させる「ジェネレーティブゲームミュージック」の実装が現実的なコストで可能になる——ゲームの感情状態・プレイヤーの行動に連動した音楽が実現できる。インディーゲーム開発者にとって、作曲家なしでプロ品質のBGMを生成できる可能性がある。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: developer.meta.com</span>
+      <span>271 ポイント</span>
+      <span>170 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://developer.meta.com/ai/models/muse-spark/" target="_blank">発表を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49541256" target="_blank">HN議論 (170)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="muse-spark-1-3-meta" data-type="like" onclick="toggleFlag('muse-spark-1-3-meta','Muse Spark 1.3 — MetaがAIクリエイティブ生成モデルを更新','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="muse-spark-1-3-meta" data-type="dislike" onclick="toggleFlag('muse-spark-1-3-meta','Muse Spark 1.3 — MetaがAIクリエイティブ生成モデルを更新','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 6 — Dark matter weird particle ══════════════════════════════════════════════ -->
+<section class="story story-6" id="s6">
+  <div class="story-num">06</div>
+  <div class="story-inner">
+    <div class="story-kicker">科学 / ダークマター / 粒子物理学 / 検出器 / LUX-ZEPLIN / 異常信号 / 宇宙論 / science.org — 世界最大のダークマター検出器が未知の粒子を検出。218ポイント・65コメント。2026-09-03</div>
+    <h2 class="story-headline">
+      世界最大の<br><span style="color:#20d0d0">ダークマター検出器が<br>「奇妙な粒子」を<br>捉えた</span>
+    </h2>
+    <div class="story-body">
+      Science誌が「World's biggest dark matter detector spots a single weird particle」を掲載し、218ポイント・65コメントを集めました。地下深くに設置された世界最大のダークマター直接検出装置「LUX-ZEPLIN（LZ）」が、標準的なダークマター候補粒子（WIMP）とは異なる特性を持つ「奇妙な粒子」との相互作用を示す単一イベントを検出したというものです。
+
+      「単一イベント」という言葉が重要で、これは統計的に有意な発見（5σ基準）には至っていませんが、既存の理論モデルでは説明しづらいシグナルとして研究者の注目を集めています。LZは液体キセノン10トンを使った最高感度の検出器で、2023年に本格稼働を開始しました。
+    </div>
+    <div class="cyan-items">
+      <div class="cyan-item">
+        <div>
+          <div class="cyan-label">何が検出されたのか</div>
+          <div class="cyan-text">LZ検出器の概要：地下1500メートル（サウスダコタ州ホームステーク鉱山）に設置された液体キセノン10トンのタンク。宇宙線のバックグラウンドを遮断し、ダークマター候補粒子がキセノン原子核に衝突した際の微弱な光と電荷を検出する設計。今回の「奇妙な粒子」：検出されたイベントは、①標準的なWIMPの相互作用とは異なるエネルギー特性②単一のキセノン原子核に限定した特異な相互作用パターン③バックグラウンドノイズと区別できる統計的に特異な信号。可能性のある説明：①未知の種類のダークマター粒子②標準モデルを超えた新粒子③まだ解明されていないバックグラウンド由来の信号。</div>
+        </div>
+      </div>
+      <div class="cyan-item">
+        <div>
+          <div class="cyan-label">「発見」と呼べない理由と次のステップ</div>
+          <div class="cyan-text">物理学の基準：粒子物理学では5σ（シグマ）——約350万分の1の確率で偶然発生したと言える水準——を「発見」の閾値としている。今回のイベントはそれ以下の統計的有意性しかなく、「アノマリー（異常値）」として報告されている。次のステップ：①LZ検出器をさらに長期間運用して追加データを収集（現在は約3年間の予定）②他の検出器（XENONnT、PandaX-4T）が同様のシグナルを観測するか確認③理論物理学者による代替説明の構築。HNの反応：「単一イベントの報告は誤報を生みやすい——2011年のOpera実験（ニュートリノが光より速い？）の教訓を忘れてはならない」vs「でも報告すること自体は科学的に正しい」という議論。</div>
+        </div>
+      </div>
+      <div class="cyan-item">
+        <div>
+          <div class="cyan-label">ダークマター研究の現状と意義</div>
+          <div class="cyan-text">ダークマターとは：宇宙の全物質・エネルギーの約27%を占めると考えられているが、光と電磁気的相互作用をしないため直接観測が困難。銀河の回転曲線・重力レンズ・宇宙の大規模構造を説明するために必要とされるが、その正体は依然として未解明。LZの意義：これまでのどの実験よりも高い感度でWIMPの存在を探索できる。「ない」という結果も重要——WIMPが標準的な質量・結合定数で存在しないことが示されれば、理論の大幅な見直しが必要になる。今回の「奇妙な粒子」は、WIMPとは異なる新しい暗黒物質候補の存在可能性を示唆している点で注目に値する。</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: science.org</span>
+      <span>218 ポイント</span>
+      <span>65 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.science.org/content/article/world-s-biggest-dark-matter-detector-spots-single-weird-particle" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49536079" target="_blank">HN議論 (65)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="dark-matter-detector-weird-particle" data-type="like" onclick="toggleFlag('dark-matter-detector-weird-particle','世界最大のダークマター検出器が「奇妙な粒子」を捉えた','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="dark-matter-detector-weird-particle" data-type="dislike" onclick="toggleFlag('dark-matter-detector-weird-particle','世界最大のダークマター検出器が「奇妙な粒子」を捉えた','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 7 — Exit the Cave ═══════════════════════════════════════════════════════════ -->
+<section class="story story-7" id="s7">
+  <div class="story-num">07</div>
+  <div class="story-inner">
+    <div class="story-kicker">哲学 / テック文化 / フィルターバブル / プラトン / アルゴリズム / 情報食事 / デジタルミニマリズム / turtlespace.blog — 情報の洞窟から出ることを問う哲学エッセイ。190ポイント・58コメント。2026-09-03</div>
+    <h2 class="story-headline">
+      Exit the Cave——<br><span style="color:#ffb060">情報の洞窟から<br>出て現実と<br>向き合うために</span>
+    </h2>
+    <div class="story-body">
+      turtlespace.blogに投稿された「Exit the Cave」が190ポイント・58コメントを集めました。プラトンの「洞窟の比喩」——洞窟に縛られた囚人が壁に映る影だけを現実だと信じる思考実験——を現代のフィルターバブル・アルゴリズム最適化・ソーシャルメディアに当てはめ、「私たちは自分が選んだ影を現実だと思い込んでいないか」を問うエッセイです。
+
+      著者は「出口はある——ただし一人で洞窟から出ることは、洞窟の中の仲間から見ると狂気に見える」というプラトンの続きを現代に翻訳します。アルゴリズムが生成した情報環境を「出ること」は、周囲の人々と話題が合わなくなるコストを伴うと指摘します。
+    </div>
+    <div class="amber-items">
+      <div class="amber-item">
+        <div class="amber-label">現代の洞窟とは何か</div>
+        <div class="amber-text">著者が「現代の洞窟」として挙げるもの：①ソーシャルメディアのフィードアルゴリズム——自分の既存の信念・好みを強化するコンテンツを優先的に表示し、「世界の縮小版」を作り上げる。②ニュースサイクルの断片化——30秒〜2分で読める刺激的なコンテンツが長い文脈を持つ報道を駆逐した結果、「速い影」だけが残る。③エコーチェンバー——意見が同じ人々のコミュニティ内での相互強化により、自分の見方が「普通」に見える。プラトンとの対応：原典では「影」は洞窟の壁に映る物体の影だが、現代では「アルゴリズムが選んだコンテンツ」が「影」にあたる——現実の出来事の「反射・加工・歪曲」されたものを見て、現実だと信じている状態。</div>
+      </div>
+      <div class="amber-item">
+        <div class="amber-label">「出ること」のコストと方法</div>
+        <div class="amber-text">出ることの具体的な試み（著者の提案）：①RSSで自分で情報源を選ぶ——アルゴリズムを介さずに情報を受け取る②週に1度「遅いニュース」だけを読む日を設ける——The Economist・LeMonde Diplomatique・長文特集記事のような文脈のある情報源③自分と意見が異なる人の長文を読む——コメントではなく記事・書籍レベルの長さで④デジタル断食——スマートフォンなしで24時間過ごした後の感覚の変化を記録する。コスト：周囲の人と同じ「洞窟の影」を共有しないと、会話が成立しにくくなる——HNコメントでは「洞窟を出ると、残った人との共通話題が減る社会的コストが現実に存在する」という経験談が多数。</div>
+      </div>
+      <div class="amber-item">
+        <div class="amber-label">HNの反応と批判</div>
+        <div class="amber-text">共感する声：「フィードを切ってRSSだけに切り替えて3ヶ月——最初の1週間は禁断症状みたいな感じだったが、今は以前より深く考えられるようになった感覚がある」。批判：「洞窟の比喩は魅力的だが、現実には誰も洞窟の『外』に完全に出られない——『外』と思っている状態もまた別の洞窟。エリート・インテリの情報環境が正しいという傲慢さがある」。中庸な評価：「完全に洞窟を出ることを目指すより、複数の洞窟を行き来できる能力を養うことの方が現実的」。著者への評価：「このエッセイ自体が一種の洞窟——HNというフィルターバブルで共有されてポイントを集めているという皮肉」。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: turtlespace.blog</span>
+      <span>190 ポイント</span>
+      <span>58 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://turtlespace.blog/p/exit-the-cave" target="_blank">エッセイを読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49536606" target="_blank">HN議論 (58)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="exit-the-cave" data-type="like" onclick="toggleFlag('exit-the-cave','Exit the Cave — 情報の洞窟から出て現実と向き合うために','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="exit-the-cave" data-type="dislike" onclick="toggleFlag('exit-the-cave','Exit the Cave — 情報の洞窟から出て現実と向き合うために','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 8 — Aging Brains Blend Memories ════════════════════════════════════════════ -->
+<section class="story story-8" id="s8">
+  <div class="story-num">08</div>
+  <div class="story-inner">
+    <div class="story-kicker">神経科学 / 記憶 / 老化 / 海馬 / 認知 / パターン分離 / 研究 / studyfinds.com — 老化した脳が記憶を「混ぜる」メカニズムを解明。171ポイント・78コメント。2026-09-03</div>
+    <h2 class="story-headline">
+      老いた脳は<br><span style="color:#ffe080">記憶を「忘れる」<br>のでなく「混ぜる」——<br>新たな神経科学研究</span>
+    </h2>
+    <div class="story-body">
+      「Aging Brains Blend Memories Together Instead of Just Forgetting Them」という研究報告が171ポイント・78コメントを集めました。老化に伴う記憶の変化について、「記憶が消える（forgetting）」のではなく「似た記憶が混ざり合う（blending）」という新しいメカニズムを示した神経科学研究です。
+
+      海馬（記憶の形成・索引に中心的役割を果たす脳領域）の「パターン分離」機能——似た経験を別々の記憶として保存する能力——が老化とともに低下し、類似した記憶が一つにまとまってしまう現象を発見しました。「おばあちゃんが同じ話を繰り返す」現象の神経科学的な説明がここにあります。
+    </div>
+    <div class="gold-items">
+      <div class="gold-item">
+        <div class="gold-label">研究の詳細</div>
+        <div class="gold-text">研究手法：若年成人（平均25歳）と高齢成人（平均70歳）の2グループに、日常的な出来事の動画（「コーヒーを淹れる」など）を複数パターン視聴させた後、記憶の正確さと混同パターンを評価。主な発見：①若年グループ——似た動画を別々の記憶として保存（高パターン分離能力）②高齢グループ——似た動画が「混ぜ合わさった」記憶として保存される傾向③混同は特定の特徴が似ている場合に強く起きる——場所・人物・順序の類似性が混合を引き起こすトリガー。神経基盤：fMRIによる観察で、高齢者の海馬CA3領域のパターン分離関連神経活動が若年者より減少していることを確認。</div>
+      </div>
+      <div class="gold-item">
+        <div class="gold-label">「忘れる」vs「混ぜる」の違い</div>
+        <div class="gold-text">実用的な意味の違い：「忘れる」場合——情報が消失し思い出せない。「混ぜる」場合——情報は残っているが、別の記憶の要素と合体している。たとえば、昨年のクリスマスと一昨年のクリスマスが「合成記憶」になる——どちらの出来事も完全には消えず、ハイブリッドな記憶として残る。重要な示唆：混合記憶の当事者は「正確に覚えている」と感じている——誤った記憶の自覚が難しい。法的・社会的影響：目撃証言における高齢者の記憶の信頼性に関する議論に新たなエビデンスを提供。認知症との違い：この研究の現象は「正常な老化」の範囲内——アルツハイマー等の認知症は海馬の神経細胞死というより根本的な変化を伴う。</div>
+      </div>
+      <div class="gold-item">
+        <div class="gold-label">HNの反応と応用可能性</div>
+        <div class="gold-text">個人的な共感：最多upvoteコメント：「80歳の母が同じ話を繰り返すとき、それは『嘘』でも『認知症』でもなく、複数の本物の記憶が混合した結果なのかもしれない——この研究を読んで接し方が変わった」。研究への批判：「日常的な動画という単純な刺激での実験結果が、感情的・複雑な実生活の記憶にそのまま適用できるか疑問」。応用への期待：①記憶訓練プログラムの開発——パターン分離能力を鍛えるゲームや認知トレーニング②ソーシャルロボット・AIアシスタントの設計——高齢者が「混合記憶」を話したとき適切に対応できるシステム③認知症スクリーニング——「混ぜる」パターンと「忘れる」パターンの区別が早期診断の手がかりになる可能性。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: studyfinds.com</span>
+      <span>171 ポイント</span>
+      <span>78 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://studyfinds.com/aging-brains-blend-memories-together-instead-of-forgetting-them-study-finds/" target="_blank">研究を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49535548" target="_blank">HN議論 (78)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="aging-brains-blend-memories" data-type="like" onclick="toggleFlag('aging-brains-blend-memories','老いた脳は記憶を「忘れる」のでなく「混ぜる」——新研究','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="aging-brains-blend-memories" data-type="dislike" onclick="toggleFlag('aging-brains-blend-memories','老いた脳は記憶を「忘れる」のでなく「混ぜる」——新研究','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 9 — I wanna live an NPC life ═══════════════════════════════════════════════ -->
+<section class="story story-9" id="s9">
+  <div class="story-num">09</div>
+  <div class="story-inner">
+    <div class="story-kicker">哲学 / テック文化 / NPC / 自律性 / 決断疲れ / デジタルアイデンティティ / ゲーム文化 / signalundefied — 「NPCとして生きたい」という欲求を分析するエッセイ。140ポイント・129コメント。2026-09-03</div>
+    <h2 class="story-headline">
+      「NPCとして<br><span style="color:#a0c8ff">生きたい」——<br>決断疲れと<br>自律性のジレンマ</span>
+    </h2>
+    <div class="story-body">
+      signalundefied.bearblog.devに掲載された「I wanna live an NPC life」が140ポイント・129コメントを集めました。ゲームのNPC（Non-Player Character——プレイヤーが操作しないキャラクター）のように、スクリプト化された役割をこなし、複雑な自己決定を迫られない生き方への欲求を分析したエッセイです。
+
+      著者はこの欲求を「怠惰」や「逃避」として批判するのでなく、「選択の多様化が人に与える認知的疲労」と「意味のある選択とそうでない選択の見分け方」という観点から真剣に検討しています。Barry Schwartzの「選択のパラドックス」を踏まえ、「NPCライフへの憧れは現代の情報過多と過度な個人主義への合理的な反応である」と主張します。
+    </div>
+    <div class="slate-items">
+      <div class="slate-item">
+        <div class="slate-label">「NPCライフ」の心理的魅力</div>
+        <div class="slate-text">著者が分析する魅力の構造：①決断疲れ（Decision fatigue）からの解放——一日に行う選択の数が増えるほど、選択の質が低下し疲弊する（Baumeister et al.の古典的研究）。NPCは「決められた行動を実行するだけ」という形で、この疲労を回避する。②意味の明確さ——NPCには「役割」がある。コリドーNPCは廊下を歩く、店主NPCは物を売る——役割が明確だと「自分が何をすべきか」で悩まない。③社会的比較からの解放——NPCはランキングも評価もない。「他のNPCより良いNPCになる必要がない」——SNSが生み出す絶え間ない比較からの解放。現代のNPC的な生き方の実例：マニュアル仕事を好む人・日課を厳格に守る人・重要な選択を外部委任する人（バフェットの朝食は毎日同じ、オバマは同じスーツの複数着）。</div>
+      </div>
+      <div class="slate-item">
+        <div class="slate-label">HNの議論——共感と反論</div>
+        <div class="slate-text">共感する声（多数派）：「プログラマーとして働いていて感じること——コードを書く時間より、何を作るかを決める時間の方が疲れる。コードを書いていると頭が空になる感じがある——それがNPC的な快感かもしれない」。反論：「NPCへの憧れは決断疲れの症状であって、解決策ではない——NPCは実は全員同じルーティンを生きる分、創造性も成長もない。人間がNPCに憧れるとき、実際に欲しいのは『意味のある決断だけをする自由』であり、『決断ゼロ』ではない」。哲学的深掘り：「サルトルの『実存は本質に先立つ』の逆——NPCは本質（スクリプト）が実存に先立つ存在。人間がそれを羨ましがるのは、自由の重さに耐えられなくなった時」。</div>
+      </div>
+      <div class="slate-item">
+        <div class="slate-label">実践的な示唆——「部分的NPCライフ」のデザイン</div>
+        <div class="slate-text">著者の提案：すべてをNPC的にするのでなく、「エネルギーを使いたくない領域」をNPC化し、「本当に大切な選択」に認知リソースを集中する。具体的な戦略：①ルーティン化——朝食・服装・運動を毎日同じにする（「決断しなくていいゾーン」を作る）②選択の削減——Netflixをやめ見る映画のリストを予め作る③委任——どうでもいい選択は他者に委ねる（「ランチは任せる」）④「NPC的な仕事」の価値再発見——ルーティン業務や繰り返し作業に意味を見出すことで消耗を減らす。AI時代との関連：AIが「NPC的な選択」を代行してくれることで、人間が「主人公的な選択」に集中できる——この視点でAIアシスタントを捉え直す示唆がある。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: signalundefied.bearblog.dev</span>
+      <span>140 ポイント</span>
+      <span>129 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://signalundefied.bearblog.dev/i-wanna-live-an-npc-life/" target="_blank">エッセイを読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49541519" target="_blank">HN議論 (129)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="npc-life-essay" data-type="like" onclick="toggleFlag('npc-life-essay','「NPCとして生きたい」——決断疲れと自律性のジレンマ','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="npc-life-essay" data-type="dislike" onclick="toggleFlag('npc-life-essay','「NPCとして生きたい」——決断疲れと自律性のジレンマ','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 10 — WebLLM ═════════════════════════════════════════════════════════════════ -->
+<section class="story story-10" id="s10">
+  <div class="story-num">10</div>
+  <div class="story-inner">
+    <div class="story-kicker">開発ツール / WebGPU / LLM / ブラウザ / オフライン / mlc-ai / ローカルAI / オープンソース — WebLLMがブラウザ内高速LLM推論エンジンとして注目。77ポイント・17コメント。2026-09-03</div>
+    <h2 class="story-headline">
+      WebLLM——<br><span style="color:#ff90c0">ブラウザ内で<br>動く高速LLM<br>推論エンジン</span>
+    </h2>
+    <div class="story-body">
+      MLC AI（Machine Learning Compilation）チームが開発する「WebLLM」のGitHubリポジトリが77ポイント・17コメントを集めました。WebLLMはWebGPUを活用してブラウザ内でLLMをネイティブ実行するオープンソースの推論エンジンで、サーバーへのリクエストなしにローカルでAI推論を完結できます。
+
+      WebGPUは2023年から主要ブラウザ（Chrome・Firefox・Safari）で本格サポートが始まったGPUアクセスAPIで、WebLLMはこれを活用してGPUを搭載したマシンではサーバー品質に近い推論速度を実現します。Llama 3.2・Qwen 2.5・Phi-3など主要なオープンソースモデルが対応しており、プライバシーに配慮したオフラインAIアプリ開発に適しています。
+    </div>
+    <div class="mag-items">
+      <div class="mag-item">
+        <div class="mag-label">WebLLMの技術的な仕組み</div>
+        <div class="mag-text">技術スタック：①Apache TVM——モデルのコンパイルとWebGPU向け最適化を担当するMLCフレームワーク②WebGPU API——ブラウザからGPUシェーダーを直接実行するW3C標準③WASM（WebAssembly）——GPUが使えない環境でのCPUフォールバック。モデルの読み込み：初回のみモデルウェイトをダウンロードしブラウザのキャッシュに保存——次回以降はオフラインで動作可能。速度の現実：GPUあり（NVIDIA RTX 3080相当）Llama 3.2 3Bで約30〜40tok/s。CPU（M2 MacBook）では5〜10tok/s。WebGPUのサポート状況：Chrome 113+・Firefox 110+（flag解除）・Safari 16.4+で利用可能。古いブラウザ・WebGPU非対応環境ではWASMにフォールバック。</div>
+      </div>
+      <div class="mag-item">
+        <div class="mag-label">開発者向けユースケースと使い方</div>
+        <div class="mag-text">主なユースケース：①プライバシー重視アプリ——ユーザーの入力がサーバーに送信されないことを保証したい場合（医療・法律・個人メモアプリ等）②オフライン対応——インターネット接続なしで動作するAI機能（機内モード・僻地利用等）③コスト削減——APIコールを減らしてインフラコストを下げる（低頻度・軽量タスク向け）④エッジAI——ユーザー端末上での推論によりレイテンシを削減。基本的な使い方（npm install webllm後）：モデルのロード・チャット補完・ストリーミングレスポンスが数行のJavaScriptで実装可能。React・Vue・Svelte等のフレームワークとも容易に統合できる。制限：大型モデル（70B以上）はメモリ不足でブラウザがクラッシュ——現実的には7B以下が実用的。</div>
+      </div>
+      <div class="mag-item">
+        <div class="mag-label">HNの反応と将来展望</div>
+        <div class="mag-text">肯定的な評価：「WebGPUの成熟でブラウザ内LLMが現実的な選択肢になってきた——APIキーなしでローカルAIを動かせるWebアプリは新しいカテゴリを作る可能性がある」。技術的な懸念：「ブラウザのメモリ制限（Safari最大4GB等）がボトルネック——7Bモデルでも量子化が必須で品質が落ちる」「WebGPUの実装がブラウザ間で微妙に異なりデバッグが難しい」。競合との比較：Transformers.js（Hugging Face）も同様のブラウザ内推論を提供しているが、WebLLMはApache TVMによるコンパイル最適化で速度面で優位とされる。将来の展望：WebGPU自体の継続的な改善とLLMの軽量化（MobileNetLM等）により、「フルオフライン動作するAIウェブアプリ」が2〜3年以内に実用レベルに達するという見方が多い。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: github.com/mlc-ai</span>
+      <span>77 ポイント</span>
+      <span>17 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://github.com/mlc-ai/web-llm" target="_blank">GitHubを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49536411" target="_blank">HN議論 (17)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="webllm-in-browser-llm" data-type="like" onclick="toggleFlag('webllm-in-browser-llm','WebLLM — ブラウザ内高速LLM推論エンジン、WebGPU活用','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="webllm-in-browser-llm" data-type="dislike" onclick="toggleFlag('webllm-in-browser-llm','WebLLM — ブラウザ内高速LLM推論エンジン、WebGPU活用','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-top">
+    <div class="footer-brand">Morning Edition</div>
+    <button class="export-btn" onclick="exportFeedback()">フィードバックをエクスポート</button>
+  </div>
+  <div class="footer-meta">
+    Hacker News フロントページから厳選した10本 — 2026年9月3日 木曜日 / Issue No.113<br>
+    フィードバックはブラウザに保存され、次回の選定に反映されます。
+  </div>
+  <div class="footer-note">Generated by Morning Edition autonomous agent · Powered by HN Algolia API</div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  const DB_NAME = 'morning-edition-feedback';
+  const DB_VERSION = 2;
+  const STORE_NAME = 'feedback';
+  let db = null;
+
+  function openDB() {
+    return new Promise((resolve, reject) => {
+      if (db) { resolve(db); return; }
+      const req = indexedDB.open(DB_NAME, DB_VERSION);
+      req.onupgradeneeded = e => {
+        const d = e.target.result;
+        if (!d.objectStoreNames.contains(STORE_NAME)) {
+          d.createObjectStore(STORE_NAME, { keyPath: 'id' });
+        }
+      };
+      req.onsuccess = e => { db = e.target.result; resolve(db); };
+      req.onerror = e => reject(e);
+    });
+  }
+
+  async function saveFeedback(id, title, type) {
+    try {
+      const d = await openDB();
+      const tx = d.transaction(STORE_NAME, 'readwrite');
+      const store = tx.objectStore(STORE_NAME);
+      const existing = await new Promise(res => { const r = store.get(id); r.onsuccess = e => res(e.target.result); r.onerror = () => res(null); });
+      if (existing && existing.type === type) {
+        store.delete(id);
+        return null;
+      }
+      store.put({ id, title, type, date: new Date().toISOString() });
+      return type;
+    } catch (e) {
+      try {
+        const key = 'me_fb_' + id;
+        const existing = localStorage.getItem(key);
+        if (existing && JSON.parse(existing).type === type) { localStorage.removeItem(key); return null; }
+        localStorage.setItem(key, JSON.stringify({ id, title, type, date: new Date().toISOString() }));
+        return type;
+      } catch (e2) { return type; }
+    }
+  }
+
+  async function loadFeedback(id) {
+    try {
+      const d = await openDB();
+      return new Promise(res => {
+        const tx = d.transaction(STORE_NAME, 'readonly');
+        const r = tx.objectStore(STORE_NAME).get(id);
+        r.onsuccess = e => res(e.target.result ? e.target.result.type : null);
+        r.onerror = () => res(null);
+      });
+    } catch (e) {
+      try { const v = localStorage.getItem('me_fb_' + id); return v ? JSON.parse(v).type : null; } catch (e2) { return null; }
+    }
+  }
+
+  function showToast(msg, isError) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.className = 'toast' + (isError ? ' error' : '');
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2200);
+  }
+
+  async function toggleFlag(storyId, title, type) {
+    const result = await saveFeedback(storyId, title, type);
+    updateButtons(storyId, result);
+    if (result === 'like') showToast('⭐ 興味ありとして記録しました');
+    else if (result === 'dislike') showToast('✕ 興味なしとして記録しました');
+    else showToast('フィードバックを解除しました');
+    await syncToFile();
+  }
+
+  function updateButtons(storyId, activeType) {
+    document.querySelectorAll(`[data-story="${storyId}"]`).forEach(btn => {
+      btn.classList.remove('active');
+      if (btn.dataset.type === activeType) btn.classList.add('active');
+    });
+  }
+
+  async function syncToFile() {
+    try {
+      const all = await getAllFeedback();
+      const json = JSON.stringify({ liked: all.filter(f => f.type === 'like').map(f => f.id), disliked: all.filter(f => f.type === 'dislike').map(f => f.id), entries: all }, null, 2);
+      if ('showSaveFilePicker' in window) {
+        try {
+          if (!window._feedbackHandle) return;
+          const writable = await window._feedbackHandle.createWritable();
+          await writable.write(json); await writable.close();
+        } catch (e) {}
+      }
+    } catch (e) {}
+  }
+
+  async function getAllFeedback() {
+    try {
+      const d = await openDB();
+      return new Promise(res => {
+        const tx = d.transaction(STORE_NAME, 'readonly');
+        const r = tx.objectStore(STORE_NAME).getAll();
+        r.onsuccess = e => res(e.target.result || []);
+        r.onerror = () => res([]);
+      });
+    } catch (e) {
+      try {
+        const items = [];
+        for (let i = 0; i < localStorage.length; i++) {
+          const k = localStorage.key(i);
+          if (k && k.startsWith('me_fb_')) { try { items.push(JSON.parse(localStorage.getItem(k))); } catch (e2) {} }
+        }
+        return items;
+      } catch (e2) { return []; }
+    }
+  }
+
+  async function exportFeedback() {
+    try {
+      const all = await getAllFeedback();
+      const json = JSON.stringify({ liked: all.filter(f => f.type === 'like').map(f => f.id), disliked: all.filter(f => f.type === 'dislike').map(f => f.id), entries: all }, null, 2);
+      if ('showSaveFilePicker' in window) {
+        const handle = await window.showSaveFilePicker({ suggestedName: 'feedback.json', types: [{ description: 'JSON', accept: { 'application/json': ['.json'] } }] });
+        window._feedbackHandle = handle;
+        const writable = await handle.createWritable();
+        await writable.write(json); await writable.close();
+        showToast('feedback.json を保存しました');
+      } else {
+        const a = document.createElement('a');
+        a.href = 'data:application/json;charset=utf-8,' + encodeURIComponent(json);
+        a.download = 'feedback.json'; a.click();
+        showToast('feedback.json をダウンロードしました');
+      }
+    } catch (e) { showToast('エクスポートに失敗しました', true); }
+  }
+
+  async function initButtons() {
+    const storyIds = [
+      'gemini-3-8-flash','fable-5-1-world-modeling','mistral-opt-out-training-data',
+      'commodore-64-anniversary','muse-spark-1-3-meta',
+      'dark-matter-detector-weird-particle','exit-the-cave',
+      'aging-brains-blend-memories','npc-life-essay','webllm-in-browser-llm'
+    ];
+    for (const id of storyIds) {
+      const type = await loadFeedback(id);
+      if (type) updateButtons(id, type);
+    }
+  }
+
+  initButtons();
+</script>
+</body>
+</html>
