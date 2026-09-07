@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Morning Edition — 2026年9月8日</title>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --font: 'M PLUS Rounded 1c', 'Hiragino Sans', 'Noto Sans JP', sans-serif; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); background: #111; color: #fff; overflow-x: hidden; }
+
+    .masthead { background: #fff; color: #000; padding: 3rem 4rem 2.5rem; border-bottom: 6px solid #000; position: relative; overflow: hidden; }
+    .masthead::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: repeating-linear-gradient(90deg, #000 0, #000 12px, transparent 12px, transparent 20px); }
+    .masthead-kicker { font-size: 0.85rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: #777; margin-bottom: 0.6rem; }
+    .masthead-title { font-size: clamp(3.5rem, 9vw, 7.5rem); font-weight: 900; line-height: 0.88; letter-spacing: -0.04em; margin-bottom: 1.8rem; }
+    .masthead-meta { display: flex; gap: 3rem; align-items: baseline; flex-wrap: wrap; }
+    .masthead-date { font-size: 1.5rem; font-weight: 700; }
+    .masthead-subtitle { font-size: 1rem; font-weight: 400; color: #555; max-width: 480px; line-height: 1.5; }
+    .masthead-issue { margin-left: auto; text-align: right; }
+    .masthead-issue span { display: block; }
+    .masthead-issue .iss-label { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: #999; }
+    .masthead-issue .iss-num { font-size: 2.2rem; font-weight: 900; color: #000; }
+
+    .toc { background: #1a1a1a; padding: 1.5rem 4rem; display: flex; gap: 1.5rem; flex-wrap: wrap; border-bottom: 1px solid #333; }
+    .toc a { color: #aaa; text-decoration: none; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; transition: color 0.2s; }
+    .toc a:hover { color: #fff; }
+    .toc-num { color: #555; margin-right: 0.3em; }
+
+    .story { position: relative; overflow: hidden; }
+    .story-inner { max-width: 1200px; margin: 0 auto; padding: 5rem 4rem; position: relative; z-index: 1; }
+    .story-num { font-size: clamp(6rem, 18vw, 16rem); font-weight: 900; line-height: 0.8; letter-spacing: -0.06em; opacity: 0.08; position: absolute; top: 1rem; right: 2rem; user-select: none; }
+    .story-badge { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.35em 0.9em; border-radius: 2px; margin-bottom: 1.5rem; }
+    .direct-badge { background: #FFD700; color: #000; }
+    .story-kicker { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; opacity: 0.6; margin-bottom: 0.8rem; }
+    .story-headline { font-size: clamp(2rem, 5vw, 4rem); font-weight: 900; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+    .story-body { font-size: clamp(1rem, 1.5vw, 1.2rem); font-weight: 400; line-height: 1.8; max-width: 680px; opacity: 0.88; margin-bottom: 2rem; }
+    .story-meta { display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center; font-size: 0.8rem; font-weight: 700; opacity: 0.5; }
+    .story-links { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem; }
+    .story-link { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.6em 1.4em; border-radius: 3px; text-decoration: none; transition: opacity 0.2s, transform 0.15s; }
+    .story-link:hover { opacity: 0.75; transform: translateY(-1px); }
+
+    .feedback-buttons { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .flag-btn { background: none; border: 1px solid currentColor; color: inherit; font-family: var(--font); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.5em 1em; border-radius: 3px; cursor: pointer; opacity: 0.32; transition: opacity 0.2s, background 0.2s, color 0.2s, border-color 0.2s, transform 0.15s; }
+    .flag-btn:hover { opacity: 0.72; transform: translateY(-1px); }
+    .flag-btn.like-btn.active { opacity: 1; background: rgba(255,215,0,0.15); border-color: #FFD700; color: #FFD700 !important; }
+    .flag-btn.dislike-btn.active { opacity: 1; background: rgba(255,60,60,0.12); border-color: #FF4444; color: #FF4444 !important; }
+
+    .toast { position: fixed; bottom: 2rem; right: 2rem; background: #1a1a1a; color: #fff; font-family: var(--font); font-size: 0.82rem; font-weight: 700; padding: 0.75em 1.4em; border-radius: 4px; border-left: 3px solid #00C853; z-index: 9999; opacity: 0; transform: translateY(10px); transition: opacity 0.25s, transform 0.25s; pointer-events: none; box-shadow: 0 4px 24px rgba(0,0,0,0.45); }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    .toast.error { border-left-color: #FF5252; }
+
+    /* Story 1 — White */
+    .story-1 { background: #fff; color: #000; min-height: 90vh; display: flex; flex-direction: column; justify-content: center; }
+    .story-1 .story-num { color: #000; opacity: 0.04; }
+    .story-1 .story-kicker { color: #555; opacity: 1; }
+    .story-1 .story-headline { color: #000; }
+    .story-1 .story-body { color: #111; }
+    .story-1 .story-meta { color: #000; }
+    .story-1 .story-link.primary { background: #1a1a1a; color: #fff; }
+    .story-1 .story-link.secondary { background: #f0f0f0; color: #000; }
+    .story-1 .flag-btn { color: #000; }
+    .story-1-accent { position: absolute; bottom: 0; left: 0; width: 100%; height: 8px; background: linear-gradient(90deg, #1a5276, #2e86c1, #1a5276); }
+    .story-1 .headline-accent { display: inline-block; background: linear-gradient(135deg, #1a5276 0%, #2e86c1 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .blue-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1.2rem; margin: 2rem 0; max-width: 680px; }
+    .blue-card { border: 2px solid rgba(26,82,118,0.18); background: rgba(26,82,118,0.04); border-radius: 6px; padding: 1.3rem 1.5rem; }
+    .blue-card-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.2em; text-transform: uppercase; color: #1a5276; margin-bottom: 0.4rem; }
+    .blue-card-value { font-size: 1.05rem; font-weight: 900; color: #000; line-height: 1.3; }
+    .blue-card-sub { font-size: 0.75rem; color: #555; margin-top: 0.3rem; line-height: 1.4; }
+
+    /* Story 2 — Dark navy/teal */
+    .story-2 { background: #00080c; color: #b8f0ff; min-height: 80vh; }
+    .story-2::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(0,160,200,0.14) 0%, transparent 65%); }
+    .story-2 .story-num { color: #00A0C8; opacity: 0.07; }
+    .story-2 .story-kicker { color: #20C8E8; opacity: 1; }
+    .story-2 .story-headline { color: #e0f8ff; }
+    .story-2 .story-body { color: #b8f0ff; }
+    .story-2 .story-meta { color: #20C8E8; opacity: 0.5; }
+    .story-2 .story-link.primary { background: #004058; color: #80e8ff; }
+    .story-2 .story-link.secondary { background: rgba(0,160,200,0.08); color: #90d8f0; border: 1px solid rgba(0,160,200,0.22); }
+    .story-2 .flag-btn { color: #b8f0ff; }
+    .teal-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .teal-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(0,160,200,0.07); border-left: 3px solid #00A0C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .teal-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20C8E8; margin-bottom: 0.3rem; }
+    .teal-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 3 — Dark red */
+    .story-3 { background: #0a0000; color: #fff; min-height: 80vh; }
+    .story-3::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(200,20,20,0.16) 0%, transparent 65%); }
+    .story-3 .story-num { color: #C81414; opacity: 0.07; }
+    .story-3 .story-kicker { color: #E84040; opacity: 1; }
+    .story-3 .story-headline { color: #fff; }
+    .story-3 .story-body { color: rgba(255,255,255,0.88); }
+    .story-3 .story-meta { color: #E84040; opacity: 0.5; }
+    .story-3 .story-link.primary { background: #6a0000; color: #fff; }
+    .story-3 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-3 .flag-btn { color: #fff; }
+    .red-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .red-item { background: rgba(200,20,20,0.07); border-left: 3px solid #C81414; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .red-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E84040; margin-bottom: 0.3rem; }
+    .red-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 4 — Dark green */
+    .story-4 { background: #020c04; color: #c8f0d0; min-height: 80vh; }
+    .story-4::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(20,160,70,0.16) 0%, transparent 65%); }
+    .story-4 .story-num { color: #14A046; opacity: 0.07; }
+    .story-4 .story-kicker { color: #30C060; opacity: 1; }
+    .story-4 .story-headline { color: #e0ffe8; }
+    .story-4 .story-body { color: #c8f0d0; }
+    .story-4 .story-meta { color: #30C060; opacity: 0.5; }
+    .story-4 .story-link.primary { background: #063820; color: #80ffb0; }
+    .story-4 .story-link.secondary { background: rgba(20,160,70,0.08); color: #a0e8b0; border: 1px solid rgba(20,160,70,0.22); }
+    .story-4 .flag-btn { color: #c8f0d0; }
+    .green-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .green-item { background: rgba(20,160,70,0.07); border-left: 3px solid #14A046; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .green-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #30C060; margin-bottom: 0.3rem; }
+    .green-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 5 — Dark purple */
+    .story-5 { background: #040010; color: #d8c8ff; min-height: 75vh; }
+    .story-5::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(90,40,200,0.17) 0%, transparent 65%); }
+    .story-5 .story-num { color: #5A28C8; opacity: 0.07; }
+    .story-5 .story-kicker { color: #8050E0; opacity: 1; }
+    .story-5 .story-headline { color: #f0e8ff; }
+    .story-5 .story-body { color: #d8c8ff; }
+    .story-5 .story-meta { color: #8050E0; opacity: 0.5; }
+    .story-5 .story-link.primary { background: #200860; color: #d0a8ff; }
+    .story-5 .story-link.secondary { background: rgba(90,40,200,0.08); color: #c0a0f0; border: 1px solid rgba(90,40,200,0.22); }
+    .story-5 .flag-btn { color: #d8c8ff; }
+    .purple-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .purple-item { background: rgba(90,40,200,0.07); border-left: 3px solid #5A28C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .purple-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #8050E0; margin-bottom: 0.3rem; }
+    .purple-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 6 — Dark cyan */
+    .story-6 { background: #000c10; color: #b8e8f0; min-height: 75vh; }
+    .story-6::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 40%, rgba(0,130,160,0.14) 0%, transparent 65%); }
+    .story-6 .story-num { color: #0080A0; opacity: 0.07; }
+    .story-6 .story-kicker { color: #20B0D0; opacity: 1; }
+    .story-6 .story-headline { color: #e0f4ff; }
+    .story-6 .story-body { color: #b8e8f0; }
+    .story-6 .story-meta { color: #20B0D0; opacity: 0.5; }
+    .story-6 .story-link.primary { background: #003848; color: #80d8f0; }
+    .story-6 .story-link.secondary { background: rgba(0,130,160,0.08); color: #90cce0; border: 1px solid rgba(0,130,160,0.22); }
+    .story-6 .flag-btn { color: #b8e8f0; }
+    .cyan-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .cyan-item { background: rgba(0,130,160,0.07); border-left: 3px solid #0080A0; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .cyan-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20B0D0; margin-bottom: 0.3rem; }
+    .cyan-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 7 — Dark amber */
+    .story-7 { background: #0a0300; color: #ffe0b8; min-height: 75vh; }
+    .story-7::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(210,90,20,0.18) 0%, transparent 65%); }
+    .story-7 .story-num { color: #D05A14; opacity: 0.07; }
+    .story-7 .story-kicker { color: #E88040; opacity: 1; }
+    .story-7 .story-headline { color: #fff0d8; }
+    .story-7 .story-body { color: #ffe0b8; }
+    .story-7 .story-meta { color: #E88040; opacity: 0.5; }
+    .story-7 .story-link.primary { background: #6a2400; color: #ffc880; }
+    .story-7 .story-link.secondary { background: rgba(210,90,20,0.08); color: #ffb870; border: 1px solid rgba(210,90,20,0.22); }
+    .story-7 .flag-btn { color: #ffe0b8; }
+    .amber-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .amber-item { background: rgba(210,90,20,0.07); border-left: 3px solid #D05A14; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .amber-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E88040; margin-bottom: 0.3rem; }
+    .amber-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 8 — Dark gold */
+    .story-8 { background: #080500; color: #fff; min-height: 70vh; }
+    .story-8::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,145,10,0.15) 0%, transparent 65%); }
+    .story-8 .story-num { color: #BE9110; opacity: 0.06; }
+    .story-8 .story-kicker { color: #D4A820; opacity: 1; }
+    .story-8 .story-headline { color: #fff; }
+    .story-8 .story-body { color: rgba(255,255,255,0.88); }
+    .story-8 .story-meta { color: #D4A820; opacity: 0.5; }
+    .story-8 .story-link.primary { background: #604000; color: #ffe070; }
+    .story-8 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-8 .flag-btn { color: #fff; }
+    .gold-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .gold-item { background: rgba(190,145,10,0.07); border-left: 3px solid #BE9110; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .gold-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #D4A820; margin-bottom: 0.3rem; }
+    .gold-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 9 — Slate blue */
+    .story-9 { background: #040810; color: #c8d8f0; min-height: 70vh; }
+    .story-9::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 35%, rgba(50,90,170,0.16) 0%, transparent 65%); }
+    .story-9 .story-num { color: #3258A8; opacity: 0.07; }
+    .story-9 .story-kicker { color: #5878C8; opacity: 1; }
+    .story-9 .story-headline { color: #e8f0ff; }
+    .story-9 .story-body { color: #c8d8f0; }
+    .story-9 .story-meta { color: #5878C8; opacity: 0.5; }
+    .story-9 .story-link.primary { background: #101e50; color: #fff; }
+    .story-9 .story-link.secondary { background: rgba(50,90,170,0.08); color: #b0c8e8; border: 1px solid rgba(50,90,170,0.22); }
+    .story-9 .flag-btn { color: #c8d8f0; }
+    .slate-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .slate-item { background: rgba(50,90,170,0.07); border-left: 3px solid #3258A8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .slate-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #5878C8; margin-bottom: 0.3rem; }
+    .slate-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 10 — Magenta */
+    .story-10 { background: #080004; color: #ffc8e8; min-height: 70vh; }
+    .story-10::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,20,90,0.15) 0%, transparent 65%); }
+    .story-10 .story-num { color: #BE1458; opacity: 0.07; }
+    .story-10 .story-kicker { color: #E04080; opacity: 1; }
+    .story-10 .story-headline { color: #fff0f8; }
+    .story-10 .story-body { color: #ffc8e8; }
+    .story-10 .story-meta { color: #E04080; opacity: 0.5; }
+    .story-10 .story-link.primary { background: #500030; color: #ffb0d8; }
+    .story-10 .story-link.secondary { background: rgba(190,20,90,0.08); color: #f090c0; border: 1px solid rgba(190,20,90,0.22); }
+    .story-10 .flag-btn { color: #ffc8e8; }
+    .mag-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .mag-item { background: rgba(190,20,90,0.07); border-left: 3px solid #BE1458; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .mag-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E04080; margin-bottom: 0.3rem; }
+    .mag-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .site-footer { background: #000; color: #555; padding: 3rem 4rem; display: flex; flex-direction: column; gap: 1.5rem; border-top: 1px solid #222; }
+    .footer-top { display: flex; gap: 2rem; align-items: center; flex-wrap: wrap; justify-content: space-between; }
+    .footer-brand { font-size: 1.4rem; font-weight: 900; color: #fff; }
+    .footer-meta { font-size: 0.75rem; line-height: 1.6; }
+    .export-btn { background: #222; border: 1px solid #444; color: #fff; font-family: var(--font); font-size: 0.8rem; font-weight: 700; padding: 0.7em 1.5em; border-radius: 3px; cursor: pointer; letter-spacing: 0.08em; transition: background 0.2s; }
+    .export-btn:hover { background: #333; }
+    .footer-note { font-size: 0.7rem; opacity: 0.5; }
+
+    @media (max-width: 768px) {
+      .masthead, .toc, .story-inner, .site-footer { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .story-num { display: none; }
+      .masthead-meta { gap: 1rem; }
+      .masthead-issue { margin-left: 0; }
+      .blue-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+<nav style="background:#1a1a1a;border-bottom:1px solid #333;padding:0.55rem 2rem;font-family:'M PLUS Rounded 1c','Hiragino Sans','Noto Sans JP',sans-serif;position:sticky;top:0;z-index:999;">
+  <a href="./index.html" style="color:#aaa;text-decoration:none;font-size:0.8rem;font-weight:700;letter-spacing:0.03em;display:inline-flex;align-items:center;gap:0.4rem;transition:color 0.15s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#aaa'">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    アーカイブへ戻る
+  </a>
+</nav>
+
+<header class="masthead">
+  <div class="masthead-kicker">Hacker News — Morning Edition</div>
+  <h1 class="masthead-title">Morning<br>Edition</h1>
+  <div class="masthead-meta">
+    <div>
+      <div class="masthead-date">2026年9月8日 火曜日</div>
+      <div class="masthead-subtitle">AI・開発ツール・プライバシー・サイエンス — あなたのための10本</div>
+    </div>
+    <div class="masthead-issue">
+      <span class="iss-label">Issue</span>
+      <span class="iss-num">No.118</span>
+    </div>
+  </div>
+</header>
+
+<nav class="toc">
+  <a href="#s1"><span class="toc-num">01</span>Internet Archive、サーバーを守れ——3倍マッチング寄付キャンペーン</a>
+  <a href="#s2"><span class="toc-num">02</span>2億1600万台のLGスマートTV——あなたのリビングが監視されている</a>
+  <a href="#s3"><span class="toc-num">03</span>bzip3——新世代圧縮アルゴリズムが登場</a>
+  <a href="#s4"><span class="toc-num">04</span>Caltech Mathathon——世界初の研究数学ハッカソン</a>
+  <a href="#s5"><span class="toc-num">05</span>シンプルは小さくない——設計哲学の核心</a>
+  <a href="#s6"><span class="toc-num">06</span>WeatherNext 3——DeepMindのAIが気象予測を塗り替える</a>
+  <a href="#s7"><span class="toc-num">07</span>Ladybird 2026年8月——独立ブラウザの現在地</a>
+  <a href="#s8"><span class="toc-num">08</span>氷の衛星は海洋世界——生命の可能性が広がった</a>
+  <a href="#s9"><span class="toc-num">09</span>Trusting-Trust攻撃——Linuxディストリビューション全体を標的に</a>
+  <a href="#s10"><span class="toc-num">10</span>Fable 5で経済学を研究する——AIと学術研究の最前線</a>
+</nav>
+
+<!-- ═══ STORY 1 — Internet Archive ══════════════════════════════════════════════════════════ -->
+<section class="story story-1" id="s1">
+  <div class="story-num">01</div>
+  <div class="story-inner">
+    <div class="story-kicker">インターネット / デジタルアーカイブ / Internet Archive / Wayback Machine / 寄付 / デジタル遺産 / 歴史的記録 — 9月の3倍マッチング寄付キャンペーン。922ポイント・225コメント。2026-09-08</div>
+    <h2 class="story-headline">
+      Internet Archive、<br><span class="headline-accent">サーバーを守れ——<br>9月は寄付が<br>3倍になる</span>
+    </h2>
+    <div class="story-body">
+      Internet Archiveが「Keep Our Servers Running」と題した寄付キャンペーンを公開し、本日のHNで922ポイント・225コメントを集めトップとなっています。9月中の寄付は匿名の支援者によって3倍にマッチングされるという特別キャンペーンです。
+
+      Wayback Machineを運営し、数百億のウェブページ・書籍・音楽・映像を無料で保存・公開し続けるInternet Archiveは、長年の著作権訴訟と資金難に直面しています。HNコミュニティの多くが「インターネットの記憶」への感謝を表明しています。
+    </div>
+    <div class="blue-grid">
+      <div class="blue-card">
+        <div class="blue-card-label">なぜ今重要か</div>
+        <div class="blue-card-value">著作権訴訟との戦い</div>
+        <div class="blue-card-sub">出版社との著作権訴訟で敗訴が続くArchiveは、電子書籍の無制限貸出を停止させられた。それでも無料でアクセスできる図書館として機能し続けている。9月のキャンペーンはこの苦境の中での訴えだ。</div>
+      </div>
+      <div class="blue-card">
+        <div class="blue-card-label">規模と影響</div>
+        <div class="blue-card-value">8660億ページ以上</div>
+        <div class="blue-card-sub">現時点でWayback Machineには8660億以上のウェブページが保存されている。消えたサービス・報道・研究の一次資料として研究者・ジャーナリスト・開発者が毎日依存している。存在しなければ失われていた記録が無数にある。</div>
+      </div>
+      <div class="blue-card">
+        <div class="blue-card-label">HNの反応</div>
+        <div class="blue-card-value">「寄付した」報告が続出</div>
+        <div class="blue-card-sub">「archive.orgに助けられた回数は数えきれない——今すぐ寄付した」というコメントが最多。「3倍マッチングの間に寄付すると実質3倍の価値になる——これほど効率的な寄付は珍しい」。「Archiveがなければウェブの歴史は失われていた」という声が多数。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: blog.archive.org</span>
+      <span>922 ポイント</span>
+      <span>225 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://blog.archive.org/2026/09/01/keep-our-servers-running-your-recurring-donation-goes-3x-this-september/" target="_blank">キャンペーンを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49593563" target="_blank">HN議論 (225)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="internet-archive-keep-running" data-type="like" onclick="toggleFlag('internet-archive-keep-running','Internet Archive、サーバーを守れ','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="internet-archive-keep-running" data-type="dislike" onclick="toggleFlag('internet-archive-keep-running','Internet Archive、サーバーを守れ','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+    <div class="story-1-accent"></div>
+  </div>
+</section>
+
+<!-- ═══ STORY 2 — LG Smart TV ══════════════════════════════════════════════════════════════ -->
+<section class="story story-2" id="s2">
+  <div class="story-num">02</div>
+  <div class="story-inner">
+    <div class="story-kicker">プライバシー / スマートTV / LG / 監視 / データ収集 / IoTセキュリティ / ACR — 2億1600万台のLGスマートTVが視聴データを収集している問題。373ポイント・660コメント。2026-09-08</div>
+    <h2 class="story-headline">
+      2億1600万台の<br><span style="color:#20d8f0">スパイTV——<br>LGスマートTVの<br>プライバシー問題</span>
+    </h2>
+    <div class="story-body">
+      「216M Spy TVs – The LG Smart TV Problem」と題した動画がYouTubeで公開され、373ポイント・660コメントという大きな議論を呼んでいます。LGのスマートTVが搭載するACR（自動コンテンツ認識）技術が、ユーザーの視聴内容を常時収集・送信していることを詳細に解説した内容です。
+
+      最も多くのコメントを集めた本日の記事であり、「自宅のリビングが監視されている」という事実に対する怒りと対処法の議論が白熱しています。
+    </div>
+    <div class="teal-items">
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">ACRとは何か</div>
+          <div class="teal-text">ACR（Automatic Content Recognition）は、TVが映している映像を定期的にキャプチャし、データベースと照合することで「何を見ているか」を特定する技術。LG TVは視聴コンテンツ（Netflix・Blu-ray・ゲーム・リアルタイム放送を含む）をリアルタイムで送信する。このデータは広告ターゲティングに使われ、第三者への販売も行われる。オプトアウトはできるが、デフォルトはオン。</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">HNの対処法まとめ</div>
+          <div class="teal-text">①設定からACR・「ThinQ AI」「広告に基づく推薦」を無効化②TVのネット接続を完全に切断してHDMI経由でApple TV・Fire TV等を使う③ルーターでLG TVのインターネットアクセスをブロック——コミュニティ管理のブロックリストが複数公開されている。最多支持：「スマートTVは画面だけ買って、スマート機能はApple TVに任せるのが正解」という意見。</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">これは氷山の一角</div>
+          <div class="teal-text">LGだけの問題ではない。Samsung・Vizio・Rokiを搭載したTCL・Sony Google TV——すべてのスマートTVブランドが何らかの形でACRを実装している。HNコメント：「スマートTVのビジネスモデルは、TVの販売ではなく視聴データの販売に移行している——だから最近のTVはこんなに安い」。規制の観点：EUのGDPRは明示的同意を要求しており、デフォルトオンは違法の可能性がある。</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: youtube.com</span>
+      <span>373 ポイント</span>
+      <span>660 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.youtube.com/watch?v=6IFVTcM28KA" target="_blank">動画を見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49592375" target="_blank">HN議論 (660)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="lg-smart-tv-spy-216m" data-type="like" onclick="toggleFlag('lg-smart-tv-spy-216m','2億1600万台のLGスマートTV——プライバシー問題','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="lg-smart-tv-spy-216m" data-type="dislike" onclick="toggleFlag('lg-smart-tv-spy-216m','2億1600万台のLGスマートTV——プライバシー問題','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 3 — bzip3 ══════════════════════════════════════════════════════════════════════ -->
+<section class="story story-3" id="s3">
+  <div class="story-num">03</div>
+  <div class="story-inner">
+    <div class="story-kicker">開発ツール / 圧縮 / bzip3 / アルゴリズム / パフォーマンス / オープンソース / C言語 — 新しい圧縮アルゴリズムbzip3がGitHubで公開。353ポイント・98コメント。2026-09-08</div>
+    <h2 class="story-headline">
+      bzip3——<br><span style="color:#ff6060">新世代圧縮が<br>bzip2を<br>塗り替える</span>
+    </h2>
+    <div class="story-body">
+      新しい圧縮アルゴリズム「bzip3」がGitHubで公開され、353ポイント・98コメントを集めています。bzip2の精神的後継を謳うbzip3は、より高い圧縮率と現代のマルチコアCPUへの対応を重視した設計で、C言語で実装されたコマンドラインツールとライブラリの両方を提供しています。
+
+      実際のベンチマークでbzip2・zstd・xzなどの主要アルゴリズムと比較するコメントが多く、「何のために使うべきか」という実践的な議論が盛んです。
+    </div>
+    <div class="red-items">
+      <div class="red-item">
+        <div class="red-label">bzip3の技術的特徴</div>
+        <div class="red-text">bzip3はBWT（Burrows-Wheeler変換）とSAIS（Suffix Array Induced Sorting）を組み合わせた新しいアルゴリズムを採用。bzip2より高い圧縮率を実現しつつ、展開速度を改善している。LZMAやxzのような重い圧縮とは異なり、比較的軽量な実装を保っている点が特徴。並列圧縮にも対応しており、マルチコア環境での性能向上が見込まれる。</div>
+      </div>
+      <div class="red-item">
+        <div class="red-label">どのユースケースに向くか</div>
+        <div class="red-text">HNでの実用的なまとめ：「最大圧縮率を求めるならxz・速度優先ならzstd・bzip2互換が必要な環境のアップグレードとしてbzip3」という棲み分けが多数派の見解。「ログアーカイブや大きなデータセットの長期保存にはbzip3は有力な選択肢」という評価。tar.bz3形式のサポートが広がれば実用性が増す——現時点では実験的な段階。</div>
+      </div>
+      <div class="red-item">
+        <div class="red-label">HNの議論の核心</div>
+        <div class="red-text">「なぜ新しい圧縮アルゴリズムが今も必要か」という問いへの答え：「zstdがほぼ全ユースケースをカバーするが、bzip2の代替として特定のレガシーシステムや高圧縮率が必要な分野では意味がある」。作者のIczelia氏がコメント欄で設計判断を直接説明しており、「なぜSAISを選んだか」「メモリ使用量のトレードオフ」について詳しく回答している点がHNで高く評価された。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: github.com/iczelia/bzip3</span>
+      <span>353 ポイント</span>
+      <span>98 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://github.com/iczelia/bzip3" target="_blank">GitHubで見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49598291" target="_blank">HN議論 (98)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="bzip3-compression" data-type="like" onclick="toggleFlag('bzip3-compression','bzip3——新世代圧縮アルゴリズム','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="bzip3-compression" data-type="dislike" onclick="toggleFlag('bzip3-compression','bzip3——新世代圧縮アルゴリズム','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 4 — Caltech Mathathon ═══════════════════════════════════════════════════════ -->
+<section class="story story-4" id="s4">
+  <div class="story-num">04</div>
+  <div class="story-inner">
+    <div class="story-kicker">科学 / 数学 / Caltech / ハッカソン / 研究数学 / 競技 / 教育 — 世界初の研究数学ハッカソン「Mathathon」がCaltechで開催。208ポイント・68コメント。2026-09-08</div>
+    <h2 class="story-headline">
+      Caltech Mathathon——<br><span style="color:#40e080">世界初、<br>研究数学の<br>ハッカソン</span>
+    </h2>
+    <div class="story-body">
+      Caltechが「Mathathon」と題した世界初の研究数学ハッカソンを開催すると発表し、208ポイント・68コメントを集めています。ソフトウェアのハッカソンとは異なり、未解決の数学的問題に24〜48時間で取り組むというコンセプトです。
+
+      「競技数学（オリンピック問題）」ではなく「研究数学（未解決問題）」を対象とする点がユニークで、AIを数学研究の補助ツールとして活用することも明示的に許可しているとのことです。
+    </div>
+    <div class="green-items">
+      <div class="green-item">
+        <div class="green-label">なぜこれが新しいのか</div>
+        <div class="green-text">従来の数学コンペはIMO（国際数学オリンピック）のように「解ける問題」を素早く解くことを競う形式。Mathathonは「誰も解いていない問題」に対してグループで取り組む。「成果ゼロでもプロセスに価値がある」という研究の現実に沿った形式で、HNでは「数学の研究がどういうものかを一般に見せる最高の機会」と評価された。</div>
+      </div>
+      <div class="green-item">
+        <div class="green-label">AIの活用が明示的に許可</div>
+        <div class="green-text">Mathathonの公式ルールでは、Claude・GPT・GeminiなどのAIを補助ツールとして使うことが明示的に認められている。「AIが数学の自動証明をどこまで支援できるか」という現在進行形の問いへの実験場としても機能する。HNコメント：「AIと人間が協力して未解決問題に挑む——これは数学研究の未来の姿だ」という楽観的な意見が多数。</div>
+      </div>
+      <div class="green-item">
+        <div class="green-label">開発者にとっての意義</div>
+        <div class="green-text">数学は現代のAI・暗号・最適化の基盤。HNの開発者コミュニティにとって「研究数学に触れる機会」は少ない。Mathathonは「理論と実装の橋」として機能する可能性がある。「Leanやisabelleなどの定理証明支援系と組み合わせると面白い」という実践的なコメントも。オンライン参加も可能とのことで、遠隔地からの挑戦者を受け付けている。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: mathathonchallenge.com</span>
+      <span>208 ポイント</span>
+      <span>68 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://mathathonchallenge.com/index.html" target="_blank">詳細を見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49596055" target="_blank">HN議論 (68)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="caltech-mathathon" data-type="like" onclick="toggleFlag('caltech-mathathon','Caltech Mathathon——世界初の研究数学ハッカソン','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="caltech-mathathon" data-type="dislike" onclick="toggleFlag('caltech-mathathon','Caltech Mathathon——世界初の研究数学ハッカソン','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 5 — Simple Is Not Small ════════════════════════════════════════════════════ -->
+<section class="story story-5" id="s5">
+  <div class="story-num">05</div>
+  <div class="story-inner">
+    <div class="story-kicker">開発哲学 / シンプル / 設計 / ソフトウェアアーキテクチャ / コード品質 / エンジニアリング / 複雑性 — 「シンプルは小さくない」——設計哲学の核心を突く記事。165ポイント・54コメント。2026-09-08</div>
+    <h2 class="story-headline">
+      シンプルは<br><span style="color:#a080ff">小さくない——<br>複雑性との<br>正しい戦い方</span>
+    </h2>
+    <div class="story-body">
+      「Simple Is Not Small」というエッセイがHNで165ポイント・54コメントを集めています。「シンプルなコードを書くこと」と「コードを小さくすること」を混同する開発者へ向けた鋭い警告で、jyn514氏（RustコンパイラのコントリビューターであるJun Wu氏）が書いたものです。
+
+      「行数を減らせばシンプルになる」という誤解が、かえってシステムを理解しにくくしているという逆説を丁寧に説いており、コードレビューやアーキテクチャ設計で即座に応用できる内容として評判です。
+    </div>
+    <div class="purple-items">
+      <div class="purple-item">
+        <div class="purple-label">シンプルと小さいの違い</div>
+        <div class="purple-text">著者の定義：「シンプルとは、読んだ人が正しく理解できる状態のこと。小さいとは、コードの物理的なサイズが少ない状態のこと」。この2つは独立している。5行の魔法のような正規表現は「小さいが複雑」——読んだ人が正しく理解できないなら、それはシンプルではない。逆に100行の明示的なfor文のほうが「大きいがシンプル」であることも多い。</div>
+      </div>
+      <div class="purple-item">
+        <div class="purple-label">HNで最も議論された論点</div>
+        <div class="purple-text">「CleanCode的な"関数を小さくせよ"の解釈が間違っていた」という反省のコメントが多数。「コードの圧縮は複雑性をコードから読者の頭の中に移すだけ——総量は変わらない」という指摘が多くの共感を集めた。「賢そうなコードを書きたがる衝動——特に経験を積んだエンジニアほどこの罠にはまりやすい」という観察も。「シンプルさは努力の証、小ささは怠惰の産物でありうる」。</div>
+      </div>
+      <div class="purple-item">
+        <div class="purple-label">実践への応用</div>
+        <div class="purple-text">コードレビュー時に使える質問：「これは行数が少ないからシンプルなのか、それとも読んだ人が正しく理解できるからシンプルなのか？」。著者のアドバイス：「コードを書いた自分ではなく、3ヶ月後の自分・あるいは全く別のチームメンバーが読んだときに理解できるかを基準にする」。「抽象化は複雑性を隠すのではなく、本質だけを見せるためにある——これを間違えると最悪の複雑性が生まれる」。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: jyn.dev</span>
+      <span>165 ポイント</span>
+      <span>54 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://jyn.dev/simple-is-not-the-same-as-small/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49558685" target="_blank">HN議論 (54)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="simple-is-not-small" data-type="like" onclick="toggleFlag('simple-is-not-small','シンプルは小さくない——設計哲学の核心','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="simple-is-not-small" data-type="dislike" onclick="toggleFlag('simple-is-not-small','シンプルは小さくない——設計哲学の核心','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 6 — WeatherNext 3 ═══════════════════════════════════════════════════════════ -->
+<section class="story story-6" id="s6">
+  <div class="story-num">06</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / DeepMind / 気象予測 / 機械学習 / WeatherNext / 数値予報 / 気候 — DeepMindのAI気象予測モデルWeatherNext 3が公開。158ポイント・23コメント。2026-09-08</div>
+    <h2 class="story-headline">
+      WeatherNext 3——<br><span style="color:#40d0f0">DeepMindのAIが<br>気象予測を<br>塗り替える</span>
+    </h2>
+    <div class="story-body">
+      DeepMindが気象予測AIモデル「WeatherNext 3」を公開し、158ポイント・23コメントを集めています。従来の数値気象予報（NWP）モデルが必要としていたスーパーコンピューター級の計算を、機械学習モデルで置き換えるというアプローチを大幅に進化させた第3世代です。
+
+      GraphCast（第1世代）から始まったDeepMindの気象AIは、今や欧州中期予報センター（ECMWF）の公式予測と肩を並べる精度に達しており、気象科学の根本的な転換点として研究者コミュニティが注目しています。
+    </div>
+    <div class="cyan-items">
+      <div class="cyan-item">
+        <div class="cyan-label">何が変わったのか</div>
+        <div class="cyan-text">WeatherNext 3の改善点：①10日先の予報精度がECMWFの公式モデルと同等またはそれ以上②台風・集中豪雨などの極端気象の予測精度が大幅改善③従来の気象モデルの1000分の1以下のコンピューティングコスト④予測実行が数時間から数秒へ。これにより「地球上のあらゆる場所で、高精度な天気予報をリアルタイムで提供する」ことが技術的に可能になりつつある。</div>
+      </div>
+      <div class="cyan-item">
+        <div class="cyan-label">物理モデルvsAIモデルの議論</div>
+        <div class="cyan-text">気象科学者コミュニティでは「物理法則を学習したのか、それとも統計的パターンを学習したのか」という根本的な問いが続く。HNのコメント：「AIモデルは既知の気象パターンの補間は得意だが、前例のない気象現象に対してどこまで汎化できるかが最大の未解決問題」。「AIが物理学を置き換えるのではなく、物理モデルとAIのハイブリッドが答えかもしれない」。</div>
+      </div>
+      <div class="cyan-item">
+        <div class="cyan-label">開発者への示唆</div>
+        <div class="cyan-text">WeatherNextのAPIは将来的に公開予定。これにより農業・輸送・エネルギー・保険などの分野でリアルタイム高精度気象データをアプリケーションに統合できるようになる。「気象APIのコストが大幅に下がり、これまで大企業にしかできなかった気象リスク管理が中小企業にも届く」という期待が高い。オープンソース気象モデルとの統合に関心があるならWeatherNextの技術論文が参考になる。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: deepmind.google</span>
+      <span>158 ポイント</span>
+      <span>23 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://deepmind.google/science/weathernext/" target="_blank">詳細を見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49552299" target="_blank">HN議論 (23)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="weathernext-3-deepmind" data-type="like" onclick="toggleFlag('weathernext-3-deepmind','WeatherNext 3——DeepMindのAI気象予測','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="weathernext-3-deepmind" data-type="dislike" onclick="toggleFlag('weathernext-3-deepmind','WeatherNext 3——DeepMindのAI気象予測','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 7 — Ladybird August 2026 ═══════════════════════════════════════════════════ -->
+<section class="story story-7" id="s7">
+  <div class="story-num">07</div>
+  <div class="story-inner">
+    <div class="story-kicker">ブラウザ / Ladybird / オープンソース / WebEngine / 開発進捗 / SerenityOS / 独立ブラウザ — Ladybirdブラウザ2026年8月の月次アップデート。120ポイント・12コメント。2026-09-08</div>
+    <h2 class="story-headline">
+      Ladybird<br><span style="color:#ff9050">2026年8月——<br>独立ブラウザは<br>どこまで来たか</span>
+    </h2>
+    <div class="story-body">
+      Ladybirdブラウザが「This Month in Ladybird – August 2026」と題した月次アップデートを公開し、120ポイント・12コメントを集めています。ChromiumでもGeckoでもWebKitでもない、完全に独立したブラウザエンジンを目指すLadybirdは、SerenityOS生まれの野心的なプロジェクトです。
+
+      Andreas Kling氏が主導するこのプロジェクトは、企業資本から独立したコミュニティ駆動の開発が続いており、毎月の進捗レポートがHNで注目を集めています。
+    </div>
+    <div class="amber-items">
+      <div class="amber-item">
+        <div class="amber-label">8月の主な改善点</div>
+        <div class="amber-text">8月の進捗（レポートから）：CSS・HTML仕様への準拠度が向上し、実際のウェブサイトの表示が改善。JavaScriptエンジン（LibJS）のパフォーマンス改善。WebAssemblyのサポートが進展。複数のウェブ仕様への準拠テストで通過率が上昇。コントリビューターの数も増加しており、コミュニティが成長していることを示している。</div>
+      </div>
+      <div class="amber-item">
+        <div class="amber-label">なぜLadybirdが重要か</div>
+        <div class="amber-text">現在のウェブは実質的にChromium（Google）・Gecko（Mozilla）・WebKit（Apple）の3エンジンのみが動かしている。新しい独立エンジンは20年以上生まれていない。「ブラウザエンジンの寡占はウェブの多様性とセキュリティにとってリスク」という認識から、Ladybirdは単なる代替ブラウザ以上の意味を持つ。「もし成功すれば、Googleがウェブ標準をコントロールする力が弱まる」。</div>
+      </div>
+      <div class="amber-item">
+        <div class="amber-label">現実的な期待値</div>
+        <div class="amber-text">HNコメントは楽観と懐疑が混在：「毎月の進捗が確実であることは素晴らしい——しかしChromiumが何千人ものエンジニアで20年かけて作ったものに追いつくのは10年単位の話」。「完璧なブラウザでなくても、CSS・JSの仕様実装の学習教材として価値がある——Ladybirdのコードは読みやすい」。「現時点でいくつかのシンプルなサイトは動くが、複雑なウェブアプリはまだ厳しい」という実測報告も。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: ladybird.org</span>
+      <span>120 ポイント</span>
+      <span>12 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://ladybird.org/newsletter/2026-08-31/" target="_blank">レポートを読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49571096" target="_blank">HN議論 (12)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="ladybird-august-2026" data-type="like" onclick="toggleFlag('ladybird-august-2026','Ladybird 2026年8月——独立ブラウザの現在地','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="ladybird-august-2026" data-type="dislike" onclick="toggleFlag('ladybird-august-2026','Ladybird 2026年8月——独立ブラウザの現在地','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 8 — Icy Moons Are Ocean Worlds ════════════════════════════════════════════ -->
+<section class="story story-8" id="s8">
+  <div class="story-num">08</div>
+  <div class="story-inner">
+    <div class="story-kicker">宇宙 / 衛星 / エウロパ / エンケラドス / 海洋世界 / 生命の可能性 / 天文学 — 氷の衛星は海洋世界だった——生命の可能性が広がった。103ポイント・10コメント。2026-09-08</div>
+    <h2 class="story-headline">
+      氷の衛星は<br><span style="color:#ffe070">海洋世界——<br>生命の探索が<br>太陽系に広がる</span>
+    </h2>
+    <div class="story-body">
+      Maciej Cegłowski（Idlewords）のSubstackに掲載された「Icy Moons Are Ocean Worlds」が103ポイント・10コメントを集めています。木星のエウロパ・土星のエンケラドスなど、氷の表面の下に液体の海を持つ衛星が太陽系にいくつも存在し、それらが「生命の可能性がある場所」として近年急速に注目されていることを解説したエッセイです。
+
+      Cegłowski氏らしい明快な文章で、宇宙科学の専門家でなくても楽しめる内容として高く評価されています。
+    </div>
+    <div class="gold-items">
+      <div class="gold-item">
+        <div class="gold-label">なぜ氷の衛星が熱いのか</div>
+        <div class="gold-text">「海洋世界」の条件：液体の水・エネルギー源・有機分子。エンケラドスはその三条件を全て満たす可能性が高い——南極から水蒸気が噴き出しており、その成分から有機化合物と熱水活動の証拠が見つかっている。地球の深海熱水噴出孔では生命が存在するように、エンケラドスの海底にも同様の環境が成立している可能性が高い。Cegłowski氏は「地球外生命が最初に見つかるのは火星ではなくエンケラドスかもしれない」と書いている。</div>
+      </div>
+      <div class="gold-item">
+        <div class="gold-label">次のミッション計画</div>
+        <div class="gold-text">NASAとESAはエウロパとエンケラドスへの専用ミッションを計画中。Europa Clipperは2024年10月に打ち上げ済みで、2030年にエウロパに到着予定。エンケラドスへの次の専用ミッションはまだ未定だが、科学コミュニティからの圧力が高まっている。「エンケラドスの噴出物を直接サンプリングできれば、生命の証拠を直接探索できる」という点で、最もアクセスしやすい太陽系外生命探索の対象として注目されている。</div>
+      </div>
+      <div class="gold-item">
+        <div class="gold-label">HNの反応</div>
+        <div class="gold-text">「Maciej Cegłowskiの宇宙科学エッセイはいつも読みやすく深い——これも例外ではない」という評価が多数。「我々が生きているうちに太陽系内で生命の証拠が見つかる可能性がリアルになってきた——これは人類史上最大の発見になるだろう」という興奮のコメントも。「地球外生命探索の予算はもっと増やすべき——1回の軍事支出の何分の一かで答えが出るかもしれない」という現実的な指摘も注目された。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: mceglowski.substack.com</span>
+      <span>103 ポイント</span>
+      <span>10 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://mceglowski.substack.com/p/icy-moons-are-ocean-worlds" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49586207" target="_blank">HN議論 (10)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="icy-moons-ocean-worlds" data-type="like" onclick="toggleFlag('icy-moons-ocean-worlds','氷の衛星は海洋世界——生命の可能性が広がった','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="icy-moons-ocean-worlds" data-type="dislike" onclick="toggleFlag('icy-moons-ocean-worlds','氷の衛星は海洋世界——生命の可能性が広がった','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 9 — Trusting-Trust Attack ═════════════════════════════════════════════════ -->
+<section class="story story-9" id="s9">
+  <div class="story-num">09</div>
+  <div class="story-inner">
+    <div class="story-kicker">セキュリティ / コンパイラ / 信頼の連鎖 / Linux / サプライチェーン攻撃 / 学術研究 / トラスト — Linux全体を対象にしたTrusting-Trust攻撃の学術論文。91ポイント・19コメント。2026-09-08</div>
+    <h2 class="story-headline">
+      Trusting-Trust攻撃——<br><span style="color:#8090f0">Linuxディストリ<br>全体を<br>標的にする</span>
+    </h2>
+    <div class="story-body">
+      arxivに掲載された「Trusting-Trust Attack against an Entire Linux Distribution」という学術論文が91ポイント・19コメントを集めています。Ken Thompsonが1984年の「Reflections on Trusting Trust」で示したコンパイラへのバックドア挿入攻撃を、現代のLinuxディストリビューション全体に対して実際に適用する方法を研究した論文です。
+
+      「理論上の攻撃」とされていたものを実際に実装・検証した内容で、オープンソースの「信頼の連鎖」に対する根本的な問いを投げかけています。
+    </div>
+    <div class="slate-items">
+      <div class="slate-item">
+        <div class="slate-label">Trusting-Trust攻撃とは</div>
+        <div class="slate-text">Ken Thompsonの古典的攻撃：コンパイラのソースコードを見ても安全に見えるが、コンパイラ自体がバックドアを挿入するように仕込まれている場合、コンパイルされたバイナリは常に汚染される——そしてその汚染されたコンパイラが次世代のコンパイラをコンパイルすれば永続する。今回の論文はこれをLinuxディストリ全体（パッケージシステム・カーネル・ユーザーランド）に拡張し、実際に攻撃が成立することを実証した。</div>
+      </div>
+      <div class="slate-item">
+        <div class="slate-label">何が実証されたのか</div>
+        <div class="slate-text">論文の主張：GCC・Clangのような主要コンパイラへの一度の汚染が、そのコンパイラを使ってビルドされる全てのLinuxパッケージに伝播する可能性がある。「ソースコードを公開しているオープンソースでも、ビルドシステムの信頼の連鎖が保証されていなければ安全ではない」。Debian・Fedora・Arch等の主要ディストリビューションが使うビルドインフラの脆弱性として研究された。</div>
+      </div>
+      <div class="slate-item">
+        <div class="slate-label">対策と業界の反応</div>
+        <div class="slate-text">対策として注目されているのはReproducible Builds（再現可能ビルド）——同じソースコードから同じバイナリが生成されることを複数の独立した環境で検証することで汚染を検出できる。Debian・NixOSなどがこれを推進している。HNコメント：「これはSolarWindsやXZバックドアの理論的基盤——実装が証明されたことで、サプライチェーン攻撃の脅威が再評価される必要がある」。「Reproducible Buildsへの投資が急務になった」という反応が多数。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: arxiv.org</span>
+      <span>91 ポイント</span>
+      <span>19 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://arxiv.org/abs/2607.24888" target="_blank">論文を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49575515" target="_blank">HN議論 (19)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="trusting-trust-attack-linux" data-type="like" onclick="toggleFlag('trusting-trust-attack-linux','Trusting-Trust攻撃——Linuxディストリ全体を標的に','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="trusting-trust-attack-linux" data-type="dislike" onclick="toggleFlag('trusting-trust-attack-linux','Trusting-Trust攻撃——Linuxディストリ全体を標的に','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 10 — Working on Economics with Fable 5 ════════════════════════════════════ -->
+<section class="story story-10" id="s10">
+  <div class="story-num">10</div>
+  <div class="story-inner">
+    <div class="story-badge direct-badge">⚡ あなたに直接関係</div>
+    <div class="story-kicker">AI / Claude / Fable 5 / Anthropic / 経済学 / LLM活用 / 学術研究 / 実践レポート — Fable 5（Claudeファミリー）を使って経済学研究を行う実践ブログ。5ポイント・1コメント。2026-09-08</div>
+    <h2 class="story-headline">
+      Fable 5で<br><span style="color:#ff80c0">経済学を研究する——<br>AIと学術研究の<br>最前線</span>
+    </h2>
+    <div class="story-body">
+      「Working on Economics with Fable 5」と題したブログ記事がHNに投稿されています。Claudeファミリーの最新モデルであるFable 5（claude-fable-5）を経済学の研究・分析に実際に使ってみた体験記で、モデルの推論能力や経済理論の把握度、実際の研究ワークフローへの統合方法を詳しく記録しています。
+
+      ポイント数は少ないものの、Claude/Anthropicのモデルが学術研究の文脈でどのように使われているかを具体的に示す希少な実践レポートです。
+    </div>
+    <div class="mag-items">
+      <div class="mag-item">
+        <div class="mag-label">Fable 5とはどんなモデルか</div>
+        <div class="mag-text">Fable 5（claude-fable-5）はAnthropicのClaudeファミリーの一つ。Claude Sonnet・Opusとは異なるキャラクターと特性を持つモデルとして位置づけられており、複雑な論理的・創造的タスクへの対応が特徴。著者はFable 5が「経済理論の高度な概念（ゲーム理論・行動経済学・マクロ経済モデリング）を適切に扱える」点に驚いたと述べている。「単なるGPTラッパーとは一線を画す深さがある」という評価。</div>
+      </div>
+      <div class="mag-item">
+        <div class="mag-label">実際の研究ワークフロー</div>
+        <div class="mag-text">著者が試みたユースケース：①論文の文献レビュー支援（関連する理論的枠組みの整理）②実証分析の設計（どの統計手法を選ぶべきかの相談）③仮説のラバーダック的検証（Fable 5に反論を求め、自分の議論の穴を見つける）④草稿のフィードバック。特に「反論を求める」使い方が有効だったとのことで、「自分のバイアスに気づくための鏡として機能する」と述べている。</div>
+      </div>
+      <div class="mag-item">
+        <div class="mag-label">AIと学術研究の倫理的問い</div>
+        <div class="mag-text">著者が正直に書いているのは「どこまでAIに依存するか」という倫理的な自問。「AIが出した仮説を自分の成果として発表することへの不安」「AI依存が研究者としての思考力を弱めるリスク」——これらは今の学術界全体が直面している問いだ。HN的示唆：Claude Codeで開発している読者も同じジレンマを感じているはず。「ツールを使うことと、ツールに使われることの境界線はどこか」——Fable 5でもClaudeでも本質的な問いは同じだ。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: wilsoniumite.com</span>
+      <span>5 ポイント</span>
+      <span>1 コメント</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://wilsoniumite.com/2026/08/03/working-on-economics-with-fable-5/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49603086" target="_blank">HN議論 (1)</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="fable-5-economics" data-type="like" onclick="toggleFlag('fable-5-economics','Fable 5で経済学を研究する——AIと学術研究の最前線','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="fable-5-economics" data-type="dislike" onclick="toggleFlag('fable-5-economics','Fable 5で経済学を研究する——AIと学術研究の最前線','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-top">
+    <div class="footer-brand">Morning Edition</div>
+    <button class="export-btn" onclick="exportFeedback()">フィードバックをエクスポート</button>
+  </div>
+  <div class="footer-meta">
+    Hacker News フロントページから厳選した10本 — 2026年9月8日 火曜日 / Issue No.118<br>
+    フィードバックはブラウザに保存され、次回の選定に反映されます。
+  </div>
+  <div class="footer-note">Generated by Morning Edition autonomous agent · Powered by HN Algolia API</div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  const DB_NAME = 'morning-edition-feedback';
+  const DB_VERSION = 2;
+  const STORE_NAME = 'feedback';
+  let db = null;
+
+  function openDB() {
+    return new Promise((resolve, reject) => {
+      if (db) { resolve(db); return; }
+      const req = indexedDB.open(DB_NAME, DB_VERSION);
+      req.onupgradeneeded = e => {
+        const d = e.target.result;
+        if (!d.objectStoreNames.contains(STORE_NAME)) {
+          d.createObjectStore(STORE_NAME, { keyPath: 'id' });
+        }
+      };
+      req.onsuccess = e => { db = e.target.result; resolve(db); };
+      req.onerror = e => reject(e);
+    });
+  }
+
+  async function saveFeedback(id, title, type) {
+    try {
+      const d = await openDB();
+      const tx = d.transaction(STORE_NAME, 'readwrite');
+      const store = tx.objectStore(STORE_NAME);
+      const existing = await new Promise(res => { const r = store.get(id); r.onsuccess = e => res(e.target.result); r.onerror = () => res(null); });
+      if (existing && existing.type === type) {
+        store.delete(id);
+        return null;
+      }
+      store.put({ id, title, type, date: new Date().toISOString() });
+      return type;
+    } catch (e) {
+      try {
+        const key = 'me_fb_' + id;
+        const existing = localStorage.getItem(key);
+        if (existing && JSON.parse(existing).type === type) { localStorage.removeItem(key); return null; }
+        localStorage.setItem(key, JSON.stringify({ id, title, type, date: new Date().toISOString() }));
+        return type;
+      } catch (e2) { return type; }
+    }
+  }
+
+  async function loadFeedback(id) {
+    try {
+      const d = await openDB();
+      return new Promise(res => {
+        const tx = d.transaction(STORE_NAME, 'readonly');
+        const r = tx.objectStore(STORE_NAME).get(id);
+        r.onsuccess = e => res(e.target.result ? e.target.result.type : null);
+        r.onerror = () => res(null);
+      });
+    } catch (e) {
+      try { const v = localStorage.getItem('me_fb_' + id); return v ? JSON.parse(v).type : null; } catch (e2) { return null; }
+    }
+  }
+
+  function showToast(msg, isError) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.className = 'toast' + (isError ? ' error' : '');
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2200);
+  }
+
+  async function toggleFlag(storyId, title, type) {
+    const result = await saveFeedback(storyId, title, type);
+    updateButtons(storyId, result);
+    if (result === 'like') showToast('⭐ 興味ありとして記録しました');
+    else if (result === 'dislike') showToast('✕ 興味なしとして記録しました');
+    else showToast('フィードバックを解除しました');
+    await syncToFile();
+  }
+
+  function updateButtons(storyId, activeType) {
+    document.querySelectorAll(`[data-story="${storyId}"]`).forEach(btn => {
+      btn.classList.remove('active');
+      if (btn.dataset.type === activeType) btn.classList.add('active');
+    });
+  }
+
+  async function syncToFile() {
+    try {
+      const all = await getAllFeedback();
+      const json = JSON.stringify({ liked: all.filter(f => f.type === 'like').map(f => f.id), disliked: all.filter(f => f.type === 'dislike').map(f => f.id), entries: all }, null, 2);
+      if ('showSaveFilePicker' in window) {
+        try {
+          if (!window._feedbackHandle) return;
+          const writable = await window._feedbackHandle.createWritable();
+          await writable.write(json); await writable.close();
+        } catch (e) {}
+      }
+    } catch (e) {}
+  }
+
+  async function getAllFeedback() {
+    try {
+      const d = await openDB();
+      return new Promise(res => {
+        const tx = d.transaction(STORE_NAME, 'readonly');
+        const r = tx.objectStore(STORE_NAME).getAll();
+        r.onsuccess = e => res(e.target.result || []);
+        r.onerror = () => res([]);
+      });
+    } catch (e) {
+      try {
+        const items = [];
+        for (let i = 0; i < localStorage.length; i++) {
+          const k = localStorage.key(i);
+          if (k && k.startsWith('me_fb_')) { try { items.push(JSON.parse(localStorage.getItem(k))); } catch (e2) {} }
+        }
+        return items;
+      } catch (e2) { return []; }
+    }
+  }
+
+  async function exportFeedback() {
+    try {
+      const all = await getAllFeedback();
+      const json = JSON.stringify({ liked: all.filter(f => f.type === 'like').map(f => f.id), disliked: all.filter(f => f.type === 'dislike').map(f => f.id), entries: all }, null, 2);
+      if ('showSaveFilePicker' in window) {
+        const handle = await window.showSaveFilePicker({ suggestedName: 'feedback.json', types: [{ description: 'JSON', accept: { 'application/json': ['.json'] } }] });
+        window._feedbackHandle = handle;
+        const writable = await handle.createWritable();
+        await writable.write(json); await writable.close();
+        showToast('feedback.json を保存しました');
+      } else {
+        const a = document.createElement('a');
+        a.href = 'data:application/json;charset=utf-8,' + encodeURIComponent(json);
+        a.download = 'feedback.json'; a.click();
+        showToast('feedback.json をダウンロードしました');
+      }
+    } catch (e) { showToast('エクスポートに失敗しました', true); }
+  }
+
+  async function initButtons() {
+    const storyIds = [
+      'internet-archive-keep-running','lg-smart-tv-spy-216m','bzip3-compression',
+      'caltech-mathathon','simple-is-not-small','weathernext-3-deepmind',
+      'ladybird-august-2026','icy-moons-ocean-worlds','trusting-trust-attack-linux','fable-5-economics'
+    ];
+    for (const id of storyIds) {
+      const type = await loadFeedback(id);
+      if (type) updateButtons(id, type);
+    }
+  }
+
+  initButtons();
+</script>
+</body>
+</html>
