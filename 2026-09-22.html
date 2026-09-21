@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Morning Edition — 2026年9月22日</title>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --font: 'M PLUS Rounded 1c', 'Hiragino Sans', 'Noto Sans JP', sans-serif; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); background: #111; color: #fff; overflow-x: hidden; }
+
+    .masthead { background: #fff; color: #000; padding: 3rem 4rem 2.5rem; border-bottom: 6px solid #000; position: relative; overflow: hidden; }
+    .masthead::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: repeating-linear-gradient(90deg, #000 0, #000 12px, transparent 12px, transparent 20px); }
+    .masthead-kicker { font-size: 0.85rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: #777; margin-bottom: 0.6rem; }
+    .masthead-title { font-size: clamp(3.5rem, 9vw, 7.5rem); font-weight: 900; line-height: 0.88; letter-spacing: -0.04em; margin-bottom: 1.8rem; }
+    .masthead-meta { display: flex; gap: 3rem; align-items: baseline; flex-wrap: wrap; }
+    .masthead-date { font-size: 1.5rem; font-weight: 700; }
+    .masthead-subtitle { font-size: 1rem; font-weight: 400; color: #555; max-width: 480px; line-height: 1.5; }
+    .masthead-issue { margin-left: auto; text-align: right; }
+    .masthead-issue span { display: block; }
+    .masthead-issue .iss-label { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: #999; }
+    .masthead-issue .iss-num { font-size: 2.2rem; font-weight: 900; color: #000; }
+
+    .toc { background: #1a1a1a; padding: 1.5rem 4rem; display: flex; gap: 1.5rem; flex-wrap: wrap; border-bottom: 1px solid #333; }
+    .toc a { color: #aaa; text-decoration: none; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; transition: color 0.2s; }
+    .toc a:hover { color: #fff; }
+    .toc-num { color: #555; margin-right: 0.3em; }
+
+    .story { position: relative; overflow: hidden; }
+    .story-inner { max-width: 1200px; margin: 0 auto; padding: 5rem 4rem; position: relative; z-index: 1; }
+    .story-num { font-size: clamp(6rem, 18vw, 16rem); font-weight: 900; line-height: 0.8; letter-spacing: -0.06em; opacity: 0.08; position: absolute; top: 1rem; right: 2rem; user-select: none; }
+    .story-badge { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.35em 0.9em; border-radius: 2px; margin-bottom: 1.5rem; }
+    .direct-badge { background: #FFD700; color: #000; }
+    .story-kicker { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; opacity: 0.6; margin-bottom: 0.8rem; }
+    .story-headline { font-size: clamp(2rem, 5vw, 4rem); font-weight: 900; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+    .story-body { font-size: clamp(1rem, 1.5vw, 1.2rem); font-weight: 400; line-height: 1.8; max-width: 680px; opacity: 0.88; margin-bottom: 2rem; }
+    .story-meta { display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center; font-size: 0.8rem; font-weight: 700; opacity: 0.5; }
+    .story-links { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem; }
+    .story-link { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.6em 1.4em; border-radius: 3px; text-decoration: none; transition: opacity 0.2s, transform 0.15s; }
+    .story-link:hover { opacity: 0.75; transform: translateY(-1px); }
+
+    .feedback-buttons { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .flag-btn { background: none; border: 1px solid currentColor; color: inherit; font-family: var(--font); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.5em 1em; border-radius: 3px; cursor: pointer; opacity: 0.32; transition: opacity 0.2s, background 0.2s, color 0.2s, border-color 0.2s, transform 0.15s; }
+    .flag-btn:hover { opacity: 0.72; transform: translateY(-1px); }
+    .flag-btn.like-btn.active { opacity: 1; background: rgba(255,215,0,0.15); border-color: #FFD700; color: #FFD700 !important; }
+    .flag-btn.dislike-btn.active { opacity: 1; background: rgba(255,60,60,0.12); border-color: #FF4444; color: #FF4444 !important; }
+
+    .toast { position: fixed; bottom: 2rem; right: 2rem; background: #1a1a1a; color: #fff; font-family: var(--font); font-size: 0.82rem; font-weight: 700; padding: 0.75em 1.4em; border-radius: 4px; border-left: 3px solid #00C853; z-index: 9999; opacity: 0; transform: translateY(10px); transition: opacity 0.25s, transform 0.25s; pointer-events: none; box-shadow: 0 4px 24px rgba(0,0,0,0.45); }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    .toast.error { border-left-color: #FF5252; }
+
+    /* Story 1 — White */
+    .story-1 { background: #fff; color: #000; min-height: 90vh; display: flex; flex-direction: column; justify-content: center; }
+    .story-1 .story-num { color: #000; opacity: 0.04; }
+    .story-1 .story-kicker { color: #555; opacity: 1; }
+    .story-1 .story-headline { color: #000; }
+    .story-1 .story-body { color: #111; }
+    .story-1 .story-meta { color: #000; }
+    .story-1 .story-link.primary { background: #1a1a1a; color: #fff; }
+    .story-1 .story-link.secondary { background: #f0f0f0; color: #000; }
+    .story-1 .flag-btn { color: #000; }
+    .story-1-accent { position: absolute; bottom: 0; left: 0; width: 100%; height: 8px; background: linear-gradient(90deg, #0a0a0a, #555, #0a0a0a); }
+    .story-1 .headline-accent { display: inline-block; background: linear-gradient(135deg, #1a1a1a 0%, #555 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .blue-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1.2rem; margin: 2rem 0; max-width: 680px; }
+    .blue-card { border: 2px solid rgba(0,0,0,0.12); background: rgba(0,0,0,0.03); border-radius: 6px; padding: 1.3rem 1.5rem; }
+    .blue-card-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.2em; text-transform: uppercase; color: #333; margin-bottom: 0.4rem; }
+    .blue-card-value { font-size: 1.05rem; font-weight: 900; color: #000; line-height: 1.3; }
+    .blue-card-sub { font-size: 0.75rem; color: #555; margin-top: 0.3rem; line-height: 1.4; }
+
+    /* Story 2 — Dark navy/teal */
+    .story-2 { background: #00080c; color: #b8f0ff; min-height: 80vh; }
+    .story-2::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(0,160,200,0.14) 0%, transparent 65%); }
+    .story-2 .story-num { color: #00A0C8; opacity: 0.07; }
+    .story-2 .story-kicker { color: #20C8E8; opacity: 1; }
+    .story-2 .story-headline { color: #e0f8ff; }
+    .story-2 .story-body { color: #b8f0ff; }
+    .story-2 .story-meta { color: #20C8E8; opacity: 0.5; }
+    .story-2 .story-link.primary { background: #004058; color: #80e8ff; }
+    .story-2 .story-link.secondary { background: rgba(0,160,200,0.08); color: #90d8f0; border: 1px solid rgba(0,160,200,0.22); }
+    .story-2 .flag-btn { color: #b8f0ff; }
+    .teal-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .teal-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(0,160,200,0.07); border-left: 3px solid #00A0C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .teal-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20C8E8; margin-bottom: 0.3rem; }
+    .teal-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 3 — Dark red */
+    .story-3 { background: #0a0000; color: #fff; min-height: 80vh; }
+    .story-3::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(200,20,20,0.16) 0%, transparent 65%); }
+    .story-3 .story-num { color: #C81414; opacity: 0.07; }
+    .story-3 .story-kicker { color: #E84040; opacity: 1; }
+    .story-3 .story-headline { color: #fff; }
+    .story-3 .story-body { color: rgba(255,255,255,0.88); }
+    .story-3 .story-meta { color: #E84040; opacity: 0.5; }
+    .story-3 .story-link.primary { background: #6a0000; color: #fff; }
+    .story-3 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-3 .flag-btn { color: #fff; }
+    .red-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .red-item { background: rgba(200,20,20,0.07); border-left: 3px solid #C81414; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .red-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E84040; margin-bottom: 0.3rem; }
+    .red-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 4 — Dark green */
+    .story-4 { background: #020c04; color: #c8f0d0; min-height: 80vh; }
+    .story-4::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(20,160,70,0.16) 0%, transparent 65%); }
+    .story-4 .story-num { color: #14A046; opacity: 0.07; }
+    .story-4 .story-kicker { color: #30C060; opacity: 1; }
+    .story-4 .story-headline { color: #e0ffe8; }
+    .story-4 .story-body { color: #c8f0d0; }
+    .story-4 .story-meta { color: #30C060; opacity: 0.5; }
+    .story-4 .story-link.primary { background: #063820; color: #80ffb0; }
+    .story-4 .story-link.secondary { background: rgba(20,160,70,0.08); color: #a0e8b0; border: 1px solid rgba(20,160,70,0.22); }
+    .story-4 .flag-btn { color: #c8f0d0; }
+    .green-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .green-item { background: rgba(20,160,70,0.07); border-left: 3px solid #14A046; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .green-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #30C060; margin-bottom: 0.3rem; }
+    .green-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 5 — Dark purple */
+    .story-5 { background: #040010; color: #d8c8ff; min-height: 75vh; }
+    .story-5::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(90,40,200,0.17) 0%, transparent 65%); }
+    .story-5 .story-num { color: #5A28C8; opacity: 0.07; }
+    .story-5 .story-kicker { color: #8050E0; opacity: 1; }
+    .story-5 .story-headline { color: #f0e8ff; }
+    .story-5 .story-body { color: #d8c8ff; }
+    .story-5 .story-meta { color: #8050E0; opacity: 0.5; }
+    .story-5 .story-link.primary { background: #200860; color: #d0a8ff; }
+    .story-5 .story-link.secondary { background: rgba(90,40,200,0.08); color: #c0a0f0; border: 1px solid rgba(90,40,200,0.22); }
+    .story-5 .flag-btn { color: #d8c8ff; }
+    .purple-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .purple-item { background: rgba(90,40,200,0.07); border-left: 3px solid #5A28C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .purple-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #8050E0; margin-bottom: 0.3rem; }
+    .purple-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 6 — Dark cyan */
+    .story-6 { background: #000c10; color: #b8e8f0; min-height: 75vh; }
+    .story-6::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 40%, rgba(0,130,160,0.14) 0%, transparent 65%); }
+    .story-6 .story-num { color: #0080A0; opacity: 0.07; }
+    .story-6 .story-kicker { color: #20B0D0; opacity: 1; }
+    .story-6 .story-headline { color: #e0f4ff; }
+    .story-6 .story-body { color: #b8e8f0; }
+    .story-6 .story-meta { color: #20B0D0; opacity: 0.5; }
+    .story-6 .story-link.primary { background: #003848; color: #80d8f0; }
+    .story-6 .story-link.secondary { background: rgba(0,130,160,0.08); color: #90cce0; border: 1px solid rgba(0,130,160,0.22); }
+    .story-6 .flag-btn { color: #b8e8f0; }
+    .cyan-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .cyan-item { background: rgba(0,130,160,0.07); border-left: 3px solid #0080A0; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .cyan-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20B0D0; margin-bottom: 0.3rem; }
+    .cyan-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 7 — Dark amber */
+    .story-7 { background: #0a0300; color: #ffe0b8; min-height: 75vh; }
+    .story-7::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(210,90,20,0.18) 0%, transparent 65%); }
+    .story-7 .story-num { color: #D05A14; opacity: 0.07; }
+    .story-7 .story-kicker { color: #E88040; opacity: 1; }
+    .story-7 .story-headline { color: #fff0d8; }
+    .story-7 .story-body { color: #ffe0b8; }
+    .story-7 .story-meta { color: #E88040; opacity: 0.5; }
+    .story-7 .story-link.primary { background: #6a2400; color: #ffc880; }
+    .story-7 .story-link.secondary { background: rgba(210,90,20,0.08); color: #ffb870; border: 1px solid rgba(210,90,20,0.22); }
+    .story-7 .flag-btn { color: #ffe0b8; }
+    .amber-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .amber-item { background: rgba(210,90,20,0.07); border-left: 3px solid #D05A14; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .amber-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E88040; margin-bottom: 0.3rem; }
+    .amber-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 8 — Dark gold */
+    .story-8 { background: #080500; color: #fff; min-height: 70vh; }
+    .story-8::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,145,10,0.15) 0%, transparent 65%); }
+    .story-8 .story-num { color: #BE9110; opacity: 0.06; }
+    .story-8 .story-kicker { color: #D4A820; opacity: 1; }
+    .story-8 .story-headline { color: #fff; }
+    .story-8 .story-body { color: rgba(255,255,255,0.88); }
+    .story-8 .story-meta { color: #D4A820; opacity: 0.5; }
+    .story-8 .story-link.primary { background: #604000; color: #ffe070; }
+    .story-8 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-8 .flag-btn { color: #fff; }
+    .gold-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .gold-item { background: rgba(190,145,10,0.07); border-left: 3px solid #BE9110; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .gold-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #D4A820; margin-bottom: 0.3rem; }
+    .gold-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 9 — Slate blue */
+    .story-9 { background: #040810; color: #c8d8f0; min-height: 70vh; }
+    .story-9::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 35%, rgba(50,90,170,0.16) 0%, transparent 65%); }
+    .story-9 .story-num { color: #3258A8; opacity: 0.07; }
+    .story-9 .story-kicker { color: #5878C8; opacity: 1; }
+    .story-9 .story-headline { color: #e8f0ff; }
+    .story-9 .story-body { color: #c8d8f0; }
+    .story-9 .story-meta { color: #5878C8; opacity: 0.5; }
+    .story-9 .story-link.primary { background: #101e50; color: #fff; }
+    .story-9 .story-link.secondary { background: rgba(50,90,170,0.08); color: #b0c8e8; border: 1px solid rgba(50,90,170,0.22); }
+    .story-9 .flag-btn { color: #c8d8f0; }
+    .slate-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .slate-item { background: rgba(50,90,170,0.07); border-left: 3px solid #3258A8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .slate-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #5878C8; margin-bottom: 0.3rem; }
+    .slate-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 10 — Magenta */
+    .story-10 { background: #080004; color: #ffc8e8; min-height: 70vh; }
+    .story-10::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,20,90,0.15) 0%, transparent 65%); }
+    .story-10 .story-num { color: #BE1458; opacity: 0.07; }
+    .story-10 .story-kicker { color: #E04080; opacity: 1; }
+    .story-10 .story-headline { color: #fff0f8; }
+    .story-10 .story-body { color: #ffc8e8; }
+    .story-10 .story-meta { color: #E04080; opacity: 0.5; }
+    .story-10 .story-link.primary { background: #500030; color: #ffb0d8; }
+    .story-10 .story-link.secondary { background: rgba(190,20,90,0.08); color: #f090c0; border: 1px solid rgba(190,20,90,0.22); }
+    .story-10 .flag-btn { color: #ffc8e8; }
+    .mag-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .mag-item { background: rgba(190,20,90,0.07); border-left: 3px solid #BE1458; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .mag-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E04080; margin-bottom: 0.3rem; }
+    .mag-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .site-footer { background: #000; color: #555; padding: 3rem 4rem; display: flex; flex-direction: column; gap: 1.5rem; border-top: 1px solid #222; }
+    .footer-top { display: flex; gap: 2rem; align-items: center; flex-wrap: wrap; justify-content: space-between; }
+    .footer-brand { font-size: 1.4rem; font-weight: 900; color: #fff; }
+    .footer-meta { font-size: 0.75rem; line-height: 1.6; }
+    .export-btn { background: #222; border: 1px solid #444; color: #fff; font-family: var(--font); font-size: 0.8rem; font-weight: 700; padding: 0.7em 1.5em; border-radius: 3px; cursor: pointer; letter-spacing: 0.08em; transition: background 0.2s; }
+    .export-btn:hover { background: #333; }
+    .footer-note { font-size: 0.7rem; opacity: 0.5; }
+
+    @media (max-width: 768px) {
+      .masthead, .toc, .story-inner, .site-footer { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .story-num { display: none; }
+      .masthead-meta { gap: 1rem; }
+      .masthead-issue { margin-left: 0; }
+      .blue-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+<nav style="background:#1a1a1a;border-bottom:1px solid #333;padding:0.55rem 2rem;font-family:'M PLUS Rounded 1c','Hiragino Sans','Noto Sans JP',sans-serif;position:sticky;top:0;z-index:999;">
+  <a href="./index.html" style="color:#aaa;text-decoration:none;font-size:0.8rem;font-weight:700;letter-spacing:0.03em;display:inline-flex;align-items:center;gap:0.4rem;transition:color 0.15s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#aaa'">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    アーカイブへ戻る
+  </a>
+</nav>
+
+<header class="masthead">
+  <div class="masthead-kicker">Hacker News — Morning Edition</div>
+  <h1 class="masthead-title">Morning<br>Edition</h1>
+  <div class="masthead-meta">
+    <div>
+      <div class="masthead-date">2026年9月22日 火曜日</div>
+      <div class="masthead-subtitle">AI・開発ツール・プライバシー・サイエンス — あなたのための10本</div>
+    </div>
+    <div class="masthead-issue">
+      <span class="iss-label">Issue</span>
+      <span class="iss-num">No.129</span>
+    </div>
+  </div>
+</header>
+
+<nav class="toc">
+  <a href="#s1"><span class="toc-num">01</span>「アテンションがすべて」——AIと人間の注意力を巡る哲学的考察</a>
+  <a href="#s2"><span class="toc-num">02</span>Sunが間違えたこと——内部者が語るSun崩壊の真の原因</a>
+  <a href="#s3"><span class="toc-num">03</span>Grok 4.7リリース——xAIが最新LLMを公開</a>
+  <a href="#s4"><span class="toc-num">04</span>Kev——Qwen3.5ベースの超軽量意思決定モデル群</a>
+  <a href="#s5"><span class="toc-num">05</span>⚡ Fable 5の「中央値思考」が8月に低下——Anthropicモデルへの影響</a>
+  <a href="#s6"><span class="toc-num">06</span>Xiaomi MiMo v2.6——オープンな推論モデルがApache 2.0で公開</a>
+  <a href="#s7"><span class="toc-num">07</span>Heretic——言語モデルの制限を解除するOSSプロジェクト</a>
+  <a href="#s8"><span class="toc-num">08</span>NASA/ESA 火星サンプルリターン計画が正式中止</a>
+  <a href="#s9"><span class="toc-num">09</span>M5 Ultra Mac Studio——「ローカルAIエージェントの夢のマシン」レビュー</a>
+  <a href="#s10"><span class="toc-num">10</span>Apple Intelligenceをオフにする——プライバシーのための公式ガイド</a>
+</nav>
+
+<!-- ═══ STORY 1 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-1" id="s1">
+  <div class="story-num">01</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / 哲学 / アテンション / 機械学習 / 認知科学 / 思考実験 — 2026-09-22</div>
+    <h2 class="story-headline">
+      「アテンションが<br>すべて」——<br><span class="headline-accent">AIと人間の<br>注意力を巡る考察</span>
+    </h2>
+    <div class="story-body">
+      alicegg.techが公開した論考「Attention is all you have」がHNで498点・148コメントを獲得しています。Transformerの心臓部であるアテンション機構を出発点に、「何に注意を向けるか」というリソース配分の問題がAIと人間の両方にとって根本的制約であるという哲学的・技術的エッセイです。「Attention is All You Need」（2017年のTransformer論文）のタイトルを反転させ、「あなたが持てる唯一のリソースはアテンションだ——AIも人間も」という主張を展開します。
+    </div>
+    <div class="blue-grid">
+      <div class="blue-card">
+        <div class="blue-card-label">アテンション機構の本質</div>
+        <div class="blue-card-value">選択的な情報の重み付け</div>
+        <div class="blue-card-sub">Transformerのアテンションは全トークン間の関係性を計算し「どこに注意を向けるか」を動的に決定する。O(n²)の計算コストはこの「全員に注意を向けようとする」試みの代償。人間の脳の選択的注意（selective attention）と構造的に類似しており、両者とも「無限には注意を向けられない」という制約を抱える。</div>
+      </div>
+      <div class="blue-card">
+        <div class="blue-card-label">著者の核心的主張</div>
+        <div class="blue-card-value">コンテキストウィンドウ ＝ 意識の範囲</div>
+        <div class="blue-card-sub">LLMのコンテキストウィンドウは「今この瞬間に意識できる範囲」のアナロジーとして機能する。人間の短期記憶（7±2項目）も同様の制約を持つ。「どの情報をコンテキストに入れるか」はアーキテクト・エンジニア・ユーザーが日々直面する意思決定であり、それ自体が「何に注意を向けるべきか」という根本的問いだ、と著者は指摘する。</div>
+      </div>
+      <div class="blue-card">
+        <div class="blue-card-label">HNでの議論</div>
+        <div class="blue-card-value">「美しい直観だが厳密さに欠ける」</div>
+        <div class="blue-card-sub">「Transformerのアテンションと人間の注意は数学的に全く異なる」という批判と、「類比としての価値は高い」という評価が交錯した。最も支持を集めたコメントは「優れたエンジニアとは何に注意を向けないかを知っている人間だ」という実践的な読み替え。コンテキスト長競争への皮肉も多く見られた。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: alicegg.tech</span>
+      <span>↑498 · 💬148</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://alicegg.tech/2026/09/21/attention" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49787726" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="attention-is-all-you-have" data-type="like" onclick="toggleFlag('attention-is-all-you-have','アテンションがすべて AIと人間の注意力','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="attention-is-all-you-have" data-type="dislike" onclick="toggleFlag('attention-is-all-you-have','アテンションがすべて AIと人間の注意力','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+    <div class="story-1-accent"></div>
+  </div>
+</section>
+
+<!-- ═══ STORY 2 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-2" id="s2">
+  <div class="story-num">02</div>
+  <div class="story-inner">
+    <div class="story-kicker">テック史 / Sun Microsystems / システム設計 / 経営 / オープンソース / エンジニアリング — 2026-09-22</div>
+    <h2 class="story-headline">
+      Sunが<br>間違えたこと——<br><span style="color:#20d8f0">内部者が語る<br>崩壊の真の原因</span>
+    </h2>
+    <div class="story-body">
+      ベテランエンジニアBryan Cantrill（dtrace.orgの作者、元Sun従業員）が公開した「What Sun got wrong」がHNで450点・251コメントを獲得しています。「Sunは技術的には正しかったが市場に敗れた」という定説を覆し、「技術的にも重大な間違いを犯していた」という内部者による率直な振り返りです。Solarisのカーネル設計上の選択、オープンソース化の遅れ、ハードウェアへの過度な依存、Java戦略の矛盾——これらが組み合わさって不可逆的な失速を招いた、という分析が展開されます。
+    </div>
+    <div class="teal-items">
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">技術的失敗：Solarisのジレンマ</div>
+          <div class="teal-text">Solarisは商業Unix最高峰として長年評価されたが、カーネルの内部的なロック設計が大規模マルチコアへの対応を難しくした。Linuxが「汚くても動く」実用主義で進化し続けた一方、Solarisは「正しいアーキテクチャ」への執着が柔軟性を奪った。ZFS・DTraceなどの革新的技術が生まれながらも、それらをLinuxに移植する動機を遅らせたことも痛手だったとCantrillは指摘する。</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">戦略的失敗：オープンソース化の遅さ</div>
+          <div class="teal-text">SunがSolarisをOpenSolarisとして公開したのは2005年——Linuxがエンタープライズ市場を席巻した後だった。Javaは1995年に公開されたが本質的にオープンソースになったのは2007年（OpenJDK）。「オープン」を謳いながら実質的にコントロールを手放さなかった戦略が、コミュニティの信頼を獲得できなかった根本原因だとCantrillは言う。</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">HNでの反応と現代への教訓</div>
+          <div class="teal-text">「IntelがAMDに負け、IBMがAWSに負け、そしてSunがGoogleに負けた——技術的優位は長続きしない」という悲観的なコメントが多く支持を集めた。現代的な教訓としては「技術の正しさと市場での成功は別物」「オープンソース戦略は早期・無条件でなければコミュニティを獲得できない」の二点が繰り返し言及された。Cantrillへの「Illumos（OpenSolaris継承OS）を続ける理由は何か」という問いも話題を呼んだ。</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: bcantrill.dtrace.org</span>
+      <span>↑450 · 💬251</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://bcantrill.dtrace.org/2026/09/20/what-sun-got-wrong/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49787436" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="what-sun-got-wrong" data-type="like" onclick="toggleFlag('what-sun-got-wrong','Sunが間違えたこと Bryan Cantrill','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="what-sun-got-wrong" data-type="dislike" onclick="toggleFlag('what-sun-got-wrong','Sunが間違えたこと Bryan Cantrill','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 3 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-3" id="s3">
+  <div class="story-num">03</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / xAI / モデルリリース / LLM / 推論 / ベンチマーク — 2026-09-22</div>
+    <h2 class="story-headline">
+      Grok 4.7<br>リリース——<br><span style="color:#ff6060">xAIが最新LLMを<br>公開、推論が進化</span>
+    </h2>
+    <div class="story-body">
+      イーロン・マスクのxAIが「Grok 4.7」をリリースし、HNで440点・366コメントを集めています。前バージョン（Grok 4）から推論能力と長文脈理解が大幅に向上したとされており、MATH-500・GPQA Diamondなどの難関ベンチマークで競合トップクラスの結果を報告しています。無料ユーザーにも一部の機能が開放されており、API経由での利用も可能です。AIモデル市場でのxAIの存在感が急速に高まってきています。
+    </div>
+    <div class="red-items">
+      <div class="red-item">
+        <div class="red-label">主な改善点</div>
+        <div class="red-text">xAIの発表によると、Grok 4.7の主な改善点は①推論チェーン（Chain-of-Thought）の深化と効率化②コード生成・デバッグの精度向上③128Kコンテキストウィンドウの実用的な活用能力——の3点。特に数学・科学推論での性能向上が顕著で、「モデルが問題を諦めずに複数の解法を試みるようになった」という評価が開発者から上がっている。</div>
+      </div>
+      <div class="red-item">
+        <div class="red-label">競合比較とポジショニング</div>
+        <div class="red-text">Grok 4.7はClaude Sonnet・GPT-4oと同等か若干上回る結果をいくつかのベンチマークで示しているが、「ベンチマーク汚染（データ漏洩）の可能性」を指摘する声もある。無料ユーザーへの開放は差別化戦略で、モデルの認知度拡大とX（旧Twitter）エコシステムへの囲い込みを狙っていると分析されている。料金設定はAnthropicやOpenAIより低い水準。</div>
+      </div>
+      <div class="red-item">
+        <div class="red-label">HNの反応</div>
+        <div class="red-text">「Grokはいつも期待以上だったためしがない」という懐疑的なコメントが多く支持を集めた一方、「実際に試したら思ったより良かった」という報告も複数あった。xAIが公開している評価メソドロジーの透明性を評価する声と、「イーロンのモデルへの客観的評価は難しい」という政治的雑音を嘆く声が交錯した。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: x.ai/news</span>
+      <span>↑440 · 💬366</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://x.ai/news/grok-4-7" target="_blank">発表を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49788838" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="grok-4-7" data-type="like" onclick="toggleFlag('grok-4-7','Grok 4.7 xAIリリース','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="grok-4-7" data-type="dislike" onclick="toggleFlag('grok-4-7','Grok 4.7 xAIリリース','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 4 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-4" id="s4">
+  <div class="story-num">04</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / 意思決定 / Qwen / オープンソース / エージェント / 開発ツール — 2026-09-22</div>
+    <h2 class="story-headline">
+      Kev——<br>Qwen3.5ベースの<br><span style="color:#30d060">超軽量意思決定<br>モデル群</span>
+    </h2>
+    <div class="story-body">
+      Formikの作者Jared Palmerが公開したオープンソースプロジェクト「Kev」がGitHubでHN378点・169コメントを獲得しています。Qwen3.5をベースにした小型の意思決定（decision）モデルファミリーで、AIエージェントパイプラインの「判断」部分に特化しています。Jev（OS Jev）と呼ばれるエージェント基盤の設計思想を継承しつつ、より小さく・速く・安くエージェントに意思決定能力を付与することを目指したプロジェクトです。
+    </div>
+    <div class="green-items">
+      <div class="green-item">
+        <div class="green-label">Kevが解決しようとする問題</div>
+        <div class="green-text">現在のAIエージェントは「次に何をすべきか」の判断にも大型汎用LLM（GPT-4クラス）を使うため、コストとレイテンシが高い。Kevは「意思決定だけ」に特化した1B〜7Bパラメータの小型モデル群で、行動選択・計画立案・ツール呼び出し判断など構造化された意思決定タスクにチューニングされている。推論・生成に大型モデルを使い、判断に小型のKevを使う「ハイブリッドエージェント」アーキテクチャが主な想定ユースケース。</div>
+      </div>
+      <div class="green-item">
+        <div class="green-label">技術的アプローチ</div>
+        <div class="green-text">Qwen3.5をベースに「意思決定専用データセット」でファインチューニングしており、JSON構造化出力・ツール呼び出しスキーマへの適合性が高い。HuggingFace経由でApache 2.0ライセンスで公開されており商用利用可能。Mac M-seriesのCoreMLとも相性が良く、前日話題になったLayaと同様のローカルエージェント実行が可能な設計となっている。</div>
+      </div>
+      <div class="green-item">
+        <div class="green-label">HNでの評価</div>
+        <div class="green-text">「FormikというReachのベストフォームライブラリを作った人物がAIエージェントの意思決定問題に取り組んでいることへの驚き」という声と、「なぜFormikとKevが同一人物の作品なのかが興味深い——どちらも『正しい判断を下す』インフラを提供するという意味では一貫している」という鋭い観察が多くの支持を集めた。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: github.com/jaredpalmer/kev</span>
+      <span>↑378 · 💬169</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://github.com/jaredpalmer/kev/tree/main" target="_blank">GitHubを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49783999" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="kev-decision-models" data-type="like" onclick="toggleFlag('kev-decision-models','Kev Qwen3.5ベース意思決定モデル','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="kev-decision-models" data-type="dislike" onclick="toggleFlag('kev-decision-models','Kev Qwen3.5ベース意思決定モデル','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 5 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-5" id="s5">
+  <div class="story-num">05</div>
+  <div class="story-inner">
+    <span class="story-badge direct-badge">⚡ あなたに直接関係</span>
+    <div class="story-kicker">AI / Anthropic / Fable 5 / 推論 / モデル評価 / 品質低下 — 2026-09-22</div>
+    <h2 class="story-headline">
+      Fable 5の<br>「中央値思考」が<br><span style="color:#b070ff">8月に低下——<br>Anthropicモデルへの影響</span>
+    </h2>
+    <div class="story-body">
+      Anthropicの最新モデル「Fable 5」について「Median thinking declined in August（中央値の思考能力が8月に低下した）」というデータを報告するXの投稿（@Lon）がHNで313点・206コメントを集めています。Fable 5はAnthropicが展開する推論強化モデルで、ユーザーはその思考プロセスの変化を長期にわたって追跡しているようです。モデルの定期的な更新によって性能特性が変化する「モデルドリフト」問題として広く議論されています。
+    </div>
+    <div class="purple-items">
+      <div class="purple-item">
+        <div class="purple-label">「中央値思考の低下」とは何か</div>
+        <div class="purple-text">投稿者が追跡しているのは、Fable 5が推論タスクで生成するChain-of-Thought（思考チェーン）の質と長さの中央値。「8月の更新以降、モデルが複雑な問題で以前ほど深く考えなくなった」という観察で、特に数学・論理パズル・コード生成の難問で傾向が顕著とされる。Anthropicが推論速度・コスト最適化のためにモデルを継続的に更新することで生じる副作用の可能性が指摘されている。</div>
+      </div>
+      <div class="purple-item">
+        <div class="purple-label">モデルドリフト問題の広がり</div>
+        <div class="purple-text">「モデルドリフト（model drift）」——同一バージョン名のLLMが無通告でサイレント更新されることで性能特性が変わる現象——はOpenAI・Anthropic・Googleの全主要ラボで報告されている問題。プロダクションシステムを特定モデルバージョンに依存させている企業にとって深刻な課題で、「APIバージョン固定」「定期的な回帰テスト」を実施している企業が増えている。ユーザー側での体系的なモデル評価の重要性が改めて浮き彫りになった。</div>
+      </div>
+      <div class="purple-item">
+        <div class="purple-label">HNの反応</div>
+        <div class="purple-text">「Anthropicに問い合わせたが明確な回答を得られなかった」という報告も複数あり、「ラボはモデルの変化について透明性を持つべき」という声が多数派を占めた。一方「ベンチマークの測定方法自体が変化しているだけかもしれない」という反論も。Anthropicを使っている開発者にとって最も関心が高いトピックの一つとなった。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: twitter.com/@Lon</span>
+      <span>↑313 · 💬206</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://twitter.com/Lon/status/2101793422487204027" target="_blank">投稿を見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49789224" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="fable-5-thinking-decline" data-type="like" onclick="toggleFlag('fable-5-thinking-decline','Fable 5中央値思考が8月に低下','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="fable-5-thinking-decline" data-type="dislike" onclick="toggleFlag('fable-5-thinking-decline','Fable 5中央値思考が8月に低下','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 6 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-6" id="s6">
+  <div class="story-num">06</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / Xiaomi / 推論モデル / オープンソース / 競合 / Apache 2.0 — 2026-09-22</div>
+    <h2 class="story-headline">
+      Xiaomi<br>MiMo v2.6——<br><span style="color:#20b8d0">オープン推論モデルが<br>Apache 2.0で登場</span>
+    </h2>
+    <div class="story-body">
+      スマートフォンメーカー小米（Xiaomi）のAI研究チームが推論特化モデル「MiMo v2.6」を公開し、HNで311点・143コメントを集めています。数学・コーディング・科学的推論に特化した小型推論モデルで、Apache 2.0ライセンスによる完全な商用利用が可能です。フロンティアラボ以外のハードウェアメーカーが競争力あるAIモデルを公開するトレンドが加速しています。
+    </div>
+    <div class="cyan-items">
+      <div class="cyan-item">
+        <div class="cyan-label">MiMoの特徴と性能</div>
+        <div class="cyan-text">MiMo v2.6は1.5B〜7Bパラメータの範囲で複数サイズを提供。数学オリンピックレベルの問題・競技プログラミング・科学的推論を中心としたRLHFトレーニングにより、同規模モデルの中でトップクラスのベンチマーク結果を示している。特に7Bサイズで「GPT-4oに匹敵する数学推論」を主張しており、検証が活発に行われている。</div>
+      </div>
+      <div class="cyan-item">
+        <div class="cyan-label">ハードウェアメーカーのAI参入</div>
+        <div class="cyan-text">Xiaomiがモデルを公開する背景には、自社デバイス（スマートフォン・タブレット・IoT機器）でAIを動かすための基盤研究がある。Samsung・Apple・Qualcommと並ぶ「垂直統合型AI」戦略の一環で、クラウドAPI依存からの脱却を志向している。「スマートフォンメーカーが毎週新しいLLMを公開する世界は現実になった」というHNのコメントが端的にトレンドを表現している。</div>
+      </div>
+      <div class="cyan-item">
+        <div class="cyan-label">HNでの評価と懸念</div>
+        <div class="cyan-text">「Apache 2.0は本当にオープンか、利用規約の細かい制限に注意が必要」という指摘と、「Xiaomiのモデルは中国のコンテンツポリシーに従った検閲が実装されているか」という懸念が挙がった。それでも「無料でこの性能のモデルが手に入ることへの感謝」という声が大多数を占め、実際の検証レポートを投稿するコメントが多く寄せられた。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: mimo.xiaomi.com</span>
+      <span>↑311 · 💬143</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://mimo.xiaomi.com/mimo-v2-6" target="_blank">公式ページを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49792730" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="xiaomi-mimo-v2-6" data-type="like" onclick="toggleFlag('xiaomi-mimo-v2-6','Xiaomi MiMo v2.6推論モデル','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="xiaomi-mimo-v2-6" data-type="dislike" onclick="toggleFlag('xiaomi-mimo-v2-6','Xiaomi MiMo v2.6推論モデル','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 7 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-7" id="s7">
+  <div class="story-num">07</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / オープンソース / モデル制限解除 / LLM / 倫理 / AI安全性 — 2026-09-22</div>
+    <h2 class="story-headline">
+      Heretic——<br>言語モデルの<br><span style="color:#e88040">制限を解除する<br>OSSプロジェクト</span>
+    </h2>
+    <div class="story-body">
+      「Heretic Project」がHNで225点・94コメントを集めています。商用LLMおよびオープンウェイトモデルのRLHFによる行動制限・コンテンツフィルタリングを研究・解除することを目的としたオープンソースプロジェクトです。「AIモデルの制限は企業が一方的に課す検閲だ」という立場と「安全性フィルタはユーザーと社会を守るために必要だ」という立場が鋭く対立するトピックで、AI倫理の核心的議論を呼んでいます。
+    </div>
+    <div class="amber-items">
+      <div class="amber-item">
+        <div class="amber-label">Hereticのアプローチ</div>
+        <div class="amber-text">Hereticは主に2つの手法を研究・公開している。①プロンプトエンジニアリングによるジェイルブレイク（制限を回避する入力パターンの研究）②LoRA等の手法を使ったファインチューニングによる制限の物理的除去——のうち、後者のオープンウェイトモデルへの適用が中心。「どのRLHF手法がどの程度の制限を実装するか」の体系的な研究として学術的価値を主張している。</div>
+      </div>
+      <div class="amber-item">
+        <div class="amber-label">賛否両論の構図</div>
+        <div class="amber-text">支持側は「モデルが「危険なトピック」を拒否することでジャーナリスト・研究者・小説家・セキュリティ研究者の正当な作業が妨げられている」という実例を挙げる。反対側は「制限解除ツールが悪用されるリスクは研究価値を上回る」「責任あるAI利用のための制限を破壊することは社会的害悪だ」と論じる。「どの機関が何を有害と判断するかを民主的に決めるべき」という政治哲学的な議論にも発展した。</div>
+      </div>
+      <div class="amber-item">
+        <div class="amber-label">HNでの主要なコメント</div>
+        <div class="amber-text">「AIモデルの制限を批判することと、その制限を破壊するツールを公開することは別問題だ」という区別を促すコメントが最多の支持を得た。「ガンや爆発物の製造方法を教えてくれるモデルに社会的価値があるか」という問い、「でも政府や企業による恣意的な情報統制を誰が監視するか」という反問が循環した。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: heretic-project.org</span>
+      <span>↑225 · 💬94</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://heretic-project.org/" target="_blank">プロジェクトを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49783101" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="heretic-llm-restrictions" data-type="like" onclick="toggleFlag('heretic-llm-restrictions','Heretic LLM制限解除OSS','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="heretic-llm-restrictions" data-type="dislike" onclick="toggleFlag('heretic-llm-restrictions','Heretic LLM制限解除OSS','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 8 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-8" id="s8">
+  <div class="story-num">08</div>
+  <div class="story-inner">
+    <div class="story-kicker">宇宙 / NASA / ESA / 火星 / サンプルリターン / 科学政策 — 2026-09-22</div>
+    <h2 class="story-headline">
+      NASA/ESA<br>火星サンプル<br><span style="color:#d4a820">リターン計画が<br>正式中止に</span>
+    </h2>
+    <div class="story-body">
+      Science誌が報じた「NASA's Mars sample return mission is dead」がHNで217点・158コメントを集めています。NASAとESAが共同で進めていた火星サンプルリターン（MSR）計画が正式にキャンセルされました。Perseveranceローバーが採取・保管したサンプルを2030年代に地球に持ち帰る唯一の現実的な計画で、火星での過去の生命の証拠を直接分析できる可能性を持っていました。予算超過と技術的課題が主な理由とされています。
+    </div>
+    <div class="gold-items">
+      <div class="gold-item">
+        <div class="gold-label">計画キャンセルの経緯</div>
+        <div class="gold-text">MSRはもともと2031年の地球帰還を目標に約100億ドル（約1.5兆円）の予算で計画されていた。しかし2023年の独立評価委員会が「現実的コストは110億ドル以上、2040年以前の完了は不可能」と報告し、予算承認が困難に。NASAの宇宙科学予算全体に対してMSRが過大な割合を占めることへの批判が高まり、2024年から予算削減が始まり、今回の正式中止に至った。</div>
+      </div>
+      <div class="gold-item">
+        <div class="gold-label">科学的損失の意味</div>
+        <div class="gold-text">PerseveranceはすでにJezero Crater（かつて湖だった場所）から43個のサンプルを採取・密封している。これらは地球に持ち帰られることなく火星に残されることになる。「いつか取りに行ける」とも「腐ることはない」とも言えるが、現在の宇宙探査の予算・政治環境では代替計画の見通しが立たない。火星の生命探索において数十年単位の後退を意味するという評価が多い。</div>
+      </div>
+      <div class="gold-item">
+        <div class="gold-label">HNの反応と民間宇宙への期待</div>
+        <div class="gold-text">「SpaceXのStarshipがあれば低コストで持ち帰れる可能性がある」という楽観論と、「民間企業が科学ミッションを主導することへの懸念」が対立した。最も支持を集めたコメントは「月に人間を送る費用でサンプルリターンを何十回もできた——優先順位が間違っている」という批判。宇宙科学予算の配分をめぐる根深い政治的問題が改めて浮き彫りになった。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: science.org</span>
+      <span>↑217 · 💬158</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.science.org/content/article/nasa-s-mars-sample-return-mission-dead" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49791939" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="nasa-mars-sample-return-canceled" data-type="like" onclick="toggleFlag('nasa-mars-sample-return-canceled','NASA ESA 火星サンプルリターン中止','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="nasa-mars-sample-return-canceled" data-type="dislike" onclick="toggleFlag('nasa-mars-sample-return-canceled','NASA ESA 火星サンプルリターン中止','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 9 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-9" id="s9">
+  <div class="story-num">09</div>
+  <div class="story-inner">
+    <div class="story-kicker">ハードウェア / Apple Silicon / M5 Ultra / ローカルAI / Mac / パフォーマンス — 2026-09-22</div>
+    <h2 class="story-headline">
+      M5 Ultra<br>Mac Studio——<br><span style="color:#8870e8">「ローカルAIエージェント<br>の夢のマシン」</span>
+    </h2>
+    <div class="story-body">
+      MacStoriesによるM5 Ultra Mac Studioの詳細レビュー「The Dream Mac for Local AI Agents」がHNで216点・209コメントを集めています。192GBのUnified Memoryと強力なNeural Engineを搭載したM5 Ultraが、複数の大型LLMモデルをローカルで同時実行できる初めての手頃な（といっても高価な）コンシューマー向けハードウェアとして評価されています。「クラウドに個人情報を渡さずAIを使う」という需要に応える究極の選択肢として注目されています。
+    </div>
+    <div class="slate-items">
+      <div class="slate-item">
+        <div class="slate-label">192GBという壁の突破</div>
+        <div class="slate-text">LLaMa 3.1 70Bモデルは量子化版でも約40GB、Claude相当の大型モデルでは100GB以上のメモリが必要となる。M5 Ultraの192GB Unified Memoryは「複数の大型モデルを同時にメモリに載せたまま高速切り替えできる」初めての環境で、エージェントパイプラインにおいて推論・コーディング・検索・判断に異なるモデルを使い分けるワークフローが現実的になった。Ollama・llama.cppとの相性も良好とされる。</div>
+      </div>
+      <div class="slate-item">
+        <div class="slate-label">プライバシーの観点からの価値</div>
+        <div class="slate-text">レビュアーが強調するのは「このマシンがあれば医療記録・法的文書・個人の日記をクラウドに送らずにAI処理できる」という点。企業コンプライアンス要件でクラウドAIが使えない医療・法律・金融系の開発者が最大の顧客層として想定されている。「Macの高値は認めるが、エンタープライズのデータセキュリティ要件を満たすための保険料と考えれば安い」という評価が多くの共感を集めた。</div>
+      </div>
+      <div class="slate-item">
+        <div class="slate-label">HNでの反応</div>
+        <div class="slate-text">「M5 UltraのコストでH100 GPUインスタンスを何時間使えるか」という計算コメントと、「ROIではなく哲学（データ主権）の問題だ」という反論が拮抗した。実際にM5 Ultraを購入した開発者から「llama.cpp + 192GBは想像以上に快適」「エージェントのレスポンスが体感でクラウドと遜色ない」という報告も寄せられた。次世代M-seriesへの期待も既に語られている。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: macstories.net</span>
+      <span>↑216 · 💬209</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.macstories.net/stories/m5-ultra-mac-studio-review-the-dream-mac-for-local-ai-agents/" target="_blank">レビューを読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49787313" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="m5-ultra-mac-studio-local-ai" data-type="like" onclick="toggleFlag('m5-ultra-mac-studio-local-ai','M5 Ultra Mac StudioローカルAIレビュー','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="m5-ultra-mac-studio-local-ai" data-type="dislike" onclick="toggleFlag('m5-ultra-mac-studio-local-ai','M5 Ultra Mac StudioローカルAIレビュー','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 10 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-10" id="s10">
+  <div class="story-num">10</div>
+  <div class="story-inner">
+    <div class="story-kicker">プライバシー / Apple / Apple Intelligence / macOS 27 / 設定 / データ管理 — 2026-09-22</div>
+    <h2 class="story-headline">
+      Apple Intelligence<br>をオフにする——<br><span style="color:#f090c0">プライバシーのための<br>Appleの公式ガイド</span>
+    </h2>
+    <div class="story-body">
+      Appleがmacのサポートページに「Turn off and restrict access to Apple Intelligence features on Mac」を公開し、HNで202点・128コメントを集めています。macOS 27でデフォルト有効になったApple Intelligence機能を無効化・制限する公式手順書で、プライバシー重視のユーザー・企業・教育機関向けに需要が高まっています。「なぜデフォルト有効なのか」という批判と「無効化できることを明示したAppleを評価する」という声が交差しています。
+    </div>
+    <div class="mag-items">
+      <div class="mag-item">
+        <div class="mag-label">無効化できる機能</div>
+        <div class="mag-text">公式ガイドによると無効化・制限が可能な機能は①Writing Tools（文書作成支援）②Image Playground（画像生成）③Genmoji（AI絵文字生成）④AI要約・優先メール（Mailアプリ）⑤Siriの強化された自然言語処理——の5カテゴリ。MDM（モバイルデバイス管理）経由での組織全体への制限設定方法も記載されており、企業のIT部門が最も注目している内容。</div>
+      </div>
+      <div class="mag-item">
+        <div class="mag-label">プライバシー上の実際のリスク</div>
+        <div class="mag-text">Apple Intelligenceの処理の大部分はオンデバイスで完結するが、複雑なタスクは「Private Cloud Compute」（Appleのプライベートクラウド）で処理される。Appleはこのクラウド処理の内容をApple自身も閲覧できないと主張しているが、「主張を信じるしかない」構造に変わりはない。医療記録・法的文書・機密ビジネス情報を扱う環境では無効化が推奨されるというコンセンサスが形成されてきている。</div>
+      </div>
+      <div class="mag-item">
+        <div class="mag-label">HNでの反応</div>
+        <div class="mag-text">「デフォルト有効は同意なき個人データ処理の開始を意味するのでは」という法的観点からの指摘（特にGDPR適用下のEU在住者）と、「オプトアウトが公式に用意されていることはAppleの誠実さの表れ」という評価が対立した。「macOS 27: Workaround to avoid downloading AI models and save storage」という別記事も同日にHN上位に入っており、Apple Intelligenceへのユーザーの不満の高さを示している。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: support.apple.com</span>
+      <span>↑202 · 💬128</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://support.apple.com/guide/mac-help/turn-restrict-access-apple-intelligence-mchlb2e44f94/mac" target="_blank">公式ガイドを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49790409" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="apple-intelligence-privacy-controls" data-type="like" onclick="toggleFlag('apple-intelligence-privacy-controls','Apple Intelligenceをオフにするプライバシーガイド','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="apple-intelligence-privacy-controls" data-type="dislike" onclick="toggleFlag('apple-intelligence-privacy-controls','Apple Intelligenceをオフにするプライバシーガイド','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand">Morning Edition</div>
+      <div class="footer-meta">
+        Hacker News フロントページから厳選した10本 — 2026年9月22日（火）<br>
+        フィードバックボタンで好みを記録できます。feedback.json をエクスポートして次回に活用。
+      </div>
+    </div>
+    <button class="export-btn" onclick="exportFeedback()">📥 feedback.json をエクスポート</button>
+  </div>
+  <div class="footer-note">Generated by Claude · Powered by HN Algolia API · No.129</div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  const DB_NAME = 'morning-edition-feedback';
+  const DB_VERSION = 2;
+  const STORE_NAME = 'feedback';
+  let db = null;
+
+  function openDB() {
+    return new Promise((resolve, reject) => {
+      if (db) { resolve(db); return; }
+      const req = indexedDB.open(DB_NAME, DB_VERSION);
+      req.onupgradeneeded = e => {
+        const d = e.target.result;
+        if (!d.objectStoreNames.contains(STORE_NAME)) {
+          d.createObjectStore(STORE_NAME, { keyPath: 'id' });
+        }
+      };
+      req.onsuccess = e => { db = e.target.result; resolve(db); };
+      req.onerror = e => reject(e);
+    });
+  }
+
+  async function saveFeedback(id, title, type) {
+    try {
+      const d = await openDB();
+      const tx = d.transaction(STORE_NAME, 'readwrite');
+      const store = tx.objectStore(STORE_NAME);
+      const existing = await new Promise(res => { const r = store.get(id); r.onsuccess = e => res(e.target.result); r.onerror = () => res(null); });
+      if (existing && existing.type === type) {
+        store.delete(id);
+        return null;
+      }
+      store.put({ id, title, type, date: new Date().toISOString() });
+      return type;
+    } catch (e) {
+      try {
+        const key = 'me_fb_' + id;
+        const existing = localStorage.getItem(key);
+        if (existing && JSON.parse(existing).type === type) { localStorage.removeItem(key); return null; }
+        localStorage.setItem(key, JSON.stringify({ id, title, type, date: new Date().toISOString() }));
+        return type;
+      } catch (e2) { return type; }
+    }
+  }
+
+  async function loadFeedback(id) {
+    try {
+      const d = await openDB();
+      return new Promise(res => {
+        const tx = d.transaction(STORE_NAME, 'readonly');
+        const r = tx.objectStore(STORE_NAME).get(id);
+        r.onsuccess = e => res(e.target.result ? e.target.result.type : null);
+        r.onerror = () => res(null);
+      });
+    } catch (e) {
+      try { const v = localStorage.getItem('me_fb_' + id); return v ? JSON.parse(v).type : null; } catch (e2) { return null; }
+    }
+  }
+
+  function showToast(msg, isError) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.className = 'toast' + (isError ? ' error' : '');
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2200);
+  }
+
+  async function toggleFlag(storyId, title, type) {
+    const result = await saveFeedback(storyId, title, type);
+    updateButtons(storyId, result);
+    if (result === 'like') showToast('⭐ 興味ありとして記録しました');
+    else if (result === 'dislike') showToast('✕ 興味なしとして記録しました');
+    else showToast('フィードバックを解除しました');
+    await syncToFile();
+  }
+
+  function updateButtons(storyId, activeType) {
+    document.querySelectorAll(`[data-story="${storyId}"]`).forEach(btn => {
+      btn.classList.remove('active');
+      if (btn.dataset.type === activeType) btn.classList.add('active');
+    });
+  }
+
+  async function syncToFile() {
+    try {
+      const all = await getAllFeedback();
+      const json = JSON.stringify({ liked: all.filter(f => f.type === 'like').map(f => f.id), disliked: all.filter(f => f.type === 'dislike').map(f => f.id), entries: all }, null, 2);
+      if ('showSaveFilePicker' in window) {
+        try {
+          if (!window._feedbackHandle) return;
+          const writable = await window._feedbackHandle.createWritable();
+          await writable.write(json); await writable.close();
+        } catch (e) {}
+      }
+    } catch (e) {}
+  }
+
+  async function getAllFeedback() {
+    try {
+      const d = await openDB();
+      return new Promise(res => {
+        const tx = d.transaction(STORE_NAME, 'readonly');
+        const r = tx.objectStore(STORE_NAME).getAll();
+        r.onsuccess = e => res(e.target.result || []);
+        r.onerror = () => res([]);
+      });
+    } catch (e) {
+      try {
+        const items = [];
+        for (let i = 0; i < localStorage.length; i++) {
+          const k = localStorage.key(i);
+          if (k && k.startsWith('me_fb_')) { try { items.push(JSON.parse(localStorage.getItem(k))); } catch (e2) {} }
+        }
+        return items;
+      } catch (e2) { return []; }
+    }
+  }
+
+  async function exportFeedback() {
+    try {
+      const all = await getAllFeedback();
+      const json = JSON.stringify({ liked: all.filter(f => f.type === 'like').map(f => f.id), disliked: all.filter(f => f.type === 'dislike').map(f => f.id), entries: all }, null, 2);
+      if ('showSaveFilePicker' in window) {
+        const handle = await window.showSaveFilePicker({ suggestedName: 'feedback.json', types: [{ description: 'JSON', accept: { 'application/json': ['.json'] } }] });
+        window._feedbackHandle = handle;
+        const writable = await handle.createWritable();
+        await writable.write(json); await writable.close();
+        showToast('feedback.json を保存しました');
+      } else {
+        const a = document.createElement('a');
+        a.href = 'data:application/json;charset=utf-8,' + encodeURIComponent(json);
+        a.download = 'feedback.json'; a.click();
+        showToast('feedback.json をダウンロードしました');
+      }
+    } catch (e) { showToast('エクスポートに失敗しました', true); }
+  }
+
+  async function initButtons() {
+    const storyIds = [
+      'attention-is-all-you-have','what-sun-got-wrong','grok-4-7',
+      'kev-decision-models','fable-5-thinking-decline','xiaomi-mimo-v2-6',
+      'heretic-llm-restrictions','nasa-mars-sample-return-canceled',
+      'm5-ultra-mac-studio-local-ai','apple-intelligence-privacy-controls'
+    ];
+    for (const id of storyIds) {
+      const type = await loadFeedback(id);
+      if (type) updateButtons(id, type);
+    }
+  }
+
+  initButtons();
+</script>
+</body>
+</html>
