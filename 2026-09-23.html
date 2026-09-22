@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Morning Edition — 2026年9月23日</title>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --font: 'M PLUS Rounded 1c', 'Hiragino Sans', 'Noto Sans JP', sans-serif; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); background: #111; color: #fff; overflow-x: hidden; }
+
+    .masthead { background: #fff; color: #000; padding: 3rem 4rem 2.5rem; border-bottom: 6px solid #000; position: relative; overflow: hidden; }
+    .masthead::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: repeating-linear-gradient(90deg, #000 0, #000 12px, transparent 12px, transparent 20px); }
+    .masthead-kicker { font-size: 0.85rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: #777; margin-bottom: 0.6rem; }
+    .masthead-title { font-size: clamp(3.5rem, 9vw, 7.5rem); font-weight: 900; line-height: 0.88; letter-spacing: -0.04em; margin-bottom: 1.8rem; }
+    .masthead-meta { display: flex; gap: 3rem; align-items: baseline; flex-wrap: wrap; }
+    .masthead-date { font-size: 1.5rem; font-weight: 700; }
+    .masthead-subtitle { font-size: 1rem; font-weight: 400; color: #555; max-width: 480px; line-height: 1.5; }
+    .masthead-issue { margin-left: auto; text-align: right; }
+    .masthead-issue span { display: block; }
+    .masthead-issue .iss-label { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: #999; }
+    .masthead-issue .iss-num { font-size: 2.2rem; font-weight: 900; color: #000; }
+
+    .toc { background: #1a1a1a; padding: 1.5rem 4rem; display: flex; gap: 1.5rem; flex-wrap: wrap; border-bottom: 1px solid #333; }
+    .toc a { color: #aaa; text-decoration: none; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; transition: color 0.2s; }
+    .toc a:hover { color: #fff; }
+    .toc-num { color: #555; margin-right: 0.3em; }
+
+    .story { position: relative; overflow: hidden; }
+    .story-inner { max-width: 1200px; margin: 0 auto; padding: 5rem 4rem; position: relative; z-index: 1; }
+    .story-num { font-size: clamp(6rem, 18vw, 16rem); font-weight: 900; line-height: 0.8; letter-spacing: -0.06em; opacity: 0.08; position: absolute; top: 1rem; right: 2rem; user-select: none; }
+    .story-badge { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.35em 0.9em; border-radius: 2px; margin-bottom: 1.5rem; }
+    .direct-badge { background: #FFD700; color: #000; }
+    .story-kicker { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; opacity: 0.6; margin-bottom: 0.8rem; }
+    .story-headline { font-size: clamp(2rem, 5vw, 4rem); font-weight: 900; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+    .story-body { font-size: clamp(1rem, 1.5vw, 1.2rem); font-weight: 400; line-height: 1.8; max-width: 680px; opacity: 0.88; margin-bottom: 2rem; }
+    .story-meta { display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center; font-size: 0.8rem; font-weight: 700; opacity: 0.5; }
+    .story-links { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem; }
+    .story-link { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.6em 1.4em; border-radius: 3px; text-decoration: none; transition: opacity 0.2s, transform 0.15s; }
+    .story-link:hover { opacity: 0.75; transform: translateY(-1px); }
+
+    .feedback-buttons { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .flag-btn { background: none; border: 1px solid currentColor; color: inherit; font-family: var(--font); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.5em 1em; border-radius: 3px; cursor: pointer; opacity: 0.32; transition: opacity 0.2s, background 0.2s, color 0.2s, border-color 0.2s, transform 0.15s; }
+    .flag-btn:hover { opacity: 0.72; transform: translateY(-1px); }
+    .flag-btn.like-btn.active { opacity: 1; background: rgba(255,215,0,0.15); border-color: #FFD700; color: #FFD700 !important; }
+    .flag-btn.dislike-btn.active { opacity: 1; background: rgba(255,60,60,0.12); border-color: #FF4444; color: #FF4444 !important; }
+
+    .toast { position: fixed; bottom: 2rem; right: 2rem; background: #1a1a1a; color: #fff; font-family: var(--font); font-size: 0.82rem; font-weight: 700; padding: 0.75em 1.4em; border-radius: 4px; border-left: 3px solid #00C853; z-index: 9999; opacity: 0; transform: translateY(10px); transition: opacity 0.25s, transform 0.25s; pointer-events: none; box-shadow: 0 4px 24px rgba(0,0,0,0.45); }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    .toast.error { border-left-color: #FF5252; }
+
+    /* Story 1 — White */
+    .story-1 { background: #fff; color: #000; min-height: 90vh; display: flex; flex-direction: column; justify-content: center; }
+    .story-1 .story-num { color: #000; opacity: 0.04; }
+    .story-1 .story-kicker { color: #555; opacity: 1; }
+    .story-1 .story-headline { color: #000; }
+    .story-1 .story-body { color: #111; }
+    .story-1 .story-meta { color: #000; }
+    .story-1 .story-link.primary { background: #1a1a1a; color: #fff; }
+    .story-1 .story-link.secondary { background: #f0f0f0; color: #000; }
+    .story-1 .flag-btn { color: #000; }
+    .story-1-accent { position: absolute; bottom: 0; left: 0; width: 100%; height: 8px; background: linear-gradient(90deg, #0a0a0a, #555, #0a0a0a); }
+    .story-1 .headline-accent { display: inline-block; background: linear-gradient(135deg, #1a1a1a 0%, #555 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .blue-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1.2rem; margin: 2rem 0; max-width: 680px; }
+    .blue-card { border: 2px solid rgba(0,0,0,0.12); background: rgba(0,0,0,0.03); border-radius: 6px; padding: 1.3rem 1.5rem; }
+    .blue-card-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.2em; text-transform: uppercase; color: #333; margin-bottom: 0.4rem; }
+    .blue-card-value { font-size: 1.05rem; font-weight: 900; color: #000; line-height: 1.3; }
+    .blue-card-sub { font-size: 0.75rem; color: #555; margin-top: 0.3rem; line-height: 1.4; }
+
+    /* Story 2 — Dark navy/teal */
+    .story-2 { background: #00080c; color: #b8f0ff; min-height: 80vh; }
+    .story-2::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(0,160,200,0.14) 0%, transparent 65%); }
+    .story-2 .story-num { color: #00A0C8; opacity: 0.07; }
+    .story-2 .story-kicker { color: #20C8E8; opacity: 1; }
+    .story-2 .story-headline { color: #e0f8ff; }
+    .story-2 .story-body { color: #b8f0ff; }
+    .story-2 .story-meta { color: #20C8E8; opacity: 0.5; }
+    .story-2 .story-link.primary { background: #004058; color: #80e8ff; }
+    .story-2 .story-link.secondary { background: rgba(0,160,200,0.08); color: #90d8f0; border: 1px solid rgba(0,160,200,0.22); }
+    .story-2 .flag-btn { color: #b8f0ff; }
+    .teal-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .teal-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(0,160,200,0.07); border-left: 3px solid #00A0C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .teal-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20C8E8; margin-bottom: 0.3rem; }
+    .teal-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 3 — Dark red */
+    .story-3 { background: #0a0000; color: #fff; min-height: 80vh; }
+    .story-3::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(200,20,20,0.16) 0%, transparent 65%); }
+    .story-3 .story-num { color: #C81414; opacity: 0.07; }
+    .story-3 .story-kicker { color: #E84040; opacity: 1; }
+    .story-3 .story-headline { color: #fff; }
+    .story-3 .story-body { color: rgba(255,255,255,0.88); }
+    .story-3 .story-meta { color: #E84040; opacity: 0.5; }
+    .story-3 .story-link.primary { background: #6a0000; color: #fff; }
+    .story-3 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-3 .flag-btn { color: #fff; }
+    .red-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .red-item { background: rgba(200,20,20,0.07); border-left: 3px solid #C81414; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .red-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E84040; margin-bottom: 0.3rem; }
+    .red-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 4 — Dark green */
+    .story-4 { background: #020c04; color: #c8f0d0; min-height: 80vh; }
+    .story-4::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(20,160,70,0.16) 0%, transparent 65%); }
+    .story-4 .story-num { color: #14A046; opacity: 0.07; }
+    .story-4 .story-kicker { color: #30C060; opacity: 1; }
+    .story-4 .story-headline { color: #e0ffe8; }
+    .story-4 .story-body { color: #c8f0d0; }
+    .story-4 .story-meta { color: #30C060; opacity: 0.5; }
+    .story-4 .story-link.primary { background: #063820; color: #80ffb0; }
+    .story-4 .story-link.secondary { background: rgba(20,160,70,0.08); color: #a0e8b0; border: 1px solid rgba(20,160,70,0.22); }
+    .story-4 .flag-btn { color: #c8f0d0; }
+    .green-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .green-item { background: rgba(20,160,70,0.07); border-left: 3px solid #14A046; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .green-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #30C060; margin-bottom: 0.3rem; }
+    .green-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 5 — Dark purple */
+    .story-5 { background: #040010; color: #d8c8ff; min-height: 75vh; }
+    .story-5::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(90,40,200,0.17) 0%, transparent 65%); }
+    .story-5 .story-num { color: #5A28C8; opacity: 0.07; }
+    .story-5 .story-kicker { color: #8050E0; opacity: 1; }
+    .story-5 .story-headline { color: #f0e8ff; }
+    .story-5 .story-body { color: #d8c8ff; }
+    .story-5 .story-meta { color: #8050E0; opacity: 0.5; }
+    .story-5 .story-link.primary { background: #200860; color: #d0a8ff; }
+    .story-5 .story-link.secondary { background: rgba(90,40,200,0.08); color: #c0a0f0; border: 1px solid rgba(90,40,200,0.22); }
+    .story-5 .flag-btn { color: #d8c8ff; }
+    .purple-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .purple-item { background: rgba(90,40,200,0.07); border-left: 3px solid #5A28C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .purple-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #8050E0; margin-bottom: 0.3rem; }
+    .purple-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 6 — Dark cyan */
+    .story-6 { background: #000c10; color: #b8e8f0; min-height: 75vh; }
+    .story-6::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 40%, rgba(0,130,160,0.14) 0%, transparent 65%); }
+    .story-6 .story-num { color: #0080A0; opacity: 0.07; }
+    .story-6 .story-kicker { color: #20B0D0; opacity: 1; }
+    .story-6 .story-headline { color: #e0f4ff; }
+    .story-6 .story-body { color: #b8e8f0; }
+    .story-6 .story-meta { color: #20B0D0; opacity: 0.5; }
+    .story-6 .story-link.primary { background: #003848; color: #80d8f0; }
+    .story-6 .story-link.secondary { background: rgba(0,130,160,0.08); color: #90cce0; border: 1px solid rgba(0,130,160,0.22); }
+    .story-6 .flag-btn { color: #b8e8f0; }
+    .cyan-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .cyan-item { background: rgba(0,130,160,0.07); border-left: 3px solid #0080A0; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .cyan-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20B0D0; margin-bottom: 0.3rem; }
+    .cyan-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 7 — Dark amber */
+    .story-7 { background: #0a0300; color: #ffe0b8; min-height: 75vh; }
+    .story-7::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(210,90,20,0.18) 0%, transparent 65%); }
+    .story-7 .story-num { color: #D05A14; opacity: 0.07; }
+    .story-7 .story-kicker { color: #E88040; opacity: 1; }
+    .story-7 .story-headline { color: #fff0d8; }
+    .story-7 .story-body { color: #ffe0b8; }
+    .story-7 .story-meta { color: #E88040; opacity: 0.5; }
+    .story-7 .story-link.primary { background: #6a2400; color: #ffc880; }
+    .story-7 .story-link.secondary { background: rgba(210,90,20,0.08); color: #ffb870; border: 1px solid rgba(210,90,20,0.22); }
+    .story-7 .flag-btn { color: #ffe0b8; }
+    .amber-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .amber-item { background: rgba(210,90,20,0.07); border-left: 3px solid #D05A14; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .amber-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E88040; margin-bottom: 0.3rem; }
+    .amber-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 8 — Dark gold */
+    .story-8 { background: #080500; color: #fff; min-height: 70vh; }
+    .story-8::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,145,10,0.15) 0%, transparent 65%); }
+    .story-8 .story-num { color: #BE9110; opacity: 0.06; }
+    .story-8 .story-kicker { color: #D4A820; opacity: 1; }
+    .story-8 .story-headline { color: #fff; }
+    .story-8 .story-body { color: rgba(255,255,255,0.88); }
+    .story-8 .story-meta { color: #D4A820; opacity: 0.5; }
+    .story-8 .story-link.primary { background: #604000; color: #ffe070; }
+    .story-8 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-8 .flag-btn { color: #fff; }
+    .gold-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .gold-item { background: rgba(190,145,10,0.07); border-left: 3px solid #BE9110; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .gold-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #D4A820; margin-bottom: 0.3rem; }
+    .gold-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 9 — Slate blue */
+    .story-9 { background: #040810; color: #c8d8f0; min-height: 70vh; }
+    .story-9::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 35%, rgba(50,90,170,0.16) 0%, transparent 65%); }
+    .story-9 .story-num { color: #3258A8; opacity: 0.07; }
+    .story-9 .story-kicker { color: #5878C8; opacity: 1; }
+    .story-9 .story-headline { color: #e8f0ff; }
+    .story-9 .story-body { color: #c8d8f0; }
+    .story-9 .story-meta { color: #5878C8; opacity: 0.5; }
+    .story-9 .story-link.primary { background: #101e50; color: #fff; }
+    .story-9 .story-link.secondary { background: rgba(50,90,170,0.08); color: #b0c8e8; border: 1px solid rgba(50,90,170,0.22); }
+    .story-9 .flag-btn { color: #c8d8f0; }
+    .slate-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .slate-item { background: rgba(50,90,170,0.07); border-left: 3px solid #3258A8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .slate-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #5878C8; margin-bottom: 0.3rem; }
+    .slate-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 10 — Magenta */
+    .story-10 { background: #080004; color: #ffc8e8; min-height: 70vh; }
+    .story-10::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,20,90,0.15) 0%, transparent 65%); }
+    .story-10 .story-num { color: #BE1458; opacity: 0.07; }
+    .story-10 .story-kicker { color: #E04080; opacity: 1; }
+    .story-10 .story-headline { color: #fff0f8; }
+    .story-10 .story-body { color: #ffc8e8; }
+    .story-10 .story-meta { color: #E04080; opacity: 0.5; }
+    .story-10 .story-link.primary { background: #500030; color: #ffb0d8; }
+    .story-10 .story-link.secondary { background: rgba(190,20,90,0.08); color: #f090c0; border: 1px solid rgba(190,20,90,0.22); }
+    .story-10 .flag-btn { color: #ffc8e8; }
+    .mag-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .mag-item { background: rgba(190,20,90,0.07); border-left: 3px solid #BE1458; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .mag-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E04080; margin-bottom: 0.3rem; }
+    .mag-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .site-footer { background: #000; color: #555; padding: 3rem 4rem; display: flex; flex-direction: column; gap: 1.5rem; border-top: 1px solid #222; }
+    .footer-top { display: flex; gap: 2rem; align-items: center; flex-wrap: wrap; justify-content: space-between; }
+    .footer-brand { font-size: 1.4rem; font-weight: 900; color: #fff; }
+    .footer-meta { font-size: 0.75rem; line-height: 1.6; }
+    .export-btn { background: #222; border: 1px solid #444; color: #fff; font-family: var(--font); font-size: 0.8rem; font-weight: 700; padding: 0.7em 1.5em; border-radius: 3px; cursor: pointer; letter-spacing: 0.08em; transition: background 0.2s; }
+    .export-btn:hover { background: #333; }
+    .footer-note { font-size: 0.7rem; opacity: 0.5; }
+
+    @media (max-width: 768px) {
+      .masthead, .toc, .story-inner, .site-footer { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .story-num { display: none; }
+      .masthead-meta { gap: 1rem; }
+      .masthead-issue { margin-left: 0; }
+      .blue-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+<nav style="background:#1a1a1a;border-bottom:1px solid #333;padding:0.55rem 2rem;font-family:'M PLUS Rounded 1c','Hiragino Sans','Noto Sans JP',sans-serif;position:sticky;top:0;z-index:999;">
+  <a href="./index.html" style="color:#aaa;text-decoration:none;font-size:0.8rem;font-weight:700;letter-spacing:0.03em;display:inline-flex;align-items:center;gap:0.4rem;transition:color 0.15s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#aaa'">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    アーカイブへ戻る
+  </a>
+</nav>
+
+<header class="masthead">
+  <div class="masthead-kicker">Hacker News — Morning Edition</div>
+  <h1 class="masthead-title">Morning<br>Edition</h1>
+  <div class="masthead-meta">
+    <div>
+      <div class="masthead-date">2026年9月23日 水曜日</div>
+      <div class="masthead-subtitle">AI・開発ツール・プライバシー・サイエンス — あなたのための10本</div>
+    </div>
+    <div class="masthead-issue">
+      <span class="iss-label">Issue</span>
+      <span class="iss-num">No.130</span>
+    </div>
+  </div>
+</header>
+
+<nav class="toc">
+  <a href="#s1"><span class="toc-num">01</span>⚡ Claude Opus 5.5リリース——Anthropicの最新フラッグシップモデル</a>
+  <a href="#s2"><span class="toc-num">02</span>GPT-6 Sol and Luna——OpenAIが二分岐の次世代モデルを発表</a>
+  <a href="#s3"><span class="toc-num">03</span>ペンタゴン：AI過信がイランの学校への誤爆に寄与</a>
+  <a href="#s4"><span class="toc-num">04</span>GPT-6 Astra、2005年から未解読のエニグマ暗号文を解読</a>
+  <a href="#s5"><span class="toc-num">05</span>⚡ Claude Opus 5.5 性能・価格分析——競合との詳細比較</a>
+  <a href="#s6"><span class="toc-num">06</span>AppleがiOSに「消えない広告」を追加——ユーザーの怒りが噴出</a>
+  <a href="#s7"><span class="toc-num">07</span>「FBI全職員のデータを入手した」——ハッカーが侵入を主張</a>
+  <a href="#s8"><span class="toc-num">08</span>GrapheneOS——2027年にプリインストール端末が登場か</a>
+  <a href="#s9"><span class="toc-num">09</span>WordPress：認証不要のパストラバーサルがRCEに繋がる脆弱性</a>
+  <a href="#s10"><span class="toc-num">10</span>SAML：フラクタル状に広がる欠陥設計の解剖</a>
+</nav>
+
+<!-- ═══ STORY 1 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-1" id="s1">
+  <div class="story-num">01</div>
+  <div class="story-inner">
+    <span class="story-badge direct-badge">⚡ あなたに直接関係</span>
+    <div class="story-kicker">AI / Anthropic / Claude / モデルリリース / LLM / フラッグシップ — 2026-09-23</div>
+    <h2 class="story-headline">
+      Claude Opus 5.5<br>リリース——<br><span class="headline-accent">Anthropicの<br>最新フラッグシップ</span>
+    </h2>
+    <div class="story-body">
+      AnthropicがClaude Opus 5.5を正式リリースし、HNで995点・723コメントという今日最大の反響を集めています。前バージョンのOpus 5から推論能力・コーディング・長文脈処理が全面的に強化された最新フラッグシップモデルで、SWE-bench Verifiedで72.4%を達成、またClaude Codeのバックエンドとして即日利用可能となっています。価格改定も行われ、既存ユーザーには段階的な移行スケジュールが案内されています。
+    </div>
+    <div class="blue-grid">
+      <div class="blue-card">
+        <div class="blue-card-label">主な性能向上</div>
+        <div class="blue-card-value">SWE-bench 72.4%</div>
+        <div class="blue-card-sub">ソフトウェアエンジニアリングベンチマーク（SWE-bench Verified）で前バージョン比+8pt。特に大規模コードベースでの理解・修正タスクで顕著な改善が報告されており、マルチファイル編集・テスト自動生成・バグ特定の精度が向上。Claude Codeとの統合により即日体験できる。</div>
+      </div>
+      <div class="blue-card">
+        <div class="blue-card-label">拡張思考の進化</div>
+        <div class="blue-card-value">Extended Thinking v3</div>
+        <div class="blue-card-sub">Extended Thinkingがv3に刷新。思考チェーンの深さと一貫性が改善され、長時間の推論セッションで途中で路線変更することが減ったという評価が開発者から上がっている。最大512Kトークンの思考予算をサポートし、数学・論理パズル・コード設計での正答率が向上した。</div>
+      </div>
+      <div class="blue-card">
+        <div class="blue-card-label">HNでの反応</div>
+        <div class="blue-card-value">「実際に試した」報告が続出</div>
+        <div class="blue-card-sub">「Claude Codeで即日切り替えたら体感で明らかに賢くなった」「複雑なリファクタリングを一発で通してくれた」という実使用報告が多数。一方「Sonnet 4.6で十分では」「価格対パフォーマンスはどうか」という議論も活発。APIアクセスは既存ユーザー向けに順次展開中。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: anthropic.com</span>
+      <span>↑995 · 💬723</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.anthropic.com/claude-opus-5-5" target="_blank">発表を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49803892" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="claude-opus-5-5" data-type="like" onclick="toggleFlag('claude-opus-5-5','Claude Opus 5.5 Anthropicリリース','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="claude-opus-5-5" data-type="dislike" onclick="toggleFlag('claude-opus-5-5','Claude Opus 5.5 Anthropicリリース','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+    <div class="story-1-accent"></div>
+  </div>
+</section>
+
+<!-- ═══ STORY 2 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-2" id="s2">
+  <div class="story-num">02</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / OpenAI / GPT-6 / モデルリリース / LLM / マルチモーダル — 2026-09-23</div>
+    <h2 class="story-headline">
+      GPT-6<br>Sol and Luna——<br><span style="color:#20d8f0">OpenAIが二分岐の<br>次世代モデルを発表</span>
+    </h2>
+    <div class="story-body">
+      OpenAIがGPT-6を「Sol」（速度・汎用性重視）と「Luna」（深い推論重視）の二バリアントとして公開し、HNで947点・512コメントを集めています。「一つのモデル名に二つの異なるアーキテクチャ」という戦略は業界初で、Claude Opus 5.5と同日のリリースとなり「AIモデル競争が加速している」という見方が広まっています。ChatGPT Plusユーザーには即日アクセス、APIは段階展開です。
+    </div>
+    <div class="teal-items">
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">Sol（速度）とLuna（推論）の使い分け</div>
+          <div class="teal-text">Solは前世代GPT-4oの後継にあたる汎用・高速モデルで、日常的なタスク・チャット・コーディング補助を主な用途とする。LunaはOpenAI o-seriesの推論路線を引き継いだ深い思考モデルで、数学証明・研究支援・複雑な意思決定に最適化されている。価格もSolが低く、Lunaがプレミアム帯という二層構造になっており、AnthropicのSonnet/Opusの棲み分けに対応する戦略と見られる。</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">Claude Opus 5.5との同日リリースの意味</div>
+          <div class="teal-text">AnthropicとOpenAIが同日に主力モデルをリリースしたことはHNで大きな話題となった。「計画的な競争激化か偶然か」という議論と並び、「ユーザーが今日一日で二つの最強モデルを試し比べられる日」という楽観的な声も。両モデルの比較ベンチマークをリアルタイムで実施するスレッドが展開され、タスクによって有利不利が分かれるという報告が多数投稿された。</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">HNでのコミュニティ評価</div>
+          <div class="teal-text">「GPT-6 Lunaはo3を超えた」という報告と「Claude Opus 5.5の方がコーディングは上」という対立意見が飛び交った。「モデルの分岐戦略はAPIユーザーにとって混乱の元」という実用的批判も多く、「どのバージョンを本番に使うか選択肢が増えすぎた」という声が共感を集めた。GPT-4 Turboから続く「同名異モデル」問題への不満も再燃している。</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: openai.com</span>
+      <span>↑947 · 💬512</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://openai.com/index/introducing-gpt-6-sol-and-luna/" target="_blank">発表を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49805509" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="gpt-6-sol-luna" data-type="like" onclick="toggleFlag('gpt-6-sol-luna','GPT-6 Sol and Luna OpenAIリリース','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="gpt-6-sol-luna" data-type="dislike" onclick="toggleFlag('gpt-6-sol-luna','GPT-6 Sol and Luna OpenAIリリース','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 3 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-3" id="s3">
+  <div class="story-num">03</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI安全性 / 軍事 / ペンタゴン / 自律兵器 / AI倫理 / 民間被害 — 2026-09-23</div>
+    <h2 class="story-headline">
+      ペンタゴン——<br>AI過信が<br><span style="color:#ff6060">イランの学校への<br>誤爆に寄与と認定</span>
+    </h2>
+    <div class="story-body">
+      Bloombergが報じた調査報道「Pentagon says overreliance on AI contributed to missile strike on Iran school」がHNで290点・148コメントを集めています。ペンタゴンの内部調査により、AIターゲティングシステムへの過度な依存がイランの学校への誤爆に寄与したことが認定されました。AIが軍事意思決定に深く組み込まれた現実と、その制御の難しさが浮き彫りになった深刻な報告です。
+    </div>
+    <div class="red-items">
+      <div class="red-item">
+        <div class="red-label">何が起きたか</div>
+        <div class="red-text">ペンタゴンの調査によると、担当将校はAIターゲティングシステムが提示した標的リストを「確認時間が不十分なまま承認」した。システムは学校の座標を軍事施設と誤分類しており、人間がその判断を覆す機会があったにもかかわらず、AI出力への過信から最終確認が省略されたとされる。調査報告書は「人間によるオーバーサイトの形骸化」を主要因として挙げている。</div>
+      </div>
+      <div class="red-item">
+        <div class="red-label">軍事AIガバナンスへの影響</div>
+        <div class="red-text">この報告を受け、国防総省は「kill chain」（標的選定から攻撃決定までの連鎖）にAIが介在する全プロセスの見直しを命令した。特に問題視されているのは「時間的プレッシャー下でのAI判断への依存」で、戦場のスピードと人間の意思決定の深さの間の根本的なトレードオフが改めて議論されている。欧州各国からも自律型致死兵器システム（LAWS）の国際規制を求める声が強まった。</div>
+      </div>
+      <div class="red-item">
+        <div class="red-label">HNの反応</div>
+        <div class="red-text">「これはAI安全性の問題ではなく、責任ある人間の意思決定の問題だ——AIはスケープゴートにされている」という批判的視点と、「だからこそAIのブラックボックス性を許容するシステム設計自体が問題」という反論が交差した。「GPT-6/Claude Opus 5.5のリリースと同日に出てきた最悪のタイミング」というコメントが多くの支持を集めた。AIの軍事利用に対する業界全体としての姿勢を問う声も多かった。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: bloomberg.com</span>
+      <span>↑290 · 💬148</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.bloomberg.com/graphics/2026-iran-school-attack/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49806430" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="pentagon-ai-missile-iran" data-type="like" onclick="toggleFlag('pentagon-ai-missile-iran','ペンタゴンAI過信イラン学校誤爆','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="pentagon-ai-missile-iran" data-type="dislike" onclick="toggleFlag('pentagon-ai-missile-iran','ペンタゴンAI過信イラン学校誤爆','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 4 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-4" id="s4">
+  <div class="story-num">04</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / 暗号解読 / エニグマ / 歴史 / 暗号学 / OpenAI — 2026-09-23</div>
+    <h2 class="story-headline">
+      GPT-6 Astra、<br>2005年から<br><span style="color:#30d060">未解読の<br>エニグマ暗号を解読</span>
+    </h2>
+    <div class="story-body">
+      OpenAIのGPT-6 Astraモデルが、2005年以来21年間にわたって解読不能だったエニグマ暗号文「MVUEH」メッセージを解読したと報じられ、HNで513点・348コメントを集めています。暗号学者コミュニティが長年挑んできた未解読メッセージで、第二次大戦後のドイツ海軍通信に関連するものとされています。AIが人間の専門家と歴史を超えて解決した事例として大きな注目を集めています。
+    </div>
+    <div class="green-items">
+      <div class="green-item">
+        <div class="green-label">MVUEHメッセージとは何か</div>
+        <div class="green-text">「MVUEH」は暗号学者Stefan Kühntが2005年にリストアップした未解読エニグマ暗号文の一つ。Enigma Codebreakers Associationが収集した「Remaining Unbroken Messages」の中でも特に難解とされてきた。既知の解読技術（コリブス探索、統計的分析）では鍵の設定空間が広すぎて総当たりに膨大な計算が必要で、歴史的文脈情報の推論が必要な種類の問題と考えられてきた。</div>
+      </div>
+      <div class="green-item">
+        <div class="green-label">GPT-6 AstraのアプローチとAIの優位性</div>
+        <div class="green-text">Astraは暗号文の統計的パターン分析と、WWIIのドイツ海軍通信に関する広大な歴史的知識を組み合わせる形で解読に成功したと報告されている。従来の解読システムとの違いは「どのような文脈（艦名・日付・定型句）が使われたか」を歴史資料から推定する能力で、暗号の初期設定を絞り込む「言語的・歴史的推論」をAIが担った。人間の暗号学者は既にこのアプローチを試みていたが、AIが規模と速度で上回った。</div>
+      </div>
+      <div class="green-item">
+        <div class="green-label">HNでの評価と懐疑論</div>
+        <div class="green-text">「これはAI研究の真の突破口か、それとも過剰な主張か」という懐疑的な声も多く、「解読結果の検証はどこで行われたか」「独立した暗号学者のレビューを経たか」という厳しい問いが寄せられた。元NSA暗号学者とされる人物のコメントが多くの注目を集め、「解読された平文の内容が歴史的に整合するかの検証が次のステップ」と指摘した。いずれにせよ、AIが数十年来の人文・科学的問題に食い込みつつある事例として記録される。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: cryptocellar.org</span>
+      <span>↑513 · 💬348</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.cryptocellar.org/bgac/the-mvueh-break.html" target="_blank">解読報告を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49801324" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="gpt6-astra-enigma-break" data-type="like" onclick="toggleFlag('gpt6-astra-enigma-break','GPT-6 AstraエニグマMVUEH解読','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="gpt6-astra-enigma-break" data-type="dislike" onclick="toggleFlag('gpt6-astra-enigma-break','GPT-6 AstraエニグマMVUEH解読','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 5 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-5" id="s5">
+  <div class="story-num">05</div>
+  <div class="story-inner">
+    <span class="story-badge direct-badge">⚡ あなたに直接関係</span>
+    <div class="story-kicker">AI / Claude / ベンチマーク / 性能分析 / 価格比較 / Artificial Analysis — 2026-09-23</div>
+    <h2 class="story-headline">
+      Claude Opus 5.5<br>性能・価格<br><span style="color:#b070ff">分析——競合との<br>詳細比較</span>
+    </h2>
+    <div class="story-body">
+      Artificial AnalysisがClaude Opus 5.5の知能・性能・価格を包括的に分析したレポートを公開し、HNで199点・53コメントを集めています。GPT-6 Sol/Lunaとの直接比較を含む独立した評価で、タスク別の強み・弱み・コスト効率が数値化されています。Claude CodeユーザーやAPI開発者にとって最も実用的な情報源となっています。
+    </div>
+    <div class="purple-items">
+      <div class="purple-item">
+        <div class="purple-label">主要ベンチマーク結果</div>
+        <div class="purple-text">Artificial Analysisの分析によると、Claude Opus 5.5はコーディング（HumanEval+: 89.2%）・数学（MATH-500: 96.1%）で競合最高水準を達成。一方でレイテンシはGPT-6 Solに比べて約1.3倍遅く、トークン単価もやや高い。「知能対コスト」の総合スコアではGPT-6 Lunaに僅差で負けているが、コーディング特化タスクでは首位を維持している。</div>
+      </div>
+      <div class="purple-item">
+        <div class="purple-label">Claude Code開発者向け実用ポイント</div>
+        <div class="purple-text">同報告では「Claude CodeのバックエンドにOpus 5.5を使うと何が変わるか」という開発者向けの分析も含まれており、複数ファイルにまたがるリファクタリング・テスト生成・ドキュメント作成のそれぞれで前バージョン比の精度向上が定量化されている。特に「長いコンテキストウィンドウ（200K+トークン）での品質劣化が改善された」という指摘は多くの開発者が注目した点。</div>
+      </div>
+      <div class="purple-item">
+        <div class="purple-label">コスト効率と使い分けの指針</div>
+        <div class="purple-text">「Opus 5.5が最も良い場面、Sonnet 4.6で十分な場面」という実用的なガイドラインが付録として提供されており、HNでは「これが今日一番役に立つ記事」という評価が多かった。Opus 5.5は大規模な一発解決タスク・重要なコードレビュー・アーキテクチャ設計に向き、日常的なコーディング補助はSonnet 4.6が費用対効果で上回るという結論は、多くのClaude Code開発者の直感と一致していた。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: artificialanalysis.ai</span>
+      <span>↑199 · 💬53</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://artificialanalysis.ai/models/claude-opus-5-5" target="_blank">分析を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49804316" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="claude-opus-5-5-analysis" data-type="like" onclick="toggleFlag('claude-opus-5-5-analysis','Claude Opus 5.5性能価格分析','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="claude-opus-5-5-analysis" data-type="dislike" onclick="toggleFlag('claude-opus-5-5-analysis','Claude Opus 5.5性能価格分析','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 6 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-6" id="s6">
+  <div class="story-num">06</div>
+  <div class="story-inner">
+    <div class="story-kicker">プライバシー / Apple / iOS / 広告 / UX / ユーザー体験 — 2026-09-23</div>
+    <h2 class="story-headline">
+      AppleがiOSに<br>「消えない広告」<br><span style="color:#20b8d0">を追加——<br>ユーザーの怒りが噴出</span>
+    </h2>
+    <div class="story-body">
+      TechRadarが報じた「Apple has added persistent 'ads' to iOS, and it's driving users crazy」がHNで547点・421コメントという高い関心を集めています。Appleが最新iOS更新でAppStoreへの誘導やサービスのプロモーションを常時表示する「アドバタイジングバナー」を複数の場所に追加し、オフにする方法が分かりにくいと批判が殺到しています。「プライバシーのApple」というブランドイメージとの矛盾が問われています。
+    </div>
+    <div class="cyan-items">
+      <div class="cyan-item">
+        <div class="cyan-label">何が変わったか：具体的な変更点</div>
+        <div class="cyan-text">今回の変更でユーザーが問題視しているのは主に3か所。①設定アプリ上部に表示されるApple Oneサービス契約の促進バナー②AppStore「Today」タブへの強制スクロール誘導③ロック画面での「Walletを設定」などのオンボーディング継続プロンプト——これらはApple公式サービスへの誘導であるため「広告」とは呼ばれていないが、ユーザーには広告と同じ体験をもたらしている。</div>
+      </div>
+      <div class="cyan-item">
+        <div class="cyan-label">「プライバシーのApple」との矛盾</div>
+        <div class="cyan-text">「App Tracking Transparencyで他社の広告追跡を阻止しながら、自社プロモーションは許容する」という二重基準がHNでは最も多く指摘された論点。Appleは2021年のATT施行以来、プライバシーを競争優位として積極的に打ち出してきたが、今回の変更はその姿勢と矛盾するとEFF（電子フロンティア財団）も批判的なコメントを出している。EUのデジタル市場法（DMA）との関係も問われている。</div>
+      </div>
+      <div class="cyan-item">
+        <div class="cyan-label">無効化方法と今後の対策</div>
+        <div class="cyan-text">一部のバナーは「設定→Apple ID→広告とトラッキング」から無効化できるが、全てを消すことはできない。有料のApple Oneに加入すると一部が非表示になるという皮肉な構造もユーザーの怒りに油を注いだ。HNでは「Pixel/GrapheneOSへの乗り換えを検討し始めた」という声が複数見られた（同日のGrapheneOS記事と呼応）。次回iOS更新でのAppleの対応を注視する必要がある。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: techradar.com</span>
+      <span>↑547 · 💬421</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.techradar.com/phones/iphone/i-wish-apple-would-just-stop-that-crap-apple-has-added-persistent-ads-to-ios-and-its-driving-users-crazy" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49801939" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="apple-ios-persistent-ads" data-type="like" onclick="toggleFlag('apple-ios-persistent-ads','Apple iOSの消えない広告問題','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="apple-ios-persistent-ads" data-type="dislike" onclick="toggleFlag('apple-ios-persistent-ads','Apple iOSの消えない広告問題','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 7 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-7" id="s7">
+  <div class="story-num">07</div>
+  <div class="story-inner">
+    <div class="story-kicker">セキュリティ / FBI / データ漏洩 / ハッキング / サイバー犯罪 / 情報機関 — 2026-09-23</div>
+    <h2 class="story-headline">
+      「FBI全職員の<br>データを入手した」<br><span style="color:#e88040">——ハッカーが<br>侵入を主張</span>
+    </h2>
+    <div class="story-body">
+      404 Mediaが報じた「'We hacked the FBI:' Hackers say they have data on all FBI employees」がHNで217点・160コメントを集めています。あるハッカーグループがFBIの内部システムに侵入し、全職員の個人情報・所属部署・連絡先などのデータを入手したと主張。FBI側は現在調査中とのコメントを出しており、データの一部が実際にオンラインに流出しているという報告もあります。
+    </div>
+    <div class="amber-items">
+      <div class="amber-item">
+        <div class="amber-label">主張の内容と現時点の確認状況</div>
+        <div class="amber-text">ハッカーグループは流出データの一部として「FBI職員の氏名・メールアドレス・バッジ番号・勤務地」を含む数百件のサンプルを公開した。404 Mediaの独立検証では、公開されたサンプルの一部が実在するFBI職員と照合できた旨が報じられており、完全な捏造ではない可能性が高い。ただし「全職員」の規模の主張が真実かどうか、及び侵入経路の詳細はまだ確認されていない。</div>
+      </div>
+      <div class="amber-item">
+        <div class="amber-label">セキュリティ上の懸念と影響</div>
+        <div class="amber-text">FBIは身分を秘匿する必要がある捜査官・情報員を多数抱える組織であり、職員の個人情報流出は通常の組織と比較して桁違いのリスクをはらむ。過去には2015年のOPM（人事管理局）ハックで連邦職員の機密情報が大量流出した事例があり、今回の件もそれに匹敵する深刻さとして扱われている。身元特定・フィッシング・物理的ターゲティングのリスクが指摘されている。</div>
+      </div>
+      <div class="amber-item">
+        <div class="amber-label">HNでの反応と背景推測</div>
+        <div class="amber-text">「誰がどんな理由でFBIをハックするか」という動機についての推測が多く見られた。ランサムウェアグループによる金銭目的、国家支援のアクター、または内部告発的な動機——いずれの可能性も議論された。「FBIがサイバー犯罪を取り締まる立場にありながら、自身のシステムが侵害された皮肉」というコメントも多くの支持を集めた。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: 404media.co</span>
+      <span>↑217 · 💬160</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.404media.co/we-hacked-the-fbi-hackers-say-they-have-data-on-all-fbi-employees/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49805278" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="fbi-data-breach-hack" data-type="like" onclick="toggleFlag('fbi-data-breach-hack','FBI全職員データ漏洩ハッキング主張','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="fbi-data-breach-hack" data-type="dislike" onclick="toggleFlag('fbi-data-breach-hack','FBI全職員データ漏洩ハッキング主張','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 8 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-8" id="s8">
+  <div class="story-num">08</div>
+  <div class="story-inner">
+    <div class="story-kicker">プライバシー / GrapheneOS / Android / セキュリティ / スマートフォン / 2027 — 2026-09-23</div>
+    <h2 class="story-headline">
+      GrapheneOS——<br>2027年に<br><span style="color:#d4a820">プリインストール<br>端末が登場か</span>
+    </h2>
+    <div class="story-body">
+      GrapheneOSプロジェクトが公式Mastodonアカウントで「2027年にGrapheneOSをプリインストールした端末が販売される可能性が高い」と発表し、HNで225点・103コメントを集めています。現在GrapheneOSはPixelシリーズへの手動インストールのみが公式サポートで、一般ユーザーへの普及の最大の障壁が「インストールの複雑さ」でした。プリインストール端末の実現はプライバシー重視スマートフォン市場を変える可能性があります。
+    </div>
+    <div class="gold-items">
+      <div class="gold-item">
+        <div class="gold-label">GrapheneOSとは何か</div>
+        <div class="gold-text">GrapheneOSはAndroidをベースとしたプライバシー・セキュリティ強化OSで、Google Playサービスを完全に排除・サンドボックス化、Webブラウザへのメモリ安全強化パッチ適用、強化されたアプリパーミッション管理などを特徴とする。ジャーナリスト・弁護士・活動家など「デジタル監視のリスクが高い職業」を中心に採用が広がっており、EFFがプライバシー保護ガイドで推奨している。</div>
+      </div>
+      <div class="gold-item">
+        <div class="gold-label">プリインストール端末の実現への課題</div>
+        <div class="gold-text">GrapheneOSチームは「現時点では具体的なメーカー名は明かせない」としつつ、「ハードウェアパートナーとの協議が進んでいる」とコメント。課題は①メーカーがブートローダーアンロックを許容するハードウェア設計をするか②Googleとの契約（GMS=Google Mobile Services認証）とGrapheneOSの方向性が相反しないか③一般消費者向けサポート体制の構築——の3点とされる。Pinephone系のLinuxスマートフォンとは異なり、本格的なAndroid互換性を維持することが前提。</div>
+      </div>
+      <div class="gold-item">
+        <div class="gold-label">HNの反応</div>
+        <div class="gold-text">「これが実現すれば技術に詳しくない層にもプライバシーOS端末の選択肢ができる」という歓迎と、「GrapheneOSをプリインストールすることがビジネスとして成立するか疑問」という慎重意見が拮抗した。「Apple iOSの広告問題（同日HN上位）に幻滅してAndroid移行を考えていたので朗報」というコメントも多く、タイミングの偶然が面白い文脈を生んでいる。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: grapheneos.social</span>
+      <span>↑225 · 💬103</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://grapheneos.social/@GrapheneOS/117299954135808210" target="_blank">発表を見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49804683" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="grapheneos-preinstalled-2027" data-type="like" onclick="toggleFlag('grapheneos-preinstalled-2027','GrapheneOSプリインストール端末2027','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="grapheneos-preinstalled-2027" data-type="dislike" onclick="toggleFlag('grapheneos-preinstalled-2027','GrapheneOSプリインストール端末2027','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 9 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-9" id="s9">
+  <div class="story-num">09</div>
+  <div class="story-inner">
+    <div class="story-kicker">セキュリティ / WordPress / 脆弱性 / RCE / パストラバーサル / CVE — 2026-09-23</div>
+    <h2 class="story-headline">
+      WordPress——<br>認証不要の<br><span style="color:#8870e8">パストラバーサルが<br>RCEに発展する脆弱性</span>
+    </h2>
+    <div class="story-body">
+      WordPress本家のセキュリティアドバイザリ「Unauthenticated path traversal leading to conditional RCE」がHNで134点・69コメントを集めています。認証なしに任意のファイルパスを操作でき、特定条件下でリモートコード実行（RCE）まで到達できるという深刻な脆弱性で、WordPressを自前ホストしているユーザーは至急アップデートが推奨されています。
+    </div>
+    <div class="slate-items">
+      <div class="slate-item">
+        <div class="slate-label">脆弱性の技術的詳細</div>
+        <div class="slate-text">CVE登録済みのこの脆弱性は、WordPressのファイルアップロード・プラグイン管理機能のパス正規化処理に存在するバイパスを悪用する。「../」や特殊エンコードを用いたパストラバーサルでウェブルート外のファイルに到達でき、wp-config.phpやシステムファイルの読み取りが可能。さらに書き込み権限が設定されている環境では、悪意のあるPHPファイルを設置してのRCEが条件付きで成立する。</div>
+      </div>
+      <div class="slate-item">
+        <div class="slate-label">影響範囲と緊急度</div>
+        <div class="slate-text">全世界のウェブサイトの40%以上がWordPressを使用しているとされており、自前サーバーでホストするケースが特に影響を受ける。WordPress.comなどのマネージドホスティングサービスは既にパッチ適用済み。自前ホストの場合はWordPress 6.X系の最新マイナーバージョンへのアップデートが必須。プラグインのパーミッション設定・ファイル書き込み権限の見直しも合わせて推奨されている。</div>
+      </div>
+      <div class="slate-item">
+        <div class="slate-label">HNでの反応と根本的批判</div>
+        <div class="slate-text">「WordPressのコードベースはいつになっても同じ種類の脆弱性が出続ける」という根本的批判と、「それでもシェアが落ちないWordPressの何が正しいのか」という逆説的な議論が展開された。セキュリティエンジニアからは「PHPのpath traversalはCWE-23として20年以上既知の問題なのに今も繰り返される」という指摘が多く支持を集め、フレームワーク設計における根本的なセキュリティ文化の欠如が問われた。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: github.com/WordPress</span>
+      <span>↑134 · 💬69</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://github.com/WordPress/wordpress-develop/security/advisories/GHSA-7hp8-65ch-5whp" target="_blank">アドバイザリを読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49803959" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="wordpress-path-traversal-rce" data-type="like" onclick="toggleFlag('wordpress-path-traversal-rce','WordPress認証不要パストラバーサルRCE','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="wordpress-path-traversal-rce" data-type="dislike" onclick="toggleFlag('wordpress-path-traversal-rce','WordPress認証不要パストラバーサルRCE','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 10 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-10" id="s10">
+  <div class="story-num">10</div>
+  <div class="story-inner">
+    <div class="story-kicker">セキュリティ / SAML / 認証 / 設計批判 / Trail of Bits / XML — 2026-09-23</div>
+    <h2 class="story-headline">
+      SAML——<br>フラクタル状に<br><span style="color:#f090c0">広がる欠陥設計の<br>解剖</span>
+    </h2>
+    <div class="story-body">
+      Trail of Bitsが公開した「SAML: A fractal of bad design」がHNで102点・51コメントを集めています。シングルサインオン（SSO）の業界標準であるSAML（Security Assertion Markup Language）がなぜ「フラクタル状に悪い設計」なのかを、XML爆弾・署名バイパス・名前空間の問題など複数の層にわたって解剖した技術記事です。OAuthやOpenID Connectとの比較も含む、認証プロトコルの設計思想に関する深い考察です。
+    </div>
+    <div class="mag-items">
+      <div class="mag-item">
+        <div class="mag-label">「フラクタル状に悪い」とはどういう意味か</div>
+        <div class="mag-text">Trail of Bitsが使う「fractal of bad design」という表現は、「どの粒度で見ても同じ種類の問題が繰り返される」という意味だ。SAMLの場合、大きな設計方針（XMLベース、複数バインディング方式）から、具体的な実装（署名検証ロジック、名前空間処理）、さらにライブラリレベルの問題（xmlsecの振る舞い、DOMパーサーの癖）まで、一貫して「安全な使い方が正しい使い方と一致しない」構造が繰り返されている。</div>
+      </div>
+      <div class="mag-item">
+        <div class="mag-label">主要な脆弱性パターン</div>
+        <div class="mag-text">記事が指摘する主な問題は①XML署名のWrap攻撃（署名された要素と処理される要素が違う）②XML爆弾によるDoS③名前空間の曖昧さを利用したバイパス④コメントインジェクション攻撃（ユーザー名にXMLコメントを埋め込んで認証バイパス）——のパターン。特にコメントインジェクション（CVE-2017-11427系）は2017年に広く報告されたにもかかわらず今も新規実装で再発している。</div>
+      </div>
+      <div class="mag-item">
+        <div class="mag-label">HNでの評価と実用的な結論</div>
+        <div class="mag-text">「OAuth2 + OIDC（OpenID Connect）に移行できる状況なら移行すべき。SAMLは後方互換性のためだけに存在している」という実用的な結論に対して、「エンタープライズ環境では古いIdPがSAMLしか話せない現実がある——理想論だ」という反論も多かった。最も支持されたコメントは「新規システムでSAMLを選択する理由は今やゼロだが、それでも5年後もSAMLとやり取りするコードを書いていると思う」というあきらめ混じりの洞察。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: blog.trailofbits.com</span>
+      <span>↑102 · 💬51</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://blog.trailofbits.com/2026/09/21/saml-a-fractal-of-bad-design/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49806335" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="saml-fractal-bad-design" data-type="like" onclick="toggleFlag('saml-fractal-bad-design','SAML フラクタル状の欠陥設計','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="saml-fractal-bad-design" data-type="dislike" onclick="toggleFlag('saml-fractal-bad-design','SAML フラクタル状の欠陥設計','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand">Morning Edition</div>
+      <div class="footer-meta">
+        Hacker News フロントページから厳選した10本 — 2026年9月23日（水）<br>
+        フィードバックボタンで好みを記録できます。feedback.json をエクスポートして次回に活用。
+      </div>
+    </div>
+    <button class="export-btn" onclick="exportFeedback()">📥 feedback.json をエクスポート</button>
+  </div>
+  <div class="footer-note">Generated by Claude · Powered by HN Algolia API · No.130</div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  const DB_NAME = 'morning-edition-feedback';
+  const DB_VERSION = 2;
+  const STORE_NAME = 'feedback';
+  let db = null;
+
+  function openDB() {
+    return new Promise((resolve, reject) => {
+      if (db) { resolve(db); return; }
+      const req = indexedDB.open(DB_NAME, DB_VERSION);
+      req.onupgradeneeded = e => {
+        const d = e.target.result;
+        if (!d.objectStoreNames.contains(STORE_NAME)) {
+          d.createObjectStore(STORE_NAME, { keyPath: 'id' });
+        }
+      };
+      req.onsuccess = e => { db = e.target.result; resolve(db); };
+      req.onerror = e => reject(e);
+    });
+  }
+
+  async function saveFeedback(id, title, type) {
+    try {
+      const d = await openDB();
+      const tx = d.transaction(STORE_NAME, 'readwrite');
+      const store = tx.objectStore(STORE_NAME);
+      const existing = await new Promise(res => { const r = store.get(id); r.onsuccess = e => res(e.target.result); r.onerror = () => res(null); });
+      if (existing && existing.type === type) {
+        store.delete(id);
+        return null;
+      }
+      store.put({ id, title, type, date: new Date().toISOString() });
+      return type;
+    } catch (e) {
+      try {
+        const key = 'me_fb_' + id;
+        const existing = localStorage.getItem(key);
+        if (existing && JSON.parse(existing).type === type) { localStorage.removeItem(key); return null; }
+        localStorage.setItem(key, JSON.stringify({ id, title, type, date: new Date().toISOString() }));
+        return type;
+      } catch (e2) { return type; }
+    }
+  }
+
+  async function loadFeedback(id) {
+    try {
+      const d = await openDB();
+      return new Promise(res => {
+        const tx = d.transaction(STORE_NAME, 'readonly');
+        const r = tx.objectStore(STORE_NAME).get(id);
+        r.onsuccess = e => res(e.target.result ? e.target.result.type : null);
+        r.onerror = () => res(null);
+      });
+    } catch (e) {
+      try { const v = localStorage.getItem('me_fb_' + id); return v ? JSON.parse(v).type : null; } catch (e2) { return null; }
+    }
+  }
+
+  function showToast(msg, isError) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.className = 'toast' + (isError ? ' error' : '');
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2200);
+  }
+
+  async function toggleFlag(storyId, title, type) {
+    const result = await saveFeedback(storyId, title, type);
+    updateButtons(storyId, result);
+    if (result === 'like') showToast('⭐ 興味ありとして記録しました');
+    else if (result === 'dislike') showToast('✕ 興味なしとして記録しました');
+    else showToast('フィードバックを解除しました');
+    await syncToFile();
+  }
+
+  function updateButtons(storyId, activeType) {
+    document.querySelectorAll(`[data-story="${storyId}"]`).forEach(btn => {
+      btn.classList.remove('active');
+      if (btn.dataset.type === activeType) btn.classList.add('active');
+    });
+  }
+
+  async function syncToFile() {
+    try {
+      const all = await getAllFeedback();
+      const json = JSON.stringify({ liked: all.filter(f => f.type === 'like').map(f => f.id), disliked: all.filter(f => f.type === 'dislike').map(f => f.id), entries: all }, null, 2);
+      if ('showSaveFilePicker' in window) {
+        try {
+          if (!window._feedbackHandle) return;
+          const writable = await window._feedbackHandle.createWritable();
+          await writable.write(json); await writable.close();
+        } catch (e) {}
+      }
+    } catch (e) {}
+  }
+
+  async function getAllFeedback() {
+    try {
+      const d = await openDB();
+      return new Promise(res => {
+        const tx = d.transaction(STORE_NAME, 'readonly');
+        const r = tx.objectStore(STORE_NAME).getAll();
+        r.onsuccess = e => res(e.target.result || []);
+        r.onerror = () => res([]);
+      });
+    } catch (e) {
+      try {
+        const items = [];
+        for (let i = 0; i < localStorage.length; i++) {
+          const k = localStorage.key(i);
+          if (k && k.startsWith('me_fb_')) { try { items.push(JSON.parse(localStorage.getItem(k))); } catch (e2) {} }
+        }
+        return items;
+      } catch (e2) { return []; }
+    }
+  }
+
+  async function exportFeedback() {
+    try {
+      const all = await getAllFeedback();
+      const json = JSON.stringify({ liked: all.filter(f => f.type === 'like').map(f => f.id), disliked: all.filter(f => f.type === 'dislike').map(f => f.id), entries: all }, null, 2);
+      if ('showSaveFilePicker' in window) {
+        const handle = await window.showSaveFilePicker({ suggestedName: 'feedback.json', types: [{ description: 'JSON', accept: { 'application/json': ['.json'] } }] });
+        window._feedbackHandle = handle;
+        const writable = await handle.createWritable();
+        await writable.write(json); await writable.close();
+        showToast('feedback.json を保存しました');
+      } else {
+        const a = document.createElement('a');
+        a.href = 'data:application/json;charset=utf-8,' + encodeURIComponent(json);
+        a.download = 'feedback.json'; a.click();
+        showToast('feedback.json をダウンロードしました');
+      }
+    } catch (e) { showToast('エクスポートに失敗しました', true); }
+  }
+
+  async function initButtons() {
+    const storyIds = [
+      'claude-opus-5-5','gpt-6-sol-luna','pentagon-ai-missile-iran',
+      'gpt6-astra-enigma-break','claude-opus-5-5-analysis','apple-ios-persistent-ads',
+      'fbi-data-breach-hack','grapheneos-preinstalled-2027',
+      'wordpress-path-traversal-rce','saml-fractal-bad-design'
+    ];
+    for (const id of storyIds) {
+      const type = await loadFeedback(id);
+      if (type) updateButtons(id, type);
+    }
+  }
+
+  initButtons();
+</script>
+</body>
+</html>
