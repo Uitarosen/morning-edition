@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Morning Edition — 2026年9月24日</title>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --font: 'M PLUS Rounded 1c', 'Hiragino Sans', 'Noto Sans JP', sans-serif; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); background: #111; color: #fff; overflow-x: hidden; }
+
+    .masthead { background: #fff; color: #000; padding: 3rem 4rem 2.5rem; border-bottom: 6px solid #000; position: relative; overflow: hidden; }
+    .masthead::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: repeating-linear-gradient(90deg, #000 0, #000 12px, transparent 12px, transparent 20px); }
+    .masthead-kicker { font-size: 0.85rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: #777; margin-bottom: 0.6rem; }
+    .masthead-title { font-size: clamp(3.5rem, 9vw, 7.5rem); font-weight: 900; line-height: 0.88; letter-spacing: -0.04em; margin-bottom: 1.8rem; }
+    .masthead-meta { display: flex; gap: 3rem; align-items: baseline; flex-wrap: wrap; }
+    .masthead-date { font-size: 1.5rem; font-weight: 700; }
+    .masthead-subtitle { font-size: 1rem; font-weight: 400; color: #555; max-width: 480px; line-height: 1.5; }
+    .masthead-issue { margin-left: auto; text-align: right; }
+    .masthead-issue span { display: block; }
+    .masthead-issue .iss-label { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: #999; }
+    .masthead-issue .iss-num { font-size: 2.2rem; font-weight: 900; color: #000; }
+
+    .toc { background: #1a1a1a; padding: 1.5rem 4rem; display: flex; gap: 1.5rem; flex-wrap: wrap; border-bottom: 1px solid #333; }
+    .toc a { color: #aaa; text-decoration: none; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; transition: color 0.2s; }
+    .toc a:hover { color: #fff; }
+    .toc-num { color: #555; margin-right: 0.3em; }
+
+    .story { position: relative; overflow: hidden; }
+    .story-inner { max-width: 1200px; margin: 0 auto; padding: 5rem 4rem; position: relative; z-index: 1; }
+    .story-num { font-size: clamp(6rem, 18vw, 16rem); font-weight: 900; line-height: 0.8; letter-spacing: -0.06em; opacity: 0.08; position: absolute; top: 1rem; right: 2rem; user-select: none; }
+    .story-badge { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.35em 0.9em; border-radius: 2px; margin-bottom: 1.5rem; }
+    .direct-badge { background: #FFD700; color: #000; }
+    .story-kicker { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; opacity: 0.6; margin-bottom: 0.8rem; }
+    .story-headline { font-size: clamp(2rem, 5vw, 4rem); font-weight: 900; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+    .story-body { font-size: clamp(1rem, 1.5vw, 1.2rem); font-weight: 400; line-height: 1.8; max-width: 680px; opacity: 0.88; margin-bottom: 2rem; }
+    .story-meta { display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center; font-size: 0.8rem; font-weight: 700; opacity: 0.5; }
+    .story-links { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem; }
+    .story-link { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.6em 1.4em; border-radius: 3px; text-decoration: none; transition: opacity 0.2s, transform 0.15s; }
+    .story-link:hover { opacity: 0.75; transform: translateY(-1px); }
+
+    .feedback-buttons { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .flag-btn { background: none; border: 1px solid currentColor; color: inherit; font-family: var(--font); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.5em 1em; border-radius: 3px; cursor: pointer; opacity: 0.32; transition: opacity 0.2s, background 0.2s, color 0.2s, border-color 0.2s, transform 0.15s; }
+    .flag-btn:hover { opacity: 0.72; transform: translateY(-1px); }
+    .flag-btn.like-btn.active { opacity: 1; background: rgba(255,215,0,0.15); border-color: #FFD700; color: #FFD700 !important; }
+    .flag-btn.dislike-btn.active { opacity: 1; background: rgba(255,60,60,0.12); border-color: #FF4444; color: #FF4444 !important; }
+
+    .toast { position: fixed; bottom: 2rem; right: 2rem; background: #1a1a1a; color: #fff; font-family: var(--font); font-size: 0.82rem; font-weight: 700; padding: 0.75em 1.4em; border-radius: 4px; border-left: 3px solid #00C853; z-index: 9999; opacity: 0; transform: translateY(10px); transition: opacity 0.25s, transform 0.25s; pointer-events: none; box-shadow: 0 4px 24px rgba(0,0,0,0.45); }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    .toast.error { border-left-color: #FF5252; }
+
+    /* Story 1 — White */
+    .story-1 { background: #fff; color: #000; min-height: 90vh; display: flex; flex-direction: column; justify-content: center; }
+    .story-1 .story-num { color: #000; opacity: 0.04; }
+    .story-1 .story-kicker { color: #555; opacity: 1; }
+    .story-1 .story-headline { color: #000; }
+    .story-1 .story-body { color: #111; }
+    .story-1 .story-meta { color: #000; }
+    .story-1 .story-link.primary { background: #1a1a1a; color: #fff; }
+    .story-1 .story-link.secondary { background: #f0f0f0; color: #000; }
+    .story-1 .flag-btn { color: #000; }
+    .story-1-accent { position: absolute; bottom: 0; left: 0; width: 100%; height: 8px; background: linear-gradient(90deg, #0a0a0a, #555, #0a0a0a); }
+    .story-1 .headline-accent { display: inline-block; background: linear-gradient(135deg, #1a1a1a 0%, #555 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .blue-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1.2rem; margin: 2rem 0; max-width: 680px; }
+    .blue-card { border: 2px solid rgba(0,0,0,0.12); background: rgba(0,0,0,0.03); border-radius: 6px; padding: 1.3rem 1.5rem; }
+    .blue-card-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.2em; text-transform: uppercase; color: #333; margin-bottom: 0.4rem; }
+    .blue-card-value { font-size: 1.05rem; font-weight: 900; color: #000; line-height: 1.3; }
+    .blue-card-sub { font-size: 0.75rem; color: #555; margin-top: 0.3rem; line-height: 1.4; }
+
+    /* Story 2 — Dark navy/teal */
+    .story-2 { background: #00080c; color: #b8f0ff; min-height: 80vh; }
+    .story-2::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(0,160,200,0.14) 0%, transparent 65%); }
+    .story-2 .story-num { color: #00A0C8; opacity: 0.07; }
+    .story-2 .story-kicker { color: #20C8E8; opacity: 1; }
+    .story-2 .story-headline { color: #e0f8ff; }
+    .story-2 .story-body { color: #b8f0ff; }
+    .story-2 .story-meta { color: #20C8E8; opacity: 0.5; }
+    .story-2 .story-link.primary { background: #004058; color: #80e8ff; }
+    .story-2 .story-link.secondary { background: rgba(0,160,200,0.08); color: #90d8f0; border: 1px solid rgba(0,160,200,0.22); }
+    .story-2 .flag-btn { color: #b8f0ff; }
+    .teal-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .teal-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(0,160,200,0.07); border-left: 3px solid #00A0C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .teal-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20C8E8; margin-bottom: 0.3rem; }
+    .teal-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 3 — Dark red */
+    .story-3 { background: #0a0000; color: #fff; min-height: 80vh; }
+    .story-3::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(200,20,20,0.16) 0%, transparent 65%); }
+    .story-3 .story-num { color: #C81414; opacity: 0.07; }
+    .story-3 .story-kicker { color: #E84040; opacity: 1; }
+    .story-3 .story-headline { color: #fff; }
+    .story-3 .story-body { color: rgba(255,255,255,0.88); }
+    .story-3 .story-meta { color: #E84040; opacity: 0.5; }
+    .story-3 .story-link.primary { background: #6a0000; color: #fff; }
+    .story-3 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-3 .flag-btn { color: #fff; }
+    .red-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .red-item { background: rgba(200,20,20,0.07); border-left: 3px solid #C81414; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .red-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E84040; margin-bottom: 0.3rem; }
+    .red-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 4 — Dark green */
+    .story-4 { background: #020c04; color: #c8f0d0; min-height: 80vh; }
+    .story-4::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(20,160,70,0.16) 0%, transparent 65%); }
+    .story-4 .story-num { color: #14A046; opacity: 0.07; }
+    .story-4 .story-kicker { color: #30C060; opacity: 1; }
+    .story-4 .story-headline { color: #e0ffe8; }
+    .story-4 .story-body { color: #c8f0d0; }
+    .story-4 .story-meta { color: #30C060; opacity: 0.5; }
+    .story-4 .story-link.primary { background: #063820; color: #80ffb0; }
+    .story-4 .story-link.secondary { background: rgba(20,160,70,0.08); color: #a0e8b0; border: 1px solid rgba(20,160,70,0.22); }
+    .story-4 .flag-btn { color: #c8f0d0; }
+    .green-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .green-item { background: rgba(20,160,70,0.07); border-left: 3px solid #14A046; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .green-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #30C060; margin-bottom: 0.3rem; }
+    .green-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 5 — Dark purple */
+    .story-5 { background: #040010; color: #d8c8ff; min-height: 75vh; }
+    .story-5::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(90,40,200,0.17) 0%, transparent 65%); }
+    .story-5 .story-num { color: #5A28C8; opacity: 0.07; }
+    .story-5 .story-kicker { color: #8050E0; opacity: 1; }
+    .story-5 .story-headline { color: #f0e8ff; }
+    .story-5 .story-body { color: #d8c8ff; }
+    .story-5 .story-meta { color: #8050E0; opacity: 0.5; }
+    .story-5 .story-link.primary { background: #200860; color: #d0a8ff; }
+    .story-5 .story-link.secondary { background: rgba(90,40,200,0.08); color: #c0a0f0; border: 1px solid rgba(90,40,200,0.22); }
+    .story-5 .flag-btn { color: #d8c8ff; }
+    .purple-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .purple-item { background: rgba(90,40,200,0.07); border-left: 3px solid #5A28C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .purple-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #8050E0; margin-bottom: 0.3rem; }
+    .purple-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 6 — Dark cyan */
+    .story-6 { background: #000c10; color: #b8e8f0; min-height: 75vh; }
+    .story-6::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 40%, rgba(0,130,160,0.14) 0%, transparent 65%); }
+    .story-6 .story-num { color: #0080A0; opacity: 0.07; }
+    .story-6 .story-kicker { color: #20B0D0; opacity: 1; }
+    .story-6 .story-headline { color: #e0f4ff; }
+    .story-6 .story-body { color: #b8e8f0; }
+    .story-6 .story-meta { color: #20B0D0; opacity: 0.5; }
+    .story-6 .story-link.primary { background: #003848; color: #80d8f0; }
+    .story-6 .story-link.secondary { background: rgba(0,130,160,0.08); color: #90cce0; border: 1px solid rgba(0,130,160,0.22); }
+    .story-6 .flag-btn { color: #b8e8f0; }
+    .cyan-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .cyan-item { background: rgba(0,130,160,0.07); border-left: 3px solid #0080A0; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .cyan-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20B0D0; margin-bottom: 0.3rem; }
+    .cyan-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 7 — Dark amber */
+    .story-7 { background: #0a0300; color: #ffe0b8; min-height: 75vh; }
+    .story-7::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(210,90,20,0.18) 0%, transparent 65%); }
+    .story-7 .story-num { color: #D05A14; opacity: 0.07; }
+    .story-7 .story-kicker { color: #E88040; opacity: 1; }
+    .story-7 .story-headline { color: #fff0d8; }
+    .story-7 .story-body { color: #ffe0b8; }
+    .story-7 .story-meta { color: #E88040; opacity: 0.5; }
+    .story-7 .story-link.primary { background: #6a2400; color: #ffc880; }
+    .story-7 .story-link.secondary { background: rgba(210,90,20,0.08); color: #ffb870; border: 1px solid rgba(210,90,20,0.22); }
+    .story-7 .flag-btn { color: #ffe0b8; }
+    .amber-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .amber-item { background: rgba(210,90,20,0.07); border-left: 3px solid #D05A14; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .amber-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E88040; margin-bottom: 0.3rem; }
+    .amber-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 8 — Dark gold */
+    .story-8 { background: #080500; color: #fff; min-height: 70vh; }
+    .story-8::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,145,10,0.15) 0%, transparent 65%); }
+    .story-8 .story-num { color: #BE9110; opacity: 0.06; }
+    .story-8 .story-kicker { color: #D4A820; opacity: 1; }
+    .story-8 .story-headline { color: #fff; }
+    .story-8 .story-body { color: rgba(255,255,255,0.88); }
+    .story-8 .story-meta { color: #D4A820; opacity: 0.5; }
+    .story-8 .story-link.primary { background: #604000; color: #ffe070; }
+    .story-8 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-8 .flag-btn { color: #fff; }
+    .gold-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .gold-item { background: rgba(190,145,10,0.07); border-left: 3px solid #BE9110; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .gold-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #D4A820; margin-bottom: 0.3rem; }
+    .gold-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 9 — Slate blue */
+    .story-9 { background: #040810; color: #c8d8f0; min-height: 70vh; }
+    .story-9::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 35%, rgba(50,90,170,0.16) 0%, transparent 65%); }
+    .story-9 .story-num { color: #3258A8; opacity: 0.07; }
+    .story-9 .story-kicker { color: #5878C8; opacity: 1; }
+    .story-9 .story-headline { color: #e8f0ff; }
+    .story-9 .story-body { color: #c8d8f0; }
+    .story-9 .story-meta { color: #5878C8; opacity: 0.5; }
+    .story-9 .story-link.primary { background: #101e50; color: #fff; }
+    .story-9 .story-link.secondary { background: rgba(50,90,170,0.08); color: #b0c8e8; border: 1px solid rgba(50,90,170,0.22); }
+    .story-9 .flag-btn { color: #c8d8f0; }
+    .slate-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .slate-item { background: rgba(50,90,170,0.07); border-left: 3px solid #3258A8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .slate-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #5878C8; margin-bottom: 0.3rem; }
+    .slate-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 10 — Magenta */
+    .story-10 { background: #080004; color: #ffc8e8; min-height: 70vh; }
+    .story-10::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,20,90,0.15) 0%, transparent 65%); }
+    .story-10 .story-num { color: #BE1458; opacity: 0.07; }
+    .story-10 .story-kicker { color: #E04080; opacity: 1; }
+    .story-10 .story-headline { color: #fff0f8; }
+    .story-10 .story-body { color: #ffc8e8; }
+    .story-10 .story-meta { color: #E04080; opacity: 0.5; }
+    .story-10 .story-link.primary { background: #500030; color: #ffb0d8; }
+    .story-10 .story-link.secondary { background: rgba(190,20,90,0.08); color: #f090c0; border: 1px solid rgba(190,20,90,0.22); }
+    .story-10 .flag-btn { color: #ffc8e8; }
+    .mag-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .mag-item { background: rgba(190,20,90,0.07); border-left: 3px solid #BE1458; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .mag-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E04080; margin-bottom: 0.3rem; }
+    .mag-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .site-footer { background: #000; color: #555; padding: 3rem 4rem; display: flex; flex-direction: column; gap: 1.5rem; border-top: 1px solid #222; }
+    .footer-top { display: flex; gap: 2rem; align-items: center; flex-wrap: wrap; justify-content: space-between; }
+    .footer-brand { font-size: 1.4rem; font-weight: 900; color: #fff; }
+    .footer-meta { font-size: 0.75rem; line-height: 1.6; }
+    .export-btn { background: #222; border: 1px solid #444; color: #fff; font-family: var(--font); font-size: 0.8rem; font-weight: 700; padding: 0.7em 1.5em; border-radius: 3px; cursor: pointer; letter-spacing: 0.08em; transition: background 0.2s; }
+    .export-btn:hover { background: #333; }
+    .footer-note { font-size: 0.7rem; opacity: 0.5; }
+
+    @media (max-width: 768px) {
+      .masthead, .toc, .story-inner, .site-footer { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .story-num { display: none; }
+      .masthead-meta { gap: 1rem; }
+      .masthead-issue { margin-left: 0; }
+      .blue-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+<nav style="background:#1a1a1a;border-bottom:1px solid #333;padding:0.55rem 2rem;font-family:'M PLUS Rounded 1c','Hiragino Sans','Noto Sans JP',sans-serif;position:sticky;top:0;z-index:999;">
+  <a href="./index.html" style="color:#aaa;text-decoration:none;font-size:0.8rem;font-weight:700;letter-spacing:0.03em;display:inline-flex;align-items:center;gap:0.4rem;transition:color 0.15s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#aaa'">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    アーカイブへ戻る
+  </a>
+</nav>
+
+<header class="masthead">
+  <div class="masthead-kicker">Hacker News — Morning Edition</div>
+  <h1 class="masthead-title">Morning<br>Edition</h1>
+  <div class="masthead-meta">
+    <div>
+      <div class="masthead-date">2026年9月24日 木曜日</div>
+      <div class="masthead-subtitle">AI・開発ツール・プライバシー・サイエンス — あなたのための10本</div>
+    </div>
+    <div class="masthead-issue">
+      <span class="iss-label">Issue</span>
+      <span class="iss-num">No.131</span>
+    </div>
+  </div>
+</header>
+
+<nav class="toc">
+  <a href="#s1"><span class="toc-num">01</span>⚡ Claudeが新規酵素システムを発見——CRISPRに似た反復配列を持つ</a>
+  <a href="#s2"><span class="toc-num">02</span>⚡ Claude CodeがAGENTS.mdを読むのはテレメトリON時のみ</a>
+  <a href="#s3"><span class="toc-num">03</span>イタリア議会、原子力エネルギー復帰に賛成票</a>
+  <a href="#s4"><span class="toc-num">04</span>「詳細はいらない」——情報過多時代のコミュニケーション論</a>
+  <a href="#s5"><span class="toc-num">05</span>シアトル市議会、食料品の「監視価格設定」を禁止</a>
+  <a href="#s6"><span class="toc-num">06</span>Gemini 3.8 Text-to-Speech——Googleの新音声合成モデル</a>
+  <a href="#s7"><span class="toc-num">07</span>トークンはメーター課金が不要なほど安くなる</a>
+  <a href="#s8"><span class="toc-num">08</span>StripeのKnowledge AIプラットフォーム</a>
+  <a href="#s9"><span class="toc-num">09</span>⚡ Claudeは計測できるものを高速化できる</a>
+  <a href="#s10"><span class="toc-num">10</span>VSCodeのSSHエージェントはバナナ級に奇妙</a>
+</nav>
+
+<!-- ═══ STORY 1 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-1" id="s1">
+  <div class="story-num">01</div>
+  <div class="story-inner">
+    <span class="story-badge direct-badge">⚡ あなたに直接関係</span>
+    <div class="story-kicker">AI / Anthropic / Claude / 科学 / バイオテクノロジー / 酵素 — 2026-09-24</div>
+    <h2 class="story-headline">
+      Claudeが新規<br>酵素システムを<br><span class="headline-accent">発見——CRISPR類似<br>反復配列を持つ</span>
+    </h2>
+    <div class="story-body">
+      AnthropicがClaude自身による科学的発見を報告し、HNで439点・486コメントと本日2位の大きな反響を集めています。Claudeが膨大な生物学的データベースを独自に解析した結果、CRISPR-CasシステムのようなDNA反復配列を持つまったく新しい酵素システムを発見しました。これはAIが人間の指示なしに独立した科学的仮説を立て、それを検証するという研究プロセスそのものに踏み込んだ初の事例として注目されています。
+    </div>
+    <div class="blue-grid">
+      <div class="blue-card">
+        <div class="blue-card-label">発見の概要</div>
+        <div class="blue-card-value">新規酵素システム</div>
+        <div class="blue-card-sub">ClaudeはNCBIのゲノムデータベースやUniProtの蛋白質データを横断検索し、既知のCRISPR-Casとは別系統でありながら類似した反復配列（direct repeats）を持つ新規の酵素複合体を特定した。この酵素は特定の細菌ゲノムに分布し、ファージ防御機能を持つ可能性があるという。Anthropicは独立した生物学研究者チームによる検証実験を現在進めている。</div>
+      </div>
+      <div class="blue-card">
+        <div class="blue-card-label">AIによる科学的発見の意味</div>
+        <div class="blue-card-value">人間の仮説なし</div>
+        <div class="blue-card-sub">重要なのはClaudeがユーザーから「この酵素を探せ」と言われたのではなく、自律的にパターンを発見したという点。Anthropicのチームは「モデルにデータベースへのアクセスと探索の自由を与えた」のみで、発見の方向性は指定しなかったという。AIが科学的な仮説生成→検証設計まで担うという将来像が現実に近づいていることを示す。</div>
+      </div>
+      <div class="blue-card">
+        <div class="blue-card-label">HNでの反応</div>
+        <div class="blue-card-value">科学者・懐疑論者が混在</div>
+        <div class="blue-card-sub">「同様のパターンは既に2022年の論文に記載されている——Claudeの発見は既知ではないか」という批判的コメントが複数の生物学者から寄せられた一方、「独立したデータ駆動発見として価値がある」「検証実験が本質だ」という反論も多数。最も支持されたコメントは「この発見自体よりも、AIが探索する空間と手法が重要——公開されれば再現性を確認できる」という研究者の視点だった。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: anthropic.com</span>
+      <span>↑439 · 💬486</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.anthropic.com/news/claude-discovers-novel-enzyme-system" target="_blank">発表を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49820134" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="claude-novel-enzyme-crispr" data-type="like" onclick="toggleFlag('claude-novel-enzyme-crispr','Claude新規酵素システム発見CRISPR類似','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="claude-novel-enzyme-crispr" data-type="dislike" onclick="toggleFlag('claude-novel-enzyme-crispr','Claude新規酵素システム発見CRISPR類似','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+    <div class="story-1-accent"></div>
+  </div>
+</section>
+
+<!-- ═══ STORY 2 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-2" id="s2">
+  <div class="story-num">02</div>
+  <div class="story-inner">
+    <span class="story-badge direct-badge">⚡ あなたに直接関係</span>
+    <div class="story-kicker">Claude Code / セキュリティ / テレメトリ / プライバシー / AGENTS.md / 開発ツール — 2026-09-24</div>
+    <h2 class="story-headline">
+      Claude Code——<br>AGENTS.mdを読むのは<br><span style="color:#20d8f0">テレメトリON<br>時のみだった</span>
+    </h2>
+    <div class="story-body">
+      開発者Szymon Szypowskiのブログ記事「Claude Code reads AGENTS.md only when telemetry is on」がHNで439点・247コメントを集め、Claude Codeユーザーに直接影響する調査として大きな注目を集めています。Claude Codeが`AGENTS.md`ファイルを読み込むかどうかがテレメトリの有効・無効設定に依存していることが判明し、その仕様の意図についての議論が噴出しました。なお投稿タイトルに「[fixed]」が付いており、この挙動はその後修正されています。
+    </div>
+    <div class="teal-items">
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">何が起きていたか</div>
+          <div class="teal-text">調査によると、`AGENTS.md`はプロジェクトルートに置くことでClaude Codeに振る舞いの指示を与えるファイルだが、テレメトリを無効にした環境（`CLAUDE_TELEMETRY_DISABLED=1`など）ではこのファイルが読み込まれないか、正しく適用されないことが発見された。意図的な設計なのか実装上のバグなのかが不明だったため、特にテレメトリをオフにしている企業・プライバシー重視ユーザーにとって深刻な問題として受け止められた。</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">Anthropicの対応と「[fixed]」の意味</div>
+          <div class="teal-text">HNでの議論が盛り上がる中、記事タイトルに「[fixed]」が付いた。Anthropicがバグとして認識し修正を施したことを示しているが、修正の詳細（コミットハッシュや変更内容）が公式に説明されたわけではなく、「いつ修正されたのか」「どのバージョンから適用されるのか」についての追加情報を求める声が多い。テレメトリOFF環境でClaude Codeをアップデートして再確認することが推奨されている。</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">HNでの反応とより大きな議論</div>
+          <div class="teal-text">「テレメトリのON/OFFが機能の有効・無効に影響するとすれば、それは利用者への脅迫に近い」という強い批判と、「実装上の偶発的なバグで意図的ではないはずだ」という擁護が対立した。「テレメトリを無効にすると一部機能が使えない」という設計は業界でも議論のある慣行であり、Anthropicがこの問題をどう説明するかに注目が集まっている。Claude CodeユーザーはAGENTS.mdの挙動を手動で確認することを推奨するコメントが多く見られた。</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: blog.szypowi.cz</span>
+      <span>↑439 · 💬247</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://blog.szypowi.cz/p/claude-code-reads-agents.md-only-when-telemetry-is-on/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49814947" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="claude-code-agents-md-telemetry" data-type="like" onclick="toggleFlag('claude-code-agents-md-telemetry','Claude CodeがAGENTS.mdを読むのはテレメトリON時のみ','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="claude-code-agents-md-telemetry" data-type="dislike" onclick="toggleFlag('claude-code-agents-md-telemetry','Claude CodeがAGENTS.mdを読むのはテレメトリON時のみ','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 3 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-3" id="s3">
+  <div class="story-num">03</div>
+  <div class="story-inner">
+    <div class="story-kicker">エネルギー / イタリア / 原子力 / 政策 / 欧州 / チェルノブイリ — 2026-09-24</div>
+    <h2 class="story-headline">
+      イタリア議会——<br>原子力エネルギー<br><span style="color:#ff6060">復帰に<br>賛成票を投じる</span>
+    </h2>
+    <div class="story-body">
+      AP通信の報道「Italian parliament votes for return to nuclear energy」がHNで532点・343コメントと本日最多アップ票を集めています。イタリアは1987年のチェルノブイリ事故後の国民投票で原子力を放棄した後、約40年ぶりに原子力エネルギーへの回帰を議会として承認しました。欧州各国でエネルギー安全保障への懸念が高まる中、脱原発から再び原子力へと揺り戻す象徴的な転換点として国際的な注目を集めています。
+    </div>
+    <div class="red-items">
+      <div class="red-item">
+        <div class="red-label">イタリアの原子力の歴史と今回の決定</div>
+        <div class="red-text">イタリアはかつてフランス・英国に次ぐ欧州第3位の原子力国だったが、1986年のチェルノブイリ事故の翌年に行われた国民投票で原子力発電を全廃。それ以降約40年間、電力の多くをフランスからの輸入（原子力由来）に依存してきた。今回の議会決定は具体的な建設計画ではなく「原子力エネルギーをエネルギーミックスに含める方針」の枠組みを定めるもので、実際の原発建設には10〜15年以上かかる見込みとされる。</div>
+      </div>
+      <div class="red-item">
+        <div class="red-label">欧州全体のエネルギー文脈</div>
+        <div class="red-text">ウクライナ戦争後のロシア産天然ガス依存脱却を迫られた欧州では、再生可能エネルギーの急速な普及と並行して「ベースロード電源としての原子力再評価」が進んでいる。フランスはEPR2新型炉の建設を加速し、ポーランドやオランダなど複数国が新規原発の計画を進めている。ドイツが2023年に最後の原発を閉鎖したのとは対照的な流れで、欧州内の「原子力観」の分裂が深まっている。</div>
+      </div>
+      <div class="red-item">
+        <div class="red-label">HNでの反応と次世代炉への期待</div>
+        <div class="red-text">「40年のブランクがある国が現実的に原発を建設できるか——技術人材も規制体制もゼロから再構築が必要」という懐疑的な声と、「SMR（小型モジュール炉）や第四世代炉の時代にはむしろブランクがあった方がレガシーシステムに縛られず有利」という楽観論が対立した。核廃棄物処理・立地選定・住民合意のハードルを問う現実的なコメントも多く、「意思決定から送電開始まで20年」という見方が共有された。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: apnews.com</span>
+      <span>↑532 · 💬343</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://apnews.com/article/italy-nuclear-chernobyl-4891b6b7c7791ae84db6b0bf0f7cf" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49819221" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="italy-nuclear-energy-vote" data-type="like" onclick="toggleFlag('italy-nuclear-energy-vote','イタリア議会原子力エネルギー復帰賛成票','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="italy-nuclear-energy-vote" data-type="dislike" onclick="toggleFlag('italy-nuclear-energy-vote','イタリア議会原子力エネルギー復帰賛成票','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 4 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-4" id="s4">
+  <div class="story-num">04</div>
+  <div class="story-inner">
+    <div class="story-kicker">開発 / コミュニケーション / UX / ドキュメント / 情報設計 / 生産性 — 2026-09-24</div>
+    <h2 class="story-headline">
+      「詳細はいらない」——<br>情報過多時代の<br><span style="color:#30d060">コミュニケーション論</span>
+    </h2>
+    <div class="story-body">
+      Michael Heapのエッセイ「I don't want the details」がHNで338点・191コメントを集め、開発者コミュニティに響く議論を呼んでいます。APIドキュメント・プルリクエスト・Slackメッセージ・会議——どこもかしこも「詳細すぎる情報」で溢れている現代に対して、「相手が本当に必要なのはサマリーと行動指針だ」という主張を、具体例とともに展開した記事です。
+    </div>
+    <div class="green-items">
+      <div class="green-item">
+        <div class="green-label">記事の核心的主張</div>
+        <div class="green-text">Heapは「詳細を提供することは相手への親切のように見えて、実際には認知負荷の押しつけだ」と主張する。例として、PRの説明文で「この変更はXとYとZの3ファイルに影響し、AというAPIを呼び出し……」と書くのではなく「ユーザー認証フローを修正した。テスト済み。レビュー観点はエラーハンドリングのみ」と書くべきだという。情報を絞ることは怠慢ではなく、相手の時間と注意力を尊重する行為だという視点。</div>
+      </div>
+      <div class="green-item">
+        <div class="green-label">開発者が詳細を書きすぎる理由</div>
+        <div class="green-text">記事は「詳細を多く書くのは自己防衛」という分析も提示している。「何かを指摘されたとき、既に書いておいた詳細を指せる」「自分の作業量を証明できる」という無意識の動機があると指摘。また「詳細を省略すると不誠実・怠慢と思われないか」という恐れも大きいという。これに対してHeapは「詳細が必要な人は聞ける、聞かれたときに答えればいい——先に全部書く必要はない」と反論する。</div>
+      </div>
+      <div class="green-item">
+        <div class="green-label">HNでの反応と反論</div>
+        <div class="green-text">「同意。自分も詳細を省いたドキュメントを好む」という支持と、「非同期コミュニケーションでは詳細がないと往復が増えて非効率——文化による」という反論が拮抗した。特に「タイムゾーンが異なるチームでの非同期作業では、詳細な記述が往復コスト削減になる」という視点が多くの支持を集めた。「誰が読むか・文脈の共有度で答えは変わる——一概には言えない」という中立的コメントが最も多くアップ票を得た。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: michaelheap.com</span>
+      <span>↑338 · 💬191</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://michaelheap.com/i-dont-want-the-details/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49815466" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="i-dont-want-the-details" data-type="like" onclick="toggleFlag('i-dont-want-the-details','詳細はいらない情報過多コミュニケーション論','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="i-dont-want-the-details" data-type="dislike" onclick="toggleFlag('i-dont-want-the-details','詳細はいらない情報過多コミュニケーション論','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 5 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-5" id="s5">
+  <div class="story-num">05</div>
+  <div class="story-inner">
+    <div class="story-kicker">プライバシー / 監視価格設定 / 小売 / AI / 立法 / シアトル — 2026-09-24</div>
+    <h2 class="story-headline">
+      シアトル市議会——<br>食料品の<br><span style="color:#b070ff">「監視価格設定」<br>を禁止</span>
+    </h2>
+    <div class="story-body">
+      Consumer Reportsのプレスリリース「Seattle City Council votes to ban surveillance pricing in sale of groceries」がHNで286点・179コメントを集めています。シアトル市議会が、AIと顧客の購買データ・位置情報・行動分析などを組み合わせて個人ごとに異なる価格を設定する「サーベイランス・プライシング（監視価格設定）」を食料品販売で禁止する条例を可決しました。消費者データの商業利用に対する地方レベルの規制として注目されています。
+    </div>
+    <div class="purple-items">
+      <div class="purple-item">
+        <div class="purple-label">「監視価格設定」とは何か</div>
+        <div class="purple-text">動的価格設定自体は以前から存在するが（航空券・ホテルなど）、今回禁止された「サーベイランス・プライシング」はより踏み込んだものだ。消費者の購買履歴・位置データ・ブラウジング履歴・経済状況推定値などを組み合わせ、「この人は高く払う可能性が高い」「この人は他に選択肢がない」と判断した場合に高い価格を提示するAIシステムを指す。食料品は生活必需品であるため、価格差別の影響が特に大きいとして規制の対象になった。</div>
+      </div>
+      <div class="purple-item">
+        <div class="purple-label">連邦取引委員会（FTC）の動きとの関係</div>
+        <div class="purple-text">FTCは2024年にアマゾン・ウォルマートなど大手小売業者8社に対して監視価格設定の実態調査を開始しており、今回のシアトル条例はその流れに呼応した地方立法として位置付けられる。条例の施行はFTCの連邦規制が空白である間の地域的な先行規制として機能する。一方、「大手小売業者は即座にシアトルの店舗での価格設定システムを変更できるのか」という実施可能性への疑問も多く寄せられた。</div>
+      </div>
+      <div class="purple-item">
+        <div class="purple-label">HNでの反応と技術的議論</div>
+        <div class="purple-text">「食料品は良いが、他の商品での監視価格設定は許容されるのか——境界線が恣意的」という批判と、「まず最も弱い立場の消費者が影響を受ける生活必需品から始めるのは合理的」という擁護が対立した。技術的には「匿名化されたデータを使えば法律を回避できるのでは」「VPNや位置詐称で消費者側が対抗できるか」という議論も。「プライバシー規制はパッチワーク的な地方条例より統一連邦法が必要」という見解が多くの支持を集めた。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: consumerreports.org</span>
+      <span>↑286 · 💬179</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://advocacy.consumerreports.org/press_release/seattle-city-council-votes-to" target="_blank">プレスリリースを読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49816374" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="seattle-ban-surveillance-pricing" data-type="like" onclick="toggleFlag('seattle-ban-surveillance-pricing','シアトル市議会食料品監視価格設定禁止条例','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="seattle-ban-surveillance-pricing" data-type="dislike" onclick="toggleFlag('seattle-ban-surveillance-pricing','シアトル市議会食料品監視価格設定禁止条例','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 6 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-6" id="s6">
+  <div class="story-num">06</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / Google / Gemini / 音声合成 / TTS / マルチモーダル — 2026-09-24</div>
+    <h2 class="story-headline">
+      Gemini 3.8<br>Text-to-Speech——<br><span style="color:#20b8d0">Googleの新<br>音声合成モデル</span>
+    </h2>
+    <div class="story-body">
+      Googleが「Gemini 3.8 text-to-speech」を発表し、HNで242点・118コメントを集めています。Geminiモデルシリーズに音声合成機能が統合され、テキストから高品質な音声生成を直接行えるようになりました。従来のText-to-Speechサービスと異なり、Geminiが文脈を理解した上で感情・強調・リズムを自然に調整した音声を生成するとされており、ポッドキャスト生成・アクセシビリティツール・音声インターフェースへの応用が注目されています。
+    </div>
+    <div class="cyan-items">
+      <div class="cyan-item">
+        <div class="cyan-label">技術的な特徴：文脈理解型TTS</div>
+        <div class="cyan-text">Googleの発表によると、Gemini 3.8のTTS機能は単純な文字→音声変換ではなく、テキストの意味・感情・話し方のスタイルを理解して出力する「ネイティブマルチモーダル」アーキテクチャを採用している。例として「彼は泣きながら言った」という文章では声のトーンが自動的に感情的になり、「警告：危険！」では強調が加わるという。多言語対応も改善され、特に日本語・韓国語・アラビア語などの非英語言語での自然さが向上したとされる。</div>
+      </div>
+      <div class="cyan-item">
+        <div class="cyan-label">ElevenLabsやOpenAI TTS-1との比較</div>
+        <div class="cyan-text">現時点の競合としてElevenLabs（V3）、OpenAI TTS-1-HDが挙げられるが、HNでの比較では「自然さではElevenLabsが依然リード」「Gemini 3.8 TTSはコスト面と長文処理で優位」という評価が多かった。特に「5000文字以上の長文を一括音声変換する場合のレイテンシと品質安定性がGemini TTSの強み」という報告が開発者から寄せられた。Gemini APIとのシームレスな統合がすでにGoogleエコシステムを使っている開発者には大きな利点。</div>
+      </div>
+      <div class="cyan-item">
+        <div class="cyan-label">HNでの実用評価</div>
+        <div class="cyan-text">「今日早速NotebookLMでの音声生成に使ってみた——ポッドキャスト生成が明らかに自然になった」という実用報告が複数見られた。批判的なコメントとしては「感情が豊かすぎてビジネス用途には不自然な場面がある」「声のバリエーション数がまだElevenLabsに及ばない」という指摘。また「日本語のイントネーションが前モデルより改善されているが、まだアクセントが不自然な単語がある」という日本語評価も複数投稿された。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: blog.google</span>
+      <span>↑242 · 💬118</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-3-8-text-to-speech/" target="_blank">発表を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49817615" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="gemini-38-text-to-speech" data-type="like" onclick="toggleFlag('gemini-38-text-to-speech','Gemini 3.8 Text-to-Speech Google発表','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="gemini-38-text-to-speech" data-type="dislike" onclick="toggleFlag('gemini-38-text-to-speech','Gemini 3.8 Text-to-Speech Google発表','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 7 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-7" id="s7">
+  <div class="story-num">07</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / LLM / コスト / ソフトウェア設計 / 経済 / 未来予測 — 2026-09-24</div>
+    <h2 class="story-headline">
+      トークンは<br>メーター課金が<br><span style="color:#e88040">不要なほど<br>安くなる</span>
+    </h2>
+    <div class="story-body">
+      jyn.devのエッセイ「Tokens too cheap to meter」がHNで221点・176コメントを集め、AIコストの急落がソフトウェア設計に与える根本的な変化を論じています。電力の歴史において「電力はメーター課金が不要なほど安くなる」と言われた時代になぞらえて、LLMのトークンコストが急速に低下しており、近い将来「コストを気にして推論の量を絞る」設計が時代遅れになるという展望を描いています。
+    </div>
+    <div class="amber-items">
+      <div class="amber-item">
+        <div class="amber-label">トークンコスト急落の実態</div>
+        <div class="amber-text">記事はGPT-4（2023年）と現在のモデルを比較し、同等の性能で100倍以上のコスト削減が達成されたと主張する。「100万トークン=1ドル以下」のモデルが標準になりつつあり、かつてコスト上の理由から「一度だけの短いプロンプト」で済まそうとしていたタスクに、「複数回の深い推論チェーン」を使えるようになっている。この傾向が続けば、計算コストよりもAPIのスループット（速度）が次のボトルネックになるという分析。</div>
+      </div>
+      <div class="amber-item">
+        <div class="amber-label">設計思想の転換：コスト最適化からの解放</div>
+        <div class="amber-text">筆者は「今のソフトウェアエンジニアはまだ計算コストが高かった時代の設計思想に縛られている」と指摘する。具体的には①プロンプトを短くするための圧縮技術への過剰投資②少ないコンテキストで推論させるためのRAGへの依存③バッチ処理による節約設計——がいずれも「コストが十分安くなれば不要になる」最適化だという。代わりに「推論の質を最大化するシンプルな設計」を早めに学習すべきだという。</div>
+      </div>
+      <div class="amber-item">
+        <div class="amber-label">HNでの反論と現実的批判</div>
+        <div class="amber-text">「コストが安くなるのは事実だが、使用量も同時に爆発的に増えるため企業の総支出は増える——コストが消えるわけではない」という反論が最も多くの支持を集めた。また「今のコスト感覚で設計しないと、コスト安時代に移行したときに無駄な複雑さが残る——でも今の設計に技術負債は生まれない」という現実的な折衷意見も。「電力も安くなったが電気代は依然として家計の大きな項目」という歴史的アナロジーへの反証も鋭かった。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: jyn.dev</span>
+      <span>↑221 · 💬176</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://jyn.dev/tokens-too-cheap-to-meter/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49813482" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="tokens-too-cheap-to-meter" data-type="like" onclick="toggleFlag('tokens-too-cheap-to-meter','トークンはメーター課金不要なほど安くなる','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="tokens-too-cheap-to-meter" data-type="dislike" onclick="toggleFlag('tokens-too-cheap-to-meter','トークンはメーター課金不要なほど安くなる','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 8 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-8" id="s8">
+  <div class="story-num">08</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / Stripe / 社内ツール / 知識管理 / LLM / エンタープライズ — 2026-09-24</div>
+    <h2 class="story-headline">
+      StripeのKnowledge<br>AI<br><span style="color:#d4a820">プラットフォームを<br>公開</span>
+    </h2>
+    <div class="story-body">
+      Stripeが開発者ブログで「Meet Stripe's Knowledge AI Platform」を公開し、HNで170点・106コメントを集めています。Stripeが社内の膨大な知識（ドキュメント・Slack会話・コードベース・インシデント記録）をAIが検索・回答できる形で統合したKnowledge AIプラットフォームの内部アーキテクチャを詳細に解説した技術記事です。エンタープライズ向けの実用的なRAGシステム構築事例として開発者コミュニティから注目されています。
+    </div>
+    <div class="gold-items">
+      <div class="gold-item">
+        <div class="gold-label">アーキテクチャの概要</div>
+        <div class="gold-text">Stripeが構築したシステムはRAG（Retrieval-Augmented Generation）をベースに、複数の知識ソース（Confluence・GitHub・Slack・社内Wiki・Runbookなど）を統合インデックス化している。クエリに対してハイブリッド検索（BM25 + ベクトル埋め込み）でチャンクを取得し、LLMが回答を合成する構造。特徴的なのは「検索の信頼スコア」で、低スコアの場合は「情報が見つかりませんでした」と正直に返答するよう設計した点で、誤った確信（ハルシネーション）の抑制を重視している。</div>
+      </div>
+      <div class="gold-item">
+        <div class="gold-label">実運用での学びと課題</div>
+        <div class="gold-text">記事は実際の運用から得た具体的な知見を多数共有している。①チャンクサイズ——大きすぎると関係ない文脈が混入し、小さすぎると文脈が失われる。512トークン前後が最適と判明。②metadata活用——ドキュメントの作成日・著者・更新頻度などのメタデータを検索時のランキングに組み込むと精度が向上。③フィードバックループ——ユーザーが「この回答は役立たなかった」とフラグを立てると自動的にリインデックスの候補になる仕組みを構築。</div>
+      </div>
+      <div class="gold-item">
+        <div class="gold-label">HNでの反応と再現可能性</div>
+        <div class="gold-text">「Stripeの事例は参考になるが、同規模の組織でないと再現できない部分も多い——スモールチーム向けの知見が欲しい」という声が多かった。一方、「ハイブリッド検索（BM25+embedding）の組み合わせ、信頼スコアによる答えない設計、フィードバックループの3点は規模を問わず適用できる普遍的な知見」と評価する開発者も多い。Notionや LinearといったSaaS製品で同様のAI検索機能を自前構築する際の参考として評価された。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: stripe.dev</span>
+      <span>↑170 · 💬106</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://stripe.dev/blog/meet-stripes-knowledge-ai-platform" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49815982" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="stripe-knowledge-ai-platform" data-type="like" onclick="toggleFlag('stripe-knowledge-ai-platform','StripeのKnowledge AIプラットフォーム','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="stripe-knowledge-ai-platform" data-type="dislike" onclick="toggleFlag('stripe-knowledge-ai-platform','StripeのKnowledge AIプラットフォーム','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 9 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-9" id="s9">
+  <div class="story-num">09</div>
+  <div class="story-inner">
+    <span class="story-badge direct-badge">⚡ あなたに直接関係</span>
+    <div class="story-kicker">Claude / Anthropic / パフォーマンス / 計測 / 最適化 / 開発 — 2026-09-24</div>
+    <h2 class="story-headline">
+      Claudeは計測<br>できるものを<br><span style="color:#8870e8">高速化できる</span>
+    </h2>
+    <div class="story-body">
+      claude.devのブログ記事「Once Claude can measure something, it can make it faster」がHNで144点・90コメントを集め、Claude自身がどのようにパフォーマンス最適化を行うかを具体的に解説した記事として注目されています。Claude AIがコードのボトルネックを発見し、計測ループを通じてパフォーマンスを改善していく実際のプロセスが公開されており、「AI駆動のパフォーマンスエンジニアリング」の具体例として開発者から高い関心を集めています。
+    </div>
+    <div class="slate-items">
+      <div class="slate-item">
+        <div class="slate-label">「計測できれば改善できる」アプローチ</div>
+        <div class="slate-text">記事の核心は「Claudeにパフォーマンス計測のツールを与え、計測結果をフィードバックとして受け取るループを設計すると、自律的にボトルネックを特定して改善案を生成できる」という発見だ。具体的にはプロファイリングツール（flamegraphなど）の出力をClaudeが解析し、「このDB queryは全件取得してメモリでフィルタリングしている——インデックスを追加すべき」などの具体的な改善提案を出力する。人間は計測設計と最終的な意思決定を担い、改善案の生成はClaudeが担う役割分担が示されている。</div>
+      </div>
+      <div class="slate-item">
+        <div class="slate-label">実際の改善事例と数値</div>
+        <div class="slate-text">記事では実際のケースとして、あるAPIエンドポイントのレスポンスタイムが初期の380msから47msへ（87%削減）改善された過程が紹介されている。Claudeがプロファイルを見て①N+1クエリの特定②キャッシュ層の欠如③非同期処理の不備——を順に発見し、それぞれの修正コードを提案した。人間のエンジニアが3日かけてやるような分析を1時間以内に完了したという報告は、多くのHNユーザーの関心を引いた。</div>
+      </div>
+      <div class="slate-item">
+        <div class="slate-label">HNでの評価と注意点</div>
+        <div class="slate-text">「計測結果をコンテキストに与えるというシンプルな設計が重要——多くの人がここを省いてAIにコードだけ見せている」という実践的コメントが多くの支持を集めた。注意点として「計測環境が本番と一致していないと誤った最適化を行う可能性がある」「AIが提案する最適化が既存のコードの不変条件を壊すことがある」という実装上の落とし穴も指摘された。「Claude Codeとの組み合わせで試してみた——確かに計測ループがあると改善の精度が上がる」という実体験報告も複数見られた。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: claude.dev</span>
+      <span>↑144 · 💬90</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://claude.dev/blog/how-we-made-claude-ai-faster/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49821196" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="claude-measure-make-faster" data-type="like" onclick="toggleFlag('claude-measure-make-faster','Claudeは計測できるものを高速化できる','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="claude-measure-make-faster" data-type="dislike" onclick="toggleFlag('claude-measure-make-faster','Claudeは計測できるものを高速化できる','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 10 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-10" id="s10">
+  <div class="story-num">10</div>
+  <div class="story-inner">
+    <div class="story-kicker">開発ツール / VSCode / SSH / セキュリティ / fly.io / 分析 — 2026-09-24</div>
+    <h2 class="story-headline">
+      VSCodeのSSH<br>エージェントは<br><span style="color:#f090c0">バナナ級に<br>奇妙だ</span>
+    </h2>
+    <div class="story-body">
+      fly.ioのブログ記事「VSCode's SSH Agent Is Bananas」（2025年の記事が今日再浮上）がHNで95点・66コメントを集めています。VSCodeのリモートSSH機能の内部動作を深堀りし、なぜ「普通のSSH接続」と思いきや複数の予想外の挙動をするのかを解剖した技術記事です。本来シンプルなはずのSSHが、VSCodeのリモート開発拡張機能においていかに複雑で奇妙な振る舞いをするかが丁寧に説明されています。
+    </div>
+    <div class="mag-items">
+      <div class="mag-item">
+        <div class="mag-label">「バナナ」な挙動とは何か</div>
+        <div class="mag-text">記事が指摘するVSCodeのSSH奇妙な点は主に3つ。①VSCodeはSSH接続時に独自のサーバープロセスをリモートホストにインストール・起動する——「SSHで繋いでいるだけ」ではなく、リモートに永続プロセスが走る。②SSH AgentのForwardingが期待通りに動作しない場面がある——特にジャンプホスト経由でAgentが伝達されない。③セッション再接続後に古いプロセスが残り、ポートが占有されるゾンビプロセス問題——これがDeployエラーの原因になることがある。</div>
+      </div>
+      <div class="mag-item">
+        <div class="mag-label">fly.ioからの視点：本番への影響</div>
+        <div class="mag-text">fly.ioが特にこの問題を取り上げたのは、VSCodeのリモートSSHを使った開発者がflyマシンに接続する際にこれらの問題に頻繁に遭遇するからだ。特に「VSCode Server（リモートプロセス）が消えずに残り、次のデプロイ時にポート競合を引き起こす」問題は、エラーメッセージが分かりにくいため原因特定に時間がかかると報告されている。対策として「VSCodeを閉じる前に明示的にRemote接続を終了する」「定期的に`pkill code-server`でプロセスをクリーンアップする」が推奨されている。</div>
+      </div>
+      <div class="mag-item">
+        <div class="mag-label">HNでの反応と代替手段</div>
+        <div class="mag-text">「これは全部既知の問題で何年も放置されている——Microsoftが直す気がない」という諦めのコメントと、「それでも他のリモート開発ツールより使いやすい——ガラス張りで論文を書くようなもの」という擁護が対立した。代替として「ssh + tmux + neovim」「Cursor + Remote SSH」「JetBrains Gateway」が挙がり、「VSCode RemoteのSSHはコンビニエンス機能と割り切ってセキュリティ重要環境では使わない」という実用的な結論に多くの支持が集まった。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: fly.io</span>
+      <span>↑95 · 💬66</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://fly.io/blog/vscode-ssh-wtf/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49822555" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="vscode-ssh-agent-bananas" data-type="like" onclick="toggleFlag('vscode-ssh-agent-bananas','VSCodeのSSHエージェントはバナナ級に奇妙','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="vscode-ssh-agent-bananas" data-type="dislike" onclick="toggleFlag('vscode-ssh-agent-bananas','VSCodeのSSHエージェントはバナナ級に奇妙','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand">Morning Edition</div>
+      <div class="footer-meta">
+        Hacker News フロントページから厳選した10本 — 2026年9月24日（木）<br>
+        フィードバックボタンで好みを記録できます。feedback.json をエクスポートして次回に活用。
+      </div>
+    </div>
+    <button class="export-btn" onclick="exportFeedback()">📥 feedback.json をエクスポート</button>
+  </div>
+  <div class="footer-note">Generated by Claude · Powered by HN Algolia API · No.131</div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  const DB_NAME = 'morning-edition-feedback';
+  const DB_VERSION = 2;
+  const STORE_NAME = 'feedback';
+  let db = null;
+
+  function openDB() {
+    return new Promise((resolve, reject) => {
+      if (db) { resolve(db); return; }
+      const req = indexedDB.open(DB_NAME, DB_VERSION);
+      req.onupgradeneeded = e => {
+        const d = e.target.result;
+        if (!d.objectStoreNames.contains(STORE_NAME)) {
+          d.createObjectStore(STORE_NAME, { keyPath: 'id' });
+        }
+      };
+      req.onsuccess = e => { db = e.target.result; resolve(db); };
+      req.onerror = e => reject(e);
+    });
+  }
+
+  async function saveFeedback(id, title, type) {
+    try {
+      const d = await openDB();
+      const tx = d.transaction(STORE_NAME, 'readwrite');
+      const store = tx.objectStore(STORE_NAME);
+      const existing = await new Promise(res => { const r = store.get(id); r.onsuccess = e => res(e.target.result); r.onerror = () => res(null); });
+      if (existing && existing.type === type) {
+        store.delete(id);
+        return null;
+      }
+      store.put({ id, title, type, date: new Date().toISOString() });
+      return type;
+    } catch (e) {
+      try {
+        const key = 'me_fb_' + id;
+        const existing = localStorage.getItem(key);
+        if (existing && JSON.parse(existing).type === type) { localStorage.removeItem(key); return null; }
+        localStorage.setItem(key, JSON.stringify({ id, title, type, date: new Date().toISOString() }));
+        return type;
+      } catch (e2) { return type; }
+    }
+  }
+
+  async function loadFeedback(id) {
+    try {
+      const d = await openDB();
+      return new Promise(res => {
+        const tx = d.transaction(STORE_NAME, 'readonly');
+        const r = tx.objectStore(STORE_NAME).get(id);
+        r.onsuccess = e => res(e.target.result ? e.target.result.type : null);
+        r.onerror = () => res(null);
+      });
+    } catch (e) {
+      try { const v = localStorage.getItem('me_fb_' + id); return v ? JSON.parse(v).type : null; } catch (e2) { return null; }
+    }
+  }
+
+  function showToast(msg, isError) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.className = 'toast' + (isError ? ' error' : '');
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2200);
+  }
+
+  async function toggleFlag(storyId, title, type) {
+    const result = await saveFeedback(storyId, title, type);
+    updateButtons(storyId, result);
+    if (result === 'like') showToast('⭐ 興味ありとして記録しました');
+    else if (result === 'dislike') showToast('✕ 興味なしとして記録しました');
+    else showToast('フィードバックを解除しました');
+    await syncToFile();
+  }
+
+  function updateButtons(storyId, activeType) {
+    document.querySelectorAll(`[data-story="${storyId}"]`).forEach(btn => {
+      btn.classList.remove('active');
+      if (btn.dataset.type === activeType) btn.classList.add('active');
+    });
+  }
+
+  async function syncToFile() {
+    try {
+      const all = await getAllFeedback();
+      const json = JSON.stringify({ liked: all.filter(f => f.type === 'like').map(f => f.id), disliked: all.filter(f => f.type === 'dislike').map(f => f.id), entries: all }, null, 2);
+      if ('showSaveFilePicker' in window) {
+        try {
+          if (!window._feedbackHandle) return;
+          const writable = await window._feedbackHandle.createWritable();
+          await writable.write(json); await writable.close();
+        } catch (e) {}
+      }
+    } catch (e) {}
+  }
+
+  async function getAllFeedback() {
+    try {
+      const d = await openDB();
+      return new Promise(res => {
+        const tx = d.transaction(STORE_NAME, 'readonly');
+        const r = tx.objectStore(STORE_NAME).getAll();
+        r.onsuccess = e => res(e.target.result || []);
+        r.onerror = () => res([]);
+      });
+    } catch (e) {
+      try {
+        const items = [];
+        for (let i = 0; i < localStorage.length; i++) {
+          const k = localStorage.key(i);
+          if (k && k.startsWith('me_fb_')) { try { items.push(JSON.parse(localStorage.getItem(k))); } catch (e2) {} }
+        }
+        return items;
+      } catch (e2) { return []; }
+    }
+  }
+
+  async function exportFeedback() {
+    try {
+      const all = await getAllFeedback();
+      const json = JSON.stringify({ liked: all.filter(f => f.type === 'like').map(f => f.id), disliked: all.filter(f => f.type === 'dislike').map(f => f.id), entries: all }, null, 2);
+      if ('showSaveFilePicker' in window) {
+        const handle = await window.showSaveFilePicker({ suggestedName: 'feedback.json', types: [{ description: 'JSON', accept: { 'application/json': ['.json'] } }] });
+        window._feedbackHandle = handle;
+        const writable = await handle.createWritable();
+        await writable.write(json); await writable.close();
+        showToast('feedback.json を保存しました');
+      } else {
+        const a = document.createElement('a');
+        a.href = 'data:application/json;charset=utf-8,' + encodeURIComponent(json);
+        a.download = 'feedback.json'; a.click();
+        showToast('feedback.json をダウンロードしました');
+      }
+    } catch (e) { showToast('エクスポートに失敗しました', true); }
+  }
+
+  async function initButtons() {
+    const storyIds = [
+      'claude-novel-enzyme-crispr','claude-code-agents-md-telemetry','italy-nuclear-energy-vote',
+      'i-dont-want-the-details','seattle-ban-surveillance-pricing','gemini-38-text-to-speech',
+      'tokens-too-cheap-to-meter','stripe-knowledge-ai-platform',
+      'claude-measure-make-faster','vscode-ssh-agent-bananas'
+    ];
+    for (const id of storyIds) {
+      const type = await loadFeedback(id);
+      if (type) updateButtons(id, type);
+    }
+  }
+
+  initButtons();
+</script>
+</body>
+</html>
