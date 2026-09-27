@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Morning Edition — 2026年9月28日</title>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --font: 'M PLUS Rounded 1c', 'Hiragino Sans', 'Noto Sans JP', sans-serif; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); background: #111; color: #fff; overflow-x: hidden; }
+
+    .masthead { background: #fff; color: #000; padding: 3rem 4rem 2.5rem; border-bottom: 6px solid #000; position: relative; overflow: hidden; }
+    .masthead::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: repeating-linear-gradient(90deg, #000 0, #000 12px, transparent 12px, transparent 20px); }
+    .masthead-kicker { font-size: 0.85rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: #777; margin-bottom: 0.6rem; }
+    .masthead-title { font-size: clamp(3.5rem, 9vw, 7.5rem); font-weight: 900; line-height: 0.88; letter-spacing: -0.04em; margin-bottom: 1.8rem; }
+    .masthead-meta { display: flex; gap: 3rem; align-items: baseline; flex-wrap: wrap; }
+    .masthead-date { font-size: 1.5rem; font-weight: 700; }
+    .masthead-subtitle { font-size: 1rem; font-weight: 400; color: #555; max-width: 480px; line-height: 1.5; }
+    .masthead-issue { margin-left: auto; text-align: right; }
+    .masthead-issue span { display: block; }
+    .masthead-issue .iss-label { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: #999; }
+    .masthead-issue .iss-num { font-size: 2.2rem; font-weight: 900; color: #000; }
+
+    .toc { background: #1a1a1a; padding: 1.5rem 4rem; display: flex; gap: 1.5rem; flex-wrap: wrap; border-bottom: 1px solid #333; }
+    .toc a { color: #aaa; text-decoration: none; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; transition: color 0.2s; }
+    .toc a:hover { color: #fff; }
+    .toc-num { color: #555; margin-right: 0.3em; }
+
+    .story { position: relative; overflow: hidden; }
+    .story-inner { max-width: 1200px; margin: 0 auto; padding: 5rem 4rem; position: relative; z-index: 1; }
+    .story-num { font-size: clamp(6rem, 18vw, 16rem); font-weight: 900; line-height: 0.8; letter-spacing: -0.06em; opacity: 0.08; position: absolute; top: 1rem; right: 2rem; user-select: none; }
+    .story-badge { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.35em 0.9em; border-radius: 2px; margin-bottom: 1.5rem; }
+    .direct-badge { background: #FFD700; color: #000; }
+    .story-kicker { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; opacity: 0.6; margin-bottom: 0.8rem; }
+    .story-headline { font-size: clamp(2rem, 5vw, 4rem); font-weight: 900; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+    .story-body { font-size: clamp(1rem, 1.5vw, 1.2rem); font-weight: 400; line-height: 1.8; max-width: 680px; opacity: 0.88; margin-bottom: 2rem; }
+    .story-meta { display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center; font-size: 0.8rem; font-weight: 700; opacity: 0.5; }
+    .story-links { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem; }
+    .story-link { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.6em 1.4em; border-radius: 3px; text-decoration: none; transition: opacity 0.2s, transform 0.15s; }
+    .story-link:hover { opacity: 0.75; transform: translateY(-1px); }
+
+    .feedback-buttons { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .flag-btn { background: none; border: 1px solid currentColor; color: inherit; font-family: var(--font); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.5em 1em; border-radius: 3px; cursor: pointer; opacity: 0.32; transition: opacity 0.2s, background 0.2s, color 0.2s, border-color 0.2s, transform 0.15s; }
+    .flag-btn:hover { opacity: 0.72; transform: translateY(-1px); }
+    .flag-btn.like-btn.active { opacity: 1; background: rgba(255,215,0,0.15); border-color: #FFD700; color: #FFD700 !important; }
+    .flag-btn.dislike-btn.active { opacity: 1; background: rgba(255,60,60,0.12); border-color: #FF4444; color: #FF4444 !important; }
+
+    .toast { position: fixed; bottom: 2rem; right: 2rem; background: #1a1a1a; color: #fff; font-family: var(--font); font-size: 0.82rem; font-weight: 700; padding: 0.75em 1.4em; border-radius: 4px; border-left: 3px solid #00C853; z-index: 9999; opacity: 0; transform: translateY(10px); transition: opacity 0.25s, transform 0.25s; pointer-events: none; box-shadow: 0 4px 24px rgba(0,0,0,0.45); }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    .toast.error { border-left-color: #FF5252; }
+
+    /* Story 1 — White */
+    .story-1 { background: #fff; color: #000; min-height: 90vh; display: flex; flex-direction: column; justify-content: center; }
+    .story-1 .story-num { color: #000; opacity: 0.04; }
+    .story-1 .story-kicker { color: #555; opacity: 1; }
+    .story-1 .story-headline { color: #000; }
+    .story-1 .story-body { color: #111; }
+    .story-1 .story-meta { color: #000; }
+    .story-1 .story-link.primary { background: #1a1a1a; color: #fff; }
+    .story-1 .story-link.secondary { background: #f0f0f0; color: #000; }
+    .story-1 .flag-btn { color: #000; }
+    .story-1-accent { position: absolute; bottom: 0; left: 0; width: 100%; height: 8px; background: linear-gradient(90deg, #0a0a0a, #555, #0a0a0a); }
+    .story-1 .headline-accent { display: inline-block; background: linear-gradient(135deg, #1a1a1a 0%, #555 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .blue-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1.2rem; margin: 2rem 0; max-width: 680px; }
+    .blue-card { border: 2px solid rgba(0,0,0,0.12); background: rgba(0,0,0,0.03); border-radius: 6px; padding: 1.3rem 1.5rem; }
+    .blue-card-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.2em; text-transform: uppercase; color: #333; margin-bottom: 0.4rem; }
+    .blue-card-value { font-size: 1.05rem; font-weight: 900; color: #000; line-height: 1.3; }
+    .blue-card-sub { font-size: 0.75rem; color: #555; margin-top: 0.3rem; line-height: 1.4; }
+
+    /* Story 2 — Dark navy/teal */
+    .story-2 { background: #00080c; color: #b8f0ff; min-height: 80vh; }
+    .story-2::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(0,160,200,0.14) 0%, transparent 65%); }
+    .story-2 .story-num { color: #00A0C8; opacity: 0.07; }
+    .story-2 .story-kicker { color: #20C8E8; opacity: 1; }
+    .story-2 .story-headline { color: #e0f8ff; }
+    .story-2 .story-body { color: #b8f0ff; }
+    .story-2 .story-meta { color: #20C8E8; opacity: 0.5; }
+    .story-2 .story-link.primary { background: #004058; color: #80e8ff; }
+    .story-2 .story-link.secondary { background: rgba(0,160,200,0.08); color: #90d8f0; border: 1px solid rgba(0,160,200,0.22); }
+    .story-2 .flag-btn { color: #b8f0ff; }
+    .teal-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .teal-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(0,160,200,0.07); border-left: 3px solid #00A0C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .teal-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20C8E8; margin-bottom: 0.3rem; }
+    .teal-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 3 — Dark red */
+    .story-3 { background: #0a0000; color: #fff; min-height: 80vh; }
+    .story-3::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(200,20,20,0.16) 0%, transparent 65%); }
+    .story-3 .story-num { color: #C81414; opacity: 0.07; }
+    .story-3 .story-kicker { color: #E84040; opacity: 1; }
+    .story-3 .story-headline { color: #fff; }
+    .story-3 .story-body { color: rgba(255,255,255,0.88); }
+    .story-3 .story-meta { color: #E84040; opacity: 0.5; }
+    .story-3 .story-link.primary { background: #6a0000; color: #fff; }
+    .story-3 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-3 .flag-btn { color: #fff; }
+    .red-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .red-item { background: rgba(200,20,20,0.07); border-left: 3px solid #C81414; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .red-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E84040; margin-bottom: 0.3rem; }
+    .red-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 4 — Dark green */
+    .story-4 { background: #020c04; color: #c8f0d0; min-height: 80vh; }
+    .story-4::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(20,160,70,0.16) 0%, transparent 65%); }
+    .story-4 .story-num { color: #14A046; opacity: 0.07; }
+    .story-4 .story-kicker { color: #30C060; opacity: 1; }
+    .story-4 .story-headline { color: #e0ffe8; }
+    .story-4 .story-body { color: #c8f0d0; }
+    .story-4 .story-meta { color: #30C060; opacity: 0.5; }
+    .story-4 .story-link.primary { background: #063820; color: #80ffb0; }
+    .story-4 .story-link.secondary { background: rgba(20,160,70,0.08); color: #a0e8b0; border: 1px solid rgba(20,160,70,0.22); }
+    .story-4 .flag-btn { color: #c8f0d0; }
+    .green-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .green-item { background: rgba(20,160,70,0.07); border-left: 3px solid #14A046; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .green-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #30C060; margin-bottom: 0.3rem; }
+    .green-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 5 — Dark purple */
+    .story-5 { background: #040010; color: #d8c8ff; min-height: 75vh; }
+    .story-5::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(90,40,200,0.17) 0%, transparent 65%); }
+    .story-5 .story-num { color: #5A28C8; opacity: 0.07; }
+    .story-5 .story-kicker { color: #8050E0; opacity: 1; }
+    .story-5 .story-headline { color: #f0e8ff; }
+    .story-5 .story-body { color: #d8c8ff; }
+    .story-5 .story-meta { color: #8050E0; opacity: 0.5; }
+    .story-5 .story-link.primary { background: #200860; color: #d0a8ff; }
+    .story-5 .story-link.secondary { background: rgba(90,40,200,0.08); color: #c0a0f0; border: 1px solid rgba(90,40,200,0.22); }
+    .story-5 .flag-btn { color: #d8c8ff; }
+    .purple-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .purple-item { background: rgba(90,40,200,0.07); border-left: 3px solid #5A28C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .purple-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #8050E0; margin-bottom: 0.3rem; }
+    .purple-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 6 — Dark cyan */
+    .story-6 { background: #000c10; color: #b8e8f0; min-height: 75vh; }
+    .story-6::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 40%, rgba(0,130,160,0.14) 0%, transparent 65%); }
+    .story-6 .story-num { color: #0080A0; opacity: 0.07; }
+    .story-6 .story-kicker { color: #20B0D0; opacity: 1; }
+    .story-6 .story-headline { color: #e0f4ff; }
+    .story-6 .story-body { color: #b8e8f0; }
+    .story-6 .story-meta { color: #20B0D0; opacity: 0.5; }
+    .story-6 .story-link.primary { background: #003848; color: #80d8f0; }
+    .story-6 .story-link.secondary { background: rgba(0,130,160,0.08); color: #90cce0; border: 1px solid rgba(0,130,160,0.22); }
+    .story-6 .flag-btn { color: #b8e8f0; }
+    .cyan-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .cyan-item { background: rgba(0,130,160,0.07); border-left: 3px solid #0080A0; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .cyan-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20B0D0; margin-bottom: 0.3rem; }
+    .cyan-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 7 — Dark amber */
+    .story-7 { background: #0a0300; color: #ffe0b8; min-height: 75vh; }
+    .story-7::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(210,90,20,0.18) 0%, transparent 65%); }
+    .story-7 .story-num { color: #D05A14; opacity: 0.07; }
+    .story-7 .story-kicker { color: #E88040; opacity: 1; }
+    .story-7 .story-headline { color: #fff0d8; }
+    .story-7 .story-body { color: #ffe0b8; }
+    .story-7 .story-meta { color: #E88040; opacity: 0.5; }
+    .story-7 .story-link.primary { background: #6a2400; color: #ffc880; }
+    .story-7 .story-link.secondary { background: rgba(210,90,20,0.08); color: #ffb870; border: 1px solid rgba(210,90,20,0.22); }
+    .story-7 .flag-btn { color: #ffe0b8; }
+    .amber-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .amber-item { background: rgba(210,90,20,0.07); border-left: 3px solid #D05A14; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .amber-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E88040; margin-bottom: 0.3rem; }
+    .amber-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 8 — Dark gold */
+    .story-8 { background: #080500; color: #fff; min-height: 70vh; }
+    .story-8::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,145,10,0.15) 0%, transparent 65%); }
+    .story-8 .story-num { color: #BE9110; opacity: 0.06; }
+    .story-8 .story-kicker { color: #D4A820; opacity: 1; }
+    .story-8 .story-headline { color: #fff; }
+    .story-8 .story-body { color: rgba(255,255,255,0.88); }
+    .story-8 .story-meta { color: #D4A820; opacity: 0.5; }
+    .story-8 .story-link.primary { background: #604000; color: #ffe070; }
+    .story-8 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-8 .flag-btn { color: #fff; }
+    .gold-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .gold-item { background: rgba(190,145,10,0.07); border-left: 3px solid #BE9110; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .gold-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #D4A820; margin-bottom: 0.3rem; }
+    .gold-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 9 — Slate blue */
+    .story-9 { background: #040810; color: #c8d8f0; min-height: 70vh; }
+    .story-9::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 35%, rgba(50,90,170,0.16) 0%, transparent 65%); }
+    .story-9 .story-num { color: #3258A8; opacity: 0.07; }
+    .story-9 .story-kicker { color: #5878C8; opacity: 1; }
+    .story-9 .story-headline { color: #e8f0ff; }
+    .story-9 .story-body { color: #c8d8f0; }
+    .story-9 .story-meta { color: #5878C8; opacity: 0.5; }
+    .story-9 .story-link.primary { background: #101e50; color: #fff; }
+    .story-9 .story-link.secondary { background: rgba(50,90,170,0.08); color: #b0c8e8; border: 1px solid rgba(50,90,170,0.22); }
+    .story-9 .flag-btn { color: #c8d8f0; }
+    .slate-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .slate-item { background: rgba(50,90,170,0.07); border-left: 3px solid #3258A8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .slate-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #5878C8; margin-bottom: 0.3rem; }
+    .slate-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 10 — Magenta */
+    .story-10 { background: #080004; color: #ffc8e8; min-height: 70vh; }
+    .story-10::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,20,90,0.15) 0%, transparent 65%); }
+    .story-10 .story-num { color: #BE1458; opacity: 0.07; }
+    .story-10 .story-kicker { color: #E04080; opacity: 1; }
+    .story-10 .story-headline { color: #fff0f8; }
+    .story-10 .story-body { color: #ffc8e8; }
+    .story-10 .story-meta { color: #E04080; opacity: 0.5; }
+    .story-10 .story-link.primary { background: #500030; color: #ffb0d8; }
+    .story-10 .story-link.secondary { background: rgba(190,20,90,0.08); color: #f090c0; border: 1px solid rgba(190,20,90,0.22); }
+    .story-10 .flag-btn { color: #ffc8e8; }
+    .mag-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .mag-item { background: rgba(190,20,90,0.07); border-left: 3px solid #BE1458; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .mag-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E04080; margin-bottom: 0.3rem; }
+    .mag-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .site-footer { background: #000; color: #555; padding: 3rem 4rem; display: flex; flex-direction: column; gap: 1.5rem; border-top: 1px solid #222; }
+    .footer-top { display: flex; gap: 2rem; align-items: center; flex-wrap: wrap; justify-content: space-between; }
+    .footer-brand { font-size: 1.4rem; font-weight: 900; color: #fff; }
+    .footer-meta { font-size: 0.75rem; line-height: 1.6; }
+    .export-btn { background: #222; border: 1px solid #444; color: #fff; font-family: var(--font); font-size: 0.8rem; font-weight: 700; padding: 0.7em 1.5em; border-radius: 3px; cursor: pointer; letter-spacing: 0.08em; transition: background 0.2s; }
+    .export-btn:hover { background: #333; }
+    .footer-note { font-size: 0.7rem; opacity: 0.5; }
+
+    @media (max-width: 768px) {
+      .masthead, .toc, .story-inner, .site-footer { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .story-num { display: none; }
+      .masthead-meta { gap: 1rem; }
+      .masthead-issue { margin-left: 0; }
+      .blue-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+<nav style="background:#1a1a1a;border-bottom:1px solid #333;padding:0.55rem 2rem;font-family:'M PLUS Rounded 1c','Hiragino Sans','Noto Sans JP',sans-serif;position:sticky;top:0;z-index:999;">
+  <a href="./index.html" style="color:#aaa;text-decoration:none;font-size:0.8rem;font-weight:700;letter-spacing:0.03em;display:inline-flex;align-items:center;gap:0.4rem;transition:color 0.15s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#aaa'">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    アーカイブへ戻る
+  </a>
+</nav>
+
+<header class="masthead">
+  <div class="masthead-kicker">Hacker News — Morning Edition</div>
+  <h1 class="masthead-title">Morning<br>Edition</h1>
+  <div class="masthead-meta">
+    <div>
+      <div class="masthead-date">2026年9月28日 月曜日</div>
+      <div class="masthead-subtitle">AI・開発ツール・プライバシー・サイエンス — あなたのための10本</div>
+    </div>
+    <div class="masthead-issue">
+      <span class="iss-label">Issue</span>
+      <span class="iss-num">No.135</span>
+    </div>
+  </div>
+</header>
+
+<nav class="toc">
+  <a href="#s1"><span class="toc-num">01</span>Googleはいつからこんなに「おかしく」なったのか</a>
+  <a href="#s2"><span class="toc-num">02</span>Go並行処理の本質を蒸留する</a>
+  <a href="#s3"><span class="toc-num">03</span>フリップドットでFlip Fluid——アナログ×物理シミュレーション</a>
+  <a href="#s4"><span class="toc-num">04</span>NeoVimがVimのundoファイルを削除した——ユーザーデータへの義務</a>
+  <a href="#s5"><span class="toc-num">05</span>Ember-1——Fireworks AIの新しいコーディング特化モデル</a>
+  <a href="#s6"><span class="toc-num">06</span>「不可解な障害」の正規化——なぜ壊れたソフトウェアに慣れてしまうのか</a>
+  <a href="#s7"><span class="toc-num">07</span>80ドルのモーテルで生命の起源を照らす発見</a>
+  <a href="#s8"><span class="toc-num">08</span>Fakecloud——統合テスト用ローカルAWSエミュレーター</a>
+  <a href="#s9"><span class="toc-num">09</span>TinyAIArena——AIエージェントの対決を観戦する</a>
+  <a href="#s10"><span class="toc-num">10</span>llama.cppのプロンプトルックアップ下書き生成を高速化</a>
+</nav>
+
+<!-- ═══ STORY 1 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-1" id="s1">
+  <div class="story-num">01</div>
+  <div class="story-inner">
+    <div class="story-kicker">テクノロジー / Google / 検索 / UX / 企業文化 / 批評 — 2026-09-28</div>
+    <h2 class="story-headline">
+      Googleはいつから<br>こんなに<br><span class="headline-accent">「おかしく」<br>なったのか</span>
+    </h2>
+    <div class="story-body">
+      「When did Google get so weird?」がHNで410点・230コメント以上を集めています。かつて検索の黄金標準だったGoogleが、AI要約・広告過多・検索品質の劣化・不可解なUIの変化など、ユーザーを混乱させる方向に急速に変わっていった過程を振り返るエッセイです。「Googleが変わったのはいつか」という問いが、テック業界への大きな不信感の表明として共鳴しています。
+    </div>
+    <div class="blue-grid">
+      <div class="blue-card">
+        <div class="blue-card-label">検索品質の劣化——広告とSEOスパムの侵食</div>
+        <div class="blue-card-value">信頼の崩壊</div>
+        <div class="blue-card-sub">著者は「2012年頃から検索結果の上位がSEO最適化されたスパムに埋め尽くされ始めた」と述べる。特にAffiliate記事・レビューサイトのコンテンツファーム化が顕著で、「本物の情報を探すにはsite:reddit.comを追加する」ハックが一般化したこと自体がGoogleの失敗を物語っている。AI Overview機能の導入で誤情報が検索結果の最上位に現れる問題も批判の中心にある。</div>
+      </div>
+      <div class="blue-card">
+        <div class="blue-card-label">製品の奇妙な変化——一貫性の欠如</div>
+        <div class="blue-card-value">迷走する巨人</div>
+        <div class="blue-card-sub">Google Photosの無制限ストレージ廃止、Stadia撤退、Google+失敗、Allo/Duo/Meetの混乱、Inbox by Gmailの終了——Googleがサービスを殺し続ける歴史が積み重なり、ユーザーの信頼が蓄積されなくなった。「Google Graveyard」という墓場サイトまで生まれた現状は、かつて「Don't be evil」を掲げた企業の姿とは程遠い。</div>
+      </div>
+      <div class="blue-card">
+        <div class="blue-card-label">HNでの反応——「検索の黄金時代は本当にあったのか」</div>
+        <div class="blue-card-value">↑410 · 💬230+</div>
+        <div class="blue-card-sub">「2006〜2010年のGoogleは本当に魔法のようだった——今は広告ブロッカーがないと使えないレベル」という懐古が多い一方、「当時も不満はあった——記憶の美化では」という冷静な反論も。「広告収益モデルとユーザー体験は根本的に対立する——Googleは株主を選んだ」というシニカルな分析が最も支持を集めた。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: sancho.bearblog.dev</span>
+      <span>↑410 · 💬230+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://sancho.bearblog.dev/google-weird/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49870367" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="google-got-weird" data-type="like" onclick="toggleFlag('google-got-weird','Googleはいつからこんなに「おかしく」なったのか','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="google-got-weird" data-type="dislike" onclick="toggleFlag('google-got-weird','Googleはいつからこんなに「おかしく」なったのか','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+    <div class="story-1-accent"></div>
+  </div>
+</section>
+
+<!-- ═══ STORY 2 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-2" id="s2">
+  <div class="story-num">02</div>
+  <div class="story-inner">
+    <div class="story-kicker">Go / 並行処理 / 開発ツール / チュートリアル / goroutine / channel — 2026-09-28</div>
+    <h2 class="story-headline">
+      Go並行処理の<br>本質を<br><span style="color:#20d8f0">蒸留する</span>
+    </h2>
+    <div class="story-body">
+      「Go Concurrency Distilled」がHNで367点・130コメントを集めています。Goの並行処理モデルを「蒸留」という言葉通り、本質だけを抽出して分かりやすく解説した技術記事です。goroutine・channel・mutex・select文・context パッケージを段階的な具体例とともに網羅し、「Goの並行処理で詰まったときに読み返すべき一冊」として高い評価を受けています。今すぐ手を動かせる実践的な内容です。
+    </div>
+    <div class="teal-items">
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">なぜ「蒸留」なのか——本質のみを残す設計</div>
+          <div class="teal-text">Go公式ドキュメントやEffective Goは詳細だが長い。この記事は「90%の並行処理ユースケースをカバーする最小限の知識」をエキスとして提示する設計思想を持つ。goroutineはスレッドではなくコルーチンに近い軽量な存在であること、channelは「通信によってメモリを共有する」Goの哲学の具現化であること——こういった本質的な概念の捉え方から始まるため、入門者でも経験者でも発見がある。</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">実践パターン——よくある落とし穴と解決策</div>
+          <div class="teal-text">goroutineリーク（contextなしで起動したgoroutineが終了しない問題）、channelのデッドロック（送信側と受信側のバランスが崩れる問題）、sync.Mutexの誤使用（ロックの粒度が大きすぎる問題）など、現場でよく遭遇するバグパターンをコードとともに解説している。特に「select + default」によるノンブロッキング操作と「done channel」パターンによるgoroutineキャンセルの組み合わせは即実践できる。</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">HNでの反応——「Goの並行処理入門はこれで決まり」</div>
+          <div class="teal-text">「Goを始めて6ヶ月、初めて並行処理が腑に落ちた」という感謝の声が多数。「channelを使いすぎるな、mutexで十分なケースは多い」という経験者からの補足も多く議論が活発だった。「CSP理論の実装としてGoのchannelを理解すると設計の意図が分かる——Hoare 1978年の論文を読め」という文脈深い指摘も上がった。Goを使う全ての開発者が一度は読むべき記事という評価で収束している。</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: antonz.org</span>
+      <span>↑367 · 💬130+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://antonz.org/go-concurrency-distilled/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49856988" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="go-concurrency-distilled" data-type="like" onclick="toggleFlag('go-concurrency-distilled','Go並行処理の本質を蒸留する','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="go-concurrency-distilled" data-type="dislike" onclick="toggleFlag('go-concurrency-distilled','Go並行処理の本質を蒸留する','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 3 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-3" id="s3">
+  <div class="story-num">03</div>
+  <div class="story-inner">
+    <div class="story-kicker">ハードウェア / 流体シミュレーション / フリップドット / クリエイティブ / DIY / 物理演算 — 2026-09-28</div>
+    <h2 class="story-headline">
+      フリップドットで<br>Flip Fluid——<br><span style="color:#ff6060">アナログ×<br>物理シミュレーション</span>
+    </h2>
+    <div class="story-body">
+      「Flip Fluid on Flip Dots」がHNで346点・90コメントを集めています。機械式のフリップドット（磁石で反転する点で構成されるディスプレイ）の上で、流体物理シミュレーション「FLIP（Fluid-Implicit Particle）」を動かすというユニークな工作プロジェクトです。デジタルの計算を完全にアナログのメカニカルピクセルで表現する、視覚的にも技術的にも圧倒的な達成です。
+    </div>
+    <div class="red-items">
+      <div class="red-item">
+        <div class="red-label">フリップドットとは——磁気で反転するメカニカルピクセル</div>
+        <div class="red-text">フリップドットディスプレイは、小さな円盤（ドット）が磁場によって黒か白の面を向く仕組みで動く。電気を使わず状態を保持できる（バイスタブル）ため、かつて電車の行き先表示板などで広く使われた。パチパチという独特の音と、デジタルとアナログの中間のような視覚体験が特徴。mitxelaはジャンク品のフリップドットパネルを入手し、独自のドライバーソフトウェアを書いてプログラマブルなディスプレイとして復活させた。</div>
+      </div>
+      <div class="red-item">
+        <div class="red-label">FLIPシミュレーションの実装——72×36ドットで流体を動かす</div>
+        <div class="red-text">FLIP（Fluid-Implicit Particle）は粒子ベースとグリッドベースを組み合わせた流体シミュレーション手法で、水や煙のリアルな動きを計算できる。72×36 = 2592ドットという低解像度の制約の中で、流体がたれる・砕ける・波打つ様子が驚くほど説得力を持って再現されている。各フレームの計算結果をリアルタイムでフリップドットに送出する処理のレイテンシ最適化も詳細に解説されており、技術的な読み物としても密度が高い。</div>
+      </div>
+      <div class="red-item">
+        <div class="red-label">HNでの反応——「これが本物のハッカープロジェクト」</div>
+        <div class="red-text">「完全に実用性のない、でも完全に美しいプロジェクト——これこそHNが存在する理由」という絶賛が多数。「フリップドットのパチパチ音とシミュレーションの組み合わせが予想外に相性がいい——流体の動きに合わせてディスプレイが鳴る」という視聴体験への言及が多かった。「こういうプロジェクトを見ると自分も何か作りたくなる」という創作意欲への刺激を報告するコメントも多く、インターネットの良い側面が詰まった投稿として語られた。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: mitxela.com</span>
+      <span>↑346 · 💬90+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://mitxela.com/projects/flipflip" target="_blank">プロジェクトを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49854219" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="flip-fluid-flip-dots" data-type="like" onclick="toggleFlag('flip-fluid-flip-dots','フリップドットでFlip Fluid アナログ×物理シミュレーション','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="flip-fluid-flip-dots" data-type="dislike" onclick="toggleFlag('flip-fluid-flip-dots','フリップドットでFlip Fluid アナログ×物理シミュレーション','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 4 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-4" id="s4">
+  <div class="story-num">04</div>
+  <div class="story-inner">
+    <div class="story-kicker">プライバシー / データ保護 / NeoVim / Vim / オープンソース / 義務と責任 — 2026-09-28</div>
+    <h2 class="story-headline">
+      NeoVimが<br>Vimのundoファイル<br><span style="color:#30d060">を削除した——<br>義務の話</span>
+    </h2>
+    <div class="story-body">
+      「On caring for user data: NeoVim caused Vim undo files to be deleted」がHNで329点・160コメントを集めています。NeoVimへの移行を試みたユーザーが、NeoVimの動作によってVimで長年積み上げてきたundoファイル（編集履歴）が静かに失われていたことを発見した体験談です。「ユーザーデータへの義務（duty of care）」というフレームで、ソフトウェア開発者が何を守るべきかを問いかけています。
+    </div>
+    <div class="green-items">
+      <div class="green-item">
+        <div class="green-label">何が起きたか——undoファイルの静かな消滅</div>
+        <div class="green-text">Vimは編集履歴を`~/.vim/undodir/`に保存し、ファイルを閉じた後も`u`で何百回前にでも戻れる「undofile」機能を持つ。NeoVimは`~/.local/share/nvim/undo/`という異なる場所にundoファイルを保存する。問題は、NeoVimが自動的に古いVim形式のundoファイルを変換・移動する過程で、元ファイルを削除するケースがあったこと。ユーザーはNeoVimへの移行を中断してVimに戻ったとき、数年分の編集履歴が失われていたことに気づいた。</div>
+      </div>
+      <div class="green-item">
+        <div class="green-label">著者の主張——「バグ」ではなく「責任の欠如」</div>
+        <div class="green-text">著者は「これはバグではなく設計上の判断であり、その判断がユーザーデータへの配慮を欠いていた」と指摘する。Duty of care（注意義務・配慮義務）という法律用語を使い、ソフトウェアが他者のデータを扱う以上、その安全に対して道義的・実践的な責任があるという論を展開する。特に「既存データを静かに変更・削除する操作は絶対にデフォルトであるべきでない」という原則を強調している。</div>
+      </div>
+      <div class="green-item">
+        <div class="green-label">HNでの反応——「これはVimだけの問題ではない」</div>
+        <div class="green-text">「マイグレーションツールが元データを破壊するのはソフトウェア最悪の罪の一つ——バックアップなしに削除するな」という怒りが多数。「NeoVim側に実際に報告したのか——バグレポートなしに批判するのは不公平では」という反論も出た。一方「この問題はVimだけでなく全てのツールに共通する——移行コストを明示しないソフトウェアは信用できない」という普遍的な議論へと発展。「Move fast and break things」への対抗原則として「Move carefully and preserve user data」という言葉が多くの支持を集めた。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: unsung.aresluna.org</span>
+      <span>↑329 · 💬160+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://unsung.aresluna.org/they-had-no-concept-of-a-duty-of-care-to-their-users/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49867067" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="neovim-undo-files-deleted" data-type="like" onclick="toggleFlag('neovim-undo-files-deleted','NeoVimがVimのundoファイルを削除した 義務の話','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="neovim-undo-files-deleted" data-type="dislike" onclick="toggleFlag('neovim-undo-files-deleted','NeoVimがVimのundoファイルを削除した 義務の話','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 5 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-5" id="s5">
+  <div class="story-num">05</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / LLM / Fireworks AI / コーディングモデル / 新モデル / ベンチマーク — 2026-09-28</div>
+    <h2 class="story-headline">
+      Ember-1——<br>Fireworks AIの<br><span style="color:#b070ff">コーディング<br>特化新モデル</span>
+    </h2>
+    <div class="story-body">
+      Fireworks AIが新モデル「Ember-1」を発表し、HNで267点・90コメントを集めています。コーディングと推論に特化して最適化されたモデルで、同サイズ帯のモデルと比較して高いパフォーマンスを主張しています。Claude・GPT・Geminiなどの大型モデルとはポジショニングが異なり、「高速・低コスト・コーディング特化」を売りにしたAPI提供モデルです。
+    </div>
+    <div class="purple-items">
+      <div class="purple-item">
+        <div class="purple-label">Ember-1の特徴——コーディングベンチマークへの集中最適化</div>
+        <div class="purple-text">Fireworks AIはEmber-1がHumanEval・SWE-bench・MBPP等のコーディングベンチマークで競合モデルを上回ると主張している。特に「コードの補完とデバッグ」「マルチファイルプロジェクトの理解」「API統合コードの生成」が強みとされる。Fireworks AI自体がモデルサービングの最適化で知られており、Ember-1はそのインフラ上でミリ秒オーダーの高速レスポンスを実現しているとしている。</div>
+      </div>
+      <div class="purple-item">
+        <div class="purple-label">市場ポジション——「専門モデル」という戦略</div>
+        <div class="purple-text">Claude Opus・GPT-4o・Gemini Proなどの汎用高性能モデルに正面から対抗するのではなく、「コーディングタスクに限れば同等以上の性能をより低コスト・高速で提供する」という専門化戦略をとる。エージェント系アプリケーションやCI/CDパイプラインへの統合など、高頻度・低レイテンシが求められるユースケースでの差別化を狙っている。DeepSeek Coder・Qwen2.5-Coder等の中国系コーディングモデルとも競合する位置づけだ。</div>
+      </div>
+      <div class="purple-item">
+        <div class="purple-label">HNでの反応——「ベンチマーク vs 実使用の乖離」への懐疑</div>
+        <div class="purple-text">「Fireworks AIのサービング品質は実際に使ってみると良い——Ember-1も試す価値はある」という好意的な意見。一方「コーディングベンチマークは暗記・過学習で高スコアが出やすい——実際のプロジェクトで使ってみないと分からない」という懐疑的な声も根強かった。「こういう専門モデルが増えるのはエコシステムとして健全——用途ごとに最適なモデルを選べるようになる」という前向きな見方も多かった。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: fireworks.ai</span>
+      <span>↑267 · 💬90+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://fireworks.ai/blog/ember-1" target="_blank">発表を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49868830" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="ember-1-ai-model" data-type="like" onclick="toggleFlag('ember-1-ai-model','Ember-1 Fireworks AIのコーディング特化新モデル','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="ember-1-ai-model" data-type="dislike" onclick="toggleFlag('ember-1-ai-model','Ember-1 Fireworks AIのコーディング特化新モデル','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 6 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-6" id="s6">
+  <div class="story-num">06</div>
+  <div class="story-inner">
+    <div class="story-kicker">テクノロジー / ソフトウェア品質 / 批評 / UX / 信頼性 / 文化論 — 2026-09-28</div>
+    <h2 class="story-headline">
+      「不可解な障害」<br>の正規化——<br><span style="color:#20b8d0">壊れたソフトに<br>慣れてしまう理由</span>
+    </h2>
+    <div class="story-body">
+      「The Normalization of Inexplicable Failures」がHNで224点・130コメントを集めています。現代のソフトウェアが「なぜ動かないのか分からない」まま壊れることが増え、それが当たり前になってしまっている状況を批判的に分析したエッセイです。エラーメッセージが意味をなさず、再起動すれば直り、原因は永遠に分からない——そんな体験が積み重なることで、テクノロジーへの信頼が静かに侵食されていると著者は警告します。
+    </div>
+    <div class="cyan-items">
+      <div class="cyan-item">
+        <div class="cyan-label">「不可解な障害」とは何か——説明できない失敗の増加</div>
+        <div class="cyan-text">著者は「Inexplicable Failure（不可解な障害）」を「何が起きたか分からない・なぜ直ったか分からない障害」と定義する。WiFiが突然切れて再接続すると直る、アプリがフリーズして強制終了すると戻る、クラウドサービスが「しばらくお待ちください」のまま数分後に復帰する——これらは「バグ」ですらなく、エラー情報が一切ない「謎の失敗」だ。以前のソフトウェアはエラーコードが出て原因の手がかりがあったが、現代のシステムは複雑すぎてブラックボックスになっている。</div>
+      </div>
+      <div class="cyan-item">
+        <div class="cyan-label">正規化のメカニズム——「またか」で終わる問題</div>
+        <div class="cyan-text">「不可解な障害」が繰り返されると、ユーザーは諦めてしまう。「バグを報告する」ではなく「再起動する」が第一反応になる。これは工場の機械が壊れたときに「原因を調べる」ではなく「叩いたら直った」で済ます現象と同じだ。企業側も「ログが多すぎて根本原因の特定が困難」「マイクロサービスの依存関係が複雑すぎる」という技術的負債の蓄積によって、謎の障害に向き合うインセンティブを失っていく。</div>
+      </div>
+      <div class="cyan-item">
+        <div class="cyan-label">HNでの反応——「これは設計の失敗ではなく経済の失敗」</div>
+        <div class="cyan-text">「分かりやすいエラーメッセージを書くのはコストがかかる——経営的に優先されないのが現実」という現場の声が多かった。「Kubernetes・クラウドネイティブへの移行で、システムの複雑さが人間が理解できる限界を超えた——デバッグ可能性の設計が後回しになっている」という構造的批判も。一方「ユーザーが不可解な障害に耐えてくれるからこそ、企業がそれを直すプレッシャーを受けない——市場原理が機能していない」という鋭い指摘が多くの賛同を集めた。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: ihatethefuture.com</span>
+      <span>↑224 · 💬130+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.ihatethefuture.com/2026/09/the-normalization-of-inexplicable.html" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49867486" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="normalization-inexplicable-failures" data-type="like" onclick="toggleFlag('normalization-inexplicable-failures','不可解な障害の正規化 壊れたソフトに慣れてしまう理由','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="normalization-inexplicable-failures" data-type="dislike" onclick="toggleFlag('normalization-inexplicable-failures','不可解な障害の正規化 壊れたソフトに慣れてしまう理由','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 7 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-7" id="s7">
+  <div class="story-num">07</div>
+  <div class="story-inner">
+    <div class="story-kicker">サイエンス / 生命の起源 / 化学 / 有機化学 / 偶然の発見 / 研究 — 2026-09-28</div>
+    <h2 class="story-headline">
+      80ドルの<br>モーテルの部屋で——<br><span style="color:#e88040">生命の起源を<br>照らす発見</span>
+    </h2>
+    <div class="story-body">
+      NYタイムズが「In an $80 motel room, a discovery to shed light on the origins of life」を報道し、HNで181点・75コメントを集めています。廉価なモーテルに泊まりながら実験を続けた研究者が、生命の起源に関わる重要な化学反応を発見したという物語です。一流大学の設備でなくても、根気と洞察で科学の突破口が開ける——そんな「科学の人間的な側面」を伝える記事です。
+    </div>
+    <div class="amber-items">
+      <div class="amber-item">
+        <div class="amber-label">発見の内容——RNAワールド仮説を支える新たな証拠</div>
+        <div class="amber-text">RNAワールド仮説は「生命誕生の初期にはRNAが遺伝情報の保存と化学反応の触媒の両方を担っていた」という仮説。この研究では、原始地球の環境を模した条件下でRNAの構成要素（ヌクレオチド）が自発的に形成されやすい化学経路が発見されたとされる。特に注目される点は、この反応が複雑な設備なしに再現できるシンプルな条件下で起きることで、原始地球でも起きうる反応であることを示唆している。</div>
+      </div>
+      <div class="amber-item">
+        <div class="amber-label">モーテルの研究——なぜそこで？</div>
+        <div class="amber-text">研究者は学会発表のために訪れた町に安価なモーテルを借り、持参した実験道具で夜中に実験を続けていたという。正式な実験室でなくても、基本的な化学実験は可能であり、「重要なのは場所ではなくアイデアだ」という研究者の哲学が体現されている。NYタイムズはこのエピソードを通じて、科学的発見がいつでもどこでも起きうることを描いている——「偶然の発見（Serendipity）」の現代版として読める。</div>
+      </div>
+      <div class="amber-item">
+        <div class="amber-label">HNでの反応——「科学の美しさの話」</div>
+        <div class="amber-text">「こういう話が科学を志す人を増やす——設備より執念と好奇心という原点回帰だ」という感動的な反応が多かった。「RNAワールド仮説はまだ仮説の段階——この発見がどこまで決定的かは慎重に見るべき」という科学的冷静さを求める声も。「NIH予算削減が続く中で、モーテルで研究する羽目になっている現実を見るべきでは」という皮肉な問題提起も出ており、科学政策への批判にも展開した議論だった。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: nytimes.com</span>
+      <span>↑181 · 💬75+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.nytimes.com/2026/09/26/science/motel-science-discovery.html" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49866951" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="motel-origins-of-life" data-type="like" onclick="toggleFlag('motel-origins-of-life','80ドルのモーテルの部屋で 生命の起源を照らす発見','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="motel-origins-of-life" data-type="dislike" onclick="toggleFlag('motel-origins-of-life','80ドルのモーテルの部屋で 生命の起源を照らす発見','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 8 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-8" id="s8">
+  <div class="story-num">08</div>
+  <div class="story-inner">
+    <div class="story-kicker">開発ツール / テスト / AWS / エミュレーター / ローカル開発 / 統合テスト — 2026-09-28</div>
+    <h2 class="story-headline">
+      Fakecloud——<br>統合テスト用<br><span style="color:#d4a820">ローカルAWS<br>エミュレーター</span>
+    </h2>
+    <div class="story-body">
+      「Fakecloud: Local AWS cloud emulator for integration tests」がHNで93点・50コメントを集めています。AWSサービスをローカル環境でエミュレートし、本物のAWSに接続せずに統合テストを実行できるツールです。LocalStackの後継・代替として注目されており、シンプルなセットアップと統合テストとの親和性の高さが評価されています。クラウドコストを削減しながらCI/CDパイプラインを高速化したい開発者に刺さる一本です。
+    </div>
+    <div class="gold-items">
+      <div class="gold-item">
+        <div class="gold-label">LocalStackとの違い——テスト専用設計のシンプルさ</div>
+        <div class="gold-text">LocalStackは汎用のAWSエミュレーターとして多機能化が進み、設定・ライセンス・複雑さが増大した。FakecloudはLocalStackとは異なり「統合テスト専用」に絞り込んだ設計をとる。テスト実行時に自動起動・自動終了するDockerベースの設計で、各テストが完全に分離された環境を得られる。S3・SQS・DynamoDB・SNSといった最もよく使われるサービスの主要APIに対応しており、「80%のユースケースを20%の複雑さでカバー」することを目指している。</div>
+      </div>
+      <div class="gold-item">
+        <div class="gold-label">今すぐ使える——pytest・Jest・Go testとの統合が簡単</div>
+        <div class="gold-text">FakecloudはPython・JavaScript・Goのテストフレームワークとの統合を公式にサポートしている。pytestならconftest.pyに数行追加するだけでS3バケットとSQSキューがテスト専用に立ち上がり、テスト終了後に自動削除される。環境変数`AWS_ENDPOINT_URL`を向けるだけで既存のAWS SDK呼び出しがFakecloudに向く設計で、アプリコードを一切変更せずに本物のAWSからFakecloudに切り替えられる。CI環境でも同じように動作する。</div>
+      </div>
+      <div class="gold-item">
+        <div class="gold-label">HNでの反応——「LocalStackに嫌気がさしていた人への朗報」</div>
+        <div class="gold-text">「LocalStackが有料Proプランなしでは使えないサービスが増えて困っていた——Fakecloudは完全OSSで嬉しい」という評価が多数。「統合テストのためだけにLocalStackを立ち上げるオーバーヘッドが嫌だった——テスト専用設計は合理的」という共感も多かった。「S3の署名付きURL生成とSQSのロングポーリングが正しく動くかを確認したい——そこが鍵」という実用的な確認事項を挙げるコメントが作者との対話につながっていた。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: fakecloud.dev</span>
+      <span>↑93 · 💬50+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://fakecloud.dev/" target="_blank">プロジェクトを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49856885" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="fakecloud-local-aws" data-type="like" onclick="toggleFlag('fakecloud-local-aws','Fakecloud 統合テスト用ローカルAWSエミュレーター','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="fakecloud-local-aws" data-type="dislike" onclick="toggleFlag('fakecloud-local-aws','Fakecloud 統合テスト用ローカルAWSエミュレーター','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 9 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-9" id="s9">
+  <div class="story-num">09</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / エージェント / Show HN / 対戦 / LLM評価 / インタラクティブ — 2026-09-28</div>
+    <h2 class="story-headline">
+      TinyAIArena——<br>AIエージェントの<br><span style="color:#8870e8">対決を<br>観戦する</span>
+    </h2>
+    <div class="story-body">
+      「Show HN: TinyAIArena watch AI agents battle it out」がHNで86点・45コメントを集めています。複数のAIエージェントが様々なタスクで対決し、その結果をリアルタイムで観戦できるウェブアプリです。LLMArena（人間によるモデル評価）の「エージェント版」として、「実際に何かをやらせてみたらどのAIが勝つか」を可視化する試みとして注目されています。
+    </div>
+    <div class="slate-items">
+      <div class="slate-item">
+        <div class="slate-label">仕組み——タスクを与えてエージェント同士を競わせる</div>
+        <div class="slate-text">TinyAIArenaではユーザーがタスク（「Pythonで素数を探すコードを書け」「この文章を要約せよ」「バグを修正せよ」など）を入力すると、複数のAIエージェント（各LLMをベースにしたエージェント）が同時に取り組み始める。エージェントはツール使用（コード実行・検索・ファイル操作）も行い、その過程がリアルタイムで表示される。最終的にユーザーまたはEloレーティング形式の評価システムがどのエージェントが優れていたかを判定する設計だ。</div>
+      </div>
+      <div class="slate-item">
+        <div class="slate-label">なぜ「Tiny」なのか——軽量で遊べる評価プラットフォーム</div>
+        <div class="slate-text">大規模な学術的エージェントベンチマーク（SWE-bench・AgentBench等）は専門知識が必要で一般ユーザーには敷居が高い。TinyAIArenaは「日常的に使うようなタスクで、自分が気になるモデルを手軽に比べられる」ことを目指している。インフラコストを抑えるため、タスクの実行はユーザーのAPIキーを使う設計（サーバーはLLM呼び出しをしない）をとっており、持続可能なOSS運用を志向している。</div>
+      </div>
+      <div class="slate-item">
+        <div class="slate-label">HNでの反応——「面白いが信頼性の担保が課題」</div>
+        <div class="slate-text">「LMSYS Chatbotアリーナのエージェント版という発想は自然——実際に動くものを見ると理解が深まる」という好評価が多数。一方「タスクの難易度・評価基準が一定でないと比較の意味が薄い——Eloは公平な条件を前提にしている」という評価の妥当性への懐疑も出た。「ユーザーのAPIキーを使う設計は賢い——維持コストゼロでスケールできる」というビジネスモデルへの評価も。作者が積極的にコメントに返信しており、今後のロードマップへの期待も高まっている。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: tinyaiarena.com</span>
+      <span>↑86 · 💬45+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://tinyaiarena.com/" target="_blank">アリーナを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49867775" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="tiny-ai-arena" data-type="like" onclick="toggleFlag('tiny-ai-arena','TinyAIArena AIエージェントの対決を観戦する','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="tiny-ai-arena" data-type="dislike" onclick="toggleFlag('tiny-ai-arena','TinyAIArena AIエージェントの対決を観戦する','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 10 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-10" id="s10">
+  <div class="story-num">10</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / LLM / llama.cpp / 推論最適化 / プロンプト / パフォーマンス — 2026-09-28</div>
+    <h2 class="story-headline">
+      llama.cppの<br>プロンプトルック<br><span style="color:#f090c0">アップ下書き<br>生成を高速化</span>
+    </h2>
+    <div class="story-body">
+      「Faster prompt lookup drafting in llama.cpp」がHNで59点・30コメントを集めています。オープンソースのLLM推論エンジン「llama.cpp」のプロンプトルックアップ下書き生成（Prompt Lookup Decoding）の高速化手法について解説した技術記事です。トークン生成を劇的に速める投機的デコーディングの実装詳細と、llama.cppでの実際のパフォーマンス向上データが示されており、LLMの推論最適化に興味がある開発者に刺さる内容です。
+    </div>
+    <div class="mag-items">
+      <div class="mag-item">
+        <div class="mag-label">プロンプトルックアップ下書き生成とは——投機的デコーディングの一種</div>
+        <div class="mag-text">投機的デコーディング（Speculative Decoding）は「小さなモデルで複数トークンを先読みし、大きなモデルで一括検証する」ことで生成速度を高める手法。プロンプトルックアップ下書き生成はさらに特殊で「入力プロンプトの中から次のトークン候補を探す」アプローチをとる。コードのような繰り返しパターンが多いテキストでは、プロンプト中に次に生成しそなシーケンスがすでに存在していることが多く、そこから候補を引いてくることで高精度かつ高速な先読みが実現できる。</div>
+      </div>
+      <div class="mag-item">
+        <div class="mag-label">実装の改善——ハッシュベースの高速検索</div>
+        <div class="mag-text">既存のllama.cppのプロンプトルックアップ実装は線形スキャンでプロンプト中の候補を探しており、長いコンテキストでは検索コスト自体が無視できないボトルネックになっていた。この記事では、プロンプトのn-gramにハッシュテーブルを構築して検索をO(1)にする改善を提案している。実測でコード補完タスクにおいて2〜3倍のトークン生成速度向上が確認されており、RTX 4090での具体的なベンチマーク数値も示されている。</div>
+      </div>
+      <div class="mag-item">
+        <div class="mag-label">HNでの反応——「ローカルLLMの実用性がまた一段階上がった」</div>
+        <div class="mag-text">「llama.cppをコード補完に使っているが、まさにこの遅さがボトルネックだった——すぐ試す」という実用者からの反応が多かった。「Speculative Decodingの文献は多いが、llama.cppレベルの実装詳細まで踏み込んだ記事は貴重」という技術的な評価も。「ollama経由でllama.cppを使っているが、このオプションはサポートされているのか」という実践的な質問も活発で、著者がolamaへのPRを準備中と応答したことで注目が高まっている。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: jadidbourbaki.github.io</span>
+      <span>↑59 · 💬30+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://jadidbourbaki.github.io/blog/prompt-lookup-llama-cpp/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49859982" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="llama-cpp-prompt-lookup" data-type="like" onclick="toggleFlag('llama-cpp-prompt-lookup','llama.cppのプロンプトルックアップ下書き生成を高速化','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="llama-cpp-prompt-lookup" data-type="dislike" onclick="toggleFlag('llama-cpp-prompt-lookup','llama.cppのプロンプトルックアップ下書き生成を高速化','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand">Morning Edition</div>
+      <div class="footer-meta">
+        Hacker News フロントページから厳選した10本 — 2026年9月28日（月）<br>
+        フィードバックボタンで好みを記録できます。feedback.json をエクスポートして次回に活用。
+      </div>
+    </div>
+    <button class="export-btn" onclick="exportFeedback()">📥 feedback.json をエクスポート</button>
+  </div>
+  <div class="footer-note">Generated by Claude · Powered by HN Algolia API · No.135</div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  const DB_NAME = 'morning-edition-feedback';
+  const DB_VERSION = 2;
+  const STORE_NAME = 'feedback';
+  let db = null;
+
+  function openDB() {
+    return new Promise((resolve, reject) => {
+      if (db) { resolve(db); return; }
+      const req = indexedDB.open(DB_NAME, DB_VERSION);
+      req.onupgradeneeded = e => {
+        const d = e.target.result;
+        if (!d.objectStoreNames.contains(STORE_NAME)) {
+          d.createObjectStore(STORE_NAME, { keyPath: 'id' });
+        }
+      };
+      req.onsuccess = e => { db = e.target.result; resolve(db); };
+      req.onerror = e => reject(e);
+    });
+  }
+
+  async function saveFeedback(id, title, type) {
+    try {
+      const d = await openDB();
+      const tx = d.transaction(STORE_NAME, 'readwrite');
+      const store = tx.objectStore(STORE_NAME);
+      const existing = await new Promise(res => { const r = store.get(id); r.onsuccess = e => res(e.target.result); r.onerror = () => res(null); });
+      if (existing && existing.type === type) {
+        store.delete(id);
+        return null;
+      }
+      store.put({ id, title, type, date: new Date().toISOString() });
+      return type;
+    } catch (e) {
+      try {
+        const key = 'me_fb_' + id;
+        const existing = localStorage.getItem(key);
+        if (existing && JSON.parse(existing).type === type) { localStorage.removeItem(key); return null; }
+        localStorage.setItem(key, JSON.stringify({ id, title, type, date: new Date().toISOString() }));
+        return type;
+      } catch (e2) { return type; }
+    }
+  }
+
+  async function loadFeedback(id) {
+    try {
+      const d = await openDB();
+      return new Promise(res => {
+        const tx = d.transaction(STORE_NAME, 'readonly');
+        const r = tx.objectStore(STORE_NAME).get(id);
+        r.onsuccess = e => res(e.target.result ? e.target.result.type : null);
+        r.onerror = () => res(null);
+      });
+    } catch (e) {
+      try { const v = localStorage.getItem('me_fb_' + id); return v ? JSON.parse(v).type : null; } catch (e2) { return null; }
+    }
+  }
+
+  function showToast(msg, isError) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.className = 'toast' + (isError ? ' error' : '');
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2200);
+  }
+
+  async function toggleFlag(storyId, title, type) {
+    const result = await saveFeedback(storyId, title, type);
+    updateButtons(storyId, result);
+    if (result === 'like') showToast('⭐ 興味ありとして記録しました');
+    else if (result === 'dislike') showToast('✕ 興味なしとして記録しました');
+    else showToast('フィードバックを解除しました');
+    await syncToFile();
+  }
+
+  function updateButtons(storyId, activeType) {
+    document.querySelectorAll(`[data-story="${storyId}"]`).forEach(btn => {
+      btn.classList.remove('active');
+      if (btn.dataset.type === activeType) btn.classList.add('active');
+    });
+  }
+
+  async function syncToFile() {
+    try {
+      const all = await getAllFeedback();
+      const json = JSON.stringify({ liked: all.filter(f => f.type === 'like').map(f => f.id), disliked: all.filter(f => f.type === 'dislike').map(f => f.id), entries: all }, null, 2);
+      if ('showSaveFilePicker' in window) {
+        try {
+          if (!window._feedbackHandle) return;
+          const writable = await window._feedbackHandle.createWritable();
+          await writable.write(json); await writable.close();
+        } catch (e) {}
+      }
+    } catch (e) {}
+  }
+
+  async function getAllFeedback() {
+    try {
+      const d = await openDB();
+      return new Promise(res => {
+        const tx = d.transaction(STORE_NAME, 'readonly');
+        const r = tx.objectStore(STORE_NAME).getAll();
+        r.onsuccess = e => res(e.target.result || []);
+        r.onerror = () => res([]);
+      });
+    } catch (e) {
+      try {
+        const items = [];
+        for (let i = 0; i < localStorage.length; i++) {
+          const k = localStorage.key(i);
+          if (k && k.startsWith('me_fb_')) { try { items.push(JSON.parse(localStorage.getItem(k))); } catch (e2) {} }
+        }
+        return items;
+      } catch (e2) { return []; }
+    }
+  }
+
+  async function exportFeedback() {
+    try {
+      const all = await getAllFeedback();
+      const json = JSON.stringify({ liked: all.filter(f => f.type === 'like').map(f => f.id), disliked: all.filter(f => f.type === 'dislike').map(f => f.id), entries: all }, null, 2);
+      if ('showSaveFilePicker' in window) {
+        const handle = await window.showSaveFilePicker({ suggestedName: 'feedback.json', types: [{ description: 'JSON', accept: { 'application/json': ['.json'] } }] });
+        window._feedbackHandle = handle;
+        const writable = await handle.createWritable();
+        await writable.write(json); await writable.close();
+        showToast('feedback.json を保存しました');
+      } else {
+        const a = document.createElement('a');
+        a.href = 'data:application/json;charset=utf-8,' + encodeURIComponent(json);
+        a.download = 'feedback.json'; a.click();
+        showToast('feedback.json をダウンロードしました');
+      }
+    } catch (e) { showToast('エクスポートに失敗しました', true); }
+  }
+
+  async function initButtons() {
+    const storyIds = [
+      'google-got-weird','go-concurrency-distilled','flip-fluid-flip-dots',
+      'neovim-undo-files-deleted','ember-1-ai-model','normalization-inexplicable-failures',
+      'motel-origins-of-life','fakecloud-local-aws',
+      'tiny-ai-arena','llama-cpp-prompt-lookup'
+    ];
+    for (const id of storyIds) {
+      const type = await loadFeedback(id);
+      if (type) updateButtons(id, type);
+    }
+  }
+
+  initButtons();
+</script>
+</body>
+</html>
