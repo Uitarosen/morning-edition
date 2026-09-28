@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Morning Edition — 2026年9月29日</title>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --font: 'M PLUS Rounded 1c', 'Hiragino Sans', 'Noto Sans JP', sans-serif; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); background: #111; color: #fff; overflow-x: hidden; }
+
+    .masthead { background: #fff; color: #000; padding: 3rem 4rem 2.5rem; border-bottom: 6px solid #000; position: relative; overflow: hidden; }
+    .masthead::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: repeating-linear-gradient(90deg, #000 0, #000 12px, transparent 12px, transparent 20px); }
+    .masthead-kicker { font-size: 0.85rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: #777; margin-bottom: 0.6rem; }
+    .masthead-title { font-size: clamp(3.5rem, 9vw, 7.5rem); font-weight: 900; line-height: 0.88; letter-spacing: -0.04em; margin-bottom: 1.8rem; }
+    .masthead-meta { display: flex; gap: 3rem; align-items: baseline; flex-wrap: wrap; }
+    .masthead-date { font-size: 1.5rem; font-weight: 700; }
+    .masthead-subtitle { font-size: 1rem; font-weight: 400; color: #555; max-width: 480px; line-height: 1.5; }
+    .masthead-issue { margin-left: auto; text-align: right; }
+    .masthead-issue span { display: block; }
+    .masthead-issue .iss-label { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: #999; }
+    .masthead-issue .iss-num { font-size: 2.2rem; font-weight: 900; color: #000; }
+
+    .toc { background: #1a1a1a; padding: 1.5rem 4rem; display: flex; gap: 1.5rem; flex-wrap: wrap; border-bottom: 1px solid #333; }
+    .toc a { color: #aaa; text-decoration: none; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; transition: color 0.2s; }
+    .toc a:hover { color: #fff; }
+    .toc-num { color: #555; margin-right: 0.3em; }
+
+    .story { position: relative; overflow: hidden; }
+    .story-inner { max-width: 1200px; margin: 0 auto; padding: 5rem 4rem; position: relative; z-index: 1; }
+    .story-num { font-size: clamp(6rem, 18vw, 16rem); font-weight: 900; line-height: 0.8; letter-spacing: -0.06em; opacity: 0.08; position: absolute; top: 1rem; right: 2rem; user-select: none; }
+    .story-badge { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.35em 0.9em; border-radius: 2px; margin-bottom: 1.5rem; }
+    .direct-badge { background: #FFD700; color: #000; }
+    .story-kicker { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; opacity: 0.6; margin-bottom: 0.8rem; }
+    .story-headline { font-size: clamp(2rem, 5vw, 4rem); font-weight: 900; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+    .story-body { font-size: clamp(1rem, 1.5vw, 1.2rem); font-weight: 400; line-height: 1.8; max-width: 680px; opacity: 0.88; margin-bottom: 2rem; }
+    .story-meta { display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center; font-size: 0.8rem; font-weight: 700; opacity: 0.5; }
+    .story-links { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem; }
+    .story-link { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.6em 1.4em; border-radius: 3px; text-decoration: none; transition: opacity 0.2s, transform 0.15s; }
+    .story-link:hover { opacity: 0.75; transform: translateY(-1px); }
+
+    .feedback-buttons { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .flag-btn { background: none; border: 1px solid currentColor; color: inherit; font-family: var(--font); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.5em 1em; border-radius: 3px; cursor: pointer; opacity: 0.32; transition: opacity 0.2s, background 0.2s, color 0.2s, border-color 0.2s, transform 0.15s; }
+    .flag-btn:hover { opacity: 0.72; transform: translateY(-1px); }
+    .flag-btn.like-btn.active { opacity: 1; background: rgba(255,215,0,0.15); border-color: #FFD700; color: #FFD700 !important; }
+    .flag-btn.dislike-btn.active { opacity: 1; background: rgba(255,60,60,0.12); border-color: #FF4444; color: #FF4444 !important; }
+
+    .toast { position: fixed; bottom: 2rem; right: 2rem; background: #1a1a1a; color: #fff; font-family: var(--font); font-size: 0.82rem; font-weight: 700; padding: 0.75em 1.4em; border-radius: 4px; border-left: 3px solid #00C853; z-index: 9999; opacity: 0; transform: translateY(10px); transition: opacity 0.25s, transform 0.25s; pointer-events: none; box-shadow: 0 4px 24px rgba(0,0,0,0.45); }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    .toast.error { border-left-color: #FF5252; }
+
+    /* Story 1 — White */
+    .story-1 { background: #fff; color: #000; min-height: 90vh; display: flex; flex-direction: column; justify-content: center; }
+    .story-1 .story-num { color: #000; opacity: 0.04; }
+    .story-1 .story-kicker { color: #555; opacity: 1; }
+    .story-1 .story-headline { color: #000; }
+    .story-1 .story-body { color: #111; }
+    .story-1 .story-meta { color: #000; }
+    .story-1 .story-link.primary { background: #1a1a1a; color: #fff; }
+    .story-1 .story-link.secondary { background: #f0f0f0; color: #000; }
+    .story-1 .flag-btn { color: #000; }
+    .story-1-accent { position: absolute; bottom: 0; left: 0; width: 100%; height: 8px; background: linear-gradient(90deg, #0a0a0a, #555, #0a0a0a); }
+    .story-1 .headline-accent { display: inline-block; background: linear-gradient(135deg, #1a1a1a 0%, #555 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .blue-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1.2rem; margin: 2rem 0; max-width: 680px; }
+    .blue-card { border: 2px solid rgba(0,0,0,0.12); background: rgba(0,0,0,0.03); border-radius: 6px; padding: 1.3rem 1.5rem; }
+    .blue-card-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.2em; text-transform: uppercase; color: #333; margin-bottom: 0.4rem; }
+    .blue-card-value { font-size: 1.05rem; font-weight: 900; color: #000; line-height: 1.3; }
+    .blue-card-sub { font-size: 0.75rem; color: #555; margin-top: 0.3rem; line-height: 1.4; }
+
+    /* Story 2 — Dark navy/teal */
+    .story-2 { background: #00080c; color: #b8f0ff; min-height: 80vh; }
+    .story-2::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(0,160,200,0.14) 0%, transparent 65%); }
+    .story-2 .story-num { color: #00A0C8; opacity: 0.07; }
+    .story-2 .story-kicker { color: #20C8E8; opacity: 1; }
+    .story-2 .story-headline { color: #e0f8ff; }
+    .story-2 .story-body { color: #b8f0ff; }
+    .story-2 .story-meta { color: #20C8E8; opacity: 0.5; }
+    .story-2 .story-link.primary { background: #004058; color: #80e8ff; }
+    .story-2 .story-link.secondary { background: rgba(0,160,200,0.08); color: #90d8f0; border: 1px solid rgba(0,160,200,0.22); }
+    .story-2 .flag-btn { color: #b8f0ff; }
+    .teal-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .teal-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(0,160,200,0.07); border-left: 3px solid #00A0C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .teal-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20C8E8; margin-bottom: 0.3rem; }
+    .teal-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 3 — Dark red */
+    .story-3 { background: #0a0000; color: #fff; min-height: 80vh; }
+    .story-3::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(200,20,20,0.16) 0%, transparent 65%); }
+    .story-3 .story-num { color: #C81414; opacity: 0.07; }
+    .story-3 .story-kicker { color: #E84040; opacity: 1; }
+    .story-3 .story-headline { color: #fff; }
+    .story-3 .story-body { color: rgba(255,255,255,0.88); }
+    .story-3 .story-meta { color: #E84040; opacity: 0.5; }
+    .story-3 .story-link.primary { background: #6a0000; color: #fff; }
+    .story-3 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-3 .flag-btn { color: #fff; }
+    .red-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .red-item { background: rgba(200,20,20,0.07); border-left: 3px solid #C81414; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .red-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E84040; margin-bottom: 0.3rem; }
+    .red-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 4 — Dark green */
+    .story-4 { background: #020c04; color: #c8f0d0; min-height: 80vh; }
+    .story-4::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(20,160,70,0.16) 0%, transparent 65%); }
+    .story-4 .story-num { color: #14A046; opacity: 0.07; }
+    .story-4 .story-kicker { color: #30C060; opacity: 1; }
+    .story-4 .story-headline { color: #e0ffe8; }
+    .story-4 .story-body { color: #c8f0d0; }
+    .story-4 .story-meta { color: #30C060; opacity: 0.5; }
+    .story-4 .story-link.primary { background: #063820; color: #80ffb0; }
+    .story-4 .story-link.secondary { background: rgba(20,160,70,0.08); color: #a0e8b0; border: 1px solid rgba(20,160,70,0.22); }
+    .story-4 .flag-btn { color: #c8f0d0; }
+    .green-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .green-item { background: rgba(20,160,70,0.07); border-left: 3px solid #14A046; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .green-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #30C060; margin-bottom: 0.3rem; }
+    .green-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 5 — Dark purple */
+    .story-5 { background: #040010; color: #d8c8ff; min-height: 75vh; }
+    .story-5::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(90,40,200,0.17) 0%, transparent 65%); }
+    .story-5 .story-num { color: #5A28C8; opacity: 0.07; }
+    .story-5 .story-kicker { color: #8050E0; opacity: 1; }
+    .story-5 .story-headline { color: #f0e8ff; }
+    .story-5 .story-body { color: #d8c8ff; }
+    .story-5 .story-meta { color: #8050E0; opacity: 0.5; }
+    .story-5 .story-link.primary { background: #200860; color: #d0a8ff; }
+    .story-5 .story-link.secondary { background: rgba(90,40,200,0.08); color: #c0a0f0; border: 1px solid rgba(90,40,200,0.22); }
+    .story-5 .flag-btn { color: #d8c8ff; }
+    .purple-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .purple-item { background: rgba(90,40,200,0.07); border-left: 3px solid #5A28C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .purple-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #8050E0; margin-bottom: 0.3rem; }
+    .purple-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 6 — Dark cyan */
+    .story-6 { background: #000c10; color: #b8e8f0; min-height: 75vh; }
+    .story-6::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 40%, rgba(0,130,160,0.14) 0%, transparent 65%); }
+    .story-6 .story-num { color: #0080A0; opacity: 0.07; }
+    .story-6 .story-kicker { color: #20B0D0; opacity: 1; }
+    .story-6 .story-headline { color: #e0f4ff; }
+    .story-6 .story-body { color: #b8e8f0; }
+    .story-6 .story-meta { color: #20B0D0; opacity: 0.5; }
+    .story-6 .story-link.primary { background: #003848; color: #80d8f0; }
+    .story-6 .story-link.secondary { background: rgba(0,130,160,0.08); color: #90cce0; border: 1px solid rgba(0,130,160,0.22); }
+    .story-6 .flag-btn { color: #b8e8f0; }
+    .cyan-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .cyan-item { background: rgba(0,130,160,0.07); border-left: 3px solid #0080A0; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .cyan-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20B0D0; margin-bottom: 0.3rem; }
+    .cyan-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 7 — Dark amber */
+    .story-7 { background: #0a0300; color: #ffe0b8; min-height: 75vh; }
+    .story-7::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(210,90,20,0.18) 0%, transparent 65%); }
+    .story-7 .story-num { color: #D05A14; opacity: 0.07; }
+    .story-7 .story-kicker { color: #E88040; opacity: 1; }
+    .story-7 .story-headline { color: #fff0d8; }
+    .story-7 .story-body { color: #ffe0b8; }
+    .story-7 .story-meta { color: #E88040; opacity: 0.5; }
+    .story-7 .story-link.primary { background: #6a2400; color: #ffc880; }
+    .story-7 .story-link.secondary { background: rgba(210,90,20,0.08); color: #ffb870; border: 1px solid rgba(210,90,20,0.22); }
+    .story-7 .flag-btn { color: #ffe0b8; }
+    .amber-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .amber-item { background: rgba(210,90,20,0.07); border-left: 3px solid #D05A14; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .amber-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E88040; margin-bottom: 0.3rem; }
+    .amber-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 8 — Dark gold */
+    .story-8 { background: #080500; color: #fff; min-height: 70vh; }
+    .story-8::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,145,10,0.15) 0%, transparent 65%); }
+    .story-8 .story-num { color: #BE9110; opacity: 0.06; }
+    .story-8 .story-kicker { color: #D4A820; opacity: 1; }
+    .story-8 .story-headline { color: #fff; }
+    .story-8 .story-body { color: rgba(255,255,255,0.88); }
+    .story-8 .story-meta { color: #D4A820; opacity: 0.5; }
+    .story-8 .story-link.primary { background: #604000; color: #ffe070; }
+    .story-8 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-8 .flag-btn { color: #fff; }
+    .gold-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .gold-item { background: rgba(190,145,10,0.07); border-left: 3px solid #BE9110; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .gold-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #D4A820; margin-bottom: 0.3rem; }
+    .gold-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 9 — Slate blue */
+    .story-9 { background: #040810; color: #c8d8f0; min-height: 70vh; }
+    .story-9::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 35%, rgba(50,90,170,0.16) 0%, transparent 65%); }
+    .story-9 .story-num { color: #3258A8; opacity: 0.07; }
+    .story-9 .story-kicker { color: #5878C8; opacity: 1; }
+    .story-9 .story-headline { color: #e8f0ff; }
+    .story-9 .story-body { color: #c8d8f0; }
+    .story-9 .story-meta { color: #5878C8; opacity: 0.5; }
+    .story-9 .story-link.primary { background: #101e50; color: #fff; }
+    .story-9 .story-link.secondary { background: rgba(50,90,170,0.08); color: #b0c8e8; border: 1px solid rgba(50,90,170,0.22); }
+    .story-9 .flag-btn { color: #c8d8f0; }
+    .slate-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .slate-item { background: rgba(50,90,170,0.07); border-left: 3px solid #3258A8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .slate-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #5878C8; margin-bottom: 0.3rem; }
+    .slate-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 10 — Magenta */
+    .story-10 { background: #080004; color: #ffc8e8; min-height: 70vh; }
+    .story-10::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,20,90,0.15) 0%, transparent 65%); }
+    .story-10 .story-num { color: #BE1458; opacity: 0.07; }
+    .story-10 .story-kicker { color: #E04080; opacity: 1; }
+    .story-10 .story-headline { color: #fff0f8; }
+    .story-10 .story-body { color: #ffc8e8; }
+    .story-10 .story-meta { color: #E04080; opacity: 0.5; }
+    .story-10 .story-link.primary { background: #500030; color: #ffb0d8; }
+    .story-10 .story-link.secondary { background: rgba(190,20,90,0.08); color: #f090c0; border: 1px solid rgba(190,20,90,0.22); }
+    .story-10 .flag-btn { color: #ffc8e8; }
+    .mag-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .mag-item { background: rgba(190,20,90,0.07); border-left: 3px solid #BE1458; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .mag-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E04080; margin-bottom: 0.3rem; }
+    .mag-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .site-footer { background: #000; color: #555; padding: 3rem 4rem; display: flex; flex-direction: column; gap: 1.5rem; border-top: 1px solid #222; }
+    .footer-top { display: flex; gap: 2rem; align-items: center; flex-wrap: wrap; justify-content: space-between; }
+    .footer-brand { font-size: 1.4rem; font-weight: 900; color: #fff; }
+    .footer-meta { font-size: 0.75rem; line-height: 1.6; }
+    .export-btn { background: #222; border: 1px solid #444; color: #fff; font-family: var(--font); font-size: 0.8rem; font-weight: 700; padding: 0.7em 1.5em; border-radius: 3px; cursor: pointer; letter-spacing: 0.08em; transition: background 0.2s; }
+    .export-btn:hover { background: #333; }
+    .footer-note { font-size: 0.7rem; opacity: 0.5; }
+
+    @media (max-width: 768px) {
+      .masthead, .toc, .story-inner, .site-footer { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .story-num { display: none; }
+      .masthead-meta { gap: 1rem; }
+      .masthead-issue { margin-left: 0; }
+      .blue-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+<nav style="background:#1a1a1a;border-bottom:1px solid #333;padding:0.55rem 2rem;font-family:'M PLUS Rounded 1c','Hiragino Sans','Noto Sans JP',sans-serif;position:sticky;top:0;z-index:999;">
+  <a href="./index.html" style="color:#aaa;text-decoration:none;font-size:0.8rem;font-weight:700;letter-spacing:0.03em;display:inline-flex;align-items:center;gap:0.4rem;transition:color 0.15s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#aaa'">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    アーカイブへ戻る
+  </a>
+</nav>
+
+<header class="masthead">
+  <div class="masthead-kicker">Hacker News — Morning Edition</div>
+  <h1 class="masthead-title">Morning<br>Edition</h1>
+  <div class="masthead-meta">
+    <div>
+      <div class="masthead-date">2026年9月29日 火曜日</div>
+      <div class="masthead-subtitle">AI・開発ツール・プライバシー・サイエンス — あなたのための10本</div>
+    </div>
+    <div class="masthead-issue">
+      <span class="iss-label">Issue</span>
+      <span class="iss-num">No.136</span>
+    </div>
+  </div>
+</header>
+
+<nav class="toc">
+  <a href="#s1"><span class="toc-num">01</span>⚡ Claude Sonnet 5.5登場——Anthropicが次世代モデルを発表</a>
+  <a href="#s2"><span class="toc-num">02</span>Googleはいつからこんなに「おかしく」なったのか</a>
+  <a href="#s3"><span class="toc-num">03</span>NvidiaがAIエージェントの隣に「番犬チップ」を置きたい理由</a>
+  <a href="#s4"><span class="toc-num">04</span>AIラボを調査すべき時が来た——カル・ニューポートの警告</a>
+  <a href="#s5"><span class="toc-num">05</span>Flockの監視カメラ地図を消させろ——30万台の目が向けられている</a>
+  <a href="#s6"><span class="toc-num">06</span>Cf——CloudflareのエージェントCLIが登場</a>
+  <a href="#s7"><span class="toc-num">07</span>Jeff——自宅でトレーニングした0.8B決定モデル、レイテンシ30ms</a>
+  <a href="#s8"><span class="toc-num">08</span>MicroLLM Lab——7つの小型LLMをブラウザで今すぐ試す</a>
+  <a href="#s9"><span class="toc-num">09</span>PS5のRTMPストリームをハイジャックする</a>
+  <a href="#s10"><span class="toc-num">10</span>1万2000年前のギョベクリテペ——散乱した骨の謎が解けた</a>
+</nav>
+
+<!-- ═══ STORY 1 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-1" id="s1">
+  <div class="story-num">01</div>
+  <div class="story-inner">
+    <div class="story-badge direct-badge">⚡ あなたに直接関係</div>
+    <div class="story-kicker">AI / Anthropic / Claude / 新モデル / LLM / コーディング — 2026-09-29</div>
+    <h2 class="story-headline">
+      Claude<br><span class="headline-accent">Sonnet 5.5</span><br>登場
+    </h2>
+    <div class="story-body">
+      AnthropicがClaude Sonnet 5.5を発表し、HNで320コメントを集めています。コーディング性能と推論能力をさらに強化した新モデルで、Claude Code・APIを通じて利用可能です。前世代のSonnet 5から各種ベンチマークで改善が確認されており、開発者コミュニティで即座に話題となりました。あなたが毎日使うツールの中核が更新されました。
+    </div>
+    <div class="blue-grid">
+      <div class="blue-card">
+        <div class="blue-card-label">何が変わったか——コーディングと推論の強化</div>
+        <div class="blue-card-value">Sonnet 5.5</div>
+        <div class="blue-card-sub">AnthropicはSonnet 5.5をコーディング・推論・指示追従の全方面でSonnet 5から改善したと説明。SWE-bench等のコーディングベンチマークでスコアアップが確認されており、マルチステップのエージェントタスクへの適性が向上している。Claude Codeユーザーにとってはコード補完・デバッグ・リファクタリングの質が向上することが期待される。APIの価格は現行Sonnetと同水準で提供される見通し。</div>
+      </div>
+      <div class="blue-card">
+        <div class="blue-card-label">モデルファミリーの位置づけ——Opusとの棲み分け</div>
+        <div class="blue-card-value">日常作業の最適解</div>
+        <div class="blue-card-sub">Sonnet系は「高い能力とコスト効率のバランス」を担うシリーズ。Opus 5.5が最大推論力を必要とするタスク向けなのに対し、Sonnet 5.5は大半の開発作業・エージェント用途・API統合に最適な位置づけ。Claude Codeのデフォルトモデルとしても利用され、毎日の開発ワークフローに直接影響する。新しいmodel IDは`claude-sonnet-5-5`。</div>
+      </div>
+      <div class="blue-card">
+        <div class="blue-card-label">HNでの反応——「実際に試した感想」が飛び交う</div>
+        <div class="blue-card-value">↑HN話題沸騰 · 💬320+</div>
+        <div class="blue-card-sub">「Sonnet 5から乗り換えた——複数ファイルの編集で一段階賢くなった実感がある」「難しいリファクタリングで詰まっていたのにSonnet 5.5でスムーズに通過した」などの即時使用報告が多数。「ベンチマーク数字より使ってみるのが一番——コードレビューの質が上がったのが嬉しい」という実践的評価が上位に集まった。AnthropicのAPI経由での新機能も議論されている。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: anthropic.com</span>
+      <span>💬320+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.anthropic.com/claude-sonnet-5-5" target="_blank">発表を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49881850" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="sonnet-5-5-anthropic" data-type="like" onclick="toggleFlag('sonnet-5-5-anthropic','Claude Sonnet 5.5登場 Anthropicが次世代モデルを発表','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="sonnet-5-5-anthropic" data-type="dislike" onclick="toggleFlag('sonnet-5-5-anthropic','Claude Sonnet 5.5登場 Anthropicが次世代モデルを発表','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+    <div class="story-1-accent"></div>
+  </div>
+</section>
+
+<!-- ═══ STORY 2 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-2" id="s2">
+  <div class="story-num">02</div>
+  <div class="story-inner">
+    <div class="story-kicker">テクノロジー / Google / 検索 / UX / 批評 / 企業文化 — 2026-09-29</div>
+    <h2 class="story-headline">
+      Googleは<br>いつからこんなに<br><span style="color:#20d8f0">「おかしく」<br>なったのか</span>
+    </h2>
+    <div class="story-body">
+      「When did Google get so weird?」がHNで1015コメントを集める大討論に発展しています。かつて検索の黄金標準だったGoogleが、AI要約・広告氾濫・検索品質の劣化・不可解なUIの変化を経て、ユーザーを混乱させる企業に変わっていったプロセスを振り返るエッセイです。Googleへの信頼の崩壊という問いが、テック業界全体への大きな不信感として共鳴しています。
+    </div>
+    <div class="teal-items">
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">検索品質の劣化——SEOスパムとAI要約が壊したもの</div>
+          <div class="teal-text">著者は「2012年頃から検索結果の上位がSEO最適化されたコンテンツファームに埋め尽くされ始めた」と述べる。「本物の情報を探すにはsite:reddit.comを追加するハックが一般化した」という事実自体がGoogleの失敗を物語っている。さらにAI Overviewの導入により誤情報が最上位に現れる問題も加わり、信頼は積み重なるように崩れていった。</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">製品の迷走——サービスを殺し続ける歴史</div>
+          <div class="teal-text">Google Photosの無制限ストレージ廃止、Stadia撤退、Google+失敗、Allo/Duo/Meetの混乱、Inbox by Gmailの終了——「Google Graveyard（Googleの墓場）」というサイトが存在するほど、サービス廃止の歴史が積み重なってきた。ユーザーが新サービスに投資することへの躊躇が慢性化している。</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">HNでの反応——「広告収益モデルとユーザー体験は対立する」</div>
+          <div class="teal-text">「2006〜2010年のGoogleは本当に魔法のようだった——今は広告ブロッカーがないと使えないレベル」という懐古が多い。「広告収益モデルとユーザー体験は根本的に対立する——Googleは株主を選んだ」というシニカルな分析が最多支持を集めた。1015コメントという数字が、この問いへの共鳴の深さを示している。</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: sancho.bearblog.dev</span>
+      <span>💬1015+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://sancho.bearblog.dev/google-weird/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49870367" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="google-got-weird" data-type="like" onclick="toggleFlag('google-got-weird','Googleはいつからこんなに「おかしく」なったのか','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="google-got-weird" data-type="dislike" onclick="toggleFlag('google-got-weird','Googleはいつからこんなに「おかしく」なったのか','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 3 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-3" id="s3">
+  <div class="story-num">03</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / ハードウェア / Nvidia / セキュリティ / エージェント / チップ — 2026-09-29</div>
+    <h2 class="story-headline">
+      Nvidiaが<br>AIエージェントの<br><span style="color:#ff6060">隣に「番犬<br>チップ」を置く</span>
+    </h2>
+    <div class="story-body">
+      NvidiaがあらゆるAIエージェントの隣に監視用チップ（watchdog chip）を設置することを望んでいるとCNBCが報道し、HNで118コメントを集めています。AIエージェントが予期しない行動をした際に介入・停止できる「ハードウェアレベルの安全装置」という発想で、AIガバナンスの議論に新たな次元を加えています。
+    </div>
+    <div class="red-items">
+      <div class="red-item">
+        <div class="red-label">番犬チップとは何か——ハードウェアによるAI監視</div>
+        <div class="red-text">Nvidiaが提案する「番犬チップ」はAIエージェントの推論チップと並走して動き、エージェントの行動をリアルタイムで監視する専用プロセッサ。エージェントが「承認されていない行動」「リソースの過剰消費」「ループ状態」などを検出した場合に割り込み・停止できる設計を想定しているとされる。GPUの隣にセキュリティコプロセッサを置くという発想はスマートフォン（セキュアエンクレーブ）では確立されており、AI時代への拡張として提唱されている。</div>
+      </div>
+      <div class="red-item">
+        <div class="red-label">なぜNvidiaが提唱するのか——AIインフラ企業の責任論</div>
+        <div class="red-text">Nvidiaは世界のAI推論インフラの中心的プレイヤーとして、AI安全性の議論で存在感を示したいという戦略的動機がある。同時に「安全なAIハードウェア」というカテゴリは将来的に巨大な市場になりうる。企業がAIエージェントを大規模に展開するにあたって「ハードウェアレベルの監査証跡と制御」を求める規制が生まれる可能性があり、Nvidiaはその標準を設定しようとしている。</div>
+      </div>
+      <div class="red-item">
+        <div class="red-label">HNでの反応——「効果的か、それとも安全の幻想か」</div>
+        <div class="red-text">「ハードウェアによる制御は理論的に健全だが、「承認された行動」の定義が最も難しい——誰が決めるのか」という本質的な疑問が多数。「AIエージェントを止める方法より、そもそも危険なことをしないよう訓練する方が根本的では」という対案も。「Nvidiaがこの議論を主導することの利益相反を見逃すな」という批判的視点も根強く、AI安全性とビジネス戦略の交差点としての議論が深まっている。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: cnbc.com</span>
+      <span>💬118+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.cnbc.com/2026/09/28/nvidia-releases.html" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49879883" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="nvidia-watchdog-chip-ai-agents" data-type="like" onclick="toggleFlag('nvidia-watchdog-chip-ai-agents','NvidiaがAIエージェントの隣に番犬チップを置きたい理由','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="nvidia-watchdog-chip-ai-agents" data-type="dislike" onclick="toggleFlag('nvidia-watchdog-chip-ai-agents','NvidiaがAIエージェントの隣に番犬チップを置きたい理由','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 4 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-4" id="s4">
+  <div class="story-num">04</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / 政策 / 規制 / カル・ニューポート / AIラボ / 透明性 — 2026-09-29</div>
+    <h2 class="story-headline">
+      AIラボを<br>調査すべき<br><span style="color:#30d060">時が来た</span>
+    </h2>
+    <div class="story-body">
+      「It's Time to Investigate the AI Labs」でカル・ニューポートがHNで29コメントを集めています。AI開発の透明性と説明責任を問うこの主張は、規模と影響力を持ちながらブラックボックスのまま社会に組み込まれていくAIラボへの警戒を呼びかけるものです。ニューポートらしい明快な論展開で、AIガバナンスの核心に迫っています。
+    </div>
+    <div class="green-items">
+      <div class="green-item">
+        <div class="green-label">ニューポートの主張——「我々はAIラボを信じすぎている」</div>
+        <div class="green-text">カル・ニューポートは「AIラボが社会に対して持つ影響力と、それに対する外部からの監視の不均衡」を問題の核心とする。製薬会社・金融機関・航空会社が厳格な規制と外部監査を受ける一方、数十億人の認知活動を形成するAIシステムの開発企業がほぼ自己申告に依存しているのは異常ではないかという問いを立てる。「安全」「有益」「整合」という言葉の定義を社内で決め続けていいのかという問題提起だ。</div>
+      </div>
+      <div class="green-item">
+        <div class="green-label">具体的に何を調査すべきか——トレーニングデータから意思決定まで</div>
+        <div class="green-text">ニューポートが調査を求める対象は(1)トレーニングデータの出所と同意の有無、(2)安全性評価の手法と独立性、(3)能力の上限に関する内部評価結果、(4)ロビー活動と規制への影響力行使、の4点。特に「能力評価の結果は内部にあるが公開されていない——外部研究者がアクセスできない」という情報の非対称性への批判が論の中心にある。</div>
+      </div>
+      <div class="green-item">
+        <div class="green-label">HNでの反応——「誰が調査するのかが問題」</div>
+        <div class="green-text">「原則には賛成だが、政府に調査能力があるか疑問——技術的理解のない規制は逆効果」という現実論が多数。「AIラボ自身が「安全重視」をアピールしながら規制を骨抜きにするロビー活動をしている構図が問題の本質」という鋭い指摘も上位。「ジャーナリズムや市民社会による外部圧力こそが最初の一歩」という実践的提案も出た。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: calnewport.com</span>
+      <span>💬29+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://calnewport.com/its-time-to-investigate-the-ai-labs/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49883471" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="investigate-ai-labs" data-type="like" onclick="toggleFlag('investigate-ai-labs','AIラボを調査すべき時が来た カル・ニューポートの警告','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="investigate-ai-labs" data-type="dislike" onclick="toggleFlag('investigate-ai-labs','AIラボを調査すべき時が来た カル・ニューポートの警告','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 5 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-5" id="s5">
+  <div class="story-num">05</div>
+  <div class="story-inner">
+    <div class="story-kicker">プライバシー / 監視 / Flock / 自動車追跡 / データ地図 / The Intercept — 2026-09-29</div>
+    <h2 class="story-headline">
+      Flockの<br>監視カメラ地図を<br><span style="color:#b070ff">消させろ</span>
+    </h2>
+    <div class="story-body">
+      Flock Safety（車のナンバープレートを読み取る自動追跡システム）が、米国内に設置された30万台以上のカメラの詳細な地図をオフラインにするよう要求していることをThe Interceptが報道し、HNで20コメントを集めています。自社の監視インフラが可視化されることへの抵抗という、プライバシーの問題が反転した構造が議論を呼んでいます。
+    </div>
+    <div class="purple-items">
+      <div class="purple-item">
+        <div class="purple-label">Flockとは何か——米国の道路を覆う車両追跡網</div>
+        <div class="purple-text">Flock Safetyは駐車場・住宅街・公道に設置された固定カメラで車のナンバープレートをリアルタイムスキャンし、データを警察・自治体・民間に提供するサービス。2026年時点で米国内に推定30万台以上が設置されており、車両の移動履歴を大規模に記録している。当初は「犯罪抑止」として学校区や住宅組合に売られたが、イミグレーション執行・民事事件での使用など目的外利用が増加している。</div>
+      </div>
+      <div class="purple-item">
+        <div class="purple-label">なぜ地図を消させたいのか——「監視の脆弱性」の逆説</div>
+        <div class="purple-text">The Interceptが作成・公開した「Flockカメラの設置場所地図」をFlockが削除要求した。その理由として「テロリストや犯罪者がカメラを避けるルートを計画できる」という安全保障上の懸念を挙げている。しかしこれは逆の意味での透明性を巡る争いだ——市民が「自分がどこで追跡されているか」を知る権利と、監視企業が「監視網の全貌を隠す権利」の衝突として読める。</div>
+      </div>
+      <div class="purple-item">
+        <div class="purple-label">HNでの反応——「監視される側の権利としての公開」</div>
+        <div class="purple-text">「監視する側が自分たちが監視されることを嫌がっている——これ以上ない皮肉」という反応が多数。「カメラの存在が分かれば避けられる——それを「脅威」と言うのは、監視に気づかれることそのものを目的としていることの告白だ」という鋭い指摘が上位。「EFFなどの市民団体がFlock地図を維持し続けるべき」という実践的な呼びかけも。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: theintercept.com</span>
+      <span>💬20+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://theintercept.com/2026/09/24/how-many-flock-devices-in-united-states-300000/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49884363" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="flock-surveillance-cameras-map" data-type="like" onclick="toggleFlag('flock-surveillance-cameras-map','Flockの監視カメラ地図を消させろ 30万台の目が向けられている','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="flock-surveillance-cameras-map" data-type="dislike" onclick="toggleFlag('flock-surveillance-cameras-map','Flockの監視カメラ地図を消させろ 30万台の目が向けられている','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 6 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-6" id="s6">
+  <div class="story-num">06</div>
+  <div class="story-inner">
+    <div class="story-kicker">開発ツール / Cloudflare / CLI / エージェント / API / 自動化 — 2026-09-29</div>
+    <h2 class="story-headline">
+      Cf——<br>Cloudflareの<br><span style="color:#20b8d0">エージェント<br>CLIが登場</span>
+    </h2>
+    <div class="story-body">
+      CloudflareがCloudflare API向けのエージェントCLI「cf」をリリースし、HNで38コメントを集めています。`cf`コマンドひとつでDNS設定・Workersデプロイ・R2バケット管理などのCloudflare操作が自然言語やスクリプトで完結するツールで、インフラエンジニアやDevOpsの手作業を削減することを目指しています。今すぐ使えるActionableなツールです。
+    </div>
+    <div class="cyan-items">
+      <div class="cyan-item">
+        <div class="cyan-label">何ができるか——Cloudflare全操作をCLIから</div>
+        <div class="cyan-text">Cloudflare cfはCloudflareのほぼ全機能をコマンドラインから操作できるクライアント。DNS レコードの追加・変更・削除、Cloudflare Workers/Pages のデプロイ・ロールバック、R2 バケットの作成・ファイル操作、Firewall Rules・Rate Limiting の管理、Zero Trust Access ポリシーの設定などに対応。従来のCloudflare REST APIを直接たたくスクリプトを組む手間を省き、設定ファイルとCIパイプラインへの統合を想定した設計になっている。</div>
+      </div>
+      <div class="cyan-item">
+        <div class="cyan-label">「エージェント」の意味——会話型操作と自動化の融合</div>
+        <div class="cyan-text">「アgentic CLI」と銘打っている理由は、単純なAPI wrapperにとどまらず「意図を伝えれば適切な操作を推論する」設計を持つことにある。例えば`cf "production環境のWorkerをstaging用設定に切り替えて"`のような自然言語指示を解釈し、必要なAPI呼び出しを組み立てて実行する。Claude/GPT等のLLMバックエンドを使うオプションもあり、複数ステップの操作を自動化できる。</div>
+      </div>
+      <div class="cyan-item">
+        <div class="cyan-label">HNでの反応——「wranglerとの棲み分けは？」</div>
+        <div class="cyan-text">「wrangler（Cloudflareの公式Workers CLI）との差別化が分かりにくい」という指摘が多い。公式の回答は「wranglerはWorkers開発専用、cfはCloudflareサービス全体を横断する管理ツール」という整理。「実際にDNS切り替え自動化に使えそう——CI/CDへの統合を試す」という実践報告も早々に出ており、Cloudflareユーザーには即日試す価値がある。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: blog.cloudflare.com</span>
+      <span>💬38+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://blog.cloudflare.com/cloudflare-cf-cli-launch/" target="_blank">発表を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49879577" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="cloudflare-cf-agentic-cli" data-type="like" onclick="toggleFlag('cloudflare-cf-agentic-cli','Cf CloudflareのエージェントCLIが登場','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="cloudflare-cf-agentic-cli" data-type="dislike" onclick="toggleFlag('cloudflare-cf-agentic-cli','Cf CloudflareのエージェントCLIが登場','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 7 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-7" id="s7">
+  <div class="story-num">07</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / 小型モデル / ローカルLLM / 自宅トレーニング / 決定モデル / GitHub — 2026-09-29</div>
+    <h2 class="story-headline">
+      Jeff——<br>自宅で作った<br><span style="color:#e88040">0.8B決定モデル<br>30msで動く</span>
+    </h2>
+    <div class="story-body">
+      「Jeff — Jev-compatible 0.8B decision models, trained at home, ~30ms」がHNで25コメントを集めています。個人開発者が自宅のGPUで訓練した0.8Bパラメータの小型「決定モデル」で、Jev形式に対応しつつ約30ミリ秒という驚異的な推論レイテンシを実現しています。大型モデルが不要な「Yes/No型の分類・判断タスク」への特化で、エッジAIとエージェント構築に即使えます。
+    </div>
+    <div class="amber-items">
+      <div class="amber-item">
+        <div class="amber-label">「決定モデル」とは何か——分類・判断に特化した小型LLM</div>
+        <div class="amber-text">Jeffが「決定モデル」と称するのは、「この文は有害か」「ユーザーの意図はAかBか」「このコードはバグを含むか」といったYes/No・多択分類に最適化されたモデルのこと。汎用LLM（Claude・GPT等）は長文生成も推論も全部できるが、その分レイテンシが高くコストも大きい。決定タスクだけなら0.8Bの特化型モデルで十分なケースが多く、エージェントパイプラインの「ガードレール」「ルーター」「分類器」として使うと大型モデルへの呼び出しを大幅削減できる。</div>
+      </div>
+      <div class="amber-item">
+        <div class="amber-label">自宅トレーニングで到達できるレベル——RTX 4090で数日</div>
+        <div class="amber-text">作者はRTX 4090一枚で数日間の訓練でこの性能に到達したと説明。ベースモデルにはQwen2.5の小型版を使い、特定の判断タスク用データセットでfine-tuningしている。Jev（JSON-based evaluation format）との互換性を持たせることで既存のLLM評価パイプラインに組み込みやすくしている。「クラウドGPUを借りるより手元のRTX 4090で十分——このサイズなら週末プロジェクトで十分に到達できる」という実証として機能している。</div>
+      </div>
+      <div class="amber-item">
+        <div class="amber-label">HNでの反応——「この方向性こそ実用的なローカルAI」</div>
+        <div class="amber-text">「70Bモデルをローカルで動かそうとして挫折したが、0.8Bの決定モデルなら実際に使える——このアプローチは正しい」という共感が多数。「30msは速すぎる——推論品質との評価を詳しく見たい」という検証要求も。「エージェントのルーター部分をこういう小型モデルに任せることでコストを下げるパターンを試している」という実践報告も早々に出ており、すぐ試せる価値がある。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: github.com/firelex/jeff</span>
+      <span>💬25+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://github.com/firelex/jeff" target="_blank">GitHubを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49883844" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="jeff-08b-decision-models-home" data-type="like" onclick="toggleFlag('jeff-08b-decision-models-home','Jeff 自宅で作った0.8B決定モデル30msで動く','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="jeff-08b-decision-models-home" data-type="dislike" onclick="toggleFlag('jeff-08b-decision-models-home','Jeff 自宅で作った0.8B決定モデル30msで動く','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 8 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-8" id="s8">
+  <div class="story-num">08</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / 小型LLM / ブラウザ / インタラクティブ / 比較 / WebLLM — 2026-09-29</div>
+    <h2 class="story-headline">
+      MicroLLM Lab——<br>7つの小型LLMを<br><span style="color:#d4a820">ブラウザで<br>今すぐ試す</span>
+    </h2>
+    <div class="story-body">
+      「MicroLLM Lab — Try 7 tiny LLM's in the browser」がHNで36コメントを集めています。インストール不要・APIキー不要でブラウザ内で7種類の小型LLMを試せるインタラクティブサイトです。WebLLM技術を使ってGPU推論をブラウザ上で実行し、モデルごとの速度・品質・応答スタイルを手軽に比較できます。
+    </div>
+    <div class="gold-items">
+      <div class="gold-item">
+        <div class="gold-label">何ができるか——7モデルをそのまま叩ける環境</div>
+        <div class="gold-text">MicroLLM LabはWebGPU/WebAssembly技術を使い、ブラウザがGPUを直接使って推論を行う。対応モデルはLlama 3.2 1B・Phi-3.5 Mini・Gemma 2 2B・Qwen2.5 0.5B・SmolLM2など7種類。初回はモデルウェイトのダウンロードが必要だが（各200MB〜1GB程度）、一度ダウンロードすればオフラインでも動く。プロンプトを入力して各モデルの回答・速度・トークン毎秒を並べて確認できる設計。</div>
+      </div>
+      <div class="gold-item">
+        <div class="gold-label">どんな用途に向くか——モデル選定の実験場として</div>
+        <div class="gold-text">コードアシスタントや特定タスクに組み込む小型LLMを選ぶ前に、実際の性能を肌感覚で確かめたいときに有効。「Phi-3.5 MiniはSmolLM2より論理的だが、SmolLM2の方がレイテンシが低い」といった比較が画面上で即確認できる。サーバーにログが残らない・APIキー不要という点でプライバシーに配慮した環境でのテストにも向く。</div>
+      </div>
+      <div class="gold-item">
+        <div class="gold-label">HNでの反応——「こういうものが欲しかった」</div>
+        <div class="gold-text">「小型モデルの違いを体感するのに最適な遊び場——開発初期の選定に使う」という実用的評価が多数。「WebGPUがここまで成熟してきたことへの驚き——2年前は夢のような話だった」というインフラ側への感動も多かった。「モデルが増えるほど価値が上がる——OSSモデルを追加できるようにして欲しい」という機能要望も作者に届いており、拡張の可能性に期待が集まっている。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: stateofutopia.com</span>
+      <span>💬36+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://stateofutopia.com/experiments/microllmlab/" target="_blank">試してみる →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49882781" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="microllm-lab-browser" data-type="like" onclick="toggleFlag('microllm-lab-browser','MicroLLM Lab 7つの小型LLMをブラウザで今すぐ試す','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="microllm-lab-browser" data-type="dislike" onclick="toggleFlag('microllm-lab-browser','MicroLLM Lab 7つの小型LLMをブラウザで今すぐ試す','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 9 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-9" id="s9">
+  <div class="story-num">09</div>
+  <div class="story-inner">
+    <div class="story-kicker">エンジニアリング / ハック / PS5 / RTMP / ストリーミング / リバースエンジニアリング — 2026-09-29</div>
+    <h2 class="story-headline">
+      PS5の<br>RTMPストリームを<br><span style="color:#8870e8">ハイジャック<br>する</span>
+    </h2>
+    <div class="story-body">
+      「Hijacking the PS5's RTMP stream」がHNで53コメントを集めています。PlayStation 5の配信機能が使うRTMPストリームを傍受・操作する手法の詳細な解析記事です。PS5がTwitch/YouTubeへのストリーミングのためにどのようにRTMPプロトコルを実装しているかを逆工学で解明し、ローカルネットワーク上で配信映像を横取り・記録・リダイレクトできることを示しています。
+    </div>
+    <div class="slate-items">
+      <div class="slate-item">
+        <div class="slate-label">何をやったのか——PS5配信の通信経路を解剖</div>
+        <div class="slate-text">著者のYash GargはPS5が配信時に使うRTMP（Real-Time Messaging Protocol）接続をmitmプロキシで傍受するところから始めた。PS5のネットワーク設定でカスタムプロキシを指定することでSSL証明書の検証をバイパスし、暗号化前のRTMPトラフィックを取得。Twitchに向かうはずのストリームをローカルサーバーのnginx-rtmpに向けることで、PS5の配信映像をPC上でリアルタイム録画・編集できることを確認した。</div>
+      </div>
+      <div class="slate-item">
+        <div class="slate-label">なぜ面白いのか——ユーザーが自分のデータを取り戻す</div>
+        <div class="slate-text">PS5標準の配信機能は映像の保存・加工・別サービスへの転送に制限が多い。この手法を使えばTwitchへのリアルタイム配信と同時にローカル録画、独自のオーバーレイ合成、他のRTMPエンドポイントへのリレーなどが可能になる。「自分のゲームプレイ映像を自分で管理する」という視点では正当な用途であり、プラットフォームが課す制約をユーザーが技術で突き破る例として読める。</div>
+      </div>
+      <div class="slate-item">
+        <div class="slate-label">HNでの反応——「ホームラボの可能性が広がった」</div>
+        <div class="slate-text">「OBSが使えないコンソールゲームの配信にずっとフラストレーションを感じていた——これは実用的」という反応が多数。「RTMPのハイジャックはPS5に限らずNintendo Switch・スマートTVでも同様の手法が使える——応用可能性が広い」という指摘も。「セキュリティ的にはPS5がプロキシを信頼しすぎている設計——ゲーム機のセキュリティモデルの甘さを示している」という批判的評価も出た。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: yashgarg.dev</span>
+      <span>💬53+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://yashgarg.dev/posts/hijacking-ps5-rtmp-stream/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49879702" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="ps5-rtmp-stream-hijack" data-type="like" onclick="toggleFlag('ps5-rtmp-stream-hijack','PS5のRTMPストリームをハイジャックする','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="ps5-rtmp-stream-hijack" data-type="dislike" onclick="toggleFlag('ps5-rtmp-stream-hijack','PS5のRTMPストリームをハイジャックする','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 10 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-10" id="s10">
+  <div class="story-num">10</div>
+  <div class="story-inner">
+    <div class="story-kicker">考古学 / 先史時代 / ギョベクリテペ / 骨 / 謎 / 科学 — 2026-09-29</div>
+    <h2 class="story-headline">
+      1万2000年前の<br>ギョベクリテペ——<br><span style="color:#f090c0">散乱した骨の<br>謎が解けた</span>
+    </h2>
+    <div class="story-body">
+      「12,000-year-old Göbeklitepe burials explain scattered bones」がHNで話題を集めています。人類最古級の神殿遺跡として知られるトルコのギョベクリテペで長年謎だった「建物内に散乱した人骨」の意味が、新たな研究で解明されつつあります。単なる無秩序な遺棄ではなく、意図的な儀礼的行為の痕跡であることが分かってきました。
+    </div>
+    <div class="mag-items">
+      <div class="mag-item">
+        <div class="mag-label">ギョベクリテペとは——農耕以前の「神殿」という衝撃</div>
+        <div class="mag-text">トルコ南東部に位置するギョベクリテペは、約1万2000年前（旧石器時代末期〜新石器時代初期）に建設されたとされる巨大な石柱群。農耕・牧畜が始まる以前に、狩猟採集民が建設した複雑な宗教的構造物であることが確認されており、「宗教が農業に先行した」という考古学の常識を覆した。石柱には動物の浮彫りが彫られており、何らかの集団的儀礼の場であったと考えられている。</div>
+      </div>
+      <div class="mag-item">
+        <div class="mag-label">散乱した骨の謎——儀礼としての「二次葬」仮説</div>
+        <div class="mag-text">ギョベクリテペの建物内からは人骨が多数発見されているが、通常の墓のような整然とした配置ではなく、散乱・混在していた。新研究は骨に切り傷・穿孔・赤オーカー（顔料）の痕跡があることから、一次埋葬後に再度掘り出して特定の骨を加工・儀礼化する「二次葬」（セカンダリー・バリアル）プラクティスが行われていた可能性を示している。先祖の骨を儀礼的に扱う文化が1万2000年前に存在した証拠として注目されている。</div>
+      </div>
+      <div class="mag-item">
+        <div class="mag-label">HNでの反応——「人類の精神性はどこから来るのか」</div>
+        <div class="mag-text">「ギョベクリテペが発見されるたびに人類史の「いつから文明が？」という問いが更新される——これもその一例」という感慨が多数。「二次葬は現代でも世界各地に存在する——1万2000年前にも同様の文化があったというのは連続性への驚き」という人類学的コメントも上位。「農耕以前の人々が神殿を建て先祖の骨を儀礼化していた——「文明化」とは何かの再定義が必要」という哲学的な問いへの発展が印象的だった。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: archaeologymag.com</span>
+      <span>💬5+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://archaeologymag.com/2026/09/gobeklitepe-burials-hundreds-of-scattered-bones/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49855059" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="gobeklitepe-12000-year-burials" data-type="like" onclick="toggleFlag('gobeklitepe-12000-year-burials','1万2000年前のギョベクリテペ 散乱した骨の謎が解けた','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="gobeklitepe-12000-year-burials" data-type="dislike" onclick="toggleFlag('gobeklitepe-12000-year-burials','1万2000年前のギョベクリテペ 散乱した骨の謎が解けた','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand">Morning Edition</div>
+      <div class="footer-meta">
+        Hacker News フロントページから厳選した10本 — 2026年9月29日（火）<br>
+        フィードバックボタンで好みを記録できます。feedback.json をエクスポートして次回に活用。
+      </div>
+    </div>
+    <button class="export-btn" onclick="exportFeedback()">📥 feedback.json をエクスポート</button>
+  </div>
+  <div class="footer-note">Generated by Claude · Powered by HN Algolia API · No.136</div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  const DB_NAME = 'morning-edition-feedback';
+  const DB_VERSION = 2;
+  const STORE_NAME = 'feedback';
+  let db = null;
+
+  function openDB() {
+    return new Promise((resolve, reject) => {
+      if (db) { resolve(db); return; }
+      const req = indexedDB.open(DB_NAME, DB_VERSION);
+      req.onupgradeneeded = e => {
+        const d = e.target.result;
+        if (!d.objectStoreNames.contains(STORE_NAME)) {
+          d.createObjectStore(STORE_NAME, { keyPath: 'id' });
+        }
+      };
+      req.onsuccess = e => { db = e.target.result; resolve(db); };
+      req.onerror = e => reject(e);
+    });
+  }
+
+  async function saveFeedback(id, title, type) {
+    try {
+      const d = await openDB();
+      const tx = d.transaction(STORE_NAME, 'readwrite');
+      const store = tx.objectStore(STORE_NAME);
+      const existing = await new Promise(res => { const r = store.get(id); r.onsuccess = e => res(e.target.result); r.onerror = () => res(null); });
+      if (existing && existing.type === type) {
+        store.delete(id);
+        return null;
+      }
+      store.put({ id, title, type, date: new Date().toISOString() });
+      return type;
+    } catch (e) {
+      try {
+        const key = 'me_fb_' + id;
+        const existing = localStorage.getItem(key);
+        if (existing && JSON.parse(existing).type === type) { localStorage.removeItem(key); return null; }
+        localStorage.setItem(key, JSON.stringify({ id, title, type, date: new Date().toISOString() }));
+        return type;
+      } catch (e2) { return type; }
+    }
+  }
+
+  async function loadFeedback(id) {
+    try {
+      const d = await openDB();
+      return new Promise(res => {
+        const tx = d.transaction(STORE_NAME, 'readonly');
+        const r = tx.objectStore(STORE_NAME).get(id);
+        r.onsuccess = e => res(e.target.result ? e.target.result.type : null);
+        r.onerror = () => res(null);
+      });
+    } catch (e) {
+      try { const v = localStorage.getItem('me_fb_' + id); return v ? JSON.parse(v).type : null; } catch (e2) { return null; }
+    }
+  }
+
+  function showToast(msg, isError) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.className = 'toast' + (isError ? ' error' : '');
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2200);
+  }
+
+  async function toggleFlag(storyId, title, type) {
+    const result = await saveFeedback(storyId, title, type);
+    updateButtons(storyId, result);
+    if (result === 'like') showToast('⭐ 興味ありとして記録しました');
+    else if (result === 'dislike') showToast('✕ 興味なしとして記録しました');
+    else showToast('フィードバックを解除しました');
+    await syncToFile();
+  }
+
+  function updateButtons(storyId, activeType) {
+    document.querySelectorAll(`[data-story="${storyId}"]`).forEach(btn => {
+      btn.classList.remove('active');
+      if (btn.dataset.type === activeType) btn.classList.add('active');
+    });
+  }
+
+  async function syncToFile() {
+    try {
+      const all = await getAllFeedback();
+      const json = JSON.stringify({ liked: all.filter(f => f.type === 'like').map(f => f.id), disliked: all.filter(f => f.type === 'dislike').map(f => f.id), entries: all }, null, 2);
+      if ('showSaveFilePicker' in window) {
+        try {
+          if (!window._feedbackHandle) return;
+          const writable = await window._feedbackHandle.createWritable();
+          await writable.write(json); await writable.close();
+        } catch (e) {}
+      }
+    } catch (e) {}
+  }
+
+  async function getAllFeedback() {
+    try {
+      const d = await openDB();
+      return new Promise(res => {
+        const tx = d.transaction(STORE_NAME, 'readonly');
+        const r = tx.objectStore(STORE_NAME).getAll();
+        r.onsuccess = e => res(e.target.result || []);
+        r.onerror = () => res([]);
+      });
+    } catch (e) {
+      try {
+        const items = [];
+        for (let i = 0; i < localStorage.length; i++) {
+          const k = localStorage.key(i);
+          if (k && k.startsWith('me_fb_')) { try { items.push(JSON.parse(localStorage.getItem(k))); } catch (e2) {} }
+        }
+        return items;
+      } catch (e2) { return []; }
+    }
+  }
+
+  async function exportFeedback() {
+    try {
+      const all = await getAllFeedback();
+      const json = JSON.stringify({ liked: all.filter(f => f.type === 'like').map(f => f.id), disliked: all.filter(f => f.type === 'dislike').map(f => f.id), entries: all }, null, 2);
+      if ('showSaveFilePicker' in window) {
+        const handle = await window.showSaveFilePicker({ suggestedName: 'feedback.json', types: [{ description: 'JSON', accept: { 'application/json': ['.json'] } }] });
+        window._feedbackHandle = handle;
+        const writable = await handle.createWritable();
+        await writable.write(json); await writable.close();
+        showToast('feedback.json を保存しました');
+      } else {
+        const a = document.createElement('a');
+        a.href = 'data:application/json;charset=utf-8,' + encodeURIComponent(json);
+        a.download = 'feedback.json'; a.click();
+        showToast('feedback.json をダウンロードしました');
+      }
+    } catch (e) { showToast('エクスポートに失敗しました', true); }
+  }
+
+  async function initButtons() {
+    const storyIds = [
+      'sonnet-5-5-anthropic','google-got-weird','nvidia-watchdog-chip-ai-agents',
+      'investigate-ai-labs','flock-surveillance-cameras-map','cloudflare-cf-agentic-cli',
+      'jeff-08b-decision-models-home','microllm-lab-browser',
+      'ps5-rtmp-stream-hijack','gobeklitepe-12000-year-burials'
+    ];
+    for (const id of storyIds) {
+      const type = await loadFeedback(id);
+      if (type) updateButtons(id, type);
+    }
+  }
+
+  initButtons();
+</script>
+</body>
+</html>
