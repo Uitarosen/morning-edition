@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Morning Edition — 2026年10月2日</title>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --font: 'M PLUS Rounded 1c', 'Hiragino Sans', 'Noto Sans JP', sans-serif; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); background: #111; color: #fff; overflow-x: hidden; }
+
+    .masthead { background: #fff; color: #000; padding: 3rem 4rem 2.5rem; border-bottom: 6px solid #000; position: relative; overflow: hidden; }
+    .masthead::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: repeating-linear-gradient(90deg, #000 0, #000 12px, transparent 12px, transparent 20px); }
+    .masthead-kicker { font-size: 0.85rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: #777; margin-bottom: 0.6rem; }
+    .masthead-title { font-size: clamp(3.5rem, 9vw, 7.5rem); font-weight: 900; line-height: 0.88; letter-spacing: -0.04em; margin-bottom: 1.8rem; }
+    .masthead-meta { display: flex; gap: 3rem; align-items: baseline; flex-wrap: wrap; }
+    .masthead-date { font-size: 1.5rem; font-weight: 700; }
+    .masthead-subtitle { font-size: 1rem; font-weight: 400; color: #555; max-width: 480px; line-height: 1.5; }
+    .masthead-issue { margin-left: auto; text-align: right; }
+    .masthead-issue span { display: block; }
+    .masthead-issue .iss-label { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: #999; }
+    .masthead-issue .iss-num { font-size: 2.2rem; font-weight: 900; color: #000; }
+
+    .toc { background: #1a1a1a; padding: 1.5rem 4rem; display: flex; gap: 1.5rem; flex-wrap: wrap; border-bottom: 1px solid #333; }
+    .toc a { color: #aaa; text-decoration: none; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; transition: color 0.2s; }
+    .toc a:hover { color: #fff; }
+    .toc-num { color: #555; margin-right: 0.3em; }
+
+    .story { position: relative; overflow: hidden; }
+    .story-inner { max-width: 1200px; margin: 0 auto; padding: 5rem 4rem; position: relative; z-index: 1; }
+    .story-num { font-size: clamp(6rem, 18vw, 16rem); font-weight: 900; line-height: 0.8; letter-spacing: -0.06em; opacity: 0.08; position: absolute; top: 1rem; right: 2rem; user-select: none; }
+    .story-badge { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.35em 0.9em; border-radius: 2px; margin-bottom: 1.5rem; }
+    .direct-badge { background: #FFD700; color: #000; }
+    .story-kicker { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; opacity: 0.6; margin-bottom: 0.8rem; }
+    .story-headline { font-size: clamp(2rem, 5vw, 4rem); font-weight: 900; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+    .story-body { font-size: clamp(1rem, 1.5vw, 1.2rem); font-weight: 400; line-height: 1.8; max-width: 680px; opacity: 0.88; margin-bottom: 2rem; }
+    .story-meta { display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center; font-size: 0.8rem; font-weight: 700; opacity: 0.5; }
+    .story-links { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem; }
+    .story-link { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.6em 1.4em; border-radius: 3px; text-decoration: none; transition: opacity 0.2s, transform 0.15s; }
+    .story-link:hover { opacity: 0.75; transform: translateY(-1px); }
+
+    .feedback-buttons { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .flag-btn { background: none; border: 1px solid currentColor; color: inherit; font-family: var(--font); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.5em 1em; border-radius: 3px; cursor: pointer; opacity: 0.32; transition: opacity 0.2s, background 0.2s, color 0.2s, border-color 0.2s, transform 0.15s; }
+    .flag-btn:hover { opacity: 0.72; transform: translateY(-1px); }
+    .flag-btn.like-btn.active { opacity: 1; background: rgba(255,215,0,0.15); border-color: #FFD700; color: #FFD700 !important; }
+    .flag-btn.dislike-btn.active { opacity: 1; background: rgba(255,60,60,0.12); border-color: #FF4444; color: #FF4444 !important; }
+
+    .toast { position: fixed; bottom: 2rem; right: 2rem; background: #1a1a1a; color: #fff; font-family: var(--font); font-size: 0.82rem; font-weight: 700; padding: 0.75em 1.4em; border-radius: 4px; border-left: 3px solid #00C853; z-index: 9999; opacity: 0; transform: translateY(10px); transition: opacity 0.25s, transform 0.25s; pointer-events: none; box-shadow: 0 4px 24px rgba(0,0,0,0.45); }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    .toast.error { border-left-color: #FF5252; }
+
+    /* Story 1 — White */
+    .story-1 { background: #fff; color: #000; min-height: 90vh; display: flex; flex-direction: column; justify-content: center; }
+    .story-1 .story-num { color: #000; opacity: 0.04; }
+    .story-1 .story-kicker { color: #555; opacity: 1; }
+    .story-1 .story-headline { color: #000; }
+    .story-1 .story-body { color: #111; }
+    .story-1 .story-meta { color: #000; }
+    .story-1 .story-link.primary { background: #1a1a1a; color: #fff; }
+    .story-1 .story-link.secondary { background: #f0f0f0; color: #000; }
+    .story-1 .flag-btn { color: #000; }
+    .story-1-accent { position: absolute; bottom: 0; left: 0; width: 100%; height: 8px; background: linear-gradient(90deg, #0a0a0a, #555, #0a0a0a); }
+    .story-1 .headline-accent { display: inline-block; background: linear-gradient(135deg, #1a1a1a 0%, #555 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .blue-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1.2rem; margin: 2rem 0; max-width: 680px; }
+    .blue-card { border: 2px solid rgba(0,0,0,0.12); background: rgba(0,0,0,0.03); border-radius: 6px; padding: 1.3rem 1.5rem; }
+    .blue-card-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.2em; text-transform: uppercase; color: #333; margin-bottom: 0.4rem; }
+    .blue-card-value { font-size: 1.05rem; font-weight: 900; color: #000; line-height: 1.3; }
+    .blue-card-sub { font-size: 0.75rem; color: #555; margin-top: 0.3rem; line-height: 1.4; }
+
+    /* Story 2 — Dark navy/teal */
+    .story-2 { background: #00080c; color: #b8f0ff; min-height: 80vh; }
+    .story-2::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(0,160,200,0.14) 0%, transparent 65%); }
+    .story-2 .story-num { color: #00A0C8; opacity: 0.07; }
+    .story-2 .story-kicker { color: #20C8E8; opacity: 1; }
+    .story-2 .story-headline { color: #e0f8ff; }
+    .story-2 .story-body { color: #b8f0ff; }
+    .story-2 .story-meta { color: #20C8E8; opacity: 0.5; }
+    .story-2 .story-link.primary { background: #004058; color: #80e8ff; }
+    .story-2 .story-link.secondary { background: rgba(0,160,200,0.08); color: #90d8f0; border: 1px solid rgba(0,160,200,0.22); }
+    .story-2 .flag-btn { color: #b8f0ff; }
+    .teal-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .teal-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(0,160,200,0.07); border-left: 3px solid #00A0C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .teal-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20C8E8; margin-bottom: 0.3rem; }
+    .teal-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 3 — Dark red */
+    .story-3 { background: #0a0000; color: #fff; min-height: 80vh; }
+    .story-3::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(200,20,20,0.16) 0%, transparent 65%); }
+    .story-3 .story-num { color: #C81414; opacity: 0.07; }
+    .story-3 .story-kicker { color: #E84040; opacity: 1; }
+    .story-3 .story-headline { color: #fff; }
+    .story-3 .story-body { color: rgba(255,255,255,0.88); }
+    .story-3 .story-meta { color: #E84040; opacity: 0.5; }
+    .story-3 .story-link.primary { background: #6a0000; color: #fff; }
+    .story-3 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-3 .flag-btn { color: #fff; }
+    .red-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .red-item { background: rgba(200,20,20,0.07); border-left: 3px solid #C81414; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .red-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E84040; margin-bottom: 0.3rem; }
+    .red-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 4 — Dark green */
+    .story-4 { background: #020c04; color: #c8f0d0; min-height: 80vh; }
+    .story-4::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(20,160,70,0.16) 0%, transparent 65%); }
+    .story-4 .story-num { color: #14A046; opacity: 0.07; }
+    .story-4 .story-kicker { color: #30C060; opacity: 1; }
+    .story-4 .story-headline { color: #e0ffe8; }
+    .story-4 .story-body { color: #c8f0d0; }
+    .story-4 .story-meta { color: #30C060; opacity: 0.5; }
+    .story-4 .story-link.primary { background: #063820; color: #80ffb0; }
+    .story-4 .story-link.secondary { background: rgba(20,160,70,0.08); color: #a0e8b0; border: 1px solid rgba(20,160,70,0.22); }
+    .story-4 .flag-btn { color: #c8f0d0; }
+    .green-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .green-item { background: rgba(20,160,70,0.07); border-left: 3px solid #14A046; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .green-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #30C060; margin-bottom: 0.3rem; }
+    .green-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 5 — Dark purple */
+    .story-5 { background: #040010; color: #d8c8ff; min-height: 75vh; }
+    .story-5::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(90,40,200,0.17) 0%, transparent 65%); }
+    .story-5 .story-num { color: #5A28C8; opacity: 0.07; }
+    .story-5 .story-kicker { color: #8050E0; opacity: 1; }
+    .story-5 .story-headline { color: #f0e8ff; }
+    .story-5 .story-body { color: #d8c8ff; }
+    .story-5 .story-meta { color: #8050E0; opacity: 0.5; }
+    .story-5 .story-link.primary { background: #200860; color: #d0a8ff; }
+    .story-5 .story-link.secondary { background: rgba(90,40,200,0.08); color: #c0a0f0; border: 1px solid rgba(90,40,200,0.22); }
+    .story-5 .flag-btn { color: #d8c8ff; }
+    .purple-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .purple-item { background: rgba(90,40,200,0.07); border-left: 3px solid #5A28C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .purple-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #8050E0; margin-bottom: 0.3rem; }
+    .purple-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 6 — Dark cyan */
+    .story-6 { background: #000c10; color: #b8e8f0; min-height: 75vh; }
+    .story-6::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 40%, rgba(0,130,160,0.14) 0%, transparent 65%); }
+    .story-6 .story-num { color: #0080A0; opacity: 0.07; }
+    .story-6 .story-kicker { color: #20B0D0; opacity: 1; }
+    .story-6 .story-headline { color: #e0f4ff; }
+    .story-6 .story-body { color: #b8e8f0; }
+    .story-6 .story-meta { color: #20B0D0; opacity: 0.5; }
+    .story-6 .story-link.primary { background: #003848; color: #80d8f0; }
+    .story-6 .story-link.secondary { background: rgba(0,130,160,0.08); color: #90cce0; border: 1px solid rgba(0,130,160,0.22); }
+    .story-6 .flag-btn { color: #b8e8f0; }
+    .cyan-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .cyan-item { background: rgba(0,130,160,0.07); border-left: 3px solid #0080A0; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .cyan-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20B0D0; margin-bottom: 0.3rem; }
+    .cyan-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 7 — Dark amber */
+    .story-7 { background: #0a0300; color: #ffe0b8; min-height: 75vh; }
+    .story-7::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(210,90,20,0.18) 0%, transparent 65%); }
+    .story-7 .story-num { color: #D05A14; opacity: 0.07; }
+    .story-7 .story-kicker { color: #E88040; opacity: 1; }
+    .story-7 .story-headline { color: #fff0d8; }
+    .story-7 .story-body { color: #ffe0b8; }
+    .story-7 .story-meta { color: #E88040; opacity: 0.5; }
+    .story-7 .story-link.primary { background: #6a2400; color: #ffc880; }
+    .story-7 .story-link.secondary { background: rgba(210,90,20,0.08); color: #ffb870; border: 1px solid rgba(210,90,20,0.22); }
+    .story-7 .flag-btn { color: #ffe0b8; }
+    .amber-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .amber-item { background: rgba(210,90,20,0.07); border-left: 3px solid #D05A14; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .amber-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E88040; margin-bottom: 0.3rem; }
+    .amber-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 8 — Dark gold */
+    .story-8 { background: #080500; color: #fff; min-height: 70vh; }
+    .story-8::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,145,10,0.15) 0%, transparent 65%); }
+    .story-8 .story-num { color: #BE9110; opacity: 0.06; }
+    .story-8 .story-kicker { color: #D4A820; opacity: 1; }
+    .story-8 .story-headline { color: #fff; }
+    .story-8 .story-body { color: rgba(255,255,255,0.88); }
+    .story-8 .story-meta { color: #D4A820; opacity: 0.5; }
+    .story-8 .story-link.primary { background: #604000; color: #ffe070; }
+    .story-8 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-8 .flag-btn { color: #fff; }
+    .gold-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .gold-item { background: rgba(190,145,10,0.07); border-left: 3px solid #BE9110; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .gold-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #D4A820; margin-bottom: 0.3rem; }
+    .gold-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 9 — Slate blue */
+    .story-9 { background: #040810; color: #c8d8f0; min-height: 70vh; }
+    .story-9::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 35%, rgba(50,90,170,0.16) 0%, transparent 65%); }
+    .story-9 .story-num { color: #3258A8; opacity: 0.07; }
+    .story-9 .story-kicker { color: #5878C8; opacity: 1; }
+    .story-9 .story-headline { color: #e8f0ff; }
+    .story-9 .story-body { color: #c8d8f0; }
+    .story-9 .story-meta { color: #5878C8; opacity: 0.5; }
+    .story-9 .story-link.primary { background: #101e50; color: #fff; }
+    .story-9 .story-link.secondary { background: rgba(50,90,170,0.08); color: #b0c8e8; border: 1px solid rgba(50,90,170,0.22); }
+    .story-9 .flag-btn { color: #c8d8f0; }
+    .slate-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .slate-item { background: rgba(50,90,170,0.07); border-left: 3px solid #3258A8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .slate-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #5878C8; margin-bottom: 0.3rem; }
+    .slate-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 10 — Magenta */
+    .story-10 { background: #080004; color: #ffc8e8; min-height: 70vh; }
+    .story-10::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,20,90,0.15) 0%, transparent 65%); }
+    .story-10 .story-num { color: #BE1458; opacity: 0.07; }
+    .story-10 .story-kicker { color: #E04080; opacity: 1; }
+    .story-10 .story-headline { color: #fff0f8; }
+    .story-10 .story-body { color: #ffc8e8; }
+    .story-10 .story-meta { color: #E04080; opacity: 0.5; }
+    .story-10 .story-link.primary { background: #500030; color: #ffb0d8; }
+    .story-10 .story-link.secondary { background: rgba(190,20,90,0.08); color: #f090c0; border: 1px solid rgba(190,20,90,0.22); }
+    .story-10 .flag-btn { color: #ffc8e8; }
+    .mag-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .mag-item { background: rgba(190,20,90,0.07); border-left: 3px solid #BE1458; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .mag-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E04080; margin-bottom: 0.3rem; }
+    .mag-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .site-footer { background: #000; color: #555; padding: 3rem 4rem; display: flex; flex-direction: column; gap: 1.5rem; border-top: 1px solid #222; }
+    .footer-top { display: flex; gap: 2rem; align-items: center; flex-wrap: wrap; justify-content: space-between; }
+    .footer-brand { font-size: 1.4rem; font-weight: 900; color: #fff; }
+    .footer-meta { font-size: 0.75rem; line-height: 1.6; }
+    .export-btn { background: #222; border: 1px solid #444; color: #fff; font-family: var(--font); font-size: 0.8rem; font-weight: 700; padding: 0.7em 1.5em; border-radius: 3px; cursor: pointer; letter-spacing: 0.08em; transition: background 0.2s; }
+    .export-btn:hover { background: #333; }
+    .footer-note { font-size: 0.7rem; opacity: 0.5; }
+
+    @media (max-width: 768px) {
+      .masthead, .toc, .story-inner, .site-footer { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .story-num { display: none; }
+      .masthead-meta { gap: 1rem; }
+      .masthead-issue { margin-left: 0; }
+      .blue-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+<nav style="background:#1a1a1a;border-bottom:1px solid #333;padding:0.55rem 2rem;font-family:'M PLUS Rounded 1c','Hiragino Sans','Noto Sans JP',sans-serif;position:sticky;top:0;z-index:999;">
+  <a href="./index.html" style="color:#aaa;text-decoration:none;font-size:0.8rem;font-weight:700;letter-spacing:0.03em;display:inline-flex;align-items:center;gap:0.4rem;transition:color 0.15s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#aaa'">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    アーカイブへ戻る
+  </a>
+</nav>
+
+<header class="masthead">
+  <div class="masthead-kicker">Hacker News — Morning Edition</div>
+  <h1 class="masthead-title">Morning<br>Edition</h1>
+  <div class="masthead-meta">
+    <div>
+      <div class="masthead-date">2026年10月2日 金曜日</div>
+      <div class="masthead-subtitle">AI・開発ツール・プライバシー・サイエンス — あなたのための10本</div>
+    </div>
+    <div class="masthead-issue">
+      <span class="iss-label">Issue</span>
+      <span class="iss-num">No.137</span>
+    </div>
+  </div>
+</header>
+
+<nav class="toc">
+  <a href="#s1"><span class="toc-num">01</span>Clef——CloudflareがオープンソースのAI決定モデルとRL fine-tuningプラットフォームを公開</a>
+  <a href="#s2"><span class="toc-num">02</span>Pi 1.0——Earendilが発表した新しい分散コンピューティングプラットフォーム</a>
+  <a href="#s3"><span class="toc-num">03</span>RIP, vector database——ベクターDBの時代は終わったのか？</a>
+  <a href="#s4"><span class="toc-num">04</span>車はスマートフォンになった——誰があなたのデータを聞いているのか</a>
+  <a href="#s5"><span class="toc-num">05</span>Rustコンパイラを2026年9月に高速化する方法</a>
+  <a href="#s6"><span class="toc-num">06</span>GPT-Synopsys——OpenAIとSynopsysがAIでチップ設計を革命する</a>
+  <a href="#s7"><span class="toc-num">07</span>コーディングエージェント向けオープンソースモデルルーター——Astraレベルの性能</a>
+  <a href="#s8"><span class="toc-num">08</span>ESP32に隠されたSDR機能——複数プロジェクトが独立発見</a>
+  <a href="#s9"><span class="toc-num">09</span>Context Language Models——トランスフォーマーを超える新アーキテクチャの提案</a>
+  <a href="#s10"><span class="toc-num">10</span>海洋の「デッドゾーン」は死んでいなかった——初期生命への手がかり</a>
+</nav>
+
+<!-- ═══ STORY 1 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-1" id="s1">
+  <div class="story-num">01</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / 開発ツール / Cloudflare / 決定モデル / RL fine-tuning / オープンソース — 2026-10-02</div>
+    <h2 class="story-headline">
+      Clef——<br><span class="headline-accent">Cloudflareの</span><br>AI決定エンジン
+    </h2>
+    <div class="story-body">
+      CloudflareがHNで366ポイント・143コメントを集める注目発表を行いました。「Clef」はオープンソースの決定モデルフレームワークと、それをカスタマイズするためのRL（強化学習）fine-tuningプラットフォームを組み合わせた新しいAIインフラです。エージェントパイプラインの「判断レイヤー」として設計されており、コスト・レイテンシ・精度の三角形を最適化する実践的なアプローチが開発者から高い関心を集めています。
+    </div>
+    <div class="blue-grid">
+      <div class="blue-card">
+        <div class="blue-card-label">Clefとは何か——エージェント判断の専用レイヤー</div>
+        <div class="blue-card-value">決定モデル</div>
+        <div class="blue-card-sub">ClefはAIエージェントが「何をすべきか」を判断する部分に特化したフレームワーク。汎用LLMを全ての判断に使うのではなく、ルーティング・フィルタリング・分類といった決定タスクを専用の小型モデルで処理することで、大型モデルへの呼び出し回数を大幅に削減できる設計。Cloudflare Workers AIとの統合を前提にしており、エッジでの低レイテンシ推論が可能。モデルはオープンソースとして公開されており、自社データでのfine-tuningが容易。</div>
+      </div>
+      <div class="blue-card">
+        <div class="blue-card-label">RLによるfine-tuning——フィードバックループで賢くする</div>
+        <div class="blue-card-value">カスタム強化学習</div>
+        <div class="blue-card-sub">Clefのfine-tuningプラットフォームはRL（強化学習）を使って決定モデルを継続的に改善する仕組みを提供する。従来のSFT（指導付き学習）だけでなく、エージェントの実際の結果フィードバックを使って「良い判断」を強化することができる。Cloudflareのインフラ上で動くため、本番トラフィックのデータをリアルタイムでfine-tuningに活用できる可能性がある。APIは公開されており自前のモデルとの統合も想定されている。</div>
+      </div>
+      <div class="blue-card">
+        <div class="blue-card-label">HNでの反応——「まさに必要だったもの」</div>
+        <div class="blue-card-value">↑366pt · 💬143</div>
+        <div class="blue-card-sub">「エージェントのルーティングに大型モデルを使うのはコストが見合わない——この方向性は正しい」という共感が多数。「Cloudflareがインフラだけでなくモデル層まで攻めてきた——Workersとの統合次第では強力な選択肢になる」という評価も。一方「オープンソースとは言うが学習データとトレーニング手法の詳細が不明」という透明性への疑問も出た。実際に試したユーザーからの早期レポートが議論を活発にしている。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: blog.cloudflare.com</span>
+      <span>💬143+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://blog.cloudflare.com/clef-decision-models/" target="_blank">発表を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49923692" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="clef-cloudflare-decision-models-rl" data-type="like" onclick="toggleFlag('clef-cloudflare-decision-models-rl','Clef CloudflareのオープンソースAI決定モデルとRLfine-tuningプラットフォーム','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="clef-cloudflare-decision-models-rl" data-type="dislike" onclick="toggleFlag('clef-cloudflare-decision-models-rl','Clef CloudflareのオープンソースAI決定モデルとRLfine-tuningプラットフォーム','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+    <div class="story-1-accent"></div>
+  </div>
+</section>
+
+<!-- ═══ STORY 2 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-2" id="s2">
+  <div class="story-num">02</div>
+  <div class="story-inner">
+    <div class="story-kicker">プラットフォーム / 分散コンピューティング / P2P / インフラ / 新リリース — 2026-10-02</div>
+    <h2 class="story-headline">
+      Pi 1.0——<br><span style="color:#20d8f0">Earendilの</span><br>新プラットフォーム
+    </h2>
+    <div class="story-body">
+      「Pi 1.0」がHNで490ポイント・170コメントという本日最高の反響を記録しました。Earendilが開発する分散型コンピューティングプラットフォームの正式版リリースで、P2Pネットワーク上で計算リソースと通信を共有する新しいインターネットインフラの提案です。関連する「Pi Durable」も同日公開され、耐久性のある分散ストレージ機能が追加されています。
+    </div>
+    <div class="teal-items">
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">Pi 1.0とは何か——中央集権を持たない計算インフラ</div>
+          <div class="teal-text">EarendilのPiは特定のサーバーや企業に依存しない分散コンピューティングレイヤーを目指したプラットフォーム。P2Pプロトコルを使ってノード間でデータ転送・計算・通信を行う設計で、従来のクラウドインフラとは異なるアーキテクチャを持つ。1.0リリースはAPIの安定化とプロダクション利用への移行を意味しており、初期の実験フェーズを脱した節目のリリース。同日公開された「Pi Durable」は永続ストレージ機能の追加拡張。</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">どんな用途に向くか——プライバシー重視・検閲耐性・レジリエンス</div>
+          <div class="teal-text">Piのユースケースとして語られているのは、(1)単一障害点を持たない通信インフラ、(2)特定国・ISPによるブロッキングへの耐性、(3)クラウドベンダーへの依存排除、の三点。開発者がPiのAPIを使えば既存のアプリをP2Pバックエンドに移行できる設計になっており、Webアプリからの移行パスが提供されている。耐久ストレージ「Pi Durable」との組み合わせでフルスタックの分散アプリが構築可能になる。</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">HNでの反応——本日最高490ptの熱量</div>
+          <div class="teal-text">「分散インターネットへの真剣な取り組みをようやく見た——Torより使いやすそう」という期待が多数。「P2Pインフラは過去にも多くのプロジェクトが挑戦して大半が失敗した——Earendilが乗り越えるべき壁は何か」という懐疑的分析も上位。「実際のパフォーマンスとAPIの使いやすさを試してみた」という早期レポートも既に出ており、1.0リリースへの開発者の関心は本物だ。</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: earendil.com</span>
+      <span>💬170+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://earendil.com/posts/pi-1-0/" target="_blank">発表を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49926069" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="pi-1-0-earendil" data-type="like" onclick="toggleFlag('pi-1-0-earendil','Pi 1.0 Earendilが発表した新しい分散コンピューティングプラットフォーム','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="pi-1-0-earendil" data-type="dislike" onclick="toggleFlag('pi-1-0-earendil','Pi 1.0 Earendilが発表した新しい分散コンピューティングプラットフォーム','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 3 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-3" id="s3">
+  <div class="story-num">03</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / データベース / ベクター検索 / インフラ / LLM / アーキテクチャ — 2026-10-02</div>
+    <h2 class="story-headline">
+      RIP,<br>vector<br><span style="color:#ff6060">database</span>
+    </h2>
+    <div class="story-body">
+      「RIP, vector database」というタイトルでturbopufferが投稿した記事がHNで247ポイント・66コメントを集めています。専用ベクターデータベース（Pinecone・Weaviate・Qdrantなど）の時代は終わりを迎えつつあり、ベクター検索機能が汎用データベースに統合されていく——という業界の変化を鋭く分析した内容です。投稿元のturbopuffer自体がベクター検索に特化した新世代DBであり、「敵の陣営からの宣言」として注目されています。
+    </div>
+    <div class="red-items">
+      <div class="red-item">
+        <div class="red-label">なぜ専用ベクターDBが不要になるのか——統合の波</div>
+        <div class="red-text">Postgresのpgvector、Redis VSS、Elasticsearch KNN、MongoDB Atlasなど主要データベースが次々とベクター検索を標準機能として組み込んだ。「AIアプリのために別途ベクターDBを立て管理する」複雑さが開発者の不満を生んでいた一方、既存DBへの統合版は「それなりに使える」品質に達してきた。記事はこの「十分に良い」というトレンドが専用ベクターDBのポジションを侵食していく構造的な理由を論じている。</div>
+      </div>
+      <div class="red-item">
+        <div class="red-label">turbopufferが生き残る理由——「十分」では足りない領域</div>
+        <div class="red-text">自社の宣伝でもあるturbopufferのポジションは「10億件スケールの高スループット・低レイテンシ要件」。汎用DBのベクター機能は管理コストを下げる一方、スケールと専門最適化では専用エンジンに及ばない。「デスクトップ向けWordはGoogleドキュメントに侵食されたが、プロ用DTPはInDesignが依然不可欠」という類比で、用途分化を予測している。「RIP」というタイトルは誇張であり、正確には「ベクターDB市場の大部分がコモディティ化する」という主張だ。</div>
+      </div>
+      <div class="red-item">
+        <div class="red-label">HNでの反応——「タイトルは釣りだが議論は本質的」</div>
+        <div class="red-text">「pgvectorで十分だった——専用ベクターDBを導入する前に試すべきだった」という実体験報告が多数。「ベクター検索市場は確かにコモディティ化しているが、全員がRIPではない——用途によって最適解が分かれる」という冷静な分析が上位。「HNではベクターDBへの期待を過剰に持っていた時期があった——今は適正水準に落ち着きつつある」という回顧的な見方も出て、業界の成熟を感じさせる議論になった。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: turbopuffer.com</span>
+      <span>💬66+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://turbopuffer.com/blog/rip-vector-database" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49923466" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="rip-vector-database-turbopuffer" data-type="like" onclick="toggleFlag('rip-vector-database-turbopuffer','RIP vector database ベクターDBの時代は終わったのか','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="rip-vector-database-turbopuffer" data-type="dislike" onclick="toggleFlag('rip-vector-database-turbopuffer','RIP vector database ベクターDBの時代は終わったのか','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 4 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-4" id="s4">
+  <div class="story-num">04</div>
+  <div class="story-inner">
+    <div class="story-kicker">プライバシー / 自動車 / データ収集 / 監視 / IoT / 研究 — 2026-10-02</div>
+    <h2 class="story-headline">
+      車は<br>スマートフォン<br><span style="color:#30d060">になった</span>
+    </h2>
+    <div class="story-body">
+      「Car Is a Smartphone on Wheels. Here's Who's Listening」がHNで101ポイント・87コメントを集めています。Northeastern大学の研究者グループが現代の自動車が収集・送信しているデータの全容を調査した報告書で、カーナビ・マイク・カメラ・センサーから収集されたデータがどのように利用・販売されているかが詳細に記述されています。プライバシーに敏感な方には必読の一本です。
+    </div>
+    <div class="green-items">
+      <div class="green-item">
+        <div class="green-label">現代の車が収集するデータ——予想を超える規模</div>
+        <div class="green-text">調査対象となった主要自動車メーカー14社のほぼ全てが、走行履歴・位置情報・音声会話（マイク入力）・乗員の顔情報（カメラ）・運転行動（急ブレーキ・速度）・スマートフォン連携データを収集していることが確認された。特に驚かれるのは「スマートフォンを接続した瞬間に連絡先・通話履歴・アプリ使用状況が車載コンピュータにコピーされる」ケースで、接続解除後もデータが端末に残ることが多い。</div>
+      </div>
+      <div class="green-item">
+        <div class="green-label">データの行き先——保険会社・データブローカー・広告主</div>
+        <div class="green-text">収集されたデータの主要な販売先として報告書が名指ししているのは(1)保険会社（運転行動スコアリング）、(2)データブローカー（位置・人口統計情報として再販）、(3)広告プラットフォーム（移動パターンからの消費行動推定）。特に保険会社との連携は既に多数の州で問題となっており、「同意なしに運転スコアが保険料に影響していた」事例が報告されている。利用規約は通常数百ページに及び実質的な同意は不可能に近い。</div>
+      </div>
+      <div class="green-item">
+        <div class="green-label">HNでの反応——「車を買い替えたくなくなった」</div>
+        <div class="green-text">「新車は買わない——このレポートを読んでから確信した」という極端な反応も。「ほとんどのメーカーはオプトアウトを提供しているが、手続きが複雑で実質的にオプトアウトできない設計になっている」という指摘が多数。「テスラが言及されていないが実際は最もデータを収集している——なぜ外れているのか」という疑問も出た。「自動車は次のスマートフォン戦争の主戦場になる——プライバシー規制の強化が急務」という政策提言も上位に集まった。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: automatictransmission.khoury.northeastern.edu</span>
+      <span>💬87+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://automatictransmission.khoury.northeastern.edu/index.html" target="_blank">調査レポートを読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49926628" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="car-smartphone-on-wheels-privacy" data-type="like" onclick="toggleFlag('car-smartphone-on-wheels-privacy','車はスマートフォンになった 誰があなたのデータを聞いているのか','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="car-smartphone-on-wheels-privacy" data-type="dislike" onclick="toggleFlag('car-smartphone-on-wheels-privacy','車はスマートフォンになった 誰があなたのデータを聞いているのか','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 5 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-5" id="s5">
+  <div class="story-num">05</div>
+  <div class="story-inner">
+    <div class="story-kicker">開発ツール / Rust / コンパイラ / パフォーマンス / エンジニアリング — 2026-10-02</div>
+    <h2 class="story-headline">
+      Rustコンパイラを<br>2026年9月に<br><span style="color:#b070ff">速くする方法</span>
+    </h2>
+    <div class="story-body">
+      「How to speed up the Rust compiler in September 2026」がHNで218ポイント・107コメントを集めています。RustコンパイラチームのNicholas Nethercoteによる月次パフォーマンス改善レポートで、今月達成されたコンパイル時間の短縮と、測定に使われた手法・ツールチェーンが詳細に解説されています。Rustの開発体験向上に関わる全ての人に有益な一本です。
+    </div>
+    <div class="purple-items">
+      <div class="purple-item">
+        <div class="purple-label">今月の主な改善点——具体的な数字と手法</div>
+        <div class="purple-text">レポートでは9月に取り組まれたコンパイル時間短縮の主な施策として、(1)インクリメンタルコンパイルのキャッシュ効率改善、(2)MIR（中間表現）の生成コスト削減、(3)LLVMバックエンドへの受け渡し最適化の三点が挙げられている。代表的なベンチマーク（ripgrepのフルビルド等）で数パーセントの改善が報告されており、累積すると開発者が体感できる差になってきた。rustcの自己ビルド時間が特にベンチマークとして重視されている。</div>
+      </div>
+      <div class="purple-item">
+        <div class="purple-label">コンパイル高速化のアプローチ——何を測るか</div>
+        <div class="purple-text">Nethercoteはコンパイル速度改善の難しさの核心は「何を測るか」にあると説明する。ウォームキャッシュ/コールドキャッシュ、デバッグビルド/リリースビルド、小型クレート/大型クレートではそれぞれ改善の効果が大きく異なる。レポートでは`rustc-perf`ベンチマークスイートの結果を丁寧に読み解きながら、「このコミットがどのケースに効いてどのケースに効かないか」の分析が示されている。この測定の精緻さがRustコンパイラチームの強みでもある。</div>
+      </div>
+      <div class="purple-item">
+        <div class="purple-label">HNでの反応——「この連載自体が価値ある技術文書」</div>
+        <div class="purple-text">「毎月このレポートを読んでいる——コンパイラエンジニアがどう考えて最適化するかを学ぶ最良の教材」という声が多数。「Rustのコンパイル速度は依然として批判の的だが、継続的な改善への真剣さは他言語に比べて際立っている」という比較評価も。「0.5%の改善が積み重なって半年で数%になる——地道だが実を結ぶアプローチ」という応援コメントも。Rust入門者にはコンパイラ内部理解の第一歩にもなるとの紹介もされた。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: nnethercote.github.io</span>
+      <span>💬107+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://nnethercote.github.io/2026/09/30/how-to-speed-up-the-rust-compiler-in-september-2026.html" target="_blank">レポートを読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49920896" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="rust-compiler-speed-september-2026" data-type="like" onclick="toggleFlag('rust-compiler-speed-september-2026','Rustコンパイラを2026年9月に速くする方法','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="rust-compiler-speed-september-2026" data-type="dislike" onclick="toggleFlag('rust-compiler-speed-september-2026','Rustコンパイラを2026年9月に速くする方法','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 6 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-6" id="s6">
+  <div class="story-num">06</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / チップ設計 / EDA / OpenAI / Synopsys / 半導体 — 2026-10-02</div>
+    <h2 class="story-headline">
+      GPT-Synopsys——<br>AIが<br><span style="color:#20b8d0">チップを<br>設計する</span>
+    </h2>
+    <div class="story-body">
+      OpenAIとSynopsysが共同で「GPT-Synopsys」を発表し、HNで157ポイント・92コメントを集めています。EDA（電子設計自動化）ソフトウェアの世界最大手SynopsysとOpenAIが組んで、フロンティアLLMをチップ設計プロセスに統合する取り組みです。半導体設計という高度な専門分野へのAI応用が現実段階に入ったことを示す発表として注目されています。
+    </div>
+    <div class="cyan-items">
+      <div class="cyan-item">
+        <div class="cyan-label">GPT-SynopsysとはEDA向けの特化AIとは</div>
+        <div class="cyan-text">SynopsysのEDAツール群（Design Compiler・IC Compiler・PrimeTime等）にGPTベースのAIアシスタントを統合したのがGPT-Synopsys。RTL設計の補完・タイミング違反の原因特定と修正提案・合成オプションの最適化・検証シナリオの生成といったタスクを自然言語インターフェースで扱えるようになる。半導体設計エンジニアは習熟に何年もかかるコマンドやスクリプトを、対話形式で置き換えられる可能性がある。</div>
+      </div>
+      <div class="cyan-item">
+        <div class="cyan-label">なぜ今なのか——チップ設計の人材不足と複雑性の爆発</div>
+        <div class="cyan-text">3nm・2nmプロセスへの移行でチップ設計の複雑性は指数的に増大しており、熟練EDAエンジニアの需要が供給を大幅に上回っている。従来は「SynopsysやCadenceのEDAツールを使いこなす」だけで5〜10年のキャリアが必要とされていた。AIアシスタントの統合により「設計意図を伝えればツールが実行方法を提案する」ワークフローへの転換が起きれば、エンジニアの生産性と裾野の拡大が同時に達成できる。</div>
+      </div>
+      <div class="cyan-item">
+        <div class="cyan-label">HNでの反応——「現場で使えるかが全て」</div>
+        <div class="cyan-text">「EDA業界は保守的で変化が遅い——OpenAIとの提携で加速するか興味深い」という観察が多数。「LLMは設計空間の「正解」を理解しているか疑問——タイミングクロージャの詰めは依然人間が必要では」という専門家の疑問も多い。「Synopsysのライセンス料は天文学的だが、AIでの自動化で費用対効果が変わる可能性はある」という実利的な分析も。半導体エンジニアがHNに集まってきているのが珍しい光景だという指摘もあった。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: news.synopsys.com</span>
+      <span>💬92+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://news.synopsys.com/2026-09-30-OpenAI-and-Synopsys-Announce-GPT-Synopsys-Frontier-Intelligence-to-Revolutionize-Chip-Design" target="_blank">発表を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49919910" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="gpt-synopsys-chip-design" data-type="like" onclick="toggleFlag('gpt-synopsys-chip-design','GPT-Synopsys OpenAIとSynopsysがAIでチップ設計を革命する','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="gpt-synopsys-chip-design" data-type="dislike" onclick="toggleFlag('gpt-synopsys-chip-design','GPT-Synopsys OpenAIとSynopsysがAIでチップ設計を革命する','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 7 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-7" id="s7">
+  <div class="story-num">07</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / コーディングエージェント / モデルルーティング / OSS / GitHub / 開発ツール — 2026-10-02</div>
+    <h2 class="story-headline">
+      コーディング<br>エージェント向け<br><span style="color:#e88040">モデルルーター<br>を公開</span>
+    </h2>
+    <div class="story-body">
+      「Show HN: Open-source model routing for coding agents at Astra-level performance」がHNで66ポイント・20コメントを集めています。weave-osが公開したオープンソースのモデルルーターで、コーディングタスクを複数のLLMに最適に振り分けることでコストを抑えながら高性能エージェントを構築できます。「Astraレベルの性能」という主張が議論を呼んでいますが、実際に試せる今すぐ使えるツールです。
+    </div>
+    <div class="amber-items">
+      <div class="amber-item">
+        <div class="amber-label">モデルルーターとは——タスクに応じてLLMを自動選択</div>
+        <div class="amber-text">weave-osのルーターは受け取ったコーディングタスクを分類し、複雑度・文脈長・要求精度に応じて適切なモデルに自動ルーティングする。「コメント生成→Haiku」「バグ修正→Sonnet」「複雑なリファクタリング→Opus」のような振り分けロジックをカスタマイズ可能。結果として大型モデルへの呼び出し回数を60〜80%削減しつつ、ユーザー体験上の品質劣化を最小化できると主張している。ルーティング判断自体に使うモデルも選択可能。</div>
+      </div>
+      <div class="amber-item">
+        <div class="amber-label">「Astraレベル」の意味——何と比較しているか</div>
+        <div class="amber-text">Astraはイギリス国立医療技術評価機構（NICE）がAIシステムの信頼性評価に使うフレームワークではなく、ここではGoogle DeepMindのGemini Astraエージェント系のことを指す可能性が高い。「Astraレベルの性能」という主張は主にSWE-bench等のコーディングベンチマーク上でのスコアを指すものとみられ、単一の大型モデルを使うより低コストで同等以上の成績を出せると主張している。ただしこの主張の検証を求める声がHNでも多い。</div>
+      </div>
+      <div class="amber-item">
+        <div class="amber-label">HNでの反応——「試してみた——確かに速い」</div>
+        <div class="amber-text">「セットアップして試した——単純なタスクへのHaiku使用率が上がりAPIコストが体感で半分以下になった」という早期ユーザー報告が出た。「ベンチマーク数字より実コストに影響があるかの方が重要——現実のコードベースでの検証を期待」という現実的な声も。「ルーティング判断のオーバーヘッドが小さいタスクでは逆効果になるケースも——粒度の選択が重要」という経験則の共有も。コーディングエージェントを日常的に使う開発者に特に刺さっている一本。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: github.com/weave-os/router</span>
+      <span>💬20+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://github.com/weave-os/router" target="_blank">GitHubを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49911500" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="open-source-model-routing-coding-agents" data-type="like" onclick="toggleFlag('open-source-model-routing-coding-agents','コーディングエージェント向けオープンソースモデルルーター Astraレベルの性能','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="open-source-model-routing-coding-agents" data-type="dislike" onclick="toggleFlag('open-source-model-routing-coding-agents','コーディングエージェント向けオープンソースモデルルーター Astraレベルの性能','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 8 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-8" id="s8">
+  <div class="story-num">08</div>
+  <div class="story-inner">
+    <div class="story-kicker">ハードウェア / ESP32 / SDR / マイコン / 無線 / リバースエンジニアリング — 2026-10-02</div>
+    <h2 class="story-headline">
+      ESP32に<br>隠されていた<br><span style="color:#d4a820">SDR機能</span>
+    </h2>
+    <div class="story-body">
+      「Various Projects Find Hidden SDR Capabilities in ESP32 Microcontrollers」がHNで138ポイント・22コメントを集めています。世界中で最も広く使われているWi-Fi/Bluetoothマイコンの一つであるESP32に、複数の独立したプロジェクトが同時期に「意図していなかったソフトウェア無線（SDR）機能」を発見したという驚きの報告です。設計上の意図ではなく、アーキテクチャの特性から生まれた意外な能力です。
+    </div>
+    <div class="gold-items">
+      <div class="gold-item">
+        <div class="gold-label">何が発見されたか——ADCを無線受信機として使う</div>
+        <div class="gold-text">ESP32のADC（アナログ-デジタルコンバーター）を特定の方法でサンプリングすると、Wi-Fi/Bluetoothの用途を超えた広帯域の無線信号受信が可能になることが確認された。具体的にはFM放送帯・ADS-B（航空機トランスポンダー）・気象衛星信号などの受信に成功した報告がある。RTL-SDRのような専用ドングルが不要になる可能性があり、ESP32という数百円のマイコンでソフトウェア無線が成立するという驚きは「hidden gem（隠れた宝石）」と表現されている。</div>
+      </div>
+      <div class="gold-item">
+        <div class="gold-label">複数プロジェクトが独立発見——偶然の一致が示すもの</div>
+        <div class="gold-text">この能力は一つのプロジェクトが意図的に発見したのではなく、異なる国・異なる目的で作業していた複数の開発者グループが独立して同じ発見をしたことで注目された。これは「発見可能性の閾値を超えた」ことを意味し、ESP32の普及度と開発コミュニティの活発さが組み合わさって、「隠れた機能」が複数の目で同時に見つかった格好になった。Espressif（メーカー）は意図的な機能ではないとしながらも、応用の広がりを否定していない。</div>
+      </div>
+      <div class="gold-item">
+        <div class="gold-label">HNでの反応——「またESP32が期待を超えてきた」</div>
+        <div class="gold-text">「ESP32はコスパ的に既に異次元だったが、さらに上があったとは」という驚きが多数。「ADCのサンプリングレートと精度から理論上可能と思っていたが実証されたのが面白い——Nyquist定理の応用」という技術的解説も上位。「これでRTL-SDRドングルを別途買う必要がない人が増える——ESP32の用途が広がった」という実用評価も。「Espressifが将来のモデルで意図的にこの機能を塞ぐか、逆に正式サポートするか」という次の展開への興味も集まった。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: rtl-sdr.com</span>
+      <span>💬22+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.rtl-sdr.com/various-projects-independently-find-hidden-sdr-capabilities-in-esp32-microcontrollers/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49922674" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="esp32-hidden-sdr-capabilities" data-type="like" onclick="toggleFlag('esp32-hidden-sdr-capabilities','ESP32に隠されたSDR機能 複数プロジェクトが独立発見','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="esp32-hidden-sdr-capabilities" data-type="dislike" onclick="toggleFlag('esp32-hidden-sdr-capabilities','ESP32に隠されたSDR機能 複数プロジェクトが独立発見','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 9 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-9" id="s9">
+  <div class="story-num">09</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / LLM / アーキテクチャ / 研究 / 論文 / コンテキスト — 2026-10-02</div>
+    <h2 class="story-headline">
+      Context<br>Language<br><span style="color:#8870e8">Models</span>
+    </h2>
+    <div class="story-body">
+      「Context Language Models」がHNで89ポイント・19コメントを集めています。arXivに投稿された研究論文で、従来のトランスフォーマーアーキテクチャとは異なる「文脈」の扱い方を提案するLLMの新しいアーキテクチャです。長いコンテキストウィンドウをより効率的に活用する方法を理論的に整理したもので、LLM研究の次の方向性を示唆する内容として研究者から注目されています。
+    </div>
+    <div class="slate-items">
+      <div class="slate-item">
+        <div class="slate-label">CLMとは何か——コンテキストを「一級市民」として扱う</div>
+        <div class="slate-text">Context Language Models（CLM）の核心的な主張は「トランスフォーマーはコンテキストを本質的にトークン列として均等に扱うが、実際には「今の文脈」と「長期記憶」「作業記憶」は質的に異なる」という観察にある。CLMは明示的にこれらを分離したアーキテクチャを提案し、各種ベンチマークで標準トランスフォーマーとの比較を行っている。特に長文理解（Needle in a Haystack等）での優位性と、計算コストの削減効果が主要な主張として示されている。</div>
+      </div>
+      <div class="slate-item">
+        <div class="slate-label">どんな問題を解こうとしているか——長いコンテキストの「忘却」</div>
+        <div class="slate-text">現行LLMが長いコンテキストウィンドウを使うとき「コンテキスト窓の中央部を忘れやすい（Lost in the Middle問題）」ことは広く知られている。CLMはこの問題の根本原因を「アーキテクチャがコンテキスト内の情報の「重要度」を区別する仕組みを持たない」点にあると分析し、階層的なコンテキスト管理を導入することで改善を目指す。将来的にはより少ない計算量でより長い文脈理解が可能になる可能性がある。</div>
+      </div>
+      <div class="slate-item">
+        <div class="slate-label">HNでの反応——「理論は面白いが実装コストは？」</div>
+        <div class="slate-text">「アーキテクチャの提案は興味深い——実際に大規模で学習させたときにベネフィットが出るかが問い」という研究者コメントが多数。「トランスフォーマーが覇権を握って久しいが、代替アーキテクチャの研究が活発なのは健全」という評価も。「論文の主張を検証するためのコードとデータが公開されているか」を確認したいという実装者からの問いもあり、オープンサイエンスへの期待が示された。文脈の扱い方はエージェント設計にも直接影響する研究分野だ。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: arxiv.org</span>
+      <span>💬19+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://arxiv.org/abs/2609.37725" target="_blank">論文を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49922437" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="context-language-models-arxiv" data-type="like" onclick="toggleFlag('context-language-models-arxiv','Context Language Models トランスフォーマーを超える新アーキテクチャの提案','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="context-language-models-arxiv" data-type="dislike" onclick="toggleFlag('context-language-models-arxiv','Context Language Models トランスフォーマーを超える新アーキテクチャの提案','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 10 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-10" id="s10">
+  <div class="story-num">10</div>
+  <div class="story-inner">
+    <div class="story-kicker">科学 / 海洋 / 生命起源 / 嫌気性環境 / 微生物 / 地球史 — 2026-10-02</div>
+    <h2 class="story-headline">
+      海の<br>「デッドゾーン」は<br><span style="color:#f090c0">死んでいない</span>
+    </h2>
+    <div class="story-body">
+      「Oxygen-deprived underwater zones may not be 'dead zones' but clue to early life」がHNで54ポイント・3コメントを集めています。海洋の酸素欠乏ゾーン（「デッドゾーン」と呼ばれてきた領域）が、実は地球初期の生命環境に似ており、原始的な生命の進化を研究する手がかりになるという新しい研究です。「何もいない死の場所」という常識を覆す発見として話題になっています。
+    </div>
+    <div class="mag-items">
+      <div class="mag-item">
+        <div class="mag-label">「デッドゾーン」とは何か——酸素のない海の深部</div>
+        <div class="mag-text">海洋の酸素最少層（OMZ: Oxygen Minimum Zone）は深さ200〜1000m付近に存在し、酸素濃度がほぼゼロになる領域。これまでは「魚や多細胞生物が生きられない死の領域」として主に農業排水による拡大の文脈で語られてきた。しかし今回の研究はこの視点を逆転させ、「酸素欠乏環境は地球の初期（約25億年前以前）の標準的な海洋環境に近い——そこで繁栄する嫌気性微生物は初期生命の子孫かもしれない」という仮説を提示している。</div>
+      </div>
+      <div class="mag-item">
+        <div class="mag-label">何が見つかったのか——嫌気性微生物の多様性の驚き</div>
+        <div class="mag-text">研究者たちはOMZに潜む微生物群集を詳細に分析し、予想を大幅に超える多様性と代謝活性を発見した。これらの微生物は硫黄・鉄・窒素化合物を使ったエネルギー代謝を行っており、酸素ベースの生命とは根本的に異なる生化学を持つ。特に「光なし・酸素なし」の条件でも活発に活動するアーキア（古細菌）の存在が確認されており、地球外生命——特に土星の月エンケラドゥスや木星の月エウロパの海洋——への示唆も議論されている。</div>
+      </div>
+      <div class="mag-item">
+        <div class="mag-label">HNでの反応——「「死の海」が「生命の揺りかご」だったとは」</div>
+        <div class="mag-text">「地球の「デッドゾーン」研究が宇宙生物学に直結するのが面白い——エウロパの海はOMZに近い環境かもしれない」という反応が多数。「嫌気性微生物の多様性は今まで過小評価されてきた——この研究は氷山の一角だろう」という科学的示唆への言及も。「Deadという名称は人間中心的な見方の産物——科学者は命名の重要性を軽視しがち」という哲学的なコメントも印象に残る。普段見落とされがちな環境科学のトピックにしては深い議論が生まれた。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: agupubs.onlinelibrary.wiley.com</span>
+      <span>💬3+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://agupubs.onlinelibrary.wiley.com/doi/10.1029/2026AV002570" target="_blank">論文を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49925742" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="oxygen-deprived-underwater-zones-early-life" data-type="like" onclick="toggleFlag('oxygen-deprived-underwater-zones-early-life','海洋のデッドゾーンは死んでいなかった 初期生命への手がかり','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="oxygen-deprived-underwater-zones-early-life" data-type="dislike" onclick="toggleFlag('oxygen-deprived-underwater-zones-early-life','海洋のデッドゾーンは死んでいなかった 初期生命への手がかり','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand">Morning Edition</div>
+      <div class="footer-meta">
+        Hacker News フロントページから厳選した10本 — 2026年10月2日（金）<br>
+        フィードバックボタンで好みを記録できます。feedback.json をエクスポートして次回に活用。
+      </div>
+    </div>
+    <button class="export-btn" onclick="exportFeedback()">📥 feedback.json をエクスポート</button>
+  </div>
+  <div class="footer-note">Generated by Claude · Powered by HN Algolia API · No.137</div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  const DB_NAME = 'morning-edition-feedback';
+  const DB_VERSION = 2;
+  const STORE_NAME = 'feedback';
+  let db = null;
+
+  function openDB() {
+    return new Promise((resolve, reject) => {
+      if (db) { resolve(db); return; }
+      const req = indexedDB.open(DB_NAME, DB_VERSION);
+      req.onupgradeneeded = e => {
+        const d = e.target.result;
+        if (!d.objectStoreNames.contains(STORE_NAME)) {
+          d.createObjectStore(STORE_NAME, { keyPath: 'id' });
+        }
+      };
+      req.onsuccess = e => { db = e.target.result; resolve(db); };
+      req.onerror = e => reject(e);
+    });
+  }
+
+  async function saveFeedback(id, title, type) {
+    try {
+      const d = await openDB();
+      const tx = d.transaction(STORE_NAME, 'readwrite');
+      const store = tx.objectStore(STORE_NAME);
+      store.put({ id, title, type, date: '2026-10-02', ts: Date.now() });
+      return new Promise((resolve, reject) => {
+        tx.oncomplete = resolve;
+        tx.onerror = reject;
+      });
+    } catch (e) {
+      console.warn('IndexedDB save failed:', e);
+    }
+  }
+
+  async function loadFeedback() {
+    try {
+      const d = await openDB();
+      const tx = d.transaction(STORE_NAME, 'readonly');
+      const store = tx.objectStore(STORE_NAME);
+      return new Promise((resolve, reject) => {
+        const req = store.getAll();
+        req.onsuccess = () => resolve(req.result || []);
+        req.onerror = reject;
+      });
+    } catch (e) {
+      return [];
+    }
+  }
+
+  function showToast(msg, isError) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.className = 'toast' + (isError ? ' error' : '') + ' show';
+    setTimeout(() => { t.className = 'toast'; }, 2800);
+  }
+
+  async function toggleFlag(id, title, type) {
+    const btn = document.querySelector(`.flag-btn[data-story="${id}"][data-type="${type}"]`);
+    const otherType = type === 'like' ? 'dislike' : 'like';
+    const otherBtn = document.querySelector(`.flag-btn[data-story="${id}"][data-type="${otherType}"]`);
+    const isActive = btn.classList.contains('active');
+
+    if (isActive) {
+      btn.classList.remove('active');
+      try {
+        const d = await openDB();
+        const tx = d.transaction(STORE_NAME, 'readwrite');
+        tx.objectStore(STORE_NAME).delete(id);
+      } catch (e) {}
+      showToast('フィードバックを取り消しました');
+    } else {
+      btn.classList.add('active');
+      if (otherBtn) otherBtn.classList.remove('active');
+      await saveFeedback(id, title, type);
+      showToast(type === 'like' ? '⭐ 興味ありとして記録しました' : '✕ 興味なしとして記録しました');
+    }
+  }
+
+  async function exportFeedback() {
+    try {
+      const items = await loadFeedback();
+      if (!items.length) { showToast('フィードバックがまだありません', true); return; }
+      const liked = items.filter(i => i.type === 'like').map(i => ({ id: i.id, title: i.title, date: i.date }));
+      const disliked = items.filter(i => i.type === 'dislike').map(i => ({ id: i.id, title: i.title, date: i.date }));
+      const blob = new Blob([JSON.stringify({ liked, disliked }, null, 2)], { type: 'application/json' });
+      const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'feedback.json'; a.click();
+      showToast('📥 feedback.json をダウンロードしました');
+    } catch (e) {
+      showToast('エクスポートに失敗しました', true);
+    }
+  }
+
+  async function restoreButtons() {
+    const items = await loadFeedback();
+    items.forEach(item => {
+      const btn = document.querySelector(`.flag-btn[data-story="${item.id}"][data-type="${item.type}"]`);
+      if (btn) btn.classList.add('active');
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', restoreButtons);
+</script>
+</body>
+</html>
