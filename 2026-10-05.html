@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Morning Edition — 2026年10月5日</title>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --font: 'M PLUS Rounded 1c', 'Hiragino Sans', 'Noto Sans JP', sans-serif; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); background: #111; color: #fff; overflow-x: hidden; }
+
+    .masthead { background: #fff; color: #000; padding: 3rem 4rem 2.5rem; border-bottom: 6px solid #000; position: relative; overflow: hidden; }
+    .masthead::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: repeating-linear-gradient(90deg, #000 0, #000 12px, transparent 12px, transparent 20px); }
+    .masthead-kicker { font-size: 0.85rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: #777; margin-bottom: 0.6rem; }
+    .masthead-title { font-size: clamp(3.5rem, 9vw, 7.5rem); font-weight: 900; line-height: 0.88; letter-spacing: -0.04em; margin-bottom: 1.8rem; }
+    .masthead-meta { display: flex; gap: 3rem; align-items: baseline; flex-wrap: wrap; }
+    .masthead-date { font-size: 1.5rem; font-weight: 700; }
+    .masthead-subtitle { font-size: 1rem; font-weight: 400; color: #555; max-width: 480px; line-height: 1.5; }
+    .masthead-issue { margin-left: auto; text-align: right; }
+    .masthead-issue span { display: block; }
+    .masthead-issue .iss-label { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: #999; }
+    .masthead-issue .iss-num { font-size: 2.2rem; font-weight: 900; color: #000; }
+
+    .toc { background: #1a1a1a; padding: 1.5rem 4rem; display: flex; gap: 1.5rem; flex-wrap: wrap; border-bottom: 1px solid #333; }
+    .toc a { color: #aaa; text-decoration: none; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; transition: color 0.2s; }
+    .toc a:hover { color: #fff; }
+    .toc-num { color: #555; margin-right: 0.3em; }
+
+    .story { position: relative; overflow: hidden; }
+    .story-inner { max-width: 1200px; margin: 0 auto; padding: 5rem 4rem; position: relative; z-index: 1; }
+    .story-num { font-size: clamp(6rem, 18vw, 16rem); font-weight: 900; line-height: 0.8; letter-spacing: -0.06em; opacity: 0.08; position: absolute; top: 1rem; right: 2rem; user-select: none; }
+    .story-badge { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.35em 0.9em; border-radius: 2px; margin-bottom: 1.5rem; }
+    .direct-badge { background: #FFD700; color: #000; }
+    .story-kicker { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; opacity: 0.6; margin-bottom: 0.8rem; }
+    .story-headline { font-size: clamp(2rem, 5vw, 4rem); font-weight: 900; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+    .story-body { font-size: clamp(1rem, 1.5vw, 1.2rem); font-weight: 400; line-height: 1.8; max-width: 680px; opacity: 0.88; margin-bottom: 2rem; }
+    .story-meta { display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center; font-size: 0.8rem; font-weight: 700; opacity: 0.5; }
+    .story-links { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem; }
+    .story-link { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.6em 1.4em; border-radius: 3px; text-decoration: none; transition: opacity 0.2s, transform 0.15s; }
+    .story-link:hover { opacity: 0.75; transform: translateY(-1px); }
+
+    .feedback-buttons { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .flag-btn { background: none; border: 1px solid currentColor; color: inherit; font-family: var(--font); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.5em 1em; border-radius: 3px; cursor: pointer; opacity: 0.32; transition: opacity 0.2s, background 0.2s, color 0.2s, border-color 0.2s, transform 0.15s; }
+    .flag-btn:hover { opacity: 0.72; transform: translateY(-1px); }
+    .flag-btn.like-btn.active { opacity: 1; background: rgba(255,215,0,0.15); border-color: #FFD700; color: #FFD700 !important; }
+    .flag-btn.dislike-btn.active { opacity: 1; background: rgba(255,60,60,0.12); border-color: #FF4444; color: #FF4444 !important; }
+
+    .toast { position: fixed; bottom: 2rem; right: 2rem; background: #1a1a1a; color: #fff; font-family: var(--font); font-size: 0.82rem; font-weight: 700; padding: 0.75em 1.4em; border-radius: 4px; border-left: 3px solid #00C853; z-index: 9999; opacity: 0; transform: translateY(10px); transition: opacity 0.25s, transform 0.25s; pointer-events: none; box-shadow: 0 4px 24px rgba(0,0,0,0.45); }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    .toast.error { border-left-color: #FF5252; }
+
+    /* Story 1 — White */
+    .story-1 { background: #fff; color: #000; min-height: 90vh; display: flex; flex-direction: column; justify-content: center; }
+    .story-1 .story-num { color: #000; opacity: 0.04; }
+    .story-1 .story-kicker { color: #555; opacity: 1; }
+    .story-1 .story-headline { color: #000; }
+    .story-1 .story-body { color: #111; }
+    .story-1 .story-meta { color: #000; }
+    .story-1 .story-link.primary { background: #1a1a1a; color: #fff; }
+    .story-1 .story-link.secondary { background: #f0f0f0; color: #000; }
+    .story-1 .flag-btn { color: #000; }
+    .story-1-accent { position: absolute; bottom: 0; left: 0; width: 100%; height: 8px; background: linear-gradient(90deg, #0a0a0a, #555, #0a0a0a); }
+    .story-1 .headline-accent { display: inline-block; background: linear-gradient(135deg, #1a1a1a 0%, #555 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .blue-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1.2rem; margin: 2rem 0; max-width: 680px; }
+    .blue-card { border: 2px solid rgba(0,0,0,0.12); background: rgba(0,0,0,0.03); border-radius: 6px; padding: 1.3rem 1.5rem; }
+    .blue-card-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.2em; text-transform: uppercase; color: #333; margin-bottom: 0.4rem; }
+    .blue-card-value { font-size: 1.05rem; font-weight: 900; color: #000; line-height: 1.3; }
+    .blue-card-sub { font-size: 0.75rem; color: #555; margin-top: 0.3rem; line-height: 1.4; }
+
+    /* Story 2 — Dark navy/teal */
+    .story-2 { background: #00080c; color: #b8f0ff; min-height: 80vh; }
+    .story-2::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(0,160,200,0.14) 0%, transparent 65%); }
+    .story-2 .story-num { color: #00A0C8; opacity: 0.07; }
+    .story-2 .story-kicker { color: #20C8E8; opacity: 1; }
+    .story-2 .story-headline { color: #e0f8ff; }
+    .story-2 .story-body { color: #b8f0ff; }
+    .story-2 .story-meta { color: #20C8E8; opacity: 0.5; }
+    .story-2 .story-link.primary { background: #004058; color: #80e8ff; }
+    .story-2 .story-link.secondary { background: rgba(0,160,200,0.08); color: #90d8f0; border: 1px solid rgba(0,160,200,0.22); }
+    .story-2 .flag-btn { color: #b8f0ff; }
+    .teal-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .teal-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(0,160,200,0.07); border-left: 3px solid #00A0C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .teal-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20C8E8; margin-bottom: 0.3rem; }
+    .teal-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 3 — Dark red */
+    .story-3 { background: #0a0000; color: #fff; min-height: 80vh; }
+    .story-3::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(200,20,20,0.16) 0%, transparent 65%); }
+    .story-3 .story-num { color: #C81414; opacity: 0.07; }
+    .story-3 .story-kicker { color: #E84040; opacity: 1; }
+    .story-3 .story-headline { color: #fff; }
+    .story-3 .story-body { color: rgba(255,255,255,0.88); }
+    .story-3 .story-meta { color: #E84040; opacity: 0.5; }
+    .story-3 .story-link.primary { background: #6a0000; color: #fff; }
+    .story-3 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-3 .flag-btn { color: #fff; }
+    .red-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .red-item { background: rgba(200,20,20,0.07); border-left: 3px solid #C81414; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .red-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E84040; margin-bottom: 0.3rem; }
+    .red-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 4 — Dark green */
+    .story-4 { background: #020c04; color: #c8f0d0; min-height: 80vh; }
+    .story-4::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(20,160,70,0.16) 0%, transparent 65%); }
+    .story-4 .story-num { color: #14A046; opacity: 0.07; }
+    .story-4 .story-kicker { color: #30C060; opacity: 1; }
+    .story-4 .story-headline { color: #e0ffe8; }
+    .story-4 .story-body { color: #c8f0d0; }
+    .story-4 .story-meta { color: #30C060; opacity: 0.5; }
+    .story-4 .story-link.primary { background: #063820; color: #80ffb0; }
+    .story-4 .story-link.secondary { background: rgba(20,160,70,0.08); color: #a0e8b0; border: 1px solid rgba(20,160,70,0.22); }
+    .story-4 .flag-btn { color: #c8f0d0; }
+    .green-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .green-item { background: rgba(20,160,70,0.07); border-left: 3px solid #14A046; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .green-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #30C060; margin-bottom: 0.3rem; }
+    .green-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 5 — Dark purple */
+    .story-5 { background: #040010; color: #d8c8ff; min-height: 75vh; }
+    .story-5::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(90,40,200,0.17) 0%, transparent 65%); }
+    .story-5 .story-num { color: #5A28C8; opacity: 0.07; }
+    .story-5 .story-kicker { color: #8050E0; opacity: 1; }
+    .story-5 .story-headline { color: #f0e8ff; }
+    .story-5 .story-body { color: #d8c8ff; }
+    .story-5 .story-meta { color: #8050E0; opacity: 0.5; }
+    .story-5 .story-link.primary { background: #200860; color: #d0a8ff; }
+    .story-5 .story-link.secondary { background: rgba(90,40,200,0.08); color: #c0a0f0; border: 1px solid rgba(90,40,200,0.22); }
+    .story-5 .flag-btn { color: #d8c8ff; }
+    .purple-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .purple-item { background: rgba(90,40,200,0.07); border-left: 3px solid #5A28C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .purple-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #8050E0; margin-bottom: 0.3rem; }
+    .purple-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 6 — Dark cyan */
+    .story-6 { background: #000c10; color: #b8e8f0; min-height: 75vh; }
+    .story-6::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 40%, rgba(0,130,160,0.14) 0%, transparent 65%); }
+    .story-6 .story-num { color: #0080A0; opacity: 0.07; }
+    .story-6 .story-kicker { color: #20B0D0; opacity: 1; }
+    .story-6 .story-headline { color: #e0f4ff; }
+    .story-6 .story-body { color: #b8e8f0; }
+    .story-6 .story-meta { color: #20B0D0; opacity: 0.5; }
+    .story-6 .story-link.primary { background: #003848; color: #80d8f0; }
+    .story-6 .story-link.secondary { background: rgba(0,130,160,0.08); color: #90cce0; border: 1px solid rgba(0,130,160,0.22); }
+    .story-6 .flag-btn { color: #b8e8f0; }
+    .cyan-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .cyan-item { background: rgba(0,130,160,0.07); border-left: 3px solid #0080A0; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .cyan-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20B0D0; margin-bottom: 0.3rem; }
+    .cyan-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 7 — Dark amber */
+    .story-7 { background: #0a0300; color: #ffe0b8; min-height: 75vh; }
+    .story-7::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(210,90,20,0.18) 0%, transparent 65%); }
+    .story-7 .story-num { color: #D05A14; opacity: 0.07; }
+    .story-7 .story-kicker { color: #E88040; opacity: 1; }
+    .story-7 .story-headline { color: #fff0d8; }
+    .story-7 .story-body { color: #ffe0b8; }
+    .story-7 .story-meta { color: #E88040; opacity: 0.5; }
+    .story-7 .story-link.primary { background: #6a2400; color: #ffc880; }
+    .story-7 .story-link.secondary { background: rgba(210,90,20,0.08); color: #ffb870; border: 1px solid rgba(210,90,20,0.22); }
+    .story-7 .flag-btn { color: #ffe0b8; }
+    .amber-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .amber-item { background: rgba(210,90,20,0.07); border-left: 3px solid #D05A14; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .amber-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E88040; margin-bottom: 0.3rem; }
+    .amber-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 8 — Dark gold */
+    .story-8 { background: #080500; color: #fff; min-height: 70vh; }
+    .story-8::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,145,10,0.15) 0%, transparent 65%); }
+    .story-8 .story-num { color: #BE9110; opacity: 0.06; }
+    .story-8 .story-kicker { color: #D4A820; opacity: 1; }
+    .story-8 .story-headline { color: #fff; }
+    .story-8 .story-body { color: rgba(255,255,255,0.88); }
+    .story-8 .story-meta { color: #D4A820; opacity: 0.5; }
+    .story-8 .story-link.primary { background: #604000; color: #ffe070; }
+    .story-8 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-8 .flag-btn { color: #fff; }
+    .gold-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .gold-item { background: rgba(190,145,10,0.07); border-left: 3px solid #BE9110; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .gold-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #D4A820; margin-bottom: 0.3rem; }
+    .gold-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 9 — Slate blue */
+    .story-9 { background: #040810; color: #c8d8f0; min-height: 70vh; }
+    .story-9::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 35%, rgba(50,90,170,0.16) 0%, transparent 65%); }
+    .story-9 .story-num { color: #3258A8; opacity: 0.07; }
+    .story-9 .story-kicker { color: #5878C8; opacity: 1; }
+    .story-9 .story-headline { color: #e8f0ff; }
+    .story-9 .story-body { color: #c8d8f0; }
+    .story-9 .story-meta { color: #5878C8; opacity: 0.5; }
+    .story-9 .story-link.primary { background: #101e50; color: #fff; }
+    .story-9 .story-link.secondary { background: rgba(50,90,170,0.08); color: #b0c8e8; border: 1px solid rgba(50,90,170,0.22); }
+    .story-9 .flag-btn { color: #c8d8f0; }
+    .slate-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .slate-item { background: rgba(50,90,170,0.07); border-left: 3px solid #3258A8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .slate-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #5878C8; margin-bottom: 0.3rem; }
+    .slate-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 10 — Magenta */
+    .story-10 { background: #080004; color: #ffc8e8; min-height: 70vh; }
+    .story-10::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,20,90,0.15) 0%, transparent 65%); }
+    .story-10 .story-num { color: #BE1458; opacity: 0.07; }
+    .story-10 .story-kicker { color: #E04080; opacity: 1; }
+    .story-10 .story-headline { color: #fff0f8; }
+    .story-10 .story-body { color: #ffc8e8; }
+    .story-10 .story-meta { color: #E04080; opacity: 0.5; }
+    .story-10 .story-link.primary { background: #500030; color: #ffb0d8; }
+    .story-10 .story-link.secondary { background: rgba(190,20,90,0.08); color: #f090c0; border: 1px solid rgba(190,20,90,0.22); }
+    .story-10 .flag-btn { color: #ffc8e8; }
+    .mag-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .mag-item { background: rgba(190,20,90,0.07); border-left: 3px solid #BE1458; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .mag-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E04080; margin-bottom: 0.3rem; }
+    .mag-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .site-footer { background: #000; color: #555; padding: 3rem 4rem; display: flex; flex-direction: column; gap: 1.5rem; border-top: 1px solid #222; }
+    .footer-top { display: flex; gap: 2rem; align-items: center; flex-wrap: wrap; justify-content: space-between; }
+    .footer-brand { font-size: 1.4rem; font-weight: 900; color: #fff; }
+    .footer-meta { font-size: 0.75rem; line-height: 1.6; }
+    .export-btn { background: #222; border: 1px solid #444; color: #fff; font-family: var(--font); font-size: 0.8rem; font-weight: 700; padding: 0.7em 1.5em; border-radius: 3px; cursor: pointer; letter-spacing: 0.08em; transition: background 0.2s; }
+    .export-btn:hover { background: #333; }
+    .footer-note { font-size: 0.7rem; opacity: 0.5; }
+
+    @media (max-width: 768px) {
+      .masthead, .toc, .story-inner, .site-footer { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .story-num { display: none; }
+      .masthead-meta { gap: 1rem; }
+      .masthead-issue { margin-left: 0; }
+      .blue-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+<nav style="background:#1a1a1a;border-bottom:1px solid #333;padding:0.55rem 2rem;font-family:'M PLUS Rounded 1c','Hiragino Sans','Noto Sans JP',sans-serif;position:sticky;top:0;z-index:999;">
+  <a href="./index.html" style="color:#aaa;text-decoration:none;font-size:0.8rem;font-weight:700;letter-spacing:0.03em;display:inline-flex;align-items:center;gap:0.4rem;transition:color 0.15s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#aaa'">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    アーカイブへ戻る
+  </a>
+</nav>
+
+<header class="masthead">
+  <div class="masthead-kicker">Hacker News — Morning Edition</div>
+  <h1 class="masthead-title">Morning<br>Edition</h1>
+  <div class="masthead-meta">
+    <div>
+      <div class="masthead-date">2026年10月5日 月曜日</div>
+      <div class="masthead-subtitle">AI・開発ツール・プライバシー・サイエンス — あなたのための10本</div>
+    </div>
+    <div class="masthead-issue">
+      <span class="iss-label">Issue</span>
+      <span class="iss-num">No.140</span>
+    </div>
+  </div>
+</header>
+
+<nav class="toc">
+  <a href="#s1"><span class="toc-num">01</span>RTX 4090で125Bモデルが100トークン/秒——Qwen 3.8 Flash Nextをローカル実行</a>
+  <a href="#s2"><span class="toc-num">02</span>ValveエンジニアがLinuxの旧世代AMD GPU性能を大幅改善</a>
+  <a href="#s3"><span class="toc-num">03</span>なぜ開発者は「プラットフォームを使わない」のか——ネイティブWeb APIへの回帰論</a>
+  <a href="#s4"><span class="toc-num">04</span>Apple Intelligence を無効化してmacOS 27のディスク容量を取り戻す</a>
+  <a href="#s5"><span class="toc-num">05</span>不完全な黒塗りがGoogleデータセンターの水・電力使用量を暴露</a>
+  <a href="#s6"><span class="toc-num">06</span>Show HN: macOSの全写真・全動画フレームをAI検索するツール</a>
+  <a href="#s7"><span class="toc-num">07</span>Rustビルドを最大2倍速く——メタデータ早期出力という最適化手法</a>
+  <a href="#s8"><span class="toc-num">08</span>天井扇風機（シーリングファン）のデザインはなぜああなのか</a>
+  <a href="#s9"><span class="toc-num">09</span>ゴミから作った30分振り子時計——Glashütte Trash Clock</a>
+  <a href="#s10"><span class="toc-num">10</span>世界すべての灯台を地図に——mapped.earth</a>
+</nav>
+
+<!-- ═══ STORY 1 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-1" id="s1">
+  <div class="story-num">01</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / ローカルLLM / 量子化 / Qwen / RTX 4090 / 推論最適化 / Show HN — 2026-10-05</div>
+    <h2 class="story-headline">
+      125Bモデルを<br><span class="headline-accent">コンシューマー機で</span><br>100トークン/秒
+    </h2>
+    <div class="story-body">
+      「Run Qwen 3.8 Flash Next (125B) on consumer hardware (RTX 4090) at 100T/s」がHNで517ポイント・258コメントという本日最高の注目を集めています。GitHubで公開されたStratoプロジェクトは、パラメーター数125BのQwen 3.8 Flash Nextを単一のRTX 4090で毎秒100トークンという驚異的な速度で動作させることに成功しました。データセンター専用と思われていた規模のモデルが個人の手元で走る——ローカルLLM実用化の新しい基準点です。
+    </div>
+    <div class="blue-grid">
+      <div class="blue-card">
+        <div class="blue-card-label">どうやって24GBのVRAMに125Bパラメーターを収めるか</div>
+        <div class="blue-card-value">超低ビット量子化の技術</div>
+        <div class="blue-card-sub">RTX 4090のVRAMは24GB。FP16で125Bモデルを保持するには約250GBのメモリが必要で、通常は8枚以上のA100が必要だ。Strataは2〜3ビット量子化（IQ2_XS/Q3_K相当）を使用してモデルサイズを約20GBまで圧縮している。量子化によって精度は落ちるが、HNのコメントでは「実用的なタスクでは差が分からないレベル」という報告が多数出ている。llama.cppのGGUFフォーマットと最新のFlash Attention実装を組み合わせることで100T/sという速度を実現している。</div>
+      </div>
+      <div class="blue-card">
+        <div class="blue-card-label">125Bを使う理由——70Bや8Bとの実際の差</div>
+        <div class="blue-card-value">推論品質の跳躍点</div>
+        <div class="blue-card-sub">HNで最も議論されているのは「なぜ70Bで十分でないか」だ。作者と多くのコメンテーターが一致している点として、「複雑なコーディングタスク・多段推論・長文要約」において70Bと125B間には質的な跳躍があり、特に複数のコードファイルを跨いだ変更指示や数学問題で差が顕著に出るとされる。100T/sという速度は実用的な会話速度を余裕で超えており、バッチ処理にも使える。「70Bで満足していたが試してみたら戻れなくなった」という声が複数。</div>
+      </div>
+      <div class="blue-card">
+        <div class="blue-card-label">HNでの反応——「ローカルLLMの分岐点になるかもしれない」</div>
+        <div class="blue-card-value">↑517pt · 💬258</div>
+        <div class="blue-card-sub">「RTX 4090を持っていない人でも、複数GPUで分散推論するVariantも用意されており4090×2や3090×2でも動く」という情報が上位に。「Qwen 3.8 Flash Nextはベンチマーク上でGPT-4oに匹敵する性能を示しており、それをローカルで動かせる意味は大きい」という評価も。「APIコストゼロ・レイテンシゼロ・プライバシー完全確保——この3つが同時に達成できる」という実用的な観点からの高評価が多かった。プライバシーを重視するユーザーへの直接的な選択肢として注目されている。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: github.com/Niko1221/Strata</span>
+      <span>💬258+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://github.com/Niko1221/Strata" target="_blank">GitHubを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49953495" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="qwen-38-flash-125b-rtx4090" data-type="like" onclick="toggleFlag('qwen-38-flash-125b-rtx4090','RTX 4090で125Bモデルが100トークン毎秒 Qwen 3.8 Flash Next','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="qwen-38-flash-125b-rtx4090" data-type="dislike" onclick="toggleFlag('qwen-38-flash-125b-rtx4090','RTX 4090で125Bモデルが100トークン毎秒 Qwen 3.8 Flash Next','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+    <div class="story-1-accent"></div>
+  </div>
+</section>
+
+<!-- ═══ STORY 2 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-2" id="s2">
+  <div class="story-num">02</div>
+  <div class="story-inner">
+    <div class="story-kicker">Linux / GPU / AMD / オープンソース / グラフィックス / Valve / ドライバー — 2026-10-05</div>
+    <h2 class="story-headline">
+      Valveが<br><span style="color:#20d8f0">旧世代AMD GPU</span><br>をLinuxで蘇らせる
+    </h2>
+    <div class="story-body">
+      「The work by Valve's Timur Kristóf on improving old AMD GPUs on Linux」がXDC 2026（X.Org Developer Conference）のPhoronixレポートとして公開され、HNで445ポイント・90コメントを集めています。ValveのエンジニアTimur Kristófが旧世代AMD GPU（GCNアーキテクチャ世代）のLinuxにおけるグラフィックスパフォーマンスを大幅に改善する作業を発表。Linuxゲーミング・Steam Deckのエコシステムへの貢献の一環として、Mesa/RADVドライバーへの深いコミットが続いています。
+    </div>
+    <div class="teal-items">
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">旧世代AMDとは——GCNアーキテクチャのGPUが対象</div>
+          <div class="teal-text">対象となるのはGCN（Graphics Core Next）世代のAMD GPU、具体的にはRX 400/500シリーズ、Vega、一部のRDNA1世代のカードだ。これらは現行のRDNA3世代より数世代古いが、世界中に大量に流通しており今もLinuxユーザーが多数使用している。特に途上国・コストを重視するユーザー・古いマシンを再活用したいユーザーにとって、これらのGPUのパフォーマンス向上は実質的な価値がある。ValveがSteam Deckのハードウェアだけでなく旧世代カードにも投資するのは、Linuxゲーミングエコシステム全体の底上げ戦略だ。</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">何が改善されたのか——コンパイルシェーダーとキャッシュの最適化</div>
+          <div class="teal-text">Timur Kristófの作業の主軸は「シェーダーコンパイルパイプラインの最適化」と「バリデーション層のオーバーヘッド削減」だ。旧世代GPUではシェーダーのコンパイル時間がゲーム体験に悪影響を与えており、特に初回ロード時の「パイプラインスタッター」が問題だった。新しいシェーダーキャッシュ戦略により、2回目以降のロードが大幅に速くなるとともに一部のタイトルでフレームレートも5〜15%改善している。RADVドライバーの内部実装に直接手を入れるレベルの深い最適化で、Proton経由のWindowsゲームでも恩恵がある。</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">HNでの反応——「ValveのLinux投資は本物だと証明し続けている」</div>
+          <div class="teal-text">「ValveはSteam Deckを出して以来、Linuxのグラフィックスエコシステムへの投資が桁違いになった——今やValveのエンジニアがMesaの主要コントリビューターになっている」という驚きと敬意が多数。「旧世代GPUを見捨てず改善するのはエコシステム思考として正しい——Linuxをメインで使う人の多くはハイエンドGPUを持っていない」という評価も。「Nvidiaのプロプライエタリドライバーと比べてAMDのオープンソースドライバーがここまで成熟するとは思っていなかった」という感慨も。</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: phoronix.com</span>
+      <span>💬90+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.phoronix.com/news/XDC-2026-Valve-Timur-AMDGPU" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49946895" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="valve-timur-amd-gpu-linux" data-type="like" onclick="toggleFlag('valve-timur-amd-gpu-linux','Valve Timur Kristóf が旧世代AMD GPUをLinuxで改善','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="valve-timur-amd-gpu-linux" data-type="dislike" onclick="toggleFlag('valve-timur-amd-gpu-linux','Valve Timur Kristóf が旧世代AMD GPUをLinuxで改善','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 3 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-3" id="s3">
+  <div class="story-num">03</div>
+  <div class="story-inner">
+    <div class="story-kicker">Webプラットフォーム / フレームワーク / 設計哲学 / ブラウザAPI / フロントエンド — 2026-10-05</div>
+    <h2 class="story-headline">
+      なぜ開発者は<br>「プラットフォームを<br><span style="color:#ff6060">使わない」</span>のか
+    </h2>
+    <div class="story-body">
+      「Why don't more developers "use the platform"?」がHNで268ポイント・276コメントという活発な議論を生んでいます。Nolan Lawsonのブログ記事で「ネイティブWeb API（Custom Elements、CSS変数、View Transitions、Fetch API等）が十分に成熟しているのに、なぜ開発者はいまだにReact・Vue・AngularといったフレームワークやNPMパッケージに頼り続けるのか」という問いを丁寧に分析。「プラットフォームを使え」論者と「フレームワーク派」の根本的な認識のズレを解剖しています。
+    </div>
+    <div class="red-items">
+      <div class="red-item">
+        <div class="red-label">「プラットフォームを使え」派が正しい点——ブラウザAPIは本当に良くなった</div>
+        <div class="red-text">2026年現在、ブラウザのネイティブAPIは10年前と比べて格段に改善されている。Custom Elementsによるコンポーネント化、CSS変数・@layerによるスタイル管理、View TransitionsによるSPA的なアニメーション、Fetch API・AbortControllerによる非同期通信——これらを組み合わせれば、Reactなしでも高品質なUIは作れる。「新しいプロジェクトにReactを選ぶ理由が惰性以外にない」という極端な意見も一部では説得力を持ちつつある。バンドルサイズゼロ・ビルドツール不要のメリットは無視できない。</div>
+      </div>
+      <div class="red-item">
+        <div class="red-label">フレームワーク派が正しい点——エコシステム・ツーリング・慣例の価値</div>
+        <div class="red-text">Lawsonが最も丁寧に論じているのは「なぜ人々がフレームワークを選ぶかには合理的な理由がある」という点だ。(1)採用市場でReact経験者の方が圧倒的に多い、(2)大規模チームでネイティブAPIを使うと「独自の流儀」が生まれ統一性が失われる、(3)DevToolsの質・エラーメッセージの分かりやすさ・TypeScriptとの統合はフレームワークが格段に優れている、(4)状態管理の複雑さはネイティブAPIだけでは解決しない——という4点は現実的な反論として有力だ。</div>
+      </div>
+      <div class="red-item">
+        <div class="red-label">HNでの反応——276コメントの議論の焦点</div>
+        <div class="red-text">コメント数276は本日2番目に多く、議論の深さも際立っている。「タスクの規模による——個人サイトはVanilla JS、エンタープライズはReact、これで大体正しい」というプラグマティックな結論に多くが同意。「慣習の重力は合理性より強い——みんなが使っているから使うという力学がフレームワーク市場を維持している」という社会学的な観察も。「Web ComponentsのAPIが本当に使いやすければもっと普及しているはず——開発者体験の差は無視できない」という率直な反論も上位に来た。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: nolanlawson.com</span>
+      <span>💬276+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://nolanlawson.com/2026/10/03/why-dont-more-developers-use-the-platform/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49950554" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="use-the-platform-web-developers" data-type="like" onclick="toggleFlag('use-the-platform-web-developers','なぜ開発者はプラットフォームを使わないのか','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="use-the-platform-web-developers" data-type="dislike" onclick="toggleFlag('use-the-platform-web-developers','なぜ開発者はプラットフォームを使わないのか','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 4 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-4" id="s4">
+  <div class="story-num">04</div>
+  <div class="story-inner">
+    <div class="story-kicker">プライバシー / macOS / Apple Intelligence / ディスク容量 / ツール / actionable — 2026-10-05</div>
+    <h2 class="story-headline">
+      Apple Intelligence<br>を消して<br><span style="color:#30d060">容量を取り戻す</span>
+    </h2>
+    <div class="story-body">
+      「Turn off Apple Intelligence on macOS 27 and get its disk space back」がHNで211ポイント・115コメントを集めています。GitHubで公開されたRemoveMacAIは、macOS 27に標準搭載されたApple Intelligenceを完全に無効化し、そのためにmacOSが自動ダウンロードするMLモデルファイル群（数GBに達する）を削除してディスク容量を回収するスクリプトです。プライバシーを重視する、あるいは単純にストレージを節約したいユーザーへの直接的なツールです。
+    </div>
+    <div class="green-items">
+      <div class="green-item">
+        <div class="green-label">Apple Intelligenceが消費するディスク容量——何GBが勝手に使われているか</div>
+        <div class="green-text">macOS 27でApple Intelligenceを有効にしている（あるいは一度でも有効にした）場合、Appleは複数のオンデバイスMLモデルをバックグラウンドでダウンロード・インストールする。HNのコメントによると実際の容量は機種・設定によるが5〜12GB程度が報告されており、ストレージが少ないMacBookユーザーにとっては無視できない量だ。設定アプリから「Apple Intelligence」をオフにするだけではモデルファイルが削除されず残り続けることが問題とされており、RemoveMacAIはこれを強制的に削除する。</div>
+      </div>
+      <div class="green-item">
+        <div class="green-label">プライバシー上の懸念——オンデバイス処理でも心配な点</div>
+        <div class="green-text">Appleは「Apple Intelligenceの処理はオンデバイスまたはPrivate Cloud Compute（プライベートクラウド）で行われ、データは学習に使用されない」と主張している。しかしHNではいくつかの懸念が議論された。(1)「Private Cloud Compute」は第三者が検証できないブラックボックスだ、(2)Siri連携機能はOpenAIサーバーへのリクエストを含み設定次第でCloudに送られる、(3)何がローカルで何がクラウドか利用者には分からない——という3点がプライバシー派の主な懸念だ。</div>
+      </div>
+      <div class="green-item">
+        <div class="green-label">HNでの反応——「使わない機能に5GBを取られたくない」</div>
+        <div class="green-text">「Apple Intelligenceを一度も使っていないのにモデルが入っていた——削除できるツールを探していた」という声が多数。「256GBのMacBook Airで5GBは2%に相当する——プレミアムで小容量を買わせておいて強制的に使わせるのは不誠実」という批判も。「これはiOS 17時代からある問題の延長——Appleは機能をオフにしてもファイルを削除しないことが多い」というパターン指摘も。スクリプトの動作検証コメントも多く、実際に試した報告が多数上がっている。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: github.com/omlahore/RemoveMacAI</span>
+      <span>💬115+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://github.com/omlahore/RemoveMacAI" target="_blank">GitHubを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49957116" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="apple-intelligence-disable-disk-space" data-type="like" onclick="toggleFlag('apple-intelligence-disable-disk-space','Apple Intelligenceを無効化してmacOSのディスク容量を取り戻す','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="apple-intelligence-disable-disk-space" data-type="dislike" onclick="toggleFlag('apple-intelligence-disable-disk-space','Apple Intelligenceを無効化してmacOSのディスク容量を取り戻す','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 5 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-5" id="s5">
+  <div class="story-num">05</div>
+  <div class="story-inner">
+    <div class="story-kicker">プライバシー / Googleデータセンター / 情報公開 / 不完全黒塗り / 環境 / 電力 — 2026-10-05</div>
+    <h2 class="story-headline">
+      黒塗りミスが<br>Googleの<br><span style="color:#b070ff">水・電力使用量</span><br>を暴露
+    </h2>
+    <div class="story-body">
+      「Improper redaction reveals Google Data Center water and electricity usage」がHNで139ポイント・181コメントを集めています。ネブラスカ州リンカーンの地方ニュースサイト1011now.comが報じたこの話題は、情報公開請求（FOIA）または法的手続きで開示された文書の黒塗りが不完全だったため、Googleのリンカーン市データセンターが実際に消費している水量と電力量が読み取れてしまったというものです。ビッグテックのインフラが地域資源に与える影響への関心が高まっています。
+    </div>
+    <div class="purple-items">
+      <div class="purple-item">
+        <div class="purple-label">「不完全な黒塗り」とは——デジタル文書の落とし穴</div>
+        <div class="purple-text">不完全な黒塗りはデジタル文書では古典的な失敗だ。PDFのテキストに黒い四角を「描画」しただけではテキストデータ自体は残っており、テキスト選択でコピーするか、Acrobatの検索機能を使うか、テキストエクスポートすれば読み取れる。今回の文書でも同様の初歩的なミスが疑われており、HNではどのツールで黒塗りを見破ったか、また政府や企業が繰り返すこのミスについての詳しい解説が議論されている。本当に機密を守るには文書をラスタライズ（画像化）するか専用の黒塗りツールを使う必要がある。</div>
+      </div>
+      <div class="purple-item">
+        <div class="purple-label">暴露された数字——地域社会が知りたかった事実</div>
+        <div class="purple-text">リンカーン市のデータセンター建設をめぐっては地域住民から「実際にどれだけ水と電力を使うのか」という懸念が上がっていたが、Googleは具体的な数字を開示していなかった。暴露された数字（記事では具体値が示されているが著作権上ここでは引用を控える）はネブラスカ州内の住宅数千棟分に相当する電力量で、水については冷却用に農業用水と同等のレベルの消費が示されているとされる。地方紙がビッグテックの透明性の欠如に風穴を開けたという点でも注目されている。</div>
+      </div>
+      <div class="purple-item">
+        <div class="purple-label">HNでの反応——「地方紙とFOIAの力を見た」</div>
+        <div class="purple-text">「ビッグテックのデータセンターが地域資源に与える影響は国家的な議題になるべきだ——地方紙がこれを報じるのは象徴的」という評価が多数。「GoogleもMicrosoftもMeta も水冷データセンターの水消費量を開示していない——この事案がより広い情報公開の議論に繋がることを期待する」という声も。「黒塗りミスを見つけた経緯がどこにも書いていないが、FOIA活動家コミュニティでは定期的にPDFの黒塗りを確認することが標準的な作業になっている」という裏側の話も。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: 1011now.com</span>
+      <span>💬181+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.1011now.com/2026/09/30/more-questions-than-answers-about-lincolns-google-data-center-water-electricity-usage/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49957068" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="google-datacenter-redaction-water-electricity" data-type="like" onclick="toggleFlag('google-datacenter-redaction-water-electricity','不完全な黒塗りがGoogleデータセンターの水電力使用量を暴露','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="google-datacenter-redaction-water-electricity" data-type="dislike" onclick="toggleFlag('google-datacenter-redaction-water-electricity','不完全な黒塗りがGoogleデータセンターの水電力使用量を暴露','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 6 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-6" id="s6">
+  <div class="story-num">06</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / macOS / 写真検索 / 動画フレーム / 開発ツール / Show HN — 2026-10-05</div>
+    <h2 class="story-headline">
+      macOSの全写真・<br>全動画フレームを<br><span style="color:#20b8d0">AIで検索する</span>
+    </h2>
+    <div class="story-body">
+      「Show HN: AI search for every photo and every frame of video on macOS」がHNで128ポイント・61コメントを集めています。GitHubで公開されたSCM（Screen Context Manager）は、macOS上の全写真ライブラリと全動画ファイルのすべてのフレームを対象にAI埋め込み検索を実現するツールです。「あの赤い橋が映っている写真」「キーボードを映したスクリーンレコーディング」のような自然言語クエリで瞬時に該当ファイルを見つけられます。
+    </div>
+    <div class="cyan-items">
+      <div class="cyan-item">
+        <div class="cyan-label">動作の仕組み——Vision Transformerとローカル埋め込みデータベース</div>
+        <div class="cyan-text">SCMはCLIP系のVision Transformerモデルを使って写真・動画フレームをベクトル埋め込みに変換し、ローカルのSQLiteデータベース（+ベクトル拡張）に保存する。初回のインデックス構築は時間がかかるが、その後の検索は自然言語クエリをテキスト埋め込みに変換してコサイン類似度で高速マッチングを行うため瞬時に結果が出る。動画は設定可能なフレームレート（デフォルト1フレーム/秒）でフレームを抽出してインデックス化する。全処理はオンデバイスで行われ外部APIには送信されない点がプライバシー観点で評価されている。</div>
+      </div>
+      <div class="cyan-item">
+        <div class="cyan-label">Apple写真アプリとの違い——フレームレベル検索と動画対応</div>
+        <div class="cyan-text">AppleのPhotosアプリもAI検索機能を持つが、SCMとの差別化ポイントは2つある。(1)動画のすべてのフレームを検索対象にできる——Photosは静止画メインで動画の途中フレームの内容は検索できない、(2)Photos管理外のファイル（デスクトップ・ダウンロードフォルダ・外付けドライブ）も対象にできる。スクリーンレコーディングの「あの時の画面」を探すユースケースや、大量の動画素材から特定シーンを探す映像制作者には特に有用だ。APIコストもかからず完全ローカルという点も支持されている。</div>
+      </div>
+      <div class="cyan-item">
+        <div class="cyan-label">HNでの反応——「Recallが嫌なユーザーのためのローカル版」</div>
+        <div class="cyan-text">「MicrosoftのRecall（スクリーンショット連続記録+AI検索）のプライバシーを危惧していた人が求めていた代替——データが一切外に出ないのが最大の違い」という評価が上位に。「インデックス構築のCPU消費が気になるが、夜間バッチで実行すれば問題なさそう」という実用的コメントも。「自分の写真コレクション10年分・約80,000枚でテストしたら初回インデックスに約3時間かかったが検索は0.2秒だった」という具体的なベンチマーク報告も有益として多くのupvoteを集めた。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: github.com/allenv0/SCM</span>
+      <span>💬61+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://github.com/allenv0/SCM" target="_blank">GitHubを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49952111" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="ai-search-photos-video-macos" data-type="like" onclick="toggleFlag('ai-search-photos-video-macos','macOSの全写真 全動画フレームをAI検索するSCM','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="ai-search-photos-video-macos" data-type="dislike" onclick="toggleFlag('ai-search-photos-video-macos','macOSの全写真 全動画フレームをAI検索するSCM','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 7 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-7" id="s7">
+  <div class="story-num">07</div>
+  <div class="story-inner">
+    <div class="story-kicker">Rust / ビルド最適化 / コンパイラ / 開発者ツール / パフォーマンス / メタデータ — 2026-10-05</div>
+    <h2 class="story-headline">
+      Rustビルドを<br><span style="color:#e88040">最大2倍速く</span><br>する手法
+    </h2>
+    <div class="story-body">
+      「Emitting metadata early makes building/checking Rust up to twice as fast」がHNで115ポイント・30コメントを集めています。GitHubで公開されたHeadstartプロジェクトは、Rustのビルドパイプラインにおける「メタデータの早期出力（early metadata emission）」という手法を実装し、`cargo build`と`cargo check`のビルド時間を最大50%削減することを実証しました。大規模なRustプロジェクトに取り組む開発者には即座に試す価値のある最適化です。
+    </div>
+    <div class="amber-items">
+      <div class="amber-item">
+        <div class="amber-label">「早期メタデータ出力」とは——何がボトルネックだったのか</div>
+        <div class="amber-text">Rustのビルドグラフにおける問題は「依存クレートAの.rmeta（メタデータファイル）が完全にコンパイルされるまで、それに依存するクレートBのコンパイルが開始できない」という直列待機だ。.rmetaには型情報・インターフェース定義が含まれており下流のクレートはそれを必要とするが、.rmetaの出力がオブジェクトファイルの生成後まで待たされていた。Headstartのアプローチは「.rmetaを生成したらコード生成（機械語変換）を待たずに即座に出力する」ことで、依存グラフの並列化を大幅に改善する。</div>
+      </div>
+      <div class="amber-item">
+        <div class="amber-label">どんなプロジェクトで恩恵が大きいか——依存関係の深さが鍵</div>
+        <div class="amber-text">恩恵の大きさはプロジェクトの「クレート依存グラフの深さ」に比例する。A→B→C→D→Eという5段の依存チェーンがあれば、各ステップで待機が発生していた。tokio・axum・sqlxのような人気ライブラリを使うWebサービスは依存チェーンが深くなりがちで、この手法の恩恵が大きい。`cargo check`（型チェックのみ）ではさらに効果的で、TDDサイクルでテストを頻繁に回す開発スタイルに直接メリットがある。作者のベンチマークでは中規模のWeb APIプロジェクトで`cargo check`が9秒→4.5秒になっている。</div>
+      </div>
+      <div class="amber-item">
+        <div class="amber-label">HNでの反応——「これがcargoに入ればRust開発体験が変わる」</div>
+        <div class="amber-text">「Rustの最大の不満がビルド時間であることは広く知られており、この改善の方向性は正しい」という評価が多数。「これはRustコンパイラの本体変更ではなくラッパーとして機能するのか——cargoプロジェクト本体への提案はあるか」という質問に作者が「RFCを準備中」と回答しており期待が高まっている。「この改善がnightly→stableになる日を待っている」という声も多い。既存のsccache・mold linkler等のビルド最適化ツールと組み合わせることで更なる短縮が見込めるという報告もあった。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: github.com/PowderworksCode/headstart</span>
+      <span>💬30+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://github.com/PowderworksCode/headstart" target="_blank">GitHubを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49951218" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="rust-metadata-early-build-speed" data-type="like" onclick="toggleFlag('rust-metadata-early-build-speed','Rustビルドを最大2倍速くするメタデータ早期出力','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="rust-metadata-early-build-speed" data-type="dislike" onclick="toggleFlag('rust-metadata-early-build-speed','Rustビルドを最大2倍速くするメタデータ早期出力','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 8 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-8" id="s8">
+  <div class="story-num">08</div>
+  <div class="story-inner">
+    <div class="story-kicker">建築 / デザイン / 家電 / 文化批評 / アメリカ住宅 / 奇妙な科学 — 2026-10-05</div>
+    <h2 class="story-headline">
+      天井扇風機は<br><span style="color:#d4a820">なぜああいう</span><br>見た目なのか
+    </h2>
+    <div class="story-body">
+      「What is going on with ceiling fans」がmcmansionhell.comに掲載され、HNで159ポイント・137コメントという予想外の盛り上がりを見せています。アメリカの醜い大型住宅（マクマンション）を批評することで知られる建築批評家Kate Wagnerが、シーリングファンのデザインの奇妙な進化——なぜあれほど装飾過多で文化的に奇妙な製品が標準になったのかを分析する記事です。実用品のデザイン史として読んでも面白く、製品デザインの文化的・市場的制約について深く考えさせられます。
+    </div>
+    <div class="gold-items">
+      <div class="gold-item">
+        <div class="gold-label">シーリングファンはなぜ「変」なのか——機能と装飾のミスマッチ</div>
+        <div class="gold-text">Wagnerの観察の核心は「シーリングファンは機能的には単純な空気循環装置なのに、なぜ擬似シャンデリア・ウッド調フィニッシュ・クリスタルガラス・金属フレームといった装飾が盛り込まれるのか」という問いだ。その答えは歴史的な文脈にある——1970年代のエネルギー危機でシーリングファンが「節電エアコン代替品」として普及した際、当初のターゲットが中産階級の「見た目も気にする」住宅所有者だったため、「高級感」を演出する必要があった。その後も「リビングに置けるもの」という制約が装飾的方向性を固定化した。</div>
+      </div>
+      <div class="gold-item">
+        <div class="gold-label">市場が変えられない理由——流通・小売・消費者期待の固定化</div>
+        <div class="gold-text">シンプルなバウハウス的シーリングファンが市場を席巻しない理由をWagnerは市場構造から説明する。Home Depot・Lowes等の大型DIYチェーンの棚を支配しているのは従来型の装飾過多デザインで、それが「シーリングファンはこういうもの」という消費者の期待を形成している。スカンジナビア風のミニマルデザインのファンは存在するが価格帯が高く、多くの消費者は「$79のシーリングファンはこういうもの」という認識から抜け出せない。製品デザインが市場期待に縛られ合理的進化ができない典型例として批評されている。</div>
+      </div>
+      <div class="gold-item">
+        <div class="gold-label">HNでの反応——「こんな記事がHNで高評価になるのが好き」</div>
+        <div class="gold-text">「mcmansionhellの記事はいつも深くて面白い——建築・デザイン・文化批評が融合した視点は他にはない」という熱烈なファンが多数。「エンジニアリング視点で見ると面白い——なぜ5枚羽根が標準なのか・効率的な回転数は・ノイズとのトレードオフは——という問いが自然に出てくる」というエンジニア的展開も。「アメリカのホームセンター文化は独特で日本では理解しにくいが、日本のエアコンが全部白くてシンプルなのとの対比が面白い」という日本からのコメントも散見された。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: mcmansionhell.com</span>
+      <span>💬137+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://mcmansionhell.com/post/829127919552151552/what-is-going-on-with-ceiling-fans" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49917536" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="ceiling-fans-design-mcmansion" data-type="like" onclick="toggleFlag('ceiling-fans-design-mcmansion','天井扇風機のデザインはなぜああなのかmcmansionhell','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="ceiling-fans-design-mcmansion" data-type="dislike" onclick="toggleFlag('ceiling-fans-design-mcmansion','天井扇風機のデザインはなぜああなのかmcmansionhell','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 9 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-9" id="s9">
+  <div class="story-num">09</div>
+  <div class="story-inner">
+    <div class="story-kicker">クリエイティブ / ハードウェア / 時計 / リサイクル / アート / 機械工学 / Show HN — 2026-10-05</div>
+    <h2 class="story-headline">
+      ゴミから作った<br><span style="color:#8870e8">30分振り子時計</span><br>Glashütte
+    </h2>
+    <div class="story-body">
+      「Show HN: Glashütte Trash Clock – A 30-minute pendulum clock made from trash」がHNで150ポイント・20コメントを集めています。アーティスト兼エンジニアのNiklas Royがゴミ・廃材から作り上げた30分周期で振れる大型振り子時計をniklasroy.comで公開しました。精巧な機械式時計の名産地として知られるドイツ・グラスヒュッテの名を冠した本作は、捨てられた材料からだけで動作する精密なタイムピースを作るという逆説的な挑戦です。
+    </div>
+    <div class="slate-items">
+      <div class="slate-item">
+        <div class="slate-label">30分振り子とは——通常の振り子時計との違い</div>
+        <div class="slate-text">通常の振り子時計は1秒周期（または0.5秒周期）の振り子を使うが、Glashütte Trash Clockの振り子は約30分という極端に長い周期で揺れる。長い振り子を安定して振動させるには大きな弧を確保するための空間が必要で、作品は天井まで届く大型インスタレーションとなっている。30分の周期を持つ振り子の「滑らかで荘厳な動き」は通常の時計とは全く異なる時間感覚を生む。エスカペープメント（脱進機）の設計もゴミ材料で一から作られており、精度を出すためのチューニングの記録がサイトで詳しく紹介されている。</div>
+      </div>
+      <div class="slate-item">
+        <div class="slate-label">どんなゴミを使ったか——材料と工作のプロセス</div>
+        <div class="slate-text">使用されたゴミには段ボール・木材の端材・古いCDディスク・廃棄されたメカ部品・ワイヤーハンガー等が含まれる。CDは慣性を増やすためのフライホイール的役割に使われており、廃棄品の特性を活かした設計が随所に見られる。Niklas Royはプロセスをサイトに詳しく記録しており、どの材料でどの機構を作りどんな失敗があったかが追える。「高精度な時計は高品質な素材が必須というパラドックスを、設計の工夫で打ち破る試み」という哲学が全体を貫いている。</div>
+      </div>
+      <div class="slate-item">
+        <div class="slate-label">HNでの反応——「グラスヒュッテの名前がここで出てくるとは」</div>
+        <div class="slate-text">「グラスヒュッテはA. LangeやGlashütte Originalの本拠地——ゴミ時計にその名をつけるのは最高のジョークであり最高の敬意表現」という反応が上位に。「Niklas Royの作品はいつも「なぜそこに行き着くのか」という驚きがある——彼のインタラクティブアート作品群を全部見てほしい」というファンの紹介も。「機械式時計のエスカペープメントの動作原理をゴミで学べる教育的作品としても優れている」という見方も。「動いている動画を見てから記事を読むと理解が深まる」というアドバイスが多数。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: niklasroy.com</span>
+      <span>💬20+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://niklasroy.com/gtc/" target="_blank">作品を見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49930439" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="glashutte-trash-clock-pendulum" data-type="like" onclick="toggleFlag('glashutte-trash-clock-pendulum','Glashütte Trash Clock ゴミから作った30分振り子時計','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="glashutte-trash-clock-pendulum" data-type="dislike" onclick="toggleFlag('glashutte-trash-clock-pendulum','Glashütte Trash Clock ゴミから作った30分振り子時計','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 10 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-10" id="s10">
+  <div class="story-num">10</div>
+  <div class="story-inner">
+    <div class="story-kicker">データビジュアライゼーション / 地図 / 灯台 / 海洋史 / クリエイティブ / 地理 — 2026-10-05</div>
+    <h2 class="story-headline">
+      世界の灯台<br>全部を<br><span style="color:#f090c0">地図に載せた</span>
+    </h2>
+    <div class="story-body">
+      「A map of every lighthouse」がmapped.earth/lighthouses/worldで公開され、HNで146ポイント・64コメントを集めています。世界中に存在するすべての灯台をインタラクティブマップ上にマッピングしたこのプロジェクトは、各灯台のシルエット・点滅パターン・光達距離・建設年・現在の稼働状況まで表示できます。美しいビジュアルと豊富なデータが融合した作品として、データビズファン・海洋史愛好家・地図好きから熱い視線を集めています。
+    </div>
+    <div class="mag-items">
+      <div class="mag-item">
+        <div class="mag-label">灯台の数と分布——世界に何基あるか</div>
+        <div class="mag-text">mapped.earthのデータによると現在把握されている灯台は世界全体で約18,000基。最多はフィンランドで、フィヨルドと複雑な海岸線を持つ国が密度的に上位を占める傾向がある。日本は167基で、明治時代以降の西洋技術導入の歴史が各灯台のアーカイブデータとして見られる点が興味深い。廃墟となった灯台・歴史的建造物として保存されているもの・現役のLEDに換装されたものが色分けされており、技術の変遷が視覚的に追える。最古の現役灯台は紀元前217年建設とされるスペインのエルクレスの塔だ。</div>
+      </div>
+      <div class="mag-item">
+        <div class="mag-label">灯台の点滅パターン——識別符号という技術</div>
+        <div class="mag-text">灯台にはそれぞれ固有の「特性（characteristic）」と呼ばれる点滅パターンがある。航行中の船乗りは沖からパターンを観察し「Fl(2)10s」（10秒ごとに2回点滅）のような符号を海図と照合して現在位置を確認する。mapped.earthは各灯台の点滅パターンをアニメーションで可視化しており、実際の灯台がどのように見えるかを試せる。GPSが普及した現代でも灯台は電子機器の故障時・GPS信号が届かない状況のバックアップとして現役であり、世界の主要海峡ではほぼ全て稼働中だ。</div>
+      </div>
+      <div class="mag-item">
+        <div class="mag-label">HNでの反応——「地図を見ていたら1時間経っていた」</div>
+        <div class="mag-text">「自分の出身地の近くを探したら地元に灯台があることを初めて知った——明治時代建設で今も現役だった」という声が多数。「データソースがOpenStreetMapとWikidata——コントリビュートできることを知ってOpenStreetMapのアカウントを作ろうかと思った」という反応も。「灯台の点滅パターンのアニメーションが美しい——特定の周波数で全灯台を同時に光らせるモードを作ってほしい」という要望も。「廃灯台の観光・ウォーキングが趣味なので次の旅行先を探すのに使える」という実用的な声も。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: mapped.earth</span>
+      <span>💬64+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://mapped.earth/lighthouses/world" target="_blank">地図を見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49933461" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="map-every-lighthouse-world" data-type="like" onclick="toggleFlag('map-every-lighthouse-world','世界すべての灯台を地図に mapped.earth','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="map-every-lighthouse-world" data-type="dislike" onclick="toggleFlag('map-every-lighthouse-world','世界すべての灯台を地図に mapped.earth','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-top">
+    <div class="footer-brand">Morning Edition</div>
+    <div class="footer-meta">
+      No.140 · 2026年10月5日 · Hacker News キュレーション<br>
+      ⭐ 興味あり / ✕ 興味なし でフィードバックを記録できます
+    </div>
+    <button class="export-btn" onclick="exportFeedback()">📋 フィードバックをコピー</button>
+  </div>
+  <div class="footer-note">Source: Hacker News Algolia API. Generated by Claude Sonnet 4.6.</div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(function() {
+  const STORAGE_KEY = 'morning-edition-feedback-v2';
+  let feedback = { liked: {}, disliked: {}, updatedAt: null };
+  let fileHandle = null;
+
+  function loadFromStorage() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (raw) feedback = JSON.parse(raw);
+    } catch(e) {}
+  }
+
+  function saveToStorage() {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(feedback)); } catch(e) {}
+  }
+
+  async function saveToFile() {
+    if (!window.showSaveFilePicker) return;
+    try {
+      if (!fileHandle) {
+        fileHandle = await window.showSaveFilePicker({
+          suggestedName: 'feedback.json',
+          types: [{ description: 'JSON', accept: { 'application/json': ['.json'] } }]
+        });
+      }
+      const writable = await fileHandle.createWritable();
+      await writable.write(JSON.stringify(feedback, null, 2));
+      await writable.close();
+    } catch(e) {}
+  }
+
+  function renderButtons() {
+    document.querySelectorAll('.flag-btn').forEach(btn => {
+      const id = btn.dataset.story;
+      const type = btn.dataset.type;
+      btn.classList.remove('active');
+      if (type === 'like' && feedback.liked[id]) btn.classList.add('active');
+      if (type === 'dislike' && feedback.disliked[id]) btn.classList.add('active');
+    });
+  }
+
+  function showToast(msg, isError) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.className = 'toast' + (isError ? ' error' : '');
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2200);
+  }
+
+  window.toggleFlag = function(id, title, type) {
+    const isLike = type === 'like';
+    const primaryKey = isLike ? 'liked' : 'disliked';
+    const oppositeKey = isLike ? 'disliked' : 'liked';
+
+    if (feedback[primaryKey][id]) {
+      delete feedback[primaryKey][id];
+      showToast('フィードバックを取り消しました');
+    } else {
+      feedback[primaryKey][id] = { title, date: '2026-10-05' };
+      delete feedback[oppositeKey][id];
+      showToast(isLike ? '⭐ 興味ありとして記録しました' : '✕ 興味なしとして記録しました');
+    }
+    feedback.updatedAt = new Date().toISOString();
+    saveToStorage();
+    saveToFile();
+    renderButtons();
+  };
+
+  window.exportFeedback = function() {
+    try {
+      navigator.clipboard.writeText(JSON.stringify(feedback, null, 2));
+      showToast('📋 クリップボードにコピーしました');
+    } catch(e) {
+      showToast('コピーに失敗しました', true);
+    }
+  };
+
+  loadFromStorage();
+  renderButtons();
+})();
+</script>
+</body>
+</html>
