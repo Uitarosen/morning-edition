@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Morning Edition — 2026年10月6日</title>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --font: 'M PLUS Rounded 1c', 'Hiragino Sans', 'Noto Sans JP', sans-serif; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); background: #111; color: #fff; overflow-x: hidden; }
+
+    .masthead { background: #fff; color: #000; padding: 3rem 4rem 2.5rem; border-bottom: 6px solid #000; position: relative; overflow: hidden; }
+    .masthead::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: repeating-linear-gradient(90deg, #000 0, #000 12px, transparent 12px, transparent 20px); }
+    .masthead-kicker { font-size: 0.85rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: #777; margin-bottom: 0.6rem; }
+    .masthead-title { font-size: clamp(3.5rem, 9vw, 7.5rem); font-weight: 900; line-height: 0.88; letter-spacing: -0.04em; margin-bottom: 1.8rem; }
+    .masthead-meta { display: flex; gap: 3rem; align-items: baseline; flex-wrap: wrap; }
+    .masthead-date { font-size: 1.5rem; font-weight: 700; }
+    .masthead-subtitle { font-size: 1rem; font-weight: 400; color: #555; max-width: 480px; line-height: 1.5; }
+    .masthead-issue { margin-left: auto; text-align: right; }
+    .masthead-issue span { display: block; }
+    .masthead-issue .iss-label { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: #999; }
+    .masthead-issue .iss-num { font-size: 2.2rem; font-weight: 900; color: #000; }
+
+    .toc { background: #1a1a1a; padding: 1.5rem 4rem; display: flex; gap: 1.5rem; flex-wrap: wrap; border-bottom: 1px solid #333; }
+    .toc a { color: #aaa; text-decoration: none; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; transition: color 0.2s; }
+    .toc a:hover { color: #fff; }
+    .toc-num { color: #555; margin-right: 0.3em; }
+
+    .story { position: relative; overflow: hidden; }
+    .story-inner { max-width: 1200px; margin: 0 auto; padding: 5rem 4rem; position: relative; z-index: 1; }
+    .story-num { font-size: clamp(6rem, 18vw, 16rem); font-weight: 900; line-height: 0.8; letter-spacing: -0.06em; opacity: 0.08; position: absolute; top: 1rem; right: 2rem; user-select: none; }
+    .story-badge { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.35em 0.9em; border-radius: 2px; margin-bottom: 1.5rem; }
+    .direct-badge { background: #FFD700; color: #000; }
+    .story-kicker { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; opacity: 0.6; margin-bottom: 0.8rem; }
+    .story-headline { font-size: clamp(2rem, 5vw, 4rem); font-weight: 900; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+    .story-body { font-size: clamp(1rem, 1.5vw, 1.2rem); font-weight: 400; line-height: 1.8; max-width: 680px; opacity: 0.88; margin-bottom: 2rem; }
+    .story-meta { display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center; font-size: 0.8rem; font-weight: 700; opacity: 0.5; }
+    .story-links { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem; }
+    .story-link { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.6em 1.4em; border-radius: 3px; text-decoration: none; transition: opacity 0.2s, transform 0.15s; }
+    .story-link:hover { opacity: 0.75; transform: translateY(-1px); }
+
+    .feedback-buttons { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .flag-btn { background: none; border: 1px solid currentColor; color: inherit; font-family: var(--font); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.5em 1em; border-radius: 3px; cursor: pointer; opacity: 0.32; transition: opacity 0.2s, background 0.2s, color 0.2s, border-color 0.2s, transform 0.15s; }
+    .flag-btn:hover { opacity: 0.72; transform: translateY(-1px); }
+    .flag-btn.like-btn.active { opacity: 1; background: rgba(255,215,0,0.15); border-color: #FFD700; color: #FFD700 !important; }
+    .flag-btn.dislike-btn.active { opacity: 1; background: rgba(255,60,60,0.12); border-color: #FF4444; color: #FF4444 !important; }
+
+    .toast { position: fixed; bottom: 2rem; right: 2rem; background: #1a1a1a; color: #fff; font-family: var(--font); font-size: 0.82rem; font-weight: 700; padding: 0.75em 1.4em; border-radius: 4px; border-left: 3px solid #00C853; z-index: 9999; opacity: 0; transform: translateY(10px); transition: opacity 0.25s, transform 0.25s; pointer-events: none; box-shadow: 0 4px 24px rgba(0,0,0,0.45); }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    .toast.error { border-left-color: #FF5252; }
+
+    /* Story 1 — White */
+    .story-1 { background: #fff; color: #000; min-height: 90vh; display: flex; flex-direction: column; justify-content: center; }
+    .story-1 .story-num { color: #000; opacity: 0.04; }
+    .story-1 .story-kicker { color: #555; opacity: 1; }
+    .story-1 .story-headline { color: #000; }
+    .story-1 .story-body { color: #111; }
+    .story-1 .story-meta { color: #000; }
+    .story-1 .story-link.primary { background: #1a1a1a; color: #fff; }
+    .story-1 .story-link.secondary { background: #f0f0f0; color: #000; }
+    .story-1 .flag-btn { color: #000; }
+    .story-1-accent { position: absolute; bottom: 0; left: 0; width: 100%; height: 8px; background: linear-gradient(90deg, #0a0a0a, #555, #0a0a0a); }
+    .story-1 .headline-accent { display: inline-block; background: linear-gradient(135deg, #1a1a1a 0%, #555 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .blue-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1.2rem; margin: 2rem 0; max-width: 680px; }
+    .blue-card { border: 2px solid rgba(0,0,0,0.12); background: rgba(0,0,0,0.03); border-radius: 6px; padding: 1.3rem 1.5rem; }
+    .blue-card-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.2em; text-transform: uppercase; color: #333; margin-bottom: 0.4rem; }
+    .blue-card-value { font-size: 1.05rem; font-weight: 900; color: #000; line-height: 1.3; }
+    .blue-card-sub { font-size: 0.75rem; color: #555; margin-top: 0.3rem; line-height: 1.4; }
+
+    /* Story 2 — Dark navy/teal */
+    .story-2 { background: #00080c; color: #b8f0ff; min-height: 80vh; }
+    .story-2::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(0,160,200,0.14) 0%, transparent 65%); }
+    .story-2 .story-num { color: #00A0C8; opacity: 0.07; }
+    .story-2 .story-kicker { color: #20C8E8; opacity: 1; }
+    .story-2 .story-headline { color: #e0f8ff; }
+    .story-2 .story-body { color: #b8f0ff; }
+    .story-2 .story-meta { color: #20C8E8; opacity: 0.5; }
+    .story-2 .story-link.primary { background: #004058; color: #80e8ff; }
+    .story-2 .story-link.secondary { background: rgba(0,160,200,0.08); color: #90d8f0; border: 1px solid rgba(0,160,200,0.22); }
+    .story-2 .flag-btn { color: #b8f0ff; }
+    .teal-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .teal-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(0,160,200,0.07); border-left: 3px solid #00A0C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .teal-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20C8E8; margin-bottom: 0.3rem; }
+    .teal-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 3 — Dark red */
+    .story-3 { background: #0a0000; color: #fff; min-height: 80vh; }
+    .story-3::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(200,20,20,0.16) 0%, transparent 65%); }
+    .story-3 .story-num { color: #C81414; opacity: 0.07; }
+    .story-3 .story-kicker { color: #E84040; opacity: 1; }
+    .story-3 .story-headline { color: #fff; }
+    .story-3 .story-body { color: rgba(255,255,255,0.88); }
+    .story-3 .story-meta { color: #E84040; opacity: 0.5; }
+    .story-3 .story-link.primary { background: #6a0000; color: #fff; }
+    .story-3 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-3 .flag-btn { color: #fff; }
+    .red-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .red-item { background: rgba(200,20,20,0.07); border-left: 3px solid #C81414; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .red-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E84040; margin-bottom: 0.3rem; }
+    .red-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 4 — Dark green */
+    .story-4 { background: #020c04; color: #c8f0d0; min-height: 80vh; }
+    .story-4::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(20,160,70,0.16) 0%, transparent 65%); }
+    .story-4 .story-num { color: #14A046; opacity: 0.07; }
+    .story-4 .story-kicker { color: #30C060; opacity: 1; }
+    .story-4 .story-headline { color: #e0ffe8; }
+    .story-4 .story-body { color: #c8f0d0; }
+    .story-4 .story-meta { color: #30C060; opacity: 0.5; }
+    .story-4 .story-link.primary { background: #063820; color: #80ffb0; }
+    .story-4 .story-link.secondary { background: rgba(20,160,70,0.08); color: #a0e8b0; border: 1px solid rgba(20,160,70,0.22); }
+    .story-4 .flag-btn { color: #c8f0d0; }
+    .green-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .green-item { background: rgba(20,160,70,0.07); border-left: 3px solid #14A046; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .green-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #30C060; margin-bottom: 0.3rem; }
+    .green-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 5 — Dark purple */
+    .story-5 { background: #040010; color: #d8c8ff; min-height: 75vh; }
+    .story-5::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(90,40,200,0.17) 0%, transparent 65%); }
+    .story-5 .story-num { color: #5A28C8; opacity: 0.07; }
+    .story-5 .story-kicker { color: #8050E0; opacity: 1; }
+    .story-5 .story-headline { color: #f0e8ff; }
+    .story-5 .story-body { color: #d8c8ff; }
+    .story-5 .story-meta { color: #8050E0; opacity: 0.5; }
+    .story-5 .story-link.primary { background: #200860; color: #d0a8ff; }
+    .story-5 .story-link.secondary { background: rgba(90,40,200,0.08); color: #c0a0f0; border: 1px solid rgba(90,40,200,0.22); }
+    .story-5 .flag-btn { color: #d8c8ff; }
+    .purple-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .purple-item { background: rgba(90,40,200,0.07); border-left: 3px solid #5A28C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .purple-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #8050E0; margin-bottom: 0.3rem; }
+    .purple-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 6 — Dark cyan */
+    .story-6 { background: #000c10; color: #b8e8f0; min-height: 75vh; }
+    .story-6::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 40%, rgba(0,130,160,0.14) 0%, transparent 65%); }
+    .story-6 .story-num { color: #0080A0; opacity: 0.07; }
+    .story-6 .story-kicker { color: #20B0D0; opacity: 1; }
+    .story-6 .story-headline { color: #e0f4ff; }
+    .story-6 .story-body { color: #b8e8f0; }
+    .story-6 .story-meta { color: #20B0D0; opacity: 0.5; }
+    .story-6 .story-link.primary { background: #003848; color: #80d8f0; }
+    .story-6 .story-link.secondary { background: rgba(0,130,160,0.08); color: #90cce0; border: 1px solid rgba(0,130,160,0.22); }
+    .story-6 .flag-btn { color: #b8e8f0; }
+    .cyan-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .cyan-item { background: rgba(0,130,160,0.07); border-left: 3px solid #0080A0; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .cyan-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20B0D0; margin-bottom: 0.3rem; }
+    .cyan-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 7 — Dark amber */
+    .story-7 { background: #0a0300; color: #ffe0b8; min-height: 75vh; }
+    .story-7::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(210,90,20,0.18) 0%, transparent 65%); }
+    .story-7 .story-num { color: #D05A14; opacity: 0.07; }
+    .story-7 .story-kicker { color: #E88040; opacity: 1; }
+    .story-7 .story-headline { color: #fff0d8; }
+    .story-7 .story-body { color: #ffe0b8; }
+    .story-7 .story-meta { color: #E88040; opacity: 0.5; }
+    .story-7 .story-link.primary { background: #6a2400; color: #ffc880; }
+    .story-7 .story-link.secondary { background: rgba(210,90,20,0.08); color: #ffb870; border: 1px solid rgba(210,90,20,0.22); }
+    .story-7 .flag-btn { color: #ffe0b8; }
+    .amber-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .amber-item { background: rgba(210,90,20,0.07); border-left: 3px solid #D05A14; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .amber-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E88040; margin-bottom: 0.3rem; }
+    .amber-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 8 — Dark gold */
+    .story-8 { background: #080500; color: #fff; min-height: 70vh; }
+    .story-8::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,145,10,0.15) 0%, transparent 65%); }
+    .story-8 .story-num { color: #BE9110; opacity: 0.06; }
+    .story-8 .story-kicker { color: #D4A820; opacity: 1; }
+    .story-8 .story-headline { color: #fff; }
+    .story-8 .story-body { color: rgba(255,255,255,0.88); }
+    .story-8 .story-meta { color: #D4A820; opacity: 0.5; }
+    .story-8 .story-link.primary { background: #604000; color: #ffe070; }
+    .story-8 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-8 .flag-btn { color: #fff; }
+    .gold-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .gold-item { background: rgba(190,145,10,0.07); border-left: 3px solid #BE9110; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .gold-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #D4A820; margin-bottom: 0.3rem; }
+    .gold-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 9 — Slate blue */
+    .story-9 { background: #040810; color: #c8d8f0; min-height: 70vh; }
+    .story-9::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 35%, rgba(50,90,170,0.16) 0%, transparent 65%); }
+    .story-9 .story-num { color: #3258A8; opacity: 0.07; }
+    .story-9 .story-kicker { color: #5878C8; opacity: 1; }
+    .story-9 .story-headline { color: #e8f0ff; }
+    .story-9 .story-body { color: #c8d8f0; }
+    .story-9 .story-meta { color: #5878C8; opacity: 0.5; }
+    .story-9 .story-link.primary { background: #101e50; color: #fff; }
+    .story-9 .story-link.secondary { background: rgba(50,90,170,0.08); color: #b0c8e8; border: 1px solid rgba(50,90,170,0.22); }
+    .story-9 .flag-btn { color: #c8d8f0; }
+    .slate-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .slate-item { background: rgba(50,90,170,0.07); border-left: 3px solid #3258A8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .slate-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #5878C8; margin-bottom: 0.3rem; }
+    .slate-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 10 — Magenta */
+    .story-10 { background: #080004; color: #ffc8e8; min-height: 70vh; }
+    .story-10::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,20,90,0.15) 0%, transparent 65%); }
+    .story-10 .story-num { color: #BE1458; opacity: 0.07; }
+    .story-10 .story-kicker { color: #E04080; opacity: 1; }
+    .story-10 .story-headline { color: #fff0f8; }
+    .story-10 .story-body { color: #ffc8e8; }
+    .story-10 .story-meta { color: #E04080; opacity: 0.5; }
+    .story-10 .story-link.primary { background: #500030; color: #ffb0d8; }
+    .story-10 .story-link.secondary { background: rgba(190,20,90,0.08); color: #f090c0; border: 1px solid rgba(190,20,90,0.22); }
+    .story-10 .flag-btn { color: #ffc8e8; }
+    .mag-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .mag-item { background: rgba(190,20,90,0.07); border-left: 3px solid #BE1458; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .mag-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E04080; margin-bottom: 0.3rem; }
+    .mag-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .site-footer { background: #000; color: #555; padding: 3rem 4rem; display: flex; flex-direction: column; gap: 1.5rem; border-top: 1px solid #222; }
+    .footer-top { display: flex; gap: 2rem; align-items: center; flex-wrap: wrap; justify-content: space-between; }
+    .footer-brand { font-size: 1.4rem; font-weight: 900; color: #fff; }
+    .footer-meta { font-size: 0.75rem; line-height: 1.6; }
+    .export-btn { background: #222; border: 1px solid #444; color: #fff; font-family: var(--font); font-size: 0.8rem; font-weight: 700; padding: 0.7em 1.5em; border-radius: 3px; cursor: pointer; letter-spacing: 0.08em; transition: background 0.2s; }
+    .export-btn:hover { background: #333; }
+    .footer-note { font-size: 0.7rem; opacity: 0.5; }
+
+    @media (max-width: 768px) {
+      .masthead, .toc, .story-inner, .site-footer { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .story-num { display: none; }
+      .masthead-meta { gap: 1rem; }
+      .masthead-issue { margin-left: 0; }
+      .blue-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+<nav style="background:#1a1a1a;border-bottom:1px solid #333;padding:0.55rem 2rem;font-family:'M PLUS Rounded 1c','Hiragino Sans','Noto Sans JP',sans-serif;position:sticky;top:0;z-index:999;">
+  <a href="./index.html" style="color:#aaa;text-decoration:none;font-size:0.8rem;font-weight:700;letter-spacing:0.03em;display:inline-flex;align-items:center;gap:0.4rem;transition:color 0.15s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#aaa'">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    アーカイブへ戻る
+  </a>
+</nav>
+
+<header class="masthead">
+  <div class="masthead-kicker">Hacker News — Morning Edition</div>
+  <h1 class="masthead-title">Morning<br>Edition</h1>
+  <div class="masthead-meta">
+    <div>
+      <div class="masthead-date">2026年10月6日 火曜日</div>
+      <div class="masthead-subtitle">AI・開発ツール・プライバシー・サイエンス — あなたのための10本</div>
+    </div>
+    <div class="masthead-issue">
+      <span class="iss-label">Issue</span>
+      <span class="iss-num">No.141</span>
+    </div>
+  </div>
+</header>
+
+<nav class="toc">
+  <a href="#s1"><span class="toc-num">01</span>⚡ AnthropicがClaudeの日記を警察に通報——フロリダ州女性が重罪起訴</a>
+  <a href="#s2"><span class="toc-num">02</span>CloudflareがWeb Search APIをリリース——AIアプリに検索機能を</a>
+  <a href="#s3"><span class="toc-num">03</span>GrapheneOSがPixel 11をスキップか——セキュリティ基準を満たせず</a>
+  <a href="#s4"><span class="toc-num">04</span>蚊媒介疾患を根絶する技術は存在する——問題は意思だ</a>
+  <a href="#s5"><span class="toc-num">05</span>Reflection AIがBeam 501Bをリリース——新世代オープンウェイトモデル</a>
+  <a href="#s6"><span class="toc-num">06</span>⚡ Opus 5.5エージェントが室温磁性半導体の候補2種を発見</a>
+  <a href="#s7"><span class="toc-num">07</span>2026年ノーベル生理学・医学賞——光遺伝学の3人に</a>
+  <a href="#s8"><span class="toc-num">08</span>ノルウェーがスマートグラスの部分禁止を検討</a>
+  <a href="#s9"><span class="toc-num">09</span>Cで型安全なジェネリックデータ構造を実装する方法（2025）</a>
+  <a href="#s10"><span class="toc-num">10</span>火星の「カオス地形」——太陽系で最も奇妙な地表の一つ</a>
+</nav>
+
+<!-- ═══ STORY 1 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-1" id="s1">
+  <div class="story-num">01</div>
+  <div class="story-inner">
+    <div class="story-badge direct-badge">⚡ あなたに直接関係</div>
+    <div class="story-kicker">AI / Anthropic / Claude / プライバシー / 法的問題 / セキュリティ / 報告義務 — 2026-10-06</div>
+    <h2 class="story-headline">
+      Anthropicが<br><span class="headline-accent">Claudeの日記</span><br>を警察に通報
+    </h2>
+    <div class="story-body">
+      フロリダ州の女性がClaude AIを使って私的な日記を書いていたところ、Anthropicがその内容を法執行機関に通報し、女性は重罪（フェロニー）容疑で起訴されたと報じられています。422ポイント・347コメントという本日最大の注目を集めるこのニュースは、AIアシスタントとの対話内容がどこまでプライベートなのか、という根本的な問いを突きつけています。
+    </div>
+    <div class="blue-grid">
+      <div class="blue-card">
+        <div class="blue-card-label">何が起きたか——日記の内容が通報の引き金に</div>
+        <div class="blue-card-value">「射撃」に関する日記が問題視される</div>
+        <div class="blue-card-sub">報道によると、女性はClaudeを日記ツールとして使用しており、その日記の中に第三者への危害を示唆すると解釈しうる内容（射撃や暴力に関する記述）が含まれていた。AnthropicはClaudeの利用規約および「重大な脅威」への対応ポリシーに基づき、この内容を法執行機関に通報。女性は重罪容疑で起訴されることになった。女性側は「あれは私的な感情の発露であり、実行する意図はなかった」と主張しているとされる。</div>
+      </div>
+      <div class="blue-card">
+        <div class="blue-card-label">Anthropicの立場——利用規約と「安全」のトレードオフ</div>
+        <div class="blue-card-value">重大な脅威には通報義務</div>
+        <div class="blue-card-sub">Anthropicの利用規約では「他者への危害の脅迫や暴力的なコンテンツ」の生成を禁じており、同社は重大なリスクと判断した場合に当局に通報する旨を定めているとされる。テック企業がユーザーの通信内容を法執行機関に提供するという行為自体は前例があるが（Googleのメールの子どもの性的搾取コンテンツ通報など）、プライベートな「日記」を対象にした事案は珍しく、「AIがセラピスト的役割を担う時代に何を話せるか」という懸念が広がっている。HNでは「これはユーザーへの裏切りだ」という強い批判が上位に。</div>
+      </div>
+      <div class="blue-card">
+        <div class="blue-card-label">プライバシーへの影響——AIとの対話は「安全」か</div>
+        <div class="blue-card-value">↑422pt · 💬347</div>
+        <div class="blue-card-sub">この事件が示す最大の問題は「AIアシスタントに本音を話すことのリスク」だ。多くのユーザーはClaudeをジャーナリングツール・日記・メンタルヘルスのアウトレットとして活用している。しかし今回の件は「AI企業はあなたの会話を読んでおり、特定の閾値を超えたと判断すれば当局に通報する」という現実を突きつけた。「これ以降、AIに本音は書けない——つまりAIの最も有用なユースケースが破壊された」という声がHNで多数。エンドツーエンド暗号化や完全なオンデバイス処理の重要性が改めて議論されている。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: techspot.com</span>
+      <span>💬347+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.techspot.com/news/114091-florida-woman-used-claude-diary-anthropic-reported-shoot.html" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49961057" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="anthropic-diary-police-felony" data-type="like" onclick="toggleFlag('anthropic-diary-police-felony','AnthropicがClaudeの日記を警察に通報 フロリダ州女性が重罪起訴','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="anthropic-diary-police-felony" data-type="dislike" onclick="toggleFlag('anthropic-diary-police-felony','AnthropicがClaudeの日記を警察に通報 フロリダ州女性が重罪起訴','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+    <div class="story-1-accent"></div>
+  </div>
+</section>
+
+<!-- ═══ STORY 2 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-2" id="s2">
+  <div class="story-num">02</div>
+  <div class="story-inner">
+    <div class="story-kicker">開発者ツール / Cloudflare / Web検索 / API / AI / インフラ / リアルタイム — 2026-10-06</div>
+    <h2 class="story-headline">
+      CloudflareがWeb<br><span style="color:#20d8f0">Search APIを</span><br>リリース
+    </h2>
+    <div class="story-body">
+      「Web Search API」がCloudflareのChangelogで公開され、HNで450ポイント・208コメントという本日最多のポイントを集めています。CloudflareはWorkers AIやAI Gatewayなど積極的なAIインフラ展開を進めてきましたが、今回のWeb Search APIはAIアプリケーションに対してリアルタイムのウェブ検索機能を直接提供するもの。Bing Search API・Brave Search API・Tavily等と競合する位置づけで、Cloudflareエコシステムとの統合が容易な点が注目されています。
+    </div>
+    <div class="teal-items">
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">何ができるAPIか——AIアプリへのリアルタイム検索統合</div>
+          <div class="teal-text">Cloudflare Web Search APIは、開発者がWorkersやAI Gatewayから直接ウェブ検索クエリを実行し、最新のインデックスされた結果を取得できる仕組みだ。RAG（Retrieval-Augmented Generation）パターンでのユースケースが主で、LLMが学習データのカットオフ以降の情報にアクセスできるようになる。応答にはスニペット・URL・タイトルが含まれ、Claude、GPT-4、Gemini等どのLLMにも渡せる形式で返ってくる。CloudflareのCDNエッジから実行されるため、グローバルなレイテンシが低い点も売りとされている。</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">競合との差別化——Bing・Brave・Tavilyとどう違うか</div>
+          <div class="teal-text">Bing Search APIはMicrosoftのエコシステムに紐づき価格が高め。Brave Search APIはBraveの独自インデックスを持つがカバレッジに疑問符がついていた。TavilyはAI向けに最適化された検索をウリにしているが、Cloudflareとのエコシステム統合はない。Cloudflareの差別化ポイントは「Workers・AI Gateway・D1データベース・Vectorizeベクトルストアとの統合が同一プラットフォームで完結する」という点で、特にCloudflare上でAIアプリを構築している開発者には追加インフラなしに検索機能を足せる便利さがある。価格については公開時点で明示されていないためHNで議論が続いている。</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">HNでの反応——「Cloudflareのモノプラットフォーム戦略が本気だ」</div>
+          <div class="teal-text">「Cloudflareは一つのAIアプリに必要なもの全部——CDN・Workers・KV・D1・AI推論・ベクトル検索・Web検索——を自社で揃えようとしている。これが完成したら垂直統合が怖いくらい強力になる」というコメントが上位に。「独自の検索インデックスを持っているのか、それとも第三者のインデックスをリレーしているのか」という疑問が多く、Cloudflare側からの明確な回答がまだない点が気になるという意見も多い。「Tavilyは今後厳しい競合にさらされるだろう」という予測も散見された。</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: developers.cloudflare.com</span>
+      <span>💬208+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://developers.cloudflare.com/changelog/post/2026-10-02-introducing-web-search-api/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49963171" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="cloudflare-web-search-api" data-type="like" onclick="toggleFlag('cloudflare-web-search-api','CloudflareがWeb Search APIをリリース AIアプリにリアルタイム検索を','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="cloudflare-web-search-api" data-type="dislike" onclick="toggleFlag('cloudflare-web-search-api','CloudflareがWeb Search APIをリリース AIアプリにリアルタイム検索を','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 3 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-3" id="s3">
+  <div class="story-num">03</div>
+  <div class="story-inner">
+    <div class="story-kicker">プライバシー / セキュリティ / Android / GrapheneOS / Pixel / スマートフォン / ハードウェア — 2026-10-06</div>
+    <h2 class="story-headline">
+      GrapheneOSが<br>Pixel 11を<br><span style="color:#ff6060">スキップ検討</span>
+    </h2>
+    <div class="story-body">
+      「Pixel 11 doesn't yet meet the GrapheneOS security standards and may be skipped」がGrapheneOSのフォーラムに投稿され、HNで385ポイント・227コメントを集めています。最も安全なAndroidフォークとして知られるGrapheneOSが、GoogleのPixel 11はセキュリティ基準を満たしていないとして対応をスキップする可能性があると発表。プライバシー重視のユーザーにとっては頭の痛いニュースです。
+    </div>
+    <div class="red-items">
+      <div class="red-item">
+        <div class="red-label">どのセキュリティ基準が問題か——具体的な欠陥</div>
+        <div class="red-text">GrapheneOSがPixel 11に対して指摘しているセキュリティ上の懸念は複数あるが、フォーラム投稿で具体的に触れられているのは「セキュアブートの実装」「メモリ保護機構（MTE対応）」「デバイス識別情報の扱い」に関わる問題だ。GrapheneOSはPixelシリーズに独占的に依存してきたのは、GoogleがPixelに対してTitanMチップによる強固なセキュアブート・Pixel専用の強化されたカーネル対応などを提供してきたからだ。Pixel 11でこれらの一部が退行または未対応になっているとされており、GrapheneOSの維持者は「妥協するより待つ」という立場を取っている。</div>
+      </div>
+      <div class="red-item">
+        <div class="red-label">GrapheneOSはPixelに依存せざるをえない——ハードウェア選択の制約</div>
+        <div class="red-text">GrapheneOSは事実上Google Pixelシリーズ専用だ。その理由は「ブートローダーのアンロックとリロックが可能で、かつセキュアブートが機能し続けるハードウェア」がPixelしか存在しないからだ。Samsungはブートローダーをアンロックするとセキュアブートが機能しなくなるKnoxヒューズが焼かれてしまう。GrapheneOSが「Pixel以外への対応」を検討したことは過去にもあったが実現していない。今回のPixel 11スキップ検討は、同プロジェクトにとってほぼ唯一の「ハードウェアプラットフォーム」に問題が生じたことを意味し、ユーザーは現行Pixel 9/10を継続使用するしか選択肢がない状況だ。</div>
+      </div>
+      <div class="red-item">
+        <div class="red-label">HNでの反応——「Googleへの依存がGrapheneOSの最大の弱点」</div>
+        <div class="red-text">「GrapheneOSはセキュリティのためにGoogleのハードウェアに依存するという根本矛盾を抱えている——これが顕在化した」という指摘が上位に。「CalyxOS・LineageOSはより広いデバイスをサポートするが、セキュリティレベルはGrapheneOSに及ばない——ユーザーは選択を迫られる」という状況分析も。「Googleが意図的にGrapheneOSを排除しようとしているわけではないだろうが、結果的にプライバシー重視ユーザーの選択肢が減っていく」という懸念も。「Pixel 9で数年は使い続けるしかない」という実用的な結論を出したコメントも多かった。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: discuss.grapheneos.org</span>
+      <span>💬227+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://discuss.grapheneos.org/d/41564-pixel-11-doesnt-yet-meet-the-grapheneos-security-standards-and-may-be-skipped" target="_blank">フォーラムを読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49964303" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="grapheneos-pixel-11-security-skip" data-type="like" onclick="toggleFlag('grapheneos-pixel-11-security-skip','GrapheneOSがPixel 11をスキップ検討 セキュリティ基準を満たせず','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="grapheneos-pixel-11-security-skip" data-type="dislike" onclick="toggleFlag('grapheneos-pixel-11-security-skip','GrapheneOSがPixel 11をスキップ検討 セキュリティ基準を満たせず','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 4 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-4" id="s4">
+  <div class="story-num">04</div>
+  <div class="story-inner">
+    <div class="story-kicker">科学 / 公衆衛生 / 蚊 / 遺伝子技術 / 疾病対策 / 政策 / 選択 — 2026-10-06</div>
+    <h2 class="story-headline">
+      蚊媒介疾患を<br>根絶する技術は<br><span style="color:#30d060">存在する</span>
+    </h2>
+    <div class="story-body">
+      「The technology to eradicate mosquito-borne disease exists」がworks​in​progress.coに掲載され、HNで225ポイント・176コメントを集めています。マラリア・デング熱・ジカ熱・チクングニア熱などで年間数十万人が死亡する蚊媒介疾患。その根絶に必要な技術（遺伝子ドライブ・Wolbachia感染蚊・不妊オス放出）はすでに存在するのに、なぜ実施されないのか——という問いに正面から向き合った記事が大きな議論を呼んでいます。
+    </div>
+    <div class="green-items">
+      <div class="green-item">
+        <div class="green-label">どんな技術が存在するか——3つのアプローチ</div>
+        <div class="green-text">記事は3つの主要技術を紹介している。(1)遺伝子ドライブ——CRISPRを使って「次世代への継承率を50%以上に高める改変遺伝子」を蚊の集団に導入し、数世代で特定種を局所的に根絶または無害化する。(2)Wolbachia感染蚊——デング熱ウイルスを媒介できなくするバクテリアWolbachiaに感染させた蚊を放出し、野生の蚊集団にWolbachiaを広める（既に東南アジア・オーストラリアで実地試験済み）。(3)不妊オスの大量放出（SIT）——放射線や遺伝子操作で不妊化したオスを大量放出し、メスの交配成功率を下げて個体数を減少させる。どれも実証済みの技術だ。</div>
+      </div>
+      <div class="green-item">
+        <div class="green-label">なぜ実施されないか——技術ではなく政治と認識の問題</div>
+        <div class="green-text">記事の核心は「問題は技術の欠如ではなく、社会的・規制的・資金的な障壁だ」という主張だ。(1)規制の壁——遺伝子操作した生物の環境放出は各国で厳格な規制対象であり、国境をまたぐ遺伝子ドライブは国際的な合意なしに実施できない。(2)「蚊を絶滅させたら生態系が壊れる」という懸念——ただし記事はこの懸念を「根拠は非常に薄い。問題の蚊は侵入種が多く、根絶対象を絞れば生態系への影響は無視できるレベルだ」と反論している。(3)資金の欠如——マラリアは貧困国の病気のため、製薬企業の商業的インセンティブが低い。</div>
+      </div>
+      <div class="green-item">
+        <div class="green-label">HNでの反応——生態系論争とユーティリタリズムの対立</div>
+        <div class="green-text">「年間100万人が死ぬ問題を解決する技術があって使わないのは道徳的に許容できるのか」というユーティリタリアン的立場と「人間が意図して種を絶滅させる先例を作ることの危険性」という慎重派がぶつかり合う176コメントの議論は非常に読み応えがある。「Wolbachiaアプローチは最も安全——既存の蚊を置き換えるだけで絶滅はさせない」という現実的な支持も多い。「デング熱を経験したことがある人間にとってこれは抽象的な倫理問題ではない」という体験談が多数ついた上位コメントも印象的だった。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: worksinprogress.co</span>
+      <span>💬176+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://worksinprogress.co/issue/mosquitoes-are-a-choice/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49956290" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="mosquito-disease-eradication-technology" data-type="like" onclick="toggleFlag('mosquito-disease-eradication-technology','蚊媒介疾患を根絶する技術は存在する 問題は技術ではなく意思だ','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="mosquito-disease-eradication-technology" data-type="dislike" onclick="toggleFlag('mosquito-disease-eradication-technology','蚊媒介疾患を根絶する技術は存在する 問題は技術ではなく意思だ','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 5 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-5" id="s5">
+  <div class="story-num">05</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / オープンウェイト / LLM / Reflection AI / 大規模モデル / オープンソース — 2026-10-06</div>
+    <h2 class="story-headline">
+      Reflection AIが<br><span style="color:#b070ff">Beam 501Bを</span><br>リリース
+    </h2>
+    <div class="story-body">
+      「Beam: Reflection's 501B open-weight model」がreflection.aiのブログで公開され、HNで215ポイント・59コメントを集めています。501億パラメーターという大規模なオープンウェイトモデルBeamのリリースは、クローズドモデルと競合するオープンウェイト空間での新たな強力プレイヤーの登場を意味します。Llama・Mistral・Qwen系列に並ぶ存在として注目が集まっています。
+    </div>
+    <div class="purple-items">
+      <div class="purple-item">
+        <div class="purple-label">Reflection AIとはどんな会社か——Beamの背景</div>
+        <div class="purple-text">Reflection AIはAIの安全性と有能性を両立させることをミッションに掲げるスタートアップで、2024年に設立された比較的新しいプレイヤーだ。以前「Reflection 70B」を公開した際に「GPT-4oを超えた」と主張して話題になったが、そのパフォーマンス主張の検証をめぐって物議を醸した経緯がある（実際には論争が続いていた）。今回のBeam 501Bはより慎重に検証されたベンチマークを示しており、信頼性の回復を図っているようだ。オープンウェイトであることは同社の姿勢として重要で、Hugging Faceからダウンロード・商用利用が可能となっている。</div>
+      </div>
+      <div class="purple-item">
+        <div class="purple-label">501Bパラメーターの意味——LlamaやQwenとの比較</div>
+        <div class="purple-text">現在のオープンウェイトモデルの主な競合はMeta Llama 4（最大400B）、Qwen 2.5（最大72B、一部235B MoE）、DeepSeek V3（671B MoE）などだ。Beam 501BはMoEではなくデンスモデルとされており、501Bデンスを動かすには複数GPU（例: A100×8枚以上）が必要で個人では現実的でないが、企業や研究機関にとっては十分に利用可能な規模だ。ベンチマーク上ではCoding・数学推論・多言語対応において競争力があるとされているが、独立した第三者による検証はこれからの段階だ。</div>
+      </div>
+      <div class="purple-item">
+        <div class="purple-label">HNでの反応——「過去のスキャンダルを乗り越えられるか」</div>
+        <div class="purple-text">「Reflection 70Bの一件があるので今回も慎重に見ている——ベンチマークが第三者に再現されるまで評価保留」という声が多数。「オープンウェイト501Bデンスがうまく動けばDeepSeek MoEとは異なる選択肢ができる——特にMoEが苦手な低バッチ推論に有利な可能性」という技術的評価も。「Reflection AIは今度こそ誇大広告なしで実力を示せるか——コミュニティは見ている」という率直なコメントが多くのupvoteを集めた。「モデルの商用利用ライセンスが寛大な点は好印象」という評価も。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: reflection.ai</span>
+      <span>💬59+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://reflection.ai/blog/introducing-beam" target="_blank">ブログを読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49969183" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="reflection-beam-501b-model" data-type="like" onclick="toggleFlag('reflection-beam-501b-model','Reflection AIがBeam 501Bをリリース 新世代オープンウェイトモデル','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="reflection-beam-501b-model" data-type="dislike" onclick="toggleFlag('reflection-beam-501b-model','Reflection AIがBeam 501Bをリリース 新世代オープンウェイトモデル','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 6 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-6" id="s6">
+  <div class="story-num">06</div>
+  <div class="story-inner">
+    <div class="story-badge direct-badge">⚡ あなたに直接関係</div>
+    <div class="story-kicker">AI / Anthropic / Opus 5.5 / 材料科学 / 半導体 / 科学発見 / AIエージェント — 2026-10-06</div>
+    <h2 class="story-headline">
+      Opus 5.5が<br><span style="color:#20b8d0">室温磁性半導体</span><br>候補を2種発見
+    </h2>
+    <div class="story-body">
+      「Opus 5.5 agents discover two room-temperature magnetic semiconductor candidates」がvals.aiのブログで発表され、HNで120ポイント・100コメントを集めています。vals.aiがAnthropicのOpus 5.5モデルを使ったAIエージェントシステムで材料科学の未解決問題に取り組み、室温で機能する磁性半導体の候補材料を2種発見したと報告。AIによる科学的発見の新たな事例として注目されています。
+    </div>
+    <div class="cyan-items">
+      <div class="cyan-item">
+        <div class="cyan-label">室温磁性半導体とは——なぜ重要なのか</div>
+        <div class="cyan-text">磁性半導体（スピントロニクス材料）とは、電子の「スピン」（磁気的性質）を情報処理に使える半導体のことだ。現在のトランジスタは電荷のみを使うが、スピンを加えることで消費電力を劇的に下げながら処理速度を上げられる可能性がある。しかし従来の磁性半導体（例：GaMnAs）は低温（-200℃前後）でのみ磁性を示し、室温では使えなかった。室温で動作する磁性半導体が実現すれば「スピントロニクスコンピューター」の実用化につながる可能性があり、これは30年来の材料科学の難問だ。</div>
+      </div>
+      <div class="cyan-item">
+        <div class="cyan-label">AIエージェントはどう「発見」したか——手法の概要</div>
+        <div class="cyan-text">vals.aiのアプローチは、Opus 5.5を複数並列に動作させるマルチエージェントシステムで材料データベースを探索させるというものだ。エージェントは既知の磁性材料・半導体の文献を読み込み、「室温磁性+半導体特性」を両立しうる構造的特徴を推論し、Materials ProjectやICSDD等のデータベースから候補を抽出した。発見された2種の候補材料の具体名・構造はブログで公開されており、それぞれがなぜ理論的に室温磁性を示す可能性があるかの説明も付いている。これはAIが実験室でゼロから合成したわけではなく「既存データから人間が見落としていた候補を見つけ出した」という発見だ。</div>
+      </div>
+      <div class="cyan-item">
+        <div class="cyan-label">HNでの反応——懐疑と期待が交差する100コメント</div>
+        <div class="cyan-text">「AIが材料科学の未解決問題を解いた」という主張には慎重な反応も多い。「『候補を発見した』と『実際に室温磁性半導体が合成・実証された』は全く違う——実験検証が必要」という材料科学者らしいコメントが上位に。「DeepMindのAlphaFold・AlphaMatが示したように、AIは既存の文献を高速に統合して人間が見落としていた組み合わせを提案することに優れている——その意味では信頼できる」という評価も。「Opus 5.5が使われていることに注目——Anthropicのモデルが科学的発見の最前線で使われている」という観点からの興味も多かった。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: vals.ai</span>
+      <span>💬100+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.vals.ai/blogs/room-temperature-magnetic-semiconductors" target="_blank">ブログを読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49970667" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="opus-55-magnetic-semiconductors-discovery" data-type="like" onclick="toggleFlag('opus-55-magnetic-semiconductors-discovery','Opus 5.5エージェントが室温磁性半導体の候補2種を発見','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="opus-55-magnetic-semiconductors-discovery" data-type="dislike" onclick="toggleFlag('opus-55-magnetic-semiconductors-discovery','Opus 5.5エージェントが室温磁性半導体の候補2種を発見','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 7 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-7" id="s7">
+  <div class="story-num">07</div>
+  <div class="story-inner">
+    <div class="story-kicker">ノーベル賞 / 医学 / 神経科学 / 光遺伝学 / Deisseroth / Hegemann / Nagel — 2026-10-06</div>
+    <h2 class="story-headline">
+      2026年ノーベル<br>生理学・医学賞——<br><span style="color:#e88040">光遺伝学の3人に</span>
+    </h2>
+    <div class="story-body">
+      「2026 Nobel Prize in Physiology or Medicine: Deisseroth, Hegemann, Nagel」がノーベル財団から発表され、HNで109ポイント・45コメントを集めています。Karl Deisseroth（スタンフォード大）、Peter Hegemann（フンボルト大）、Georg Nagel（ヴュルツブルク大）の3名が光遺伝学（オプトジェネティクス）の発展への貢献でノーベル賞を受賞しました。神経科学に革命をもたらした技術の名誉ある受賞です。
+    </div>
+    <div class="amber-items">
+      <div class="amber-item">
+        <div class="amber-label">光遺伝学とは——光で神経細胞のオン・オフを切り替える技術</div>
+        <div class="amber-text">光遺伝学（オプトジェネティクス）は「光に反応するタンパク質（オプシン）を神経細胞に遺伝子操作で導入し、光を当てることで特定の神経細胞だけを精密にオン・オフする」という技術だ。HegemannとNagelはChlamydomonasという藻類から光で活性化するイオンチャネル「チャネルロドプシン」を発見した。Deisserothはこれをマウスの脳神経細胞に導入し、光ファイバーで光を当てることで生きた動物の特定の神経回路を自在に操作できることを実証した（2005年）。これ以前、特定の神経細胞だけを生きた状態で選択的に操作する方法は存在しなかった。</div>
+      </div>
+      <div class="amber-item">
+        <div class="amber-label">何が解明されたか——パーキンソン病からうつ病まで</div>
+        <div class="amber-text">光遺伝学により、これまで「ブラックボックス」だった脳の神経回路の因果関係が解明できるようになった。「特定の神経細胞を興奮させると何が起きるか・抑制すると何が起きるか」を直接試せる。主な成果として(1)パーキンソン病に関係する基底核回路の解明、(2)恐怖・報酬・うつに関わる扁桃体・海馬の回路マップ、(3)睡眠・覚醒を制御する神経細胞の同定などが挙げられる。医療応用では網膜色素変性症（RP）患者の視力回復に光遺伝学的アプローチが臨床試験で一定の成果を上げており、将来的には光遺伝学による直接的な脳・神経疾患治療も視野に入る。</div>
+      </div>
+      <div class="amber-item">
+        <div class="amber-label">HNでの反応——「20年前の発見がついに受賞」</div>
+        <div class="amber-text">「光遺伝学は2005年に発表されてから神経科学を根本的に変えた——受賞が遅すぎるくらいだ」という声が多い。「Deisserothの著書『Projections』はお勧め——精神科医として光遺伝学で解明した脳の話が一般向けに書かれており非常に読み応えがある」というブック推薦も複数。「なぜ今年なのかという疑問もあるが、網膜色素変性症患者に視力が戻る臨床試験の結果が出たタイミングと合っているかもしれない——応用が実証されたことが後押しした可能性」という考察も。光遺伝学ツールキット（AAVベクター・改変オプシン）が世界中の神経科学ラボで日常的に使われている現状への驚きの声も。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: nobelprize.org</span>
+      <span>💬45+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.nobelprize.org/prizes/medicine/2026/summary/" target="_blank">公式発表を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49962572" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="nobel-2026-medicine-optogenetics" data-type="like" onclick="toggleFlag('nobel-2026-medicine-optogenetics','2026年ノーベル生理学医学賞 光遺伝学の3人に','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="nobel-2026-medicine-optogenetics" data-type="dislike" onclick="toggleFlag('nobel-2026-medicine-optogenetics','2026年ノーベル生理学医学賞 光遺伝学の3人に','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 8 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-8" id="s8">
+  <div class="story-num">08</div>
+  <div class="story-inner">
+    <div class="story-kicker">プライバシー / ノルウェー / スマートグラス / 規制 / 監視 / 顔認識 / 政策 — 2026-10-06</div>
+    <h2 class="story-headline">
+      ノルウェーが<br><span style="color:#d4a820">スマートグラス</span><br>部分禁止を検討
+    </h2>
+    <div class="story-body">
+      「Norway Eyes Partial Ban of Smart Glasses」がBarron'sに掲載され、HNで102ポイント・61コメントを集めています。ノルウェー政府はMeta Ray-Banなどのカメラ内蔵スマートグラスに関して、プライバシー保護の観点から特定の公共場所での使用を制限または禁止する法整備を検討中と報じられています。欧州でスマートグラス規制の議論が本格化してきた最初の事例として注目されています。
+    </div>
+    <div class="gold-items">
+      <div class="gold-item">
+        <div class="gold-label">何が問題か——スマートグラスのプライバシーリスク</div>
+        <div class="gold-text">Meta Ray-BanなどのAI搭載スマートグラスは外見上は普通のサングラスと区別がつかないカメラを持ち、連続的に周囲を撮影できる。特に問題視されているのは「装着者が意図せず周囲の人を録画・撮影し、それをAIで処理（顔認識・位置情報紐付け等）できる」という点だ。2024年に注目されたHarvard学生の実験では、Meta Ray-BanでリアルタイムにInstagramアカウントと顔を照合し初対面の人の個人情報を特定するデモが行われ、物議を醸した。ノルウェーの懸念はこのような「パッシブ監視ツール」としての側面だ。</div>
+      </div>
+      <div class="gold-item">
+        <div class="gold-label">「部分禁止」の範囲——学校・病院・議会が主な対象</div>
+        <div class="gold-text">検討されている規制は全面禁止ではなく、特定の高プライバシー場所での使用制限だ。候補として挙げられているのは学校・病院・公共交通機関・裁判所・議会施設など「同意なく大勢の人を撮影するリスクが特に高い」場所だ。現行のGDPR（欧州一般データ保護規則）はすでにカメラによる顔認識データ収集を厳しく規制しているが、スマートグラスは「装着者が人々を記録していることが外見から分からない」ため既存規制の執行が困難という問題がある。専用の規制が必要だという議論がノルウェーで高まっている。</div>
+      </div>
+      <div class="gold-item">
+        <div class="gold-label">HNでの反応——「スマートフォンと何が違うのか」論争</div>
+        <div class="gold-text">「スマートフォンも同じことができるのにスマートグラスだけ規制するのは一貫性がない」という反論が多い。これに対して「スマートフォンを公共の場で向けていれば人は気づく・気づきにくさのレベルが根本的に違う」という反論も。「技術の進歩とともにプライバシーの期待値が変わってきた——1990年代の『公共の場では誰でも撮影できる』という法的解釈が今も通用するのか再考すべきでは」という本質的な問いも上位に来た。「ノルウェーが先行事例を作れば他のEU加盟国も追随する可能性がある」という法政策的観点からの注目も。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: barrons.com</span>
+      <span>💬61+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.barrons.com/news/norway-eyes-partial-ban-of-smart-glasses-e65dc239" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49968402" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="norway-smart-glasses-partial-ban" data-type="like" onclick="toggleFlag('norway-smart-glasses-partial-ban','ノルウェーがスマートグラスの部分禁止を検討 プライバシー懸念から','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="norway-smart-glasses-partial-ban" data-type="dislike" onclick="toggleFlag('norway-smart-glasses-partial-ban','ノルウェーがスマートグラスの部分禁止を検討 プライバシー懸念から','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 9 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-9" id="s9">
+  <div class="story-num">09</div>
+  <div class="story-inner">
+    <div class="story-kicker">C言語 / 型安全 / ジェネリクス / 低レベルプログラミング / 開発者ツール / テクニック — 2026-10-06</div>
+    <h2 class="story-headline">
+      Cで型安全な<br><span style="color:#8870e8">ジェネリクスを</span><br>実装する方法
+    </h2>
+    <div class="story-body">
+      「Type Safe Generic Data Structures in C (2025)」がdanielchasehooper.comに掲載され、HNで125ポイント・96コメントを集めています。C言語にはGenericな型システムがなく、配列・リスト・ハッシュマップなどのデータ構造を型安全に実装することは不可能に思えます。しかしDaniel Chase Hooperは、Cのマクロシステムを駆使した「型チェックが機能するジェネリックデータ構造」の実装方法を詳細に解説しています。
+    </div>
+    <div class="slate-items">
+      <div class="slate-item">
+        <div class="slate-label">どうやって型安全なジェネリクスを実現するか——マクロの魔術</div>
+        <div class="slate-text">Cで型安全なジェネリクスを実現する核心的なトリックは「構造体の先頭フィールドへのポインタ変換」と「_Generic選択式（C11以降）」の組み合わせだ。例えばジェネリックなリストを`LIST(int)`・`LIST(float)`のように使いたい場合、マクロで実際の型情報を持つ構造体を生成し、操作関数にその型の値を渡すとコンパイラが型チェックを行う仕組みを作れる。`void*`を使った旧来のアプローチではランタイムエラーになり得た型の不整合を、コンパイル時に検出できる。C11の`_Generic`によってより洗練された実装も可能で、型ごとに異なる実装を自動選択させることができる。</div>
+      </div>
+      <div class="slate-item">
+        <div class="slate-label">実際のユースケース——組み込みシステムとレガシーコードベースへの応用</div>
+        <div class="slate-text">「なぜCを使い続けるのか」という問いに対してHNのコメントは現実的だ。組み込みシステム・カーネル・デバイスドライバーではまだCが主流で、C++やRustに移行できない（または移行したくない）コードベースは大量に存在する。既存のLinuxカーネルにはgenericなデータ構造（list_head等）があるが型安全ではなく、コンテナの使い方を間違えてもコンパイラが検出できない。この記事のアプローチを使えば既存のCコードベースに最小限の変更で型チェックを追加できる。「C++やRustに移れないプロジェクトに具体的な改善を提供している点が有用」という評価が多い。</div>
+      </div>
+      <div class="slate-item">
+        <div class="slate-label">HNでの反応——「マクロの限界とコードの読みやすさのトレードオフ」</div>
+        <div class="slate-text">「C11 _Genericはもっと知られるべき——多くのCプログラマがその存在を知らない」という啓蒙的なコメントが多い。「マクロで型安全を実現するアプローチは素晴らしいが、デバッグ時にエラーメッセージが読めなくなるという代償がある——テンプレートメタプログラミングの同様の問題」という批判的意見も。「これはC++のtemplate実装より理解しやすい——CのマクロはTUとして展開されるので実際に何が起きているか追いやすい」という擁護も。「CでRustの型システムを再実装しようとしているようだ——Rustを使えという意見は分かるが制約がある人への実用的な選択肢として価値がある」。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: danielchasehooper.com</span>
+      <span>💬96+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://danielchasehooper.com/posts/typechecked-generic-c-data-structures/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49943479" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="type-safe-generic-c-data-structures" data-type="like" onclick="toggleFlag('type-safe-generic-c-data-structures','Cで型安全なジェネリックデータ構造を実装する方法 2025','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="type-safe-generic-c-data-structures" data-type="dislike" onclick="toggleFlag('type-safe-generic-c-data-structures','Cで型安全なジェネリックデータ構造を実装する方法 2025','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 10 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-10" id="s10">
+  <div class="story-num">10</div>
+  <div class="story-inner">
+    <div class="story-kicker">宇宙 / 火星 / 地質学 / 惑星科学 / Wikipedia / 奇妙な科学 / 地形 — 2026-10-06</div>
+    <h2 class="story-headline">
+      火星の<br>「<span style="color:#f090c0">カオス地形</span>」——<br>太陽系最奇の地表
+    </h2>
+    <div class="story-body">
+      「Martian chaos terrain」のWikipedia記事がHNで93ポイント・25コメントを集めています。火星の表面に存在する「カオス地形（Chaotic terrain / Chaos terrain）」は、地面が陥没・破砕して不規則なメサ（台地）と渓谷が入り混じった、まるで別の惑星のような奇怪な地形です。その形成メカニズムは今も完全には解明されておらず、太陽系地質学の未解決の謎の一つです。
+    </div>
+    <div class="mag-items">
+      <div class="mag-item">
+        <div class="mag-label">カオス地形とは何か——見た目と分布</div>
+        <div class="mag-text">火星のカオス地形は「整然とした地層が大規模に崩壊し、ランダムに傾いたブロック・谷・丘が入り混じった地域」だ。個々の「カオス」は数百kmにわたるものもある。代表例はAuraeum Chaos・Hydraotes Chaos・Aram Chaosなどで、これらはMars Odyssey・Mars Reconnaissance Orbiterが撮影した画像で詳しく観察できる。カオス地形の面白い点は、他の惑星（地球・月）ではほとんど見られない火星特有の地形であるという点だ。太陽系の他の天体では火星ほど大規模で典型的なカオス地形は知られていない。</div>
+      </div>
+      <div class="mag-item">
+        <div class="mag-label">形成メカニズム——氷・水・火山活動の複合説</div>
+        <div class="mag-text">カオス地形の形成については複数の仮説がある。最有力なのは「地下氷または塩水の急激な放出説」だ。火星の地下に閉じ込められた氷や液体水が、火山活動や隕石衝突の熱で急速に気化・放出され、地盤が大規模に崩落してカオス地形が形成されたというものだ。この仮説を支持するのは「カオス地形が古代の河川地形（Outflow Channelを）の源流部に位置していることが多い」という観察だ。カタストロフィックな洪水がカオス地形から流れ出して大規模なoutflow channelを作ったという説は、地質学的証拠と整合している。ただし完全な解明には至っていない。</div>
+      </div>
+      <div class="mag-item">
+        <div class="mag-label">HNでの反応——「Wikipediaのうさぎ穴に落ちた」</div>
+        <div class="mag-text">「Martian chaos terrainのWikipedia記事を読んでいたら、関連記事を次々読み続けて2時間経っていた」という典型的なWikipediaうさぎ穴コメントが最上位に。「地球の地質学と比べると火星の地形はスケールが違いすぎる——人間の直感が通用しない」という感嘆も多い。「火星に地下液体水があったことの証拠として見ると、かつての火星がどれほど活発だったかが想像できる」という天文生物学的な見方も。「こういうWikipedia深掘り系の投稿がHNで評価されるのが好きだ——技術ニュースだけじゃない」という声も。宇宙旅行・火星植民に興味がある人が「訪れてみたい場所リスト」に追加するコメントも散見された。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: en.wikipedia.org</span>
+      <span>💬25+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://en.wikipedia.org/wiki/Martian_chaos_terrain" target="_blank">Wikipediaを読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49928862" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="martian-chaos-terrain-wikipedia" data-type="like" onclick="toggleFlag('martian-chaos-terrain-wikipedia','火星のカオス地形 太陽系で最も奇妙な地表の一つ','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="martian-chaos-terrain-wikipedia" data-type="dislike" onclick="toggleFlag('martian-chaos-terrain-wikipedia','火星のカオス地形 太陽系で最も奇妙な地表の一つ','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-top">
+    <div class="footer-brand">Morning Edition</div>
+    <div class="footer-meta">
+      No.141 · 2026年10月6日 · Hacker News キュレーション<br>
+      ⭐ 興味あり / ✕ 興味なし でフィードバックを記録できます
+    </div>
+    <button class="export-btn" onclick="exportFeedback()">📋 フィードバックをコピー</button>
+  </div>
+  <div class="footer-note">Source: Hacker News Algolia API. Generated by Claude Sonnet 4.6.</div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(function() {
+  const STORAGE_KEY = 'morning-edition-feedback-v2';
+  let feedback = { liked: {}, disliked: {}, updatedAt: null };
+  let fileHandle = null;
+
+  function loadFromStorage() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (raw) feedback = JSON.parse(raw);
+    } catch(e) {}
+  }
+
+  function saveToStorage() {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(feedback)); } catch(e) {}
+  }
+
+  async function saveToFile() {
+    if (!window.showSaveFilePicker) return;
+    try {
+      if (!fileHandle) {
+        fileHandle = await window.showSaveFilePicker({
+          suggestedName: 'feedback.json',
+          types: [{ description: 'JSON', accept: { 'application/json': ['.json'] } }]
+        });
+      }
+      const writable = await fileHandle.createWritable();
+      await writable.write(JSON.stringify(feedback, null, 2));
+      await writable.close();
+    } catch(e) {}
+  }
+
+  function renderButtons() {
+    document.querySelectorAll('.flag-btn').forEach(btn => {
+      const id = btn.dataset.story;
+      const type = btn.dataset.type;
+      btn.classList.remove('active');
+      if (type === 'like' && feedback.liked[id]) btn.classList.add('active');
+      if (type === 'dislike' && feedback.disliked[id]) btn.classList.add('active');
+    });
+  }
+
+  function showToast(msg, isError) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.className = 'toast' + (isError ? ' error' : '');
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2200);
+  }
+
+  window.toggleFlag = function(id, title, type) {
+    const isLike = type === 'like';
+    const primaryKey = isLike ? 'liked' : 'disliked';
+    const oppositeKey = isLike ? 'disliked' : 'liked';
+
+    if (feedback[primaryKey][id]) {
+      delete feedback[primaryKey][id];
+      showToast('フィードバックを取り消しました');
+    } else {
+      feedback[primaryKey][id] = { title, date: '2026-10-06' };
+      delete feedback[oppositeKey][id];
+      showToast(isLike ? '⭐ 興味ありとして記録しました' : '✕ 興味なしとして記録しました');
+    }
+    feedback.updatedAt = new Date().toISOString();
+    saveToStorage();
+    saveToFile();
+    renderButtons();
+  };
+
+  window.exportFeedback = function() {
+    try {
+      navigator.clipboard.writeText(JSON.stringify(feedback, null, 2));
+      showToast('📋 クリップボードにコピーしました');
+    } catch(e) {
+      showToast('コピーに失敗しました', true);
+    }
+  };
+
+  loadFromStorage();
+  renderButtons();
+})();
+</script>
+</body>
+</html>
