@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Morning Edition — 2026年10月7日</title>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --font: 'M PLUS Rounded 1c', 'Hiragino Sans', 'Noto Sans JP', sans-serif; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); background: #111; color: #fff; overflow-x: hidden; }
+
+    .masthead { background: #fff; color: #000; padding: 3rem 4rem 2.5rem; border-bottom: 6px solid #000; position: relative; overflow: hidden; }
+    .masthead::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: repeating-linear-gradient(90deg, #000 0, #000 12px, transparent 12px, transparent 20px); }
+    .masthead-kicker { font-size: 0.85rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: #777; margin-bottom: 0.6rem; }
+    .masthead-title { font-size: clamp(3.5rem, 9vw, 7.5rem); font-weight: 900; line-height: 0.88; letter-spacing: -0.04em; margin-bottom: 1.8rem; }
+    .masthead-meta { display: flex; gap: 3rem; align-items: baseline; flex-wrap: wrap; }
+    .masthead-date { font-size: 1.5rem; font-weight: 700; }
+    .masthead-subtitle { font-size: 1rem; font-weight: 400; color: #555; max-width: 480px; line-height: 1.5; }
+    .masthead-issue { margin-left: auto; text-align: right; }
+    .masthead-issue span { display: block; }
+    .masthead-issue .iss-label { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: #999; }
+    .masthead-issue .iss-num { font-size: 2.2rem; font-weight: 900; color: #000; }
+
+    .toc { background: #1a1a1a; padding: 1.5rem 4rem; display: flex; gap: 1.5rem; flex-wrap: wrap; border-bottom: 1px solid #333; }
+    .toc a { color: #aaa; text-decoration: none; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; transition: color 0.2s; }
+    .toc a:hover { color: #fff; }
+    .toc-num { color: #555; margin-right: 0.3em; }
+
+    .story { position: relative; overflow: hidden; }
+    .story-inner { max-width: 1200px; margin: 0 auto; padding: 5rem 4rem; position: relative; z-index: 1; }
+    .story-num { font-size: clamp(6rem, 18vw, 16rem); font-weight: 900; line-height: 0.8; letter-spacing: -0.06em; opacity: 0.08; position: absolute; top: 1rem; right: 2rem; user-select: none; }
+    .story-badge { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.35em 0.9em; border-radius: 2px; margin-bottom: 1.5rem; }
+    .direct-badge { background: #FFD700; color: #000; }
+    .story-kicker { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; opacity: 0.6; margin-bottom: 0.8rem; }
+    .story-headline { font-size: clamp(2rem, 5vw, 4rem); font-weight: 900; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+    .story-body { font-size: clamp(1rem, 1.5vw, 1.2rem); font-weight: 400; line-height: 1.8; max-width: 680px; opacity: 0.88; margin-bottom: 2rem; }
+    .story-meta { display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center; font-size: 0.8rem; font-weight: 700; opacity: 0.5; }
+    .story-links { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem; }
+    .story-link { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.6em 1.4em; border-radius: 3px; text-decoration: none; transition: opacity 0.2s, transform 0.15s; }
+    .story-link:hover { opacity: 0.75; transform: translateY(-1px); }
+
+    .feedback-buttons { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .flag-btn { background: none; border: 1px solid currentColor; color: inherit; font-family: var(--font); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.5em 1em; border-radius: 3px; cursor: pointer; opacity: 0.32; transition: opacity 0.2s, background 0.2s, color 0.2s, border-color 0.2s, transform 0.15s; }
+    .flag-btn:hover { opacity: 0.72; transform: translateY(-1px); }
+    .flag-btn.like-btn.active { opacity: 1; background: rgba(255,215,0,0.15); border-color: #FFD700; color: #FFD700 !important; }
+    .flag-btn.dislike-btn.active { opacity: 1; background: rgba(255,60,60,0.12); border-color: #FF4444; color: #FF4444 !important; }
+
+    .toast { position: fixed; bottom: 2rem; right: 2rem; background: #1a1a1a; color: #fff; font-family: var(--font); font-size: 0.82rem; font-weight: 700; padding: 0.75em 1.4em; border-radius: 4px; border-left: 3px solid #00C853; z-index: 9999; opacity: 0; transform: translateY(10px); transition: opacity 0.25s, transform 0.25s; pointer-events: none; box-shadow: 0 4px 24px rgba(0,0,0,0.45); }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    .toast.error { border-left-color: #FF5252; }
+
+    /* Story 1 — White */
+    .story-1 { background: #fff; color: #000; min-height: 90vh; display: flex; flex-direction: column; justify-content: center; }
+    .story-1 .story-num { color: #000; opacity: 0.04; }
+    .story-1 .story-kicker { color: #555; opacity: 1; }
+    .story-1 .story-headline { color: #000; }
+    .story-1 .story-body { color: #111; }
+    .story-1 .story-meta { color: #000; }
+    .story-1 .story-link.primary { background: #1a1a1a; color: #fff; }
+    .story-1 .story-link.secondary { background: #f0f0f0; color: #000; }
+    .story-1 .flag-btn { color: #000; }
+    .story-1-accent { position: absolute; bottom: 0; left: 0; width: 100%; height: 8px; background: linear-gradient(90deg, #0a0a0a, #555, #0a0a0a); }
+    .story-1 .headline-accent { display: inline-block; background: linear-gradient(135deg, #1a1a1a 0%, #555 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .blue-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1.2rem; margin: 2rem 0; max-width: 680px; }
+    .blue-card { border: 2px solid rgba(0,0,0,0.12); background: rgba(0,0,0,0.03); border-radius: 6px; padding: 1.3rem 1.5rem; }
+    .blue-card-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.2em; text-transform: uppercase; color: #333; margin-bottom: 0.4rem; }
+    .blue-card-value { font-size: 1.05rem; font-weight: 900; color: #000; line-height: 1.3; }
+    .blue-card-sub { font-size: 0.75rem; color: #555; margin-top: 0.3rem; line-height: 1.4; }
+
+    /* Story 2 — Dark navy/teal */
+    .story-2 { background: #00080c; color: #b8f0ff; min-height: 80vh; }
+    .story-2::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(0,160,200,0.14) 0%, transparent 65%); }
+    .story-2 .story-num { color: #00A0C8; opacity: 0.07; }
+    .story-2 .story-kicker { color: #20C8E8; opacity: 1; }
+    .story-2 .story-headline { color: #e0f8ff; }
+    .story-2 .story-body { color: #b8f0ff; }
+    .story-2 .story-meta { color: #20C8E8; opacity: 0.5; }
+    .story-2 .story-link.primary { background: #004058; color: #80e8ff; }
+    .story-2 .story-link.secondary { background: rgba(0,160,200,0.08); color: #90d8f0; border: 1px solid rgba(0,160,200,0.22); }
+    .story-2 .flag-btn { color: #b8f0ff; }
+    .teal-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .teal-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(0,160,200,0.07); border-left: 3px solid #00A0C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .teal-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20C8E8; margin-bottom: 0.3rem; }
+    .teal-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 3 — Dark red */
+    .story-3 { background: #0a0000; color: #fff; min-height: 80vh; }
+    .story-3::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(200,20,20,0.16) 0%, transparent 65%); }
+    .story-3 .story-num { color: #C81414; opacity: 0.07; }
+    .story-3 .story-kicker { color: #E84040; opacity: 1; }
+    .story-3 .story-headline { color: #fff; }
+    .story-3 .story-body { color: rgba(255,255,255,0.88); }
+    .story-3 .story-meta { color: #E84040; opacity: 0.5; }
+    .story-3 .story-link.primary { background: #6a0000; color: #fff; }
+    .story-3 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-3 .flag-btn { color: #fff; }
+    .red-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .red-item { background: rgba(200,20,20,0.07); border-left: 3px solid #C81414; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .red-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E84040; margin-bottom: 0.3rem; }
+    .red-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 4 — Dark green */
+    .story-4 { background: #020c04; color: #c8f0d0; min-height: 80vh; }
+    .story-4::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(20,160,70,0.16) 0%, transparent 65%); }
+    .story-4 .story-num { color: #14A046; opacity: 0.07; }
+    .story-4 .story-kicker { color: #30C060; opacity: 1; }
+    .story-4 .story-headline { color: #e0ffe8; }
+    .story-4 .story-body { color: #c8f0d0; }
+    .story-4 .story-meta { color: #30C060; opacity: 0.5; }
+    .story-4 .story-link.primary { background: #063820; color: #80ffb0; }
+    .story-4 .story-link.secondary { background: rgba(20,160,70,0.08); color: #a0e8b0; border: 1px solid rgba(20,160,70,0.22); }
+    .story-4 .flag-btn { color: #c8f0d0; }
+    .green-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .green-item { background: rgba(20,160,70,0.07); border-left: 3px solid #14A046; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .green-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #30C060; margin-bottom: 0.3rem; }
+    .green-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 5 — Dark purple */
+    .story-5 { background: #040010; color: #d8c8ff; min-height: 75vh; }
+    .story-5::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(90,40,200,0.17) 0%, transparent 65%); }
+    .story-5 .story-num { color: #5A28C8; opacity: 0.07; }
+    .story-5 .story-kicker { color: #8050E0; opacity: 1; }
+    .story-5 .story-headline { color: #f0e8ff; }
+    .story-5 .story-body { color: #d8c8ff; }
+    .story-5 .story-meta { color: #8050E0; opacity: 0.5; }
+    .story-5 .story-link.primary { background: #200860; color: #d0a8ff; }
+    .story-5 .story-link.secondary { background: rgba(90,40,200,0.08); color: #c0a0f0; border: 1px solid rgba(90,40,200,0.22); }
+    .story-5 .flag-btn { color: #d8c8ff; }
+    .purple-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .purple-item { background: rgba(90,40,200,0.07); border-left: 3px solid #5A28C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .purple-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #8050E0; margin-bottom: 0.3rem; }
+    .purple-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 6 — Dark cyan */
+    .story-6 { background: #000c10; color: #b8e8f0; min-height: 75vh; }
+    .story-6::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 40%, rgba(0,130,160,0.14) 0%, transparent 65%); }
+    .story-6 .story-num { color: #0080A0; opacity: 0.07; }
+    .story-6 .story-kicker { color: #20B0D0; opacity: 1; }
+    .story-6 .story-headline { color: #e0f4ff; }
+    .story-6 .story-body { color: #b8e8f0; }
+    .story-6 .story-meta { color: #20B0D0; opacity: 0.5; }
+    .story-6 .story-link.primary { background: #003848; color: #80d8f0; }
+    .story-6 .story-link.secondary { background: rgba(0,130,160,0.08); color: #90cce0; border: 1px solid rgba(0,130,160,0.22); }
+    .story-6 .flag-btn { color: #b8e8f0; }
+    .cyan-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .cyan-item { background: rgba(0,130,160,0.07); border-left: 3px solid #0080A0; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .cyan-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20B0D0; margin-bottom: 0.3rem; }
+    .cyan-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 7 — Dark amber */
+    .story-7 { background: #0a0300; color: #ffe0b8; min-height: 75vh; }
+    .story-7::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(210,90,20,0.18) 0%, transparent 65%); }
+    .story-7 .story-num { color: #D05A14; opacity: 0.07; }
+    .story-7 .story-kicker { color: #E88040; opacity: 1; }
+    .story-7 .story-headline { color: #fff0d8; }
+    .story-7 .story-body { color: #ffe0b8; }
+    .story-7 .story-meta { color: #E88040; opacity: 0.5; }
+    .story-7 .story-link.primary { background: #6a2400; color: #ffc880; }
+    .story-7 .story-link.secondary { background: rgba(210,90,20,0.08); color: #ffb870; border: 1px solid rgba(210,90,20,0.22); }
+    .story-7 .flag-btn { color: #ffe0b8; }
+    .amber-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .amber-item { background: rgba(210,90,20,0.07); border-left: 3px solid #D05A14; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .amber-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E88040; margin-bottom: 0.3rem; }
+    .amber-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 8 — Dark gold */
+    .story-8 { background: #080500; color: #fff; min-height: 70vh; }
+    .story-8::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,145,10,0.15) 0%, transparent 65%); }
+    .story-8 .story-num { color: #BE9110; opacity: 0.06; }
+    .story-8 .story-kicker { color: #D4A820; opacity: 1; }
+    .story-8 .story-headline { color: #fff; }
+    .story-8 .story-body { color: rgba(255,255,255,0.88); }
+    .story-8 .story-meta { color: #D4A820; opacity: 0.5; }
+    .story-8 .story-link.primary { background: #604000; color: #ffe070; }
+    .story-8 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-8 .flag-btn { color: #fff; }
+    .gold-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .gold-item { background: rgba(190,145,10,0.07); border-left: 3px solid #BE9110; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .gold-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #D4A820; margin-bottom: 0.3rem; }
+    .gold-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 9 — Slate blue */
+    .story-9 { background: #040810; color: #c8d8f0; min-height: 70vh; }
+    .story-9::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 35%, rgba(50,90,170,0.16) 0%, transparent 65%); }
+    .story-9 .story-num { color: #3258A8; opacity: 0.07; }
+    .story-9 .story-kicker { color: #5878C8; opacity: 1; }
+    .story-9 .story-headline { color: #e8f0ff; }
+    .story-9 .story-body { color: #c8d8f0; }
+    .story-9 .story-meta { color: #5878C8; opacity: 0.5; }
+    .story-9 .story-link.primary { background: #101e50; color: #fff; }
+    .story-9 .story-link.secondary { background: rgba(50,90,170,0.08); color: #b0c8e8; border: 1px solid rgba(50,90,170,0.22); }
+    .story-9 .flag-btn { color: #c8d8f0; }
+    .slate-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .slate-item { background: rgba(50,90,170,0.07); border-left: 3px solid #3258A8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .slate-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #5878C8; margin-bottom: 0.3rem; }
+    .slate-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 10 — Magenta */
+    .story-10 { background: #080004; color: #ffc8e8; min-height: 70vh; }
+    .story-10::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,20,90,0.15) 0%, transparent 65%); }
+    .story-10 .story-num { color: #BE1458; opacity: 0.07; }
+    .story-10 .story-kicker { color: #E04080; opacity: 1; }
+    .story-10 .story-headline { color: #fff0f8; }
+    .story-10 .story-body { color: #ffc8e8; }
+    .story-10 .story-meta { color: #E04080; opacity: 0.5; }
+    .story-10 .story-link.primary { background: #500030; color: #ffb0d8; }
+    .story-10 .story-link.secondary { background: rgba(190,20,90,0.08); color: #f090c0; border: 1px solid rgba(190,20,90,0.22); }
+    .story-10 .flag-btn { color: #ffc8e8; }
+    .mag-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .mag-item { background: rgba(190,20,90,0.07); border-left: 3px solid #BE1458; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .mag-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E04080; margin-bottom: 0.3rem; }
+    .mag-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .site-footer { background: #000; color: #555; padding: 3rem 4rem; display: flex; flex-direction: column; gap: 1.5rem; border-top: 1px solid #222; }
+    .footer-top { display: flex; gap: 2rem; align-items: center; flex-wrap: wrap; justify-content: space-between; }
+    .footer-brand { font-size: 1.4rem; font-weight: 900; color: #fff; }
+    .footer-meta { font-size: 0.75rem; line-height: 1.6; }
+    .export-btn { background: #222; border: 1px solid #444; color: #fff; font-family: var(--font); font-size: 0.8rem; font-weight: 700; padding: 0.7em 1.5em; border-radius: 3px; cursor: pointer; letter-spacing: 0.08em; transition: background 0.2s; }
+    .export-btn:hover { background: #333; }
+    .footer-note { font-size: 0.7rem; opacity: 0.5; }
+
+    @media (max-width: 768px) {
+      .masthead, .toc, .story-inner, .site-footer { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .story-num { display: none; }
+      .masthead-meta { gap: 1rem; }
+      .masthead-issue { margin-left: 0; }
+      .blue-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+<nav style="background:#1a1a1a;border-bottom:1px solid #333;padding:0.55rem 2rem;font-family:'M PLUS Rounded 1c','Hiragino Sans','Noto Sans JP',sans-serif;position:sticky;top:0;z-index:999;">
+  <a href="./index.html" style="color:#aaa;text-decoration:none;font-size:0.8rem;font-weight:700;letter-spacing:0.03em;display:inline-flex;align-items:center;gap:0.4rem;transition:color 0.15s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#aaa'">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    アーカイブへ戻る
+  </a>
+</nav>
+
+<header class="masthead">
+  <div class="masthead-kicker">Hacker News — Morning Edition</div>
+  <h1 class="masthead-title">Morning<br>Edition</h1>
+  <div class="masthead-meta">
+    <div>
+      <div class="masthead-date">2026年10月7日 水曜日</div>
+      <div class="masthead-subtitle">AI・開発ツール・プライバシー・サイエンス — あなたのための10本</div>
+    </div>
+    <div class="masthead-issue">
+      <span class="iss-label">Issue</span>
+      <span class="iss-num">No.142</span>
+    </div>
+  </div>
+</header>
+
+<nav class="toc">
+  <a href="#s1"><span class="toc-num">01</span>Mistral Large 4登場——1477ptで本日最大のAIリリース</a>
+  <a href="#s2"><span class="toc-num">02</span>⚡ Claude Codeの「提案メッセージ」機能——見落とされがちな最高機能</a>
+  <a href="#s3"><span class="toc-num">03</span>2026年ノーベル物理学賞——IceCubeのFrancis Halzenに</a>
+  <a href="#s4"><span class="toc-num">04</span>Polars 2.0リリース——RustベースDataFrameが次世代へ</a>
+  <a href="#s5"><span class="toc-num">05</span>Denoから離別、Nodeに帰還——開発者の率直なポストモーテム</a>
+  <a href="#s6"><span class="toc-num">06</span>自然の回復力は過大評価されていた——種の損失の新研究</a>
+  <a href="#s7"><span class="toc-num">07</span>GleamはErlangソースへのコンパイルをやめた</a>
+  <a href="#s8"><span class="toc-num">08</span>Dust: バックプロパゲーションなしでTransformerを学習する</a>
+  <a href="#s9"><span class="toc-num">09</span>Reflection AI、Beam 501Bオープンウェイトモデルを公開</a>
+  <a href="#s10"><span class="toc-num">10</span>VPNプロバイダーがカナダ撤退を計画——法的圧力に屈す</a>
+</nav>
+
+<!-- ═══ STORY 1 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-1" id="s1">
+  <div class="story-num">01</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / フランス / Mistral AI / LLM / フラッグシップ / マルチモーダル / オープンウェイト — 2026-10-07</div>
+    <h2 class="story-headline">
+      <span class="headline-accent">Mistral Large 4</span><br>登場
+    </h2>
+    <div class="story-body">
+      Mistral AIが新フラッグシップモデル「Mistral Large 4」を発表し、HNで1477ポイント・918コメントという本日最大の注目を集めています。フランス発のAIスタートアップとして欧州最強のLLMプロバイダーを自認するMistralの最新作。コーディング・推論・数学能力の大幅な向上と、前世代より大幅に改善されたマルチモーダル対応が主な特徴です。
+    </div>
+    <div class="blue-grid">
+      <div class="blue-card">
+        <div class="blue-card-label">前世代からの主な改善点——何が変わったか</div>
+        <div class="blue-card-value">推論・コーディング・数学で大幅向上</div>
+        <div class="blue-card-sub">Mistral Large 4の主な改善はMistral Large 2比でコーディングベンチマーク（HumanEval・SWE-Bench）で顕著な向上を示しており、特に複数ファイルにまたがるコード生成とデバッグ能力が強化されている。数学推論（MATH・AIME）でも同様に改善。コンテキストウィンドウが128Kトークンに拡張され、長文文書の処理能力が向上。マルチモーダル対応も強化されており、画像・PDF・図表を入力として扱えるようになった。Mistral Large 2と同様にfunctioncalling・JSONモードもサポートしている。</div>
+      </div>
+      <div class="blue-card">
+        <div class="blue-card-label">GPT-4oやClaude 3.5 Sonnetとの比較——ポジショニング</div>
+        <div class="blue-card-value">欧州プロバイダーとしての差別化</div>
+        <div class="blue-card-sub">Mistral AIは常にOpenAI・Anthropicへの欧州の対抗馬として自らを位置づけてきた。Mistral Large 4はGPT-4oやClaude 3.7 Sonnetと直接競合する性能帯を狙っており、ベンチマーク上では多くのカテゴリで拮抗または上回ることを主張している。重要な差別化ポイントは「欧州データ主権」——GDPR準拠のAzure EU・Google Cloud EU上での提供により、欧州企業がデータを域外に出さずに使えること。また一部モデルはオープンウェイトでHugging Faceに公開される予定で、ローカル実行の選択肢も残している。</div>
+      </div>
+      <div class="blue-card">
+        <div class="blue-card-label">HNでの反応——「欧州勢に本物の競合が出てきた」</div>
+        <div class="blue-card-value">↑1477pt · 💬918</div>
+        <div class="blue-card-sub">918コメントの議論は「ベンチマーク詐欺かどうかの検証」から始まり、実際にAPIを試した人たちのレポートが集まってきた。「コーディングはGPT-4oと遜色ない印象」「数学は依然としてo1/o3系に劣る——ただし価格対性能比は良い」という声が多い。「MistralはAPI価格が常にリーズナブルなのが強み」というコスト面の評価も。「欧州の規制下でデータを処理しなければならない企業にとってはデフォルトの選択肢になりうる」という戦略的評価も上位に。918コメントはHN本日トップの議論量だ。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: mistral.ai</span>
+      <span>💬918+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://mistral.ai/news/mistral-large-4/" target="_blank">発表を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49977979" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="mistral-large-4" data-type="like" onclick="toggleFlag('mistral-large-4','Mistral Large 4登場 本日最大のAIリリース','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="mistral-large-4" data-type="dislike" onclick="toggleFlag('mistral-large-4','Mistral Large 4登場 本日最大のAIリリース','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+    <div class="story-1-accent"></div>
+  </div>
+</section>
+
+<!-- ═══ STORY 2 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-2" id="s2">
+  <div class="story-num">02</div>
+  <div class="story-inner">
+    <div class="story-badge direct-badge">⚡ あなたに直接関係</div>
+    <div class="story-kicker">Claude Code / Anthropic / AI / 開発ツール / CLI / UX / プロダクティビティ — 2026-10-07</div>
+    <h2 class="story-headline">
+      Claude Codeの<br><span style="color:#20d8f0">「提案メッセージ」</span><br>機能
+    </h2>
+    <div class="story-body">
+      「The Smartest Claude Code Feature」がzohaib.ccで公開され、HNで39ポイント・17コメントを集めています。多くのユーザーが見落としているClaude Codeの「suggested message（提案メッセージ）」機能を詳細に解説したブログ記事。Claude Codeがセッション中にユーザーへの次のアクションを自動提案する仕組みが、ワークフローを大きく変えることができると主張しています。
+    </div>
+    <div class="teal-items">
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">「提案メッセージ」機能とは何か——どう動くか</div>
+          <div class="teal-text">Claude Codeの提案メッセージ機能は、会話の文脈を読んでClaudeが次に送るべきメッセージの候補を複数自動生成し、ワンクリックで送信できる仕組みだ。例えばファイルを編集した後に「テストを実行する」「コミットする」「変更を確認する」などの論理的な次ステップが候補として表示される。これはただの自動補完ではなく、Claudeが現在のタスクの文脈・未完了のTODO・直前の操作結果を総合的に判断して生成するため、実際に次に必要なアクションが高い精度で提案される。ブログ著者は「これが他のAIコーディングツールにない最大の差別化要素」と述べている。</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">なぜ多くのユーザーが気づいていないか——発見性の問題</div>
+          <div class="teal-text">この機能が見落とされやすい理由は「UIの下部に小さく表示される」という発見性の低さにある。Claude Codeを初めて使うユーザーは自分でコマンドを入力することに集中しており、提案欄に目が行きにくい。また提案メッセージが表示されるのはClaude Codeが「次のアクションが有意義に推測できる」と判断したタイミングのみのため、常に表示されるわけでもない。ブログはスクリーンショット付きで「どの状況でどんな提案が出るか」を解説しており、読んだ後から提案メッセージを意識的に使い始めるきっかけになる内容だ。開発者がターミナルに戻らず作業を継続できる時間が増えるという実感もレポートされている。</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">HNでの反応——「知らなかった」というコメントが続出</div>
+          <div class="teal-text">17コメントという数字はHN上では小さいが、質の高い議論がある。「毎日Claude Codeを使っているのに全く気づいていなかった——教えてくれてありがとう」というコメントが複数。「提案メッセージの精度がどれくらいか気になる——外れた提案が多いとかえって邪魔では」という懸念に対し、「文脈依存度が高いため精度は高め——外れても一秒で無視できる」という返答も。「CursorやWindsurfにも同様の機能があるが実装の質が違う印象」という比較コメントも。Claude Codeユーザーなら今すぐ確認したい機能だ。</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: zohaib.cc</span>
+      <span>💬17+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://zohaib.cc/blog/smartest-claude-code-feature" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49981905" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="claude-code-suggested-message-feature" data-type="like" onclick="toggleFlag('claude-code-suggested-message-feature','Claude Codeの提案メッセージ機能 見落とされがちな最高機能','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="claude-code-suggested-message-feature" data-type="dislike" onclick="toggleFlag('claude-code-suggested-message-feature','Claude Codeの提案メッセージ機能 見落とされがちな最高機能','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 3 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-3" id="s3">
+  <div class="story-num">03</div>
+  <div class="story-inner">
+    <div class="story-kicker">ノーベル賞 / 物理学 / ニュートリノ / IceCube / 宇宙物理学 / Francis Halzen / 南極 — 2026-10-07</div>
+    <h2 class="story-headline">
+      2026年ノーベル<br>物理学賞——<br><span style="color:#ff6060">IceCubeの</span><br>Francis Halzenに
+    </h2>
+    <div class="story-body">
+      「Nobel Prize in Physics 2026: Francis Halzen」がノーベル財団から発表され、HNで494ポイント・164コメントを集めています。南極に設置された世界最大のニュートリノ検出器「IceCube」の設計・構築を主導したウィスコンシン大学のFrancis Halzenが2026年ノーベル物理学賞を受賞しました。宇宙の高エネルギー現象を探る宇宙物理学の金字塔です。
+    </div>
+    <div class="red-items">
+      <div class="red-item">
+        <div class="red-label">IceCubeとは何か——南極1km³の氷に埋めたセンサー群</div>
+        <div class="red-text">IceCube Neutrino Observatoryは南極の地下1.5km〜2.5kmの位置に5,160個の光センサー（デジタル光学モジュール）を設置した巨大なニュートリノ検出器だ。総体積は約1km³（東京ドーム850個分の氷）。ニュートリノはほぼあらゆる物質を通過してしまう幽霊粒子で検出が極めて難しいが、IceCubeは高エネルギーニュートリノが稀に氷の水分子と衝突した際に発生するチェレンコフ光をセンサーで捉える仕組みだ。2010年に完成し、現在も稼働中。2013年に宇宙起源の高エネルギーニュートリノを初めて検出するという歴史的成果を上げ、高エネルギー宇宙物理学という新分野を切り開いた。</div>
+      </div>
+      <div class="red-item">
+        <div class="red-label">何が明らかになったか——宇宙最大のアクセラレーターを探る</div>
+        <div class="red-text">IceCubeの最大の成果はニュートリノ宇宙物理学という新分野の確立だ。宇宙には極めて高エネルギーの宇宙線が降り注いでいるが、その起源は長年謎だった。荷電粒子（陽子・原子核）は磁場に曲げられ出発地が特定できないが、ニュートリノは電荷を持たないため直進する。IceCubeが検出した高エネルギーニュートリノの方向を追うことで、宇宙線加速源（超大質量ブラックホール周辺の活動銀河核、ガンマ線バーストなど）の特定が初めて可能になった。2022年にはNGC 1068（活動銀河）からのニュートリノ放出を初めて確定的に観測するという成果を上げ、ブラックホール周辺での粒子加速メカニズムの解明に向けて大きく前進した。</div>
+      </div>
+      <div class="red-item">
+        <div class="red-label">HNでの反応——「最大規模の科学装置の一つを手掛けた人物」</div>
+        <div class="red-text">「IceCubeは人類が建設した最もクレイジーな科学装置の一つ——南極の氷を1km³セットアップした執念が報われた」という熱いコメントが多い。「Halzenは1990年代から南極でニュートリノを捕まえるというアイデアを提唱し続け、当初は実現不可能と言われた——30年越しの夢の受賞」という背景紹介も。「ニュートリノ天文学という新分野がIceCubeによって生まれた——これは望遠鏡の発明に匹敵するパラダイムシフトかもしれない」という評価も。「南極で4年かけて掘削するフィールドエンジニアリングの困難さを語るコメント」も印象的だった。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: nobelprize.org</span>
+      <span>💬164+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://nobelprize.org/prizes/physics/2026/" target="_blank">公式発表を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49976265" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="nobel-physics-2026-halzen-icecube" data-type="like" onclick="toggleFlag('nobel-physics-2026-halzen-icecube','2026年ノーベル物理学賞 IceCubeのFrancis Halzenに','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="nobel-physics-2026-halzen-icecube" data-type="dislike" onclick="toggleFlag('nobel-physics-2026-halzen-icecube','2026年ノーベル物理学賞 IceCubeのFrancis Halzenに','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 4 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-4" id="s4">
+  <div class="story-num">04</div>
+  <div class="story-inner">
+    <div class="story-kicker">Python / データサイエンス / Rust / Polars / DataFrameライブラリ / 2.0リリース / パフォーマンス — 2026-10-07</div>
+    <h2 class="story-headline">
+      <span style="color:#30d060">Polars 2.0</span><br>リリース
+    </h2>
+    <div class="story-body">
+      「Polars 2.0」がpola.rsのブログで発表され、HNで394ポイント・93コメントを集めています。RustベースのPython DataFrameライブラリPolarsのメジャーバージョン2.0がリリース。pandasの遅さに悩むデータエンジニア・データサイエンティストに支持されてきたPolarsが、さらに大きく進化しました。APIの成熟、プラグインシステム、ストリーミング処理の改善が主な変更点です。
+    </div>
+    <div class="green-items">
+      <div class="green-item">
+        <div class="green-label">2.0の主な変更点——APIの安定化とプラグインエコシステム</div>
+        <div class="green-text">Polars 2.0の最大の変更は「APIの安定化（Stability Guarantee）」だ。1.x系ではマイナーバージョンアップでもAPIが変わることがあり、本番利用のハードルになっていた。2.0からはSemVerに厳密に従い、破壊的変更はメジャーバージョンアップにのみ行われることが保証される。機能面ではプラグインシステムの強化が目玉で、カスタムエクスプレッション（独自の変換ロジック）をRustで書いてPolarsに組み込めるようになり、拡張性が大幅に向上した。また大規模データ処理のためのストリーミングエンジンも改善され、RAMに収まらないデータセットのlazyな処理が実用的になった。</div>
+      </div>
+      <div class="green-item">
+        <div class="green-label">pandasとの性能比較——どれほど速いか</div>
+        <div class="green-text">PolarsはPythonのGILをバイパスしてRust内で並列処理を行うため、pandasより劇的に速い。公式ベンチマークでは一般的なデータ変換操作でpandas比5〜20倍、大規模データセットでは100倍以上速いケースも報告されている。特にgroupby・join・フィルター処理でのパフォーマンス差は顕著だ。メモリ効率もArrowメモリフォーマットを使用することでpandasより大幅に低い。ただしpandasのエコシステム（scikit-learn・statsmodels等との直接統合）は依然としてpolarsより広く、移行コストを考慮した使い分けが現実的だ。実際のベンチマークはDuckDB・Spark・pandas 2.0との比較も含んでいる。</div>
+      </div>
+      <div class="green-item">
+        <div class="green-label">HNでの反応——「ついに本番利用の安心感が増した」</div>
+        <div class="green-text">「API安定化の保証が来た——これでpolarsを本番パイプラインに入れる最後の障壁がなくなった」という声が最も多い。「1.x系でマイナーアップデートのたびにコードが壊れた経験があるので本当にありがたい」という実体験も。「性能は既に素晴らしかった——2.0でエコシステムが成熟することが重要」という中長期的な視点も。「DuckDBとの使い分けはどうするか——Polarsはメモリ内DataFrameでDuckDBはSQLクエリエンジンという住み分けが今後も続く」という比較論も活発。「pandas 2.0もpyarrowバックエンドで速くなったが、polarsの方がまだ速い」という技術的比較も。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: pola.rs</span>
+      <span>💬93+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://pola.rs/posts/release-polars-2/" target="_blank">リリースノートを読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49977177" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="polars-2-0-release" data-type="like" onclick="toggleFlag('polars-2-0-release','Polars 2.0リリース RustベースDataFrameが次世代へ','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="polars-2-0-release" data-type="dislike" onclick="toggleFlag('polars-2-0-release','Polars 2.0リリース RustベースDataFrameが次世代へ','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 5 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-5" id="s5">
+  <div class="story-num">05</div>
+  <div class="story-inner">
+    <div class="story-kicker">JavaScript / TypeScript / Deno / Node.js / 開発者ツール / エコシステム / 実戦報告 — 2026-10-07</div>
+    <h2 class="story-headline">
+      Denoとの友情は<br>終わった——<br><span style="color:#b070ff">Nodeに帰還</span>
+    </h2>
+    <div class="story-body">
+      「Friendship ended with Deno, now Node is my best friend」がdbushell.comに投稿され、HNで306ポイント・229コメントを集めています。Node.jsの後継として大きな期待を集めたDenoを実際に本番プロジェクトで使い続けたある開発者が「なぜNodeに戻ったか」を率直に書いたポストモーテム記事。Denoの理念は好きだが実用上の問題が多すぎるという正直なレポートです。
+    </div>
+    <div class="purple-items">
+      <div class="purple-item">
+        <div class="purple-label">Denoから離れた具体的な理由——npmエコシステムの壁</div>
+        <div class="purple-text">著者がDenoから離れた最大の理由は「npmパッケージのエコシステム」だ。Denoはもともとnpmを使わずURL importでモジュールを取得するというアプローチを取っていたが、現実にはnpmの膨大なパッケージなしには多くのプロジェクトを構築できない。Deno 2.0でnpm対応が大幅に改善されたが、「node_modulesを使うならNodeでいいのでは」というアイデンティティの問題が著者を悩ませた。ツールチェーン（ビルドツール・バンドラー等）のNode.js向け最適化も問題で、EsbuildやViteのネイティブNode統合に比べDeno経由での動作に微妙な不具合が出るケースがあったという。</div>
+      </div>
+      <div class="purple-item">
+        <div class="purple-label">Denoの良かった点と悪かった点——率直な評価</div>
+        <div class="purple-text">著者はDenoを全否定しているわけではない。「TypeScriptがデフォルトで動く」「permissionsモデルによるセキュリティ」「stdlibの品質が高い」「linter・formatterが組み込み」という点は心底気に入っていたと書く。問題は「これらの良さがnpmエコシステムの摩擦コストを相殺できなかった」ことだ。特に大規模チームで作業する際に「このパッケージはDenoで使えるか？」という問いを毎回立てる必要があるストレスが積み重なった。「Denoは個人プロジェクトや新しいフレームワークの実験には今でも使う——しかし商用プロダクトの主スタックには戻さない」という結論になったという。</div>
+      </div>
+      <div class="purple-item">
+        <div class="purple-label">HNでの反応——「BunとDenoの勝負はまだ決まっていない」</div>
+        <div class="purple-text">229コメントの議論はDenoだけでなくBun・Node・Cloudflare Workersの比較に広がった。「Denoの選択は理念的に正しかったが商業的現実に負けた」という分析が多い。「BunはNodeの互換性を保ちながら速くなる方向に振り切ったのが正解だった——Denoは純粋さを追求しすぎた」という評価も。「Deno 2.0でnpm対応が改善されたので今の状況は少し違う——この記事は少し古い認識では」という反論も。「Cloudflare Workers+Bunのスタックが最も実用的で使いやすいと感じている開発者も増えてきた」という観察も興味深かった。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: dbushell.com</span>
+      <span>💬229+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://dbushell.com/2026/10/03/deno-to-node/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49971719" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="deno-to-node-postmortem" data-type="like" onclick="toggleFlag('deno-to-node-postmortem','Denoから離別してNodeに帰還 開発者の率直なポストモーテム','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="deno-to-node-postmortem" data-type="dislike" onclick="toggleFlag('deno-to-node-postmortem','Denoから離別してNodeに帰還 開発者の率直なポストモーテム','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 6 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-6" id="s6">
+  <div class="story-num">06</div>
+  <div class="story-inner">
+    <div class="story-kicker">科学 / 生態学 / 種の損失 / 生物多様性 / 環境変化 / 自然回復力 / 新研究 — 2026-10-07</div>
+    <h2 class="story-headline">
+      自然の<br><span style="color:#20b8d0">「回復力」は</span><br>過大評価されていた
+    </h2>
+    <div class="story-body">
+      「Nature's bounce back capacity overestimated」がphys.orgに掲載され、HNで300ポイント・148コメントを集めています。絶滅した種・失われた個体数は私たちが考えているよりはるかに速く自然から「記憶が消える」という新研究が発表されました。生態系の自己修復能力に対する楽観的な見方に根本的な疑問を投げかける内容です。
+    </div>
+    <div class="cyan-items">
+      <div class="cyan-item">
+        <div class="cyan-label">研究の主な発見——「回復」の見かけとリアルの乖離</div>
+        <div class="cyan-text">この研究の核心的な発見は「生態系が失った種を『補填』するように見える現象は、実際には真の回復ではなく、残存した種が空いたニッチを一時的に埋めているだけで、生態系の機能・レジリエンス・多様性は永続的に損なわれたまま」という点だ。例えばある地域で特定の捕食者が絶滅すると、最初は他の種が増えて一見豊かに見えるが、長期的には生態系全体の構造が変化し安定性が失われる。「バウンスバック（回復）」として報告されるデータが、実際には「別の平衡状態への遷移」を捉えているという認識論的な問題もあり、研究者たちは楽観的なデータの読み方に警告を発している。</div>
+      </div>
+      <div class="cyan-item">
+        <div class="cyan-label">何が影響を受けるか——保全政策への含意</div>
+        <div class="cyan-text">この研究が持つ最大の政治的含意は、「生態系は壊れても自然に戻る」という考え方に基づく保全政策の見直しを迫るという点だ。「絶滅しても生態系は復元力があるから大丈夫」「経済開発で自然を損なっても後で補償できる」という楽観論は、本研究によれば根本的に誤りである可能性がある。著者らは「現在の種の損失速度（通常の背景消滅率の100〜1000倍）は、生態系が追いつける自己修復速度をはるかに超えている」と主張する。この視点は「生物多様性オフセット」（開発地と別の場所で自然を保護して相殺するという制度）の有効性についても疑問符を付けることになる。</div>
+      </div>
+      <div class="cyan-item">
+        <div class="cyan-label">HNでの反応——「楽観論への科学的な疑義」</div>
+        <div class="cyan-text">148コメントは生態学の専門家と一般関心層が混じった豊かな議論になった。「これは生態学者の間では以前から議論されていた——一般向けに明確に伝えられたことに意義がある」という専門家らしいコメントが上位に。「『自然の回復力』という言葉が政策担当者に都合よく使われてきた——この研究がその誤用に楔を打つ」という政策的観点も。「カワウソが再導入されたケルプ林の回復など、真の回復例も存在する——問題は個別事例と統計的傾向の混同では」という反論も。「楽観的ナラティブが企業の環境影響をソフトランディングさせるために使われていた——これは研究の自律性の問題でもある」という批判的コメントも印象的だった。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: phys.org</span>
+      <span>💬148+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://phys.org/news/2026-10-nature-capacity-species-lost-vastly.html" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49976823" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="nature-bounce-back-overestimated" data-type="like" onclick="toggleFlag('nature-bounce-back-overestimated','自然の回復力は過大評価されていた 種の損失の新研究','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="nature-bounce-back-overestimated" data-type="dislike" onclick="toggleFlag('nature-bounce-back-overestimated','自然の回復力は過大評価されていた 種の損失の新研究','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 7 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-7" id="s7">
+  <div class="story-num">07</div>
+  <div class="story-inner">
+    <div class="story-kicker">プログラミング言語 / Gleam / Erlang / BEAM VM / コンパイラ / 型安全 / 関数型 — 2026-10-07</div>
+    <h2 class="story-headline">
+      Gleamは<br>Erlangソースへの<br><span style="color:#e88040">コンパイルを終了</span>
+    </h2>
+    <div class="story-body">
+      「Gleam doesn't compile to Erlang source anymore」がGleam公式ブログで発表され、HNで281ポイント・118コメントを集めています。BEAM VM（ErlangとElixirが動く仮想マシン）上で動作する型安全な関数型言語Gleamが、これまでErlangのソースコードを中間出力として生成していたアーキテクチャを廃止し、BEAM bytecodeに直接コンパイルするように変更すると発表しました。
+    </div>
+    <div class="amber-items">
+      <div class="amber-item">
+        <div class="amber-label">なぜErlangソースを経由していたか——歴史的背景</div>
+        <div class="amber-text">Gleamが当初Erlangソースコードを中間出力として生成していた理由は「実装の簡単さ」だ。BEAM bytecodeの仕様は複雑で、直接コンパイラを書くには多くの工数が必要だった。一方でErlangのソースコードを生成してErlangコンパイラに渡せば、BEAM VMとの互換性を借りながらGleam自体の実装を小さく保てた。この手法はHaskellがC++を中間言語として使うGHC Cバックエンド、あるいはCoffeeScriptがJavaScriptにコンパイルされるアプローチと同様の「ブートストラップ戦略」だ。Erlangソース経由は初期開発を加速したが、長期的にはErlangコンパイラの制約・デバッグの難しさ・コンパイル速度の問題をもたらしていた。</div>
+      </div>
+      <div class="amber-item">
+        <div class="amber-label">直接コンパイルで何が改善されるか——具体的なメリット</div>
+        <div class="amber-text">Gleamが直接BEAM bytecodeにコンパイルするようになることで、複数の重要な改善が期待できる。(1)コンパイル速度の向上——Erlangコンパイラへのオーバーヘッドがなくなりビルドが速くなる。(2)エラーメッセージの改善——現在のエラーはErlangコンパイラのメッセージが混入することがあるが、Gleam独自の明確なメッセージのみになる。(3)デバッグとスタックトレースの改善——中間のErlangコードが消えることで、エラー発生時のGleamソースへの対応が直接的になる。(4)Erlang/Elixirとの相互運用の品質向上——Erlangエコシステムとの統合がより制御しやすくなる。</div>
+      </div>
+      <div class="amber-item">
+        <div class="amber-label">HNでの反応——「成熟の証拠vs既存コードへの影響」</div>
+        <div class="amber-text">「これはGleamが『Erlangの上に乗るおまけ』から本物の独自言語へと成長した証拠だ——嬉しい」という祝福コメントが多い。「ErlangコンパイラをブラックボックスとしてではなくBEAM VMを直接ターゲットにすることで言語の完全なオーナーシップが取れる」という技術的な評価も。懸念としては「既存のGleamコードはどうなるか——移行はスムーズか」という問いが複数上がっており、Gleamチームは後方互換性を保つと明言している。「Elixirもbytecodeに直接コンパイルするが、GleamはElixirより型安全な選択肢として有望な方向に向かっている」という比較論も。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: gleam.run</span>
+      <span>💬118+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://gleam.run/news/gleam-doesnt-compile-to-erlang-source-anymore/" target="_blank">ブログを読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49975619" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="gleam-no-erlang-source-compile" data-type="like" onclick="toggleFlag('gleam-no-erlang-source-compile','GleamはErlangソースへのコンパイルをやめた BEAM bytecodeに直接コンパイル','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="gleam-no-erlang-source-compile" data-type="dislike" onclick="toggleFlag('gleam-no-erlang-source-compile','GleamはErlangソースへのコンパイルをやめた BEAM bytecodeに直接コンパイル','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 8 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-8" id="s8">
+  <div class="story-num">08</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / 機械学習 / バックプロパゲーション / Transformer / 研究 / 学習アルゴリズム / qlabs — 2026-10-07</div>
+    <h2 class="story-headline">
+      Dust:<br><span style="color:#d4a820">バックプロパゲーション</span><br>なしのTransformer
+    </h2>
+    <div class="story-body">
+      「Dust: Transformers Without Backpropagation」がqlabs.shで発表され、HNで265ポイント・79コメントを集めています。現代の深層学習の根幹をなすバックプロパゲーション（誤差逆伝播法）を使わずにTransformerモデルを学習させるという野心的な研究が公開されました。生物学的に妥当な学習アルゴリズムへの代替アプローチとして注目されています。
+    </div>
+    <div class="gold-items">
+      <div class="gold-item">
+        <div class="gold-label">バックプロパゲーションの何が問題か——「生物学的非妥当性」</div>
+        <div class="gold-text">現代のニューラルネットワークはバックプロパゲーション（BP）と確率的勾配降下法（SGD）の組み合わせで学習する。しかしBPには長年批判されている問題がある。(1)生物学的非妥当性——人間の脳はBPのような誤差の逆方向伝播を行っていないと考えられている。(2)「重みの対称性問題」——順方向の演算と逆方向の演算が同じ重みを使う必要があり、生物学的には非現実的だ。(3)逐次性——BPはフォワードパスが完了してからバックワードパスを実行する必要があり、並列化が難しい。Dustはこれらの問題を回避しつつTransformerを学習できる代替アルゴリズムを提案している。</div>
+      </div>
+      <div class="gold-item">
+        <div class="gold-label">Dustのアプローチ——どうやってBPなしで学習するか</div>
+        <div class="gold-text">Dustが採用するアプローチの核心は「フォワードモード自動微分」と「局所的な学習シグナル」の組み合わせだ。通常のBPはリバースモード自動微分（計算グラフを逆方向にたどって勾配を計算）を使う。Dustはフォワードモード微分（計算を前方向に進めながら勾配方向の変化を追跡）を採用することでバックワードパスを不要にした。ただしフォワードモードはリバースモードより計算効率が低い（パラメータ数倍のコストがかかる）という問題があり、これをどう克服するかがDustの技術的な核心だ。qlabsはスパーシティとランダムプロジェクションを組み合わせることでこのオーバーヘッドを実用的な水準に抑えたと主張している。</div>
+      </div>
+      <div class="gold-item">
+        <div class="gold-label">HNでの反応——懐疑と興奮が入り混じる79コメント</div>
+        <div class="gold-text">「BPなし学習への関心は長く続いてきたが実用的なものはほとんど出なかった——今回はどうか」という慎重な期待が多い。「ベンチマークを見ると小さなモデルでしか実証されていない——大規模モデルへのスケールアップが本当の課題」という指摘も。「Forward-mode ADは理論的にBPと同等の勾配を計算できることは証明されている——問題はコスト——Dustがそれをどう解決するかが鍵」という技術的コメントが上位に。「ニューラルネットワークの生物学的妥当性を追求することにどれだけの実用的意義があるか——効率と生物学的類似性はトレードオフでは」という本質的な問いも。「qlabsはまだ小さなラボだが興味深い研究方向を持っている——今後が楽しみ」という評価も。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: qlabs.sh</span>
+      <span>💬79+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://qlabs.sh/research/dust" target="_blank">研究を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49970871" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="dust-transformers-without-backprop" data-type="like" onclick="toggleFlag('dust-transformers-without-backprop','Dust バックプロパゲーションなしのTransformer学習','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="dust-transformers-without-backprop" data-type="dislike" onclick="toggleFlag('dust-transformers-without-backprop','Dust バックプロパゲーションなしのTransformer学習','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 9 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-9" id="s9">
+  <div class="story-num">09</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / オープンウェイト / Reflection AI / 501B / LLM / 大規模モデル / コミュニティ — 2026-10-07</div>
+    <h2 class="story-headline">
+      Reflection AI、<br><span style="color:#8870e8">Beam 501Bを</span><br>公開
+    </h2>
+    <div class="story-body">
+      「Beam: Reflection's 501B open-weight model」がreflection.aiのブログで公開され、HNで537ポイント・167コメントを集めています。Reflection AIが501Bパラメーターという大規模なオープンウェイトモデルBeamを公開しました。DeepSeek・Llama・Qwenに続くオープンウェイト空間の新たな大型プレイヤーとして、コミュニティからの注目と慎重な目の両方を集めています。
+    </div>
+    <div class="slate-items">
+      <div class="slate-item">
+        <div class="slate-label">Reflection AIの過去と今——スキャンダルからの再出発</div>
+        <div class="slate-text">Reflection AIは2024年に「Reflection 70B」を公開した際「GPT-4oを超えた初のオープンウェイトモデル」と主張して大きな注目を集めたが、その後ベンチマークの再現性が問題視され、第三者による独立した検証で主張通りのパフォーマンスが出ないことが複数の研究者によって指摘されるという騒動があった。今回のBeam 501Bの発表では、前回の経験を踏まえて「独立した評価者による事前評価」「使用したベンチマークの透明性」を強調しており、コミュニティへの信頼回復を図っている。Hugging Faceからダウンロード可能で商用利用も許可されているオープンウェイトライセンスは前向きに評価されている。</div>
+      </div>
+      <div class="slate-item">
+        <div class="slate-label">501Bデンスモデルの実用性——誰が使えるか</div>
+        <div class="slate-text">501BパラメーターのデンスモデルはFP16で約1TB、INT8量子化でも約500GBのVRAMを必要とする。個人がA100×8枚（約80GB×8=640GB）のクラスターを用意するのは現実的でないが、HuggingFace Inferenceエンドポイント・Replicate・Together AI等のクラウドAPIで比較的安価に試せる。また4-bit量子化（GPTQ・AWQ等）で約125GBに圧縮すれば、A100×2〜3枚でローカル実行も不可能ではない。企業や研究機関にとっては実用的な規模だ。比較対象のDeepSeek V3（671B MoE）は推論効率が高いが、MoEとデンスでは異なる使用シナリオがある——低バッチ推論ではデンスモデルのBeamが有利なケースもある。</div>
+      </div>
+      <div class="slate-item">
+        <div class="slate-label">HNでの反応——「ベンチマークが再現されたら本物だ」</div>
+        <div class="slate-text">「Reflection 70Bの一件があるので検証が出るまで評価は保留——しかし今回は透明性を重視した発表になっている印象」という慎重な評価が多い。「Reflection AIがまだ存在していてこれほどの規模のモデルを出してきたこと自体が驚き——あの騒動で終わったと思っていた」という率直なコメントも。「オープンウェイト501Bデンスがベンチマーク通りの性能を示せば、DeepSeek MoEとは異なる選択肢として価値がある——特に特定ドメインのファインチューニング用途」という技術的期待も。「コミュニティによる独立評価が1週間以内に出るだろう——それを待って判断する」というHN民らしいアプローチが多数派だった。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: reflection.ai</span>
+      <span>💬167+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://reflection.ai/blog/introducing-beam" target="_blank">ブログを読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49969183" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="reflection-beam-501b" data-type="like" onclick="toggleFlag('reflection-beam-501b','Reflection AI Beam 501Bオープンウェイトモデルを公開','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="reflection-beam-501b" data-type="dislike" onclick="toggleFlag('reflection-beam-501b','Reflection AI Beam 501Bオープンウェイトモデルを公開','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 10 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-10" id="s10">
+  <div class="story-num">10</div>
+  <div class="story-inner">
+    <div class="story-kicker">プライバシー / VPN / カナダ / デジタル権利 / 規制 / セキュリティ / オンライン匿名性 — 2026-10-07</div>
+    <h2 class="story-headline">
+      VPNプロバイダーが<br><span style="color:#ff90c8">カナダから</span><br>撤退を決断
+    </h2>
+    <div class="story-body">
+      「Toronto-based VPN provider plans to quit Canada」がCitizen Lab（トロント大学のデジタル権利研究機関）のブログに掲載され、HNで54ポイント・18コメントを集めています。カナダを拠点とするVPNプロバイダーが、カナダ政府の監視・開示要求への法的圧力に応えることを拒否し、インフラをカナダ外に移転してカナダでの事業を終了する計画を発表しました。
+    </div>
+    <div class="mag-items">
+      <div class="mag-item">
+        <div class="mag-label">なぜカナダを離れるか——法的圧力の具体的な内容</div>
+        <div class="mag-text">カナダはFive Eyes（米英加豪NZ）の情報共有同盟の一員であり、五カ国間での通信傍受・情報共有に積極的に参加している。VPNプロバイダーにとってカナダの主な法的リスクは(1)CSE（通信安全機関）やRCMP（王立カナダ騎馬警察）からのユーザーデータ開示要求、(2)CSIS（カナダ安全情報局）の国家安全保障に基づく秘密の令状（ユーザーに通知できない）、(3)カナダの「通信傍受法（CIPA）」に基づく技術的傍受能力の確保義務だ。「ノーログポリシー」を掲げるVPNプロバイダーが実際に法的要求を受けた場合、コンプライアンスとプライバシーポリシーの間で板挟みになる。今回のプロバイダーは「この矛盾を解消するために撤退を選んだ」と説明している。</div>
+      </div>
+      <div class="mag-item">
+        <div class="mag-label">どこへ移転するか——プライバシー規制の「安全地帯」</div>
+        <div class="mag-text">多くのプライバシー重視のVPNプロバイダーは「プライバシー法が強く、Five Eyes加盟国でない」法域を選ぶ。一般的な選択肢としてはアイスランド（強力なプライバシー法・情報の自由）、パナマ（Nordの拠点でもある）、スイス（中立国・強力な秘密保護法）、バヌアツ・シーシェルズ（データ保護法が薄いが司法管轄が複雑）などがある。今回のプロバイダーの移転先は記事で明示されていないが、Citizen Labはこれをカナダの監視体制への具体的な抗議行動として評価している。実際にどの法域でも「法的に完全にプライバシーが守られる」ことは保証できないが、管轄の変更自体がユーザーへのシグナルとなる。</div>
+      </div>
+      <div class="mag-item">
+        <div class="mag-label">HNでの反応——「カナダのプライバシー問題は表に出にくい」</div>
+        <div class="mag-text">「カナダはヨーロッパ的なプライバシー保護国というイメージがあるが実際にはFive Eyesの中核——この事件はその実態を示している」という指摘が上位に。「ノーログポリシーが真剣に守られているVPNはほとんどなく、この会社がどのくらい本物かは分からない——しかし撤退という行動は一応誠実さを示している」という現実的な評価も。「VPNはプライバシーの一部分しか守れない——TorやI2Pと組み合わせない限り本当の匿名性は得られない」という技術的な補足も。Citizen Labがこれを報告している文脈が重要で「研究機関が取り上げるということはある程度の信頼性がある」という評価も。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: citizenlab.ca</span>
+      <span>💬18+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://citizenlab.ca/2026/10/toronto-based-vpn-provider-plans-to-quit-canada/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49982471" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="vpn-provider-leaving-canada" data-type="like" onclick="toggleFlag('vpn-provider-leaving-canada','VPNプロバイダーがカナダ撤退を計画 法的圧力に屈せず','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="vpn-provider-leaving-canada" data-type="dislike" onclick="toggleFlag('vpn-provider-leaving-canada','VPNプロバイダーがカナダ撤退を計画 法的圧力に屈せず','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══════════════════════════════════════════════════════════════════════════════════ -->
+<footer class="site-footer">
+  <div class="footer-top">
+    <div class="footer-brand">Morning Edition</div>
+    <div class="footer-meta">
+      No.142 · 2026年10月7日<br>
+      Hacker Newsフロントページから厳選した10本 · 毎朝自動生成
+    </div>
+    <button class="export-btn" onclick="exportFeedback()">フィードバックをエクスポート</button>
+  </div>
+  <div class="footer-note">
+    ⭐ 興味あり / ✕ 興味なし ボタンは自動的にフィードバックを記録します（Chrome/Edge: File System Access API）。Firefox/Safariはエクスポートボタンをご利用ください。
+  </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const DB_NAME = 'morning-edition-v2';
+const DB_STORE = 'feedback';
+let db = null;
+let fileHandle = null;
+
+function openDB() {
+  return new Promise((resolve, reject) => {
+    const req = indexedDB.open(DB_NAME, 1);
+    req.onupgradeneeded = e => {
+      e.target.result.createObjectStore(DB_STORE, { keyPath: 'id' });
+    };
+    req.onsuccess = e => resolve(e.target.result);
+    req.onerror = e => reject(e.target.error);
+  });
+}
+
+async function loadFeedback() {
+  try {
+    db = await openDB();
+    const tx = db.transaction(DB_STORE, 'readonly');
+    const store = tx.objectStore(DB_STORE);
+    const all = await new Promise((res, rej) => {
+      const req = store.getAll();
+      req.onsuccess = () => res(req.result);
+      req.onerror = () => rej(req.error);
+    });
+    all.forEach(item => {
+      const btn = document.querySelector(`.flag-btn[data-story="${item.id}"][data-type="${item.type}"]`);
+      if (btn) btn.classList.add('active');
+    });
+  } catch(e) { console.warn('IndexedDB unavailable', e); }
+}
+
+async function saveFeedbackToDB(storyId, title, type) {
+  if (!db) return;
+  const tx = db.transaction(DB_STORE, 'readwrite');
+  const store = tx.objectStore(DB_STORE);
+  store.put({ id: storyId, type, title, date: '2026-10-07' });
+}
+
+async function removeFeedbackFromDB(storyId) {
+  if (!db) return;
+  const tx = db.transaction(DB_STORE, 'readwrite');
+  const store = tx.objectStore(DB_STORE);
+  store.delete(storyId);
+}
+
+function showToast(msg, isError) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.toggle('error', !!isError);
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2800);
+}
+
+async function buildFeedbackJSON() {
+  const liked = {}, disliked = {};
+  if (!db) return { liked, disliked, updatedAt: new Date().toISOString() };
+  const tx = db.transaction(DB_STORE, 'readonly');
+  const store = tx.objectStore(DB_STORE);
+  const all = await new Promise((res, rej) => {
+    const req = store.getAll();
+    req.onsuccess = () => res(req.result);
+    req.onerror = () => rej(req.error);
+  });
+  all.forEach(item => {
+    if (item.type === 'like') liked[item.id] = { title: item.title, date: item.date };
+    else disliked[item.id] = { title: item.title, date: item.date };
+  });
+  return { liked, disliked, updatedAt: new Date().toISOString() };
+}
+
+async function writeToFile(data) {
+  const json = JSON.stringify(data, null, 2);
+  try {
+    if (!fileHandle && window.showSaveFilePicker) {
+      fileHandle = await window.showSaveFilePicker({
+        suggestedName: 'feedback.json',
+        types: [{ description: 'JSON', accept: { 'application/json': ['.json'] } }]
+      });
+    }
+    if (fileHandle) {
+      const writable = await fileHandle.createWritable();
+      await writable.write(json);
+      await writable.close();
+      return true;
+    }
+  } catch(e) {
+    if (e.name !== 'AbortError') console.warn('File write error', e);
+  }
+  return false;
+}
+
+async function toggleFlag(storyId, title, type) {
+  const btn = document.querySelector(`.flag-btn[data-story="${storyId}"][data-type="${type}"]`);
+  const otherType = type === 'like' ? 'dislike' : 'like';
+  const otherBtn = document.querySelector(`.flag-btn[data-story="${storyId}"][data-type="${otherType}"]`);
+  const isActive = btn.classList.contains('active');
+
+  if (otherBtn && otherBtn.classList.contains('active')) {
+    otherBtn.classList.remove('active');
+    await removeFeedbackFromDB(storyId + '-' + otherType);
+  }
+
+  if (isActive) {
+    btn.classList.remove('active');
+    await removeFeedbackFromDB(storyId + '-' + type);
+    showToast('フィードバックを取り消しました');
+  } else {
+    btn.classList.add('active');
+    await saveFeedbackToDB(storyId + '-' + type, title, type);
+    const data = await buildFeedbackJSON();
+    const saved = await writeToFile(data);
+    showToast(saved ? '✓ フィードバックを保存しました' : (type === 'like' ? '⭐ 興味ありを記録しました' : '✕ 興味なしを記録しました'));
+  }
+}
+
+async function exportFeedback() {
+  const data = await buildFeedbackJSON();
+  const json = JSON.stringify(data, null, 2);
+  try {
+    await navigator.clipboard.writeText(json);
+    showToast('✓ JSONをクリップボードにコピーしました');
+  } catch(e) {
+    const blob = new Blob([json], { type: 'application/json' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'feedback.json';
+    a.click();
+    showToast('✓ feedback.jsonをダウンロードしました');
+  }
+}
+
+loadFeedback();
+</script>
+</body>
+</html>
