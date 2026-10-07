@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Morning Edition — 2026年10月8日</title>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --font: 'M PLUS Rounded 1c', 'Hiragino Sans', 'Noto Sans JP', sans-serif; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); background: #111; color: #fff; overflow-x: hidden; }
+
+    .masthead { background: #fff; color: #000; padding: 3rem 4rem 2.5rem; border-bottom: 6px solid #000; position: relative; overflow: hidden; }
+    .masthead::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: repeating-linear-gradient(90deg, #000 0, #000 12px, transparent 12px, transparent 20px); }
+    .masthead-kicker { font-size: 0.85rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: #777; margin-bottom: 0.6rem; }
+    .masthead-title { font-size: clamp(3.5rem, 9vw, 7.5rem); font-weight: 900; line-height: 0.88; letter-spacing: -0.04em; margin-bottom: 1.8rem; }
+    .masthead-meta { display: flex; gap: 3rem; align-items: baseline; flex-wrap: wrap; }
+    .masthead-date { font-size: 1.5rem; font-weight: 700; }
+    .masthead-subtitle { font-size: 1rem; font-weight: 400; color: #555; max-width: 480px; line-height: 1.5; }
+    .masthead-issue { margin-left: auto; text-align: right; }
+    .masthead-issue span { display: block; }
+    .masthead-issue .iss-label { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: #999; }
+    .masthead-issue .iss-num { font-size: 2.2rem; font-weight: 900; color: #000; }
+
+    .toc { background: #1a1a1a; padding: 1.5rem 4rem; display: flex; gap: 1.5rem; flex-wrap: wrap; border-bottom: 1px solid #333; }
+    .toc a { color: #aaa; text-decoration: none; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; transition: color 0.2s; }
+    .toc a:hover { color: #fff; }
+    .toc-num { color: #555; margin-right: 0.3em; }
+
+    .story { position: relative; overflow: hidden; }
+    .story-inner { max-width: 1200px; margin: 0 auto; padding: 5rem 4rem; position: relative; z-index: 1; }
+    .story-num { font-size: clamp(6rem, 18vw, 16rem); font-weight: 900; line-height: 0.8; letter-spacing: -0.06em; opacity: 0.08; position: absolute; top: 1rem; right: 2rem; user-select: none; }
+    .story-badge { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.35em 0.9em; border-radius: 2px; margin-bottom: 1.5rem; }
+    .direct-badge { background: #FFD700; color: #000; }
+    .story-kicker { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; opacity: 0.6; margin-bottom: 0.8rem; }
+    .story-headline { font-size: clamp(2rem, 5vw, 4rem); font-weight: 900; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+    .story-body { font-size: clamp(1rem, 1.5vw, 1.2rem); font-weight: 400; line-height: 1.8; max-width: 680px; opacity: 0.88; margin-bottom: 2rem; }
+    .story-meta { display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center; font-size: 0.8rem; font-weight: 700; opacity: 0.5; }
+    .story-links { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem; }
+    .story-link { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.6em 1.4em; border-radius: 3px; text-decoration: none; transition: opacity 0.2s, transform 0.15s; }
+    .story-link:hover { opacity: 0.75; transform: translateY(-1px); }
+
+    .feedback-buttons { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .flag-btn { background: none; border: 1px solid currentColor; color: inherit; font-family: var(--font); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.5em 1em; border-radius: 3px; cursor: pointer; opacity: 0.32; transition: opacity 0.2s, background 0.2s, color 0.2s, border-color 0.2s, transform 0.15s; }
+    .flag-btn:hover { opacity: 0.72; transform: translateY(-1px); }
+    .flag-btn.like-btn.active { opacity: 1; background: rgba(255,215,0,0.15); border-color: #FFD700; color: #FFD700 !important; }
+    .flag-btn.dislike-btn.active { opacity: 1; background: rgba(255,60,60,0.12); border-color: #FF4444; color: #FF4444 !important; }
+
+    .toast { position: fixed; bottom: 2rem; right: 2rem; background: #1a1a1a; color: #fff; font-family: var(--font); font-size: 0.82rem; font-weight: 700; padding: 0.75em 1.4em; border-radius: 4px; border-left: 3px solid #00C853; z-index: 9999; opacity: 0; transform: translateY(10px); transition: opacity 0.25s, transform 0.25s; pointer-events: none; box-shadow: 0 4px 24px rgba(0,0,0,0.45); }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    .toast.error { border-left-color: #FF5252; }
+
+    /* Story 1 — White */
+    .story-1 { background: #fff; color: #000; min-height: 90vh; display: flex; flex-direction: column; justify-content: center; }
+    .story-1 .story-num { color: #000; opacity: 0.04; }
+    .story-1 .story-kicker { color: #555; opacity: 1; }
+    .story-1 .story-headline { color: #000; }
+    .story-1 .story-body { color: #111; }
+    .story-1 .story-meta { color: #000; }
+    .story-1 .story-link.primary { background: #1a1a1a; color: #fff; }
+    .story-1 .story-link.secondary { background: #f0f0f0; color: #000; }
+    .story-1 .flag-btn { color: #000; }
+    .story-1-accent { position: absolute; bottom: 0; left: 0; width: 100%; height: 8px; background: linear-gradient(90deg, #0a0a0a, #555, #0a0a0a); }
+    .story-1 .headline-accent { display: inline-block; background: linear-gradient(135deg, #1a1a1a 0%, #555 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .blue-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1.2rem; margin: 2rem 0; max-width: 680px; }
+    .blue-card { border: 2px solid rgba(0,0,0,0.12); background: rgba(0,0,0,0.03); border-radius: 6px; padding: 1.3rem 1.5rem; }
+    .blue-card-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.2em; text-transform: uppercase; color: #333; margin-bottom: 0.4rem; }
+    .blue-card-value { font-size: 1.05rem; font-weight: 900; color: #000; line-height: 1.3; }
+    .blue-card-sub { font-size: 0.75rem; color: #555; margin-top: 0.3rem; line-height: 1.4; }
+
+    /* Story 2 — Dark navy/teal */
+    .story-2 { background: #00080c; color: #b8f0ff; min-height: 80vh; }
+    .story-2::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(0,160,200,0.14) 0%, transparent 65%); }
+    .story-2 .story-num { color: #00A0C8; opacity: 0.07; }
+    .story-2 .story-kicker { color: #20C8E8; opacity: 1; }
+    .story-2 .story-headline { color: #e0f8ff; }
+    .story-2 .story-body { color: #b8f0ff; }
+    .story-2 .story-meta { color: #20C8E8; opacity: 0.5; }
+    .story-2 .story-link.primary { background: #004058; color: #80e8ff; }
+    .story-2 .story-link.secondary { background: rgba(0,160,200,0.08); color: #90d8f0; border: 1px solid rgba(0,160,200,0.22); }
+    .story-2 .flag-btn { color: #b8f0ff; }
+    .teal-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .teal-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(0,160,200,0.07); border-left: 3px solid #00A0C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .teal-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20C8E8; margin-bottom: 0.3rem; }
+    .teal-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 3 — Dark red */
+    .story-3 { background: #0a0000; color: #fff; min-height: 80vh; }
+    .story-3::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(200,20,20,0.16) 0%, transparent 65%); }
+    .story-3 .story-num { color: #C81414; opacity: 0.07; }
+    .story-3 .story-kicker { color: #E84040; opacity: 1; }
+    .story-3 .story-headline { color: #fff; }
+    .story-3 .story-body { color: rgba(255,255,255,0.88); }
+    .story-3 .story-meta { color: #E84040; opacity: 0.5; }
+    .story-3 .story-link.primary { background: #6a0000; color: #fff; }
+    .story-3 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-3 .flag-btn { color: #fff; }
+    .red-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .red-item { background: rgba(200,20,20,0.07); border-left: 3px solid #C81414; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .red-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E84040; margin-bottom: 0.3rem; }
+    .red-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 4 — Dark green */
+    .story-4 { background: #020c04; color: #c8f0d0; min-height: 80vh; }
+    .story-4::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(20,160,70,0.16) 0%, transparent 65%); }
+    .story-4 .story-num { color: #14A046; opacity: 0.07; }
+    .story-4 .story-kicker { color: #30C060; opacity: 1; }
+    .story-4 .story-headline { color: #e0ffe8; }
+    .story-4 .story-body { color: #c8f0d0; }
+    .story-4 .story-meta { color: #30C060; opacity: 0.5; }
+    .story-4 .story-link.primary { background: #063820; color: #80ffb0; }
+    .story-4 .story-link.secondary { background: rgba(20,160,70,0.08); color: #a0e8b0; border: 1px solid rgba(20,160,70,0.22); }
+    .story-4 .flag-btn { color: #c8f0d0; }
+    .green-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .green-item { background: rgba(20,160,70,0.07); border-left: 3px solid #14A046; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .green-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #30C060; margin-bottom: 0.3rem; }
+    .green-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 5 — Dark purple */
+    .story-5 { background: #040010; color: #d8c8ff; min-height: 75vh; }
+    .story-5::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(90,40,200,0.17) 0%, transparent 65%); }
+    .story-5 .story-num { color: #5A28C8; opacity: 0.07; }
+    .story-5 .story-kicker { color: #8050E0; opacity: 1; }
+    .story-5 .story-headline { color: #f0e8ff; }
+    .story-5 .story-body { color: #d8c8ff; }
+    .story-5 .story-meta { color: #8050E0; opacity: 0.5; }
+    .story-5 .story-link.primary { background: #200860; color: #d0a8ff; }
+    .story-5 .story-link.secondary { background: rgba(90,40,200,0.08); color: #c0a0f0; border: 1px solid rgba(90,40,200,0.22); }
+    .story-5 .flag-btn { color: #d8c8ff; }
+    .purple-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .purple-item { background: rgba(90,40,200,0.07); border-left: 3px solid #5A28C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .purple-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #8050E0; margin-bottom: 0.3rem; }
+    .purple-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 6 — Dark cyan */
+    .story-6 { background: #000c10; color: #b8e8f0; min-height: 75vh; }
+    .story-6::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 40%, rgba(0,130,160,0.14) 0%, transparent 65%); }
+    .story-6 .story-num { color: #0080A0; opacity: 0.07; }
+    .story-6 .story-kicker { color: #20B0D0; opacity: 1; }
+    .story-6 .story-headline { color: #e0f4ff; }
+    .story-6 .story-body { color: #b8e8f0; }
+    .story-6 .story-meta { color: #20B0D0; opacity: 0.5; }
+    .story-6 .story-link.primary { background: #003848; color: #80d8f0; }
+    .story-6 .story-link.secondary { background: rgba(0,130,160,0.08); color: #90cce0; border: 1px solid rgba(0,130,160,0.22); }
+    .story-6 .flag-btn { color: #b8e8f0; }
+    .cyan-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .cyan-item { background: rgba(0,130,160,0.07); border-left: 3px solid #0080A0; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .cyan-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20B0D0; margin-bottom: 0.3rem; }
+    .cyan-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 7 — Dark amber */
+    .story-7 { background: #0a0300; color: #ffe0b8; min-height: 75vh; }
+    .story-7::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(210,90,20,0.18) 0%, transparent 65%); }
+    .story-7 .story-num { color: #D05A14; opacity: 0.07; }
+    .story-7 .story-kicker { color: #E88040; opacity: 1; }
+    .story-7 .story-headline { color: #fff0d8; }
+    .story-7 .story-body { color: #ffe0b8; }
+    .story-7 .story-meta { color: #E88040; opacity: 0.5; }
+    .story-7 .story-link.primary { background: #6a2400; color: #ffc880; }
+    .story-7 .story-link.secondary { background: rgba(210,90,20,0.08); color: #ffb870; border: 1px solid rgba(210,90,20,0.22); }
+    .story-7 .flag-btn { color: #ffe0b8; }
+    .amber-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .amber-item { background: rgba(210,90,20,0.07); border-left: 3px solid #D05A14; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .amber-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E88040; margin-bottom: 0.3rem; }
+    .amber-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 8 — Dark gold */
+    .story-8 { background: #080500; color: #fff; min-height: 70vh; }
+    .story-8::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,145,10,0.15) 0%, transparent 65%); }
+    .story-8 .story-num { color: #BE9110; opacity: 0.06; }
+    .story-8 .story-kicker { color: #D4A820; opacity: 1; }
+    .story-8 .story-headline { color: #fff; }
+    .story-8 .story-body { color: rgba(255,255,255,0.88); }
+    .story-8 .story-meta { color: #D4A820; opacity: 0.5; }
+    .story-8 .story-link.primary { background: #604000; color: #ffe070; }
+    .story-8 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-8 .flag-btn { color: #fff; }
+    .gold-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .gold-item { background: rgba(190,145,10,0.07); border-left: 3px solid #BE9110; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .gold-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #D4A820; margin-bottom: 0.3rem; }
+    .gold-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 9 — Slate blue */
+    .story-9 { background: #040810; color: #c8d8f0; min-height: 70vh; }
+    .story-9::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 35%, rgba(50,90,170,0.16) 0%, transparent 65%); }
+    .story-9 .story-num { color: #3258A8; opacity: 0.07; }
+    .story-9 .story-kicker { color: #5878C8; opacity: 1; }
+    .story-9 .story-headline { color: #e8f0ff; }
+    .story-9 .story-body { color: #c8d8f0; }
+    .story-9 .story-meta { color: #5878C8; opacity: 0.5; }
+    .story-9 .story-link.primary { background: #101e50; color: #fff; }
+    .story-9 .story-link.secondary { background: rgba(50,90,170,0.08); color: #b0c8e8; border: 1px solid rgba(50,90,170,0.22); }
+    .story-9 .flag-btn { color: #c8d8f0; }
+    .slate-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .slate-item { background: rgba(50,90,170,0.07); border-left: 3px solid #3258A8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .slate-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #5878C8; margin-bottom: 0.3rem; }
+    .slate-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 10 — Magenta */
+    .story-10 { background: #080004; color: #ffc8e8; min-height: 70vh; }
+    .story-10::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,20,90,0.15) 0%, transparent 65%); }
+    .story-10 .story-num { color: #BE1458; opacity: 0.07; }
+    .story-10 .story-kicker { color: #E04080; opacity: 1; }
+    .story-10 .story-headline { color: #fff0f8; }
+    .story-10 .story-body { color: #ffc8e8; }
+    .story-10 .story-meta { color: #E04080; opacity: 0.5; }
+    .story-10 .story-link.primary { background: #500030; color: #ffb0d8; }
+    .story-10 .story-link.secondary { background: rgba(190,20,90,0.08); color: #f090c0; border: 1px solid rgba(190,20,90,0.22); }
+    .story-10 .flag-btn { color: #ffc8e8; }
+    .mag-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .mag-item { background: rgba(190,20,90,0.07); border-left: 3px solid #BE1458; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .mag-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E04080; margin-bottom: 0.3rem; }
+    .mag-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .site-footer { background: #000; color: #555; padding: 3rem 4rem; display: flex; flex-direction: column; gap: 1.5rem; border-top: 1px solid #222; }
+    .footer-top { display: flex; gap: 2rem; align-items: center; flex-wrap: wrap; justify-content: space-between; }
+    .footer-brand { font-size: 1.4rem; font-weight: 900; color: #fff; }
+    .footer-meta { font-size: 0.75rem; line-height: 1.6; }
+    .export-btn { background: #222; border: 1px solid #444; color: #fff; font-family: var(--font); font-size: 0.8rem; font-weight: 700; padding: 0.7em 1.5em; border-radius: 3px; cursor: pointer; letter-spacing: 0.08em; transition: background 0.2s; }
+    .export-btn:hover { background: #333; }
+    .footer-note { font-size: 0.7rem; opacity: 0.5; }
+
+    @media (max-width: 768px) {
+      .masthead, .toc, .story-inner, .site-footer { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .story-num { display: none; }
+      .masthead-meta { gap: 1rem; }
+      .masthead-issue { margin-left: 0; }
+      .blue-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+<nav style="background:#1a1a1a;border-bottom:1px solid #333;padding:0.55rem 2rem;font-family:'M PLUS Rounded 1c','Hiragino Sans','Noto Sans JP',sans-serif;position:sticky;top:0;z-index:999;">
+  <a href="./index.html" style="color:#aaa;text-decoration:none;font-size:0.8rem;font-weight:700;letter-spacing:0.03em;display:inline-flex;align-items:center;gap:0.4rem;transition:color 0.15s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#aaa'">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    アーカイブへ戻る
+  </a>
+</nav>
+
+<header class="masthead">
+  <div class="masthead-kicker">Hacker News — Morning Edition</div>
+  <h1 class="masthead-title">Morning<br>Edition</h1>
+  <div class="masthead-meta">
+    <div>
+      <div class="masthead-date">2026年10月8日 木曜日</div>
+      <div class="masthead-subtitle">AI・開発ツール・プライバシー・サイエンス — あなたのための10本</div>
+    </div>
+    <div class="masthead-issue">
+      <span class="iss-label">Issue</span>
+      <span class="iss-num">No.143</span>
+    </div>
+  </div>
+</header>
+
+<nav class="toc">
+  <a href="#s1"><span class="toc-num">01</span>⚡ Claude Haiku 5.5発表——Anthropicの最速・最安モデル刷新</a>
+  <a href="#s2"><span class="toc-num">02</span>⚡ MetaとMicrosoftがClaude AI使用を制限——社内で何が起きているか</a>
+  <a href="#s3"><span class="toc-num">03</span>OpenAI、数学でのAI進捗を公開——1206ptで本日最大の反響</a>
+  <a href="#s4"><span class="toc-num">04</span>「数学の黙示録」——Scott Aaronsonが警告する数学教育の危機</a>
+  <a href="#s5"><span class="toc-num">05</span>GPT-6とインテリジェントUI——OpenAIの新ビジョン</a>
+  <a href="#s6"><span class="toc-num">06</span>Docker Agent登場——コンテナ操作をAIエージェントが担う</a>
+  <a href="#s7"><span class="toc-num">07</span>God of War PSP版をWebAssemblyに再コンパイル——ブラウザで動作</a>
+  <a href="#s8"><span class="toc-num">08</span>マーガレット・ハミルトン逝去——アポロのソフトウェアを作った人</a>
+  <a href="#s9"><span class="toc-num">09</span>2026年ノーベル化学賞——不斉合成の開拓者KaganとSoaiに</a>
+  <a href="#s10"><span class="toc-num">10</span>ソフトウェアブログの「アンチパターン」——やりがちな罠10選</a>
+</nav>
+
+<!-- ═══ STORY 1 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-1" id="s1">
+  <div class="story-num">01</div>
+  <div class="story-inner">
+    <div class="story-badge direct-badge">⚡ あなたに直接関係</div>
+    <div class="story-kicker">Anthropic / Claude / AI / LLM / Haiku / モデルリリース / 開発ツール — 2026-10-08</div>
+    <h2 class="story-headline">
+      <span class="headline-accent">Claude Haiku 5.5</span><br>発表
+    </h2>
+    <div class="story-body">
+      AnthropicがClaude Haiku 5.5を発表し、HNで550ポイント・257コメントを集めています。Claudeファミリーの最速・最安モデルが大幅に刷新され、Haiku 4.5の後継として登場。コスト効率を維持しながらコーディングと推論性能を大幅に向上させており、エージェントワークフロー・プロダクションアプリ・高頻度APIコールに最適化されています。Claude Codeのユーザーやエージェントパイプラインを組む開発者に直接影響するリリースです。
+    </div>
+    <div class="blue-grid">
+      <div class="blue-card">
+        <div class="blue-card-label">Haiku 5.5の主な改善点——前世代との違い</div>
+        <div class="blue-card-value">コーディング・推論で大幅向上、低コストを維持</div>
+        <div class="blue-card-sub">Haiku 5.5はHaiku 4.5と比較してSWE-Benchのコーディング性能が顕著に向上。推論タスクでも改善が見られ、Haiku世代としては初めてより上位モデルの以前のバージョンに迫るベンチマーク結果を示している。重要なのがコスト——Anthropicは従来のHaikuと同等の価格帯を維持すると明言しており、「Sonnetが必要だったタスクをHaikuで処理できるようになる」ことを狙っている。コンテキストウィンドウは200Kトークンで、Vision（画像入力）にも対応。特に並列呼び出しを大量に行うエージェントパイプラインや、レスポンス速度が重要なチャットbotでの採用が見込まれる。</div>
+      </div>
+      <div class="blue-card">
+        <div class="blue-card-label">Claude Codeユーザーへの影響——何が変わるか</div>
+        <div class="blue-card-value">バックグラウンドタスク・並列エージェントがより賢く</div>
+        <div class="blue-card-sub">Claude Codeのマルチエージェントワークフローでは、オーケストレーターがSonnet/Opusを使い、ワーカーエージェントにHaikuを割り当てるコスト最適化が一般的だ。Haiku 5.5の性能向上により、ワーカーエージェントが担える仕事の複雑さが上がり、全体の成功率が向上する可能性がある。特にファイル読み取り・簡単なコード生成・テスト実行といったサブタスクでの精度改善が期待できる。Anthropic APIを使ってカスタムエージェントを作っている開発者にとっても、同一コストでより高品質な出力が得られる——実質的なコストダウンと同義だ。</div>
+      </div>
+      <div class="blue-card">
+        <div class="blue-card-label">HNでの反応——「ついにHaikuがまともになった」</div>
+        <div class="blue-card-value">↑550pt · 💬257</div>
+        <div class="blue-card-sub">「Haiku 4.5はコスト面では最高だったがコーディングでは微妙なシーンがあった——5.5でそれが解消されそう」というコメントが多い。「Anthropicは最近モデルのリリースサイクルを明らかに加速させている——OpenAIとの競合圧力を感じる」という観察も。「GPT-4o miniと価格帯で直接競合するポジションになる——コスト感度の高いスタートアップが両方を試す段階に来た」という市場分析も。Claude Codeで使っているユーザーからは「実際に試したら感動した」という実使用レポートも早くも上がってきている。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: anthropic.com</span>
+      <span>💬257+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.anthropic.com/claude-haiku-5-5" target="_blank">発表を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49996437" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="claude-haiku-5-5" data-type="like" onclick="toggleFlag('claude-haiku-5-5','Claude Haiku 5.5発表 Anthropicの最速最安モデル刷新','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="claude-haiku-5-5" data-type="dislike" onclick="toggleFlag('claude-haiku-5-5','Claude Haiku 5.5発表 Anthropicの最速最安モデル刷新','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+    <div class="story-1-accent"></div>
+  </div>
+</section>
+
+<!-- ═══ STORY 2 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-2" id="s2">
+  <div class="story-num">02</div>
+  <div class="story-inner">
+    <div class="story-badge direct-badge">⚡ あなたに直接関係</div>
+    <div class="story-kicker">Claude / Anthropic / Meta / Microsoft / 企業AI / セキュリティポリシー / 開発ツール — 2026-10-08</div>
+    <h2 class="story-headline">
+      MetaとMicrosoftが<br><span style="color:#20d8f0">Claude AI使用を</span><br>制限
+    </h2>
+    <div class="story-body">
+      MetaとMicrosoftが社内でのClaude AI使用に制限を設けたと報じられ、HNで194ポイント・204コメントを集めています。両社がAnthropicの競合企業である以上、情報漏洩・競争上の機密リスクを理由に従業員のClaude利用を制限または禁止したとされています。AI業界の競争激化が社内ツール選定にまで影響を与えていることを示す象徴的な事例です。
+    </div>
+    <div class="teal-items">
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">なぜ制限するのか——競合AIへのデータ漏洩リスク</div>
+          <div class="teal-text">MetaとMicrosoftの懸念は「機密情報や独自技術がAnthropicのサーバーに送信される」リスクだ。従業員がClaude（またはClaude Code）を使って社内コード・戦略文書・製品仕様を質問する際、そのデータがAnthropicのシステムを経由することになる。MetaはLlama系の独自モデルを持ち、MicrosoftはGPTシリーズ（OpenAI）に多額の投資をしている——両社にとってAnthropicは直接的な競合相手だ。この制限は「セキュリティポリシー」という形式を取るが、実質的には「自社の技術をライバルに渡さない」という戦略的判断でもある。Googleも同様の措置を以前から取っているとされる。</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">開発者への実際の影響——Claude Codeが使えなくなる？</div>
+          <div class="teal-text">この制限が最も影響するのはClaude Codeを業務で使っている開発者だ。Meta・Microsoft社員（特にAI部門）がClaude Codeをプライベートに愛用していたケースがあり、業務コードへの適用が制限または禁止される可能性がある。ただし「全社禁止」なのか「機密プロジェクトのみ禁止」なのかによって影響は大きく異なる。多くの大企業では「パブリックな機密でないコードへの使用は許可、社内機密コードは不可」という段階的ポリシーを取るケースが多い。Claude Codeは独自のネットワークポリシーや企業向けのZero Data Retentionオプションを提供しており、これらが採用の鍵になる可能性も指摘されている。</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">HNでの反応——「AIツール戦争が採用ポリシーにまで飛び火」</div>
+          <div class="teal-text">「これはセキュリティの問題ではなくポリティクスの問題——自社AIへの社員の慣れを優先させる意図がある」という指摘が多い。「技術的には同等のリスクがOpenAIやGeminiにもあるのに、なぜClaude特定か——競合意識が透けて見える」という批判的コメントも。「大企業でのAI利用ポリシーは今後どんどん複雑になる——SaaSのように『どのAIが誰のデータを処理するか』の管理が必要になる」という将来予測も。「個人的にはClaudeが一番好きなので残念——個人端末での使用まで制限されたら困る」という社員目線の本音コメントも見られた。</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: rswebsols.com</span>
+      <span>💬204+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.rswebsols.com/news/meta-and-microsoft-take-steps-to-reduce-employee-usage-of-claude-ai/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49997161" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="meta-microsoft-reduce-claude-ai" data-type="like" onclick="toggleFlag('meta-microsoft-reduce-claude-ai','MetaとMicrosoftが社員のClaude AI使用を制限','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="meta-microsoft-reduce-claude-ai" data-type="dislike" onclick="toggleFlag('meta-microsoft-reduce-claude-ai','MetaとMicrosoftが社員のClaude AI使用を制限','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 3 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-3" id="s3">
+  <div class="story-num">03</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / 数学 / OpenAI / 研究 / 自動定理証明 / 教育 / 未来 — 2026-10-08</div>
+    <h2 class="story-headline">
+      OpenAI、<br><span style="color:#ff6060">数学でのAI進捗</span><br>を公開
+    </h2>
+    <div class="story-body">
+      OpenAIが数学におけるAIの進捗状況を詳述したレポートを公開し、HNで1206ポイント・1373コメントという本日最大の注目を集めています。AIが数学的推論・定理証明・数学教育においてどこまで達したかを包括的にまとめた内容で、研究者・教育者・開発者の間で激論を巻き起こしています。数学という知的活動の象徴的な領域でのAIの能力開示は、業界全体への衝撃となっています。
+    </div>
+    <div class="red-items">
+      <div class="red-item">
+        <div class="red-label">レポートの主な内容——AIが数学で何を達成したか</div>
+        <div class="red-text">OpenAIのレポートは数学AIの現状を複数の角度から整理している。(1)競技数学——IMO（国際数学オリンピック）レベルの問題への挑戦状況と成果。最新モデルはIMOの問題の多くを解けるようになっており、金メダリスト水準の問題でも部分的に解ける例が増えている。(2)形式的証明——LeanやCoqなどの証明支援システムとの統合で、AIが人間の証明を形式化したり、自動的に補題を生成したりする試みが本格化している。(3)数学研究の補助——既存の論文を解析して矛盾を見つけたり、研究者のアイデアを具体的な証明に変換する実験的応用が進んでいる。「AIが数学の新定理を単独で証明する段階には至っていないが、研究者の生産性を倍増させる補助AIとしては実用化が近い」と示唆している。</div>
+      </div>
+      <div class="red-item">
+        <div class="red-label">数学教育への含意——「もはや証明を書かせる意味があるか」論争</div>
+        <div class="red-text">1373コメントの半分以上は「AIが数学の問題を解けるようになったら、数学教育はどうなるか」という教育論争だ。「計算機が発明されて筆算教育が変わったように、AIの登場で数学教育の目的・方法が根本的に変わる必要がある」という変革論と「数学的思考を鍛える過程そのものに価値があり、AIに解かせることで人間は何かを失う」という保守論が真っ向から対立している。「WolframAlphaが出た時も同じ議論があったが数学教育は生き残った——今回も同様では」という歴史的反論も。「しかし今回はAIが自然言語で推論を示せる点が根本的に違う」という反々論も力強い。数学者・教育研究者・学生それぞれの視点から多様な議論が展開している。</div>
+      </div>
+      <div class="red-item">
+        <div class="red-label">HNコミュニティの核心的な問い——「数学の意味が変わる」</div>
+        <div class="red-text">最も多くのアップボートを集めたコメントは「数学という活動が『証明を見つけること』から『証明の質を評価し検証すること』に移行する可能性がある——それはそれで深い知的活動だ」という前向きな再定義だ。「AIが提示した証明が正しいかどうかを判断できる人間の育成が、これからの数学教育の核心になる」という具体的な提言も上位に。一方で「AIが数学で活躍しているという事実そのものが、数学という営みが記号操作の組み合わせ探索に過ぎないことを示唆しているのではないか——数学の本質論への疑問」という哲学的コメントも大きな支持を集めた。1206ポイント・1373コメントは本日HN全体でダントツのトップだ。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: openai.com</span>
+      <span>💬1373+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://openai.com/index/sharing-ai-progress-in-mathematics/" target="_blank">レポートを読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49984923" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="openai-ai-math-progress" data-type="like" onclick="toggleFlag('openai-ai-math-progress','OpenAI 数学でのAI進捗を公開','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="openai-ai-math-progress" data-type="dislike" onclick="toggleFlag('openai-ai-math-progress','OpenAI 数学でのAI進捗を公開','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 4 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-4" id="s4">
+  <div class="story-num">04</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / 数学 / 教育 / Scott Aaronson / 計算理論 / 哲学 / 未来 — 2026-10-08</div>
+    <h2 class="story-headline">
+      「数学の<br><span style="color:#30d060">黙示録」——</span><br>Aaronsonの警告
+    </h2>
+    <div class="story-body">
+      Scott Aaronsonがブログ「The Mathocalypse」を公開し、HNで151ポイント・159コメントを集めています。計算複雑性理論の権威であるAaronsonが、AIの数学進出に対して深い問題提起をしています。Story 3（OpenAIの数学AI発表）の直接的な反応として書かれており、二つのストーリーをセットで読むことで議論の全体像が見えてきます。
+    </div>
+    <div class="green-items">
+      <div class="green-item">
+        <div class="green-label">Aaronsonが「黙示録」と呼ぶ理由——何が脅かされているか</div>
+        <div class="green-text">Aaronsonの核心的な主張は「数学という人間の知的営みが、AIによって根本的に変容する可能性がある——それは単なる道具の変化ではなく、数学そのものの意味論的な変化だ」というものだ。AIが証明を「生成」できるようになった時、人間が証明を「理解する」ことなく「検証する」だけになっていくとしたら、数学という学問の内的な喜びや動機が失われていくのではないか、と問う。「計算複雑性理論の難問（P=NP問題等）をAIが解いてしまったとしたら、その証明を人間が本当に理解できるか——理解できない証明に人間はどう向き合うか」という具体的な思考実験も提示している。これは計算理論の第一人者が正面から向き合った真剣な問いだ。</div>
+      </div>
+      <div class="green-item">
+        <div class="green-label">楽観論と悲観論の間——Aaronson自身のポジション</div>
+        <div class="green-text">Aaronsonは純粋な悲観論者ではない。「AIが数学を変容させることは不可避だが、それが必ずしも悪いことではない——人間の数学者がより高次の問いに集中できる可能性もある」という両義的なスタンスを取る。しかし「現在の数学教育のあり方が根本から問い直される必要がある——証明を書く訓練の意義が変わる」という点では強い危機感を示している。「AIが数学の問題を解けるようになったとしても、どの問題が重要かを決める能力は依然として人間にある——問題設定能力こそが次の競争優位になる」という結論も示唆している。Story 3とこのストーリーを並べて読むと、同じ事実への全く異なる解釈の幅が見えてくる。</div>
+      </div>
+      <div class="green-item">
+        <div class="green-label">HNでの反応——「数学者の実感と部外者の観測の乖離」</div>
+        <div class="green-text">「Aaronsonはこういう問いに正面から向き合ってくれる稀少な権威——彼のブログはいつも示唆に富む」という敬意のコメントが多い。「AIが数学を脅かすという感覚は非数学者に多く、実際に数学研究をしている人の多くは今のAIを補助ツールと捉えている——ギャップが興味深い」という観察も。「P=NP問題がAIによって解かれた場合の証明の長さは人間が一生かけても読み切れないかもしれない——それは証明と言えるのか」という哲学的挑発コメントも上位に。「ゲーデルの不完全性定理のように、数学には原理的に人間が理解できない壁がある——AIはそこに近づいているかもしれない」という深い連想も見られた。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: scottaaronson.blog</span>
+      <span>💬159+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://scottaaronson.blog/?p=10169" target="_blank">ブログを読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49997718" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="the-mathocalypse" data-type="like" onclick="toggleFlag('the-mathocalypse','The Mathocalypse Scott Aaronsonが警告する数学の黙示録','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="the-mathocalypse" data-type="dislike" onclick="toggleFlag('the-mathocalypse','The Mathocalypse Scott Aaronsonが警告する数学の黙示録','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 5 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-5" id="s5">
+  <div class="story-num">05</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / OpenAI / GPT-6 / UI / 開発ツール / アプリケーション / 未来 — 2026-10-08</div>
+    <h2 class="story-headline">
+      GPT-6と<br><span style="color:#b070ff">インテリジェントUI</span><br>のビジョン
+    </h2>
+    <div class="story-body">
+      OpenAIがGPT-6と「Intelligent UI for Everyone」構想を公開し、HNで393ポイント・191コメントを集めています。次世代フラッグシップモデルGPT-6の発表と同時に、AIがUIを動的に生成・操作する「インテリジェントUI」というコンセプトを提示。従来のフォーム・ボタン・メニューという固定UIを超えた、AIドリブンの動的インターフェース時代を宣言するビジョンドキュメントです。
+    </div>
+    <div class="purple-items">
+      <div class="purple-item">
+        <div class="purple-label">インテリジェントUIとは何か——固定UIとの根本的な違い</div>
+        <div class="purple-text">OpenAIのビジョンにおける「インテリジェントUI」は、ユーザーの意図をAIがリアルタイムで解釈し、最適なUIコンポーネントをその場で生成・提示するという概念だ。従来のアプリは開発者があらかじめUI要素を定義し、ユーザーはその中から選択する。インテリジェントUIでは、ユーザーが「旅行の計画を立てたい」と言えば、その文脈に最適な日程選択・予算管理・ルート比較などのコンポーネントがその場で生成される。GPT-6の自然言語理解能力と画像生成能力を組み合わせることで、ユーザーごと・状況ごとに動的なUIを生成できるとされる。これはWebアプリ・モバイルアプリの設計思想を根本から変える可能性がある。</div>
+      </div>
+      <div class="purple-item">
+        <div class="purple-label">フロントエンド開発者への影響——UIエンジニアは不要になるか</div>
+        <div class="purple-text">「このビジョンが実現したらUIエンジニアの仕事はどうなるか」という議論がHNで活発だ。OpenAIのビジョンドキュメントは「UIを書くコストがゼロに近づく」と示唆しているが、これはフロントエンド開発者への直接的な挑戦状と受け取られている。「UIの生成はできても、ブランドアイデンティティ・アクセシビリティ・複雑なインタラクション設計は依然として人間が担う」という反論も根強い。現実的には「AIがUI生成の自動化を担い、人間はより高次のUX設計・ビジネスロジックに集中する」という分業が進むと予測するコメントが多い。Claude Codeで既にフロントエンドコードを生成している開発者からすると「更なる加速版」として捉える声も。</div>
+      </div>
+      <div class="purple-item">
+        <div class="purple-label">HNでの反応——「OpenAIの野心と現実のギャップ」</div>
+        <div class="purple-text">「GPT-6の発表と同時にビジョンペーパーを出すのはマーケティング的な意図も感じる——実際の実装はどこまで進んでいるか」という懐疑的コメントが多い。「動的UI生成は夢想ではない——既にv0・Lovelace等でUI生成AIは実用段階に入っている——GPT-6ならさらに進化するのは自然」という肯定的評価も。「インテリジェントUIで一番難しいのは一貫性——毎回UIが変わると学習コストが高い、ユーザーは予測可能なUIを好む」というUX観点からの本質的な問いも上位に。191コメントは内容の密度が高く、AI技術論・UX論・ビジネス論が交差した興味深い議論になっている。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: openai.com</span>
+      <span>💬191+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://openai.com/index/gpt-6-for-everyone/" target="_blank">発表を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49996425" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="gpt-6-for-everyone" data-type="like" onclick="toggleFlag('gpt-6-for-everyone','GPT-6とインテリジェントUI OpenAIの新ビジョン','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="gpt-6-for-everyone" data-type="dislike" onclick="toggleFlag('gpt-6-for-everyone','GPT-6とインテリジェントUI OpenAIの新ビジョン','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 6 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-6" id="s6">
+  <div class="story-num">06</div>
+  <div class="story-inner">
+    <div class="story-kicker">Docker / AI / 開発ツール / エージェント / コンテナ / DevOps / オープンソース — 2026-10-08</div>
+    <h2 class="story-headline">
+      <span style="color:#20b8d0">Docker Agent</span><br>登場
+    </h2>
+    <div class="story-body">
+      DockerがDocker Agentをオープンソースとして公開し、HNで136ポイント・56コメントを集めています。コンテナ操作・Dockerfile最適化・デプロイパイプライン構築をAIエージェントが自律的に担う開発ツールがDockerの公式リポジトリから登場しました。Claude Codeのようなコーディングエージェントとの親和性が高く、インフラ層のエージェント化という新しい潮流を象徴するリリースです。
+    </div>
+    <div class="cyan-items">
+      <div class="cyan-item">
+        <div class="cyan-label">Docker Agentで何ができるか——具体的なユースケース</div>
+        <div class="cyan-text">Docker Agentの主なユースケースは(1)Dockerfile自動生成・最適化——プロジェクトのコードを解析して適切なベースイメージ・レイヤー構成・マルチステージビルドを自動的に提案・生成する。(2)docker-compose.ymlの生成——サービスの依存関係を理解してnetwork・volumeの設定を含むcompose設定を生成。(3)トラブルシューティング——コンテナのログ・ステータスを解析して問題を特定し修正方法を提案する。(4)イメージサイズの最適化——不要なパッケージ・キャッシュを特定してイメージサイズを削減する提案を行う。DockerのCLIやAPIをツールとして使えるため、実際にコンテナを操作することもできる。</div>
+      </div>
+      <div class="cyan-item">
+        <div class="cyan-label">Claude Codeとの統合——コーディングからデプロイまでをエージェントが担う</div>
+        <div class="cyan-text">Docker AgentはClaude Codeのような既存のコーディングエージェントと組み合わせることで最大の価値を発揮する。「コードを書く → テストを通す → Dockerfileを生成 → コンテナでテストを実行 → CI/CDパイプラインを構成」というワークフロー全体をエージェントが連携して実行する未来が見えてくる。MCP（Model Context Protocol）との統合が計画されており、Claude Codeがdocker_agentツールを呼び出してコンテナ操作を委譲するという構成が可能になりそうだ。「コーディングエージェントとインフラエージェントの連携がDevOpsの自動化を一段階進める」という評価が多い。</div>
+      </div>
+      <div class="cyan-item">
+        <div class="cyan-label">HNでの反応——「いよいよDockerもエージェント時代に」</div>
+        <div class="cyan-text">「DockerがAIエージェントを公式に出してきたことで、コンテナエコシステムのエージェント化が本格的に始まった」という期待感が多い。「KubernetesやHelmのエージェントも同様に登場するのは時間の問題——インフラツールのAI化は一気に進むかもしれない」という連想も。「実際に試した人によると、シンプルなケースでは驚くほどうまく動く——複雑なマルチサービス環境ではまだ人間の調整が必要」という実使用レポートも。「セキュリティ面の懸念——エージェントがコンテナを作成・削除・ネットワーク設定を変更できるとなると、適切な権限管理が重要」という実務的な指摘も上位に。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: github.com/docker</span>
+      <span>💬56+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://github.com/docker/docker-agent" target="_blank">リポジトリを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49996259" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="docker-agent" data-type="like" onclick="toggleFlag('docker-agent','Docker Agent登場 コンテナ操作をAIエージェントが担う','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="docker-agent" data-type="dislike" onclick="toggleFlag('docker-agent','Docker Agent登場 コンテナ操作をAIエージェントが担う','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 7 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-7" id="s7">
+  <div class="story-num">07</div>
+  <div class="story-inner">
+    <div class="story-kicker">エンジニアリング / PSP / WebAssembly / ゲーム / 再コンパイル / ブラウザ / 静的再コンパイル — 2026-10-08</div>
+    <h2 class="story-headline">
+      God of War PSP版を<br><span style="color:#e88040">WebAssemblyに</span><br>再コンパイル
+    </h2>
+    <div class="story-body">
+      PSPゲーム「God of War: Chains of Olympus」をWebAssemblyに静的再コンパイルしてブラウザで動作させるプロジェクトがGitHubで公開され、HNで137ポイント・73コメントを集めています。エミュレーションではなく「静的再コンパイル（static recompilation）」という技術を使い、MIPS機械語をWasmに変換するアプローチが注目されています。
+    </div>
+    <div class="amber-items">
+      <div class="amber-item">
+        <div class="amber-label">エミュレーションと静的再コンパイルの違い——なぜこちらが面白いか</div>
+        <div class="amber-text">通常のゲームエミュレーターはCPU・GPU・サウンドチップなどのハードウェアをソフトウェアで「模倣」し、そこで元のゲームコードを動的に実行する。これは汎用性が高いが実行オーバーヘッドが大きい。静的再コンパイルは根本的に異なるアプローチで、元のゲームの機械語（このケースではPSPのMIPS命令セット）を事前に別のアーキテクチャの命令（WebAssembly）に変換してしまう。変換後のコードはそのプラットフォームでネイティブに近い速度で実行できる。難しさは「機械語の制御フロー（条件分岐・間接ジャンプ等）を静的解析で完全に復元すること」で、間接アドレスやセルフモディファイングコードがある場合は特に難しい。このプロジェクトはGod of Warという実際の商用ゲームでそれを実現したことで高く評価されている。</div>
+      </div>
+      <div class="amber-item">
+        <div class="amber-label">WebAssemblyがゲーム実行基盤として機能する理由</div>
+        <div class="amber-text">WebAssemblyはバイナリ命令形式でブラウザ上でほぼネイティブ速度を実現できる。PSP（300MHz MIPS R4000）のような比較的単純なCPUアーキテクチャとの相性も良い。Wasm + WebGLでグラフィクスも扱えるため、ゲーム全体をブラウザで動かすための基盤が整っている。このプロジェクトではPSPのGPU（Media Engine）のグラフィクスコマンドもWebGLに変換している。「ブラウザがユニバーサルなゲームプラットフォームになる未来」を感じさせる技術的達成だ。同様のアプローチはN64・PS1などのゲームでも試みられており、Wasmによる歴史的ゲームの保存という観点からも注目されている。</div>
+      </div>
+      <div class="amber-item">
+        <div class="amber-label">HNでの反応——「エミュレーションより再コンパイルが好きな理由」</div>
+        <div class="amber-text">「静的再コンパイルはエミュレーションより技術的に面白い——元のプログラムの意図を理解して別の表現に変換するという意味でコンパイラの逆問題だ」という技術的興奮が多い。「ゲームの保存・アーカイブという観点から重要なプロジェクト——50年後もこのゲームを遊べるようにするためにはこういうアプローチが必要」という文化的評価も。「著作権的にはグレーゾーン——ゲームのバイナリを変換する行為がフェアユースに当たるかは法律上不明確」という現実的な懸念も。「次はPS2ゲームでやれるか——グラフィクスの複雑さが一桁違うので難しいが不可能ではないかも」という技術的展望も。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: github.com/snuri00</span>
+      <span>💬73+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://github.com/snuri00/psp-web-recomp" target="_blank">リポジトリを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49991243" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="god-of-war-psp-webassembly" data-type="like" onclick="toggleFlag('god-of-war-psp-webassembly','God of War PSP版をWebAssemblyに静的再コンパイル','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="god-of-war-psp-webassembly" data-type="dislike" onclick="toggleFlag('god-of-war-psp-webassembly','God of War PSP版をWebAssemblyに静的再コンパイル','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 8 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-8" id="s8">
+  <div class="story-num">08</div>
+  <div class="story-inner">
+    <div class="story-kicker">追悼 / コンピュータ科学 / アポロ / ソフトウェア工学 / NASA / 歴史 / レジェンド — 2026-10-08</div>
+    <h2 class="story-headline">
+      マーガレット・<br><span style="color:#d4a820">ハミルトン逝去</span><br>享年90歳
+    </h2>
+    <div class="story-body">
+      アポロ計画のソフトウェア開発を率いたマーガレット・ハミルトンがMITで逝去したことが報じられ、HNで98ポイントを集めています。「ソフトウェア工学（Software Engineering）」という用語を広めたことでも知られるハミルトン。アポロ11号の月面着陸を成功させた伝説のコードは、彼女のチームが作り上げたものです。
+    </div>
+    <div class="gold-items">
+      <div class="gold-item">
+        <div class="gold-label">マーガレット・ハミルトンの業績——ソフトウェア工学の創始者</div>
+        <div class="gold-text">マーガレット・ハミルトンは1960年代にMITで働き始め、NASAのアポロ計画に参加。月面着陸ミッション（アポロ11号, 1969年）のオンボードフライトソフトウェアを開発したチームを率いた。彼女の最大の業績の一つは「ソフトウェア工学」という概念の確立だ——当時は「プログラミング」はハードウェア工学と比べて軽視されていたが、ハミルトンはシステマティックな開発プロセス・エラーハンドリング・デバッグの重要性を早期から主張し、実践した。アポロ11号着陸前の最後の12分間にコンピュータがアラームを発したが、ハミルトンのチームが設計した優先度付きタスクスケジューリングシステムが機能して着陸を成功に導いたのは有名な逸話だ。2016年には大統領自由勲章を受章。</div>
+      </div>
+      <div class="gold-item">
+        <div class="gold-label">コンピュータ科学史における彼女の位置づけ</div>
+        <div class="gold-text">ハミルトンがソフトウェアを「工学」として確立しようとした時代は、「コンピュータプログラムは単なるスクリプトで、本物のエンジニアリングではない」という偏見が強かった。「ソフトウェア工学（Software Engineering）」という言葉を使い始めたのはハミルトン自身で、最初は周囲から笑われたという逸話も残っている。アポロのコードはリアルタイムシステム・デッドライン・ハードウェア制約というソフトウェア工学の古典的な問題を全て含んでおり、今日でも教科書的な事例として参照される。「彼女がいなければソフトウェア工学という学問分野の確立は10年遅れた」という評価もある。業績を示す写真——アポロのソースコードを積み上げたプリントアウトと並んで立つハミルトンの写真——は今もコンピュータ科学の象徴的な画像だ。</div>
+      </div>
+      <div class="gold-item">
+        <div class="gold-label">HNでの追悼——「今のソフトウェア工学の全てが彼女の上に立っている」</div>
+        <div class="gold-text">「現代の全ての開発者は彼女の肩の上に立っている——この仕事が『エンジニアリング』として認められているのは彼女のおかげだ」という深い敬意のコメントが多い。「アポロ11号の着陸前12分間のエラーハンドリングの話は何度読んでも震える——命がかかったシステムで彼女の設計哲学が完璧に機能した瞬間」という技術的な感動も。「今日私たちが当たり前のように使っているソフトウェア工学の概念——モジュール化・エラー処理・テスト——を宇宙船という究極のリアルタイムシステムで実証した人」という歴史的評価も。享年90歳、コンピュータ科学に不滅の足跡を残した伝説の死を悼む声がHNを埋め尽くした。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: news.mit.edu</span>
+      <span>💬5+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://news.mit.edu/2026/margaret-hamilton-computing-pioneer-dies-1007" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49998895" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="margaret-hamilton-dies-90" data-type="like" onclick="toggleFlag('margaret-hamilton-dies-90','マーガレット・ハミルトン逝去 享年90歳 アポロのソフトウェアを作った人','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="margaret-hamilton-dies-90" data-type="dislike" onclick="toggleFlag('margaret-hamilton-dies-90','マーガレット・ハミルトン逝去 享年90歳 アポロのソフトウェアを作った人','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 9 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-9" id="s9">
+  <div class="story-num">09</div>
+  <div class="story-inner">
+    <div class="story-kicker">ノーベル賞 / 化学 / 不斉合成 / Kagan / Soai / 触媒 / 2026 — 2026-10-08</div>
+    <h2 class="story-headline">
+      2026年<br><span style="color:#8870e8">ノーベル化学賞</span>——<br>不斉触媒の開拓者へ
+    </h2>
+    <div class="story-body">
+      2026年ノーベル化学賞がHenri B. KaganとKenso Soaiに授与されたことが発表され、HNで276ポイント・53コメントを集めています。生命が持つ「キラリティ（手の対称性）」の謎と、化学における不斉合成の革命的発展に生涯を捧げた二人の化学者への授与です。
+    </div>
+    <div class="slate-items">
+      <div class="slate-item">
+        <div class="slate-label">キラリティとは何か——なぜこの研究が重要か</div>
+        <div class="slate-text">キラリティ（chirality）とは「鏡像と重ね合わせができない非対称性」のことで、左手と右手の関係に例えられる（chirality はギリシャ語の「手」に由来）。分子にもキラリティがあり、同じ化学式でも鏡像体（エナンチオマー）が存在することがある。生命体は不思議なことにアミノ酸はL型、糖はD型というように片方の鏡像体のみを使う——この「生命のホモキラリティ」は宇宙の起源から生命の誕生まで関わる謎だ。医薬品においてキラリティは特に重要で、同じ分子でも鏡像体によって薬効が全く異なることがある（有名な事例がサリドマイドで、一方の鏡像体は鎮静剤として有効、もう一方は催奇性があった）。Kaganは不斉触媒合成の礎を作り、Soaiは自己触媒による不斉増幅（「Soai反応」）を発見した。</div>
+      </div>
+      <div class="slate-item">
+        <div class="slate-label">Soai反応の奇妙な美しさ——化学における自己複製</div>
+        <div class="slate-text">Kenso Soaiが1995年に発見した「Soai反応」は化学の中でも特に神秘的な反応の一つだ。ある有機亜鉛化合物の反応において、生成物自体が触媒として機能し（自己触媒）、さらに極めてわずかなキラリティの偏り（例えば1%のエナンチオ過剰率）が、反応を繰り返すうちに99%以上の高い不斉へと増幅される。これは「対称性の破れの増幅」という現象で、生命のホモキラリティがどのように生じたかの一つのモデルを提供する。宇宙線が引き起こすわずかな非対称性→Soai反応のような自己触媒で増幅→生命に必要なホモキラリティの確立、というシナリオが仮説として考えられている。「化学における自己複製」とも言えるこの反応は、生命の起源研究に深く関わっている。</div>
+      </div>
+      <div class="slate-item">
+        <div class="slate-label">HNでの反応——「生命の起源の謎に化学から迫る研究」</div>
+        <div class="slate-text">「Soai反応は化学の中で最も美しい反応の一つ——反応が自分自身のコピーを作りながら対称性を増幅するという概念が生命の誕生を連想させる」という感嘆が多い。「ノーベル化学賞がこの分野に来るのは遅かったくらい——30年前から『いつか来る』と言われ続けていた」という化学者コミュニティの声も。「Kaganは合成化学の基盤を作り、SoaiはSoai反応という奇跡的な現象を発見した——性質が異なる二人の共同受賞は珍しいが、キラリティという大きなテーマでつながっている」という解説も。「サリドマイドの悲劇が不斉合成研究の重要性を社会に知らしめた——その意味で医薬品開発への貢献も計り知れない」という実用面の評価も上位に。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: nobelprize.org</span>
+      <span>💬53+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.nobelprize.org/prizes/chemistry/2026/press-release/" target="_blank">公式発表を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49990470" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="nobel-chemistry-2026" data-type="like" onclick="toggleFlag('nobel-chemistry-2026','2026年ノーベル化学賞 KaganとSoaiに 不斉触媒の開拓者','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="nobel-chemistry-2026" data-type="dislike" onclick="toggleFlag('nobel-chemistry-2026','2026年ノーベル化学賞 KaganとSoaiに 不斉触媒の開拓者','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 10 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-10" id="s10">
+  <div class="story-num">10</div>
+  <div class="story-inner">
+    <div class="story-kicker">ライティング / ブログ / 開発者 / テクニカルライティング / アンチパターン / コンテンツ — 2026-10-08</div>
+    <h2 class="story-headline">
+      ソフトウェアブログの<br><span style="color:#ff90c8">「アンチパターン」</span><br>10選
+    </h2>
+    <div class="story-body">
+      「Anti-patterns in software blogging」がrefactoringenglish.comに公開され、HNで180ポイント・101コメントを集めています。技術ブログを書く開発者が陥りがちな罠を具体的に指摘した実践的なエッセイ。「良いものを書いているのに読まれない・伝わらない」という悩みを持つ開発者に直接響く内容です。
+    </div>
+    <div class="mag-items">
+      <div class="mag-item">
+        <div class="mag-label">最も多く指摘されるアンチパターン——「説明しすぎて肝心なことが埋もれる」</div>
+        <div class="mag-text">著者が最大のアンチパターンとして挙げるのは「過剰な前置き（Front-loading context）」だ。多くのソフトウェアブログは「なぜこのトピックを選んだか」「どんな読者を想定しているか」「この記事の構成」という前置きに数段落を費やしてから本題に入る。しかし読者はGoogle検索やHNのリンクから来ており、前置きに価値がないと判断すれば即座に離脱する。「最初の段落で既にメインの洞察を提示せよ——読者を引き込んでから文脈を補完せよ」が著者の主張だ。関連するアンチパターンが「免責事項の連発（hedging）」——「これは私の個人的な見解です」「すべてのケースに当てはまるわけではありません」という繰り返しが読み手の信頼を下げるという指摘も鋭い。</div>
+      </div>
+      <div class="mag-item">
+        <div class="mag-label">他の主要なアンチパターン——コードとコンテンツの間違い</div>
+        <div class="mag-text">著者が指摘する他のアンチパターンとして: (1)「コードスニペットを置いて説明なし」——コードだけを貼って読者が理解できると思う誤解。コードは何をするか（what）を示すが、なぜそうするか（why）は別途説明が必要だ。(2)「タイトルと内容の乖離」——SEOを意識したタイトルと実際の内容が一致していない場合、読者の期待を裏切りHNでの評価を下げる。(3)「HNのコメントをフィードバックループに使わない」——HNに投稿して辛辣なコメントが付いた時、それを改善のフィードバックとして活用しているブロガーは少ない。(4)「シリーズ化のジレンマ」——「パート1」「パート2」と分けると各記事単体の完成度が下がり、読者が入口を見つけにくくなる。</div>
+      </div>
+      <div class="mag-item">
+        <div class="mag-label">HNでの反応——「書いた側の思い込みと読んだ側の体験のギャップ」</div>
+        <div class="mag-text">「著者が指摘する全てのアンチパターンを自分もやってきた——耳が痛いが有益な記事だ」という自己反省コメントが多い。「『良いブログを書く』と『HNで受ける』は別の技術かもしれない——HNは専門家向けのコミュニティなので読者の期待値が高い」という補足も。「技術的な正確さと読みやすさのバランスをどこに取るかは難しい問題——技術ブログは正確さを優先するあまり読みにくくなりがち」という本質的なトレードオフの指摘も上位に。「最も良いアドバイスは『出し惜しみをするな——本当に面白い部分を最初に見せろ』——これは著者の主張と一致する」という整理コメントも。開発者としてブログを書こうと考えている人にとって今すぐ実践できる内容が多い。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: refactoringenglish.com</span>
+      <span>💬101+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://refactoringenglish.com/blog/anti-patterns-software-blogging/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=49992257" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="anti-patterns-software-blogging" data-type="like" onclick="toggleFlag('anti-patterns-software-blogging','ソフトウェアブログのアンチパターン 開発者がやりがちな罠10選','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="anti-patterns-software-blogging" data-type="dislike" onclick="toggleFlag('anti-patterns-software-blogging','ソフトウェアブログのアンチパターン 開発者がやりがちな罠10選','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══════════════════════════════════════════════════════════════════════════════════ -->
+<footer class="site-footer">
+  <div class="footer-top">
+    <div class="footer-brand">Morning Edition</div>
+    <div class="footer-meta">
+      No.143 · 2026年10月8日<br>
+      Hacker Newsフロントページから厳選した10本 · 毎朝自動生成
+    </div>
+    <button class="export-btn" onclick="exportFeedback()">フィードバックをエクスポート</button>
+  </div>
+  <div class="footer-note">
+    ⭐ 興味あり / ✕ 興味なし ボタンは自動的にフィードバックを記録します（Chrome/Edge: File System Access API）。Firefox/Safariはエクスポートボタンをご利用ください。
+  </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const DB_NAME = 'morning-edition-v2';
+const DB_STORE = 'feedback';
+
+let db = null;
+let fileHandle = null;
+
+function openDB() {
+  return new Promise((resolve, reject) => {
+    const req = indexedDB.open(DB_NAME, 1);
+    req.onupgradeneeded = e => {
+      e.target.result.createObjectStore(DB_STORE, { keyPath: 'id' });
+    };
+    req.onsuccess = e => resolve(e.target.result);
+    req.onerror = e => reject(e.target.error);
+  });
+}
+
+async function loadFeedback() {
+  try {
+    db = await openDB();
+    const tx = db.transaction(DB_STORE, 'readonly');
+    const store = tx.objectStore(DB_STORE);
+    const all = await new Promise((res, rej) => {
+      const req = store.getAll();
+      req.onsuccess = () => res(req.result);
+      req.onerror = () => rej(req.error);
+    });
+    all.forEach(item => {
+      const btn = document.querySelector(`.flag-btn[data-story="${item.id}"][data-type="${item.type}"]`);
+      if (btn) btn.classList.add('active');
+    });
+  } catch(e) { console.warn('IndexedDB unavailable', e); }
+}
+
+async function saveFeedbackToDB(storyId, title, type) {
+  if (!db) return;
+  const tx = db.transaction(DB_STORE, 'readwrite');
+  const store = tx.objectStore(DB_STORE);
+  store.put({ id: storyId, type, title, date: '2026-10-08' });
+}
+
+async function removeFeedbackFromDB(storyId) {
+  if (!db) return;
+  const tx = db.transaction(DB_STORE, 'readwrite');
+  const store = tx.objectStore(DB_STORE);
+  store.delete(storyId);
+}
+
+function showToast(msg, isError) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.toggle('error', !!isError);
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2800);
+}
+
+async function buildFeedbackJSON() {
+  const liked = {}, disliked = {};
+  if (!db) return { liked, disliked, updatedAt: new Date().toISOString() };
+  const tx = db.transaction(DB_STORE, 'readonly');
+  const store = tx.objectStore(DB_STORE);
+  const all = await new Promise((res, rej) => {
+    const req = store.getAll();
+    req.onsuccess = () => res(req.result);
+    req.onerror = () => rej(req.error);
+  });
+  all.forEach(item => {
+    if (item.type === 'like') liked[item.id] = { title: item.title, date: item.date };
+    else disliked[item.id] = { title: item.title, date: item.date };
+  });
+  return { liked, disliked, updatedAt: new Date().toISOString() };
+}
+
+async function writeToFile(data) {
+  const json = JSON.stringify(data, null, 2);
+  try {
+    if (!fileHandle && window.showSaveFilePicker) {
+      fileHandle = await window.showSaveFilePicker({
+        suggestedName: 'feedback.json',
+        types: [{ description: 'JSON', accept: { 'application/json': ['.json'] } }]
+      });
+    }
+    if (fileHandle) {
+      const writable = await fileHandle.createWritable();
+      await writable.write(json);
+      await writable.close();
+      return true;
+    }
+  } catch(e) {
+    if (e.name !== 'AbortError') console.warn('File write error', e);
+  }
+  return false;
+}
+
+async function toggleFlag(storyId, title, type) {
+  const btn = document.querySelector(`.flag-btn[data-story="${storyId}"][data-type="${type}"]`);
+  const otherType = type === 'like' ? 'dislike' : 'like';
+  const otherBtn = document.querySelector(`.flag-btn[data-story="${storyId}"][data-type="${otherType}"]`);
+  const isActive = btn.classList.contains('active');
+
+  if (otherBtn && otherBtn.classList.contains('active')) {
+    otherBtn.classList.remove('active');
+    await removeFeedbackFromDB(storyId + '-' + otherType);
+  }
+
+  if (isActive) {
+    btn.classList.remove('active');
+    await removeFeedbackFromDB(storyId + '-' + type);
+    showToast('フィードバックを取り消しました');
+  } else {
+    btn.classList.add('active');
+    await saveFeedbackToDB(storyId + '-' + type, title, type);
+    const data = await buildFeedbackJSON();
+    const saved = await writeToFile(data);
+    showToast(saved ? '✓ フィードバックを保存しました' : (type === 'like' ? '⭐ 興味ありを記録しました' : '✕ 興味なしを記録しました'));
+  }
+}
+
+async function exportFeedback() {
+  const data = await buildFeedbackJSON();
+  const json = JSON.stringify(data, null, 2);
+  try {
+    await navigator.clipboard.writeText(json);
+    showToast('✓ JSONをクリップボードにコピーしました');
+  } catch(e) {
+    const blob = new Blob([json], { type: 'application/json' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'feedback.json';
+    a.click();
+    showToast('✓ feedback.jsonをダウンロードしました');
+  }
+}
+
+loadFeedback();
+</script>
+</body>
+</html>
