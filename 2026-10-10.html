@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Morning Edition — 2026年10月10日</title>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --font: 'M PLUS Rounded 1c', 'Hiragino Sans', 'Noto Sans JP', sans-serif; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); background: #111; color: #fff; overflow-x: hidden; }
+
+    .masthead { background: #fff; color: #000; padding: 3rem 4rem 2.5rem; border-bottom: 6px solid #000; position: relative; overflow: hidden; }
+    .masthead::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: repeating-linear-gradient(90deg, #000 0, #000 12px, transparent 12px, transparent 20px); }
+    .masthead-kicker { font-size: 0.85rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: #777; margin-bottom: 0.6rem; }
+    .masthead-title { font-size: clamp(3.5rem, 9vw, 7.5rem); font-weight: 900; line-height: 0.88; letter-spacing: -0.04em; margin-bottom: 1.8rem; }
+    .masthead-meta { display: flex; gap: 3rem; align-items: baseline; flex-wrap: wrap; }
+    .masthead-date { font-size: 1.5rem; font-weight: 700; }
+    .masthead-subtitle { font-size: 1rem; font-weight: 400; color: #555; max-width: 480px; line-height: 1.5; }
+    .masthead-issue { margin-left: auto; text-align: right; }
+    .masthead-issue span { display: block; }
+    .masthead-issue .iss-label { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: #999; }
+    .masthead-issue .iss-num { font-size: 2.2rem; font-weight: 900; color: #000; }
+
+    .toc { background: #1a1a1a; padding: 1.5rem 4rem; display: flex; gap: 1.5rem; flex-wrap: wrap; border-bottom: 1px solid #333; }
+    .toc a { color: #aaa; text-decoration: none; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; transition: color 0.2s; }
+    .toc a:hover { color: #fff; }
+    .toc-num { color: #555; margin-right: 0.3em; }
+
+    .story { position: relative; overflow: hidden; }
+    .story-inner { max-width: 1200px; margin: 0 auto; padding: 5rem 4rem; position: relative; z-index: 1; }
+    .story-num { font-size: clamp(6rem, 18vw, 16rem); font-weight: 900; line-height: 0.8; letter-spacing: -0.06em; opacity: 0.08; position: absolute; top: 1rem; right: 2rem; user-select: none; }
+    .story-badge { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.35em 0.9em; border-radius: 2px; margin-bottom: 1.5rem; }
+    .direct-badge { background: #FFD700; color: #000; }
+    .story-kicker { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; opacity: 0.6; margin-bottom: 0.8rem; }
+    .story-headline { font-size: clamp(2rem, 5vw, 4rem); font-weight: 900; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+    .story-body { font-size: clamp(1rem, 1.5vw, 1.2rem); font-weight: 400; line-height: 1.8; max-width: 680px; opacity: 0.88; margin-bottom: 2rem; }
+    .story-meta { display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center; font-size: 0.8rem; font-weight: 700; opacity: 0.5; }
+    .story-links { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem; }
+    .story-link { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.6em 1.4em; border-radius: 3px; text-decoration: none; transition: opacity 0.2s, transform 0.15s; }
+    .story-link:hover { opacity: 0.75; transform: translateY(-1px); }
+
+    .feedback-buttons { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .flag-btn { background: none; border: 1px solid currentColor; color: inherit; font-family: var(--font); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.5em 1em; border-radius: 3px; cursor: pointer; opacity: 0.32; transition: opacity 0.2s, background 0.2s, color 0.2s, border-color 0.2s, transform 0.15s; }
+    .flag-btn:hover { opacity: 0.72; transform: translateY(-1px); }
+    .flag-btn.like-btn.active { opacity: 1; background: rgba(255,215,0,0.15); border-color: #FFD700; color: #FFD700 !important; }
+    .flag-btn.dislike-btn.active { opacity: 1; background: rgba(255,60,60,0.12); border-color: #FF4444; color: #FF4444 !important; }
+
+    .toast { position: fixed; bottom: 2rem; right: 2rem; background: #1a1a1a; color: #fff; font-family: var(--font); font-size: 0.82rem; font-weight: 700; padding: 0.75em 1.4em; border-radius: 4px; border-left: 3px solid #00C853; z-index: 9999; opacity: 0; transform: translateY(10px); transition: opacity 0.25s, transform 0.25s; pointer-events: none; box-shadow: 0 4px 24px rgba(0,0,0,0.45); }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    .toast.error { border-left-color: #FF5252; }
+
+    /* Story 1 — White */
+    .story-1 { background: #fff; color: #000; min-height: 90vh; display: flex; flex-direction: column; justify-content: center; }
+    .story-1 .story-num { color: #000; opacity: 0.04; }
+    .story-1 .story-kicker { color: #555; opacity: 1; }
+    .story-1 .story-headline { color: #000; }
+    .story-1 .story-body { color: #111; }
+    .story-1 .story-meta { color: #000; }
+    .story-1 .story-link.primary { background: #1a1a1a; color: #fff; }
+    .story-1 .story-link.secondary { background: #f0f0f0; color: #000; }
+    .story-1 .flag-btn { color: #000; }
+    .story-1-accent { position: absolute; bottom: 0; left: 0; width: 100%; height: 8px; background: linear-gradient(90deg, #0a0a0a, #555, #0a0a0a); }
+    .story-1 .headline-accent { display: inline-block; background: linear-gradient(135deg, #1a1a1a 0%, #555 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .blue-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1.2rem; margin: 2rem 0; max-width: 680px; }
+    .blue-card { border: 2px solid rgba(0,0,0,0.12); background: rgba(0,0,0,0.03); border-radius: 6px; padding: 1.3rem 1.5rem; }
+    .blue-card-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.2em; text-transform: uppercase; color: #333; margin-bottom: 0.4rem; }
+    .blue-card-value { font-size: 1.05rem; font-weight: 900; color: #000; line-height: 1.3; }
+    .blue-card-sub { font-size: 0.75rem; color: #555; margin-top: 0.3rem; line-height: 1.4; }
+
+    /* Story 2 — Dark navy/teal */
+    .story-2 { background: #00080c; color: #b8f0ff; min-height: 80vh; }
+    .story-2::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(0,160,200,0.14) 0%, transparent 65%); }
+    .story-2 .story-num { color: #00A0C8; opacity: 0.07; }
+    .story-2 .story-kicker { color: #20C8E8; opacity: 1; }
+    .story-2 .story-headline { color: #e0f8ff; }
+    .story-2 .story-body { color: #b8f0ff; }
+    .story-2 .story-meta { color: #20C8E8; opacity: 0.5; }
+    .story-2 .story-link.primary { background: #004058; color: #80e8ff; }
+    .story-2 .story-link.secondary { background: rgba(0,160,200,0.08); color: #90d8f0; border: 1px solid rgba(0,160,200,0.22); }
+    .story-2 .flag-btn { color: #b8f0ff; }
+    .teal-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .teal-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(0,160,200,0.07); border-left: 3px solid #00A0C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .teal-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20C8E8; margin-bottom: 0.3rem; }
+    .teal-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 3 — Dark red */
+    .story-3 { background: #0a0000; color: #fff; min-height: 80vh; }
+    .story-3::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(200,20,20,0.16) 0%, transparent 65%); }
+    .story-3 .story-num { color: #C81414; opacity: 0.07; }
+    .story-3 .story-kicker { color: #E84040; opacity: 1; }
+    .story-3 .story-headline { color: #fff; }
+    .story-3 .story-body { color: rgba(255,255,255,0.88); }
+    .story-3 .story-meta { color: #E84040; opacity: 0.5; }
+    .story-3 .story-link.primary { background: #6a0000; color: #fff; }
+    .story-3 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-3 .flag-btn { color: #fff; }
+    .red-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .red-item { background: rgba(200,20,20,0.07); border-left: 3px solid #C81414; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .red-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E84040; margin-bottom: 0.3rem; }
+    .red-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 4 — Dark green */
+    .story-4 { background: #020c04; color: #c8f0d0; min-height: 80vh; }
+    .story-4::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(20,160,70,0.16) 0%, transparent 65%); }
+    .story-4 .story-num { color: #14A046; opacity: 0.07; }
+    .story-4 .story-kicker { color: #30C060; opacity: 1; }
+    .story-4 .story-headline { color: #e0ffe8; }
+    .story-4 .story-body { color: #c8f0d0; }
+    .story-4 .story-meta { color: #30C060; opacity: 0.5; }
+    .story-4 .story-link.primary { background: #063820; color: #80ffb0; }
+    .story-4 .story-link.secondary { background: rgba(20,160,70,0.08); color: #a0e8b0; border: 1px solid rgba(20,160,70,0.22); }
+    .story-4 .flag-btn { color: #c8f0d0; }
+    .green-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .green-item { background: rgba(20,160,70,0.07); border-left: 3px solid #14A046; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .green-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #30C060; margin-bottom: 0.3rem; }
+    .green-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 5 — Dark purple */
+    .story-5 { background: #040010; color: #d8c8ff; min-height: 75vh; }
+    .story-5::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(90,40,200,0.17) 0%, transparent 65%); }
+    .story-5 .story-num { color: #5A28C8; opacity: 0.07; }
+    .story-5 .story-kicker { color: #8050E0; opacity: 1; }
+    .story-5 .story-headline { color: #f0e8ff; }
+    .story-5 .story-body { color: #d8c8ff; }
+    .story-5 .story-meta { color: #8050E0; opacity: 0.5; }
+    .story-5 .story-link.primary { background: #200860; color: #d0a8ff; }
+    .story-5 .story-link.secondary { background: rgba(90,40,200,0.08); color: #c0a0f0; border: 1px solid rgba(90,40,200,0.22); }
+    .story-5 .flag-btn { color: #d8c8ff; }
+    .purple-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .purple-item { background: rgba(90,40,200,0.07); border-left: 3px solid #5A28C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .purple-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #8050E0; margin-bottom: 0.3rem; }
+    .purple-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 6 — Dark cyan */
+    .story-6 { background: #000c10; color: #b8e8f0; min-height: 75vh; }
+    .story-6::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 40%, rgba(0,130,160,0.14) 0%, transparent 65%); }
+    .story-6 .story-num { color: #0080A0; opacity: 0.07; }
+    .story-6 .story-kicker { color: #20B0D0; opacity: 1; }
+    .story-6 .story-headline { color: #e0f4ff; }
+    .story-6 .story-body { color: #b8e8f0; }
+    .story-6 .story-meta { color: #20B0D0; opacity: 0.5; }
+    .story-6 .story-link.primary { background: #003848; color: #80d8f0; }
+    .story-6 .story-link.secondary { background: rgba(0,130,160,0.08); color: #90cce0; border: 1px solid rgba(0,130,160,0.22); }
+    .story-6 .flag-btn { color: #b8e8f0; }
+    .cyan-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .cyan-item { background: rgba(0,130,160,0.07); border-left: 3px solid #0080A0; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .cyan-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20B0D0; margin-bottom: 0.3rem; }
+    .cyan-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 7 — Dark amber */
+    .story-7 { background: #0a0300; color: #ffe0b8; min-height: 75vh; }
+    .story-7::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(210,90,20,0.18) 0%, transparent 65%); }
+    .story-7 .story-num { color: #D05A14; opacity: 0.07; }
+    .story-7 .story-kicker { color: #E88040; opacity: 1; }
+    .story-7 .story-headline { color: #fff0d8; }
+    .story-7 .story-body { color: #ffe0b8; }
+    .story-7 .story-meta { color: #E88040; opacity: 0.5; }
+    .story-7 .story-link.primary { background: #6a2400; color: #ffc880; }
+    .story-7 .story-link.secondary { background: rgba(210,90,20,0.08); color: #ffb870; border: 1px solid rgba(210,90,20,0.22); }
+    .story-7 .flag-btn { color: #ffe0b8; }
+    .amber-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .amber-item { background: rgba(210,90,20,0.07); border-left: 3px solid #D05A14; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .amber-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E88040; margin-bottom: 0.3rem; }
+    .amber-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 8 — Dark gold */
+    .story-8 { background: #080500; color: #fff; min-height: 70vh; }
+    .story-8::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,145,10,0.15) 0%, transparent 65%); }
+    .story-8 .story-num { color: #BE9110; opacity: 0.06; }
+    .story-8 .story-kicker { color: #D4A820; opacity: 1; }
+    .story-8 .story-headline { color: #fff; }
+    .story-8 .story-body { color: rgba(255,255,255,0.88); }
+    .story-8 .story-meta { color: #D4A820; opacity: 0.5; }
+    .story-8 .story-link.primary { background: #604000; color: #ffe070; }
+    .story-8 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-8 .flag-btn { color: #fff; }
+    .gold-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .gold-item { background: rgba(190,145,10,0.07); border-left: 3px solid #BE9110; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .gold-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #D4A820; margin-bottom: 0.3rem; }
+    .gold-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 9 — Slate blue */
+    .story-9 { background: #040810; color: #c8d8f0; min-height: 70vh; }
+    .story-9::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 35%, rgba(50,90,170,0.16) 0%, transparent 65%); }
+    .story-9 .story-num { color: #3258A8; opacity: 0.07; }
+    .story-9 .story-kicker { color: #5878C8; opacity: 1; }
+    .story-9 .story-headline { color: #e8f0ff; }
+    .story-9 .story-body { color: #c8d8f0; }
+    .story-9 .story-meta { color: #5878C8; opacity: 0.5; }
+    .story-9 .story-link.primary { background: #101e50; color: #fff; }
+    .story-9 .story-link.secondary { background: rgba(50,90,170,0.08); color: #b0c8e8; border: 1px solid rgba(50,90,170,0.22); }
+    .story-9 .flag-btn { color: #c8d8f0; }
+    .slate-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .slate-item { background: rgba(50,90,170,0.07); border-left: 3px solid #3258A8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .slate-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #5878C8; margin-bottom: 0.3rem; }
+    .slate-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 10 — Magenta */
+    .story-10 { background: #080004; color: #ffc8e8; min-height: 70vh; }
+    .story-10::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,20,90,0.15) 0%, transparent 65%); }
+    .story-10 .story-num { color: #BE1458; opacity: 0.07; }
+    .story-10 .story-kicker { color: #E04080; opacity: 1; }
+    .story-10 .story-headline { color: #fff0f8; }
+    .story-10 .story-body { color: #ffc8e8; }
+    .story-10 .story-meta { color: #E04080; opacity: 0.5; }
+    .story-10 .story-link.primary { background: #500030; color: #ffb0d8; }
+    .story-10 .story-link.secondary { background: rgba(190,20,90,0.08); color: #f090c0; border: 1px solid rgba(190,20,90,0.22); }
+    .story-10 .flag-btn { color: #ffc8e8; }
+    .mag-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .mag-item { background: rgba(190,20,90,0.07); border-left: 3px solid #BE1458; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .mag-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E04080; margin-bottom: 0.3rem; }
+    .mag-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .site-footer { background: #000; color: #555; padding: 3rem 4rem; display: flex; flex-direction: column; gap: 1.5rem; border-top: 1px solid #222; }
+    .footer-top { display: flex; gap: 2rem; align-items: center; flex-wrap: wrap; justify-content: space-between; }
+    .footer-brand { font-size: 1.4rem; font-weight: 900; color: #fff; }
+    .footer-meta { font-size: 0.75rem; line-height: 1.6; }
+    .export-btn { background: #222; border: 1px solid #444; color: #fff; font-family: var(--font); font-size: 0.8rem; font-weight: 700; padding: 0.7em 1.5em; border-radius: 3px; cursor: pointer; letter-spacing: 0.08em; transition: background 0.2s; }
+    .export-btn:hover { background: #333; }
+    .footer-note { font-size: 0.7rem; opacity: 0.5; }
+
+    @media (max-width: 768px) {
+      .masthead, .toc, .story-inner, .site-footer { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .story-num { display: none; }
+      .masthead-meta { gap: 1rem; }
+      .masthead-issue { margin-left: 0; }
+      .blue-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+<nav style="background:#1a1a1a;border-bottom:1px solid #333;padding:0.55rem 2rem;font-family:'M PLUS Rounded 1c','Hiragino Sans','Noto Sans JP',sans-serif;position:sticky;top:0;z-index:999;">
+  <a href="./index.html" style="color:#aaa;text-decoration:none;font-size:0.8rem;font-weight:700;letter-spacing:0.03em;display:inline-flex;align-items:center;gap:0.4rem;transition:color 0.15s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#aaa'">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    アーカイブへ戻る
+  </a>
+</nav>
+
+<header class="masthead">
+  <div class="masthead-kicker">Hacker News — Morning Edition</div>
+  <h1 class="masthead-title">Morning<br>Edition</h1>
+  <div class="masthead-meta">
+    <div>
+      <div class="masthead-date">2026年10月10日 土曜日</div>
+      <div class="masthead-subtitle">AI・開発ツール・プライバシー・サイエンス — あなたのための10本</div>
+    </div>
+    <div class="masthead-issue">
+      <span class="iss-label">Issue</span>
+      <span class="iss-num">No.145</span>
+    </div>
+  </div>
+</header>
+
+<nav class="toc">
+  <a href="#s1"><span class="toc-num">01</span>⚡ DeepSeek 4.1 Flashを業界が無視している理由</a>
+  <a href="#s2"><span class="toc-num">02</span>CloudflareがDenoを買収——JavaScriptランタイム戦争の決着？</a>
+  <a href="#s3"><span class="toc-num">03</span>OpenAIが安全研究者3名を解雇——「研究情報の不適切取扱い」を名目に</a>
+  <a href="#s4"><span class="toc-num">04</span>⚡ Show HN: AIエージェントに画面へ矢印・ボックス・テキストを描かせる</a>
+  <a href="#s5"><span class="toc-num">05</span>⚡ なぜコーディングエージェントはこんなにも愚かなのか</a>
+  <a href="#s6"><span class="toc-num">06</span>htmx「Yes, and」——ソフトウェア開発の即興哲学</a>
+  <a href="#s7"><span class="toc-num">07</span>警察を追跡するカメラを自作したYouTuberに警察が訪問</a>
+  <a href="#s8"><span class="toc-num">08</span>TorプロジェクトとMullvadの関係について——公式声明</a>
+  <a href="#s9"><span class="toc-num">09</span>AIが400年分のアーカイブを精査——忘れられた隕石と絶滅危惧サイの発見</a>
+  <a href="#s10"><span class="toc-num">10</span>MXC——Microsoftのサンドボックスコード実行システム</a>
+</nav>
+
+<!-- ═══ STORY 1 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-1" id="s1">
+  <div class="story-num">01</div>
+  <div class="story-inner">
+    <div class="story-badge direct-badge">⚡ あなたに直接関係</div>
+    <div class="story-kicker">AI / DeepSeek / 生成AI / モデル比較 / 業界分析 — 2026-10-10</div>
+    <h2 class="story-headline">
+      <span class="headline-accent">DeepSeek 4.1 Flash</span>を<br>業界が無視している理由
+    </h2>
+    <div class="story-body">
+      「Why isn't the industry freaking out about DeepSeek 4.1 Flash?」という問いかけがHNで1071ポイント・938コメントを集めています。DeepSeek 4.1 Flashは主要ベンチマークでGPT-4o・Claude 3.5 Sonnetと比肩しながら、コストは桁違いに安い——にもかかわらず業界メディアの反応は奇妙なほど静かだという指摘です。Claude Codeや日常的にLLM APIを使う開発者には直接関係のある話です。
+    </div>
+    <div class="blue-grid">
+      <div class="blue-card">
+        <div class="blue-card-label">DeepSeek 4.1 Flashとは何者か——性能とコストの非対称性</div>
+        <div class="blue-card-value">ベンチマーク上位、価格は1/10以下</div>
+        <div class="blue-card-sub">DeepSeek 4.1 FlashはDeepSeekの最新フラッシュ（軽量・高速）シリーズのモデルで、HumanEval・MMLU・MATHなどの主要ベンチマークではGPT-4o miniやClaude 3.5 Haiku相当かそれ以上のスコアを出している。APIコストはOpenAIやAnthropicの同等クラスモデルの5〜10分の1程度。特にコーディングタスクとRAG（検索拡張生成）での評価が高い。記事の著者はこの性能/価格比が「業界を震撼させるはずなのに、なぜメディアも企業も騒がないのか」という問いを立てている。中国製モデルへの政治的・セキュリティ的懸念、エンタープライズでの信頼性の不透明さなどが主な理由として挙げられている。</div>
+      </div>
+      <div class="blue-card">
+        <div class="blue-card-label">業界の沈黙の理由——政治・信頼・エコシステムの複合問題</div>
+        <div class="blue-card-value">「性能は認めるが使えない」というジレンマ</div>
+        <div class="blue-card-sub">HNのコメント上位には「ベンチマークは認めている、ただし中国政府との関係・データプライバシー・サービス継続性のリスクが米国企業では許容できない」という声が並ぶ。エンタープライズ採用では「ベンダーが監査可能か」「コンプライアンス要件に合致するか」が性能以上に重要で、DeepSeekはここで脱落することが多い。個人開発者・スタートアップレベルでは実際に使っている例も多く、「個人プロジェクトではDeepSeek 4.1 Flashをメインに切り替えた」というコメントも複数。オープンソース版（ローカル実行）ならセキュリティ懸念は大幅に軽減されるため、ローカルLLM界隈では既に話題になっている。</div>
+      </div>
+      <div class="blue-card">
+        <div class="blue-card-label">Claude Codeユーザーへの含意——モデル選択の実践的視点</div>
+        <div class="blue-card-value">APIコスト最適化の選択肢として</div>
+        <div class="blue-card-sub">Claude Code（および一般的なLLMアプリ開発）の観点では、DeepSeek 4.1 Flashは「大量呼び出しが必要なワーカーエージェント」や「コストを抑えたい分類・要約パイプライン」のコスト最適化候補として現実的な選択肢だ。プライマリの推論・コーディング（Sonnet 4.6）はそのままに、軽量タスクをDeepSeekに振り分けるハイブリッド構成はROI観点で検討価値がある。ただし、データプライバシーポリシーの精査（特に日本の個人情報保護法・GDPRとの照合）と、サービス停止リスクのミティゲーション（ローカルモデルへのフォールバック）は必須の前提条件。オフラインでの重要度: 個人・OSS開発者 → 高い実用性；エンタープライズ → 慎重な評価が必要。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: dgt.is</span>
+      <span>↑1071pt · 💬938+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.dgt.is/blog/2026-10-07-deepseek-freek-out/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50000488" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="deepseek-4-1-flash" data-type="like" onclick="toggleFlag('deepseek-4-1-flash','DeepSeek 4.1 Flashを業界が無視している理由','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="deepseek-4-1-flash" data-type="dislike" onclick="toggleFlag('deepseek-4-1-flash','DeepSeek 4.1 Flashを業界が無視している理由','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+    <div class="story-1-accent"></div>
+  </div>
+</section>
+
+<!-- ═══ STORY 2 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-2" id="s2">
+  <div class="story-num">02</div>
+  <div class="story-inner">
+    <div class="story-kicker">開発ツール / JavaScript / Deno / Cloudflare / エコシステム / ランタイム — 2026-10-10</div>
+    <h2 class="story-headline">
+      <span style="color:#20d8f0">Cloudflare</span>が<br>Denoを買収
+    </h2>
+    <div class="story-body">
+      「Cloudflare acquires Deno」がHNで968ポイント・508コメントを集めています。Node.jsの生みの親Ryan DahlによるJavaScript/TypeScriptランタイムDenoが、CDN・エッジコンピューティング大手のCloudflareに買収されました。Workers・Pages・KVを擁するCloudflareのエッジ実行基盤とDenoのランタイムが統合されることで、フロントエンド開発の地図が書き換わる可能性があります。
+    </div>
+    <div class="teal-items">
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">買収の背景——Denoが直面していた課題とCloudflareの狙い</div>
+          <div class="teal-text">DenoはNode.jsとの互換性問題・エコシステムの小ささ・npmエコシステムとの断絶という三重苦を抱えていた。Deno 2.0でnpm互換を達成したが、採用率の伸びは期待を下回っていた。一方Cloudflare Workersは独自V8 Isolate実行環境を持ちながら、互換性・開発者体験の問題を抱えていた。DenoはCloudflare Workers互換ランタイムとしても知られており、両者の統合は以前から予想されていた組み合わせ。Ryan Dahlとチームはそのままプロジェクトを継続し、Denoはオープンソースであり続けるとアナウンスされている。</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">開発者への実際の影響——エッジ実行の主戦場が変わるか</div>
+          <div class="teal-text">直接的な影響として予想されるのは: (1) Cloudflare WorkersのDeno互換性が公式サポートになる可能性。(2) Deno DeployがCloudflareのグローバルエッジネットワーク（300+都市）に移行するかもしれない。(3) Deno KV（組み込みKVストア）とCloudflare KVの統合。現在Denoを使っているプロジェクトは短期的に影響を受けない（オープンソース継続）が、中長期ではCloudflare WorkersへのマイグレーションパスかDenoベースのCloudflare SDKが整備されると予想される。Vercel・Netlify・Bunとの競争構図が変化し、エッジJavaScriptランタイムの選択肢が再編される可能性がある。</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">HNの反応——「Ryan Dahlの哲学はCloudflare文化と合うのか」</div>
+          <div class="teal-text">「CloudflareはWeb標準への準拠とオープンソースコミュニティへの貢献実績があるので、最悪の買い手ではない」という肯定的な見方が多い。「DenoがCloudflare傘下になることでBunに対する対抗力が増す」という競合分析も。「WorkersのDeno互換が公式化されれば、エッジ開発のDXが大幅に改善される」という期待。一方「CloudflareはDeno自体ではなくDeno Deployのインフラとユーザーベースを買ったのでは」という懐疑論も。「Node.jsとnpmのデファクト独占に対するエコシステムの多様化として歓迎する」という意見も。</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: deno.com</span>
+      <span>↑968pt · 💬508+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://deno.com/blog/cloudflare" target="_blank">公式ブログを読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50019911" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="cloudflare-acquires-deno" data-type="like" onclick="toggleFlag('cloudflare-acquires-deno','CloudflareがDenoを買収','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="cloudflare-acquires-deno" data-type="dislike" onclick="toggleFlag('cloudflare-acquires-deno','CloudflareがDenoを買収','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 3 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-3" id="s3">
+  <div class="story-num">03</div>
+  <div class="story-inner">
+    <div class="story-kicker">OpenAI / AI安全 / 組織 / 解雇 / 業界倫理 — 2026-10-10</div>
+    <h2 class="story-headline">
+      OpenAI、安全研究者<br>3名を解雇
+    </h2>
+    <div class="story-body">
+      「OpenAI fires three safety researchers for 'mishandling research information'」がHNで294ポイント・196コメントを集めています。OpenAIが安全性研究者3名を「研究情報の不適切な取り扱い」を理由に解雇し、解雇された研究者側が不当解雇と反論・警告を発するという事態に発展しています。AI安全研究への「萎縮効果」を懸念する声が広がっています。
+    </div>
+    <div class="red-items">
+      <div class="red-item">
+        <div class="red-label">何が起きたか——解雇の経緯と双方の主張</div>
+        <div class="red-text">TechCrunchの報道によれば、OpenAIはSafety & Alignment チームの研究者3名を解雇した。OpenAI側の理由は「研究情報の不適切な取り扱い（mishandling research information）」。解雇された研究者側の主張は「内部の安全問題を外部有識者に相談した・外部で発表を行ったことが実際の理由で、これは正当な内部告発活動であり不当解雇だ」というものだ。研究者たちは「この解雇がOpenAI内の安全研究者全体への萎縮効果をもたらす」と警告している。今回の事件は、OpenAIが商業的圧力と安全研究の独立性のバランスをどのように取っているかという長年の批判を再燃させている。</div>
+      </div>
+      <div class="red-item">
+        <div class="red-label">萎縮効果の懸念——AI安全研究のエコシステムへの影響</div>
+        <div class="red-text">AI安全研究者コミュニティでは「強力なAI企業の内部にいる安全研究者が、会社の判断に反する懸念を外部に伝えることが事実上禁止されるなら、独立したAI安全研究は機能しない」という懸念が出ている。Anthropicが「Constitutional AI」や「Model Welfare」研究を公開していることとの対比で語られることも多い。今回の解雇が「内部告発」に相当するか否かは法的にも争点となる可能性があり、AI企業の内部告発者保護の問題としても注目されている。EU AI Actの枠組みではAIシステムの安全報告義務が規定されており、規制当局も関心を持つ可能性がある。</div>
+      </div>
+      <div class="red-item">
+        <div class="red-label">HNの反応——「OpenAIはAGI安全をどう本気で考えているのか」</div>
+        <div class="red-text">「Sam Altmanが最初にOpenAIを離れ、その後戻ってきた一連の出来事の延長線上にある——組織文化の問題が表出している」という見方が多い。「AnthropicはOpenAI出身の安全研究者が作った会社で、文化的な違いは構造的だ——Anthropicへの安全研究者の流出が加速するかもしれない」という観察も。「『研究情報の不適切取扱い』という理由が曖昧で、何でも当てはめられる——これ自体が萎縮効果を狙ったものでは」という批判的なコメントが多くつく。「OpenAIは今や普通の大企業と変わらない」という失望の声も。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: techcrunch.com</span>
+      <span>↑294pt · 💬196+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://techcrunch.com/2026/10/08/fired-openai-safety-researchers-dispute-misconduct-claims-warn-of-chilling-effect/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50018350" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="openai-fires-safety-researchers" data-type="like" onclick="toggleFlag('openai-fires-safety-researchers','OpenAI安全研究者3名解雇','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="openai-fires-safety-researchers" data-type="dislike" onclick="toggleFlag('openai-fires-safety-researchers','OpenAI安全研究者3名解雇','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 4 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-4" id="s4">
+  <div class="story-num">04</div>
+  <div class="story-inner">
+    <div class="story-badge direct-badge">⚡ あなたに直接関係</div>
+    <div class="story-kicker">AIエージェント / 開発ツール / スクリーン操作 / コンピュータ使用 / OSS — 2026-10-10</div>
+    <h2 class="story-headline">
+      AIエージェントに画面へ<br><span style="color:#30C060">矢印・ボックス・テキスト</span>を<br>描かせる
+    </h2>
+    <div class="story-body">
+      「Show HN: Let your AI agents paint big arrows, boxes and text on your screen」がHNで357ポイント・153コメントを集めています。AIエージェントがスクリーン上の任意の領域に矢印・ハイライトボックス・テキストアノテーションをリアルタイムに描画できるOSSツール「big-arrow-on-the-screen」が公開されました。Claude Code・Claude Computer Useとの連携が強く意識された設計です。
+    </div>
+    <div class="green-items">
+      <div class="green-item">
+        <div class="green-label">何ができるか——AIエージェントによる画面アノテーション</div>
+        <div class="green-text">GitHubリポジトリによれば、このツールはAIエージェントのコンピュータ操作セッション中に「視覚的な注意誘導」を可能にする。具体的には: (1) 画面上の任意の座標に矢印（方向・色・サイズ指定可能）を描画。(2) 領域にハイライトボックス（半透明オーバーレイ）を表示。(3) 画面上任意の位置にテキストラベルを置く。AIエージェントがどこを見てどこをクリックしようとしているかをユーザーが理解するための「説明UI」として機能する。特にAIのコンピュータ操作をモニタリングしたいデバッグ・デモシナリオで有用で、Claude Computer Use（今セッションで実際に使っている機能）と直接連携できる。</div>
+      </div>
+      <div class="green-item">
+        <div class="green-label">Claude Computer Useとの連携——実践的な使い方</div>
+        <div class="green-text">Claude Computer Useを使ったエージェントにこのツールを組み込むと、スクリーンショットを撮って判断するたびに「次にどこをクリックするか」「何を見ているか」が視覚的に表示される。デバッグ用途だけでなく、ユーザーへのデモやチュートリアル自動生成にも活用できる。Playwright/Puppeteer等のブラウザ自動化と組み合わせると、テストの視覚的記録として機能する。Claude Codeのコンピュータ操作機能を使う場合、エージェントがどのUI要素を対象にしているかをリアルタイムで確認できるため、デバッグと説明の両面で価値がある。OSSでMIT/Apache系ライセンスのため、プロダクション組み込みも可能。</div>
+      </div>
+      <div class="green-item">
+        <div class="green-label">HNの反応——「AIエージェントの透明性ツールとして注目」</div>
+        <div class="green-text">「AIエージェントが何をしようとしているかを人間がリアルタイムで追える——ヒューマンインザループ制御にとって重要なプリミティブだ」という評価が多い。「Claude Computer UseやOpenAI Computer Useを使ったデモ動画でよく見る『AIが画面を見ながら操作する』という体験に、これが加わると劇的にわかりやすくなる」という声も。「Playwright/CypressのStep描画機能に似ているが、LLMエージェント特化で汎用性が高い」という技術的評価。「ビジョンモデルへのアノテーション付きフィードバックとして、エージェントの学習ループに組み込めるか」という発展的な議論も。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: github.com/franzenzenhofer</span>
+      <span>↑357pt · 💬153+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://github.com/franzenzenhofer/big-arrow-on-the-screen" target="_blank">GitHubを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50018817" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="ai-agent-big-arrow-screen" data-type="like" onclick="toggleFlag('ai-agent-big-arrow-screen','AIエージェントに画面アノテーションを描かせるツール','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="ai-agent-big-arrow-screen" data-type="dislike" onclick="toggleFlag('ai-agent-big-arrow-screen','AIエージェントに画面アノテーションを描かせるツール','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 5 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-5" id="s5">
+  <div class="story-num">05</div>
+  <div class="story-inner">
+    <div class="story-badge direct-badge">⚡ あなたに直接関係</div>
+    <div class="story-kicker">AIエージェント / コーディングエージェント / 批評 / エンジニアリング — 2026-10-10</div>
+    <h2 class="story-headline">
+      なぜコーディング<br>エージェントは<br><span style="color:#8050E0">こんなにも愚かか</span>
+    </h2>
+    <div class="story-body">
+      「Why Are Coding Agents So Dumb?」（Michael Lynch著）がHNで58ポイント・29コメントを集めています。Claude Code・Cursor・Devinなどのコーディングエージェントが優秀に見えながらも基本的なミスを繰り返す理由を分析した記事です。Claude Codeを日常的に使う開発者として、この「なぜ？」への答えはツールの使い方と限界理解に直結します。
+    </div>
+    <div class="purple-items">
+      <div class="purple-item">
+        <div class="purple-label">コーディングエージェントが愚かに見える理由——構造的な問題</div>
+        <div class="purple-text">Lynch（TinyPilot開発者として知られる）の分析では、コーディングエージェントの「愚かさ」の主な原因は: (1) コンテキスト窓の制限——大きなコードベースでは全体像を保持できず、ローカルに賢い選択がグローバルに間違いになる。(2) エラー伝播——最初の誤った前提が連鎖的に増幅される。(3) 検証ループの欠如——人間なら「本当にこれで動くか？」と立ち止まる局面で直進する。(4) ツール使用の表面的理解——コードを実行してフィードバックを得るより、テキスト的推論で答えを出そうとする傾向。特に「コードを書いた後に実行して確認する」というループをエージェントが自発的に回せるかどうかが、賢いエージェントと愚かなエージェントの分岐点だという。</div>
+      </div>
+      <div class="purple-item">
+        <div class="purple-label">Claude Codeで実際に観察されるパターン——日常使いからの照合</div>
+        <div class="purple-text">記事の分析はClaude Codeを日常使いする視点から照合できる。「愚かさ」の典型例: (1) 存在しないファイルパスを自信満々に参照する。(2) ライブラリのAPIを古いドキュメントから推測して間違える。(3) テストを書かず「実装が正しいはず」と前進する。(4) エラーメッセージを読まずに同じ修正を繰り返す。逆に「賢い」パターン: (1) 読んでから書く（コンテキスト確認ループ）。(2) 変更後に必ず動作確認ステップを入れる（/verify）。(3) 不確かなAPI仕様は検索してから使う。Claude Codeのパーミッションモードや/verify等のスキルは、まさにこの「検証ループ」問題への回答として設計されている。</div>
+      </div>
+      <div class="purple-item">
+        <div class="purple-label">HNの反応——「賢いエージェントを作るためのシステム設計論」</div>
+        <div class="purple-text">「エージェントが愚かに見えるのはモデルの問題ではなく、スキャフォールディング（エージェントを囲む実行環境）の問題が大きい——良いツール設計・フィードバックループ設計が賢さを引き出す」という建設的なコメントが目立つ。「人間のプログラマーだって似たようなミスをする——差はループを回す速度とコストだ」という相対化も。「コーディングエージェントに渡すタスクの粒度と、中間成果物の検証ポイント設計が重要——エージェントにとっての"テスト駆動開発"的なアプローチ」という実践論も。記事ポイントは低いが、コメントの質が高く深い議論が続いている。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: mtlynch.io</span>
+      <span>↑58pt · 💬29+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://mtlynch.io/why-are-coding-agents-so-dumb/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50020947" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="why-coding-agents-dumb" data-type="like" onclick="toggleFlag('why-coding-agents-dumb','なぜコーディングエージェントは愚かか','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="why-coding-agents-dumb" data-type="dislike" onclick="toggleFlag('why-coding-agents-dumb','なぜコーディングエージェントは愚かか','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 6 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-6" id="s6">
+  <div class="story-num">06</div>
+  <div class="story-inner">
+    <div class="story-kicker">htmx / 開発哲学 / ソフトウェア設計 / フロントエンド / エッセイ — 2026-10-10</div>
+    <h2 class="story-headline">
+      htmx「Yes, and」<br>ソフトウェア開発の<br><span style="color:#20B0D0">即興哲学</span>
+    </h2>
+    <div class="story-body">
+      htmx公式ブログの「Yes, and」というエッセイがHNで720ポイント・285コメントを集めています。即興演劇の基本原則「Yes, and（相手の提案を肯定して発展させる）」をソフトウェア開発哲学として適用した論考で、既存技術・既存コードを「否定してリプレース」するのではなく「肯定して拡張する」というアプローチを説いています。
+    </div>
+    <div class="cyan-items">
+      <div class="cyan-item">
+        <div class="cyan-label">「Yes, and」哲学とは——即興演劇からソフトウェアへの転用</div>
+        <div class="cyan-text">即興演劇では「相手の提案をブロックせず、それを受け入れてさらに発展させる（Yes, and）」というルールがある。htmxのCarson Grossはこれをソフトウェア開発に適用し: 「HTMLという既存技術にブラウザが追加した属性・APIをブロックするのではなく受け入れてさらに拡張せよ」というhtmxの設計思想の根拠として論じている。より広くは「現在の技術スタックを否定してゼロから書き直すより、それを肯定してインクリメンタルに改善する方が大抵うまくいく」という実用論でもある。React・Vue等の「HTMLをJSで全置換するアプローチ」への批判が根底にあるが、特定技術の批判を超えた開発哲学として受け取られている。</div>
+      </div>
+      <div class="cyan-item">
+        <div class="cyan-label">実践への含意——リプレース衝動と「Yes, and」の選択</div>
+        <div class="cyan-text">開発者がよく陥る「これ全部書き直したい」衝動への処方箋として読める。「Yes, and」の実践とは: (1) 既存コードの制約を認めてその中で改善策を見つける。(2) 新技術を導入する際に既存のものを否定せず共存させる。(3) ユーザーの要望に「No, but」（あなたのやり方は間違い、本当は〜すべき）ではなく「Yes, and」（それ面白いね、加えてこういうこともできる）で応える。「技術的負債の返済vs新機能の追加」のトレードオフ判断にも「Yes, and」の枠組みは使える——負債を「否定して消す」のではなく「肯定して改良する」ことで、既存機能を壊さずに前進できる。</div>
+      </div>
+      <div class="cyan-item">
+        <div class="cyan-label">HNの反応——htmxの哲学への共感と批判</div>
+        <div class="cyan-text">「これはhtmxの宣伝ではなく、普遍的なソフトウェア開発の知恵だと思う——ビッグリライトが失敗する理由と完全に一致している」という高評価が多い。「即興演劇の比喩はソフトウェアチームのコラボレーションにも当てはまる——他のメンバーのコードやアイデアを"ブロック"しないことで創造性が高まる」という応用。「htmxはこういう哲学エッセイを書くから好きだ——技術的主張を人文知で裏付けようとする姿勢」という評価も。一方「Reactや状態管理ライブラリが解決しようとした複雑さを"Yes, and"で正当化するのは難しい——スケールしないケースもある」という反論も。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: htmx.org</span>
+      <span>↑720pt · 💬285+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://htmx.org/essays/yes-and/" target="_blank">エッセイを読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50003796" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="htmx-yes-and" data-type="like" onclick="toggleFlag('htmx-yes-and','htmx Yes and ソフトウェア開発即興哲学','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="htmx-yes-and" data-type="dislike" onclick="toggleFlag('htmx-yes-and','htmx Yes and ソフトウェア開発即興哲学','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 7 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-7" id="s7">
+  <div class="story-num">07</div>
+  <div class="story-inner">
+    <div class="story-kicker">プライバシー / 監視 / 市民権 / ナンバープレート認識 / セキュリティ — 2026-10-10</div>
+    <h2 class="story-headline">
+      警察追跡カメラを<br>自作したYouTuberに<br><span style="color:#E88040">警察が訪問</span>
+    </h2>
+    <div class="story-body">
+      「YouTuber Says Cops Visited Him After He Built a Flock-Style Camera to Track Cops」がHNで203ポイント・110コメントを集めています。Flock Safetyのようなナンバープレート自動認識（ALPR）カメラシステムを自作し、警察車両を追跡するYouTuberに、警察が「訪問」してきたという事件です。「監視する側を監視する」行為に対する当局の反応が注目されています。
+    </div>
+    <div class="amber-items">
+      <div class="amber-item">
+        <div class="amber-label">事件の詳細——自作ALPRと警察の反応</div>
+        <div class="amber-text">Flock Safetyは米国の多くの警察が採用するナンバープレート自動認識ネットワークで、特定車両の移動を追跡できる。YouTuberはこれを逆用し、同様の仕組みで警察車両のナンバープレートを読み取りデータベース化するカメラを自作・設置した。動画を公開した後、制服姿の警察官が「どんなカメラか確認したい」と自宅を訪問してきたという。重要な点は、公道でナンバープレートを撮影・記録すること自体は多くの州で合法であり、YouTuberも法的根拠なく従う必要はないと主張している。「警察が一般市民に対して行っているのと同じことを一般市民が警察に対して行った」という対称性の問題として話題になっている。</div>
+      </div>
+      <div class="amber-item">
+        <div class="amber-label">プライバシーの対称性問題——監視技術の非対称な適用</div>
+        <div class="amber-text">このケースが示すのは、監視技術の適用における非対称性だ。同じ技術・同じ行為（公道でのナンバープレート読み取り）が「警察がやれば治安維持」「市民がやれば警察が訪問してくる」という非対称な扱いを受けている。EFFやACLUはこのようなケースをConsent-based surveillance（一方向の同意のない監視）問題として長年指摘してきた。日本でも街頭カメラ・Nシステム（ナンバープレート読取システム）の非対称性は類似の問題を含んでおり、テクノロジーとプライバシー権の関係を考える上で普遍的な事例だ。「逆追跡ツール」の法的・倫理的地位を考える上でも興味深い先例。</div>
+      </div>
+      <div class="amber-item">
+        <div class="amber-label">HNの反応——「法的には合法だが、警察の反応はシグナルだ」</div>
+        <div class="amber-text">「公道での撮影は合法で、YouTuberは何も間違っていない——警察の訪問自体が"恐喝的戦術（intimidation tactic）"だという見方が正しいだろう」という評価が多い。「Flock Safetyのシステムも市民の同意なく動いている——対称性の観点から市民による警察追跡を禁止する法的根拠はない」という法律論。「技術的には誰でも作れる、問題は法的許容範囲と社会的コストのバランス」という実用的な視点。「こういう"鏡テスト"（自分が許可している行為を他者がやったとき許容できるか）はプライバシー政策議論の強力なツールだ」という議論も。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: gizmodo.com</span>
+      <span>↑203pt · 💬110+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://gizmodo.com/youtuber-says-cops-paid-him-a-visit-after-he-built-flock-style-camera-to-track-cops-2000824306" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50026555" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="youtuber-cop-tracking-camera" data-type="like" onclick="toggleFlag('youtuber-cop-tracking-camera','YouTuber警察追跡カメラ自作事件','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="youtuber-cop-tracking-camera" data-type="dislike" onclick="toggleFlag('youtuber-cop-tracking-camera','YouTuber警察追跡カメラ自作事件','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 8 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-8" id="s8">
+  <div class="story-num">08</div>
+  <div class="story-inner">
+    <div class="story-kicker">プライバシー / セキュリティ / Tor / Mullvad / VPN / 匿名性 — 2026-10-10</div>
+    <h2 class="story-headline">
+      TorプロジェクトとMullvad<br><span style="color:#D4A820">関係についての声明</span>
+    </h2>
+    <div class="story-body">
+      「A statement on the Tor Project's relationship with Mullvad」がHNで88ポイント・199コメントを集めています。Torプロジェクトがスウェーデンのプライバシー特化VPNサービスMullvadとの関係について公式声明を発表しました。ポイント数は低いものの、コメント数が非常に多く、プライバシーツールのエコシステムにとって重要な議論が展開されています。
+    </div>
+    <div class="gold-items">
+      <div class="gold-item">
+        <div class="gold-label">声明の内容——TorとMullvadの関係の整理</div>
+        <div class="gold-text">TorプロジェクトとMullvadは以前、「Mullvad Browser」を共同開発している（Torブラウザの技術基盤を使いつつMullvad VPN向けに最適化したブラウザ）。今回の声明は、この協力関係の範囲・限界・今後の方向性を明確にするものと見られる。声明の具体的内容は、Mullvad Browserの開発協力は継続するが、TorネットワークとMullvad VPNの「組み合わせ」を公式に推奨するものではないという整理を含む可能性がある。TorとVPNは技術的に異なる匿名性モデルを持ち、組み合わせ方によっては匿名性が下がるリスクがあるため、この区別は重要。HNのコメント数が多いのは、プライバシーコミュニティがこの種の関係整理に強い関心を持つためだ。</div>
+      </div>
+      <div class="gold-item">
+        <div class="gold-label">Tor vs VPN——匿名性の技術的差異とユーザーへの影響</div>
+        <div class="gold-text">TorとVPNは異なる脅威モデルに対応している。Tor: 多段中継による匿名性（出口ノードに見られる情報を最小化、経路全体の追跡を困難に）。VPN: 通信の暗号化とIPアドレスの隠蔽（VPNプロバイダーには全通信が見える）。組み合わせの問題: 「VPN over Tor」は匿名性を低下させる可能性がある（VPNがTor出口ノードの後ろにいると、VPN側が全通信を見られる）。Mullvad VPNはログなしポリシーで高く評価されているが、それでもTorの分散型匿名性とは根本的に異なる。この声明は、ユーザーが二つの技術を正しく理解して使うための情報として価値がある。</div>
+      </div>
+      <div class="gold-item">
+        <div class="gold-label">HNの反応——プライバシーツールの持続可能性とガバナンス</div>
+        <div class="gold-text">「Mullvadは商業VPNの中では最もプライバシーへの姿勢が誠実な企業の一つだが、Torプロジェクトは非営利であり構造的な利害が異なる——関係の透明性確保は重要」という評価が多い。「Mullvad Browserはブラウザのフィンガープリント対策として優秀で、TorブラウザほどのIPアドレス匿名化は不要というユースケースに最適——この協力関係自体は価値がある」という実用的な評価も。「TorプロジェクトはEFFやOpen Technology Fund等の助成金に頼っているため、商業パートナーシップの独立性をどう保つかは重要な問い」という組織論も。コメント数が多いのはプライバシー重視層のHN読者層の特性を反映している。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: torproject.org</span>
+      <span>↑88pt · 💬199+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://blog.torproject.org/on-tor-relationship-with-mullvad/" target="_blank">声明を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50022266" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="tor-mullvad-statement" data-type="like" onclick="toggleFlag('tor-mullvad-statement','TorプロジェクトとMullvad関係声明','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="tor-mullvad-statement" data-type="dislike" onclick="toggleFlag('tor-mullvad-statement','TorプロジェクトとMullvad関係声明','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 9 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-9" id="s9">
+  <div class="story-num">09</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / 歴史アーカイブ / 自然科学 / 隕石 / サイ / 機械学習 / 発見 — 2026-10-10</div>
+    <h2 class="story-headline">
+      AIが400年の<br>アーカイブを精査——<br><span style="color:#5878C8">忘れられた隕石の再発見</span>
+    </h2>
+    <div class="story-body">
+      「Pointing AI at archives found a forgotten meteorite, lost rhinos, and more」がHNで76ポイント・39コメントを集めています。400年分の歴史的アーカイブにAIを適用した結果、記録から失われていた隕石の衝突記録、絶滅が危惧されるサイの分布情報、その他複数の「忘れられた発見」が掘り起こされたという研究ブログです。
+    </div>
+    <div class="slate-items">
+      <div class="slate-item">
+        <div class="slate-label">何が発見されたか——AIアーカイブ精査の具体的成果</div>
+        <div class="slate-text">著者（Jesse Waites）は400年分の自然史・探検記・科学論文のデジタルアーカイブを対象に、LLMベースの情報抽出パイプラインを構築。主な発見: (1) 忘れられた隕石: 18世紀の旅行記に「空から落ちてきた石」の記述があり、GPSなき時代の座標情報と地質情報を組み合わせて現在の位置を特定。(2) 失われたサイの分布: 19世紀の狩猟記録に含まれる生息地情報から、ジャワサイ・スマトラサイの歴史的分布範囲を再構築。自然保護政策の立案に使える情報。(3) その他、植物の分布変化・旧名で記録された地名の現代地図への対応など多数。「人間が一生かけても読めない量のテキストを数週間でAIが処理する」という時間の圧縮効果が核心。</div>
+      </div>
+      <div class="slate-item">
+        <div class="slate-label">方法論——歴史アーカイブへのAI適用のアーキテクチャ</div>
+        <div class="slate-text">技術的アプローチ: (1) OCRでデジタル化された歴史文書をLLMでchunk処理（古典英語・ラテン語・手書き文字も含む）。(2) Named Entity Recognition (NER)で人物・地名・動植物名・日付を抽出。(3) 地名は歴史的地名データベースと照合してジオコーディング。(4) 抽出情報をナレッジグラフに統合して時系列・地理的パターンを分析。主にGPT-4系とClaudeを使ったと記載されており、古文書の解釈精度でClaudeが優位だったとの記述もある。この手法は自然史研究にとどまらず、歴史研究・系譜研究・考古学など幅広い人文科学への応用可能性がある。「AI考古学者」とも呼ぶべき新領域の開拓。</div>
+      </div>
+      <div class="slate-item">
+        <div class="slate-label">HNの反応——「歴史研究のパラダイムシフトが始まった」</div>
+        <div class="slate-text">「これは完全に新しい研究手法だ——従来なら一人の研究者が10年かけて読む文書をAIが数週間で処理し、人間には見つけられなかったパターンを発見する」という高評価が多い。「自然史博物館・国立公文書館・図書館のデジタル化アーカイブをこの手法で処理する価値は計り知れない——研究のバックログが一気に解消される」という期待も。「歴史的記述の正確さへの依存（旅行記の記述が本当に正確か）という方法論的懸念」も。「Claudeが古文書解釈に優位という記述が興味深い——長いコンテキストと古典語訓練データの差かもしれない」というモデル比較論も。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: jessewaites.com</span>
+      <span>↑76pt · 💬39+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://jessewaites.com/blog/post/i-pointed-ai-at-400-years-of-archives/" target="_blank">ブログを読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50019056" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="ai-archive-meteorite-rhinos" data-type="like" onclick="toggleFlag('ai-archive-meteorite-rhinos','AIが400年アーカイブ精査——隕石とサイの発見','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="ai-archive-meteorite-rhinos" data-type="dislike" onclick="toggleFlag('ai-archive-meteorite-rhinos','AIが400年アーカイブ精査——隕石とサイの発見','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 10 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-10" id="s10">
+  <div class="story-num">10</div>
+  <div class="story-inner">
+    <div class="story-kicker">Microsoft / セキュリティ / サンドボックス / コード実行 / 開発ツール / OSS — 2026-10-10</div>
+    <h2 class="story-headline">
+      MXC——Microsoftの<br><span style="color:#E04080">サンドボックス</span><br>コード実行システム
+    </h2>
+    <div class="story-body">
+      「MXC - a sandboxed code execution system」がHNで170ポイント・78コメントを集めています。MicrosoftがGitHubでオープンソース公開したMXCは、AIエージェントなどが生成したコードを安全に実行するためのサンドボックス実行システムです。Claude Code・Copilot等のコーディングエージェントが生成するコードの安全な実行環境として、今後の重要性が増すコンポーネントです。
+    </div>
+    <div class="mag-items">
+      <div class="mag-item">
+        <div class="mag-label">MXCとは何か——サンドボックスコード実行の仕組み</div>
+        <div class="mag-text">MXC（Microsoft Execution Container）は、信頼できないコード（ユーザー入力・AIが生成したコード・外部ライブラリ）を隔離された環境で実行するためのサンドボックスシステムだ。主な特徴: (1) プロセス・ファイルシステム・ネットワークの分離——サンドボックス内のコードがホストシステムにアクセスできない。(2) リソース制限——CPU/メモリ/時間の上限設定。(3) 複数言語対応——Python・JavaScript・C#等のランタイムをサンドボックス内で実行。(4) MicrosoftのAzure Containers技術をベースにしたローカル実行版という位置づけ。特にAIコーディングエージェントがコードを生成して即実行するワークフローで「生成されたコードが安全に実行できるか」という問題への解答として開発された。</div>
+      </div>
+      <div class="mag-item">
+        <div class="mag-label">Claude Codeとの関連——コーディングエージェントのセキュリティ基盤</div>
+        <div class="mag-text">Claude Codeのような自律コーディングエージェントが実際のシステムで動作する際、生成したコードをホスト環境で直接実行することのリスクは常に存在する。MXCのようなサンドボックス実行システムは: (1) エージェントが生成したコードをテスト環境で安全に実行してから本番に適用する。(2) ユーザー入力由来のコード（eval的なもの）を安全に処理する。(3) 信頼できないサードパーティライブラリのコードを隔離実行する。という用途に直接使えるコンポーネントだ。Claude Codeの「ツール許可システム（allow/deny per tool）」と組み合わせると、よりセキュアなエージェント実行環境が構築できる。AIエージェントのセキュリティ基盤として、このようなコンポーネントの重要性は今後急速に高まる。</div>
+      </div>
+      <div class="mag-item">
+        <div class="mag-label">HNの反応——「AI時代のコード実行セキュリティの基礎インフラ」</div>
+        <div class="mag-text">「AIが生成したコードを安全に実行する問題は、AIエージェントが実用化する上で解決必須の問題だ——MicrosoftがこれをOSSで公開することには大きな意義がある」という評価が多い。「WasmやDeno、Node.js permissionsなど類似のサンドボックスアプローチとの比較が欲しい——どのユースケースでMXCが有利か」という技術的質問も。「MicrosoftはCopilotで自社のコーディングエージェントを持っており、内部的にこのような基盤を使っているはずで、今回の公開はその副産物だろう」という推測。「セキュリティの基礎インフラをOSSで公開することで業界標準を確立しようとする戦略——GoogleのGraal SecurityやAWSのFirecrackerと似たアプローチ」という業界分析も。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: github.com/microsoft</span>
+      <span>↑170pt · 💬78+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://github.com/microsoft/mxc" target="_blank">GitHubを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50016489" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="microsoft-mxc-sandbox" data-type="like" onclick="toggleFlag('microsoft-mxc-sandbox','MXC Microsoftサンドボックスコード実行','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="microsoft-mxc-sandbox" data-type="dislike" onclick="toggleFlag('microsoft-mxc-sandbox','MXC Microsoftサンドボックスコード実行','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ══════════════════════════════════════════════════════════════════════════════════ -->
+<footer class="site-footer">
+  <div class="footer-top">
+    <div class="footer-brand">Morning Edition</div>
+    <div class="footer-meta">
+      Hacker Newsのフロントページから毎朝キュレーションした10本<br>
+      2026年10月10日 — No.145
+    </div>
+    <button class="export-btn" onclick="exportFeedback()">フィードバックをコピー</button>
+  </div>
+  <div class="footer-note">
+    ⭐ 興味あり / ✕ 興味なし ボタンのフィードバックは次号の選定に反映されます。Chrome/Edgeではファイルに自動保存されます。
+  </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  const STORAGE_KEY = 'morning-edition-feedback-v2';
+  let feedback = { liked: {}, disliked: {} };
+  let fileHandle = null;
+
+  function loadFromStorage() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (raw) feedback = JSON.parse(raw);
+    } catch(e) {}
+  }
+
+  function saveToStorage() {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(feedback));
+    } catch(e) {}
+  }
+
+  async function saveToFile(data) {
+    if (!('showSaveFilePicker' in window)) return;
+    try {
+      if (!fileHandle) {
+        fileHandle = await window.showSaveFilePicker({
+          suggestedName: 'feedback.json',
+          types: [{ description: 'JSON', accept: { 'application/json': ['.json'] } }]
+        });
+      }
+      const writable = await fileHandle.createWritable();
+      await writable.write(JSON.stringify(data, null, 2));
+      await writable.close();
+    } catch(e) {}
+  }
+
+  function showToast(msg, isError) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.className = 'toast' + (isError ? ' error' : '');
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2500);
+  }
+
+  function toggleFlag(storyId, storyTitle, type) {
+    const date = '2026-10-10';
+    const entry = { title: storyTitle, date };
+    const opposite = type === 'like' ? 'disliked' : 'liked';
+    const current = type === 'like' ? 'liked' : 'disliked';
+
+    if (feedback[current][storyId]) {
+      delete feedback[current][storyId];
+      showToast('フィードバックを解除しました', false);
+    } else {
+      delete feedback[opposite][storyId];
+      feedback[current][storyId] = entry;
+      showToast(type === 'like' ? '⭐ 興味ありとして記録しました' : '✕ 興味なしとして記録しました', false);
+    }
+
+    feedback.updatedAt = new Date().toISOString();
+    saveToStorage();
+    updateButtonStates();
+    saveToFile(feedback);
+  }
+
+  function updateButtonStates() {
+    document.querySelectorAll('.flag-btn').forEach(btn => {
+      const storyId = btn.dataset.story;
+      const type = btn.dataset.type;
+      const isActive = type === 'like' ? !!feedback.liked[storyId] : !!feedback.disliked[storyId];
+      btn.classList.toggle('active', isActive);
+    });
+  }
+
+  function exportFeedback() {
+    try {
+      navigator.clipboard.writeText(JSON.stringify(feedback, null, 2));
+      showToast('フィードバックをクリップボードにコピーしました', false);
+    } catch(e) {
+      showToast('コピーに失敗しました', true);
+    }
+  }
+
+  loadFromStorage();
+  updateButtonStates();
+</script>
+</body>
+</html>
