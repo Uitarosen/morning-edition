@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Morning Edition — 2026年10月12日</title>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --font: 'M PLUS Rounded 1c', 'Hiragino Sans', 'Noto Sans JP', sans-serif; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); background: #111; color: #fff; overflow-x: hidden; }
+
+    .masthead { background: #fff; color: #000; padding: 3rem 4rem 2.5rem; border-bottom: 6px solid #000; position: relative; overflow: hidden; }
+    .masthead::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: repeating-linear-gradient(90deg, #000 0, #000 12px, transparent 12px, transparent 20px); }
+    .masthead-kicker { font-size: 0.85rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: #777; margin-bottom: 0.6rem; }
+    .masthead-title { font-size: clamp(3.5rem, 9vw, 7.5rem); font-weight: 900; line-height: 0.88; letter-spacing: -0.04em; margin-bottom: 1.8rem; }
+    .masthead-meta { display: flex; gap: 3rem; align-items: baseline; flex-wrap: wrap; }
+    .masthead-date { font-size: 1.5rem; font-weight: 700; }
+    .masthead-subtitle { font-size: 1rem; font-weight: 400; color: #555; max-width: 480px; line-height: 1.5; }
+    .masthead-issue { margin-left: auto; text-align: right; }
+    .masthead-issue span { display: block; }
+    .masthead-issue .iss-label { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: #999; }
+    .masthead-issue .iss-num { font-size: 2.2rem; font-weight: 900; color: #000; }
+
+    .toc { background: #1a1a1a; padding: 1.5rem 4rem; display: flex; gap: 1.5rem; flex-wrap: wrap; border-bottom: 1px solid #333; }
+    .toc a { color: #aaa; text-decoration: none; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; transition: color 0.2s; }
+    .toc a:hover { color: #fff; }
+    .toc-num { color: #555; margin-right: 0.3em; }
+
+    .story { position: relative; overflow: hidden; }
+    .story-inner { max-width: 1200px; margin: 0 auto; padding: 5rem 4rem; position: relative; z-index: 1; }
+    .story-num { font-size: clamp(6rem, 18vw, 16rem); font-weight: 900; line-height: 0.8; letter-spacing: -0.06em; opacity: 0.08; position: absolute; top: 1rem; right: 2rem; user-select: none; }
+    .story-badge { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.35em 0.9em; border-radius: 2px; margin-bottom: 1.5rem; }
+    .direct-badge { background: #FFD700; color: #000; }
+    .story-kicker { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; opacity: 0.6; margin-bottom: 0.8rem; }
+    .story-headline { font-size: clamp(2rem, 5vw, 4rem); font-weight: 900; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+    .story-body { font-size: clamp(1rem, 1.5vw, 1.2rem); font-weight: 400; line-height: 1.8; max-width: 680px; opacity: 0.88; margin-bottom: 2rem; }
+    .story-meta { display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center; font-size: 0.8rem; font-weight: 700; opacity: 0.5; }
+    .story-links { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem; }
+    .story-link { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.6em 1.4em; border-radius: 3px; text-decoration: none; transition: opacity 0.2s, transform 0.15s; }
+    .story-link:hover { opacity: 0.75; transform: translateY(-1px); }
+
+    .feedback-buttons { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .flag-btn { background: none; border: 1px solid currentColor; color: inherit; font-family: var(--font); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.5em 1em; border-radius: 3px; cursor: pointer; opacity: 0.32; transition: opacity 0.2s, background 0.2s, color 0.2s, border-color 0.2s, transform 0.15s; }
+    .flag-btn:hover { opacity: 0.72; transform: translateY(-1px); }
+    .flag-btn.like-btn.active { opacity: 1; background: rgba(255,215,0,0.15); border-color: #FFD700; color: #FFD700 !important; }
+    .flag-btn.dislike-btn.active { opacity: 1; background: rgba(255,60,60,0.12); border-color: #FF4444; color: #FF4444 !important; }
+
+    .toast { position: fixed; bottom: 2rem; right: 2rem; background: #1a1a1a; color: #fff; font-family: var(--font); font-size: 0.82rem; font-weight: 700; padding: 0.75em 1.4em; border-radius: 4px; border-left: 3px solid #00C853; z-index: 9999; opacity: 0; transform: translateY(10px); transition: opacity 0.25s, transform 0.25s; pointer-events: none; box-shadow: 0 4px 24px rgba(0,0,0,0.45); }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    .toast.error { border-left-color: #FF5252; }
+
+    /* Story 1 — White */
+    .story-1 { background: #fff; color: #000; min-height: 90vh; display: flex; flex-direction: column; justify-content: center; }
+    .story-1 .story-num { color: #000; opacity: 0.04; }
+    .story-1 .story-kicker { color: #555; opacity: 1; }
+    .story-1 .story-headline { color: #000; }
+    .story-1 .story-body { color: #111; }
+    .story-1 .story-meta { color: #000; }
+    .story-1 .story-link.primary { background: #1a1a1a; color: #fff; }
+    .story-1 .story-link.secondary { background: #f0f0f0; color: #000; }
+    .story-1 .flag-btn { color: #000; }
+    .story-1-accent { position: absolute; bottom: 0; left: 0; width: 100%; height: 8px; background: linear-gradient(90deg, #0a0a0a, #555, #0a0a0a); }
+    .story-1 .headline-accent { display: inline-block; background: linear-gradient(135deg, #1a1a1a 0%, #555 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .blue-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1.2rem; margin: 2rem 0; max-width: 680px; }
+    .blue-card { border: 2px solid rgba(0,0,0,0.12); background: rgba(0,0,0,0.03); border-radius: 6px; padding: 1.3rem 1.5rem; }
+    .blue-card-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.2em; text-transform: uppercase; color: #333; margin-bottom: 0.4rem; }
+    .blue-card-value { font-size: 1.05rem; font-weight: 900; color: #000; line-height: 1.3; }
+    .blue-card-sub { font-size: 0.75rem; color: #555; margin-top: 0.3rem; line-height: 1.4; }
+
+    /* Story 2 — Dark navy/teal */
+    .story-2 { background: #00080c; color: #b8f0ff; min-height: 80vh; }
+    .story-2::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(0,160,200,0.14) 0%, transparent 65%); }
+    .story-2 .story-num { color: #00A0C8; opacity: 0.07; }
+    .story-2 .story-kicker { color: #20C8E8; opacity: 1; }
+    .story-2 .story-headline { color: #e0f8ff; }
+    .story-2 .story-body { color: #b8f0ff; }
+    .story-2 .story-meta { color: #20C8E8; opacity: 0.5; }
+    .story-2 .story-link.primary { background: #004058; color: #80e8ff; }
+    .story-2 .story-link.secondary { background: rgba(0,160,200,0.08); color: #90d8f0; border: 1px solid rgba(0,160,200,0.22); }
+    .story-2 .flag-btn { color: #b8f0ff; }
+    .teal-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .teal-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(0,160,200,0.07); border-left: 3px solid #00A0C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .teal-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20C8E8; margin-bottom: 0.3rem; }
+    .teal-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 3 — Dark red */
+    .story-3 { background: #0a0000; color: #fff; min-height: 80vh; }
+    .story-3::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(200,20,20,0.16) 0%, transparent 65%); }
+    .story-3 .story-num { color: #C81414; opacity: 0.07; }
+    .story-3 .story-kicker { color: #E84040; opacity: 1; }
+    .story-3 .story-headline { color: #fff; }
+    .story-3 .story-body { color: rgba(255,255,255,0.88); }
+    .story-3 .story-meta { color: #E84040; opacity: 0.5; }
+    .story-3 .story-link.primary { background: #6a0000; color: #fff; }
+    .story-3 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-3 .flag-btn { color: #fff; }
+    .red-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .red-item { background: rgba(200,20,20,0.07); border-left: 3px solid #C81414; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .red-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E84040; margin-bottom: 0.3rem; }
+    .red-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 4 — Dark green */
+    .story-4 { background: #020c04; color: #c8f0d0; min-height: 80vh; }
+    .story-4::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(20,160,70,0.16) 0%, transparent 65%); }
+    .story-4 .story-num { color: #14A046; opacity: 0.07; }
+    .story-4 .story-kicker { color: #30C060; opacity: 1; }
+    .story-4 .story-headline { color: #e0ffe8; }
+    .story-4 .story-body { color: #c8f0d0; }
+    .story-4 .story-meta { color: #30C060; opacity: 0.5; }
+    .story-4 .story-link.primary { background: #063820; color: #80ffb0; }
+    .story-4 .story-link.secondary { background: rgba(20,160,70,0.08); color: #a0e8b0; border: 1px solid rgba(20,160,70,0.22); }
+    .story-4 .flag-btn { color: #c8f0d0; }
+    .green-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .green-item { background: rgba(20,160,70,0.07); border-left: 3px solid #14A046; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .green-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #30C060; margin-bottom: 0.3rem; }
+    .green-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 5 — Dark purple */
+    .story-5 { background: #040010; color: #d8c8ff; min-height: 75vh; }
+    .story-5::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(90,40,200,0.17) 0%, transparent 65%); }
+    .story-5 .story-num { color: #5A28C8; opacity: 0.07; }
+    .story-5 .story-kicker { color: #8050E0; opacity: 1; }
+    .story-5 .story-headline { color: #f0e8ff; }
+    .story-5 .story-body { color: #d8c8ff; }
+    .story-5 .story-meta { color: #8050E0; opacity: 0.5; }
+    .story-5 .story-link.primary { background: #200860; color: #d0a8ff; }
+    .story-5 .story-link.secondary { background: rgba(90,40,200,0.08); color: #c0a0f0; border: 1px solid rgba(90,40,200,0.22); }
+    .story-5 .flag-btn { color: #d8c8ff; }
+    .purple-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .purple-item { background: rgba(90,40,200,0.07); border-left: 3px solid #5A28C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .purple-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #8050E0; margin-bottom: 0.3rem; }
+    .purple-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 6 — Dark cyan */
+    .story-6 { background: #000c10; color: #b8e8f0; min-height: 75vh; }
+    .story-6::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 40%, rgba(0,130,160,0.14) 0%, transparent 65%); }
+    .story-6 .story-num { color: #0080A0; opacity: 0.07; }
+    .story-6 .story-kicker { color: #20B0D0; opacity: 1; }
+    .story-6 .story-headline { color: #e0f4ff; }
+    .story-6 .story-body { color: #b8e8f0; }
+    .story-6 .story-meta { color: #20B0D0; opacity: 0.5; }
+    .story-6 .story-link.primary { background: #003848; color: #80d8f0; }
+    .story-6 .story-link.secondary { background: rgba(0,130,160,0.08); color: #90cce0; border: 1px solid rgba(0,130,160,0.22); }
+    .story-6 .flag-btn { color: #b8e8f0; }
+    .cyan-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .cyan-item { background: rgba(0,130,160,0.07); border-left: 3px solid #0080A0; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .cyan-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20B0D0; margin-bottom: 0.3rem; }
+    .cyan-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 7 — Dark amber */
+    .story-7 { background: #0a0300; color: #ffe0b8; min-height: 75vh; }
+    .story-7::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(210,90,20,0.18) 0%, transparent 65%); }
+    .story-7 .story-num { color: #D05A14; opacity: 0.07; }
+    .story-7 .story-kicker { color: #E88040; opacity: 1; }
+    .story-7 .story-headline { color: #fff0d8; }
+    .story-7 .story-body { color: #ffe0b8; }
+    .story-7 .story-meta { color: #E88040; opacity: 0.5; }
+    .story-7 .story-link.primary { background: #6a2400; color: #ffc880; }
+    .story-7 .story-link.secondary { background: rgba(210,90,20,0.08); color: #ffb870; border: 1px solid rgba(210,90,20,0.22); }
+    .story-7 .flag-btn { color: #ffe0b8; }
+    .amber-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .amber-item { background: rgba(210,90,20,0.07); border-left: 3px solid #D05A14; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .amber-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E88040; margin-bottom: 0.3rem; }
+    .amber-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 8 — Dark gold */
+    .story-8 { background: #080500; color: #fff; min-height: 70vh; }
+    .story-8::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,145,10,0.15) 0%, transparent 65%); }
+    .story-8 .story-num { color: #BE9110; opacity: 0.06; }
+    .story-8 .story-kicker { color: #D4A820; opacity: 1; }
+    .story-8 .story-headline { color: #fff; }
+    .story-8 .story-body { color: rgba(255,255,255,0.88); }
+    .story-8 .story-meta { color: #D4A820; opacity: 0.5; }
+    .story-8 .story-link.primary { background: #604000; color: #ffe070; }
+    .story-8 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-8 .flag-btn { color: #fff; }
+    .gold-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .gold-item { background: rgba(190,145,10,0.07); border-left: 3px solid #BE9110; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .gold-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #D4A820; margin-bottom: 0.3rem; }
+    .gold-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 9 — Slate blue */
+    .story-9 { background: #040810; color: #c8d8f0; min-height: 70vh; }
+    .story-9::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 35%, rgba(50,90,170,0.16) 0%, transparent 65%); }
+    .story-9 .story-num { color: #3258A8; opacity: 0.07; }
+    .story-9 .story-kicker { color: #5878C8; opacity: 1; }
+    .story-9 .story-headline { color: #e8f0ff; }
+    .story-9 .story-body { color: #c8d8f0; }
+    .story-9 .story-meta { color: #5878C8; opacity: 0.5; }
+    .story-9 .story-link.primary { background: #101e50; color: #fff; }
+    .story-9 .story-link.secondary { background: rgba(50,90,170,0.08); color: #b0c8e8; border: 1px solid rgba(50,90,170,0.22); }
+    .story-9 .flag-btn { color: #c8d8f0; }
+    .slate-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .slate-item { background: rgba(50,90,170,0.07); border-left: 3px solid #3258A8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .slate-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #5878C8; margin-bottom: 0.3rem; }
+    .slate-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 10 — Magenta */
+    .story-10 { background: #080004; color: #ffc8e8; min-height: 70vh; }
+    .story-10::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,20,90,0.15) 0%, transparent 65%); }
+    .story-10 .story-num { color: #BE1458; opacity: 0.07; }
+    .story-10 .story-kicker { color: #E04080; opacity: 1; }
+    .story-10 .story-headline { color: #fff0f8; }
+    .story-10 .story-body { color: #ffc8e8; }
+    .story-10 .story-meta { color: #E04080; opacity: 0.5; }
+    .story-10 .story-link.primary { background: #500030; color: #ffb0d8; }
+    .story-10 .story-link.secondary { background: rgba(190,20,90,0.08); color: #f090c0; border: 1px solid rgba(190,20,90,0.22); }
+    .story-10 .flag-btn { color: #ffc8e8; }
+    .mag-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .mag-item { background: rgba(190,20,90,0.07); border-left: 3px solid #BE1458; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .mag-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E04080; margin-bottom: 0.3rem; }
+    .mag-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .site-footer { background: #000; color: #555; padding: 3rem 4rem; display: flex; flex-direction: column; gap: 1.5rem; border-top: 1px solid #222; }
+    .footer-top { display: flex; gap: 2rem; align-items: center; flex-wrap: wrap; justify-content: space-between; }
+    .footer-brand { font-size: 1.4rem; font-weight: 900; color: #fff; }
+    .footer-meta { font-size: 0.75rem; line-height: 1.6; }
+    .export-btn { background: #222; border: 1px solid #444; color: #fff; font-family: var(--font); font-size: 0.8rem; font-weight: 700; padding: 0.7em 1.5em; border-radius: 3px; cursor: pointer; letter-spacing: 0.08em; transition: background 0.2s; }
+    .export-btn:hover { background: #333; }
+    .footer-note { font-size: 0.7rem; opacity: 0.5; }
+
+    @media (max-width: 768px) {
+      .masthead, .toc, .story-inner, .site-footer { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .story-num { display: none; }
+      .masthead-meta { gap: 1rem; }
+      .masthead-issue { margin-left: 0; }
+      .blue-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+<nav style="background:#1a1a1a;border-bottom:1px solid #333;padding:0.55rem 2rem;font-family:'M PLUS Rounded 1c','Hiragino Sans','Noto Sans JP',sans-serif;position:sticky;top:0;z-index:999;">
+  <a href="./index.html" style="color:#aaa;text-decoration:none;font-size:0.8rem;font-weight:700;letter-spacing:0.03em;display:inline-flex;align-items:center;gap:0.4rem;transition:color 0.15s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#aaa'">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    アーカイブへ戻る
+  </a>
+</nav>
+
+<header class="masthead">
+  <div class="masthead-kicker">Hacker News — Morning Edition</div>
+  <h1 class="masthead-title">Morning<br>Edition</h1>
+  <div class="masthead-meta">
+    <div>
+      <div class="masthead-date">2026年10月12日 月曜日</div>
+      <div class="masthead-subtitle">AI・開発ツール・プライバシー・サイエンス — あなたのための10本</div>
+    </div>
+    <div class="masthead-issue">
+      <span class="iss-label">Issue</span>
+      <span class="iss-num">No.147</span>
+    </div>
+  </div>
+</header>
+
+<nav class="toc">
+  <a href="#s1"><span class="toc-num">01</span>Yandexクラウド3番目のDCが障害——何が起きたか</a>
+  <a href="#s2"><span class="toc-num">02</span>LineageOS 24.0——Androidプライバシーの砦が更新</a>
+  <a href="#s3"><span class="toc-num">03</span>READMEを人に読んでもらった——ドキュメントUXの現実</a>
+  <a href="#s4"><span class="toc-num">04</span>「それでもあなたは考えなければならない」——AI時代の思考論</a>
+  <a href="#s5"><span class="toc-num">05</span>テレンス・タオ：Math 2.0——AI時代の数学を語る</a>
+  <a href="#s6"><span class="toc-num">06</span>PATHの ~（チルダ）はホームではないかもしれない</a>
+  <a href="#s7"><span class="toc-num">07</span>NYCの「Click to Cancel」規則が施行——解約UXに変化</a>
+  <a href="#s8"><span class="toc-num">08</span>BetterWispr——無料OSSのMac音声入力ツール登場</a>
+  <a href="#s9"><span class="toc-num">09</span>LLM能力理解のギャップが拡大——Karpathyが警告</a>
+  <a href="#s10"><span class="toc-num">10</span>30台の中古Mac MiniでCray-1スーパーコンピュータを再現</a>
+</nav>
+
+<!-- ═══ STORY 1 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-1" id="s1">
+  <div class="story-num">01</div>
+  <div class="story-inner">
+    <div class="story-kicker">インフラ / クラウド / 障害 / Yandex / データセンター — 2026-10-12</div>
+    <h2 class="story-headline">
+      <span class="headline-accent">Yandexクラウド</span><br>3番目のDCが<br>障害——536pt
+    </h2>
+    <div class="story-body">
+      「3rd Yandex Cloud Data Center Was Hit」がHNで536ポイント・642コメントを集めています。Yandex Cloudのステータスページが公開した障害報告によれば、同社の3番目のデータセンターが深刻な障害を受けました。冗長構成を前提とした3番目のDCまで落ちるというシナリオはクラウドインフラの信頼性設計に根本的な問いを投げかけています。
+    </div>
+    <div class="blue-grid">
+      <div class="blue-card">
+        <div class="blue-card-label">何が起きたか——3番目のDCまで落ちた意味</div>
+        <div class="blue-card-value">冗長性設計の前提が崩れた</div>
+        <div class="blue-card-sub">Yandex Cloudは複数のアベイラビリティゾーン（AZ）を持ち、通常2番目・3番目のDCはフォールバック先として機能する。今回の障害は1番目・2番目に続いて3番目のDCまで影響が及んだことを意味する。障害の連鎖（カスケード障害）か、共通の物理的・環境的原因（電力グリッド障害・地震・火災等）か、あるいは論理的な設定ミスが全DCに波及したのかが焦点。Yandexのインシデントレポート（status.yandex.cloud）は障害の規模と影響範囲を記録しており、実際にどの程度のサービスが停止したかが確認できる。</div>
+      </div>
+      <div class="blue-card">
+        <div class="blue-card-label">クラウド設計への含意——3番目のDCが落ちる確率をゼロと仮定してはいけない</div>
+        <div class="blue-card-value">地理的分散の重要性が改めて浮上</div>
+        <div class="blue-card-sub">「2つのDCが落ちても3つ目は大丈夫」という前提でクラウドアーキテクチャを設計している組織は多い。この障害はその前提を揺るがす。特に重要な教訓: (1) 単一クラウドプロバイダー内の複数AZは共通のリスク（電力供給、ネットワーク接続、運用ミス）を共有する。(2) 真の冗長性には複数クラウドプロバイダー（マルチクラウド）または完全に独立したオンプレミス構成が必要。(3) 3番目のDCまで落ちる「ブラックスワンシナリオ」のSLAと復旧計画を持っていたか。HNでは「これがAWS/GCPでも起きうる問題だ」という議論が中心になっている。</div>
+      </div>
+      <div class="blue-card">
+        <div class="blue-card-label">HNの反応——「これはYandex固有の問題か、業界全体の問題か」</div>
+        <div class="blue-card-value">642コメントの激論</div>
+        <div class="blue-card-sub">「Yandexは現在の政治的・経済的環境下でインフラ投資が困難な状況にあり、これはYandex固有の問題だ」という見方と「いや、任意のクラウドプロバイダーでも3DC全落ちは理論上あり得る——むしろ我々のSRE文化が楽観的すぎる」という反論が対立。「642コメントというのは障害報告にしては異常に多い——Yandexというブランドの特殊性とロシアのIT産業への関心がある」という観察も。「実際の技術的RCAが明かされるかが今後の注目点」という声も多い。AWS us-east-1の大規模障害と並ぶ「教科書的障害事例」になる可能性があるとして、SREコミュニティがリアルタイムで追っている。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: status.yandex.cloud</span>
+      <span>↑536pt · 💬642+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://status.yandex.cloud/en/incidents/2136" target="_blank">インシデントを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50040547" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="yandex-cloud-datacenter-hit" data-type="like" onclick="toggleFlag('yandex-cloud-datacenter-hit','Yandexクラウド3番目のDC障害','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="yandex-cloud-datacenter-hit" data-type="dislike" onclick="toggleFlag('yandex-cloud-datacenter-hit','Yandexクラウド3番目のDC障害','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+    <div class="story-1-accent"></div>
+  </div>
+</section>
+
+<!-- ═══ STORY 2 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-2" id="s2">
+  <div class="story-num">02</div>
+  <div class="story-inner">
+    <div class="story-kicker">オープンソース / Android / プライバシー / LineageOS / カスタムROM — 2026-10-12</div>
+    <h2 class="story-headline">
+      <span style="color:#20d8f0">LineageOS</span> 24.0<br>プライバシーの砦が<br>Android 14ベースへ
+    </h2>
+    <div class="story-body">
+      「LineageOS 24.0」がHNで391ポイント・163コメントを集めています。Androidのカスタムディストリビューションとして最大の実績を持つLineageOSが、Android 14（LineageOS 21）に続くメジャーリリースLineageOS 24.0を公開しました。Google依存を避けながらAndroidデバイスを長期間使い続けたいユーザーにとって重要なアップデートです。
+    </div>
+    <div class="teal-items">
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">LineageOS 24.0の主要変更点——何が新しいか</div>
+          <div class="teal-text">LineageOS 24.0（Android 15ベース）の主要更新: (1) プライバシーガード機能の強化——アプリへの権限付与をより細かく制御。特定のアプリがバックグラウンドでの位置情報・センサーアクセスを要求するたびに通知する。(2) Trust機能の拡張——デバイスのセキュリティ状態（SELinuxステータス・ルートアクセス・署名検証）を一元管理する画面が刷新。(3) 対応デバイスリストの更新——古いPixelシリーズ・Samsung Galaxy S/A系・Motorola等の継続サポートと新規対応機種の追加。(4) マイクロGサービス（microG）との統合改善——Google Playを使わずにGMapやPush通知を使うための互換レイヤーが洗練された。</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">プライバシーの観点——LineageOSを使う意味</div>
+          <div class="teal-text">LineageOSの存在意義は「メーカーとGoogleのサポートが切れた後もAndroidデバイスを安全に使い続ける」こと。具体的なメリット: (1) セキュリティパッチ——Googleが公式サポートを終えたデバイスにも月次パッチを提供。古いPixel 4（2019年発売、公式サポート終了済み）でも最新のセキュリティアップデートが受けられる。(2) ブロートウェア除去——メーカーや通信キャリアのプリインストールアプリ・監視ソフトウェアを含まないクリーンインストール。(3) Google依存低減——microGを組み合わせることでGoogle Playサービスなしでも多くのアプリが動作。(4) 延命効果——5年前のハイエンド機がセキュリティ的にも使える状態で動き続ける環境面でのメリット。</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">HNの反応——「スマホを5年以上使い続けるための現実的選択肢」</div>
+          <div class="teal-text">「LineageOSの真の価値は2020年代に入っても古いデバイスが安全に動き続けることを可能にする点だ——電子廃棄物削減にも貢献する」という評価が多い。「インストールのハードルが高い（unlocked bootloaderが必要・Samsungではメーカー保証無効化など）ため一般ユーザーには推奨しにくいが、テクニカルユーザーには最善の選択肢だ」という現実的な評価も。「GrapheneOSやCalyxOSとの比較でLineageOSのポジションは『対応デバイス数が最も広い』という点に尽きる」という分析も。「フラッシュした後のメインブラウザとしてFirefox + uBlock Origin + Vanadium（GrapheneOS由来）の選択肢についての議論」も活発。</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: lineageos.org</span>
+      <span>↑391pt · 💬163+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://lineageos.org/Changelog-32/" target="_blank">リリースノートを読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50040276" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="lineageos-24-release" data-type="like" onclick="toggleFlag('lineageos-24-release','LineageOS 24.0リリース','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="lineageos-24-release" data-type="dislike" onclick="toggleFlag('lineageos-24-release','LineageOS 24.0リリース','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 3 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-3" id="s3">
+  <div class="story-num">03</div>
+  <div class="story-inner">
+    <div class="story-kicker">開発ツール / ドキュメント / UX / README / ユーザーテスト — 2026-10-12</div>
+    <h2 class="story-headline">
+      READMEを<br>人に読んでもらった<br><span style="color:#E84040">ドキュメントUXの現実</span>
+    </h2>
+    <div class="story-body">
+      「I paid people to try and follow my README」がHNで355ポイント・184コメントを集めています。開発者のEdent（Terence Eden）が、自分のプロジェクトのREADMEを見知らぬ人に実際に読んで試してもらうためにお金を払い、そのセッションを観察した体験記です。「自分で書いたドキュメントは自分には分かりやすく見えるが、他人には全く通じない」という普遍的な問題が鮮明に描かれています。
+    </div>
+    <div class="red-items">
+      <div class="red-item">
+        <div class="red-label">実験の詳細——何を頼んで何が分かったか</div>
+        <div class="red-text">EdenはFiverr等のクラウドソーシングで「私のREADMEを読んでセットアップを試してください」と依頼し、画面録画付きでセッションを記録した。主な発見: (1) 「前提知識の壁」——「Node.jsが必要です」とだけ書いてあっても、特定のバージョンが必要であることや、インストール方法へのリンクがないと詰まる。(2) 「曖昧なコマンド」——「設定ファイルを編集してください」だけでは「どのエディタで」「どのパスに」「どの書式で」が伝わらない。(3) 「エラーメッセージの扱い」——エラーが出た時にREADMEに戻るべきか、先に進むべきか、別のツールで調べるべきかが分からず途方に暮れる人が多かった。(4) 「成功の定義が不明」——「動いた」状態が何かを事前に示していないと、何を確認すれば成功かが分からない。</div>
+      </div>
+      <div class="red-item">
+        <div class="red-label">実践的な改善策——README UXの7つの原則</div>
+        <div class="red-text">この実験から導き出されるREADME改善のポイント: (1) 前提条件セクションをトップに置き、バージョン番号まで明記。(2) コピペで実行できるコマンドブロックを使い「どこを変えるべきか」を明示（例：&lt;YOUR_API_KEY&gt;形式）。(3) 「これが動いていれば成功」という確認方法を示す（期待される出力例を記載）。(4) よくあるエラーとその解決法をFAQセクションに。(5) スクリーンショットや動画は「文字で説明しにくい状態」を示すためだけに使う。(6) 「初めて触る人」向けの最短パスと「詳しく知りたい人」向けの詳細を分離。(7) 定期的に「初めてのユーザー」に試してもらう——たとえ1人でも発見は大きい。</div>
+      </div>
+      <div class="red-item">
+        <div class="red-label">HNの反応——「自分のドキュメントは呪われている」</div>
+        <div class="red-text">「知識の呪い（The Curse of Knowledge）——自分が知っていることは他人も知っているはずと無意識に仮定してしまう認知バイアス——がREADMEに完璧に現れている」という指摘が最も多くいいねされたコメント。「Claude/ChatGPTに『初心者目線でこのREADMEの問題点を指摘してください』と頼むのが手軽な代替手段になっている」という現代的なコメントも。「テストユーザーに実際にお金を払ったという行動力が素晴らしい——多くの開発者は『分かりにくいとは思うけど』で終わらせてしまう」という称賛も。内輪受けのREADMEを書いてしまうという問題はOSSプロジェクトに限らず企業内ドキュメントでも全く同じで「あるある過ぎて辛い」という反応が絶えない。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: shkspr.mobi</span>
+      <span>↑355pt · 💬184+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://shkspr.mobi/blog/2026/10/i-paid-people-to-try-and-follow-my-readme/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50042219" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="readme-usability-test" data-type="like" onclick="toggleFlag('readme-usability-test','READMEユーザビリティテスト体験記','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="readme-usability-test" data-type="dislike" onclick="toggleFlag('readme-usability-test','READMEユーザビリティテスト体験記','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 4 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-4" id="s4">
+  <div class="story-num">04</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / 思考 / 開発者 / LLM / 認知 / 哲学 — 2026-10-12</div>
+    <h2 class="story-headline">
+      「申し訳ないが<br>あなたはまだ<br><span style="color:#30C060">考えなければならない」</span>
+    </h2>
+    <div class="story-body">
+      「I'm sorry, but you still have to think」がHNで285ポイント・125コメントを集めています。AIツールが開発作業の多くを代替できるようになった今、「AIに任せればいい」という姿勢がいかに危険かを論じたブログ記事です。LLMの出力を批判的に評価するためには、人間側が十分な思考能力と専門知識を維持していなければならないという主張が開発者コミュニティの共感を集めています。
+    </div>
+    <div class="green-items">
+      <div class="green-item">
+        <div class="green-label">著者の主張——AIは思考のアウトソースではなく思考のツール</div>
+        <div class="green-text">著者（drogus）の核心的な主張: AIは「人間の思考を代替するもの」ではなく「思考を加速するツール」である。だが多くの開発者がこの区別を失いつつある。具体例として: (1) LLMが書いたコードのレビューをLLMに依頼する——「LLMがLLMのエラーを見つけられるとは限らない。特に体系的なバイアスは同じモデルには見えない」。(2) 「これで動きますか？」とLLMに聞いて「はい」と言われたら信頼する——LLMは自信を持って間違えることがある。(3) 問題定義をLLMに任せる——問題を正しく定義する能力こそ最も人間が維持すべきスキル。AIを使うほど、人間側の「AIの出力を評価する能力」が重要になるという逆説がある。</div>
+      </div>
+      <div class="green-item">
+        <div class="green-label">具体的に何を維持すべきか——3つの能力</div>
+        <div class="green-text">著者が「AIに任せてはいけない思考の領域」として挙げているもの: (1) 問題定義——「何を解くべきか」を特定する能力。LLMは与えられた問題を解くことに優れているが、間違った問題を解いていることを教えてくれない。(2) 品質判断——「これで十分か」を判断するための基準を自分で持つこと。「AIがOKと言ったからOK」では基準をAIに委譲してしまっている。(3) 因果関係の理解——「なぜそうなるのか」を理解すること。LLMのコードが動いても「なぜ動くのか」を理解せずにコピーすると、変形問題に対応できない。これらは使わなければ衰える筋肉のようなもの——AIを使えば使うほど、意識的に鍛える機会を作る必要がある。</div>
+      </div>
+      <div class="green-item">
+        <div class="green-label">HNの反応——「これはLLMアンチではなく最も重要なLLM利用原則だ」</div>
+        <div class="green-text">「この記事はLLMを批判しているのではなく、LLMを最も効果的に使うための前提条件を述べている——LLMが強力であるほど、人間側の評価能力が重要になる」という読みが多い。「ジュニア開発者にとってのリスクが大きい——経験を積む前にAIに頼りすぎると、AIの出力を評価する能力が育たないまま成長してしまう」という懸念も。「10x engineerの定義が変わった——かつては実装速度だったが今は『AIの出力をどれだけ速く正確に評価・統合できるか』になっている」という観察も。Claude Code等のAIコーディングアシスタントを日常使いしているHNユーザーには特に刺さる内容で、「自分もこの罠に気づかず入っていた」という反省コメントが目立つ。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: itsallaboutthebit.com</span>
+      <span>↑285pt · 💬125+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://itsallaboutthebit.com/i-am-sorry-but-you-still-have-to-think/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50043689" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="you-still-have-to-think" data-type="like" onclick="toggleFlag('you-still-have-to-think','AI時代の思考維持論','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="you-still-have-to-think" data-type="dislike" onclick="toggleFlag('you-still-have-to-think','AI時代の思考維持論','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 5 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-5" id="s5">
+  <div class="story-num">05</div>
+  <div class="story-inner">
+    <div class="story-kicker">数学 / AI / テレンス・タオ / 研究 / 未来 / Caltech — 2026-10-12</div>
+    <h2 class="story-headline">
+      テレンス・タオ<br><span style="color:#8050E0">Math 2.0</span><br>AIと数学の未来を語る
+    </h2>
+    <div class="story-body">
+      「Terence Tao: Math 2.0 [pdf]」がHNで275ポイント・329コメントを集めています。フィールズ賞受賞者で現代最高の数学者の一人テレンス・タオが、Caltechで行った講演「Math 2.0」のスライドが公開されました。AIが数学研究をどう変えるか、形式証明ツール（Lean等）の普及が数学の実践に何をもたらすかについての洞察に富んだ講演です。
+    </div>
+    <div class="purple-items">
+      <div class="purple-item">
+        <div class="purple-label">「Math 2.0」とは何か——タオの主張の核心</div>
+        <div class="purple-text">タオのスライドが描く「Math 2.0」の世界: 現在の数学研究（Math 1.0）は個人または小グループが紙と鉛筆・TeX文書で行う閉じた営みだが、「Math 2.0」ではこれが根本的に変わる。(1) 形式証明（Lean/Coq/Isabelle等）による「機械検証可能な証明」の普及——「人間が読んで理解できる」から「コンピュータが100%検証できる」証明へ。(2) LLMが形式証明の補助ツールとして機能——タオ自身がLeanとClaude/GPT-4を組み合わせた実験的な研究プロセスを試している。(3) 大規模な協調研究——Polymath Projectの延長として、世界中の数学者が同一の形式証明基盤で共同作業できる環境。(4) 数学オリンピックのAI解法レベルが急速に向上しており、「ルーチンな数学問題」はまもなくAIが担う。</div>
+      </div>
+      <div class="purple-item">
+        <div class="purple-label">タオ自身のAI活用実験——形式証明とLLMの組み合わせ</div>
+        <div class="purple-text">タオは自らの研究でAIを試している数学者として知られている。具体的な活用事例として: (1) Lean 4での形式証明作成においてLLMが「タクティクス（証明ステップ）の候補」を提案するアシスタントとして機能している。(2) 「証明の核心的アイデアは人間が持つ——AIはその周辺の機械的なステップの埋め合わせに使う」という役割分担。(3) 数学の直感的な発見（どの補題が重要か、どのアプローチが有望か）はまだ人間の専門知識が必要という認識。タオの見方は「数学はまもなく誰でもできるものになる」ではなく「AIは最高峰の研究者の研究速度を大幅に上げるが、最高峰の研究者が不要になるわけではない」という慎重かつ楽観的なもの。</div>
+      </div>
+      <div class="purple-item">
+        <div class="purple-label">HNの反応——329コメントの高質な数学・AI議論</div>
+        <div class="purple-text">「タオのような最高峰の数学者がLLMを真剣に試しているという事実自体が重要なシグナルだ」という反応が多い。「Lean/Coq等の形式証明ツールはHaskell的な『学習コストが高いが一度理解すれば強力』なツールだったが、LLMによるアシストで入門障壁が下がっている」という観察も。「Math 2.0が実現すると、数学的に正しい証明が大量生産されるが、人間が理解できない証明が増えていく——これは科学的知識として有効か」という哲学的問いも。「四色定理・フェルマーの最終定理等の歴史的難問が人間の理解なしにAIで解かれるようになったとき、数学的証明の意味は何か」という根本的な問いが議論の深みを増している。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: teorth.github.io</span>
+      <span>↑275pt · 💬329+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://teorth.github.io/tao-web/slides/math-2-0-caltech-2026.pdf" target="_blank">スライドを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50043026" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="terence-tao-math-2" data-type="like" onclick="toggleFlag('terence-tao-math-2','テレンス・タオ Math 2.0 講演','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="terence-tao-math-2" data-type="dislike" onclick="toggleFlag('terence-tao-math-2','テレンス・タオ Math 2.0 講演','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 6 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-6" id="s6">
+  <div class="story-num">06</div>
+  <div class="story-inner">
+    <div class="story-kicker">セキュリティ / シェル / PATH / チルダ / Linux / 開発ツール — 2026-10-12</div>
+    <h2 class="story-headline">
+      PATHの<span style="color:#20B0D0">~（チルダ）</span>は<br>ホームでは<br>ないかもしれない
+    </h2>
+    <div class="story-body">
+      「The tilde in your PATH may not be your HOME」がHNで193ポイント・133コメントを集めています。Linuxのシェルで`$PATH`に`~`や`~/bin`を含めることが一般的に行われていますが、これが特定の状況下でセキュリティ上の問題になり得ることを解説した技術記事です。「`~`は常に`$HOME`と同じではない」という知られざる動作の詳細が技術者の注目を集めました。
+    </div>
+    <div class="cyan-items">
+      <div class="cyan-item">
+        <div class="cyan-label">技術的詳細——なぜ ~ が $HOME にならないことがあるか</div>
+        <div class="cyan-text">シェル（Bash/Zsh）での`~`の展開ルール: 通常`~`は`$HOME`に展開されるが、これが成立しない状況が存在する。(1) `$PATH`への追加時——`export PATH="$PATH:~/bin"` は二重引用符内では`~`がシェル展開されない（変数展開はされるが、チルダ展開はされない）。結果として`~/bin`という文字列がそのままPATHに入り、コマンド実行時に展開が起きるかどうかはシェルの実装次第。(2) `sudo`環境——sudoはデフォルトで`$HOME`を変更する（root/別ユーザーのホームになる）。この状態で`~`がPATHに入っているとルートのホームを探しに行く。(3) `su`と`su -`の違い——`su`はHOMEを変えないが`su -`はログインシェルとして起動しHOMEが変わる。セキュリティ的には「root権限で実行するスクリプトのPATHに一般ユーザーのホームが含まれていると危険」というシナリオが問題。</div>
+      </div>
+      <div class="cyan-item">
+        <div class="cyan-label">実際のセキュリティリスクと対策</div>
+        <div class="cyan-text">このPATH/チルダ問題が実際にリスクになるシナリオ: (1) 権限昇格——root権限のプロセスが一般ユーザーのホームディレクトリ内の`bin/`を参照する場合、一般ユーザーが悪意のある実行ファイルを置くことでroot実行が可能になる（ローカル権限昇格）。(2) sudoのPATH継承——`NOPASSWD`設定のsudo + PATH継承が組み合わさると特に危険。対策として: (1) PATHには`~`や`$HOME`を使わず絶対パス（/home/username/bin）を使う。(2) sudoersファイルで`secure_path`を設定しsudo実行時のPATHを明示的に制限。(3) 重要なスクリプトの先頭で`PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin`と明示的に設定する。実際に悪用される頻度は低いが、知っておくべきLinuxの挙動の一つ。</div>
+      </div>
+      <div class="cyan-item">
+        <div class="cyan-label">HNの反応——「シェルの闇を照らす良記事」</div>
+        <div class="cyan-text">「Bashのチルダ展開のルールは複数の場所に書いてあるが、こんなにわかりやすく整理されたのは初めて見た」という評価が多い。「私も10年前に~をPATHに入れていたが理由を深く考えたことがなかった——今日改めてdotfilesを見直した」という行動報告も。「macOSのZshデフォルト環境でも同じ問題が成立するかを検証したコメント」もあり。「正直このような問題は実際にシェルをハードに使うユーザーより、安易にStack Overflowのdotfiles設定をコピーしているユーザーが多い——それこそが問題の本質」という指摘も。シェルスクリプトのセキュリティは見過ごされやすく、この記事はそれを可視化する良い事例。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: disconnect3d.pl</span>
+      <span>↑193pt · 💬133+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://disconnect3d.pl//2026/10/02/dont-put-tilde-in-your-path/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50042425" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="tilde-in-path" data-type="like" onclick="toggleFlag('tilde-in-path','PATHのチルダはホームではない','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="tilde-in-path" data-type="dislike" onclick="toggleFlag('tilde-in-path','PATHのチルダはホームではない','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 7 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-7" id="s7">
+  <div class="story-num">07</div>
+  <div class="story-inner">
+    <div class="story-kicker">プライバシー / 消費者保護 / NYC / サブスクリプション / UX / 規制 — 2026-10-12</div>
+    <h2 class="story-headline">
+      NYC「Click to Cancel」<br>規則が施行——<br><span style="color:#E88040">解約UXが変わる</span>
+    </h2>
+    <div class="story-body">
+      「NYC's "Click to Cancel" rule is now in effect」がHNで270ポイント・124コメントを集めています。ニューヨーク市が施行した「Click to Cancel」規則により、サブスクリプションサービスはオンラインで申し込んだものはオンラインで同じくらい簡単に解約できなければならなくなりました。FTCが推進している連邦レベルの規制の先行実施として注目されています。
+    </div>
+    <div class="amber-items">
+      <div class="amber-item">
+        <div class="amber-label">規則の内容——何が義務化されたか</div>
+        <div class="amber-text">NYC「Click to Cancel」規則の主要要件: (1) キャンセルの容易さ——申し込みと同じ手段で解約できること。Webで申し込んだならWeb上で解約完了できる必要がある（電話のみの解約は違反）。(2) 解約フローの単純さ——意図的に複雑化した「ダークパターン」（解約ボタンを見つけにくくする、確認画面を何重にも重ねる等）の禁止。(3) 解約完了の明示——解約が完了したことを明確に通知する義務。(4) ウィンバック試みの制限——解約フロー中に割引オファーや利点説明を1回以上挿入することの規制。NYC内でビジネスを行うすべてのサブスクリプションサービスが対象であり、Spotify・Netflix・Adobe等の大手も含む。違反には最高500ドルの罰金（件数が積み重なると大きな額になり得る）。</div>
+      </div>
+      <div class="amber-item">
+        <div class="amber-label">ダークパターン解約の歴史——なぜここまで来たか</div>
+        <div class="amber-text">サブスクリプションの解約困難問題は長年の消費者問題だった。代表的なダークパターン事例: (1) AmazonプライムはWebUIから解約する場合6〜7クリック必要、電話なら1クリックで申し込めるのに解約はWebのみ（逆も然り）という非対称。(2) Adobe Creative Cloudは年間プラン中途解約に高額のキャンセル料がかかるが、申し込み時に小さなフォントで表示される。(3) 「解約を完了するには会員ID番号が必要です」と言って電話口で長時間待たせる手法。FTC（連邦取引委員会）はNYCに先行して2024年に全国版「Click to Cancel」規則を最終化しており、NTCのnyc規則はその地方版として早期施行された。</div>
+      </div>
+      <div class="amber-item">
+        <div class="amber-label">HNの反応——「設計者への責任論」と「欧州との比較」</div>
+        <div class="amber-text">「このような規制が必要な背景には、インターフェース設計者が意図的に解約を難しくするよう指示されてきた歴史がある——UXデザイナーに職業倫理の問題として語られるべき」という意見が多い。「EUのDigital Services Act / Digital Markets Actは既に類似規制を含んでいる——米国はEUに約5年遅れている」という比較も。「Beehiiv・Substack・Shopify等のSaaS開発者は解約フローの設計を今すぐ見直すべき」という実践的アドバイスも。「NYC規則の執行能力が問題——500ドルの罰金では大手企業には全く抑止力にならない。クラスアクション訴訟との組み合わせがあって初めて機能する」という法律的観点も。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: nyc.gov</span>
+      <span>↑270pt · 💬124+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.nyc.gov/main/click-to-cancel" target="_blank">規則を確認する →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50045946" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="nyc-click-to-cancel" data-type="like" onclick="toggleFlag('nyc-click-to-cancel','NYC Click to Cancel規則施行','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="nyc-click-to-cancel" data-type="dislike" onclick="toggleFlag('nyc-click-to-cancel','NYC Click to Cancel規則施行','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 8 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-8" id="s8">
+  <div class="story-num">08</div>
+  <div class="story-inner">
+    <div class="story-kicker">開発ツール / macOS / 音声入力 / Whisper / OSS / Show HN — 2026-10-12</div>
+    <h2 class="story-headline">
+      BetterWispr——<br>無料・OSSの<br><span style="color:#D4A820">Mac音声入力ツール</span>
+    </h2>
+    <div class="story-body">
+      「Show HN: BetterWispr – Free, open-source dictation for Mac」がHNで132ポイント・81コメントを集めています。macOS向けの無料・オープンソースな音声入力ツールBetterWisprが公開されました。有料のWispr Flow（月額14ドル〜）のオープンソース代替として、OpenAI Whisperをローカルで動かしてシステム全体のどこでも音声入力できる機能を提供しています。
+    </div>
+    <div class="gold-items">
+      <div class="gold-item">
+        <div class="gold-label">BetterWisprとは何か——機能と差別化ポイント</div>
+        <div class="gold-text">BetterWispr（betterwispr.com）の主な機能: (1) システムワイド音声入力——ブラウザ・テキストエディタ・Slack等、macOS上のどのテキストフィールドでも使える。ホットキーを押しながら話し、離すと即座にテキスト入力される「Push-to-Talk」方式。(2) ローカル動作——OpenAI Whisperをローカルで実行するため、音声データがクラウドに送信されない。プライバシーに敏感なユーザーに適している。(3) 完全無料・MIT License——Wispr Flowや竜の口授（Dragon等）の商用製品の代替として位置づけ。(4) Apple Siliconへの最適化——M1/M2/M3のNeural Engineを使ったWhisperの高速推論。日本語・英語を含む多言語対応。コードを書く際に長いコメントや仕様を音声で素早く入力するといったユースケースに特に有用。</div>
+      </div>
+      <div class="gold-item">
+        <div class="gold-label">音声入力開発ツール活用の可能性——コーディングでの使い方</div>
+        <div class="gold-text">開発者向けの音声入力活用シナリオ: (1) AIプロンプト入力——Claude/ChatGPTに長い指示を音声で入力する。タイピングより速く、考えをそのまま出せる。(2) コードコメント・ドキュメント作成——「この関数は...するためのもので...」と話しながらJSDocコメントを書く。(3) コミットメッセージ・PR説明——変更の意図を音声で説明してAIに整形してもらう。(4) バグレポート・Issueの記述——状況説明を音声で素早く入力。実際BetterWisprのようなツールの最大の価値は「タイピングが面倒な長文インプット」を音声で加速できることにある。ClaudeやGPT-4との組み合わせで「話すだけでAIに複雑な指示ができる」ワークフローが実現する。</div>
+      </div>
+      <div class="gold-item">
+        <div class="gold-label">HNの反応——Wispr Flow有料版との比較と「なぜ無料で作ったか」</div>
+        <div class="gold-text">「Wispr Flowは素晴らしいが月14ドルは小さくない金額だ——BetterWisprが同等の機能を無料で提供するなら乗り換えを検討する」という反応が多い。「ローカル動作という点でWispr Flowより優れている面がある——医療・法務関係者がWispr FlowをプライバシーリスクからNGにしていたケースでもBetterWisprなら使えるかもしれない」という指摘も。「Whisperのローカル動作はM2/M3では実用速度だがM1は少し遅い——作者がコメントで対応済みWERのベンチマークを共有」。「なぜ無料でOSSにしたか」という質問に作者kartik017が「音声入力のアクセシビリティを高めるためにプレミアム機能をロックしたくなかった」と回答しているのが印象的。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: betterwispr.com</span>
+      <span>↑132pt · 💬81+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://betterwispr.com/" target="_blank">サイトを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50042333" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="betterwispr-dictation-mac" data-type="like" onclick="toggleFlag('betterwispr-dictation-mac','BetterWispr Mac音声入力OSS','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="betterwispr-dictation-mac" data-type="dislike" onclick="toggleFlag('betterwispr-dictation-mac','BetterWispr Mac音声入力OSS','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 9 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-9" id="s9">
+  <div class="story-num">09</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / LLM / Karpathy / 能力評価 / 認識ギャップ — 2026-10-12</div>
+    <h2 class="story-headline">
+      LLM能力理解の<br>ギャップが拡大——<br><span style="color:#5878C8">Karpathyが警告</span>
+    </h2>
+    <div class="story-body">
+      「The gap in shared understanding of LLM capability is widening」がHNで83ポイント・64コメントを集めています。Andrej Karpathyがツイートした「LLMの能力についての共有された理解のギャップが広がっている」というテーゼが議論を呼んでいます。最前線でAIを使う人々と、そうでない人々の間でLLMへの認識の乖離が急速に広がっているという観察です。
+    </div>
+    <div class="slate-items">
+      <div class="slate-item">
+        <div class="slate-label">Karpathyの主張——「2つの世界」の分断</div>
+        <div class="slate-text">Karpathyが指摘するLLM能力認識のギャップ: 「毎日LLMと深く作業している人々」と「LLMをほとんど使わないか表面的にしか使っていない人々」の間で、LLMが何ができてどう使うべきかの認識が急速に乖離している。前者のグループは「LLMは既にソフトウェアエンジニアリングの多くの作業で人間を上回っており、使い方次第で10〜100倍の生産性向上が現実になっている」と体験的に知っている。後者のグループは「LLMはまだ玩具レベルで実用的ではない」か「たまに使うが大したことはない」という認識にとどまっている。この認識ギャップは時間とともに「実際に差がつく力」に変換されると彼は主張する。</div>
+      </div>
+      <div class="slate-item">
+        <div class="slate-label">認識ギャップが生まれる理由——「使い方次第」の非線形効果</div>
+        <div class="slate-text">なぜ同じツールを使っていても認識がこれほど分かれるのか。主な要因: (1) 使い方の習熟度——LLMは「Google検索のように短いクエリを投げる」使い方では力が出ない。長文コンテキスト・明確な指示・反復改善（プロンプトエンジニアリング）を使いこなすことで能力が劇的に変わる。(2) タスクの種類——LLMが特に強いタスク（コード生成・要約・翻訳・ブレインストーミング）でしか試さないと、苦手分野（長期整合性・複雑推論・リアルタイム情報）との差が実感できない。(3) ハルシネーション恐怖——初期にハルシネーションを経験した後「信用できない」という印象が固定化する。ハルシネーションを前提とした使い方（検証ステップの組み込み）を習得すると評価が変わる。</div>
+      </div>
+      <div class="slate-item">
+        <div class="slate-label">HNの反応——「差はすでに経済的な格差に変換されつつある」</div>
+        <div class="slate-text">「このギャップはすでに仕事の成果と昇進速度という形で実際の経済格差に転換しつつある——『LLMを使いこなせるエンジニア』と『そうでないエンジニア』の生産性差はもう2倍を超えているケースもある」という観察が多い。「企業レベルでも同様で、AIネイティブなスタートアップと旧来型の企業の生産性差が可視化されてきた」という指摘も。「ただしKarpathyの主張は自分の周囲（AI研究者・バレーのエンジニア）のバブルを前提にしている——中小企業・非IT産業・教育現場ではLLMの普及率自体がまだ低い」という反論も。認識ギャップを縮小するための「AI onboarding」をどう設計するかという実践的な議論も。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: twitter.com/karpathy</span>
+      <span>↑83pt · 💬64+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://twitter.com/karpathy/status/2109361546505966046" target="_blank">ツイートを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50047422" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="llm-capability-gap" data-type="like" onclick="toggleFlag('llm-capability-gap','LLM能力認識ギャップKarpathy','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="llm-capability-gap" data-type="dislike" onclick="toggleFlag('llm-capability-gap','LLM能力認識ギャップKarpathy','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 10 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-10" id="s10">
+  <div class="story-num">10</div>
+  <div class="story-inner">
+    <div class="story-kicker">ハードウェア / 創造 / レトロ / Cray-1 / Mac Mini / クラスター — 2026-10-12</div>
+    <h2 class="story-headline">
+      30台の中古<br>Mac Miniで<br><span style="color:#E04080">Cray-1を再現した</span>
+    </h2>
+    <div class="story-body">
+      「A Cray-1 supercomputer replica from 30 "obsolete" Mac Minis」がHNで53ポイント・24コメントを集めています。Ars Technicaが報じたこのプロジェクトは、リサイクルショップや中古市場で入手した30台のMac Miniを組み合わせ、1970年代のCray-1スーパーコンピュータを外観・演算能力ともに忠実に再現したというユニークな工作です。「廃棄物を創造に変える」という姿勢が開発者コミュニティに刺さりました。
+    </div>
+    <div class="mag-items">
+      <div class="mag-item">
+        <div class="mag-label">プロジェクトの詳細——どうやってCray-1を再現したか</div>
+        <div class="mag-text">Cray-1（1976年）は当時世界最速のスーパーコンピュータで、独特の円筒形の外観と座席一体型の設計で知られている。今回のプロジェクトの構成: (1) ハードウェア——中古市場で1台あたり50〜100ドル程度で入手した30台のIntel Mac Mini（M1移行前のモデル）をリング状に配置。外観はCray-1の形状に合わせたカスタムケースに組み込み。(2) 計算能力——MPIを使って30台を並列クラスター化。合計240コア・480スレッドの演算能力はオリジナルCray-1（約160 MFlops）の数万倍。(3) ソフトウェア——Cray-1のアセンブリコードで書かれたデモプログラムを現代のシミュレータを通じて実行し、「同じアルゴリズムを当時のCray-1と同じ精度で解く」デモを実施。外観の再現だけでなく歴史的な計算を追体験できる設計。</div>
+      </div>
+      <div class="mag-item">
+        <div class="mag-label">廃棄されるMac Miniへの新しい視点——30台の調達と環境的意義</div>
+        <div class="mag-text">このプロジェクトの面白い側面の一つは「廃棄寸前のハードウェアの活用」にある。Apple SiliconへのM1移行以降、Intel Mac Miniは企業や学校から大量に廃棄・売却されており、中古市場では1台50ドル以下で買えるケースもある。これらを組み合わせたクラスターの実力: (1) 240コアのHPCクラスターが約3000ドルで構築できる（通常のHPCノードを買えば数十万〜数百万円の世界）。(2) 低消費電力——AppleのIntel版でさえ競合のデスクトップより省電力。クラスター全体の消費電力は数百ワット程度。(3) ファン騒音——Mac Miniは静音設計のため30台並べても許容範囲。「サーバーとして使うのに最適な中古ハードウェアは何か」という視点で新たな選択肢を提示している。</div>
+      </div>
+      <div class="mag-item">
+        <div class="mag-label">HNの反応——「Cray-1の美しさへの再認識」と現代HPC比較</div>
+        <div class="mag-text">「Cray-1のデザインはSeymour Crayによる機能美の極致——円筒形なのは配線長を最小化するため、座席部分はコイル状の電源ケーブルで暖かいからオペレーターが座ることができた——この話を知っている人には特に感動的なプロジェクト」というコメントが最も支持されている。「NVIDIAのH100 1枚で今回の30台クラスター全体を超えるFlopsが出る時代——Cray-1との比較は半世紀でのコンピュータ進化の圧倒的スケールを実感させる」という計算も。「Seymour Crayの設計哲学（ベクトルプロセッサ・単純な命令セット・物理的な配線の最適化）は現代GPUアーキテクチャに直接つながっている——歴史を知ることの価値」という解説も。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: arstechnica.com</span>
+      <span>↑53pt · 💬24+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://arstechnica.com/gadgets/2026/10/a-cray-1-supercomputer-replica-from-30-obsolete-mac-minis/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50028264" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="cray-1-mac-mini-replica" data-type="like" onclick="toggleFlag('cray-1-mac-mini-replica','30台Mac MiniでCray-1再現','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="cray-1-mac-mini-replica" data-type="dislike" onclick="toggleFlag('cray-1-mac-mini-replica','30台Mac MiniでCray-1再現','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ══════════════════════════════════════════════════════════════════════════════════ -->
+<footer class="site-footer">
+  <div class="footer-top">
+    <div class="footer-brand">Morning Edition</div>
+    <div class="footer-meta">
+      Hacker Newsのフロントページから毎朝キュレーションした10本<br>
+      2026年10月12日 — No.147
+    </div>
+    <button class="export-btn" onclick="exportFeedback()">フィードバックをコピー</button>
+  </div>
+  <div class="footer-note">
+    ⭐ 興味あり / ✕ 興味なし ボタンのフィードバックは次号の選定に反映されます。Chrome/Edgeではファイルに自動保存されます。
+  </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  const STORAGE_KEY = 'morning-edition-feedback-v2';
+  let feedback = { liked: {}, disliked: {} };
+  let fileHandle = null;
+
+  function loadFromStorage() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (raw) feedback = JSON.parse(raw);
+    } catch(e) {}
+  }
+
+  function saveToStorage() {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(feedback));
+    } catch(e) {}
+  }
+
+  async function saveToFile(data) {
+    if (!('showSaveFilePicker' in window)) return;
+    try {
+      if (!fileHandle) {
+        fileHandle = await window.showSaveFilePicker({
+          suggestedName: 'feedback.json',
+          types: [{ description: 'JSON', accept: { 'application/json': ['.json'] } }]
+        });
+      }
+      const writable = await fileHandle.createWritable();
+      await writable.write(JSON.stringify(data, null, 2));
+      await writable.close();
+    } catch(e) {}
+  }
+
+  function showToast(msg, isError) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.className = 'toast' + (isError ? ' error' : '');
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2500);
+  }
+
+  function toggleFlag(storyId, storyTitle, type) {
+    const date = '2026-10-12';
+    const entry = { title: storyTitle, date };
+    const opposite = type === 'like' ? 'disliked' : 'liked';
+    const current = type === 'like' ? 'liked' : 'disliked';
+
+    if (feedback[current][storyId]) {
+      delete feedback[current][storyId];
+      showToast('フィードバックを解除しました', false);
+    } else {
+      delete feedback[opposite][storyId];
+      feedback[current][storyId] = entry;
+      showToast(type === 'like' ? '⭐ 興味ありとして記録しました' : '✕ 興味なしとして記録しました', false);
+    }
+
+    feedback.updatedAt = new Date().toISOString();
+    saveToStorage();
+    updateButtonStates();
+    saveToFile(feedback);
+  }
+
+  function updateButtonStates() {
+    document.querySelectorAll('.flag-btn').forEach(btn => {
+      const storyId = btn.dataset.story;
+      const type = btn.dataset.type;
+      const isActive = type === 'like' ? !!feedback.liked[storyId] : !!feedback.disliked[storyId];
+      btn.classList.toggle('active', isActive);
+    });
+  }
+
+  function exportFeedback() {
+    try {
+      navigator.clipboard.writeText(JSON.stringify(feedback, null, 2));
+      showToast('フィードバックをクリップボードにコピーしました', false);
+    } catch(e) {
+      showToast('コピーに失敗しました', true);
+    }
+  }
+
+  loadFromStorage();
+  updateButtonStates();
+</script>
+</body>
+</html>
