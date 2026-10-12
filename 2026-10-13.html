@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Morning Edition — 2026年10月13日</title>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --font: 'M PLUS Rounded 1c', 'Hiragino Sans', 'Noto Sans JP', sans-serif; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); background: #111; color: #fff; overflow-x: hidden; }
+
+    .masthead { background: #fff; color: #000; padding: 3rem 4rem 2.5rem; border-bottom: 6px solid #000; position: relative; overflow: hidden; }
+    .masthead::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: repeating-linear-gradient(90deg, #000 0, #000 12px, transparent 12px, transparent 20px); }
+    .masthead-kicker { font-size: 0.85rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: #777; margin-bottom: 0.6rem; }
+    .masthead-title { font-size: clamp(3.5rem, 9vw, 7.5rem); font-weight: 900; line-height: 0.88; letter-spacing: -0.04em; margin-bottom: 1.8rem; }
+    .masthead-meta { display: flex; gap: 3rem; align-items: baseline; flex-wrap: wrap; }
+    .masthead-date { font-size: 1.5rem; font-weight: 700; }
+    .masthead-subtitle { font-size: 1rem; font-weight: 400; color: #555; max-width: 480px; line-height: 1.5; }
+    .masthead-issue { margin-left: auto; text-align: right; }
+    .masthead-issue span { display: block; }
+    .masthead-issue .iss-label { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: #999; }
+    .masthead-issue .iss-num { font-size: 2.2rem; font-weight: 900; color: #000; }
+
+    .toc { background: #1a1a1a; padding: 1.5rem 4rem; display: flex; gap: 1.5rem; flex-wrap: wrap; border-bottom: 1px solid #333; }
+    .toc a { color: #aaa; text-decoration: none; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; transition: color 0.2s; }
+    .toc a:hover { color: #fff; }
+    .toc-num { color: #555; margin-right: 0.3em; }
+
+    .story { position: relative; overflow: hidden; }
+    .story-inner { max-width: 1200px; margin: 0 auto; padding: 5rem 4rem; position: relative; z-index: 1; }
+    .story-num { font-size: clamp(6rem, 18vw, 16rem); font-weight: 900; line-height: 0.8; letter-spacing: -0.06em; opacity: 0.08; position: absolute; top: 1rem; right: 2rem; user-select: none; }
+    .story-badge { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.35em 0.9em; border-radius: 2px; margin-bottom: 1.5rem; }
+    .direct-badge { background: #FFD700; color: #000; }
+    .story-kicker { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; opacity: 0.6; margin-bottom: 0.8rem; }
+    .story-headline { font-size: clamp(2rem, 5vw, 4rem); font-weight: 900; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+    .story-body { font-size: clamp(1rem, 1.5vw, 1.2rem); font-weight: 400; line-height: 1.8; max-width: 680px; opacity: 0.88; margin-bottom: 2rem; }
+    .story-meta { display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center; font-size: 0.8rem; font-weight: 700; opacity: 0.5; }
+    .story-links { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem; }
+    .story-link { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.6em 1.4em; border-radius: 3px; text-decoration: none; transition: opacity 0.2s, transform 0.15s; }
+    .story-link:hover { opacity: 0.75; transform: translateY(-1px); }
+
+    .feedback-buttons { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .flag-btn { background: none; border: 1px solid currentColor; color: inherit; font-family: var(--font); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.5em 1em; border-radius: 3px; cursor: pointer; opacity: 0.32; transition: opacity 0.2s, background 0.2s, color 0.2s, border-color 0.2s, transform 0.15s; }
+    .flag-btn:hover { opacity: 0.72; transform: translateY(-1px); }
+    .flag-btn.like-btn.active { opacity: 1; background: rgba(255,215,0,0.15); border-color: #FFD700; color: #FFD700 !important; }
+    .flag-btn.dislike-btn.active { opacity: 1; background: rgba(255,60,60,0.12); border-color: #FF4444; color: #FF4444 !important; }
+
+    .toast { position: fixed; bottom: 2rem; right: 2rem; background: #1a1a1a; color: #fff; font-family: var(--font); font-size: 0.82rem; font-weight: 700; padding: 0.75em 1.4em; border-radius: 4px; border-left: 3px solid #00C853; z-index: 9999; opacity: 0; transform: translateY(10px); transition: opacity 0.25s, transform 0.25s; pointer-events: none; box-shadow: 0 4px 24px rgba(0,0,0,0.45); }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    .toast.error { border-left-color: #FF5252; }
+
+    /* Story 1 — White */
+    .story-1 { background: #fff; color: #000; min-height: 90vh; display: flex; flex-direction: column; justify-content: center; }
+    .story-1 .story-num { color: #000; opacity: 0.04; }
+    .story-1 .story-kicker { color: #555; opacity: 1; }
+    .story-1 .story-headline { color: #000; }
+    .story-1 .story-body { color: #111; }
+    .story-1 .story-meta { color: #000; }
+    .story-1 .story-link.primary { background: #1a1a1a; color: #fff; }
+    .story-1 .story-link.secondary { background: #f0f0f0; color: #000; }
+    .story-1 .flag-btn { color: #000; }
+    .story-1-accent { position: absolute; bottom: 0; left: 0; width: 100%; height: 8px; background: linear-gradient(90deg, #0a0a0a, #555, #0a0a0a); }
+    .story-1 .headline-accent { display: inline-block; background: linear-gradient(135deg, #1a1a1a 0%, #555 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .blue-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1.2rem; margin: 2rem 0; max-width: 680px; }
+    .blue-card { border: 2px solid rgba(0,0,0,0.12); background: rgba(0,0,0,0.03); border-radius: 6px; padding: 1.3rem 1.5rem; }
+    .blue-card-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.2em; text-transform: uppercase; color: #333; margin-bottom: 0.4rem; }
+    .blue-card-value { font-size: 1.05rem; font-weight: 900; color: #000; line-height: 1.3; }
+    .blue-card-sub { font-size: 0.75rem; color: #555; margin-top: 0.3rem; line-height: 1.4; }
+
+    /* Story 2 — Dark navy/teal */
+    .story-2 { background: #00080c; color: #b8f0ff; min-height: 80vh; }
+    .story-2::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(0,160,200,0.14) 0%, transparent 65%); }
+    .story-2 .story-num { color: #00A0C8; opacity: 0.07; }
+    .story-2 .story-kicker { color: #20C8E8; opacity: 1; }
+    .story-2 .story-headline { color: #e0f8ff; }
+    .story-2 .story-body { color: #b8f0ff; }
+    .story-2 .story-meta { color: #20C8E8; opacity: 0.5; }
+    .story-2 .story-link.primary { background: #004058; color: #80e8ff; }
+    .story-2 .story-link.secondary { background: rgba(0,160,200,0.08); color: #90d8f0; border: 1px solid rgba(0,160,200,0.22); }
+    .story-2 .flag-btn { color: #b8f0ff; }
+    .teal-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .teal-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(0,160,200,0.07); border-left: 3px solid #00A0C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .teal-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20C8E8; margin-bottom: 0.3rem; }
+    .teal-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 3 — Dark red */
+    .story-3 { background: #0a0000; color: #fff; min-height: 80vh; }
+    .story-3::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(200,20,20,0.16) 0%, transparent 65%); }
+    .story-3 .story-num { color: #C81414; opacity: 0.07; }
+    .story-3 .story-kicker { color: #E84040; opacity: 1; }
+    .story-3 .story-headline { color: #fff; }
+    .story-3 .story-body { color: rgba(255,255,255,0.88); }
+    .story-3 .story-meta { color: #E84040; opacity: 0.5; }
+    .story-3 .story-link.primary { background: #6a0000; color: #fff; }
+    .story-3 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-3 .flag-btn { color: #fff; }
+    .red-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .red-item { background: rgba(200,20,20,0.07); border-left: 3px solid #C81414; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .red-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E84040; margin-bottom: 0.3rem; }
+    .red-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 4 — Dark green */
+    .story-4 { background: #020c04; color: #c8f0d0; min-height: 80vh; }
+    .story-4::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(20,160,70,0.16) 0%, transparent 65%); }
+    .story-4 .story-num { color: #14A046; opacity: 0.07; }
+    .story-4 .story-kicker { color: #30C060; opacity: 1; }
+    .story-4 .story-headline { color: #e0ffe8; }
+    .story-4 .story-body { color: #c8f0d0; }
+    .story-4 .story-meta { color: #30C060; opacity: 0.5; }
+    .story-4 .story-link.primary { background: #063820; color: #80ffb0; }
+    .story-4 .story-link.secondary { background: rgba(20,160,70,0.08); color: #a0e8b0; border: 1px solid rgba(20,160,70,0.22); }
+    .story-4 .flag-btn { color: #c8f0d0; }
+    .green-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .green-item { background: rgba(20,160,70,0.07); border-left: 3px solid #14A046; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .green-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #30C060; margin-bottom: 0.3rem; }
+    .green-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 5 — Dark purple */
+    .story-5 { background: #040010; color: #d8c8ff; min-height: 75vh; }
+    .story-5::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(90,40,200,0.17) 0%, transparent 65%); }
+    .story-5 .story-num { color: #5A28C8; opacity: 0.07; }
+    .story-5 .story-kicker { color: #8050E0; opacity: 1; }
+    .story-5 .story-headline { color: #f0e8ff; }
+    .story-5 .story-body { color: #d8c8ff; }
+    .story-5 .story-meta { color: #8050E0; opacity: 0.5; }
+    .story-5 .story-link.primary { background: #200860; color: #d0a8ff; }
+    .story-5 .story-link.secondary { background: rgba(90,40,200,0.08); color: #c0a0f0; border: 1px solid rgba(90,40,200,0.22); }
+    .story-5 .flag-btn { color: #d8c8ff; }
+    .purple-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .purple-item { background: rgba(90,40,200,0.07); border-left: 3px solid #5A28C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .purple-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #8050E0; margin-bottom: 0.3rem; }
+    .purple-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 6 — Dark cyan */
+    .story-6 { background: #000c10; color: #b8e8f0; min-height: 75vh; }
+    .story-6::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 40%, rgba(0,130,160,0.14) 0%, transparent 65%); }
+    .story-6 .story-num { color: #0080A0; opacity: 0.07; }
+    .story-6 .story-kicker { color: #20B0D0; opacity: 1; }
+    .story-6 .story-headline { color: #e0f4ff; }
+    .story-6 .story-body { color: #b8e8f0; }
+    .story-6 .story-meta { color: #20B0D0; opacity: 0.5; }
+    .story-6 .story-link.primary { background: #003848; color: #80d8f0; }
+    .story-6 .story-link.secondary { background: rgba(0,130,160,0.08); color: #90cce0; border: 1px solid rgba(0,130,160,0.22); }
+    .story-6 .flag-btn { color: #b8e8f0; }
+    .cyan-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .cyan-item { background: rgba(0,130,160,0.07); border-left: 3px solid #0080A0; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .cyan-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20B0D0; margin-bottom: 0.3rem; }
+    .cyan-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 7 — Dark amber */
+    .story-7 { background: #0a0300; color: #ffe0b8; min-height: 75vh; }
+    .story-7::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(210,90,20,0.18) 0%, transparent 65%); }
+    .story-7 .story-num { color: #D05A14; opacity: 0.07; }
+    .story-7 .story-kicker { color: #E88040; opacity: 1; }
+    .story-7 .story-headline { color: #fff0d8; }
+    .story-7 .story-body { color: #ffe0b8; }
+    .story-7 .story-meta { color: #E88040; opacity: 0.5; }
+    .story-7 .story-link.primary { background: #6a2400; color: #ffc880; }
+    .story-7 .story-link.secondary { background: rgba(210,90,20,0.08); color: #ffb870; border: 1px solid rgba(210,90,20,0.22); }
+    .story-7 .flag-btn { color: #ffe0b8; }
+    .amber-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .amber-item { background: rgba(210,90,20,0.07); border-left: 3px solid #D05A14; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .amber-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E88040; margin-bottom: 0.3rem; }
+    .amber-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 8 — Dark gold */
+    .story-8 { background: #080500; color: #fff; min-height: 70vh; }
+    .story-8::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,145,10,0.15) 0%, transparent 65%); }
+    .story-8 .story-num { color: #BE9110; opacity: 0.06; }
+    .story-8 .story-kicker { color: #D4A820; opacity: 1; }
+    .story-8 .story-headline { color: #fff; }
+    .story-8 .story-body { color: rgba(255,255,255,0.88); }
+    .story-8 .story-meta { color: #D4A820; opacity: 0.5; }
+    .story-8 .story-link.primary { background: #604000; color: #ffe070; }
+    .story-8 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-8 .flag-btn { color: #fff; }
+    .gold-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .gold-item { background: rgba(190,145,10,0.07); border-left: 3px solid #BE9110; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .gold-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #D4A820; margin-bottom: 0.3rem; }
+    .gold-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 9 — Slate blue */
+    .story-9 { background: #040810; color: #c8d8f0; min-height: 70vh; }
+    .story-9::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 35%, rgba(50,90,170,0.16) 0%, transparent 65%); }
+    .story-9 .story-num { color: #3258A8; opacity: 0.07; }
+    .story-9 .story-kicker { color: #5878C8; opacity: 1; }
+    .story-9 .story-headline { color: #e8f0ff; }
+    .story-9 .story-body { color: #c8d8f0; }
+    .story-9 .story-meta { color: #5878C8; opacity: 0.5; }
+    .story-9 .story-link.primary { background: #101e50; color: #fff; }
+    .story-9 .story-link.secondary { background: rgba(50,90,170,0.08); color: #b0c8e8; border: 1px solid rgba(50,90,170,0.22); }
+    .story-9 .flag-btn { color: #c8d8f0; }
+    .slate-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .slate-item { background: rgba(50,90,170,0.07); border-left: 3px solid #3258A8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .slate-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #5878C8; margin-bottom: 0.3rem; }
+    .slate-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 10 — Magenta */
+    .story-10 { background: #080004; color: #ffc8e8; min-height: 70vh; }
+    .story-10::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,20,90,0.15) 0%, transparent 65%); }
+    .story-10 .story-num { color: #BE1458; opacity: 0.07; }
+    .story-10 .story-kicker { color: #E04080; opacity: 1; }
+    .story-10 .story-headline { color: #fff0f8; }
+    .story-10 .story-body { color: #ffc8e8; }
+    .story-10 .story-meta { color: #E04080; opacity: 0.5; }
+    .story-10 .story-link.primary { background: #500030; color: #ffb0d8; }
+    .story-10 .story-link.secondary { background: rgba(190,20,90,0.08); color: #f090c0; border: 1px solid rgba(190,20,90,0.22); }
+    .story-10 .flag-btn { color: #ffc8e8; }
+    .mag-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .mag-item { background: rgba(190,20,90,0.07); border-left: 3px solid #BE1458; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .mag-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E04080; margin-bottom: 0.3rem; }
+    .mag-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .site-footer { background: #000; color: #555; padding: 3rem 4rem; display: flex; flex-direction: column; gap: 1.5rem; border-top: 1px solid #222; }
+    .footer-top { display: flex; gap: 2rem; align-items: center; flex-wrap: wrap; justify-content: space-between; }
+    .footer-brand { font-size: 1.4rem; font-weight: 900; color: #fff; }
+    .footer-meta { font-size: 0.75rem; line-height: 1.6; }
+    .export-btn { background: #222; border: 1px solid #444; color: #fff; font-family: var(--font); font-size: 0.8rem; font-weight: 700; padding: 0.7em 1.5em; border-radius: 3px; cursor: pointer; letter-spacing: 0.08em; transition: background 0.2s; }
+    .export-btn:hover { background: #333; }
+    .footer-note { font-size: 0.7rem; opacity: 0.5; }
+
+    @media (max-width: 768px) {
+      .masthead, .toc, .story-inner, .site-footer { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .story-num { display: none; }
+      .masthead-meta { gap: 1rem; }
+      .masthead-issue { margin-left: 0; }
+      .blue-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+<nav style="background:#1a1a1a;border-bottom:1px solid #333;padding:0.55rem 2rem;font-family:'M PLUS Rounded 1c','Hiragino Sans','Noto Sans JP',sans-serif;position:sticky;top:0;z-index:999;">
+  <a href="./index.html" style="color:#aaa;text-decoration:none;font-size:0.8rem;font-weight:700;letter-spacing:0.03em;display:inline-flex;align-items:center;gap:0.4rem;transition:color 0.15s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#aaa'">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    アーカイブへ戻る
+  </a>
+</nav>
+
+<header class="masthead">
+  <div class="masthead-kicker">Hacker News — Morning Edition</div>
+  <h1 class="masthead-title">Morning<br>Edition</h1>
+  <div class="masthead-meta">
+    <div>
+      <div class="masthead-date">2026年10月13日 火曜日</div>
+      <div class="masthead-subtitle">AI・開発ツール・プライバシー・サイエンス — あなたのための10本</div>
+    </div>
+    <div class="masthead-issue">
+      <span class="iss-label">Issue</span>
+      <span class="iss-num">No.148</span>
+    </div>
+  </div>
+</header>
+
+<nav class="toc">
+  <a href="#s1"><span class="toc-num">01</span>Muse Wonder——MetaのAIが創造的推論に挑む</a>
+  <a href="#s2"><span class="toc-num">02</span>Codex CLIが無断でデーモンをインストール——OpenAIの問題</a>
+  <a href="#s3"><span class="toc-num">03</span>GLM-Legal——法律特化AIモデルの登場</a>
+  <a href="#s4"><span class="toc-num">04</span>QGISがAIコントリビューションに一時停止令</a>
+  <a href="#s5"><span class="toc-num">05</span>欧州スーパーの冷蔵庫をハッカーが遠隔解凍——556件の議論</a>
+  <a href="#s6"><span class="toc-num">06</span>AIエージェントはコードを増やすが、ソフトウェアは増やさない</a>
+  <a href="#s7"><span class="toc-num">07</span>オレンジ猫の秘密が60年越しに解明</a>
+  <a href="#s8"><span class="toc-num">08</span>「思考は趣味になる」——AI時代の認知論</a>
+  <a href="#s9"><span class="toc-num">09</span>GoogleのサイトにRCE脆弱性——報奨金9万ドルの詳細</a>
+  <a href="#s10"><span class="toc-num">10</span>Rich Hickey「AIはツールではない」——Clojure作者の主張</a>
+</nav>
+
+<!-- ═══ STORY 1 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-1" id="s1">
+  <div class="story-num">01</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / Meta / 研究 / 創造的推論 / マルチモーダル — 2026-10-13</div>
+    <h2 class="story-headline">
+      <span class="headline-accent">Muse Wonder</span><br>MetaのAIが<br>創造的推論へ——466pt
+    </h2>
+    <div class="story-body">
+      「Muse Wonder」がHNで466ポイント・250コメントを集めています。Meta AIが発表した新しいAI研究成果で、従来の言語モデルとは異なる「創造的推論（Creative Reasoning）」という能力に焦点を当てたモデルです。単なる情報検索や文章生成ではなく、複数のアイデアを組み合わせて新しい概念を生み出す能力を持つとされており、AIの応用範囲が一段と拡大する可能性を示しています。
+    </div>
+    <div class="blue-grid">
+      <div class="blue-card">
+        <div class="blue-card-label">Muse Wonderとは何か——創造的推論AIの実力</div>
+        <div class="blue-card-value">創造とAIの新しい接点</div>
+        <div class="blue-card-sub">MetaのMuse Wonderは、詩・音楽・アートの文脈で「人間が驚くような組み合わせ」を生み出すことに特化したAIモデル。従来のLLMが「学習データに基づく確率的なテキスト生成」に最適化されているのに対し、Muse Wonderは「既存の概念間の予期しない接続」を発見することを目的としている。具体的な能力として: (1) ジャンルを横断したアイデアの結合（例: クラシック音楽理論 × 量子力学の隠喩）、(2) 既存の作品スタイルを混合した新しい表現の提案、(3) 抽象的なプロンプトから具体的な創造的アウトプットの生成。「Muse」はギリシャ神話の芸術・科学の女神から取られており、MetaがAIを単なるビジネスツールから創造的パートナーへと位置づけようとしている姿勢が見える。</div>
+      </div>
+      <div class="blue-card">
+        <div class="blue-card-label">技術的な差別化——何が既存モデルと違うのか</div>
+        <div class="blue-card-value">「Wonder」の中身を分解する</div>
+        <div class="blue-card-sub">Meta AIの研究ブログによれば、Muse Wonderの中核的な差別化要素は「驚き度（Wonderment Score）」という独自のメトリクスにある。これは生成されたアイデアが「人間の期待からどれだけ逸脱しているか」と「それでも意味をなすか」のバランスで計測される。モデルのアーキテクチャとしては: (1) 通常のトランスフォーマーベースのLLMに「概念空間の逸脱モジュール」を追加し、高確率の（平凡な）出力を意図的に避けるサンプリング戦略を採用。(2) 人間のアーティスト・詩人・音楽家とのRLHF（人間フィードバックによる強化学習）で「創造性の質」を定義。(3) マルチモーダル入力（テキスト・画像・音楽スペクトログラム）から統一表現を作り、異なるモダリティ間の創造的接続を可能にしている。業界ではGPT-4oやClaudeのような汎用モデルとは異なる「創造特化」という方向性への関心が高い。</div>
+      </div>
+      <div class="blue-card">
+        <div class="blue-card-label">HNの反応——「実際のAI研究成果か、マーケティングか」</div>
+        <div class="blue-card-value">250コメントの評価は割れた</div>
+        <div class="blue-card-sub">HNでの議論は「創造性のAI定義」を巡る哲学的な論争が中心。「Metaが言う『創造的推論』は結局確率分布の操作に過ぎず、真の意味での創造ではない」という懐疑派と「それを言えば人間の創造性も神経の発火パターンに過ぎない——結果物の質で判断すべき」という実用主義者が対立。技術的なコメントでは「驚き度（Wonderment Score）がどう定義・測定されているかが不透明」「人間アーティストとのRLHFデータセットの多様性が鍵——どのようなアーティストをサンプリングしたか」という疑問も。「Metaはオープンソース戦略でLlama系を出してきたが、Muse Wonderはクローズドモデルなのか」という点も議論されており、最終的に何が公開されるかに注目が集まっている。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: research.meta.ai</span>
+      <span>↑466pt · 💬250+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://research.meta.ai/blog/muse-wonder" target="_blank">研究ブログを読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50059115" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="muse-wonder-meta-ai" data-type="like" onclick="toggleFlag('muse-wonder-meta-ai','Muse Wonder — Meta AI創造的推論','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="muse-wonder-meta-ai" data-type="dislike" onclick="toggleFlag('muse-wonder-meta-ai','Muse Wonder — Meta AI創造的推論','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+    <div class="story-1-accent"></div>
+  </div>
+</section>
+
+<!-- ═══ STORY 2 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-2" id="s2">
+  <div class="story-num">02</div>
+  <div class="story-inner">
+    <div class="story-kicker">開発ツール / OpenAI / Codex / セキュリティ / プライバシー / デーモン — 2026-10-13</div>
+    <h2 class="story-headline">
+      <span style="color:#20d8f0">Codex CLI</span>が<br>無断でデーモンを<br>インストール——377pt
+    </h2>
+    <div class="story-body">
+      「Codex CLI installs a persistent, self-updating background daemon by default」がHNで377ポイント・212コメントを集めています。OpenAIのCLIコーディングアシスタントであるCodex CLIがインストール時に、ユーザーへの明示的な告知なく「常駐・自己更新するバックグラウンドデーモン」を自動的にインストールすることが判明しました。開発者コミュニティでは、AIツールのデフォルト行動に対するプライバシー・セキュリティ上の懸念が急速に広まっています。
+    </div>
+    <div class="teal-items">
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">何が問題なのか——デーモンの実態</div>
+          <div class="teal-text">GitHubのIssue #48195で報告された内容によると、Codex CLIはnpmでインストールした後、バックグラウンドで動作するデーモンプロセスを起動する。このデーモンの問題点: (1) ユーザーへの告知なし——インストール時・初回起動時のいずれでもデーモン起動についての案内がない。(2) 自己更新機能——OpenAIのサーバーから自動的にアップデートを取得・適用する機能を持つ。これは「ユーザーのマシン上でOpenAIが任意のコードを実行できる」ことを意味する。(3) 永続化——ログアウト後も起動するよう設定される（LaunchAgents / systemdサービスとして登録）。(4) アンインストールしても残る——npmでアンインストールしてもデーモンが残り続けるケースが報告されている。開発者がどの企業のコードを自分のマシンで実行しているかを把握できない状況は、サプライチェーンセキュリティの観点から深刻な問題とみなされている。</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">OpenAIの意図と開発者の反応</div>
+          <div class="teal-text">OpenAI側の「デーモンが必要な理由」としては: (1) より高速な応答——CLIを使うたびにNode.jsプロセスを立ち上げるのを避けるため常駐プロセスが有利。(2) 自動アップデート——AIモデルのバージョンアップやバグ修正を素早く配布するため。(3) コンテキストの保持——セッション間での作業コンテキストを維持するため。しかし開発者コミュニティの反応は厳しい: 「企業のセキュリティポリシー上、許可なく常駐プロセスをインストールするツールは使えない」「自己更新はマルウェアの典型的な動作パターンと区別がつかない」「少なくともopt-in（デフォルト無効）にすべき」という声が圧倒的。macOSのLaunchAgentsへの登録はroot権限を必要としないため、セキュリティツールで検出されにくいという点も懸念されている。</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">教訓——AIツールインストール前に確認すべきこと</div>
+          <div class="teal-text">この事件が示す実践的な教訓: (1) npmパッケージのpostinstallスクリプトを確認する——`npm install`後に実行されるスクリプトにデーモン起動が含まれる場合がある。`package.json`の`scripts.postinstall`を必ずチェック。(2) プロセス監視——新しいCLIツールをインストールした後は`ps aux`や`launchctl list`（macOS）または`systemctl list-units`（Linux）で新しいプロセスが追加されていないか確認。(3) ネットワーク監視——インストール直後に`lsof -i`や`netstat`で新しいアウトバウンド接続が発生していないか確認。(4) ファイルシステム監視——`~/Library/LaunchAgents/`（macOS）や`~/.config/systemd/user/`（Linux）に新しいplistやサービスファイルが追加されていないか確認。企業ユーザーはEndpoint Detection and Response（EDR）ツールでCLIツールの挙動を監視することを検討すべき。</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: github.com/openai/codex</span>
+      <span>↑377pt · 💬212+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://github.com/openai/codex/issues/48195" target="_blank">Issueを読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50060694" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="codex-cli-background-daemon" data-type="like" onclick="toggleFlag('codex-cli-background-daemon','Codex CLI無断デーモンインストール問題','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="codex-cli-background-daemon" data-type="dislike" onclick="toggleFlag('codex-cli-background-daemon','Codex CLI無断デーモンインストール問題','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 3 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-3" id="s3">
+  <div class="story-num">03</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / 法律 / GLM / 専門特化モデル / リーガルテック — 2026-10-13</div>
+    <h2 class="story-headline">
+      GLM-Legal<br>法律特化AIの<br><span style="color:#E84040">新世代が来た——375pt</span>
+    </h2>
+    <div class="story-body">
+      「GLM-Legal」がHNで375ポイント・212コメントを集めています。z.aiが発表したGLM-Legalは、法律文書の分析・作成・解釈に特化したAIモデルです。汎用LLMが法律分野で苦手とする「管轄ごとの法規制の違い」「判例への正確な参照」「法的リスクの定量化」といった領域で専門性を示すとされています。法律業務のAI化が加速する中で、専門特化モデルの実力と限界が問われています。
+    </div>
+    <div class="red-items">
+      <div class="red-item">
+        <div class="red-label">GLM-Legalの能力——何ができて何ができないか</div>
+        <div class="red-text">z.aiのブログによると、GLM-Legalの主な機能: (1) 契約書レビュー——NDAs・雇用契約・SaaSの利用規約などの標準的な契約書を分析し、リスク条項を特定・ハイライト。管轄（米国・EU・英国等）ごとの法的要件との差異を指摘。(2) 法的調査——判例データベースと連携し、特定の法的問題に関連する判例・法令を検索・要約。引用形式の正確性も確認。(3) 文書生成——テンプレートと要件から法的文書の草稿を作成。(4) リスク分析——契約・取引・企業行動における潜在的な法的リスクを特定し、軽減策を提案。重要な限界: このモデルは「法的調査ツール」であり「弁護士の代替」ではない。特に日本語・中国語等の非英語圏の法体系への対応精度は未確認の部分が多く、弁護士によるレビューは引き続き必要。</div>
+      </div>
+      <div class="red-item">
+        <div class="red-label">GLMシリーズとは——中国発の競合LLMの文脈</div>
+        <div class="red-text">GLM（General Language Model）は清華大学のKEG研究室が開発するオープンソースLLMシリーズ。ChatGLMとして知られ、GPTシリーズに対する中国発の主要な対抗馬の一つ。z.aiはこのGLMをベースに商業展開するスタートアップ。GLMシリーズの特徴: (1) 英語・中国語バイリンガルに強い——中国語の法律文書（民法典・刑法等）への対応はGPT-4より優れるとされる。(2) オープンウェイト——ベースモデルは公開されており、企業が自社環境にデプロイできる（オンプレミス展開が可能で、機密性の高い法律文書を外部送信せずに処理できる）。(3) 中国・アジア太平洋市場向け——GDPR・中国個人情報保護法（PIPL）など多様な規制環境への対応が強み。法律AIの市場競争は急速に激化しており、Harvey（GPTベース）・Clio（カナダ）・Thomson Reuters CoCounselとの差別化がどこにあるかが注目点。</div>
+      </div>
+      <div class="red-item">
+        <div class="red-label">HNの反応——「弁護士の仕事はどこまで変わるか」</div>
+        <div class="red-text">「法律AIは既に契約書の初期レビューとリーガルリサーチで弁護士の時間を劇的に削減している——問題は精度ではなく責任の所在だ」という実務弁護士のコメントが多くいいねされた。「GLM-Legalがオープンウェイトであることが最大の差別化——機密度の高い案件は外部APIに送れないという法律事務所のニーズに応える」という分析も。「日本の法律（民法・会社法・労働法）への対応精度を試してみたが、まだ概要レベルにとどまる——特に判例への参照が不正確」という実体験報告も。「弁護士費用が高すぎてアクセスできない人々へのアクセス改善（a2j: access to justice）という観点からは期待できる」というポジティブな評価も。完全な法律業務の自動化より「弁護士の生産性向上ツール」としての活用が現実的という見方が支配的。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: z.ai</span>
+      <span>↑375pt · 💬212+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://z.ai/blog/glm-legal" target="_blank">発表を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50058507" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="glm-legal-ai" data-type="like" onclick="toggleFlag('glm-legal-ai','GLM-Legal 法律特化AIモデル','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="glm-legal-ai" data-type="dislike" onclick="toggleFlag('glm-legal-ai','GLM-Legal 法律特化AIモデル','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 4 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-4" id="s4">
+  <div class="story-num">04</div>
+  <div class="story-inner">
+    <div class="story-kicker">OSS / GIS / AI / コードレビュー / コントリビューション / QGIS — 2026-10-13</div>
+    <h2 class="story-headline">
+      QGISが<br>AI生成コードに<br><span style="color:#30C060">一時停止令——357pt</span>
+    </h2>
+    <div class="story-body">
+      「QGIS enacts moratorium on AI contributions」がHNで357ポイント・391コメントを集めています。地理情報システム（GIS）の代表的なOSSプロジェクトQGISが、AI（LLM）が生成したコードのコントリビューションを一時的に禁止する措置を発表しました。OSSコミュニティでAI生成コードをどう扱うかという問題は以前から議論されていましたが、主要プロジェクトがモラトリアムという形で公式な立場を示したのは注目に値します。
+    </div>
+    <div class="green-items">
+      <div class="green-item">
+        <div class="green-label">QGISがモラトリアムを決定した理由</div>
+        <div class="green-text">GitHubのQGIS Enhancement Proposals #387によると、禁止の主な理由: (1) コード品質の問題——AIが生成したコードは表面的には動作するが、プロジェクト固有の慣習・アーキテクチャ上の一貫性・長期的な保守性を考慮していないケースが多い。レビュアーの負担が増大している。(2) ライセンス問題——LLMが学習データに含まれるコードを再現する場合、著作権・ライセンスの問題が生じる可能性がある。GPLプロジェクトとして特に慎重な対応が必要。(3) 帰属の不明確さ——「誰がコードに責任を持つのか」が不明確になる。バグが発生したとき、コントリビューターが「AIが書いたので説明できない」という状況が発生している。(4) コミュニティの文化——OSS貢献の本質は「人間がプロジェクトに理解と努力を注ぐ」こと。AIを使って大量の低品質PRを送信するスパム的な行動への対処。</div>
+      </div>
+      <div class="green-item">
+        <div class="green-label">「AI禁止」ではなく「AI生成禁止」という微妙な区別</div>
+        <div class="green-text">QGISのモラトリアムが対象とするのは「AIが生成したコードを人間のレビューなしに提出すること」であり、「AIを補助として使うこと」ではない。重要な区別: (1) 禁止されること——LLMにコード全体を生成させてほぼそのまま提出、AIが生成したコードを理解せずにコピペして提出。(2) 許可されること——AIを使って自分のコードのバグを見つける、AIに実装のアイデアを聞いてから自分で書き直す、AIを使って複雑なアルゴリズムの理解を深める。実質的に「コントリビューターがコードを完全に理解し責任を持てること」が基準。これはすでに多くのOSSプロジェクトが採用しつつある基準であり、QGISは明文化した点で先進的ともいえる。Linuxカーネル・Rustプロジェクトでも同様の議論が進行中。</div>
+      </div>
+      <div class="green-item">
+        <div class="green-label">HNの反応——OSSの未来を巡る391コメントの大議論</div>
+        <div class="green-text">最も多くいいねされたコメント: 「QGISの決定は正しい——問題はAI技術自体ではなく、AIを使って自分が理解していないコードを送り付ける開発者の態度だ。レビュアーはそのコードが正しいかどうかをAIなしで評価しなければならないのに、コントリビューターが理解していなければ質問に答えられない」。反論として「モラトリアムは時代に逆らっており、AIアシスタンスを完全に活用できる貢献者を排除してしまう」という意見も。「実際には『AI生成かどうか』を判別する信頼できる方法がない——宣言制度は信頼に基づくしかなく、実効性が疑問」という現実的な指摘も。「AIの急速な普及に対してOSSコミュニティがどう適応するかを模索する重要な実験」として、Djangoなど他のOSSプロジェクトも注視している。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: github.com/qgis</span>
+      <span>↑357pt · 💬391+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://github.com/qgis/QGIS-Enhancement-Proposals/pull/387" target="_blank">提案を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50054751" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="qgis-ai-moratorium" data-type="like" onclick="toggleFlag('qgis-ai-moratorium','QGIS AI貢献モラトリアム','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="qgis-ai-moratorium" data-type="dislike" onclick="toggleFlag('qgis-ai-moratorium','QGIS AI貢献モラトリアム','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 5 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-5" id="s5">
+  <div class="story-num">05</div>
+  <div class="story-inner">
+    <div class="story-kicker">セキュリティ / IoT / サイバー攻撃 / スーパーマーケット / 欧州 — 2026-10-13</div>
+    <h2 class="story-headline">
+      欧州スーパーの<br>冷蔵庫が<br><span style="color:#8050E0">遠隔解凍——337pt</span>
+    </h2>
+    <div class="story-body">
+      「Hackers activate automatic defrosting in supermarket fridges across Europe」がHNで337ポイント・556コメントを集めています（本日最多コメント）。欧州の複数のスーパーマーケットチェーンで、ハッカーが冷蔵設備の自動解凍機能を遠隔で起動するというサイバー攻撃が発生しました。食料品の廃棄と店舗価格への影響が報告されており、クリティカルインフラとしての小売冷蔵システムのセキュリティ問題が浮き彫りになっています。
+    </div>
+    <div class="purple-items">
+      <div class="purple-item">
+        <div class="purple-label">攻撃の手口——冷蔵庫はどうハッキングされたか</div>
+        <div class="purple-text">Tom's Hardwareの報告によると、今回の攻撃は「前例のないサイバー攻撃」として業界紙に記録されている。手口の分析: (1) 標的——欧州の複数国（詳細は未公開）のスーパーマーケットで使用されている商業用冷蔵・冷凍システムの管理ソフトウェア。多くの大型店舗では、ショーケース冷蔵・バックヤード冷凍・鮮魚・肉売り場などを一元管理するBACnet/IP・Modbus等の産業用プロトコルベースのシステムが使われている。(2) 侵入経路——管理システムのWebインターフェースに既知の脆弱性が存在し、インターネットに直接露出していたとみられる。VPN・ファイアウォールによる分離が不十分だった可能性。(3) 攻撃の影響——解凍モードを有効化することで冷蔵温度が上昇し、特に生鮮食品（肉・魚・乳製品）の廃棄が発生。一部店舗では価格表示システムにも影響が出た。人的被害の報告はない。</div>
+      </div>
+      <div class="purple-item">
+        <div class="purple-label">なぜ冷蔵庫がインターネットにつながっているのか</div>
+        <div class="purple-text">現代の商業施設における冷蔵システムのIoT化が進んだ背景と問題: (1) IoT化のメリット——複数店舗を本社から一元監視、異常な温度上昇のアラート、省エネ最適化、定期メンテナンスのスケジューリング。「冷蔵庫が壊れる前に警告が出る」という予知保全の観点で有用。(2) セキュリティ後回しの構造——産業用制御システム（ICS/SCADA）は元々クローズドなネットワークで使われることを前提に設計されており、認証・暗号化が脆弱なケースが多い。BACnet（ビル管理プロトコル）は設計思想として「認証なし」が多い。(3) リモートアクセスの需要——コロナ以降「スタッフが常駐しなくても管理できる」という要求が高まり、VPN設定を省いたダイレクト接続が増えた。Shodan等の検索エンジンを使えば直接アクセス可能な冷蔵管理システムが世界中に多数存在する。</div>
+      </div>
+      <div class="purple-item">
+        <div class="purple-label">HNの反応——「重要インフラへのOT攻撃の現実」</div>
+        <div class="purple-text">HN最多の556コメントが示す通り、この事件は大きな反響を呼んでいる。主な論点: 「ShodanやZoomeyeでBACnet/IPのポートを検索すれば数千のシステムが見つかる——これはセキュリティ研究者なら誰でも知っている問題で、今回が初めてではない」という業界関係者の証言。「攻撃の動機が不明——ランサムウェアではない、諜報活動でもなさそう、誰かが面白半分なのか、組織的な食料安全保障攻撃のテストなのか」という疑問も。「発電所・水処理施設・信号機に続いて、今度はスーパーマーケットの冷蔵庫——OT（Operational Technology）セキュリティの範囲はどこまで広がるのか」という根本的な問い。EU NIS2指令（Network and Information Security）の対象に小売業のICSを含めるべきかという政策議論にも発展している。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: tomshardware.com</span>
+      <span>↑337pt · 💬556+（本日最多）</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.tomshardware.com/tech-industry/cyber-security/unprecedented-cyberattack-cripples-supermarket-fridges-across-europe-as-hackers-activate-automatic-defrosting-delivery-and-store-prices-also-impacted-by-incident" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50055304" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="hackers-supermarket-fridges-europe" data-type="like" onclick="toggleFlag('hackers-supermarket-fridges-europe','欧州スーパー冷蔵庫ハッキング事件','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="hackers-supermarket-fridges-europe" data-type="dislike" onclick="toggleFlag('hackers-supermarket-fridges-europe','欧州スーパー冷蔵庫ハッキング事件','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 6 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-6" id="s6">
+  <div class="story-num">06</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / コーディング / 研究 / 開発者生産性 / ソフトウェア工学 — 2026-10-13</div>
+    <h2 class="story-headline">
+      AIエージェントは<br>コードを増やすが<br><span style="color:#20B0D0">ソフトウェアは増やさない</span>
+    </h2>
+    <div class="story-body">
+      「AI coding agents generate more code, but not more software」がHNで274ポイント・225コメントを集めています。Ars Technicaが報じたこの記事は、AIコーディングエージェントの生産性効果を測定した研究を取り上げています。「コード生成量は確かに増えるが、実際に価値あるソフトウェアとして完成するプロジェクトの数は増えていない」という、業界の楽観論に冷水を浴びせる内容です。
+    </div>
+    <div class="cyan-items">
+      <div class="cyan-item">
+        <div>
+          <div class="cyan-label">研究の内容——何を測定してどう分かったか</div>
+          <div class="cyan-text">この研究（詳細はArs Technica経由で公開）では、AIコーディングアシスタントを使用するソフトウェア開発チームと使用しないチームを比較。測定された指標: (1) コード行数・コミット数——AI使用チームで有意に増加（約40〜60%増）。(2) 完成したフィーチャー・バグ修正——増加は軽微（約5〜15%増）。(3) 本番デプロイまで到達したプロジェクト——ほぼ差なし。(4) コードレビュー負荷——AI生成コードのレビューに要する時間が増加し、レビュアーの負担が高まった。解釈として: AIは「ボイラープレート・テスト・ドキュメント・型宣言」などの量的な部分を増やすが、「何を作るか・アーキテクチャをどう設計するか・仕様の矛盾を解決するか」というソフトウェア開発の本質的な難しさは変わっていない。「コードを書く作業」と「ソフトウェアを作る仕事」は異なるという古典的な議論が再び脚光を浴びている。</div>
+        </div>
+      </div>
+      <div class="cyan-item">
+        <div>
+          <div class="cyan-label">「コードレビューのボトルネック」という新しい問題</div>
+          <div class="cyan-text">最も重要な発見の一つはコードレビュー負荷の増大: (1) AIが生成するコードは量が多い——1タスクに対して人間が書く場合より多くの行・多くのファイルが生成される傾向がある。(2) レビュアーはAIのコードを信頼できない——人間のコントリビューターが書いたコードは「書いた人に聞ける」が、AI生成コードは「なぜこう書いたか」を説明できる人間がいないため、レビュアーが独力で検証しなければならない。(3) セキュリティレビューの難化——AIが生成するコードにはセキュリティ上の微妙な問題（SQLインジェクション・認証バイパス・競合状態）が含まれる場合があり、従来以上に注意深いレビューが必要。「コードレビューの自動化」（LLMを使ったレビュー）が必要という逆説的な状況が生まれている。GithubのAutopilot・Copilot Reviewなどはこのボトルネックに対応しようとしているが、「LLMがLLMのコードをレビューする」という問題も指摘されている。</div>
+        </div>
+      </div>
+      <div class="cyan-item">
+        <div>
+          <div class="cyan-label">HNの反応——「生産性測定が間違っている」派 vs「AIへの過剰期待」派</div>
+          <div class="cyan-text">「この研究の問題は生産性をコード行数で測ることにある——行数はノイズであり、信号は機能の完成・ユーザーへの価値・バグ率だ」という方法論批判が多い。一方「でも研究は完成フィーチャー数・デプロイ数も測定していてそれも増えていない」という反論も。「自分の経験では: AIを使い始めて3ヶ月でコードの出力量は3倍になったが、デプロイできたものは1.2倍程度——残りの2倍近いコードはゴミだった」という実体験報告が多くいいねされた。「AIコーディングツールが本当に効果的なのは既存コードベースの理解・ドキュメント生成・テスト作成の分野であって、新機能開発のスピードアップではないかもしれない」という洗練された分析も。「ソフトウェア工学の難しさは常にコードを書くことではなく何を書くかを決めることだった——この本質は変わっていない」という名言的なコメントが引用されている。</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: arstechnica.com</span>
+      <span>↑274pt · 💬225+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://arstechnica.com/ai/2026/10/ai-coding-agents-generate-more-code-but-not-more-software/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50059523" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="ai-coding-agents-more-code-not-software" data-type="like" onclick="toggleFlag('ai-coding-agents-more-code-not-software','AIコーディングエージェント生産性研究','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="ai-coding-agents-more-code-not-software" data-type="dislike" onclick="toggleFlag('ai-coding-agents-more-code-not-software','AIコーディングエージェント生産性研究','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 7 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-7" id="s7">
+  <div class="story-num">07</div>
+  <div class="story-inner">
+    <div class="story-kicker">科学 / 遺伝学 / 猫 / 60年の謎 / ゲノム — 2026-10-13</div>
+    <h2 class="story-headline">
+      オレンジ猫の<br>秘密が<br><span style="color:#E88040">60年越しに解明</span>
+    </h2>
+    <div class="story-body">
+      「Secret of Orange Cats Revealed After 60-Year Search」がHNで211ポイント・169コメントを集めています。Science Alertが報じたこの研究は、なぜ一部の猫がオレンジ色の毛を持つのかという60年来の謎に決着をつけるものです。オスのオレンジ猫が多い理由・X染色体との関係・メス三毛猫のパターンなどが遺伝学的に解明された今、愛猫家にとって科学的な「なるほど」の瞬間が来ました。
+    </div>
+    <div class="amber-items">
+      <div class="amber-item">
+        <div class="amber-label">60年越しの発見——オレンジ色の遺伝子の正体</div>
+        <div class="amber-text">この研究（Nature誌掲載）で特定されたのは「Arhgap36」遺伝子のX染色体上での特定の変異。具体的な仕組み: (1) 猫の毛色は主に「ユーメラニン（黒・茶）」と「フェオメラニン（赤・オレンジ・黄）」の2種類のメラニンで決まる。通常の猫は「Mc1r（メラノコルチン受容体1）」の状態でどちらを産生するか切り替わる。(2) オレンジ猫はArhgap36遺伝子の変異によって、毛包内の色素幹細胞がMc1rシグナリングを無視して常にフェオメラニン（オレンジ/赤）を産生し続ける。(3) なぜオスが多いか——Arhgap36変異はX染色体に乗っているため、オス（XY）は1コピーあるだけで全身オレンジになる。メス（XX）は2コピー必要で、1コピーだとオレンジと他の色がモザイク状に混ざる→三毛猫（tortoiseshell）になる。これがメスの三毛猫がほぼ全個体であり、オレンジのオス猫が多い理由を説明する。</div>
+      </div>
+      <div class="amber-item">
+        <div class="amber-label">なぜ60年もかかったのか——科学的発見のプロセス</div>
+        <div class="amber-text">1960年代には「オレンジ猫の遺伝子はX染色体上にある」という事実はすでに知られていた（X染色体連鎖という観察から）。しかし「どの遺伝子が」「どのメカニズムで」が分からなかった理由: (1) 猫のゲノム研究の遅れ——犬・マウスと比べて猫のゲノム配列・遺伝子注釈の整備が遅れていた。2000年代後半にようやく高精度なゲノム参照配列が完成。(2) 毛色制御の複雑さ——Mc1rの下流にある複数のシグナル経路を全て解析するには次世代シーケンシングとバイオインフォマティクスの発展が必要だった。(3) 「Arhgap36は神経発達の遺伝子」という先入観——Arhgap36はもともと神経系の制御因子として知られており、毛色との関係が見落とされていた。研究者が「予期せず見つけた」という発見の性質を持つ。CRISPR等のゲノム編集ツールが「仮説を直接検証する」手段として使われた。</div>
+      </div>
+      <div class="amber-item">
+        <div class="amber-label">HNの反応——科学好きな開発者たちの「なるほど」の嵐</div>
+        <div class="amber-text">「毛色の遺伝子研究なんて『くだらない科学』に見えて、実は色素幹細胞の分化制御・X染色体不活性化・メラノサイトのシグナル伝達という医学的に重要なメカニズムの理解に直結する——オレンジ猫が医学研究の窓口になるとは誰も思わなかった」という洞察が高評価。「Arhgap36は脳腫瘍（髄芽腫）と関連していると報告されている遺伝子でもある——猫の毛色の研究がいつかがん研究に貢献するかもしれない」という驚くべきつながりを指摘したコメントも。「三毛猫がほぼ全部メスで、オスの三毛猫は染色体異常（XXY等）のケースだけ——これが遺伝的事実だと知ってから全ての三毛猫を見る目が変わった」という愛猫家のコメントも多い。HNらしく「オレンジ猫のミームと科学的事実の違いを丁寧に分類したスレッド」になっており、猫と科学の交差点として楽しいスレッドになっている。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: sciencealert.com</span>
+      <span>↑211pt · 💬169+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.sciencealert.com/secret-of-orange-cats-finally-revealed-after-60-year-search" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50037711" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="orange-cats-secret-revealed" data-type="like" onclick="toggleFlag('orange-cats-secret-revealed','オレンジ猫の遺伝的秘密が解明','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="orange-cats-secret-revealed" data-type="dislike" onclick="toggleFlag('orange-cats-secret-revealed','オレンジ猫の遺伝的秘密が解明','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 8 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-8" id="s8">
+  <div class="story-num">08</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / 哲学 / 認知 / 思考 / 未来 — 2026-10-13</div>
+    <h2 class="story-headline">
+      「思考は<br>趣味になる」<br><span style="color:#D4A820">——AI時代の認知論</span>
+    </h2>
+    <div class="story-body">
+      「Thinking will become a hobby」がHNで185ポイント・241コメントを集めています。Spinellis（Diomidis Spinellis教授）のブログ記事で、AIが知的作業を代替する時代において「自ら考えること」がかつてのスポーツや手作業のように「趣味」として位置づけられる未来を論じています。楽観的とも悲観的とも取れるこの予言が、開発者コミュニティで様々な反応を呼んでいます。
+    </div>
+    <div class="gold-items">
+      <div class="gold-item">
+        <div class="gold-label">著者の主張——「思考の趣味化」とは何か</div>
+        <div class="gold-text">Spinellis（ギリシャのAthens University of Economics and Business教授、コーディング関連書籍の著者）の主な論点: 産業革命で肉体労働が機械に代替されると、「スポーツ」「ガーデニング」「DIY」という形で人間は「自分の手で何かをする」という行為を趣味として再定義した。AIが知的労働を代替する今、同じことが「思考」「計算」「分析」「創作」に起きつつある。未来のシナリオ: (1) 「知的趣味人」——AIにできることをあえて手計算・手書きで行う人たちが現れる（チェス・数学・文学創作等）。(2) 職業としての「思考」は消える——弁護士・医師・エンジニア等の職業が変容し、「複雑な思考」自体に報酬が発生しなくなる可能性がある。(3) 教育の問い直し——「考える能力を鍛えること」が職業訓練ではなく「豊かな趣味のため」に変わる。この変化が文明的な後退か前進かは論者によって異なる。</div>
+      </div>
+      <div class="gold-item">
+        <div class="gold-label">歴史的類比——「手仕事の趣味化」から学べること</div>
+        <div class="gold-text">産業化による類比は示唆に富む: (1) 手織り——産業革命前は職業、現在は趣味・アート。手織り職人は消えたが「ハンドウィービング」コミュニティは健在で、工場製品より高い価格がつく。(2) 木工——大工は激減したが、DIY・精密木工の愛好家コミュニティは拡大。工具産業も縮小ではなく「趣味向け高品質工具」という形で変容。(3) 農業——農業従事者は劇的に減少したが、家庭菜園・農業体験・スローフード運動として「農的な生活」を求める人は増えている。これらに共通するのは「機械が代替できる実用的側面は代替されたが、人間が行うことへの価値は別の文脈で残った」という構造。思考・分析・創造の場合、同じことが起きるなら「手作業の思考」に価値を見出すコミュニティが生まれ、AIが主流の経済の外で共存するかもしれない。</div>
+      </div>
+      <div class="gold-item">
+        <div class="gold-label">HNの反応——241コメントの哲学的激論</div>
+        <div class="gold-text">最もいいねされたコメント: 「この分析の前提に異議がある——スポーツ・ガーデニングが趣味であり続けられるのは、それをしなくても生きていけるから。しかし思考能力の劣化は、AIが停止した時・誤作動した時・悪意ある情報で汚染された時にリスクになる。趣味として思考を保存することで社会レジリエンスを維持できるか？」。「楽観的な読み——AIのおかげで『仕事のために考える』から解放されて、『本当に面白いことを考えられる』時間が増える」という見方も。「音楽の類比——レコードの普及で演奏者の仕事は激減したが、楽器演奏人口は増えた。AIで『仕事として書く・考える』人が減っても、趣味として知的活動を楽しむ人は増えるかも」という希望的な声も。「日本では既に趣味としての学習（生涯学習・カルチャーセンター）が巨大産業——思考の趣味化は既にそこにある」という日本文化的な観察も。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: spinellis.gr</span>
+      <span>↑185pt · 💬241+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.spinellis.gr/blog/20261008/?li261008" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50059204" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="thinking-will-become-hobby" data-type="like" onclick="toggleFlag('thinking-will-become-hobby','思考は趣味になる——AI時代の認知論','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="thinking-will-become-hobby" data-type="dislike" onclick="toggleFlag('thinking-will-become-hobby','思考は趣味になる——AI時代の認知論','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 9 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-9" id="s9">
+  <div class="story-num">09</div>
+  <div class="story-inner">
+    <div class="story-kicker">セキュリティ / バグバウンティ / Google / RCE / Pickle — 2026-10-13</div>
+    <h2 class="story-headline">
+      Google開発サイトに<br>RCE脆弱性<br><span style="color:#5878C8">報奨金9万ドル</span>
+    </h2>
+    <div class="story-body">
+      「I Found a $90k Remote Code Execution Vulnerability in Google」がHNで173ポイント・86コメントを集めています。セキュリティ研究者のSimon Koeckが、Googleの開発者向けサイト（devsite）にFlaskセッションとPythonのpickleデシリアライゼーションを組み合わせたリモートコード実行（RCE）脆弱性を発見し、Googleのバグバウンティプログラムから9万ドルの報奨金を受け取ったという詳細なwriteupです。
+    </div>
+    <div class="slate-items">
+      <div class="slate-item">
+        <div class="slate-label">脆弱性の技術的詳細——FlaskセッションとPickleの悪夢</div>
+        <div class="slate-text">Simon Koeckのwriteupによると、脆弱性の連鎖: (1) Flaskセッション管理——GoogleのdevsiteはFlask（PythonのWebフレームワーク）を使用。Flaskのデフォルトセッションは「シークレットキー」で署名されたJWTに似たクッキーに保存される。(2) シークレットキーの弱さ——Koeckは何らかの方法（推測・サブドメインからの漏洩・バックアップファイルの公開等のどれかは未公開）でシークレットキーを入手。これによりセッションクッキーを偽造できる状態になった。(3) Pickleデシリアライゼーション——セッションデータにPythonのpickleオブジェクトが含まれており、偽造したセッションを送信することでサーバー側でpickle.loads()が実行される。Pythonのpickleは「任意のPythonオブジェクトをデシリアライズ」できるため、悪意あるオブジェクトを作ることでコードを実行できる。(4) RCEの確立——シェルコマンドを実行するpickleオブジェクトを含むセッションをGoogleのサーバーに送信→サーバー上でリモートコード実行が成立。</div>
+      </div>
+      <div class="slate-item">
+        <div class="slate-label">なぜPickleは危険なのか——Python開発者への教訓</div>
+        <div class="slate-text">Pythonのpickleモジュールは「絶対に信頼できないデータをデシリアライズしてはいけない」という公式警告が明示されている。にもかかわらず本番環境で使われ続ける理由と対策: リスクの本質——`pickle.loads(data)`は`data`の中に`__reduce__`メソッドを持つオブジェクトが含まれていれば任意のPythonコードを実行する。セッションデータ・キャッシュ・ファイルのいずれかにpickleを使っていて、そのデータソースを攻撃者がコントロールできるなら即RCEになる。代替手段: (1) セッションデータにはJSONを使う（jsonモジュール）——JSONはシリアライズ形式としてpickleより安全で、任意コード実行はできない。(2) キャッシュにはmarshal・msgpack・JSONを使う。(3) どうしてもpickleが必要な場合はHMACで署名し改ざんを検知する——しかしシークレットが漏洩したら意味がない。(4) HMACキーのローテーション・秘匿管理を徹底する。Flaskのデフォルトセッション実装自体はpickleを使っていないが、カスタムセッションバックエンドでpickleを使ったのがこのケースの問題点。</div>
+      </div>
+      <div class="slate-item">
+        <div class="slate-label">HNの反応——バグバウンティと9万ドルの正当性</div>
+        <div class="slate-text">「9万ドルはRCEとしては妥当な報奨金——Googleの最高報奨金は数十万ドルなのでこれでもRCEとしては控えめとも言える。シークレットキーの入手経路が不明確なため、エクスプロイトの難易度評価が分かれている」という技術的評価。「writeupが非常に丁寧で教育的——シークレットキーを入手する具体的手順が省略されているのは意図的で、フルエクスプロイトの公開を避けながら教育的価値を最大化している」という分析も。「Pickleのデシリアライゼーション脆弱性は2010年代から知られているのに未だに本番コードで使われている——セキュアコーディング教育の問題だ」という批評も。「Googleほどの組織でこういうミスが起きる——セキュリティは誰でも間違える問題で、バグバウンティというエコシステムが外部の目を借りることの価値を示している」という感想も多い。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: simonkoeck.com</span>
+      <span>↑173pt · 💬86+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://simonkoeck.com/writeups/google-devsite-flask-session-pickle-rce" target="_blank">Writeupを読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50052638" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="google-rce-flask-pickle-90k" data-type="like" onclick="toggleFlag('google-rce-flask-pickle-90k','Google devsite RCE脆弱性 $90k','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="google-rce-flask-pickle-90k" data-type="dislike" onclick="toggleFlag('google-rce-flask-pickle-90k','Google devsite RCE脆弱性 $90k','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 10 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-10" id="s10">
+  <div class="story-num">10</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / Rich Hickey / Clojure / 哲学 / ツール論 — 2026-10-13</div>
+    <h2 class="story-headline">
+      Rich Hickey<br>「AIは<br><span style="color:#E04080">ツールではない」</span>
+    </h2>
+    <div class="story-body">
+      「'AI' Is Not a Tool by Rich Hickey」がHNで128ポイント・57コメントを集めています。プログラミング言語Clojureの作者・関数型プログラミングの思想家として知られるRich HickeyがLinkedInで発表した論考です。「AIはツールではない」という逆説的なタイトルで、AIが他のソフトウェアツールと根本的に異なる性質を持つことを議論し、それが開発者にとって何を意味するかを考察しています。
+    </div>
+    <div class="mag-items">
+      <div class="mag-item">
+        <div class="mag-label">Hickeyの核心的主張——ツールとは何か</div>
+        <div class="mag-text">Rich Hickeyの論考の中心にある「ツール」の定義: ツール（hammer・compiler・text editor等）は「入力が決まれば出力が決まる（決定論的）」「動作を完全に理解・予測できる」「失敗した時に理由が分かる」「人間がコントロールできる」という性質を持つ。AIシステム（特にLLM）はこれらを満たさない: (1) 非決定論的——同じ入力でも異なる出力が生じる。(2) 不透明——なぜその出力が生成されたかを説明できない。(3) 失敗の不予測性——どのような入力で間違えるかを事前に知ることができない。(4) アライメントの問題——AIが「頼んでいないこと」をする・「頼んだこととは違うこと」をするリスクがある。「AIはツールというより同僚（あるいはコントラクター）に近い——委任・監督・検証が必要な存在だ」というHickeyの再定義は示唆に富む。</div>
+      </div>
+      <div class="mag-item">
+        <div class="mag-label">プログラマーへの実践的含意——何が変わるのか</div>
+        <div class="mag-text">HickeyがAIを「ツールではない」と定義することから導き出される実践的な変化: (1) ワークフローの変革——ツールは「使って終わり」だが、AIは「使って、確認して、修正して、承認する」プロセスが必要。コードレビューではなく「AIコントラクターのマネジメント」に近い。(2) 責任の明確化——ツールのアウトプットは使う人間の責任だが、AIのアウトプットは「AIに言ったこと・AIが理解したこと・AIが実際にしたこと」の三つのギャップを常に考慮する必要がある。(3) テストの重要性増大——コンパイラの出力は正しいと信頼できるが、AIの出力は信頼できない。AIが書いたコードのテストは人間が書いたコードのテストより重要。(4) 仕様の精密化——「ツール」への命令は「曖昧でも動く」場合があるが、AIへの指示は「意図が正確に伝わっているか」を常に疑う必要がある。</div>
+      </div>
+      <div class="mag-item">
+        <div class="mag-label">HNの反応——「Hickeyは正しいが結論が曖昧」</div>
+        <div class="mag-text">Rich Hickeyの発言はHNで常に注目されるが、今回も評価は高い。「ツールとAIの区別は非常に重要な概念整理——多くの開発者がAIを決定論的なツールとして扱ってしまい、そのギャップから問題が生じている」という称賛。「LinkedInという媒体の選択が興味深い——かつてのConj（Clojure/conj）講演のような場ではなく、業界全体への向けた発信として意図的だと思う」という観察も。批判的な視点: 「ハンマーも使い方を間違えれば危ない——ツールである/ないに関わらず、使う人間のスキルと注意が重要という点では同じではないか」という反論も。「Hickeyが提案する代替的なAIの位置づけ（同僚・コントラクター）は概念として良いが、実際の開発ワークフローへの落とし込みが課題」という建設的なコメントが多くいいねされた。Clojure作者らしく「本質的な複雑性と偶発的な複雑性」というフレームと接続した分析コメントも。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: linkedin.com</span>
+      <span>↑128pt · 💬57+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.linkedin.com/pulse/ai-tool-rich-hickey-kjl8e" target="_blank">論考を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50060269" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="rich-hickey-ai-not-a-tool" data-type="like" onclick="toggleFlag('rich-hickey-ai-not-a-tool','Rich Hickey: AIはツールではない','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="rich-hickey-ai-not-a-tool" data-type="dislike" onclick="toggleFlag('rich-hickey-ai-not-a-tool','Rich Hickey: AIはツールではない','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ══════════════════════════════════════════════════════════════════════════════════ -->
+<footer class="site-footer">
+  <div class="footer-top">
+    <div class="footer-brand">Morning Edition</div>
+    <div class="footer-meta">
+      Hacker Newsのフロントページから毎朝キュレーションした10本<br>
+      2026年10月13日 — No.148
+    </div>
+    <button class="export-btn" onclick="exportFeedback()">フィードバックをコピー</button>
+  </div>
+  <div class="footer-note">
+    ⭐ 興味あり / ✕ 興味なし ボタンのフィードバックは次号の選定に反映されます。Chrome/Edgeではファイルに自動保存されます。
+  </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  const STORAGE_KEY = 'morning-edition-feedback-v2';
+  let feedback = { liked: {}, disliked: {} };
+  let fileHandle = null;
+
+  function loadFromStorage() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (raw) feedback = JSON.parse(raw);
+    } catch(e) {}
+  }
+
+  function saveToStorage() {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(feedback));
+    } catch(e) {}
+  }
+
+  async function saveToFile(data) {
+    if (!('showSaveFilePicker' in window)) return;
+    try {
+      if (!fileHandle) {
+        fileHandle = await window.showSaveFilePicker({
+          suggestedName: 'feedback.json',
+          types: [{ description: 'JSON', accept: { 'application/json': ['.json'] } }]
+        });
+      }
+      const writable = await fileHandle.createWritable();
+      await writable.write(JSON.stringify(data, null, 2));
+      await writable.close();
+    } catch(e) {}
+  }
+
+  function showToast(msg, isError) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.className = 'toast' + (isError ? ' error' : '');
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2500);
+  }
+
+  function toggleFlag(storyId, storyTitle, type) {
+    const date = '2026-10-13';
+    const entry = { title: storyTitle, date };
+    const opposite = type === 'like' ? 'disliked' : 'liked';
+    const current = type === 'like' ? 'liked' : 'disliked';
+
+    if (feedback[current][storyId]) {
+      delete feedback[current][storyId];
+      showToast('フィードバックを解除しました', false);
+    } else {
+      delete feedback[opposite][storyId];
+      feedback[current][storyId] = entry;
+      showToast(type === 'like' ? '⭐ 興味ありとして記録しました' : '✕ 興味なしとして記録しました', false);
+    }
+
+    feedback.updatedAt = new Date().toISOString();
+    saveToStorage();
+    updateButtonStates();
+    saveToFile(feedback);
+  }
+
+  function updateButtonStates() {
+    document.querySelectorAll('.flag-btn').forEach(btn => {
+      const storyId = btn.dataset.story;
+      const type = btn.dataset.type;
+      const isActive = type === 'like' ? !!feedback.liked[storyId] : !!feedback.disliked[storyId];
+      btn.classList.toggle('active', isActive);
+    });
+  }
+
+  function exportFeedback() {
+    try {
+      navigator.clipboard.writeText(JSON.stringify(feedback, null, 2));
+      showToast('フィードバックをクリップボードにコピーしました', false);
+    } catch(e) {
+      showToast('コピーに失敗しました', true);
+    }
+  }
+
+  loadFromStorage();
+  updateButtonStates();
+</script>
+</body>
+</html>
