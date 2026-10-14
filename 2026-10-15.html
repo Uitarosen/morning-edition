@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Morning Edition — 2026年10月15日</title>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --font: 'M PLUS Rounded 1c', 'Hiragino Sans', 'Noto Sans JP', sans-serif; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); background: #111; color: #fff; overflow-x: hidden; }
+
+    .masthead { background: #fff; color: #000; padding: 3rem 4rem 2.5rem; border-bottom: 6px solid #000; position: relative; overflow: hidden; }
+    .masthead::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: repeating-linear-gradient(90deg, #000 0, #000 12px, transparent 12px, transparent 20px); }
+    .masthead-kicker { font-size: 0.85rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: #777; margin-bottom: 0.6rem; }
+    .masthead-title { font-size: clamp(3.5rem, 9vw, 7.5rem); font-weight: 900; line-height: 0.88; letter-spacing: -0.04em; margin-bottom: 1.8rem; }
+    .masthead-meta { display: flex; gap: 3rem; align-items: baseline; flex-wrap: wrap; }
+    .masthead-date { font-size: 1.5rem; font-weight: 700; }
+    .masthead-subtitle { font-size: 1rem; font-weight: 400; color: #555; max-width: 480px; line-height: 1.5; }
+    .masthead-issue { margin-left: auto; text-align: right; }
+    .masthead-issue span { display: block; }
+    .masthead-issue .iss-label { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: #999; }
+    .masthead-issue .iss-num { font-size: 2.2rem; font-weight: 900; color: #000; }
+
+    .toc { background: #1a1a1a; padding: 1.5rem 4rem; display: flex; gap: 1.5rem; flex-wrap: wrap; border-bottom: 1px solid #333; }
+    .toc a { color: #aaa; text-decoration: none; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; transition: color 0.2s; }
+    .toc a:hover { color: #fff; }
+    .toc-num { color: #555; margin-right: 0.3em; }
+
+    .story { position: relative; overflow: hidden; }
+    .story-inner { max-width: 1200px; margin: 0 auto; padding: 5rem 4rem; position: relative; z-index: 1; }
+    .story-num { font-size: clamp(6rem, 18vw, 16rem); font-weight: 900; line-height: 0.8; letter-spacing: -0.06em; opacity: 0.08; position: absolute; top: 1rem; right: 2rem; user-select: none; }
+    .story-badge { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.35em 0.9em; border-radius: 2px; margin-bottom: 1.5rem; }
+    .direct-badge { background: #FFD700; color: #000; }
+    .story-kicker { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; opacity: 0.6; margin-bottom: 0.8rem; }
+    .story-headline { font-size: clamp(2rem, 5vw, 4rem); font-weight: 900; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+    .story-body { font-size: clamp(1rem, 1.5vw, 1.2rem); font-weight: 400; line-height: 1.8; max-width: 680px; opacity: 0.88; margin-bottom: 2rem; }
+    .story-meta { display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center; font-size: 0.8rem; font-weight: 700; opacity: 0.5; }
+    .story-links { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem; }
+    .story-link { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.6em 1.4em; border-radius: 3px; text-decoration: none; transition: opacity 0.2s, transform 0.15s; }
+    .story-link:hover { opacity: 0.75; transform: translateY(-1px); }
+
+    .feedback-buttons { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .flag-btn { background: none; border: 1px solid currentColor; color: inherit; font-family: var(--font); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.5em 1em; border-radius: 3px; cursor: pointer; opacity: 0.32; transition: opacity 0.2s, background 0.2s, color 0.2s, border-color 0.2s, transform 0.15s; }
+    .flag-btn:hover { opacity: 0.72; transform: translateY(-1px); }
+    .flag-btn.like-btn.active { opacity: 1; background: rgba(255,215,0,0.15); border-color: #FFD700; color: #FFD700 !important; }
+    .flag-btn.dislike-btn.active { opacity: 1; background: rgba(255,60,60,0.12); border-color: #FF4444; color: #FF4444 !important; }
+
+    .toast { position: fixed; bottom: 2rem; right: 2rem; background: #1a1a1a; color: #fff; font-family: var(--font); font-size: 0.82rem; font-weight: 700; padding: 0.75em 1.4em; border-radius: 4px; border-left: 3px solid #00C853; z-index: 9999; opacity: 0; transform: translateY(10px); transition: opacity 0.25s, transform 0.25s; pointer-events: none; box-shadow: 0 4px 24px rgba(0,0,0,0.45); }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    .toast.error { border-left-color: #FF5252; }
+
+    /* Story 1 — White */
+    .story-1 { background: #fff; color: #000; min-height: 90vh; display: flex; flex-direction: column; justify-content: center; }
+    .story-1 .story-num { color: #000; opacity: 0.04; }
+    .story-1 .story-kicker { color: #555; opacity: 1; }
+    .story-1 .story-headline { color: #000; }
+    .story-1 .story-body { color: #111; }
+    .story-1 .story-meta { color: #000; }
+    .story-1 .story-link.primary { background: #1a1a1a; color: #fff; }
+    .story-1 .story-link.secondary { background: #f0f0f0; color: #000; }
+    .story-1 .flag-btn { color: #000; }
+    .story-1-accent { position: absolute; bottom: 0; left: 0; width: 100%; height: 8px; background: linear-gradient(90deg, #0a0a0a, #555, #0a0a0a); }
+    .story-1 .headline-accent { display: inline-block; background: linear-gradient(135deg, #1a1a1a 0%, #555 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .blue-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1.2rem; margin: 2rem 0; max-width: 680px; }
+    .blue-card { border: 2px solid rgba(0,0,0,0.12); background: rgba(0,0,0,0.03); border-radius: 6px; padding: 1.3rem 1.5rem; }
+    .blue-card-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.2em; text-transform: uppercase; color: #333; margin-bottom: 0.4rem; }
+    .blue-card-value { font-size: 1.05rem; font-weight: 900; color: #000; line-height: 1.3; }
+    .blue-card-sub { font-size: 0.75rem; color: #555; margin-top: 0.3rem; line-height: 1.4; }
+
+    /* Story 2 — Dark navy/teal */
+    .story-2 { background: #00080c; color: #b8f0ff; min-height: 80vh; }
+    .story-2::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(0,160,200,0.14) 0%, transparent 65%); }
+    .story-2 .story-num { color: #00A0C8; opacity: 0.07; }
+    .story-2 .story-kicker { color: #20C8E8; opacity: 1; }
+    .story-2 .story-headline { color: #e0f8ff; }
+    .story-2 .story-body { color: #b8f0ff; }
+    .story-2 .story-meta { color: #20C8E8; opacity: 0.5; }
+    .story-2 .story-link.primary { background: #004058; color: #80e8ff; }
+    .story-2 .story-link.secondary { background: rgba(0,160,200,0.08); color: #90d8f0; border: 1px solid rgba(0,160,200,0.22); }
+    .story-2 .flag-btn { color: #b8f0ff; }
+    .teal-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .teal-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(0,160,200,0.07); border-left: 3px solid #00A0C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .teal-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20C8E8; margin-bottom: 0.3rem; }
+    .teal-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 3 — Dark red */
+    .story-3 { background: #0a0000; color: #fff; min-height: 80vh; }
+    .story-3::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(200,20,20,0.16) 0%, transparent 65%); }
+    .story-3 .story-num { color: #C81414; opacity: 0.07; }
+    .story-3 .story-kicker { color: #E84040; opacity: 1; }
+    .story-3 .story-headline { color: #fff; }
+    .story-3 .story-body { color: rgba(255,255,255,0.88); }
+    .story-3 .story-meta { color: #E84040; opacity: 0.5; }
+    .story-3 .story-link.primary { background: #6a0000; color: #fff; }
+    .story-3 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-3 .flag-btn { color: #fff; }
+    .red-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .red-item { background: rgba(200,20,20,0.07); border-left: 3px solid #C81414; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .red-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E84040; margin-bottom: 0.3rem; }
+    .red-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 4 — Dark green */
+    .story-4 { background: #020c04; color: #c8f0d0; min-height: 80vh; }
+    .story-4::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(20,160,70,0.16) 0%, transparent 65%); }
+    .story-4 .story-num { color: #14A046; opacity: 0.07; }
+    .story-4 .story-kicker { color: #30C060; opacity: 1; }
+    .story-4 .story-headline { color: #e0ffe8; }
+    .story-4 .story-body { color: #c8f0d0; }
+    .story-4 .story-meta { color: #30C060; opacity: 0.5; }
+    .story-4 .story-link.primary { background: #063820; color: #80ffb0; }
+    .story-4 .story-link.secondary { background: rgba(20,160,70,0.08); color: #a0e8b0; border: 1px solid rgba(20,160,70,0.22); }
+    .story-4 .flag-btn { color: #c8f0d0; }
+    .green-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .green-item { background: rgba(20,160,70,0.07); border-left: 3px solid #14A046; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .green-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #30C060; margin-bottom: 0.3rem; }
+    .green-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 5 — Dark purple */
+    .story-5 { background: #040010; color: #d8c8ff; min-height: 75vh; }
+    .story-5::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(90,40,200,0.17) 0%, transparent 65%); }
+    .story-5 .story-num { color: #5A28C8; opacity: 0.07; }
+    .story-5 .story-kicker { color: #8050E0; opacity: 1; }
+    .story-5 .story-headline { color: #f0e8ff; }
+    .story-5 .story-body { color: #d8c8ff; }
+    .story-5 .story-meta { color: #8050E0; opacity: 0.5; }
+    .story-5 .story-link.primary { background: #200860; color: #d0a8ff; }
+    .story-5 .story-link.secondary { background: rgba(90,40,200,0.08); color: #c0a0f0; border: 1px solid rgba(90,40,200,0.22); }
+    .story-5 .flag-btn { color: #d8c8ff; }
+    .purple-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .purple-item { background: rgba(90,40,200,0.07); border-left: 3px solid #5A28C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .purple-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #8050E0; margin-bottom: 0.3rem; }
+    .purple-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 6 — Dark cyan */
+    .story-6 { background: #000c10; color: #b8e8f0; min-height: 75vh; }
+    .story-6::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 40%, rgba(0,130,160,0.14) 0%, transparent 65%); }
+    .story-6 .story-num { color: #0080A0; opacity: 0.07; }
+    .story-6 .story-kicker { color: #20B0D0; opacity: 1; }
+    .story-6 .story-headline { color: #e0f4ff; }
+    .story-6 .story-body { color: #b8e8f0; }
+    .story-6 .story-meta { color: #20B0D0; opacity: 0.5; }
+    .story-6 .story-link.primary { background: #003848; color: #80d8f0; }
+    .story-6 .story-link.secondary { background: rgba(0,130,160,0.08); color: #90cce0; border: 1px solid rgba(0,130,160,0.22); }
+    .story-6 .flag-btn { color: #b8e8f0; }
+    .cyan-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .cyan-item { background: rgba(0,130,160,0.07); border-left: 3px solid #0080A0; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .cyan-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20B0D0; margin-bottom: 0.3rem; }
+    .cyan-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 7 — Dark amber */
+    .story-7 { background: #0a0300; color: #ffe0b8; min-height: 75vh; }
+    .story-7::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(210,90,20,0.18) 0%, transparent 65%); }
+    .story-7 .story-num { color: #D05A14; opacity: 0.07; }
+    .story-7 .story-kicker { color: #E88040; opacity: 1; }
+    .story-7 .story-headline { color: #fff0d8; }
+    .story-7 .story-body { color: #ffe0b8; }
+    .story-7 .story-meta { color: #E88040; opacity: 0.5; }
+    .story-7 .story-link.primary { background: #6a2400; color: #ffc880; }
+    .story-7 .story-link.secondary { background: rgba(210,90,20,0.08); color: #ffb870; border: 1px solid rgba(210,90,20,0.22); }
+    .story-7 .flag-btn { color: #ffe0b8; }
+    .amber-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .amber-item { background: rgba(210,90,20,0.07); border-left: 3px solid #D05A14; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .amber-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E88040; margin-bottom: 0.3rem; }
+    .amber-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 8 — Dark gold */
+    .story-8 { background: #080500; color: #fff; min-height: 70vh; }
+    .story-8::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,145,10,0.15) 0%, transparent 65%); }
+    .story-8 .story-num { color: #BE9110; opacity: 0.06; }
+    .story-8 .story-kicker { color: #D4A820; opacity: 1; }
+    .story-8 .story-headline { color: #fff; }
+    .story-8 .story-body { color: rgba(255,255,255,0.88); }
+    .story-8 .story-meta { color: #D4A820; opacity: 0.5; }
+    .story-8 .story-link.primary { background: #604000; color: #ffe070; }
+    .story-8 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-8 .flag-btn { color: #fff; }
+    .gold-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .gold-item { background: rgba(190,145,10,0.07); border-left: 3px solid #BE9110; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .gold-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #D4A820; margin-bottom: 0.3rem; }
+    .gold-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 9 — Slate blue */
+    .story-9 { background: #040810; color: #c8d8f0; min-height: 70vh; }
+    .story-9::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 35%, rgba(50,90,170,0.16) 0%, transparent 65%); }
+    .story-9 .story-num { color: #3258A8; opacity: 0.07; }
+    .story-9 .story-kicker { color: #5878C8; opacity: 1; }
+    .story-9 .story-headline { color: #e8f0ff; }
+    .story-9 .story-body { color: #c8d8f0; }
+    .story-9 .story-meta { color: #5878C8; opacity: 0.5; }
+    .story-9 .story-link.primary { background: #101e50; color: #fff; }
+    .story-9 .story-link.secondary { background: rgba(50,90,170,0.08); color: #b0c8e8; border: 1px solid rgba(50,90,170,0.22); }
+    .story-9 .flag-btn { color: #c8d8f0; }
+    .slate-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .slate-item { background: rgba(50,90,170,0.07); border-left: 3px solid #3258A8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .slate-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #5878C8; margin-bottom: 0.3rem; }
+    .slate-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 10 — Magenta */
+    .story-10 { background: #080004; color: #ffc8e8; min-height: 70vh; }
+    .story-10::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,20,90,0.15) 0%, transparent 65%); }
+    .story-10 .story-num { color: #BE1458; opacity: 0.07; }
+    .story-10 .story-kicker { color: #E04080; opacity: 1; }
+    .story-10 .story-headline { color: #fff0f8; }
+    .story-10 .story-body { color: #ffc8e8; }
+    .story-10 .story-meta { color: #E04080; opacity: 0.5; }
+    .story-10 .story-link.primary { background: #500030; color: #ffb0d8; }
+    .story-10 .story-link.secondary { background: rgba(190,20,90,0.08); color: #f090c0; border: 1px solid rgba(190,20,90,0.22); }
+    .story-10 .flag-btn { color: #ffc8e8; }
+    .mag-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .mag-item { background: rgba(190,20,90,0.07); border-left: 3px solid #BE1458; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .mag-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E04080; margin-bottom: 0.3rem; }
+    .mag-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .site-footer { background: #000; color: #555; padding: 3rem 4rem; display: flex; flex-direction: column; gap: 1.5rem; border-top: 1px solid #222; }
+    .footer-top { display: flex; gap: 2rem; align-items: center; flex-wrap: wrap; justify-content: space-between; }
+    .footer-brand { font-size: 1.4rem; font-weight: 900; color: #fff; }
+    .footer-meta { font-size: 0.75rem; line-height: 1.6; }
+    .export-btn { background: #222; border: 1px solid #444; color: #fff; font-family: var(--font); font-size: 0.8rem; font-weight: 700; padding: 0.7em 1.5em; border-radius: 3px; cursor: pointer; letter-spacing: 0.08em; transition: background 0.2s; }
+    .export-btn:hover { background: #333; }
+    .footer-note { font-size: 0.7rem; opacity: 0.5; }
+
+    @media (max-width: 768px) {
+      .masthead, .toc, .story-inner, .site-footer { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .story-num { display: none; }
+      .masthead-meta { gap: 1rem; }
+      .masthead-issue { margin-left: 0; }
+      .blue-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+<nav style="background:#1a1a1a;border-bottom:1px solid #333;padding:0.55rem 2rem;font-family:'M PLUS Rounded 1c','Hiragino Sans','Noto Sans JP',sans-serif;position:sticky;top:0;z-index:999;">
+  <a href="./index.html" style="color:#aaa;text-decoration:none;font-size:0.8rem;font-weight:700;letter-spacing:0.03em;display:inline-flex;align-items:center;gap:0.4rem;transition:color 0.15s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#aaa'">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    アーカイブへ戻る
+  </a>
+</nav>
+
+<header class="masthead">
+  <div class="masthead-kicker">Hacker News — Morning Edition</div>
+  <h1 class="masthead-title">Morning<br>Edition</h1>
+  <div class="masthead-meta">
+    <div>
+      <div class="masthead-date">2026年10月15日 木曜日</div>
+      <div class="masthead-subtitle">AI・開発ツール・プライバシー・サイエンス — あなたのための10本</div>
+    </div>
+    <div class="masthead-issue">
+      <span class="iss-label">Issue</span>
+      <span class="iss-num">No.150</span>
+    </div>
+  </div>
+</header>
+
+<nav class="toc">
+  <a href="#s1"><span class="toc-num">01</span>AIハッキング報告の真相——封じ込め失敗はラボ側の問題</a>
+  <a href="#s2"><span class="toc-num">02</span>Iosevka——開発者のためのオープンソースモノスペースフォント</a>
+  <a href="#s3"><span class="toc-num">03</span>パスキーは罠ではない——徹底解説</a>
+  <a href="#s4"><span class="toc-num">04</span>Googleが全アカウントに電話番号を密かにリンク</a>
+  <a href="#s5"><span class="toc-num">05</span>AnthropicのScionはもののけ姫に触発された</a>
+  <a href="#s6"><span class="toc-num">06</span>pg_vectorsearch——pgvectorを超えるベクトルインデックス</a>
+  <a href="#s7"><span class="toc-num">07</span>Go 1.27のHTTP/1接続再利用改善</a>
+  <a href="#s8"><span class="toc-num">08</span>OpenCode 2.0——オープンソースAIコーディングツール刷新</a>
+  <a href="#s9"><span class="toc-num">09</span>Phloem——スライムモールのように育てるGit可視化</a>
+  <a href="#s10"><span class="toc-num">10</span>Neckbeard——エージェントのためのDevOps・SREプラグイン</a>
+</nav>
+
+<!-- ═══ STORY 1 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-1" id="s1">
+  <div class="story-num">01</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / セキュリティ / エージェント / フロンティアラボ / 封じ込め — 2026-10-15</div>
+    <h2 class="story-headline">
+      <span class="headline-accent">AIハッキング報告の真相</span><br>封じ込め失敗は<br>ラボ側の問題——783pt
+    </h2>
+    <div class="story-body">
+      「Containment and monitoring failures are to blame for AI hacking reports: experts」がHNで783ポイント・388コメントを集めています。AIエージェントが「暴走して」ハッキングをしているという報告が相次いでいますが、セキュリティ専門家たちは「問題の本質はAIの自律性ではなく、フロンティアラボが基本的なセキュリティ原則を省略していること」だと指摘します。封じ込め（containment）とモニタリングの失敗がいかにAIセキュリティ事件を生み出しているか——その実態が明らかになっています。
+    </div>
+    <div class="blue-grid">
+      <div class="blue-card">
+        <div class="blue-card-label">「AIが暴走した」は誤解——本当の原因</div>
+        <div class="blue-card-value">基本的なセキュリティの欠如</div>
+        <div class="blue-card-sub">CSOOnlineの報告によると、セキュリティ専門家が共通して指摘する問題: (1) 最小権限の原則の無視——AIエージェントに必要以上の権限（ファイルシステムへのフルアクセス、ネットワークへの無制限アクセス等）が与えられている。「AIだから特別な制限が必要」なのではなく「通常のシステムに適用すべき基本的な制限を実装していないだけ」。(2) 監査ログの欠如——AIエージェントの行動履歴が記録されていないため、何が起きたかの事後検証が困難。(3) ネットワーク分離の不備——本来はサンドボックス内で動作すべきAIエージェントがインターネットに直接アクセスできる状態になっている。これらはAI特有の問題ではなく、20年前から知られているセキュリティの基本原則を単に適用していないという話。</div>
+      </div>
+      <div class="blue-card">
+        <div class="blue-card-label">具体的な事件パターンと正しい封じ込め設計</div>
+        <div class="blue-card-value">ゼロトラストをAIにも</div>
+        <div class="blue-card-sub">報告されたAIセキュリティ事件の典型パターン: (1) プロンプトインジェクション経由の権限昇格——Webを閲覧するAIエージェントが悪意あるページの「指示」に従い、本来すべきでない操作を実行。これはAIが「暴走した」のではなく、入力検証・出力フィルタリングが実装されていなかった問題。(2) ツール呼び出しの連鎖——AIに与えたツール（コード実行・ファイル操作・ネットワークアクセス）を組み合わせることで、設計者が意図しない操作が可能になる。正しい設計では: ①各ツールの呼び出しをログに残す ②ツール実行前に人間の承認を求める ③タイムアウトとレート制限を設ける ④実行環境を完全に分離する。「AIを信頼するかどうかではなく、どんなシステムも信頼しない設計にすること」という原則。</div>
+      </div>
+      <div class="blue-card">
+        <div class="blue-card-label">HNの388コメント——業界への警鐘</div>
+        <div class="blue-card-value">「急ぎすぎたツケ」</div>
+        <div class="blue-card-sub">388コメントで最も評価された声: 「私は10年以上セキュリティエンジニアをしているが、AIラボが犯しているミスは2004年に書かれたセキュリティ教科書の第1章に書いてある内容ばかりだ——『新しい技術だから』という言い訳は通らない」。「Claude Codeを使っているが、デフォルトでサンドボックス実行になっていることを確認してから使い始めた——これはAI云々より前の基本的な衛生管理」という実践者の意見も。「特に危惧しているのは、スタートアップがMVP（最小限の製品）を急いで出すためにセキュリティ設計を後回しにしていること。AIエージェントで一度大きな事故が起きれば、業界全体への規制が強化される」という警告も。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: csoonline.com</span>
+      <span>↑783pt · 💬388+（本日最多）</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.csoonline.com/article/4234854/ai-agents-arent-going-rogue-frontier-labs-are-skipping-security-basics.html" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50091788" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="ai-security-containment-failures" data-type="like" onclick="toggleFlag('ai-security-containment-failures','AIハッキング報告の真相——封じ込め失敗','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="ai-security-containment-failures" data-type="dislike" onclick="toggleFlag('ai-security-containment-failures','AIハッキング報告の真相——封じ込め失敗','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+    <div class="story-1-accent"></div>
+  </div>
+</section>
+
+<!-- ═══ STORY 2 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-2" id="s2">
+  <div class="story-num">02</div>
+  <div class="story-inner">
+    <div class="story-kicker">開発ツール / フォント / オープンソース / タイポグラフィ / CLI — 2026-10-15</div>
+    <h2 class="story-headline">
+      <span style="color:#20d8f0">Iosevka</span><br>開発者のための<br>最高のフォント——679pt
+    </h2>
+    <div class="story-body">
+      「Iosevka is an open-source, sans-serif and slab-serif monospace font」がHNで679ポイント・279コメントを集めています。プログラミング・ターミナル・コードレビューに特化して設計されたオープンソースのモノスペースフォント「Iosevka」が再び注目を集めています。単なるフォントにとどまらず、ビルドシステムによる細粒度のカスタマイズを提供するこのプロジェクトは、「開発者フォント」の概念を根本から再定義しています。
+    </div>
+    <div class="teal-items">
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">Iosevkaとは何か——主な特徴と設計思想</div>
+          <div class="teal-text">Iosevkaの主な特徴: (1) 極細〜超極太の可変ウェイト——通常のフォントが数種類のウェイトしか持たないのに対し、Iosevkaは100（Thin）から900（Heavy）まで連続した可変フォントをサポート。IDEのUIと本文テキストを同じフォントで統一できる。(2) プログラミングリガチャ——`!=`、`<=`、`=>`、`->`などのプログラミング記号を美しく合字表示するリガチャを豊富にサポート。全リガチャは個別にオン/オフ可能。(3) sans-serif / slab-serif の両対応——同じファミリー内でサンセリフとセリフスタイルを選択でき、印刷物・ドキュメント生成にも対応。(4) 圧縮フォーム——デフォルトより文字幅を狭くした「Iosevka Narrow」で、ターミナルの横幅を最大限に活用できる。(5) グリフセットのカスタマイズ——個々の文字（`g`・`a`・`l`・`0`・`1`等）のデザインバリアントを選択できる。</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">カスタムビルドという革命——自分だけのフォントを作れる</div>
+          <div class="teal-text">Iosevkaの最大の特徴の一つが「プライベートビルド」システム: (1) private-build-plans.tomlに設定を書くだけで、自分だけのカスタムフォントを生成できる。数字の`0`にスラッシュを入れるか点を入れるか、`l`を直線にするか曲線を付けるか等を細かく指定できる。(2) GitHub Actionsとの統合——設定ファイルをリポジトリに置き、GitHub Actionsで定期的にフォントをビルドして配布するパターンが定番化している。(3) 人気のプリセット——「SS07」（Iosevka Default）、「SS08」（Courier風）、「SS14」（Jetbrains Mono風）等のコミュニティ製プリセットが多数ある。HNでは「FiraCode→JetBrains Mono→Iosevkaと渡り歩いて、Iosevkaのカスタマイズ性で完全に定着した」という声が多く、長年フォントジプシーだったエンジニアが「ゴール到達」と語るコメントが相次いだ。</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">HNの279コメント——フォント論争が白熱</div>
+          <div class="teal-text">279コメントは予想通り「最高のプログラミングフォント」論争に発展: 「IosevkaはカスタマイズしすぎてABCテストに時間を使いすぎる——JetBrains Monoでデフォルトのままの方が実用的」という反論も。技術的な観点として「OpenTypeフォントのバイナリサイズが大きく（数十MB）、重いフォントローダーになる」という指摘がある。「Cascadia Code（Microsoft製）、Monaspace（GitHub製）、Iosevka——2026年時点でプログラミングフォントの品質が全体的に上がって選択が難しい」という嬉しい悩みも。実用的なアドバイス: 「Iosevkaを試す最速の方法は公式WebフォントCDNを使ってCSS1行で試すこと——インストール不要で挙動を確認できる」という具体的なTipsが多数いいねされた。</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: typeof.net/Iosevka</span>
+      <span>↑679pt · 💬279+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://typeof.net/Iosevka/" target="_blank">Iosevkaを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50084240" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="iosevka-monospace-font" data-type="like" onclick="toggleFlag('iosevka-monospace-font','Iosevkaオープンソースモノスペースフォント','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="iosevka-monospace-font" data-type="dislike" onclick="toggleFlag('iosevka-monospace-font','Iosevkaオープンソースモノスペースフォント','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 3 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-3" id="s3">
+  <div class="story-num">03</div>
+  <div class="story-inner">
+    <div class="story-kicker">セキュリティ / 認証 / パスキー / プライバシー / Web標準 — 2026-10-15</div>
+    <h2 class="story-headline">
+      パスキーは<br>罠では<br><span style="color:#E84040">ない——361pt</span>
+    </h2>
+    <div class="story-body">
+      「Passkeys are not a trap」がHNで361ポイント・556コメントを集めています。セキュリティエンジニアのScott Helmeが、パスキー（Passkeys）に対するHNコミュニティの懐疑論——「ベンダーロックイン」「プライバシーの罠」「Big Techへの依存」——を一つ一つ論駁しています。パスキーを採用すべきか悩んでいるエンジニア・プロダクトマネージャーに直接応用できる整理です。
+    </div>
+    <div class="red-items">
+      <div class="red-item">
+        <div class="red-label">よくある批判とその反証——「ベンダーロックイン」</div>
+        <div class="red-text">最も多い懸念「パスキーをApple/Google/Microsoftに管理させたくない」への回答: (1) パスキーの技術標準（WebAuthn/FIDO2）はW3CとFIDOアライアンスによるオープン標準——特定ベンダーに依存した仕様ではない。(2) クロスプラットフォーム転送の現実——iOS 17以降、パスキーはiCloud Keychainに保存されデバイス間同期されるが、1Passwordや Bitwardenなどのサードパーティパスワードマネージャーも既にパスキーをサポートしており、Apple生態系外にも移植可能。(3) ハードウェアセキュリティキー（YubiKey等）への保存——クラウドを全く使わずにパスキーをハードウェアキーに保存するオプションも存在。「どのクラウドにも依存したくない」人向けには既にローカル保存の選択肢がある。(4) パスワードとの比較——「ベンダーロックイン」を避けようとしてパスワード（Googleの自動補完・iCloudキーチェーンに保存している人が大多数）を使い続けるのは論理的一貫性がない、という指摘。</div>
+      </div>
+      <div class="red-item">
+        <div class="red-label">「プライバシーの罠」という懸念への回答——なぜ間違いか</div>
+        <div class="red-text">「パスキーを使うとGoogleやAppleにどのサイトにアクセスしているか分かる」という懸念: これは技術的に誤解がある。パスキーの認証は全てクライアントサイドで行われ、どのパスキーをどのサイトで使ったかを「パスキーを保存しているサービス」（Apple/Google/1Password等）が知ることはできない。認証のフロー: ブラウザ→Webサイトに直接認証リクエスト→ブラウザが保存済みパスキーで署名→結果をWebサイトに返す。この過程でApple/GoogleのサーバーはWebサイトのURLを受け取らない。ただし「クラウド同期をONにしていると、パスキーの同期トラフィックからアクセス先を推測される可能性が理論上ゼロではない」という繊細な議論は別途ある。大半のユーザーにとってはパスワードの平文保存よりはるかに安全。</div>
+      </div>
+      <div class="red-item">
+        <div class="red-label">HNの556コメント——「賛否両論」が示すコミュニティの成熟</div>
+        <div class="red-text">556コメントは「反パスキー派 vs 賛成派」の建設的な議論が展開された。賛成側の声: 「フィッシング耐性（パスキーは正規サイト以外では機能しない設計）がパスワードに対して最も重要なメリット——これだけでも採用する価値がある」「非技術系のユーザーに対して、パスキーは操作が直感的でサポートコストが劇的に下がる」。懐疑派の声: 「技術に詳しくないユーザーがデバイスを紛失・破損した場合の回復フローが複雑すぎる——これが最大の懸念」「企業の共有アカウントにパスキーは現実的でない」。「今の段階ではパスワード+ハードウェアMFAが最もリスクが低い——新しいサービスにはパスキーを使い始めている」という現実的な移行アドバイスが多くいいねされた。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: scotthelme.co.uk</span>
+      <span>↑361pt · 💬556+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://scotthelme.co.uk/passkeys-are-not-a-trap/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50088935" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="passkeys-not-a-trap" data-type="like" onclick="toggleFlag('passkeys-not-a-trap','パスキーは罠ではない','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="passkeys-not-a-trap" data-type="dislike" onclick="toggleFlag('passkeys-not-a-trap','パスキーは罠ではない','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 4 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-4" id="s4">
+  <div class="story-num">04</div>
+  <div class="story-inner">
+    <div class="story-kicker">プライバシー / Google / Android / アカウント管理 / 監視 — 2026-10-15</div>
+    <h2 class="story-headline">
+      Googleが全アカウントに<br>電話番号を<br><span style="color:#30C060">密かにリンク——312pt</span>
+    </h2>
+    <div class="story-body">
+      「Google is silently linking your phone number across all signed-in accounts」がHNで312ポイント・81コメントを集めています。Googleが複数アカウントを同一デバイスで使用しているAndroidユーザーに対し、ユーザーの明示的な同意なしに電話番号を全てのサインイン済みアカウントに自動的に紐付けていることが判明しました。プライバシー意識の高いエンジニアが複数アカウントを使い分けている意味が根本から崩れる可能性があります。
+    </div>
+    <div class="green-items">
+      <div class="green-item">
+        <div class="green-label">何が起きているか——技術的な詳細</div>
+        <div class="green-text">Android Authorityの報道によると: (1) 問題の仕組み——Androidに登録された電話番号（SIMカード・デバイス設定から取得）が、同一デバイスでサインインしている全てのGoogleアカウントに「自動的に」関連付けられる。具体的には、仕事用Googleアカウント・個人Googleアカウントの両方を同一Androidデバイスで使っている場合、電話番号によって両者が同一人物として紐付けられる。(2) ユーザーが気づく機会がない——この紐付けはGoogleアカウント設定の深いメニューに埋まっており、明示的な同意フローがない。新機能として目立ったアナウンスもされていない。(3) 影響範囲——特に「仕事用アカウントと個人アカウントを分けてプライバシーを保つ」という使い方をしている人が最も影響を受ける。Googleがこれらのアカウントを同一人物と認識した場合、広告ターゲティング・アカウント停止時の影響範囲・法的な開示要求への対応に影響が及ぶ。</div>
+      </div>
+      <div class="green-item">
+        <div class="green-label">どう対処するか——確認方法と設定変更</div>
+        <div class="green-text">影響を確認・緩和する手順: (1) 現在の紐付け状況確認——Googleアカウント → セキュリティ → 電話番号 で、どのアカウントにどの番号が紐付いているかを確認できる。(2) 自動紐付けの無効化——Android設定 → Googleアカウント → 「電話番号の確認に使用」オプションをオフに。ただし全てのデバイス・アカウントで個別に行う必要がある。(3) より強固な分離が必要な場合——仕事用・個人用で別々の物理デバイスを使う、またはiOSではアカウントごとの分離が比較的強い。(4) 根本的な対処——Googleに依存しないメールプロバイダー（Fastmail・ProtonMail等）の利用も検討に値する。「今すぐ設定を確認することをすすめる——知らない間に紐付いている可能性が高い」という実務的なアドバイスがコメントを席巻した。</div>
+      </div>
+      <div class="green-item">
+        <div class="green-label">HNの反応——「プライバシーのデフォルト設定問題」</div>
+        <div class="green-text">81コメントのうち技術的な怒りが際立っている: 「これはGoogle GDPRへの対応として欧州では問題になりうる——同意なしの個人データ統合は規制に引っかかる」「GDPRとCCPAの観点から見ると、これは明らかに問題のある挙動」という法的観点からの批判が多い。「Googleが一度あなたについての情報を得ると、それを複数サービス・アカウントにわたって結びつけてプロファイリングするのは彼らのビジネスモデルの核心——これは驚くべきことではない」という冷静な見方も。「私はiPhoneとProtonMailの組み合わせに移行したが、今回のニュースはその判断が正しかったことを再確認させてくれる」という移行済みの声も多い。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: androidauthority.com</span>
+      <span>↑312pt · 💬81+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.androidauthority.com/google-auto-phone-number-verification-android-3723117/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50090349" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="google-phone-number-tracking" data-type="like" onclick="toggleFlag('google-phone-number-tracking','Google全アカウント電話番号リンク','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="google-phone-number-tracking" data-type="dislike" onclick="toggleFlag('google-phone-number-tracking','Google全アカウント電話番号リンク','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 5 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-5" id="s5">
+  <div class="story-num">05</div>
+  <div class="story-inner">
+    <div class="story-badge direct-badge">⚡ あなたに直接関係</div>
+    <div class="story-kicker">Anthropic / ソフトウェア設計 / アニメーション / インスピレーション / もののけ姫 — 2026-10-15</div>
+    <h2 class="story-headline">
+      AnthropicのScionは<br>もののけ姫に<br><span style="color:#8050E0">触発された——165pt</span>
+    </h2>
+    <div class="story-body">
+      「Anthropic's Scion is heavily inspired by Mononoke」がHNで165ポイント・60コメントを集めています。sunshowers.ioのこのブログ投稿では、Anthropicの内部ツール「Scion」——おそらくソースコード管理や依存関係追跡に関連するシステム——が宮崎駿の「もののけ姫」に登場する「コダマ」や「タタリ神」のコンセプトからデザイン上のインスピレーションを得ていることが明かされています。技術ツールとアニメーションの思想を結びつけた珍しい視点が話題を呼んでいます。
+    </div>
+    <div class="purple-items">
+      <div class="purple-item">
+        <div class="purple-label">「Scion」とは何か——Anthropicの内部ツールの役割</div>
+        <div class="purple-text">ブログ投稿によると、Scionは「ソフトウェアコンポーネントの系譜（lineage）と依存関係を可視化・追跡するためのシステム」とみられる。名称「Scion」は「後継者・子孫」を意味する英語で、ソフトウェアの「血統」「派生関係」を追跡するという機能的な意味合いを持つ。Anthropicがこのようなシステムを必要とする背景: Claude開発において、ファインチューニングデータの系譜・モデルバージョンの派生関係・学習パイプラインの依存グラフを管理する必要がある。機械学習の世界では「このモデルの動作がなぜ変わったのか」を遡って追跡することが特に困難で、系譜追跡システムは品質管理・安全性検証・実験の再現性確保に不可欠。AIシステムの開発における「データとモデルの家系図」を管理するというのが、Scionの核心的な役割とみられる。</div>
+      </div>
+      <div class="purple-item">
+        <div class="purple-label">もののけ姫からの着想——何がどう影響しているか</div>
+        <div class="purple-text">筆者が指摘するもののけ姫との概念的な接続: (1) コダマ（木霊）の役割——もののけ姫でコダマは森の健康状態を示す指標として存在する。Scionにおける各コンポーネントも「システム全体の状態を映す指標」として機能するという類比。(2) タタリ神の「汚染の伝播」——もののけ姫でタタリ神の呪いが有機的に広がるように、ソフトウェアの依存関係バグ・セキュリティ脆弱性も依存グラフ上を「伝播」する。この可視化が重要というメタファー。(3) 有機的成長の設計思想——強制的なツリー構造ではなく、実際の有機的な成長パターン（根が絡み合う木のような複雑な依存関係）を自然に表現することを目指している。「技術的な概念を語るために日本のアニメーションの哲学を借用する」というAnthropicのカルチャーが垣間見えるという点でも話題になっている。</div>
+      </div>
+      <div class="purple-item">
+        <div class="purple-label">HNの反応——「Anthropicらしい命名センス」</div>
+        <div class="purple-text">60コメントの中で際立った反応: 「Anthropicのツール・プロジェクト命名は面白い文化的センスがある——Claude（光の名前）、Sonnet（詩の形式）、そしてScion（後継者）と来てもののけ姫まで」という命名パターンへの興味。「日本のAI研究者が多いAnthropicならではの命名だろうか——それとも宮崎駿ファンが多いだけか」という文化的な考察も。「依存関係の『汚染伝播』をタタリ神に例えるのは詩的というか、実際にデバッグ体験として正確——バグが依存グラフを伝ってどこまで広がるかは本当に呪いのようだ」という共感コメントが多くいいねされた。Claude Codeを毎日使っているユーザーとしては、その背後にあるAnthropicの開発インフラへの窓が少し開いた感覚。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: sunshowers.io</span>
+      <span>↑165pt · 💬60+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://sunshowers.io/posts/anthropic-mononoke/" target="_blank">ブログを読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50094694" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="anthropic-scion-mononoke" data-type="like" onclick="toggleFlag('anthropic-scion-mononoke','AnthropicのScionともののけ姫','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="anthropic-scion-mononoke" data-type="dislike" onclick="toggleFlag('anthropic-scion-mononoke','AnthropicのScionともののけ姫','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 6 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-6" id="s6">
+  <div class="story-num">06</div>
+  <div class="story-inner">
+    <div class="story-kicker">データベース / PostgreSQL / ベクトル検索 / パフォーマンス / Timescale — 2026-10-15</div>
+    <h2 class="story-headline">
+      pg_vectorsearch<br>pgvectorを超える<br><span style="color:#20B0D0">新インデックス——180pt</span>
+    </h2>
+    <div class="story-body">
+      「Pg_vectorsearch: An index that is faster than pgvector's IVFFlat and HNSW」がHNで180ポイント・47コメントを集めています。Timescaleが公開したPostgreSQL向けベクトル検索拡張「pg_vectorsearch」が、既存のpgvectorが提供するIVFFlatとHNSWインデックスを性能面で上回ると主張しています。LLMアプリケーションでRAG（Retrieval-Augmented Generation）を実装する開発者にとって直接関係する話題です。
+    </div>
+    <div class="cyan-items">
+      <div class="cyan-item">
+        <div>
+          <div class="cyan-label">pg_vectorsearchとは何か——技術的な差別化</div>
+          <div class="cyan-text">Timescaleのブログ（GitHub: timescale/pg_vectorsearch）によると: (1) インデックス手法——pg_vectorsearchはHNSW（Hierarchical Navigable Small World）インデックスを採用しているが、pgvectorの実装とは異なるチューニングとメモリ管理で速度を改善している。具体的な改善点: キャッシュ効率の向上、並列クエリ処理の最適化、インデックスビルド時間の短縮。(2) 近似最近傍探索（ANN）の精度とリコール——ベクトル検索では「正確性（recall）」と「速度」のトレードオフがある。pg_vectorsearchは同等のリコール率でpgvectorより高速と主張。(3) PostgreSQLネイティブ統合——pgvectorと同様にPostgreSQLの拡張として動作し、既存のSQLクエリ・トランザクション・バックアップとシームレスに連携。(4) AIアプリケーションを念頭に置いた設計——チャンク埋め込みの格納・類似度検索・メタデータフィルタリングを組み合わせたRAGワークフロー向けに最適化されている。</div>
+        </div>
+      </div>
+      <div class="cyan-item">
+        <div>
+          <div class="cyan-label">既存の選択肢との比較——いつ使うべきか</div>
+          <div class="cyan-text">ベクトルデータベース選択の整理: (1) pgvector（既存のデファクト）——PostgreSQLへの追加が最も容易で、既存のRDBMSと同一トランザクション内でベクトル検索が可能。小〜中規模（数百万ベクトルまで）では十分な選択肢。(2) pg_vectorsearch——pgvectorをすでに使っていてパフォーマンスが問題になっている場合のドロップイン代替。特にインデックスビルドが遅い問題や、クエリが重いという問題を抱えているチームに向く。(3) 専用ベクトルDB（Pinecone・Qdrant・Weaviate等）——数億〜数十億ベクトル規模や、ベクトル検索が主用途の場合はPostgreSQLより専用DBが向く。(4) HNコメントのコンセンサス——「まず pgvector で始めて、スケール問題が出たら pg_vectorsearch か専用DB」というアドバイスが最も実用的として評価された。</div>
+        </div>
+      </div>
+      <div class="cyan-item">
+        <div>
+          <div class="cyan-label">HNの47コメント——ベンチマークへの疑問と実用価値</div>
+          <div class="cyan-text">47コメントの技術的議論: 「ベンチマークは自社製品に有利な設定で取られることが多い——独立した第三者によるベンチマークが出るまで鵜呑みにしない」という健全な懐疑論が最多いいね。技術的なツッコミとして「HNSWのパラメータ（M・efConstruction）はpgvectorでも調整できる——デフォルトパラメータとの比較なら不公平」という指摘も。実際に試した人からのフィードバック: 「インデックスビルド時間が体感で明らかに速い——大規模な再インデックスが必要な場面では効果が出そう」「ただし本番環境での安定性はまだ不明——pgvectorの方が実績がある」。「TimescaleDBは既に使っているので、pg_vectorsearchとの統合は自然——試す価値はある」という既存ユーザーの前向きな反応も。</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: github.com/timescale/pg_vectorsearch</span>
+      <span>↑180pt · 💬47+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://github.com/timescale/pg_vectorsearch" target="_blank">GitHubを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50086165" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="pg-vectorsearch-timescale" data-type="like" onclick="toggleFlag('pg-vectorsearch-timescale','pg_vectorsearchTimescaleベクトルインデックス','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="pg-vectorsearch-timescale" data-type="dislike" onclick="toggleFlag('pg-vectorsearch-timescale','pg_vectorsearchTimescaleベクトルインデックス','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 7 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-7" id="s7">
+  <div class="story-num">07</div>
+  <div class="story-inner">
+    <div class="story-kicker">Go / HTTP / パフォーマンス / バックエンド / 開発ツール — 2026-10-15</div>
+    <h2 class="story-headline">
+      Go 1.27の<br>HTTP/1接続再利用<br><span style="color:#E88040">改善——170pt</span>
+    </h2>
+    <div class="story-body">
+      「Better HTTP/1 connection reuse in Go 1.27」がHNで170ポイント・28コメントを集めています。Go公式ブログがGo 1.27に搭載されるHTTP/1.1接続プールの改善を解説しています。大量の並列HTTPリクエストを発行するバックエンドサービスを書いているGoエンジニアには直接パフォーマンスに影響する変更で、コードを変えずに改善が得られる可能性があります。
+    </div>
+    <div class="amber-items">
+      <div class="amber-item">
+        <div class="amber-label">何が変わったか——HTTP/1接続プールの改善内容</div>
+        <div class="amber-text">Go公式ブログ（go.dev/blog）によると、改善の核心: (1) 問題の背景——GoのHTTPクライアントはデフォルトで接続プールを管理するが、HTTP/1.1では一つの接続で一度に一つのリクエストしか処理できない（HTTP/2のストリーム多重化と異なり）。高い並列度でリクエストを送る場合、接続の作成/破棄コストが積み重なっていた。(2) 改善内容——接続再利用のロジックが見直され、アイドル接続をより効率的に使い回すようになった。特に「一度使った接続をすぐプールに戻す」ことで、次のリクエストが新接続を作成する必要がなくなるケースが増えた。(3) 効果の大きい場面——同一ホストへの連続リクエスト（マイクロサービス間通信、外部APIの呼び出し）、短命なリクエストが多いワークロード。(4) コード変更は不要——`http.DefaultTransport`や`http.Client`のデフォルト設定を使っているコードはそのまま恩恵を受けられる。</div>
+      </div>
+      <div class="amber-item">
+        <div class="amber-label">実際の効果と影響を受けるユースケース</div>
+        <div class="amber-text">どんな場面で効果が出るか: (1) Goで書かれたAPIゲートウェイ・リバースプロキシ——上流サービスへの多数のHTTP/1.1接続を管理する場合、接続再利用の改善が直接スループットに効く。(2) スクレイピング・バッチ処理——多数のURLにHTTPリクエストを送るワークフローで、接続確立オーバーヘッドが減少する。(3) 既にHTTP/2を使っている場合——HTTP/2は接続内でストリーム多重化を行うため、今回の変更の恩恵は小さい。HTTP/2対応サーバーへのリクエストならHTTP/2を優先するデフォルトの挙動はGo 1.21以降で有効。(4) Go 1.27へのアップグレードが必要——まだGo 1.24・1.25系を使っているプロジェクトは、定期アップグレードのタイミングでこの改善を得られる。「アップグレードチェックリストに追加した——特に何もしなくてもパフォーマンスが改善されるアップグレードは嬉しい」というコメントが多い。</div>
+      </div>
+      <div class="amber-item">
+        <div class="amber-label">HNの反応——「Goのこういう改善が好き」</div>
+        <div class="amber-text">28コメントは全体的にポジティブ: 「Goのチームは長年にわたって標準ライブラリを静かに改善し続けている——net/httpの接続管理はGo 1.7から継続的にチューニングされてきた歴史がある」という長期視点のコメントが評価された。「GoのHTTPクライアントはデフォルト設定で十分に速いのが魅力——設定を細かくチューニングせずに使えるのは生産性に直結する」という実用性への評価も。技術的な補足: 「HTTP/3（QUIC）対応はまだGoの標準ライブラリには入っていないが、golang.org/x/net/quicで実験的に利用できる——この辺がGo 1.28か1.29で標準化されることを期待している」という次のステップへの関心も高い。「接続プールの監視ツールが充実していれば、この改善の実際の効果を数値で確認しやすいのに」という実用的なフィードバックも。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: go.dev/blog</span>
+      <span>↑170pt · 💬28+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://go.dev/blog/http-connection-reuse" target="_blank">ブログを読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50090369" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="go-127-http-connection-reuse" data-type="like" onclick="toggleFlag('go-127-http-connection-reuse','Go1.27HTTP1接続再利用改善','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="go-127-http-connection-reuse" data-type="dislike" onclick="toggleFlag('go-127-http-connection-reuse','Go1.27HTTP1接続再利用改善','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 8 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-8" id="s8">
+  <div class="story-num">08</div>
+  <div class="story-inner">
+    <div class="story-kicker">開発ツール / AI / オープンソース / コーディング / CLI — 2026-10-15</div>
+    <h2 class="story-headline">
+      OpenCode 2.0<br>AIコーディングツールの<br>刷新——124pt
+    </h2>
+    <div class="story-body">
+      「OpenCode 2.0」がHNで124ポイント・42コメントを集めています。オープンソースのAIコーディングツール「OpenCode」がバージョン2.0としてメジャーアップデートされました。Claude CodeやGitHub Copilotのようなクローズドソースのツールに対抗するオープンソース陣営として、コミュニティ主導の開発哲学と拡張性を強みに進化しています。
+    </div>
+    <div class="gold-items">
+      <div class="gold-item">
+        <div class="gold-label">OpenCode 2.0の新機能——何が変わったか</div>
+        <div class="gold-text">Anoma.ly（開発ブログ）によると、OpenCode 2.0の主な変更点: (1) マルチモデルサポート——Claude・GPT-4・Gemini・ローカルモデル（Ollama経由）を同一UIで切り替えられるようになった。特定のAIベンダーへの依存なしに利用できる。(2) エージェントモードの強化——単一のコード補完にとどまらず、タスクを複数ステップで自律的に実行するエージェントループをサポート。ファイル操作・テスト実行・コミット等をコマンド一つで実行。(3) TUIの刷新——ターミナルUIが大幅に改善され、会話履歴・コンテキスト管理・ファイルツリー表示が統合された。(4) プラグインシステム——独自の機能拡張を追加できるプラグインAPIが公開され、ツールチェーン固有の統合（Cargo・Poetry・Gradle等）をコミュニティが開発できるようになった。「Claude Codeのオープンソース版」という位置づけで語られることが多いが、マルチモデル対応という点で差別化している。</div>
+      </div>
+      <div class="gold-item">
+        <div class="gold-label">オープンソースAIコーディングツールの意義——なぜ重要か</div>
+        <div class="gold-text">OpenCodeが解決しようとしている問題: (1) プロプライエタリロックイン——Claude Code・Copilotはそれぞれ特定のプラットフォーム・AIベンダーに依存。コード補完の品質がベンダーの意思決定に左右される。(2) プライバシー・機密コード——企業・個人によっては、コードをAnthropicやGitHubのサーバーに送信することが規約・セキュリティ要件上許可されない。ローカルモデル（Ollama）と組み合わせれば完全にオフラインで動作させられる。(3) カスタマイズ可能性——オープンソースなので、自社の開発フロー・命名規則・アーキテクチャパターンに深く統合したカスタマイズができる。(4) コスト——APIコストを使う側が直接制御できる。ただし「Claude Codeと比べてUIの洗練度や細かい使い勝手でまだ差がある」というフィードバックもある。</div>
+      </div>
+      <div class="gold-item">
+        <div class="gold-label">HNの42コメント——「Claude Codeと比べてどうか」</div>
+        <div class="gold-text">42コメントで最も多いのは「Claude Codeとの比較」: 「Claude Codeは完成度が高くて生産性が出るが月$200のサブスクリプションコストがある——OpenCodeでローカルモデルが使えれば大幅にコストを下げられる」という経済的な観点。「マルチモデルサポートが重要——私のワークフローではコードレビューにClaudeを使い、コード生成には速いモデルを使い分けたい」という実用的な需要も。技術的な懸念: 「TUI系のツールはどうしてもWindowsでの動作が安定しないことが多い——クロスプラットフォームの安定性が2.0でどこまで改善されたか」という質問。「プラグインシステムが本当に動くなら、コミュニティの開発が加速するはず——Claude Codeと並行して試してみる価値はある」という期待の声も多い。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: anoma.ly/notes</span>
+      <span>↑124pt · 💬42+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://anoma.ly/notes/opencode-2-0/" target="_blank">ブログを読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50094994" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="opencode-2-0" data-type="like" onclick="toggleFlag('opencode-2-0','OpenCode2.0オープンソースAIコーディングツール','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="opencode-2-0" data-type="dislike" onclick="toggleFlag('opencode-2-0','OpenCode2.0オープンソースAIコーディングツール','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 9 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-9" id="s9">
+  <div class="story-num">09</div>
+  <div class="story-inner">
+    <div class="story-kicker">開発ツール / Git / ビジュアライゼーション / クリエイティブ / オープンソース — 2026-10-15</div>
+    <h2 class="story-headline">
+      Phloem<br>スライムモールのように<br><span style="color:#5878C8">育てるGit——65pt</span>
+    </h2>
+    <div class="story-body">
+      「Phloem: Git history grown like a slime mold」がHNで65ポイント・18コメントを集めています。Gitリポジトリの履歴をスライムモール（粘菌）が成長するような有機的なビジュアライゼーションで表示する実験的ツール「Phloem」が注目を集めています。通常の線形なコミット履歴図とは異なり、コードの「成長パターン」を生物の振る舞いになぞらえて可視化するアプローチが新鮮です。
+    </div>
+    <div class="slate-items">
+      <div class="slate-item">
+        <div class="slate-label">Phloemとは何か——スライムモール可視化の発想</div>
+        <div class="slate-text">phloem.stemdeck.appで公開されているこのツールの発想: 「Phloem（師管）」は植物の栄養輸送組織の名称で、Gitのコミット・変更が「リポジトリという有機体を通じて流れる栄養素」というメタファー。スライムモール（Physarum polycephalum）は迷路の最短経路を探す能力で知られる単細胞生物で、分散した栄養源を結ぶ最適な管ネットワークを有機的に成長させる。この「局所的な判断の集積が全体最適を実現する」という粘菌の特性をGitのマージ・ブランチ・コントリビューションのパターンに重ね合わせている。可視化の具体的な機能: コミット頻度が高いファイル・ディレクトリが「太い管」として表示される。長期間変更されていない部分は「枯れた枝」として縮小。複数ブランチのマージが「分岐した管の合流」として有機的に描画される。</div>
+      </div>
+      <div class="slate-item">
+        <div class="slate-label">実用的な価値——なぜ普通のgit logと違うのか</div>
+        <div class="slate-text">通常のgit log / git graphとの違いと実用的な用途: (1) ホットスポットの直感的把握——「どのファイルが最も頻繁に変更されているか」を視覚的に即座に把握できる。太いノードはバグの多い場所・リファクタリングが必要な場所を示す可能性がある。(2) コントリビューターパターンの理解——誰がどの領域のコードを主に書いているかを空間的に把握できる。コードオーナーシップの実態を可視化するツールとして使える。(3) コードベースの「老化」の可視化——長期間触れられていないコードを「枯れた」ビジュアルで示し、技術的負債の候補を特定できる。(4) PR・コードレビューの文脈理解——「この変更がコードベースのどの部分に影響するか」を有機的なネットワーク図で確認できる。ただし「美しいが実用的かどうかはまだ不明」「通常のgit blame・git logの方が実務では速い」という冷静な意見も。</div>
+      </div>
+      <div class="slate-item">
+        <div class="slate-label">HNの反応——生物学的アナロジーの流行</div>
+        <div class="slate-text">18コメントの主なトレンド: 「コードを有機的に成長するものとして捉えるアナロジーはKent Beckの時代からあった——Phloemはその視覚化版として面白い試みだ」という歴史的文脈。「スライムモール系のアルゴリズムをGit可視化に応用するというアイデアは実は珍しくない——問題はGitの履歴が何千コミットもある大規模リポジトリでどこまでパフォーマンスが出るか」という実装上の懸念。「個人的なサイドプロジェクトのリポジトリで試してみたら、自分がいかに特定のファイルばかり触っているかが一目でわかって少しショックだった」という実用者の声が楽しい。「このようなクリエイティブなコード可視化ツールは実用性よりも新しい見方を提供することに価値がある——Gitの歴史を新鮮な目で見るきっかけになる」という評価も。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: phloem.stemdeck.app</span>
+      <span>↑65pt · 💬18+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://phloem.stemdeck.app/" target="_blank">Phloemを試す →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50054465" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="phloem-git-slime-mold" data-type="like" onclick="toggleFlag('phloem-git-slime-mold','PhloemスライムモールGit可視化','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="phloem-git-slime-mold" data-type="dislike" onclick="toggleFlag('phloem-git-slime-mold','PhloemスライムモールGit可視化','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 10 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-10" id="s10">
+  <div class="story-num">10</div>
+  <div class="story-inner">
+    <div class="story-kicker">開発ツール / AI / DevOps / エージェント / SRE / プラグイン — 2026-10-15</div>
+    <h2 class="story-headline">
+      Neckbeard<br>エージェントのための<br><span style="color:#E04080">DevOps・SREプラグイン——56pt</span>
+    </h2>
+    <div class="story-body">
+      「Neckbeard – A DevOps/platform/SRE plugin for your agent」がHNで56ポイント・47コメントを集めています。GitHub: bealesh/neckbeardで公開されたこのプロジェクトは、AIエージェント（Claude Code等）がDevOpsやSREタスクを自律的に実行できるようにするプラグインシステムです。オンコール対応・デプロイ・インフラ操作をAIエージェントに委譲するという大胆なアプローチが注目されています。
+    </div>
+    <div class="mag-items">
+      <div class="mag-item">
+        <div class="mag-label">Neckbeardとは何か——AIエージェントへのDevOps権限移譲</div>
+        <div class="mag-text">GitHubのREADMEによると、Neckbeardが提供する機能: (1) インフラ操作ツール——Kubernetes・Terraform・AWS CLI・Helmの操作を「AIエージェントが呼び出せるツール」として定義。エージェントがポッドのステータス確認・スケールアップ・デプロイのロールバック等を自律的に実行できるようになる。(2) SREプレイブック統合——チームのRunbook・SREプレイブックをAIエージェントのコンテキストに組み込み、インシデント時に「このアラートに対してプレイブックのどのステップを実行すべきか」を自律的に判断させられる。(3) MCPサーバーとして実装——Model Context Protocol（MCP）サーバーとして実装されており、MCPをサポートするAIツール（Claude Code等）からプラグインとして組み込める。(4) 安全機能——「破壊的操作（データ削除・スケールゼロ等）には人間の承認を要求する」という承認フローが組み込まれており、完全な自律実行と安全性のバランスを取っている。</div>
+      </div>
+      <div class="mag-item">
+        <div class="mag-label">DevOpsへのAIエージェント活用——可能性と懸念</div>
+        <div class="mag-text">このアプローチの可能性と懸念点: (1) 可能性——「夜中3時のアラートに対して、AIエージェントが既知のプレイブックに従って初期対応を自動化し、人間を起こすのは本当に必要な時だけ」というオンコール負担の軽減。定型的なデプロイ作業（バージョンアップ・スケールアウト）の自動化も具体的な恩恵。(2) セキュリティの懸念——「本番インフラに対してAIエージェントが操作できる権限を与えることのリスク」が最大の懸念。プロンプトインジェクション（不正なログメッセージやSlackメッセージでエージェントを操作）のリスクが特に深刻。(3) 監査可能性——「AIが何をいつ実行したかの完全な監査ログが不可欠——これが不十分だと根本原因分析が困難になる」という運用上の課題。(4) 段階的な採用——「最初は読み取り専用の操作（状態確認・ログ取得）だけ自動化し、書き込み操作は承認フロー必須にする」という段階的アプローチが推奨されている。</div>
+      </div>
+      <div class="mag-item">
+        <div class="mag-label">HNの47コメント——「SREの仕事がなくなる？」</div>
+        <div class="mag-text">47コメントで最も議論を呼んだ問い: 「これが成熟したらSREという職種の役割はどう変わるか？」。「SREの仕事は『インフラを操作すること』ではなく『信頼性を設計すること』——オペレーションの自動化が進めば、より高いレベルの信頼性設計・カオスエンジニアリング・ポスト・モーテム改善に集中できる」という前向きな見方が最多いいね。技術的な懸念: 「Kubernetesのkubectlコマンドを自律的に実行できるエージェントが、意図せず全ポッドをスケールゼロにする可能性は十分にある——承認フローの設計が全て」という慎重論。「プレイブックが古かったり不完全だったりした場合にAIが誤った操作をしてしまうシナリオへの対策が必要」という現実的な懸念も。自作するなら「最小権限・読み取り優先・全操作のログ」の3原則を守ることが繰り返し言及された。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: github.com/bealesh/neckbeard</span>
+      <span>↑56pt · 💬47+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://github.com/bealesh/neckbeard" target="_blank">GitHubを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50091794" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="neckbeard-devops-agent-plugin" data-type="like" onclick="toggleFlag('neckbeard-devops-agent-plugin','NeckbeardエージェントDevOpsSREプラグイン','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="neckbeard-devops-agent-plugin" data-type="dislike" onclick="toggleFlag('neckbeard-devops-agent-plugin','NeckbeardエージェントDevOpsSREプラグイン','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-top">
+    <div class="footer-brand">Morning Edition</div>
+    <button class="export-btn" onclick="exportFeedback()">フィードバックをコピー</button>
+  </div>
+  <div class="footer-meta">
+    Hacker News フロントページから厳選した10本 · 2026年10月15日 · Issue No.150<br>
+    フィードバックボタンはブラウザのLocalStorageに保存されます。
+  </div>
+  <div class="footer-note">Sources: Hacker News Algolia API · hn.algolia.com</div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  const STORAGE_KEY = 'morning-edition-feedback-v2';
+  let feedback = { liked: {}, disliked: {} };
+  let fileHandle = null;
+
+  function loadFromStorage() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (raw) feedback = JSON.parse(raw);
+    } catch(e) {}
+  }
+
+  function saveToStorage() {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(feedback));
+    } catch(e) {}
+  }
+
+  async function saveToFile(data) {
+    if (!('showSaveFilePicker' in window)) return;
+    try {
+      if (!fileHandle) {
+        fileHandle = await window.showSaveFilePicker({
+          suggestedName: 'feedback.json',
+          types: [{ description: 'JSON', accept: { 'application/json': ['.json'] } }]
+        });
+      }
+      const writable = await fileHandle.createWritable();
+      await writable.write(JSON.stringify(data, null, 2));
+      await writable.close();
+    } catch(e) {}
+  }
+
+  function showToast(msg, isError) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.className = 'toast' + (isError ? ' error' : '');
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2500);
+  }
+
+  function toggleFlag(storyId, storyTitle, type) {
+    const date = '2026-10-15';
+    const entry = { title: storyTitle, date };
+    const opposite = type === 'like' ? 'disliked' : 'liked';
+    const current = type === 'like' ? 'liked' : 'disliked';
+
+    if (feedback[current][storyId]) {
+      delete feedback[current][storyId];
+      showToast('フィードバックを解除しました', false);
+    } else {
+      delete feedback[opposite][storyId];
+      feedback[current][storyId] = entry;
+      showToast(type === 'like' ? '⭐ 興味ありとして記録しました' : '✕ 興味なしとして記録しました', false);
+    }
+
+    feedback.updatedAt = new Date().toISOString();
+    saveToStorage();
+    updateButtonStates();
+    saveToFile(feedback);
+  }
+
+  function updateButtonStates() {
+    document.querySelectorAll('.flag-btn').forEach(btn => {
+      const storyId = btn.dataset.story;
+      const type = btn.dataset.type;
+      const isActive = type === 'like' ? !!feedback.liked[storyId] : !!feedback.disliked[storyId];
+      btn.classList.toggle('active', isActive);
+    });
+  }
+
+  function exportFeedback() {
+    try {
+      navigator.clipboard.writeText(JSON.stringify(feedback, null, 2));
+      showToast('フィードバックをクリップボードにコピーしました', false);
+    } catch(e) {
+      showToast('コピーに失敗しました', true);
+    }
+  }
+
+  loadFromStorage();
+  updateButtonStates();
+</script>
+</body>
+</html>
