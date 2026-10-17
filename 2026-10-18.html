@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Morning Edition — 2026年10月18日</title>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --font: 'M PLUS Rounded 1c', 'Hiragino Sans', 'Noto Sans JP', sans-serif; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); background: #111; color: #fff; overflow-x: hidden; }
+
+    .masthead { background: #fff; color: #000; padding: 3rem 4rem 2.5rem; border-bottom: 6px solid #000; position: relative; overflow: hidden; }
+    .masthead::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: repeating-linear-gradient(90deg, #000 0, #000 12px, transparent 12px, transparent 20px); }
+    .masthead-kicker { font-size: 0.85rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: #777; margin-bottom: 0.6rem; }
+    .masthead-title { font-size: clamp(3.5rem, 9vw, 7.5rem); font-weight: 900; line-height: 0.88; letter-spacing: -0.04em; margin-bottom: 1.8rem; }
+    .masthead-meta { display: flex; gap: 3rem; align-items: baseline; flex-wrap: wrap; }
+    .masthead-date { font-size: 1.5rem; font-weight: 700; }
+    .masthead-subtitle { font-size: 1rem; font-weight: 400; color: #555; max-width: 480px; line-height: 1.5; }
+    .masthead-issue { margin-left: auto; text-align: right; }
+    .masthead-issue span { display: block; }
+    .masthead-issue .iss-label { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: #999; }
+    .masthead-issue .iss-num { font-size: 2.2rem; font-weight: 900; color: #000; }
+
+    .toc { background: #1a1a1a; padding: 1.5rem 4rem; display: flex; gap: 1.5rem; flex-wrap: wrap; border-bottom: 1px solid #333; }
+    .toc a { color: #aaa; text-decoration: none; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; transition: color 0.2s; }
+    .toc a:hover { color: #fff; }
+    .toc-num { color: #555; margin-right: 0.3em; }
+
+    .story { position: relative; overflow: hidden; }
+    .story-inner { max-width: 1200px; margin: 0 auto; padding: 5rem 4rem; position: relative; z-index: 1; }
+    .story-num { font-size: clamp(6rem, 18vw, 16rem); font-weight: 900; line-height: 0.8; letter-spacing: -0.06em; opacity: 0.08; position: absolute; top: 1rem; right: 2rem; user-select: none; }
+    .story-badge { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.35em 0.9em; border-radius: 2px; margin-bottom: 1.5rem; }
+    .direct-badge { background: #FFD700; color: #000; }
+    .story-kicker { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; opacity: 0.6; margin-bottom: 0.8rem; }
+    .story-headline { font-size: clamp(2rem, 5vw, 4rem); font-weight: 900; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+    .story-body { font-size: clamp(1rem, 1.5vw, 1.2rem); font-weight: 400; line-height: 1.8; max-width: 680px; opacity: 0.88; margin-bottom: 2rem; }
+    .story-meta { display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center; font-size: 0.8rem; font-weight: 700; opacity: 0.5; }
+    .story-links { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem; }
+    .story-link { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.6em 1.4em; border-radius: 3px; text-decoration: none; transition: opacity 0.2s, transform 0.15s; }
+    .story-link:hover { opacity: 0.75; transform: translateY(-1px); }
+
+    .feedback-buttons { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .flag-btn { background: none; border: 1px solid currentColor; color: inherit; font-family: var(--font); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.5em 1em; border-radius: 3px; cursor: pointer; opacity: 0.32; transition: opacity 0.2s, background 0.2s, color 0.2s, border-color 0.2s, transform 0.15s; }
+    .flag-btn:hover { opacity: 0.72; transform: translateY(-1px); }
+    .flag-btn.like-btn.active { opacity: 1; background: rgba(255,215,0,0.15); border-color: #FFD700; color: #FFD700 !important; }
+    .flag-btn.dislike-btn.active { opacity: 1; background: rgba(255,60,60,0.12); border-color: #FF4444; color: #FF4444 !important; }
+
+    .toast { position: fixed; bottom: 2rem; right: 2rem; background: #1a1a1a; color: #fff; font-family: var(--font); font-size: 0.82rem; font-weight: 700; padding: 0.75em 1.4em; border-radius: 4px; border-left: 3px solid #00C853; z-index: 9999; opacity: 0; transform: translateY(10px); transition: opacity 0.25s, transform 0.25s; pointer-events: none; box-shadow: 0 4px 24px rgba(0,0,0,0.45); }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    .toast.error { border-left-color: #FF5252; }
+
+    /* Story 1 — White */
+    .story-1 { background: #fff; color: #000; min-height: 90vh; display: flex; flex-direction: column; justify-content: center; }
+    .story-1 .story-num { color: #000; opacity: 0.04; }
+    .story-1 .story-kicker { color: #555; opacity: 1; }
+    .story-1 .story-headline { color: #000; }
+    .story-1 .story-body { color: #111; }
+    .story-1 .story-meta { color: #000; }
+    .story-1 .story-link.primary { background: #1a1a1a; color: #fff; }
+    .story-1 .story-link.secondary { background: #f0f0f0; color: #000; }
+    .story-1 .flag-btn { color: #000; }
+    .story-1-accent { position: absolute; bottom: 0; left: 0; width: 100%; height: 8px; background: linear-gradient(90deg, #0a0a0a, #555, #0a0a0a); }
+    .story-1 .headline-accent { display: inline-block; background: linear-gradient(135deg, #1a1a1a 0%, #555 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .blue-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1.2rem; margin: 2rem 0; max-width: 680px; }
+    .blue-card { border: 2px solid rgba(0,0,0,0.12); background: rgba(0,0,0,0.03); border-radius: 6px; padding: 1.3rem 1.5rem; }
+    .blue-card-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.2em; text-transform: uppercase; color: #333; margin-bottom: 0.4rem; }
+    .blue-card-value { font-size: 1.05rem; font-weight: 900; color: #000; line-height: 1.3; }
+    .blue-card-sub { font-size: 0.75rem; color: #555; margin-top: 0.3rem; line-height: 1.4; }
+
+    /* Story 2 — Dark navy/teal */
+    .story-2 { background: #00080c; color: #b8f0ff; min-height: 80vh; }
+    .story-2::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(0,160,200,0.14) 0%, transparent 65%); }
+    .story-2 .story-num { color: #00A0C8; opacity: 0.07; }
+    .story-2 .story-kicker { color: #20C8E8; opacity: 1; }
+    .story-2 .story-headline { color: #e0f8ff; }
+    .story-2 .story-body { color: #b8f0ff; }
+    .story-2 .story-meta { color: #20C8E8; opacity: 0.5; }
+    .story-2 .story-link.primary { background: #004058; color: #80e8ff; }
+    .story-2 .story-link.secondary { background: rgba(0,160,200,0.08); color: #90d8f0; border: 1px solid rgba(0,160,200,0.22); }
+    .story-2 .flag-btn { color: #b8f0ff; }
+    .teal-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .teal-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(0,160,200,0.07); border-left: 3px solid #00A0C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .teal-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20C8E8; margin-bottom: 0.3rem; }
+    .teal-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 3 — Dark red */
+    .story-3 { background: #0a0000; color: #fff; min-height: 80vh; }
+    .story-3::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(200,20,20,0.16) 0%, transparent 65%); }
+    .story-3 .story-num { color: #C81414; opacity: 0.07; }
+    .story-3 .story-kicker { color: #E84040; opacity: 1; }
+    .story-3 .story-headline { color: #fff; }
+    .story-3 .story-body { color: rgba(255,255,255,0.88); }
+    .story-3 .story-meta { color: #E84040; opacity: 0.5; }
+    .story-3 .story-link.primary { background: #6a0000; color: #fff; }
+    .story-3 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-3 .flag-btn { color: #fff; }
+    .red-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .red-item { background: rgba(200,20,20,0.07); border-left: 3px solid #C81414; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .red-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E84040; margin-bottom: 0.3rem; }
+    .red-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 4 — Dark green */
+    .story-4 { background: #020c04; color: #c8f0d0; min-height: 80vh; }
+    .story-4::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(20,160,70,0.16) 0%, transparent 65%); }
+    .story-4 .story-num { color: #14A046; opacity: 0.07; }
+    .story-4 .story-kicker { color: #30C060; opacity: 1; }
+    .story-4 .story-headline { color: #e0ffe8; }
+    .story-4 .story-body { color: #c8f0d0; }
+    .story-4 .story-meta { color: #30C060; opacity: 0.5; }
+    .story-4 .story-link.primary { background: #063820; color: #80ffb0; }
+    .story-4 .story-link.secondary { background: rgba(20,160,70,0.08); color: #a0e8b0; border: 1px solid rgba(20,160,70,0.22); }
+    .story-4 .flag-btn { color: #c8f0d0; }
+    .green-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .green-item { background: rgba(20,160,70,0.07); border-left: 3px solid #14A046; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .green-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #30C060; margin-bottom: 0.3rem; }
+    .green-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 5 — Dark purple */
+    .story-5 { background: #040010; color: #d8c8ff; min-height: 75vh; }
+    .story-5::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(90,40,200,0.17) 0%, transparent 65%); }
+    .story-5 .story-num { color: #5A28C8; opacity: 0.07; }
+    .story-5 .story-kicker { color: #8050E0; opacity: 1; }
+    .story-5 .story-headline { color: #f0e8ff; }
+    .story-5 .story-body { color: #d8c8ff; }
+    .story-5 .story-meta { color: #8050E0; opacity: 0.5; }
+    .story-5 .story-link.primary { background: #200860; color: #d0a8ff; }
+    .story-5 .story-link.secondary { background: rgba(90,40,200,0.08); color: #c0a0f0; border: 1px solid rgba(90,40,200,0.22); }
+    .story-5 .flag-btn { color: #d8c8ff; }
+    .purple-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .purple-item { background: rgba(90,40,200,0.07); border-left: 3px solid #5A28C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .purple-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #8050E0; margin-bottom: 0.3rem; }
+    .purple-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 6 — Dark cyan */
+    .story-6 { background: #000c10; color: #b8e8f0; min-height: 75vh; }
+    .story-6::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 40%, rgba(0,130,160,0.14) 0%, transparent 65%); }
+    .story-6 .story-num { color: #0080A0; opacity: 0.07; }
+    .story-6 .story-kicker { color: #20B0D0; opacity: 1; }
+    .story-6 .story-headline { color: #e0f4ff; }
+    .story-6 .story-body { color: #b8e8f0; }
+    .story-6 .story-meta { color: #20B0D0; opacity: 0.5; }
+    .story-6 .story-link.primary { background: #003848; color: #80d8f0; }
+    .story-6 .story-link.secondary { background: rgba(0,130,160,0.08); color: #90cce0; border: 1px solid rgba(0,130,160,0.22); }
+    .story-6 .flag-btn { color: #b8e8f0; }
+    .cyan-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .cyan-item { background: rgba(0,130,160,0.07); border-left: 3px solid #0080A0; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .cyan-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20B0D0; margin-bottom: 0.3rem; }
+    .cyan-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 7 — Dark amber */
+    .story-7 { background: #0a0300; color: #ffe0b8; min-height: 75vh; }
+    .story-7::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(210,90,20,0.18) 0%, transparent 65%); }
+    .story-7 .story-num { color: #D05A14; opacity: 0.07; }
+    .story-7 .story-kicker { color: #E88040; opacity: 1; }
+    .story-7 .story-headline { color: #fff0d8; }
+    .story-7 .story-body { color: #ffe0b8; }
+    .story-7 .story-meta { color: #E88040; opacity: 0.5; }
+    .story-7 .story-link.primary { background: #6a2400; color: #ffc880; }
+    .story-7 .story-link.secondary { background: rgba(210,90,20,0.08); color: #ffb870; border: 1px solid rgba(210,90,20,0.22); }
+    .story-7 .flag-btn { color: #ffe0b8; }
+    .amber-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .amber-item { background: rgba(210,90,20,0.07); border-left: 3px solid #D05A14; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .amber-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E88040; margin-bottom: 0.3rem; }
+    .amber-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 8 — Dark gold */
+    .story-8 { background: #080500; color: #fff; min-height: 70vh; }
+    .story-8::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,145,10,0.15) 0%, transparent 65%); }
+    .story-8 .story-num { color: #BE9110; opacity: 0.06; }
+    .story-8 .story-kicker { color: #D4A820; opacity: 1; }
+    .story-8 .story-headline { color: #fff; }
+    .story-8 .story-body { color: rgba(255,255,255,0.88); }
+    .story-8 .story-meta { color: #D4A820; opacity: 0.5; }
+    .story-8 .story-link.primary { background: #604000; color: #ffe070; }
+    .story-8 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-8 .flag-btn { color: #fff; }
+    .gold-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .gold-item { background: rgba(190,145,10,0.07); border-left: 3px solid #BE9110; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .gold-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #D4A820; margin-bottom: 0.3rem; }
+    .gold-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 9 — Slate blue */
+    .story-9 { background: #040810; color: #c8d8f0; min-height: 70vh; }
+    .story-9::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 35%, rgba(50,90,170,0.16) 0%, transparent 65%); }
+    .story-9 .story-num { color: #3258A8; opacity: 0.07; }
+    .story-9 .story-kicker { color: #5878C8; opacity: 1; }
+    .story-9 .story-headline { color: #e8f0ff; }
+    .story-9 .story-body { color: #c8d8f0; }
+    .story-9 .story-meta { color: #5878C8; opacity: 0.5; }
+    .story-9 .story-link.primary { background: #101e50; color: #fff; }
+    .story-9 .story-link.secondary { background: rgba(50,90,170,0.08); color: #b0c8e8; border: 1px solid rgba(50,90,170,0.22); }
+    .story-9 .flag-btn { color: #c8d8f0; }
+    .slate-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .slate-item { background: rgba(50,90,170,0.07); border-left: 3px solid #3258A8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .slate-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #5878C8; margin-bottom: 0.3rem; }
+    .slate-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 10 — Magenta */
+    .story-10 { background: #080004; color: #ffc8e8; min-height: 70vh; }
+    .story-10::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,20,90,0.15) 0%, transparent 65%); }
+    .story-10 .story-num { color: #BE1458; opacity: 0.07; }
+    .story-10 .story-kicker { color: #E04080; opacity: 1; }
+    .story-10 .story-headline { color: #fff0f8; }
+    .story-10 .story-body { color: #ffc8e8; }
+    .story-10 .story-meta { color: #E04080; opacity: 0.5; }
+    .story-10 .story-link.primary { background: #500030; color: #ffb0d8; }
+    .story-10 .story-link.secondary { background: rgba(190,20,90,0.08); color: #f090c0; border: 1px solid rgba(190,20,90,0.22); }
+    .story-10 .flag-btn { color: #ffc8e8; }
+    .mag-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .mag-item { background: rgba(190,20,90,0.07); border-left: 3px solid #BE1458; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .mag-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E04080; margin-bottom: 0.3rem; }
+    .mag-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .site-footer { background: #000; color: #555; padding: 3rem 4rem; display: flex; flex-direction: column; gap: 1.5rem; border-top: 1px solid #222; }
+    .footer-top { display: flex; gap: 2rem; align-items: center; flex-wrap: wrap; justify-content: space-between; }
+    .footer-brand { font-size: 1.4rem; font-weight: 900; color: #fff; }
+    .footer-meta { font-size: 0.75rem; line-height: 1.6; }
+    .export-btn { background: #222; border: 1px solid #444; color: #fff; font-family: var(--font); font-size: 0.8rem; font-weight: 700; padding: 0.7em 1.5em; border-radius: 3px; cursor: pointer; letter-spacing: 0.08em; transition: background 0.2s; }
+    .export-btn:hover { background: #333; }
+    .footer-note { font-size: 0.7rem; opacity: 0.5; }
+
+    @media (max-width: 768px) {
+      .masthead, .toc, .story-inner, .site-footer { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .story-num { display: none; }
+      .masthead-meta { gap: 1rem; }
+      .masthead-issue { margin-left: 0; }
+      .blue-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+<nav style="background:#1a1a1a;border-bottom:1px solid #333;padding:0.55rem 2rem;font-family:'M PLUS Rounded 1c','Hiragino Sans','Noto Sans JP',sans-serif;position:sticky;top:0;z-index:999;">
+  <a href="./index.html" style="color:#aaa;text-decoration:none;font-size:0.8rem;font-weight:700;letter-spacing:0.03em;display:inline-flex;align-items:center;gap:0.4rem;transition:color 0.15s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#aaa'">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    アーカイブへ戻る
+  </a>
+</nav>
+
+<header class="masthead">
+  <div class="masthead-kicker">Hacker News — Morning Edition</div>
+  <h1 class="masthead-title">Morning<br>Edition</h1>
+  <div class="masthead-meta">
+    <div>
+      <div class="masthead-date">2026年10月18日 日曜日</div>
+      <div class="masthead-subtitle">AI・開発ツール・プライバシー・サイエンス — あなたのための10本</div>
+    </div>
+    <div class="masthead-issue">
+      <span class="iss-label">Issue</span>
+      <span class="iss-num">No.153</span>
+    </div>
+  </div>
+</header>
+
+<nav class="toc">
+  <a href="#s1"><span class="toc-num">01</span>DeepSeek V4.1 Flash——瞬速LLMの新フラッグシップ登場</a>
+  <a href="#s2"><span class="toc-num">02</span>OpenCodeハック——ユーザー認証情報が大量流出</a>
+  <a href="#s3"><span class="toc-num">03</span>トランスフォーマーは自力で発明できる——連想記憶の数学</a>
+  <a href="#s4"><span class="toc-num">04</span>太陽光が核を超えた——世界初の歴史的マイルストーン</a>
+  <a href="#s5"><span class="toc-num">05</span>ドリトスの粉で鶏肉を透明にする——奇妙な台所物理学</a>
+  <a href="#s6"><span class="toc-num">06</span>LLMSpeed——ハードを買う前にローカルLLMの速度を体感</a>
+  <a href="#s7"><span class="toc-num">07</span>漂白珊瑚が隣人に触れると数日で蘇る——海の奇跡</a>
+  <a href="#s8"><span class="toc-num">08</span>フリフォント——ふりがな付き日本語フォントの革新</a>
+  <a href="#s9"><span class="toc-num">09</span>Pele——MermaidダイアグラムをテーマSVGに変換</a>
+  <a href="#s10"><span class="toc-num">10</span>エストニア電子投票システムのソースコードが公開</a>
+</nav>
+
+<!-- ═══ STORY 1 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-1" id="s1">
+  <div class="story-num">01</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / LLM / DeepSeek / HuggingFace / オープンソース — 2026-10-18</div>
+    <h2 class="story-headline">
+      <span class="headline-accent">DeepSeek V4.1 Flash</span><br>瞬速LLMの<br>新フラッグシップ——623pt
+    </h2>
+    <div class="story-body">
+      「DeepSeek-v4.1-Flash-1017」がHNで623ポイント・539コメントを集め、今朝のトップ記事です。DeepSeekがHuggingFace上に新モデルを公開し、"Flash"の名が示す通り高速推論を売りにした次世代フラッグシップとして注目を集めています。AIモデルの進化スピードが止まらない2026年秋、このリリースが業界に何をもたらすのかを読み解きます。
+    </div>
+    <div class="blue-grid">
+      <div class="blue-card">
+        <div class="blue-card-label">DeepSeek V4.1 Flashとは何か——モデルの概要</div>
+        <div class="blue-card-value">高速推論に特化した新世代</div>
+        <div class="blue-card-sub">huggingface.co/deepseek-aiの公開情報によると: DeepSeek V4.1 Flash（"1017"は10月17日リリースを意味する日付スタンプ）はDeepSeekのV4シリーズの最新亜種で、「Flashバリアント」として推論速度と効率を最優先に設計されている。DeepSeekはこれまでDeepSeek V3・R1シリーズで「GPT-4クラスの性能をオープンウェイトで」という路線を取ってきた——V4.1 Flashはその延長線上で「速くて安く使える」方向への最適化版。コード・数学・一般推論でV3と同水準を維持しつつ、推論レイテンシを大幅に削減することを目標としている。モデルサイズ・アーキテクチャの詳細はHuggingFaceのモデルカードで確認可能。HNの539コメントは「新モデルリリース」としては異例の多さで、それだけコミュニティの関心が高いことを示す。</div>
+      </div>
+      <div class="blue-card">
+        <div class="blue-card-label">なぜDeepSeekのリリースがHNを沸かせるのか</div>
+        <div class="blue-card-value">「中国発・オープンウェイト」の衝撃</div>
+        <div class="blue-card-sub">DeepSeekへの注目が続く構造的理由: (1) オープンウェイト戦略——DeepSeekはモデルの重みを公開しており、誰でもローカルで実行・ファインチューニングできる。商業APIに依存したくない開発者コミュニティにとってこれは決定的な差別化要因。(2) コスト効率——DeepSeekのAPIは同性能帯のGPT/Claudeモデルと比較してトークン単価が大幅に低い——これがスタートアップ・個人開発者に刺さる。(3) 「Flash」の意味——OpenAIの「GPT-4o mini」、Anthropicの「Haiku」のような「速くて安い」ティアはLLMプロダクト開発で最も需要が高い。DeepSeekがこの領域に強いモデルを出すことは直接的な競合を意味する。(4) 日付スタンプのリリース文化——「v4.1-Flash-1017」という命名は毎日のように改良版が出るスピード感を示しており、Stable Diffusionコミュニティの命名慣習に近い「実験的・継続的改善」の文化の表れ。</div>
+      </div>
+      <div class="blue-card">
+        <div class="blue-card-label">HNの539コメント——コミュニティの熱狂と懸念</div>
+        <div class="blue-card-value">ベンチマーク競争の本質を問う</div>
+        <div class="blue-card-sub">539コメントでの主な論点: 「DeepSeekのリリース頻度と進化速度を見ていると、中国のAI開発体制が欧米の想定より遥かに高いキャパシティを持っていることが分かる——これは単なる技術競争ではなく産業政策の問題」という地政学的視点が多数いいね。実用的な評価: 「Flashバリアントがどのくらいのコンテキスト長をサポートするか、コード生成ではV3と比べてどうかが最初に知りたいこと——ベンチマーク表よりも実際のコーディングタスクで使ってみるのが一番早い」というエンジニア視点。批判的な見方: 「モデルを毎週リリースする競争はユーザーにとっては良いが、AIの長期的な安全性・整合性研究に割く時間をスピード競争が奪っている——Flash&Burnのリリース文化は持続可能か」という懸念。「ローカルで動かせるサイズ（70B以下、量子化可）かどうかがまず気になる——それ次第でコンシューマGPUユーザーへの影響が全く変わる」という実践的な確認も多数。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: huggingface.co/deepseek-ai</span>
+      <span>↑623pt · 💬539+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash-1017" target="_blank">モデルを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50129045" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="deepseek-v4-1-flash-1017" data-type="like" onclick="toggleFlag('deepseek-v4-1-flash-1017','DeepSeek V4.1 Flash 高速LLM 新フラッグシップ','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="deepseek-v4-1-flash-1017" data-type="dislike" onclick="toggleFlag('deepseek-v4-1-flash-1017','DeepSeek V4.1 Flash 高速LLM 新フラッグシップ','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+    <div class="story-1-accent"></div>
+  </div>
+</section>
+
+<!-- ═══ STORY 2 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-2" id="s2">
+  <div class="story-num">02</div>
+  <div class="story-inner">
+    <div class="story-kicker">セキュリティ / プライバシー / データ漏洩 / OpenCode / 認証情報 — 2026-10-18</div>
+    <h2 class="story-headline">
+      <span style="color:#20d8f0">OpenCodeハック</span><br>ユーザー認証情報が<br>大量流出——587pt
+    </h2>
+    <div class="story-body">
+      「OpenCode Hacked: User credentials leaked」がHNで587ポイント・93コメントを集めています。AIコーディングツールのOpenCodeがハッキングを受け、ユーザーの認証情報（メールアドレス・パスワードハッシュ等）が外部に流出したことを公式Twitterで認めました。Claude Codeの競合ツールへの攻撃はAI開発ツール全体のセキュリティへの注目を高めています。
+    </div>
+    <div class="teal-items">
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">何が起きたか——インシデントの概要</div>
+          <div class="teal-text">OpenCodeの公式Twitterポスト（@opencode）によると: OpenCodeはAIを使ったコーディング支援ツールで、IDE統合・コード補完・コードレビュー機能を提供するサービス。攻撃者がOpenCodeのデータベースに不正アクセスし、ユーザーの認証情報を含むデータを窃取した。流出した可能性のあるデータ: メールアドレス、ハッシュ化されたパスワード、ユーザー名、アカウントのメタデータ。OpenCodeが「credentials leaked」と表現したことで、平文またはリバース可能な形でのパスワード保存ではないことが示唆されるが、ハッシュのアルゴリズムと強度については明示されていない。「何人分のデータが流出したか」「攻撃者の侵入経路」「いつ侵入されたか」の詳細はこの時点では未公開。OpenCodeはユーザーに対してパスワードの即時変更を推奨している。</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">AIコーディングツールへのサイバー攻撃——なぜ狙われるか</div>
+          <div class="teal-text">AIコーディングツールが攻撃ターゲットになる理由: (1) 高価値ユーザーベース——AIコーディングツールのユーザーはエンジニア・開発者が中心で、GitHubトークン・AWS認証情報・APIキー等の機密情報を日常的に扱っている。これらの情報を間接的に狙う踏み台として価値が高い。(2) IDE統合の危険性——AIコーディングツールはローカルファイルへのアクセス権限を持つことが多く、侵害されると開発環境全体が危険に晒される。(3) 競合ツールの乱立とセキュリティの非対称性——Claude Code・Cursor・GitHub Copilotなどの大手と比べて、小規模な競合ツールはセキュリティリソースが限られており脆弱性が生まれやすい。(4) 認証情報のリスク——「AIツールのパスワード」を独立したものとして管理していないユーザーは、同一パスワードを使い回している場合に他サービスへのクレデンシャルスタッフィング攻撃に晒されるリスクがある。</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">HNの93コメント——実害と教訓</div>
+          <div class="teal-text">93コメントでの議論: 「AIコーディングツールを使うということはそのサービスにコードベースへのアクセス権を与えることでもある——セキュリティ実績が確認されていない新興ツールに機密プロジェクトを渡すリスクをもっと認識すべきだった」という反省の声が多数。実用的なアドバイス: 「OpenCodeアカウントを持っているなら今すぐパスワードを変更し、同じパスワードを使っている他のサービスも全て変更する——HaveIBeenPwnedでメールアドレスを確認するのも有効」。企業向けの視点: 「SaaSツールを企業で使う際のベンダーセキュリティ評価（SOC2認証・ペネトレーションテスト実績）の確認が重要——特にコードベースにアクセスするツールは最高レベルの審査が必要」。対照的なコメント: 「大手でもSolarwindsやLastPassのように認証情報漏洩は起きる——重要なのはどのツールを使うかより、パスワードマネージャー+ユニークパスワード+2FAの徹底という個人のセキュリティ習慣」。</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: twitter.com/opencode</span>
+      <span>↑587pt · 💬93+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://twitter.com/opencode/status/2111516673953935833" target="_blank">公式発表を見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50133401" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="opencode-hacked-credentials" data-type="like" onclick="toggleFlag('opencode-hacked-credentials','OpenCode ハック ユーザー認証情報 流出 セキュリティ','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="opencode-hacked-credentials" data-type="dislike" onclick="toggleFlag('opencode-hacked-credentials','OpenCode ハック ユーザー認証情報 流出 セキュリティ','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 3 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-3" id="s3">
+  <div class="story-num">03</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / Transformer / 機械学習 / 連想記憶 / 数学的理解 — 2026-10-18</div>
+    <h2 class="story-headline">
+      トランスフォーマーは<br>自力で発明できる<br><span style="color:#E84040">——467pt</span>
+    </h2>
+    <div class="story-body">
+      「You could have invented transformers from memory」がHNで467ポイント・107コメントを集めています。Alex Wangが発表したブログ記事で、「Transformerアーキテクチャは連想記憶（Associative Memory）の数学的性質から自然に導出できる」という視点で解説しています。「なぜAttentionが機能するのか」を初めて直感的に理解できると絶賛されている秀逸な教育コンテンツです。
+    </div>
+    <div class="red-items">
+      <div class="red-item">
+        <div class="red-label">「連想記憶からTransformerを導出する」とはどういうことか</div>
+        <div class="red-text">alexwang.aiの記事の核心: Alex Wangのアプローチは「Attentionメカニズムを既存の実装から学ぼうとするのではなく、なぜそういう構造が必要になるかを数学的に動機付ける」こと。出発点: 連想記憶（Hopfield Network的な考え方）——「キーと値のペアを記憶して、後からクエリに基づいて値を取り出す」という基本的な記憶モデルから始める。連続的な連想記憶に一般化すると「キーとクエリの類似度に基づいた重み付き平均」が自然に導出され、これがまさにSelf-Attentionの式と一致する。次のステップ: (1) Softmax——ハードな記憶からソフトな記憶への移行がSoftmaxの登場を自然に導く。(2) スケーリング——高次元ベクトルでのドット積のばらつきを抑えるためのスケーリング（1/√d_k）も「ちゃんとした数学的理由がある」ことが分かる。(3) Multi-head——複数の記憶パターンを並列に持つことの意味が「複数の注目パターンを同時に追跡する」ものとして自然に出てくる。「2017年の論文（Attention is All You Need）の数式を暗記するのではなく、なぜそうなるかを分かって初めて応用できる」という主張。</div>
+      </div>
+      <div class="red-item">
+        <div class="red-label">なぜこの解説が「分かりやすい」と絶賛されるのか</div>
+        <div class="red-text">既存の解説との違い: 多くのTransformer解説は「Query・Key・Valueとはこういうものです」という定義から入るため「なぜQKVという構造なのか」が理解されないまま終わる。この記事の差別化: (1) 動機付け優先——「なにを解決したいか」から始めて、その解決策として数式が生まれる流れ。読者が「自分でも同じ発想に至れたはず」という感覚を持てる。(2) 数学的厳密さ——「なんとなく直感的」ではなく、連想記憶の最適化問題としてのTransformerを数式で追えるレベルの詳しさ。(3) 段階的な複雑化——シンプルなモデルから始めて「なぜこれでは足りないか」を示しながらTransformerの各構成要素を追加していく構成。学習者が「ここで詰まった」という箇所を丁寧にケアしている。(4) 実用的示唆——「この理解があると、新しいアーキテクチャを設計するとき（例: State Space Models vs Attention）の判断基準が持てる」という応用まで言及。</div>
+      </div>
+      <div class="red-item">
+        <div class="red-label">HNの107コメント——AIエンジニアの反応</div>
+        <div class="red-text">107コメントでの議論: 「Hopfield Networkとモダンなホップフィールドネットワーク（Ramsauer et al.）を経由してAttentionを導出する解説は以前からあったが、この記事はそのアイデアを今まで見た中で最もクリアに説明している——連想記憶の視点はもっと広く教えられるべき」という専門家の評価。批判的な視点: 「『自力で発明できる』タイトルは少し誇張——実際には当時のML界全体の進歩と多数の研究者の貢献があってAttentionが生まれた。数学的必然性と歴史的必然性は別物」という注意書き。学習者からの声: 「3回TransformerのAttentionを理解しようとして挫折したが、この記事でやっと『あ、そういうことか』という瞬間が来た——QKVの直感的説明が特に助かった」。応用への関心: 「この視点で見るとMamba（State Space Model）はAttentionが持てない長期記憶の種類をどう扱っているかが対比として分かりやすくなる——LLMアーキテクチャ選択の判断軸が増えた」。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: alexwang.ai</span>
+      <span>↑467pt · 💬107+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://alexwang.ai/posts/associative-memory/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50122878" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="transformers-from-memory" data-type="like" onclick="toggleFlag('transformers-from-memory','トランスフォーマー 連想記憶 数学 Attention 解説','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="transformers-from-memory" data-type="dislike" onclick="toggleFlag('transformers-from-memory','トランスフォーマー 連想記憶 数学 Attention 解説','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 4 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-4" id="s4">
+  <div class="story-num">04</div>
+  <div class="story-inner">
+    <div class="story-kicker">エネルギー / 太陽光 / 再生可能エネルギー / 核エネルギー / 歴史的転換 — 2026-10-18</div>
+    <h2 class="story-headline">
+      太陽光が核を<br>世界規模で超えた<br><span style="color:#30C060">——初の歴史的瞬間——426pt</span>
+    </h2>
+    <div class="story-body">
+      「Solar surpasses nuclear power globally for first time」がHNで426ポイント・267コメントを集めています。PV Magazineが報じたデータで、太陽光発電の累積設備容量が初めて原子力発電を世界規模で上回ったことが確認されました。エネルギー転換の歴史的なマイルストーンを、実際の数字と文脈で読み解きます。
+    </div>
+    <div class="green-items">
+      <div class="green-item">
+        <div class="green-label">何が「超えた」のか——数字と文脈</div>
+        <div class="green-text">pv-magazine.comの報道によると: 今回「超えた」のは設備容量（Installed Capacity / GW）——全世界の太陽光パネルの合計発電能力が原子力の合計設備容量を上回った。重要な注意点: 設備容量と実際の発電量（TWh）は別物。太陽光は「晴天時の最大出力」が設備容量だが、実際には夜・曇天では発電できないため設備利用率（Capacity Factor）が10〜25%程度。原子力は設備利用率が90%前後と高い。つまり「発電量ベース」ではまだ原子力が大幅に上回っている——この点を混同した記事・ツイートが多いためHNでも補足コメントが殺到した。それでも意義は大きい: 設備容量で超えたということは「追加投資の速度」において太陽光が圧倒的になってきたことを示す。今後の太陽光価格低下と蓄電技術の向上に伴い、実発電量での逆転も時間の問題という見方が多い。具体的な数字: 太陽光約2,200GW以上、原子力約380GW（廃炉・建設中を考慮）。</div>
+      </div>
+      <div class="green-item">
+        <div class="green-label">なぜこのペースで太陽光が増えたのか</div>
+        <div class="green-text">10年間のコスト革命: (1) 太陽光パネルのコスト低下——2010年頃から2026年にかけてパネル製造コストは90%以上低下した。IEAによると太陽光は今や「歴史上最も安い電源」になった地域も多い。(2) 中国製造業の役割——世界の太陽光パネルの80%以上を中国メーカーが製造しており、規模の経済による価格低下を牽引。(3) 政策支援——欧米・インド・東南アジアでの再エネ義務化・補助金政策が導入を加速させた。(4) 企業の脱炭素需要——RE100（再エネ100%目標）を掲げた大企業が大規模太陽光案件を購入するPPA（電力購入契約）が市場を拡大。原子力が伸びなかった理由: コスト超過・建設期間の長期化・福島後の規制強化が新規建設を抑制した。フランス・中国での新規建設は続いているが世界全体では旧炉の廃炉が新規建設を上回る状況。</div>
+      </div>
+      <div class="green-item">
+        <div class="green-label">HNの267コメント——「設備容量 vs 発電量」論争</div>
+        <div class="green-text">267コメントで最大の議論は「何を比較するか」: 「設備容量での比較は太陽光に有利な指標——発電量（TWh/年）や信頼性容量（Firm Capacity）で比較すれば話は全く違う。太陽光が原子力を本当に代替できるようになるのは大規模蓄電か次世代グリッドが整備されてから」という冷静な指摘が多数いいね。太陽光支持の反論: 「設備容量が大きくなることは追加の蓄電・グリッド整備への投資も拡大することを意味する——比較の軸ではなくエネルギートランジションの段階として読むべき」。原子力支持者からの声: 「小型モジュール炉（SMR）が実用化されれば原子力もコストと建設スピードの問題が解決される——太陽光の勝利宣言は早計」。日本への示唆: 「日本は再稼働できていない原発が多く太陽光の設備導入も遅れ気味——この世界的トレンドから最も乖離している先進国の一つ」という指摘も。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: pv-magazine.com</span>
+      <span>↑426pt · 💬267+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.pv-magazine.com/2026/09/29/solar-surpasses-nuclear-power-globally-for-first-time/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50131213" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="solar-surpasses-nuclear" data-type="like" onclick="toggleFlag('solar-surpasses-nuclear','太陽光 原子力 設備容量 世界初 エネルギー転換','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="solar-surpasses-nuclear" data-type="dislike" onclick="toggleFlag('solar-surpasses-nuclear','太陽光 原子力 設備容量 世界初 エネルギー転換','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 5 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-5" id="s5">
+  <div class="story-num">05</div>
+  <div class="story-inner">
+    <div class="story-kicker">奇妙な科学 / 光学 / 組織透明化 / 食品科学 / DIY物理学 — 2026-10-18</div>
+    <h2 class="story-headline">
+      ドリトスの粉で<br>鶏肉を透明にする<br><span style="color:#8050E0">——台所光学——230pt</span>
+    </h2>
+    <div class="story-body">
+      「Making chicken transparent using Dorito dust」がHNで230ポイント・62コメントを集めています。科学系Substackブログが、コーンチップ（ドリトス）の粉末を使って鶏肉の組織を光学的に透明にする実験を行い、その物理的なメカニズムを詳しく解説しています。「台所でできる組織透明化」という奇妙なコンセプトが科学コミュニティで話題沸騰です。
+    </div>
+    <div class="purple-items">
+      <div class="purple-item">
+        <div class="purple-label">「ドリトスで透明化」の科学的仕組み</div>
+        <div class="purple-text">chillphysicsenjoyer.substackの解説によると: 組織透明化の原理: 生物組織（鶏肉）が不透明に見える主な理由は、組織を構成する水分・脂肪・タンパク質などの成分が異なる「屈折率」を持つため、光が散乱されて透過しないから。透明化の鍵: 組織内の水分を「組織と同じ屈折率を持つ物質」に置き換えることで光の散乱がなくなり、透明に見えるようになる。ドリトスの粉が機能する理由: ドリトス（コーン系スナック）の粉末には食用油・コーンスターチ・各種調味料が含まれており、この混合物の屈折率が鶏肉のタンパク質の屈折率に近い。実験方法: 鶏肉片（薄くスライス）をドリトスの粉末に漬け込むか塗布することで、組織内の水分が油分と置き換わり透明化が起こる。同様の現象は清水で洗った後に特定の油（ベビーオイル・グリセリン等）に漬けることでも再現できるが、ドリトスは身近さと「え、本当に？」という驚きの点でユニーク。</div>
+      </div>
+      <div class="purple-item">
+        <div class="purple-label">これは台所実験か、本物の科学か</div>
+        <div class="purple-text">科学的文脈での位置付け: (1) 組織透明化は本物の研究分野——CLARITY（脳組織透明化技術）やiDISCO（マウス胚透明化）のような手法は神経科学・発生生物学で広く使われており、屈折率マッチングという原理は同じ。ドリトス実験はその原理をユーモラスに示している。(2) 使われる試薬——本格的な研究用の組織透明化にはSDS（界面活性剤）・ヒドロゲル埋め込み・BABB（メタノール系溶液）などが使われるが、いずれも屈折率を操作するという点で共通している。(3) DIY科学としての価値——「台所にある材料で物理現象を体験する」という教育的アプローチ。カミソリではなくトースターで実験する物理学のデモンストレーション文化に近い。(4) 食べられるか——「ドリトス漬けにした鶏肉は食べられるか」という問いにはブログ著者も言及しており、「実験用に加工した後の食品は食べないことを推奨」とのこと（当然）。</div>
+      </div>
+      <div class="purple-item">
+        <div class="purple-label">HNの62コメント——「なんでこれを知らなかったのか」の反応</div>
+        <div class="purple-text">62コメントで好奇心爆発: 「屈折率マッチングの原理は知っていたが、ドリトスでそれができるという発想が全くなかった——物理学の教科書に載せるべき実験」という典型的な「教育的驚き」のコメントが最多いいね。実験したいという声: 「今すぐドリトスを買いに行きたい——子供と一緒にやる理科実験として完璧では」「鶏肉のどのくらいの厚さまで透明になるか、厚い部分では限界がくるのか実験してみたい」。科学的深掘り: 「CLARITY法でマウスの脳を透明にする実験をやったことがあるが、あれは試薬が高くて大変だった。まさか身近な原理がドリトスで再現できるとは——透明化研究の入門として使えそう」という研究者コメント。哲学的なコメント: 「料理の多くは物理化学の応用なのに、多くの人はそれを意識していない——こういう実験が『物理は日常に溢れている』という気づきを生む」。関連実験の紹介: 「ガラス瓶を水に入れると光の屈折で消えて見える現象も同じ原理——光学の授業で必ずやるあれ」。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: chillphysicsenjoyer.substack.com</span>
+      <span>↑230pt · 💬62+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://chillphysicsenjoyer.substack.com/p/making-chicken-transparent-using" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50131213" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="chicken-transparent-dorito" data-type="like" onclick="toggleFlag('chicken-transparent-dorito','ドリトス 鶏肉 透明化 光学 組織透明化 台所実験','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="chicken-transparent-dorito" data-type="dislike" onclick="toggleFlag('chicken-transparent-dorito','ドリトス 鶏肉 透明化 光学 組織透明化 台所実験','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 6 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-6" id="s6">
+  <div class="story-num">06</div>
+  <div class="story-inner">
+    <div class="story-kicker">開発ツール / AI / ローカルLLM / ベンチマーク / ハードウェア選定 — 2026-10-18</div>
+    <h2 class="story-headline">
+      LLMSpeed<br>ハードを買う前に<br><span style="color:#20B0D0">速度を体感する——229pt</span>
+    </h2>
+    <div class="story-body">
+      「Show HN: Llmspeed – feel how fast a local LLM runs before you buy the hardware」がHNで229ポイント・75コメントを集めています。ローカルLLMを動かすためのGPU・CPU・Macを購入する前に、各ハードウェア構成での実際の推論速度を体感できるツールがリリースされました。「GPUを買う前に後悔しない」ための実用的なリファレンスサイトです。
+    </div>
+    <div class="cyan-items">
+      <div class="cyan-item">
+        <div>
+          <div class="cyan-label">LLMSpeedとは何か——機能と使い方</div>
+          <div class="cyan-text">llmspeed.devの機能解説: LLMSpeedは「各ハードウェア上でのローカルLLM推論速度（トークン/秒）」をデータベース化し、インタラクティブに比較できるWebアプリ。使い方: (1) モデルを選択（Llama 3.3、Mistral、DeepSeek、Phi等の主要オープンモデル）。(2) モデルの量子化レベルを選択（Q4_K_M、Q8、FP16等）。(3) ハードウェアを選択（RTX 4090、M4 Pro、Ryzen AI Max等）して実際の速度を確認。表示される指標: 生成速度（tok/s）、プリフィル速度（prompt処理速度）、メモリ使用量。独自機能: 「このくらいの速度で話し声を聞く感覚」というインタラクティブな速度シミュレーターがあり、8 tok/sと30 tok/sではどれだけ体感が違うかを実際に感じられる。データの信頼性: コミュニティからの実測値を収集・集約しており、一般的なベンチマークサイトより実際の使用条件に近い数値が得られる。</div>
+        </div>
+      </div>
+      <div class="cyan-item">
+        <div>
+          <div class="cyan-label">ローカルLLMのハードウェア選びでよくある失敗</div>
+          <div class="cyan-text">LLMSpeedが解決しようとしている問題: (1) スペックシートの罠——VRAM 24GBのGPUが同じ24GBのApple SiliconのMacより遅い場合がある（メモリ帯域幅の違いによる）。単純なVRAM容量比較では実際の性能が分からない。(2) モデルサイズと量子化の組み合わせ——「Llama 3 70BをQ4_K_Mでどのくらい速く動かせるか」は使用ハードウェアによって2〜20 tok/sと大きく違う。(3) プリフィル速度の見落とし——長いコンテキスト（コードベース全体等）を処理する用途では「生成速度」より「プロンプト処理速度」が重要になる——この2つは別の数値を持つ。(4) Apple Silicon vs NVIDIA——「Macを買えばローカルLLMが動く」は正しいが「RTX 4090と比べてどうか」はモデルサイズ・量子化・ユースケースによって変わる。LLMSpeedはこれらのトレードオフを事前に把握するための参照ツール。</div>
+        </div>
+      </div>
+      <div class="cyan-item">
+        <div>
+          <div class="cyan-label">HNの75コメント——「これが欲しかった」と「データの信頼性」</div>
+          <div class="cyan-text">75コメントでの反応: 「ローカルLLMに興味を持ったとき、まず何を買えばいいかが全く分からなくて途方に暮れた——LLMSpeedがあれば最初の一歩が大幅に楽になっていた」という典型的な共感コメントが最多いいね。データ品質への懸念: 「コミュニティ実測値のアグリゲーションは、測定条件の違い（温度スロットリング、バックグラウンドプロセス、モデルロード済み/未ロード等）によって大きなばらつきがある——同一条件での標準化されたベンチマークではない点を念頭に置くべき」。有用な発見の報告: 「LLMSpeedで比較したらRTX 4070 TiよりM4 Max MacBook ProのほうがLlama 3 70Bの推論が速かった——VRAM上限ではなくメモリ帯域幅がボトルネックになっていることを改めて実感した」。要望: 「GPU複数枚構成（NVLink接続の4090×2等）のデータが少ない——これが需要の高い構成なのに」「Intel ArcやAMD RX 7900 XTX等のコスパGPUのデータを充実させてほしい」という具体的なリクエストも。</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: llmspeed.dev</span>
+      <span>↑229pt · 💬75+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://llmspeed.dev/" target="_blank">サイトを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50127979" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="llmspeed-local-llm" data-type="like" onclick="toggleFlag('llmspeed-local-llm','LLMSpeed ローカルLLM 推論速度 ハードウェア比較','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="llmspeed-local-llm" data-type="dislike" onclick="toggleFlag('llmspeed-local-llm','LLMSpeed ローカルLLM 推論速度 ハードウェア比較','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 7 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-7" id="s7">
+  <div class="story-num">07</div>
+  <div class="story-inner">
+    <div class="story-kicker">海洋科学 / 珊瑚礁 / 気候変動 / 生物学 / 再生 — 2026-10-18</div>
+    <h2 class="story-headline">
+      漂白珊瑚が<br>隣人に触れると<br><span style="color:#E88040">数日で蘇る——217pt</span>
+    </h2>
+    <div class="story-body">
+      「Bleached corals thrive within days when touching healthy neighbour」がHNで217ポイント・37コメントを集めています。Nature誌に掲載された研究で、熱ストレスで白化（漂白）した珊瑚が健康な隣の珊瑚に物理的に触れることで、わずか数日で共生藻類（褐虫藻）を回復させ生存率が大幅に向上することが示されました。珊瑚礁の自己回復能力に関する驚きの発見です。
+    </div>
+    <div class="amber-items">
+      <div class="amber-item">
+        <div class="amber-label">珊瑚の白化とは何か——現在の危機</div>
+        <div class="amber-text">Nature誌の報告（d41586-026-03266-x）の背景: 珊瑚の白化（Coral Bleaching）とは、海水温の上昇（通常より1〜2℃高い状態が数週間続く）によって珊瑚が体内に共生している「褐虫藻（Symbiodinium）」を放出してしまう現象。褐虫藻は珊瑚の栄養源の90%以上を光合成で供給しており、失うと珊瑚は「餓死」に向かう。白化した珊瑚は白い骨格だけが残って見えるため「White Ghost」とも呼ばれる。現在の状況: 2023〜2026年は記録的な海水温上昇が続き、グレートバリアリーフ・カリブ海・インド洋の珊瑚礁で大規模白化が繰り返されている。白化した珊瑚の生存率は条件次第だが、温度が下がれば回復できる——問題はその速度が「温度低下のスピード」に間に合うかどうかにある。今回の研究はその「回復のスピードを劇的に高める要因」を発見した点が革命的。</div>
+      </div>
+      <div class="amber-item">
+        <div class="amber-label">「隣に触れると回復する」メカニズム</div>
+        <div class="amber-text">Nature誌の研究が明らかにしたメカニズム: 実験設定: 白化した珊瑚（褐虫藻を失った状態）を健康な珊瑚（褐虫藻が豊富）の隣に配置し、物理的接触あり/なしの条件で回復速度を比較。発見: 接触条件では非接触条件と比べて著しく速い褐虫藻の回復が見られ、数日以内に有意差が現れた。推定メカニズム: (1) 化学シグナル——接触により珊瑚同士が化学物質を直接交換し、褐虫藻の移動を促進するシグナルが伝わる。(2) 褐虫藻の直接移行——健康な珊瑚から白化珊瑚へと褐虫藻が組織間を通じて物理的に移動する可能性。(3) 免疫系活性化——接触が珊瑚の自己免疫系を刺激し、褐虫藻の再定着を促進する炎症反応を引き起こす。研究の限界: 水槽内実験であり、実際の珊瑚礁での大規模な検証はこれから。「隣の珊瑚が健康でなければ」この効果は得られない点も重要。</div>
+      </div>
+      <div class="amber-item">
+        <div class="amber-label">HNの37コメント——珊瑚礁保護への示唆</div>
+        <div class="amber-text">37コメントでの議論: 「珊瑚礁の修復活動に直接応用できる発見——白化した珊瑚の近くに意図的に健康な珊瑚を配置する（または既存の健康なコロニーに白化したものを寄せる）というシンプルな介入が可能になる」という楽観的な反応が最多いいね。注意点: 「接触可能な距離まで白化珊瑚を物理的に移動させること自体がストレスになる——繊細な珊瑚を移動させる作業には相応のスキルと設備が必要」という実務上の課題。スケールの問題: 「グレートバリアリーフのような数千平方kmの珊瑚礁全体に適用することは現実的に不可能——局所的な保護区や高価値エリアに限った介入として考えるべき」。根本的な問いかけ: 「海水温の上昇を止めなければ珊瑚は白化し続ける——この研究は回復を助ける発見として貴重だが、根本解決（温室効果ガス削減）の代替にはならない」という正論コメントも多数いいね。「水族館での珊瑚保全プログラムでは既に健康個体と白化個体を隣接させる試みをしていた——それを科学的に裏付けた意義は大きい」という実践者からの声も。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: nature.com</span>
+      <span>↑217pt · 💬37+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.nature.com/articles/d41586-026-03266-x" target="_blank">研究を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50126253" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="bleached-corals-healthy-neighbor" data-type="like" onclick="toggleFlag('bleached-corals-healthy-neighbor','漂白珊瑚 隣人 回復 褐虫藻 珊瑚礁 海洋科学','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="bleached-corals-healthy-neighbor" data-type="dislike" onclick="toggleFlag('bleached-corals-healthy-neighbor','漂白珊瑚 隣人 回復 褐虫藻 珊瑚礁 海洋科学','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 8 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-8" id="s8">
+  <div class="story-num">08</div>
+  <div class="story-inner">
+    <div class="story-kicker">フォント / 日本語 / ふりがな / タイポグラフィ / Web技術 — 2026-10-18</div>
+    <h2 class="story-headline">
+      フリフォント<br>ふりがなが見える<br><span style="color:#D4A820">日本語フォント——207pt</span>
+    </h2>
+    <div class="story-body">
+      「Furifont, a Japanese font that shows furigana」がHNで207ポイント・44コメントを集めています。Anthony Fuが開発した「Furifont」は、漢字の上に自動的にふりがな（ひらがな）を小さく表示する日本語フォントです。HTMLのrubyタグなしに、フォントレベルでふりがなを実現するというアプローチが技術的にも実用的にも注目を集めています。
+    </div>
+    <div class="gold-items">
+      <div class="gold-item">
+        <div class="gold-label">Furifontとは何か——技術の仕組み</div>
+        <div class="gold-text">furifont.antfu.meの紹介によると: Furifontは「漢字のグリフ（字形）の中にふりがなのひらがなをビルトインしてしまう」というアプローチを採る。通常のふりがな表示の方法: HTML/CSSでは&lt;ruby&gt;タグを使い&lt;rb&gt;漢字&lt;rt&gt;ふりがな&lt;/rb&gt;という構造で表示する——これはWebコンテンツ標準だが、マークアップが必要でプレーンテキストには使えない。Furifontの特徴: フォントファイル（.woff2等）の中に「漢字+そのふりがな」のセットが一体化したグリフとして収録されており、通常のテキストとしてただ漢字を書くだけで自動的にふりがな付きのグリフが表示される。適用方法: CSSでfont-family: 'Furifont'を指定するだけで有効になる。開発者はAnthony Fu（@antfu7）で、ViteやVue.jsコミュニティで著名なオープンソース開発者。フォントの制限: ふりがなは事前に組み込まれた漢字のみ対応——固有名詞など収録範囲外の読みには対応しない。</div>
+      </div>
+      <div class="gold-item">
+        <div class="gold-label">なぜこれが重要か——日本語学習とアクセシビリティ</div>
+        <div class="gold-text">Furifontが解決する問題とユースケース: (1) 日本語学習コンテンツ——日本語学習者向けのWebサイト・電子書籍でふりがなを追加するには通常HTMLマークアップの変更が必要。Furifontならテキストを変更せずにCSS1行でふりがなを有効化できる。(2) 子供向けコンテンツ——小学校低学年向けのコンテンツでふりがな表示が求められる場面で、CMSや静的サイトジェネレーターでのマークアップ変更なしに対応できる。(3) スクリーンリーダーとの両立——&lt;ruby&gt;タグによるマークアップはスクリーンリーダーの読み上げに影響することがある。フォントレベルの実装はテキスト自体を変えないためアクセシビリティへの副作用が少ない。(4) 限界の明示——すべての漢字・読みの組み合わせには対応できない（フォントファイルサイズの問題）——多音字（一つの漢字に複数の読みがある「重・行」等）への対応は文脈依存であり、フォントレベルでは解決困難。</div>
+      </div>
+      <div class="gold-item">
+        <div class="gold-label">HNの44コメント——技術的な議論と日本語ユーザーの反応</div>
+        <div class="gold-text">44コメントで多様な視点: 「Anthony Fuはまた面白いものを作った——Vite・Vitest・Slidevと並んでFurifontも実用的かつ創造的な問題解決の好例。フォントをソフトウェアの問題として解く発想が好き」という称賛。技術的な疑問: 「Furifontのフォントファイルサイズはどのくらいか——CJKフォントはただでさえ数MBになるのに、ふりがな付きグリフを全て収録したらダウンロードサイズが懸念される」という実用上の問い。日本語ネイティブからの視点: 「ふりがなが必要な局面は限られており、Webフォントとして全ページに適用するのは過剰な場合が多い——学習サイト・子供向けコンテンツという使い分けが自然」。国際化への応用可能性: 「同じアプローチで中国語（ピンイン付き）・ベトナム語・タイ語など声調言語への注音フォントも作れるのでは——アジア言語学習コンテンツ全体へのインパクトがある」という拡張提案。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: furifont.antfu.me</span>
+      <span>↑207pt · 💬44+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://furifont.antfu.me/" target="_blank">フォントを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50100994" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="furifont-japanese-furigana" data-type="like" onclick="toggleFlag('furifont-japanese-furigana','Furifont ふりがな 日本語フォント タイポグラフィ','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="furifont-japanese-furigana" data-type="dislike" onclick="toggleFlag('furifont-japanese-furigana','Furifont ふりがな 日本語フォント タイポグラフィ','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 9 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-9" id="s9">
+  <div class="story-num">09</div>
+  <div class="story-inner">
+    <div class="story-kicker">開発ツール / ダイアグラム / Mermaid / SVG / ビジュアライゼーション — 2026-10-18</div>
+    <h2 class="story-headline">
+      Pele<br>Mermaidダイアグラムを<br><span style="color:#5878C8">テーマ付きSVGに——146pt</span>
+    </h2>
+    <div class="story-body">
+      「Pele – Mermaid diagrams as themeable SVG」がHNで146ポイント・15コメントを集めています。Mermaidのダイアグラム定義をテーマ変更可能なSVGとして出力するツール「Pele」がリリースされました。ドキュメントやプレゼン資料で使われるダイアグラムの見た目をコードで制御できる開発者向けツールとして注目されています。
+    </div>
+    <div class="slate-items">
+      <div class="slate-item">
+        <div class="slate-label">Peleとは何か——Mermaidとの違い</div>
+        <div class="slate-text">pele.runの説明によると: Mermaidは「テキストベースのダイアグラム記法」でフローチャート・シーケンス図・ガントチャート等をコードで書けるツール。GitHubのMarkdownでもネイティブに対応しており、多くの開発者に親しまれている。既存の課題: Mermaidが生成するSVGは見た目のカスタマイズが限定的——テーマは数種類のプリセットしかなく、企業やドキュメントのブランドカラーに合わせることが難しかった。Peleの解決策: (1) テーマシステム——独自のテーマファイルを定義してダイアグラムの配色・フォント・線のスタイルを細かく制御できる。(2) クリーンなSVG出力——生成されるSVGが不要なスタイル属性のない最小限の構造になっており、後からCSSで上書きしやすい設計。(3) CLI対応——コマンドラインからバッチ変換できるため、ドキュメントビルドパイプライン（Hugo・Docusaurus・Sphinx等）への組み込みが容易。(4) ダイアグラム種類——Mermaidがサポートする主要な図の種類（フローチャート・ER図・シーケンス図）はほぼ網羅。</div>
+      </div>
+      <div class="slate-item">
+        <div class="slate-label">なぜ「テーマ付きSVG」が開発者に刺さるのか</div>
+        <div class="slate-text">ユースケース別の有用性: (1) 技術ドキュメント——ReadmeやWikiに貼り付けるダイアグラムがブランドカラーで統一されていると、プロフェッショナルな印象を与える。特にOSSプロジェクトやエンタープライズ向けドキュメントで差が出る。(2) 自動生成ドキュメント——CIパイプラインでコードのアーキテクチャ図を自動生成して最新状態を保つ「ダイアグラムas code」ワークフローで、出力物の見た目が整然としていることは重要。(3) ダークモード対応——Webドキュメントサイトのダークモードに合わせたダイアグラムカラーをテーマファイルで管理できるのは、既存のMermaidでは困難だった課題。(4) プレゼンテーション——MarkdownベースのスライドツールReveal.jsやSlidevで使う図の見た目をプレゼン全体のデザインと一致させやすい。比較対象: Excalidraw（手書き風GUI）・draw.io（GUI）と比べると「コードだけで完結する」点がCI/CD組み込みやGit管理の観点で優れている。</div>
+      </div>
+      <div class="slate-item">
+        <div class="slate-label">HNの15コメント——「小さくて便利」な評価</div>
+        <div class="slate-text">15コメントで好意的なニッチ評価: 「まさにこれが欲しかった——Mermaidで作るダイアグラムの見た目をカスタマイズできないことに長年悩んでいた。Peleで解決できるなら今すぐ試す」という実用的な共感が最多いいね。技術的な質問: 「Mermaidを直接SVGに変換するのか、それともPuppeteer/Playwrightを介してブラウザレンダリングを使うのか——後者だとCIでのセットアップが重くなる」という実装への関心。代替ツールとの比較: 「Kroki.ioが同様にMermaid等のダイアグラムをSVGに変換するが、テーマのカスタマイズ性はどちらが高いか——セルフホストの手間のなさでPeleが勝ちそう」。要望: 「PlantUMLサポートがあれば最高——Mermaidには向かない複雑なUMLダイアグラムを使っているプロジェクトも多い」というリクエスト。「ダイアグラムの定義ファイルとテーマファイルを分離して管理できるのは設計として正しい——再利用性と変更の追いやすさが高まる」という設計面の評価も。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: pele.run</span>
+      <span>↑146pt · 💬15+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://pele.run/" target="_blank">Peleを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50132870" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="pele-mermaid-themeable-svg" data-type="like" onclick="toggleFlag('pele-mermaid-themeable-svg','Pele Mermaid ダイアグラム テーマ SVG 開発ツール','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="pele-mermaid-themeable-svg" data-type="dislike" onclick="toggleFlag('pele-mermaid-themeable-svg','Pele Mermaid ダイアグラム テーマ SVG 開発ツール','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 10 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-10" id="s10">
+  <div class="story-num">10</div>
+  <div class="story-inner">
+    <div class="story-kicker">プライバシー / 選挙 / オープンソース / エストニア / 電子投票 — 2026-10-18</div>
+    <h2 class="story-headline">
+      エストニア電子投票<br>システムの<br><span style="color:#E04080">ソースが公開——117pt</span>
+    </h2>
+    <div class="story-body">
+      「Source code of the Estonian online voting system」がHNで117ポイント・103コメントを集めています。世界で最も成熟したインターネット投票システムを持つエストニアが、その中核システム（IVXV）のソースコードをGitHubで公開しました。電子投票の透明性・セキュリティ・民主主義の技術的基盤について、HNコミュニティが本格的な議論を展開しています。
+    </div>
+    <div class="mag-items">
+      <div class="mag-item">
+        <div class="mag-label">エストニアの電子投票——世界最先端の実績</div>
+        <div class="mag-text">github.com/valimised/ivxvのREADMEとエストニア選挙委員会の情報によると: エストニアは2005年から国政選挙・地方選挙・EU議会選挙でのインターネット投票を実施しており、2023年の選挙では有効票の51%以上がオンライン投票だった——世界で唯一インターネット投票が過半数を超えた民主主義国家。システムの主な特徴: (1) 国民IDカード（eID）——チップ付きの物理カードが電子署名の認証に使われる。スマートカードリーダーとPINでアクセス。(2) 投票の変更可能性——インターネット投票は投票締め切りまで何度でも変更でき、最後に投票した内容のみ有効。これにより「強要による投票」問題を緩和する設計。(3) 二重エンベロープ——投票者の身元情報と投票内容が分離して処理されるため、誰が何に投票したかが連結できない秘匿性設計。(4) 独立監査——第三者によるコードの独立監査とリアルタイム監視が実施される。今回のオープンソース公開: IVXVはこれまでも審査に提供されていたが、今回GitHubで一般公開したことで誰でもコードを検証できるようになった。</thinking>
+
+        </div>
+      </div>
+      <div class="mag-item">
+        <div class="mag-label">電子投票のセキュリティ課題——なぜ難しいのか</div>
+        <div class="mag-text">電子投票が世界的に普及しない理由: (1) 「検証可能性」のジレンマ——紙の投票は「自分が書いた票が箱に入ったか目で見られる」が、電子投票は処理の途中が不透明になりやすい。エストニアはE2E（エンドツーエンド）検証可能な設計で対応しているが、一般市民が検証プロセスを理解することは難しい。(2) クライアント側の信頼——投票者のコンピューターにマルウェアが入っていた場合、正しい投票操作をしても別の投票に書き換えられる可能性——これはどんな暗号技術でも防げない「エンドポイント問題」。エストニアはIDカードの物理認証でリスクを減らしているが完全ではない。(3) 国家レベルの攻撃——洗練された国家が標的にした場合の攻撃耐性は常に問われる——エストニアはロシアによるサイバー攻撃の標的になった歴史があるため実戦経験もある。(4) 信頼の問題——「技術的に安全でも信頼されなければ民主主義として機能しない」——米国のような「電子機器への不信が強い」社会では受け入れられない可能性がある。</div>
+      </div>
+      <div class="mag-item">
+        <div class="mag-label">HNの103コメント——電子投票の民主主義的意義</div>
+        <div class="mag-text">103コメントで深い議論: 「エストニアのシステムが20年以上成功してきた事実は説得力がある——問題は技術ではなく政治的・社会的コンテキストの違い。エストニアは人口130万人・高いデジタルリテラシー・国民IDカードの普及という特殊な条件がある」という冷静な評価が最多いいね。ソースコード公開への評価: 「透明性は信頼の基盤——ブラックボックスの投票システムに比べて、誰でも検証できるオープンソースのほうが民主主義的正当性が高い。CVEが見つかれば修正される、という普通のソフトウェア開発の論理が選挙システムにも適用されるべき」。批判的な視点: 「B. Harris（セキュリティ研究者）がエストニアシステムの脆弱性を指摘した研究があり、当時エストニアは反論した——この議論はまだ解決していない。オープンソース公開は良いことだが、それで全ての問題が解決するわけではない」。日本への視点: 「日本はマイナンバーカードで電子認証インフラを整備しつつあるが、電子投票への転換には政治的意志と市民の信頼構築が必要——エストニアの20年の実績は参考になる」という示唆も。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: github.com/valimised/ivxv</span>
+      <span>↑117pt · 💬103+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://github.com/valimised/ivxv" target="_blank">GitHubを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50127586" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="estonian-voting-source-code" data-type="like" onclick="toggleFlag('estonian-voting-source-code','エストニア 電子投票 IVXV オープンソース セキュリティ','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="estonian-voting-source-code" data-type="dislike" onclick="toggleFlag('estonian-voting-source-code','エストニア 電子投票 IVXV オープンソース セキュリティ','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ══════════════════════════════════════════════════════════════════════════════════ -->
+<footer class="site-footer">
+  <div class="footer-top">
+    <div class="footer-brand">Morning Edition</div>
+    <button class="export-btn" onclick="exportFeedback()">フィードバックをコピー</button>
+  </div>
+  <div class="footer-meta">
+    Hacker News フロントページから毎朝キュレーション · No.153 · 2026年10月18日<br>
+    ⭐ 興味あり / ✕ 興味なし ボタンで次号のキュレーションが改善されます
+  </div>
+  <div class="footer-note">Chrome/Edge: フィードバックは自動保存されます · Firefox/Safari: 上のボタンでクリップボードにコピーして feedback.json として保存してください</div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const STORAGE_KEY = 'morning-edition-feedback-v2';
+const TODAY = '2026-10-18';
+
+function loadFeedback() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    return raw ? JSON.parse(raw) : { liked: {}, disliked: {} };
+  } catch { return { liked: {}, disliked: {} }; }
+}
+
+function saveFeedback(fb) {
+  try {
+    fb.updatedAt = new Date().toISOString();
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(fb));
+  } catch {}
+}
+
+function showToast(msg, isError) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast' + (isError ? ' error' : '');
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2800);
+}
+
+function toggleFlag(storyId, title, type) {
+  const fb = loadFeedback();
+  const other = type === 'like' ? 'disliked' : 'liked';
+  const current = type === 'like' ? 'liked' : 'disliked';
+
+  if (fb[current][storyId]) {
+    delete fb[current][storyId];
+    updateBtnState(storyId, type, false);
+  } else {
+    fb[current][storyId] = { title, date: TODAY };
+    delete fb[other][storyId];
+    updateBtnState(storyId, type, true);
+    updateBtnState(storyId, type === 'like' ? 'dislike' : 'like', false);
+  }
+  saveFeedback(fb);
+  tryAutoSave(fb);
+}
+
+function updateBtnState(storyId, type, active) {
+  const btns = document.querySelectorAll(`[data-story="${storyId}"][data-type="${type}"]`);
+  btns.forEach(b => active ? b.classList.add('active') : b.classList.remove('active'));
+}
+
+function applyStoredState() {
+  const fb = loadFeedback();
+  Object.keys(fb.liked || {}).forEach(id => updateBtnState(id, 'like', true));
+  Object.keys(fb.disliked || {}).forEach(id => updateBtnState(id, 'dislike', true));
+}
+
+let _dirHandle = null;
+
+async function tryAutoSave(fb) {
+  if (!window.showDirectoryPicker) return;
+  try {
+    if (!_dirHandle) {
+      _dirHandle = await window.showDirectoryPicker({ mode: 'readwrite' });
+    }
+    const fh = await _dirHandle.getFileHandle('feedback.json', { create: true });
+    const w = await fh.createWritable();
+    await w.write(JSON.stringify(fb, null, 2));
+    await w.close();
+    showToast('フィードバックを保存しました ✓');
+  } catch (e) {
+    if (e.name !== 'AbortError') showToast('自動保存できませんでした（手動コピーをご利用ください）', true);
+  }
+}
+
+function exportFeedback() {
+  const fb = loadFeedback();
+  try {
+    navigator.clipboard.writeText(JSON.stringify(fb, null, 2));
+    showToast('クリップボードにコピーしました ✓');
+  } catch {
+    showToast('コピーに失敗しました', true);
+  }
+}
+
+document.addEventListener('DOMContentLoaded', applyStoredState);
+</script>
+</body>
+</html>
