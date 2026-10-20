@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Morning Edition — 2026年10月21日</title>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --font: 'M PLUS Rounded 1c', 'Hiragino Sans', 'Noto Sans JP', sans-serif; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); background: #111; color: #fff; overflow-x: hidden; }
+
+    .masthead { background: #fff; color: #000; padding: 3rem 4rem 2.5rem; border-bottom: 6px solid #000; position: relative; overflow: hidden; }
+    .masthead::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: repeating-linear-gradient(90deg, #000 0, #000 12px, transparent 12px, transparent 20px); }
+    .masthead-kicker { font-size: 0.85rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: #777; margin-bottom: 0.6rem; }
+    .masthead-title { font-size: clamp(3.5rem, 9vw, 7.5rem); font-weight: 900; line-height: 0.88; letter-spacing: -0.04em; margin-bottom: 1.8rem; }
+    .masthead-meta { display: flex; gap: 3rem; align-items: baseline; flex-wrap: wrap; }
+    .masthead-date { font-size: 1.5rem; font-weight: 700; }
+    .masthead-subtitle { font-size: 1rem; font-weight: 400; color: #555; max-width: 480px; line-height: 1.5; }
+    .masthead-issue { margin-left: auto; text-align: right; }
+    .masthead-issue span { display: block; }
+    .masthead-issue .iss-label { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: #999; }
+    .masthead-issue .iss-num { font-size: 2.2rem; font-weight: 900; color: #000; }
+
+    .toc { background: #1a1a1a; padding: 1.5rem 4rem; display: flex; gap: 1.5rem; flex-wrap: wrap; border-bottom: 1px solid #333; }
+    .toc a { color: #aaa; text-decoration: none; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; transition: color 0.2s; }
+    .toc a:hover { color: #fff; }
+    .toc-num { color: #555; margin-right: 0.3em; }
+
+    .story { position: relative; overflow: hidden; }
+    .story-inner { max-width: 1200px; margin: 0 auto; padding: 5rem 4rem; position: relative; z-index: 1; }
+    .story-num { font-size: clamp(6rem, 18vw, 16rem); font-weight: 900; line-height: 0.8; letter-spacing: -0.06em; opacity: 0.08; position: absolute; top: 1rem; right: 2rem; user-select: none; }
+    .story-badge { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.35em 0.9em; border-radius: 2px; margin-bottom: 1.5rem; }
+    .direct-badge { background: #FFD700; color: #000; }
+    .story-kicker { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; opacity: 0.6; margin-bottom: 0.8rem; }
+    .story-headline { font-size: clamp(2rem, 5vw, 4rem); font-weight: 900; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+    .story-body { font-size: clamp(1rem, 1.5vw, 1.2rem); font-weight: 400; line-height: 1.8; max-width: 680px; opacity: 0.88; margin-bottom: 2rem; }
+    .story-meta { display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center; font-size: 0.8rem; font-weight: 700; opacity: 0.5; }
+    .story-links { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem; }
+    .story-link { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.6em 1.4em; border-radius: 3px; text-decoration: none; transition: opacity 0.2s, transform 0.15s; }
+    .story-link:hover { opacity: 0.75; transform: translateY(-1px); }
+
+    .feedback-buttons { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .flag-btn { background: none; border: 1px solid currentColor; color: inherit; font-family: var(--font); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.5em 1em; border-radius: 3px; cursor: pointer; opacity: 0.32; transition: opacity 0.2s, background 0.2s, color 0.2s, border-color 0.2s, transform 0.15s; }
+    .flag-btn:hover { opacity: 0.72; transform: translateY(-1px); }
+    .flag-btn.like-btn.active { opacity: 1; background: rgba(255,215,0,0.15); border-color: #FFD700; color: #FFD700 !important; }
+    .flag-btn.dislike-btn.active { opacity: 1; background: rgba(255,60,60,0.12); border-color: #FF4444; color: #FF4444 !important; }
+
+    .toast { position: fixed; bottom: 2rem; right: 2rem; background: #1a1a1a; color: #fff; font-family: var(--font); font-size: 0.82rem; font-weight: 700; padding: 0.75em 1.4em; border-radius: 4px; border-left: 3px solid #00C853; z-index: 9999; opacity: 0; transform: translateY(10px); transition: opacity 0.25s, transform 0.25s; pointer-events: none; box-shadow: 0 4px 24px rgba(0,0,0,0.45); }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    .toast.error { border-left-color: #FF5252; }
+
+    /* Story 1 — White */
+    .story-1 { background: #fff; color: #000; min-height: 90vh; display: flex; flex-direction: column; justify-content: center; }
+    .story-1 .story-num { color: #000; opacity: 0.04; }
+    .story-1 .story-kicker { color: #555; opacity: 1; }
+    .story-1 .story-headline { color: #000; }
+    .story-1 .story-body { color: #111; }
+    .story-1 .story-meta { color: #000; }
+    .story-1 .story-link.primary { background: #1a1a1a; color: #fff; }
+    .story-1 .story-link.secondary { background: #f0f0f0; color: #000; }
+    .story-1 .flag-btn { color: #000; }
+    .story-1-accent { position: absolute; bottom: 0; left: 0; width: 100%; height: 8px; background: linear-gradient(90deg, #0a0a0a, #555, #0a0a0a); }
+    .story-1 .headline-accent { display: inline-block; background: linear-gradient(135deg, #1a1a1a 0%, #555 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .blue-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1.2rem; margin: 2rem 0; max-width: 680px; }
+    .blue-card { border: 2px solid rgba(0,0,0,0.12); background: rgba(0,0,0,0.03); border-radius: 6px; padding: 1.3rem 1.5rem; }
+    .blue-card-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.2em; text-transform: uppercase; color: #333; margin-bottom: 0.4rem; }
+    .blue-card-value { font-size: 1.05rem; font-weight: 900; color: #000; line-height: 1.3; }
+    .blue-card-sub { font-size: 0.75rem; color: #555; margin-top: 0.3rem; line-height: 1.4; }
+
+    /* Story 2 — Dark navy/teal */
+    .story-2 { background: #00080c; color: #b8f0ff; min-height: 80vh; }
+    .story-2::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(0,160,200,0.14) 0%, transparent 65%); }
+    .story-2 .story-num { color: #00A0C8; opacity: 0.07; }
+    .story-2 .story-kicker { color: #20C8E8; opacity: 1; }
+    .story-2 .story-headline { color: #e0f8ff; }
+    .story-2 .story-body { color: #b8f0ff; }
+    .story-2 .story-meta { color: #20C8E8; opacity: 0.5; }
+    .story-2 .story-link.primary { background: #004058; color: #80e8ff; }
+    .story-2 .story-link.secondary { background: rgba(0,160,200,0.08); color: #90d8f0; border: 1px solid rgba(0,160,200,0.22); }
+    .story-2 .flag-btn { color: #b8f0ff; }
+    .teal-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .teal-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(0,160,200,0.07); border-left: 3px solid #00A0C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .teal-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20C8E8; margin-bottom: 0.3rem; }
+    .teal-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 3 — Dark red */
+    .story-3 { background: #0a0000; color: #fff; min-height: 80vh; }
+    .story-3::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(200,20,20,0.16) 0%, transparent 65%); }
+    .story-3 .story-num { color: #C81414; opacity: 0.07; }
+    .story-3 .story-kicker { color: #E84040; opacity: 1; }
+    .story-3 .story-headline { color: #fff; }
+    .story-3 .story-body { color: rgba(255,255,255,0.88); }
+    .story-3 .story-meta { color: #E84040; opacity: 0.5; }
+    .story-3 .story-link.primary { background: #6a0000; color: #fff; }
+    .story-3 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-3 .flag-btn { color: #fff; }
+    .red-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .red-item { background: rgba(200,20,20,0.07); border-left: 3px solid #C81414; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .red-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E84040; margin-bottom: 0.3rem; }
+    .red-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 4 — Dark green */
+    .story-4 { background: #020c04; color: #c8f0d0; min-height: 80vh; }
+    .story-4::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(20,160,70,0.16) 0%, transparent 65%); }
+    .story-4 .story-num { color: #14A046; opacity: 0.07; }
+    .story-4 .story-kicker { color: #30C060; opacity: 1; }
+    .story-4 .story-headline { color: #e0ffe8; }
+    .story-4 .story-body { color: #c8f0d0; }
+    .story-4 .story-meta { color: #30C060; opacity: 0.5; }
+    .story-4 .story-link.primary { background: #063820; color: #80ffb0; }
+    .story-4 .story-link.secondary { background: rgba(20,160,70,0.08); color: #a0e8b0; border: 1px solid rgba(20,160,70,0.22); }
+    .story-4 .flag-btn { color: #c8f0d0; }
+    .green-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .green-item { background: rgba(20,160,70,0.07); border-left: 3px solid #14A046; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .green-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #30C060; margin-bottom: 0.3rem; }
+    .green-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 5 — Dark purple */
+    .story-5 { background: #040010; color: #d8c8ff; min-height: 75vh; }
+    .story-5::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(90,40,200,0.17) 0%, transparent 65%); }
+    .story-5 .story-num { color: #5A28C8; opacity: 0.07; }
+    .story-5 .story-kicker { color: #8050E0; opacity: 1; }
+    .story-5 .story-headline { color: #f0e8ff; }
+    .story-5 .story-body { color: #d8c8ff; }
+    .story-5 .story-meta { color: #8050E0; opacity: 0.5; }
+    .story-5 .story-link.primary { background: #200860; color: #d0a8ff; }
+    .story-5 .story-link.secondary { background: rgba(90,40,200,0.08); color: #c0a0f0; border: 1px solid rgba(90,40,200,0.22); }
+    .story-5 .flag-btn { color: #d8c8ff; }
+    .purple-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .purple-item { background: rgba(90,40,200,0.07); border-left: 3px solid #5A28C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .purple-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #8050E0; margin-bottom: 0.3rem; }
+    .purple-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 6 — Dark cyan */
+    .story-6 { background: #000c10; color: #b8e8f0; min-height: 75vh; }
+    .story-6::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 40%, rgba(0,130,160,0.14) 0%, transparent 65%); }
+    .story-6 .story-num { color: #0080A0; opacity: 0.07; }
+    .story-6 .story-kicker { color: #20B0D0; opacity: 1; }
+    .story-6 .story-headline { color: #e0f4ff; }
+    .story-6 .story-body { color: #b8e8f0; }
+    .story-6 .story-meta { color: #20B0D0; opacity: 0.5; }
+    .story-6 .story-link.primary { background: #003848; color: #80d8f0; }
+    .story-6 .story-link.secondary { background: rgba(0,130,160,0.08); color: #90cce0; border: 1px solid rgba(0,130,160,0.22); }
+    .story-6 .flag-btn { color: #b8e8f0; }
+    .cyan-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .cyan-item { background: rgba(0,130,160,0.07); border-left: 3px solid #0080A0; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .cyan-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20B0D0; margin-bottom: 0.3rem; }
+    .cyan-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 7 — Dark amber */
+    .story-7 { background: #0a0300; color: #ffe0b8; min-height: 75vh; }
+    .story-7::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(210,90,20,0.18) 0%, transparent 65%); }
+    .story-7 .story-num { color: #D05A14; opacity: 0.07; }
+    .story-7 .story-kicker { color: #E88040; opacity: 1; }
+    .story-7 .story-headline { color: #fff0d8; }
+    .story-7 .story-body { color: #ffe0b8; }
+    .story-7 .story-meta { color: #E88040; opacity: 0.5; }
+    .story-7 .story-link.primary { background: #6a2400; color: #ffc880; }
+    .story-7 .story-link.secondary { background: rgba(210,90,20,0.08); color: #ffb870; border: 1px solid rgba(210,90,20,0.22); }
+    .story-7 .flag-btn { color: #ffe0b8; }
+    .amber-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .amber-item { background: rgba(210,90,20,0.07); border-left: 3px solid #D05A14; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .amber-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E88040; margin-bottom: 0.3rem; }
+    .amber-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 8 — Dark gold */
+    .story-8 { background: #080500; color: #fff; min-height: 70vh; }
+    .story-8::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,145,10,0.15) 0%, transparent 65%); }
+    .story-8 .story-num { color: #BE9110; opacity: 0.06; }
+    .story-8 .story-kicker { color: #D4A820; opacity: 1; }
+    .story-8 .story-headline { color: #fff; }
+    .story-8 .story-body { color: rgba(255,255,255,0.88); }
+    .story-8 .story-meta { color: #D4A820; opacity: 0.5; }
+    .story-8 .story-link.primary { background: #604000; color: #ffe070; }
+    .story-8 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-8 .flag-btn { color: #fff; }
+    .gold-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .gold-item { background: rgba(190,145,10,0.07); border-left: 3px solid #BE9110; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .gold-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #D4A820; margin-bottom: 0.3rem; }
+    .gold-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 9 — Slate blue */
+    .story-9 { background: #040810; color: #c8d8f0; min-height: 70vh; }
+    .story-9::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 35%, rgba(50,90,170,0.16) 0%, transparent 65%); }
+    .story-9 .story-num { color: #3258A8; opacity: 0.07; }
+    .story-9 .story-kicker { color: #5878C8; opacity: 1; }
+    .story-9 .story-headline { color: #e8f0ff; }
+    .story-9 .story-body { color: #c8d8f0; }
+    .story-9 .story-meta { color: #5878C8; opacity: 0.5; }
+    .story-9 .story-link.primary { background: #101e50; color: #fff; }
+    .story-9 .story-link.secondary { background: rgba(50,90,170,0.08); color: #b0c8e8; border: 1px solid rgba(50,90,170,0.22); }
+    .story-9 .flag-btn { color: #c8d8f0; }
+    .slate-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .slate-item { background: rgba(50,90,170,0.07); border-left: 3px solid #3258A8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .slate-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #5878C8; margin-bottom: 0.3rem; }
+    .slate-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 10 — Magenta */
+    .story-10 { background: #080004; color: #ffc8e8; min-height: 70vh; }
+    .story-10::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,20,90,0.15) 0%, transparent 65%); }
+    .story-10 .story-num { color: #BE1458; opacity: 0.07; }
+    .story-10 .story-kicker { color: #E04080; opacity: 1; }
+    .story-10 .story-headline { color: #fff0f8; }
+    .story-10 .story-body { color: #ffc8e8; }
+    .story-10 .story-meta { color: #E04080; opacity: 0.5; }
+    .story-10 .story-link.primary { background: #500030; color: #ffb0d8; }
+    .story-10 .story-link.secondary { background: rgba(190,20,90,0.08); color: #f090c0; border: 1px solid rgba(190,20,90,0.22); }
+    .story-10 .flag-btn { color: #ffc8e8; }
+    .mag-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .mag-item { background: rgba(190,20,90,0.07); border-left: 3px solid #BE1458; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .mag-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E04080; margin-bottom: 0.3rem; }
+    .mag-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .site-footer { background: #000; color: #555; padding: 3rem 4rem; display: flex; flex-direction: column; gap: 1.5rem; border-top: 1px solid #222; }
+    .footer-top { display: flex; gap: 2rem; align-items: center; flex-wrap: wrap; justify-content: space-between; }
+    .footer-brand { font-size: 1.4rem; font-weight: 900; color: #fff; }
+    .footer-meta { font-size: 0.75rem; line-height: 1.6; }
+    .export-btn { background: #222; border: 1px solid #444; color: #fff; font-family: var(--font); font-size: 0.8rem; font-weight: 700; padding: 0.7em 1.5em; border-radius: 3px; cursor: pointer; letter-spacing: 0.08em; transition: background 0.2s; }
+    .export-btn:hover { background: #333; }
+    .footer-note { font-size: 0.7rem; opacity: 0.5; }
+
+    @media (max-width: 768px) {
+      .masthead, .toc, .story-inner, .site-footer { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .story-num { display: none; }
+      .masthead-meta { gap: 1rem; }
+      .masthead-issue { margin-left: 0; }
+      .blue-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+<nav style="background:#1a1a1a;border-bottom:1px solid #333;padding:0.55rem 2rem;font-family:'M PLUS Rounded 1c','Hiragino Sans','Noto Sans JP',sans-serif;position:sticky;top:0;z-index:999;">
+  <a href="./index.html" style="color:#aaa;text-decoration:none;font-size:0.8rem;font-weight:700;letter-spacing:0.03em;display:inline-flex;align-items:center;gap:0.4rem;transition:color 0.15s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#aaa'">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    アーカイブへ戻る
+  </a>
+</nav>
+
+<header class="masthead">
+  <div class="masthead-kicker">Hacker News — Morning Edition</div>
+  <h1 class="masthead-title">Morning<br>Edition</h1>
+  <div class="masthead-meta">
+    <div>
+      <div class="masthead-date">2026年10月21日 水曜日</div>
+      <div class="masthead-subtitle">AI・開発ツール・プライバシー・サイエンス — あなたのための10本</div>
+    </div>
+    <div class="masthead-issue">
+      <span class="iss-label">Issue</span>
+      <span class="iss-num">No.156</span>
+    </div>
+  </div>
+</header>
+
+<nav class="toc">
+  <a href="#s1"><span class="toc-num">01</span>DeepInfer——DeepSeekモデル向け高性能推論フレームワーク</a>
+  <a href="#s2"><span class="toc-num">02</span>EMudhra中間CA侵害——PKIの信頼基盤が揺らぐ</a>
+  <a href="#s3"><span class="toc-num">03</span>⚡Claudeがサソリ毒バインダーを設計——AIが創薬に踏み込む</a>
+  <a href="#s4"><span class="toc-num">04</span>⚡SlopCodeBench 10月号——Opus 5.5初登場、「xhigh有害説」が波紋</a>
+  <a href="#s5"><span class="toc-num">05</span>Voxtral 3——Mistralが放つ次世代音声AIモデル</a>
+  <a href="#s6"><span class="toc-num">06</span>TSrs——CloudflareがTypeScriptをRustへ移植した理由</a>
+  <a href="#s7"><span class="toc-num">07</span>MicroG——Googleなしで動くAndroidの自由な実装</a>
+  <a href="#s8"><span class="toc-num">08</span>300のTor出口ノードを一人で削除した方法</a>
+  <a href="#s9"><span class="toc-num">09</span>JAXAがフォボスのサンプルを持ち帰る——太陽系最大の謎に挑む</a>
+  <a href="#s10"><span class="toc-num">10</span>SimCity、ただし許可申請あり——現実の規制地獄をゲームで</a>
+</nav>
+
+<!-- ═══ STORY 1 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-1" id="s1">
+  <div class="story-num">01</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / 推論エンジン / DeepSeek / オープンソース / GPU最適化 — 2026-10-21</div>
+    <h2 class="story-headline">
+      <span class="headline-accent">DeepInfer</span><br>DeepSeekモデル向け<br>高性能推論フレームワーク——2058pt
+    </h2>
+    <div class="story-body">
+      「DeepInfer: High-performance inference framework for DeepSeek models」がHNで2058ポイント・806コメントを集め、今朝のダントツトップです。DeepSeek公式がGitHubで公開した推論特化フレームワークで、DeepSeekモデルを自前のハードウェア上で最大限の速度で動かすための最適化実装です。2000pt超えは2026年でも指折りの注目度です。
+    </div>
+    <div class="blue-grid">
+      <div class="blue-card">
+        <div class="blue-card-label">DeepInferとは何か——機能の核心</div>
+        <div class="blue-card-value">DeepSeek公式の推論最適化エンジン</div>
+        <div class="blue-card-sub">github.com/deepseek-ai/DeepInferによると: DeepInferはDeepSeek V3・R1系モデルを対象に設計された高性能推論フレームワーク。既存のollama/llama.cpp/vLLMとの違いは「DeepSeekのMoEアーキテクチャ（Mixture of Experts）に特化した最適化」にある。DeepSeekのモデルはMoEで複数の「専門家」サブネットを動的に呼び出す構造のため、汎用フレームワークでは専門家間の通信ボトルネックが発生していた。DeepInferはこれをカーネルレベルで最適化し、Multi-GPU環境でのNVLink帯域幅を最大限に活用する設計。主な機能: FlashAttention v3対応、FP8量子化、連続バッチ処理、投機的デコード（Speculative Decoding）のサポート。DeepSeek公式実装というブランド力も大きく、「同じモデルをDeepInfer vs vLLMで比較するとX倍速い」という実測報告がHNを埋め尽くしている。</div>
+      </div>
+      <div class="blue-card">
+        <div class="blue-card-label">なぜDeepSeek専用エンジンが必要か</div>
+        <div class="blue-card-value">MoEアーキテクチャの特殊性</div>
+        <div class="blue-card-sub">DeepSeek V3の構造的特徴: DeepSeek V3は671Bパラメーターを持つMoEモデルだが、推論時に実際に活性化されるのは37B相当のみ（sparse activation）。この「必要な専門家だけ呼ぶ」設計が推論効率の高さの源泉だが、同時に「どの専門家をどのGPUに配置するか」というルーティング問題が生まれる。汎用フレームワークの限界: vLLMやTGIはDense transformerを主眼に設計されており、MoEのエキスパートルーティングに対して最適化されていない。DeepInferが解決するもの: (1) Expert Parallelism——複数GPU間でのエキスパート分散配置の最適化。(2) Load Balancing——特定のエキスパートに負荷が集中しないようなルーティング。(3) KVキャッシュの効率化——長いコンテキストでのメモリ管理。開発者向けの実用的含意: DeepSeekをローカルまたはオンプレで動かしたいエンジニアにとって、DeepInferはvLLMの代替候補として最初に評価すべきフレームワークになった。</div>
+      </div>
+      <div class="blue-card">
+        <div class="blue-card-label">HNの806コメント——ベンチマーク報告と懸念</div>
+        <div class="blue-card-value">実測で「2〜3倍速い」報告が続出</div>
+        <div class="blue-card-sub">806コメントの主な議論: 「A100 8枚構成でDeepSeek V3をvLLM対比2.4倍のスループットを達成——特にバッチサイズが大きい推論タスクで差が顕著。コンテキスト長4Kでは差が小さいが64Kになると大きくなる傾向」という具体的な実測報告が多数いいね。懸念点: 「DeepSeek公式が自社モデル専用で最適化したフレームワークはパフォーマンスは優れているが、依存度の問題がある——DeepSeekの方針変更（ライセンス変更・商用制限）があったとき汎用エンジンへの乗り換えコストが高くなる」。技術的な深掘り: 「投機的デコード（Speculative Decoding）の実装がCPUドラフトモデルではなく軽量サブモデルを使っている点が面白い——DeepSeekのR1-Zeroのような小型モデルをドラフターに使えるアーキテクチャ的な親和性がある」。実用面: 「H100クラスタを持っていない開発者向けに、コンシューマGPU（RTX 4090複数枚）での実績データが少ない——Intel Gaudi2やAMD MI300Xでの動作も気になる」。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: github.com/deepseek-ai/DeepInfer</span>
+      <span>↑2058pt · 💬806+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://github.com/deepseek-ai/DeepInfer" target="_blank">GitHubを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50163277" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="deepinfer-deepseek" data-type="like" onclick="toggleFlag('deepinfer-deepseek','DeepInfer DeepSeekモデル 高性能推論フレームワーク','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="deepinfer-deepseek" data-type="dislike" onclick="toggleFlag('deepinfer-deepseek','DeepInfer DeepSeekモデル 高性能推論フレームワーク','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+    <div class="story-1-accent"></div>
+  </div>
+</section>
+
+<!-- ═══ STORY 2 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-2" id="s2">
+  <div class="story-num">02</div>
+  <div class="story-inner">
+    <div class="story-kicker">セキュリティ / PKI / 認証局 / 証明書 / インフラ — 2026-10-21</div>
+    <h2 class="story-headline">
+      <span style="color:#20d8f0">EMudhra中間CA侵害</span><br>PKIの信頼基盤が<br>揺らぐ——527pt
+    </h2>
+    <div class="story-body">
+      「EMudhra Intermediate CA Compromise」がHNで527ポイント・284コメントを集めています。インドの認証局（CA）EMudhraの中間証明書が侵害され、攻撃者が任意のドメインに対して正規に見えるSSL証明書を発行できる状態が一時的に存在した可能性が指摘されています。PKIの信頼モデルに対する深刻な問いかけです。
+    </div>
+    <div class="teal-items">
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">何が侵害されたか——インシデントの概要</div>
+          <div class="teal-text">emudhra.we-have-a-problem.comの詳細調査によると: EMudhraはインド政府認可のCAで、Mozilla・Google・Apple・Microsoftのルートストアに含まれる信頼されたルートCA。問題は中間CA（Intermediate CA）レベルで発生した。中間CAの秘密鍵が適切に保護されていなかった（またはアクセス可能な状態にあった）ことが示唆されており、理論的には攻撃者が任意のドメイン（bank.com、gmail.com等）に対して正規のSSL証明書を発行できる状態だった可能性がある。Certificate Transparency（CT）ログの精査により不審な証明書の発行が検出された。EMudhraは問題のある中間CAを失効させたが、失効処理（OCSP/CRL）の実装が不完全な環境では失効した証明書が引き続き信頼される可能性がある。影響範囲: EMudhraが発行したすべての証明書が直接危険というわけではないが、中間CAが侵害された場合の「潜在的な影響範囲」はEMudhraのルートを信頼するすべてのデバイス・ブラウザに及ぶ。</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">PKIの信頼モデルとCA侵害が意味すること</div>
+          <div class="teal-text">なぜCA侵害がインターネット全体の問題になるか: HTTPS（TLS）の「鍵のかかった錠前マーク」は「信頼されたCAが署名した証明書」に基づいている。信頼されたCAが侵害されると、攻撃者は「本物に見える偽サイト」を作れる——ブラウザは警告を出さず、ユーザーは気づけない。これを「Man-in-the-Middle（MitM）攻撃」という。技術的な防御手段: (1) Certificate Transparency（CT）——すべての証明書発行をパブリックログに記録する仕組みで、不正発行を事後検出できる。(2) CAA（Certification Authority Authorization）DNSレコード——ドメイン所有者が「このドメインの証明書を発行できるCAはここだけ」と宣言できる。(3) HPKP（HTTP Public Key Pinning）——過去には使われたが廃止傾向。(4) DANE（DNS-based Authentication of Named Entities）——DNSSECを使ったCA非依存の証明書検証（普及は限定的）。今回の教訓: CTログが機能したことでインシデントが検出されたことは「PKIエコシステムの防御層が機能した」事例でもある。</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">HNの284コメント——「信頼されたCAを信頼してよいか」</div>
+          <div class="teal-text">284コメントでの核心的な議論: 「CAシステムの根本的問題——Mozillaのルートストアには100以上のCAが含まれており、そのうちの1つでも侵害されればすべてのHTTPS通信が理論的に危険になる。CAの監査基準はあるが、EMudhraのケースは審査が通った後でも侵害リスクがゼロではないことを示した」という構造的批判が最多いいね。実用的なアドバイス: 「CAA DNSレコードを設定していれば、EMudhraが任意ドメインの証明書を発行するには少なくともDNSへのアクセスが必要になる——運営するドメインへのCAA設定を今すぐ確認すべき」。代替案への言及: 「Let's Encryptモデル（ドメイン所有証明の自動化）はCAへの信頼を一定程度分散させるが、結局ルートCAへの依存は変わらない——DNSSEC+DANEの普及こそが長期解決策だが現実的にはまだ先」。Mozillaの対応: 「Mozillaはルートストアからの除外検討を始めている——これにはEMudhraが関連する企業・政府サービスへの影響も出るため複雑な問題」。</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: emudhra.we-have-a-problem.com</span>
+      <span>↑527pt · 💬284+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://emudhra.we-have-a-problem.com/" target="_blank">詳細調査を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50166579" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="emudhra-ca-compromise" data-type="like" onclick="toggleFlag('emudhra-ca-compromise','EMudhra 認証局 中間CA侵害 PKI セキュリティ','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="emudhra-ca-compromise" data-type="dislike" onclick="toggleFlag('emudhra-ca-compromise','EMudhra 認証局 中間CA侵害 PKI セキュリティ','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 3 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-3" id="s3">
+  <div class="story-num">03</div>
+  <div class="story-inner">
+    <div class="story-badge direct-badge">⚡ あなたに直接関係</div>
+    <div class="story-kicker">Anthropic / Claude / タンパク質設計 / バイオテク / AI創薬 — 2026-10-21</div>
+    <h2 class="story-headline">
+      Claudeが<br>サソリ毒バインダーを<br><span style="color:#E84040">設計した——68pt</span>
+    </h2>
+    <div class="story-body">
+      「Claude designed protein binders against scorpion neurotoxins」がHNで68ポイント・36コメントを集めています。Anthropicの研究ブログが発表した成果で、ClaudeがサソリのNa⁺チャネル阻害毒素（神経毒）に結合する新規タンパク質バインダーを設計。試験管内（in vitro）での検証でも実際に機能することが確認されました。AIが創薬プロセスに本格参入した瞬間です。
+    </div>
+    <div class="red-items">
+      <div class="red-item">
+        <div class="red-label">Claudeはどうやってタンパク質を「設計」したのか</div>
+        <div class="red-text">anthropic.com/research/claude-scorpion-toxin-binder-designの内容: Claudeはタンパク質構造データベース（PDB）・文献・生化学の知識を活用して、標的となるサソリ神経毒の3D構造を解析し、それに結合する新規タンパク質配列を設計した。重要なのは「Claudeが配列を直接出力した」のではなく、設計のための推論・仮説生成・文献参照を行いながら研究者とのループで候補配列を絞り込んだ点。具体的なプロセス: (1) 標的毒素の結合部位（active site）の特定——文献と構造解析から。(2) 結合可能な構造モチーフの提案——タンパク質設計の原則に基づいて。(3) AlphaFold等の構造予測ツールとの統合——Claude単体ではなくツールチェーンの一部として機能。(4) 実験室検証——in vitro結合アッセイで実際に機能することを確認。医療への示唆: サソリ毒（特にα毒素系）は心疾患・てんかんの治療ターゲットとしても研究されており、バインダー設計は解毒剤開発にも応用できる。</div>
+      </div>
+      <div class="red-item">
+        <div class="red-label">なぜこれが「AIが創薬に入った」ことを意味するか</div>
+        <div class="red-text">AlphaFold以降のAI創薬の文脈: (1) AlphaFold（2020〜）——タンパク質の3D構造を配列から予測。「構造を知ること」の問題をほぼ解決。(2) RoseTTAFold / ESMFold——さらなる精度向上と高速化。(3) RFDiffusion（2023）——タンパク質の「逆問題」：ターゲット構造に結合するタンパク質を一から設計できるようになった。今回の位置付け: Claudeは上記のツール群を統合・活用するオーケストレーターとして機能した。「どのツールをどう組み合わせるか」「文献からどのような制約を拾うか」「候補をどう絞り込むか」というアブダクション的な推論がClaudeの貢献。これは「AIがタスクを実行する」から「AIが科学的仮説を立てて実験を設計する」へのシフトを示す。今後の展望: 抗体設計、ペプチドワクチン、酵素工学など、タンパク質バインダー設計が有効な領域は膨大。Claudeのようなアプローチが各領域に展開されると創薬の速度が根本的に変わる可能性がある。</div>
+      </div>
+      <div class="red-item">
+        <div class="red-label">HNの36コメント——期待と慎重な評価</div>
+        <div class="red-text">36コメントでの議論: 「in vitroで結合が確認されたことは重要なマイルストーンだが、創薬として本当に価値があるかはin vivo（動物モデル）→ 臨床試験という長い道のりがある——この結果を『Claudeが薬を作った』と解釈するのは誇張」という慎重な専門家コメントが一定数いいね。肯定的評価: 「タンパク質設計の専門知識がない研究者がClaudeを使って有効なバインダー候補を出せたとしたら、それは創薬の民主化を意味する——RFDiffusionを使いこなすには深い専門知識が要るが、Claudeが間に入ることで敷居が下がる」。技術的コメント: 「今回の設計にRFDiffusionが使われたかどうか、あるいはClaudeが配列を直接提案したのかが記事から読み取りにくい——Claudeがオーケストレーターか生成器かによって意義が大きく変わる」。研究者からの反応: 「自分もサソリ毒素関連の研究をしているが、Claudeが参考にした文献リストが気になる——トレーニングデータに自分の論文が含まれていた可能性もある」。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: anthropic.com/research</span>
+      <span>↑68pt · 💬36+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.anthropic.com/research/claude-scorpion-toxin-binder-design" target="_blank">研究を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50170021" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="claude-scorpion-protein-binder" data-type="like" onclick="toggleFlag('claude-scorpion-protein-binder','Claude Anthropic タンパク質設計 サソリ毒 創薬 バイオテク','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="claude-scorpion-protein-binder" data-type="dislike" onclick="toggleFlag('claude-scorpion-protein-binder','Claude Anthropic タンパク質設計 サソリ毒 創薬 バイオテク','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 4 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-4" id="s4">
+  <div class="story-num">04</div>
+  <div class="story-inner">
+    <div class="story-badge direct-badge">⚡ あなたに直接関係</div>
+    <div class="story-kicker">AI / ベンチマーク / Claude Opus 5.5 / コーディングエージェント / xhigh — 2026-10-21</div>
+    <h2 class="story-headline">
+      <span style="color:#30C060">SlopCodeBench<br>10月号登場</span><br>Opus 5.5・「xhigh有害説」——112pt
+    </h2>
+    <div class="story-body">
+      「SlopCodeBench 10/2026 – Opus 5.5, Astra wins overall, xhigh considered harmful」がHNで112ポイント・45コメントを集めています。Claude Code使いには直撃するベンチマーク：Claude Opus 5.5が初登場し、Googleの「Astra」が総合1位を獲得。そして「xhigh（超高思考）モードが有害である可能性」という挑発的な副題が話題を呼んでいます。
+    </div>
+    <div class="green-items">
+      <div class="green-item">
+        <div class="green-label">SlopCodeBenchとは何か——ベンチマークの設計思想</div>
+        <div class="green-text">github.com/humanlayer/advanced-context-engineering-for-coding-agentsの詳細: SlopCodeBenchは「実際の開発現場で遭遇するような雑然とした（sloppy）コードベース」を使ったエージェントベンチマーク。既存のHumanEval・SWE-benchとの違いは「レガシーコード・不明確な仕様・複数ファイルにまたがるバグ」を意図的に含む現実的な難易度設定にある。評価軸: (1) タスク完了率（単純な合否）。(2) 生成コードの「slopiness」——AIが書いたコードが人間のレビューで通るかの主観評価を含む。(3) コスト効率——使ったトークン数に対する成果の比率。(4) 安全性——不必要な変更・副作用の有無。2026年10月版の参加モデル: Claude Opus 5.5（初登場）、Gemini Astra、GPT-5o、Grok 3、DeepSeek V3.1など。総合1位のAstraは「長いコンテキストを跨いだ整合性維持」で他モデルを圧倒した。</div>
+      </div>
+      <div class="green-item">
+        <div class="green-label">「xhigh considered harmful」——何が問題か</div>
+        <div class="green-text">衝撃的な副題の中身: xhigh（超高思考予算）モードとはClaude CodeのExtended Thinking最大設定——内部推論に最大31,999トークンを割く設定。問題の発見: SlopCodeBenchの実験で、xhigh設定のClaude Opus 5.5は「通常のhigh設定より成績が悪い」場面が複数確認された。特にコード修正タスクで「考えすぎて余計な変更を加える（over-engineering）」「明確な問題をわかりにくい抽象化で解決しようとする」傾向が出た。xhigh有害になるケース: (1) 単純なバグ修正——1行直せば済む問題に思考を使いすぎて全体リファクタリングを試みる。(2) 仕様が明確なタスク——答えが決まっているのに代替案を検討し続ける。(3) コスト——xhighはhighの3〜5倍のトークンを消費するため、成功率が同等なら割高になる。使い分けの指針（ベンチマークから示唆）: 「アーキテクチャ設計・複雑なデバッグ・新機能設計」→xhigh有効、「バグ修正・既存コードへの機能追加・テスト作成」→high以下が効率的。</div>
+      </div>
+      <div class="green-item">
+        <div class="green-label">HNの45コメント——「あるある」と使い分け議論</div>
+        <div class="green-text">45コメントの反応: 「xhighで単純なバグを直したら、型システムを全部変えようとされた経験がある——確かに『有害』という表現に共感する。考えすぎるAIは時に邪魔」という「あるある」コメントが多数いいね。反論: 「ベンチマークのタスク設計がxhighの強みを活かせていないだけでは——3000行のレガシーコードを整合性を保ちながら書き直すタスクを入れたらxhighが圧勝するはず。sloppy benchmarkのタスクがそもそも短くて明確すぎる」。Opus 5.5初登場への反応: 「Opus 5.5はOpus 5の後継として登場したが、Astraに負けたのは意外——コンテキスト処理の長さで差がついたなら、Anthropicの長コンテキスト戦略が問われる。ただしコスト対性能比ではOpus 5.5がトップという話もある」。実務的コメント: 「Claude Code使いとして：タスクの複雑さをClaude自身に判断させてモードを動的に切り替えるような設定ができると嬉しい——高すぎる思考予算は自分でも時々設定ミスる」。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: github.com/humanlayer</span>
+      <span>↑112pt · 💬45+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://github.com/humanlayer/advanced-context-engineering-for-coding-agents/blob/main/benchmarking-new-models-on-slop-code-bench.md" target="_blank">ベンチマーク結果を見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50108717" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="slopcodebench-opus-5-5" data-type="like" onclick="toggleFlag('slopcodebench-opus-5-5','SlopCodeBench Claude Opus 5.5 ベンチマーク xhigh コーディングエージェント','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="slopcodebench-opus-5-5" data-type="dislike" onclick="toggleFlag('slopcodebench-opus-5-5','SlopCodeBench Claude Opus 5.5 ベンチマーク xhigh コーディングエージェント','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 5 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-5" id="s5">
+  <div class="story-num">05</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / 音声認識 / Mistral / マルチモーダル / LLM — 2026-10-21</div>
+    <h2 class="story-headline">
+      <span style="color:#8050E0">Voxtral 3</span><br>Mistralが放つ<br>次世代音声AIモデル——458pt
+    </h2>
+    <div class="story-body">
+      「Voxtral 3」がHNで458ポイント・126コメントを集めています。Mistral AIがリリースしたVoxtral 3は、テキストと音声を統合的に理解・生成できるマルチモーダルLLM。Whisperを超える音声認識精度と、音声入力への自然な推論応答を組み合わせた新世代モデルとして注目されています。
+    </div>
+    <div class="purple-items">
+      <div class="purple-item">
+        <div class="purple-label">Voxtral 3の技術的特徴——前世代との差</div>
+        <div class="purple-text">mistral.ai/news/voxtral-3の発表内容: Voxtral 3は単なる「音声→テキスト変換（ASR）」ではなく「音声を直接理解して推論できる」モデル。技術的アプローチ: 音声をテキストにトランスクライブせず、音声エンコーダーの出力を直接LLMのコンテキストに流し込む設計——これにより「音声のイントネーション・感情・話者の特性」などテキスト化すると失われる情報を保持したまま推論できる。主な改善点: (1) 多言語対応——日本語を含む99言語での音声認識精度をWhisper large-v3比で改善。(2) 長時間音声——最大4時間の音声を一括処理できるコンテキストウィンドウ。(3) 音声QA——「この会議録音について質問に答えて」という自然な音声インタラクション。(4) コード・数学の音声入力——「声でコードを書く」「音声で数式を説明して計算させる」ユースケースへの対応。ライセンス: Apache 2.0でモデルウェイトを公開。MistralのOSSコミットメントが継続している。</div>
+      </div>
+      <div class="purple-item">
+        <div class="purple-label">音声AIの競合状況——Whisper・GPT-4o・Gemini Ultraとの比較</div>
+        <div class="purple-text">2026年の音声AI競合地図: (1) OpenAI Whisper系——依然として多言語ASRの基準点。ただし「音声→テキスト」のみでLLM推論との統合は外部で行う必要がある。(2) GPT-4o（音声モード）——音声の自然なやり取りが可能だが、API経由のクローズドモデルでコストが高い。(3) Gemini Astra——長いコンテキストで音声・動画・テキストを横断処理できる（SlopCodeBenchでもトップ）。(4) Voxtral 3——この中で「オープンウェイト」という差別化が際立つ。Voxtralをオンプレで動かせることは医療・法務・政府機関など「音声データをクラウドに送れない」領域で決定的な価値を持つ。実用的な示唆: 会議の音声要約・コールセンターのリアルタイム支援・ポッドキャストのチャプター化など、音声処理を含むアプリケーション開発者にとってVoxtral 3は最初に評価すべき選択肢になった。</div>
+      </div>
+      <div class="purple-item">
+        <div class="purple-label">HNの126コメント——「Whisperは死んだか」論争</div>
+        <div class="purple-text">126コメントの主軸: 「Voxtral 3はWhisperを引退させるか」という問い。OpenAI陣営: 「Whisperは単機能に特化していてシンプルで信頼性が高い——用途によってはVoxtralの複雑さは不要。Whisperは死なない」。Voxtral支持: 「音声→テキスト→LLM推論という2段階パイプラインをVoxtral一つで閉じられるなら、レイテンシとコストは大幅に下がる——特にリアルタイムアプリケーションでは重要」。技術的な深掘り: 「音声エンコーダーとLLMの統合はWhisperのCNNベースのアーキテクチャとTransformerの統合をどう行っているか——マルチモーダルAlignmentは依然として難しい問題」。日本語対応への関心: 「日本語の音声認識精度がWhisperより改善されているなら、日本語音声アプリの開発者には朗報——特に難読語・固有名詞・数字読みの精度が課題だった」。開発者ツールとして: 「ローカルで動く音声LLMはプライバシー重視のアプリ（医療記録の音声入力、法的アドバイス等）に大きな市場がある」。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: mistral.ai/news/voxtral-3</span>
+      <span>↑458pt · 💬126+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://mistral.ai/news/voxtral-3/" target="_blank">発表を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50168396" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="voxtral-3-mistral" data-type="like" onclick="toggleFlag('voxtral-3-mistral','Voxtral 3 Mistral 音声AI マルチモーダル LLM','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="voxtral-3-mistral" data-type="dislike" onclick="toggleFlag('voxtral-3-mistral','Voxtral 3 Mistral 音声AI マルチモーダル LLM','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 6 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-6" id="s6">
+  <div class="story-num">06</div>
+  <div class="story-inner">
+    <div class="story-kicker">開発ツール / Cloudflare / TypeScript / Rust / コンパイラ移植 — 2026-10-21</div>
+    <h2 class="story-headline">
+      <span style="color:#20B0D0">TSrs</span><br>CloudflareがTypeScriptを<br>Rustへ移植した理由——310pt
+    </h2>
+    <div class="story-body">
+      「Tsrs: A Port of TypeScript to Rust」がHNで310ポイント・143コメントを集めています。CloudflareエンジニアリングブログがTypeScriptコンパイラ（tsc）のRust再実装「tsrs」について発表しました。Microsoft公式の実装とは別のRustネイティブなTSコンパイラで、型チェック・バンドルの大幅な高速化を目指しています。
+    </div>
+    <div class="cyan-items">
+      <div class="cyan-item">
+        <div>
+          <div class="cyan-label">なぜTypeScriptコンパイラをRustで再実装するのか</div>
+          <div class="cyan-text">blog.cloudflare.com/typescript-rust-port の詳細: TypeScript（tsc）の現行実装はTypeScript自身で書かれたJavaScript——つまりNode.jsで実行される。パフォーマンス上の根本的限界: (1) シングルスレッド——Node.jsのイベントループモデルは大規模プロジェクトの型チェック並列化に向いていない。(2) GCオーバーヘッド——JavaScriptのGCが大型コードベースの型チェック中に予測不能な停止を起こす。(3) JIT暖機——初回実行時のJITコンパイルオーバーヘッドがCIでの増分ビルドに影響。Rustで再実装することの利点: (1) マルチスレッド型チェックが可能——ファイル単位の並列解析。(2) メモリ制御——ASTのアリーナアロケーションなどGCなしのメモリ管理。(3) WebAssembly出力——tsrsをWasmにコンパイルしてブラウザ上でも型チェックができる（Cloudflareのエディタ統合に直結）。背景: Cloudflareは数百万行のTypeScriptコードベースを抱えており、ビルド時間の短縮は直接的なCI/CDコスト削減につながる。</div>
+        </div>
+      </div>
+      <div class="cyan-item">
+        <div>
+          <div class="cyan-label">tsrsの現状と既存の競合——oxc・Biome・SWCとの違い</div>
+          <div class="cyan-text">tsrsの位置付け: Rust製TypeScript関連ツールはすでにいくつか存在するが役割が異なる。(1) SWC——TypeScriptのトランスパイル（型チェックなしの変換）に特化。速いがTSの型システムは実装していない。(2) oxc（OXC Project）——パーサー・リンター・トランスパイラを含む包括的ツールチェーン。型チェックは開発中。(3) Biome——フォーマッター+リンター。型チェックはスコープ外。(4) tsrs（Cloudflare）——フル型チェックの実装を目指すという点で最も野心的。typescript-go（Microsoft）との関係: Microsoftも公式でGoによるtsc再実装（typescript-go）を進めている。tsrsはCloudflare独自のRust実装であり、typescript-goと並存または統合される可能性もある。現在の対応状況: tsrsはTypeScript 5.xの仕様の一部を実装済みで、generics・conditional types・mapped typesなど高度な型機能は開発中。</div>
+        </div>
+      </div>
+      <div class="cyan-item">
+        <div>
+          <div class="cyan-label">HNの143コメント——「型チェックのRust実装は本当に難しい」</div>
+          <div class="cyan-text">143コメントでの議論: 「TypeScriptの型システムは公式仕様ドキュメントが存在せず、Microsoftの実装が事実上の仕様——型チェックをRustで再実装するのは『動く仕様書を逆リバースして書き直す』ような作業で相当難易度が高い」という厳しい指摘が最多いいね。楽観的な見方: 「TypeScriptのコア型チェックの大部分は健全なアルゴリズムに基づいており、エッジケースを除けば再実装は可能——TypeScript-goプロジェクトがそれを証明しつつある。tsrsはGo版と並走して実装を加速できる可能性」。実用的な関心: 「大型モノレポでのtscのコールドスタートが遅すぎて困っている——tsrsがそれを解決するなら今すぐ使いたいが、フル型チェックの互換性が担保されるまでCIで信頼できるかが課題」。Wasm対応への期待: 「TypeScript型チェックをWasmでブラウザ上で動かせるなら、オンラインIDE（StackBlitz等）がローカルIDEと同等の型チェックを提供できる——これは開発体験を大きく変える」。</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: blog.cloudflare.com</span>
+      <span>↑310pt · 💬143+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://blog.cloudflare.com/typescript-rust-port/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50165953" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="tsrs-typescript-rust" data-type="like" onclick="toggleFlag('tsrs-typescript-rust','TSrs TypeScript Rust 移植 Cloudflare コンパイラ','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="tsrs-typescript-rust" data-type="dislike" onclick="toggleFlag('tsrs-typescript-rust','TSrs TypeScript Rust 移植 Cloudflare コンパイラ','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 7 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-7" id="s7">
+  <div class="story-num">07</div>
+  <div class="story-inner">
+    <div class="story-kicker">プライバシー / Android / オープンソース / Google脱依存 / FOSS — 2026-10-21</div>
+    <h2 class="story-headline">
+      <span style="color:#E88040">MicroG</span><br>Googleなしで<br>Androidを動かす——362pt
+    </h2>
+    <div class="story-body">
+      「MicroG: Free-libre re-implementation of Google's proprietary Android user space」がHNで362ポイント・79コメントを集めています。MicroGはGoogle Play Services（GPS）をオープンソースで再実装したプロジェクトで、「Google抜きでAndroidアプリを動かす」夢を長年支えてきた基盤技術。2026年の今もなおFOSSコミュニティで根強い人気を誇っています。
+    </div>
+    <div class="amber-items">
+      <div class="amber-item">
+        <div class="amber-label">MicroGとは何か——Google Play Servicesを代替する</div>
+        <div class="amber-text">github.com/microg/GmsCore/wikiによると: Android上のほとんどのアプリは「Google Play Services（GPS）」に依存している——プッシュ通知（Firebase Cloud Messaging）、位置情報（Google Fused Location）、ログイン（Google Sign-In）、課金（Google Play Billing）など。この依存があるため、カスタムROMやGoogle抜きのAndroid（de-Googled Android）では多くのアプリが動かなかった。MicroGがすること: GPSと互換性のあるオープンソース実装を提供し、アプリを「だます」——アプリから見るとGPSが存在するように見えるが、実際にはMicroGが動いている。サポートするディストリビューション: CalyxOS、LineageOS（signature spoofing対応版）、GrapheneOSはMicroGをオプションで提供。使用者プロフィール: プライバシー重視のユーザー（Googleへのデータ提供を最小化したい）、古い端末を延命したいユーザー、カスタムROM開発者。</div>
+      </div>
+      <div class="amber-item">
+        <div class="amber-label">2026年のde-Googled Android事情——どこまで実用的か</div>
+        <div class="amber-text">現状の正直な評価: (1) アプリの互換性——MicroGがあれば多くのアプリは動くが「Google SafetyNet/Play Integrity」チェックに依存するアプリ（銀行系・ゲーム系）は依然として動かないか制限される。2026年はPlay Integrity APIが厳格化したため、MicroGで動かせるアプリのリストが一部縮小した。(2) プッシュ通知——Firebase Cloud Messaging（FCM）代替としてUnified Push（自前プッシュサーバー）対応アプリが増えており、エコシステムが徐々に拡大している。(3) 位置情報——GPSの自前実装で精度は問題ないが、Google Maps依存のアプリはOSMandかJamaps等のOSM系で代替。(4) 認証——Google Sign-Inの代替として「Login with OIDC」が普及してきており、主要サービスの多くでGoogle不要の認証が可能になった。実用限界: 日本で使う場合、モバイルSuicaやPayPayなど一部の日本特有アプリはPlay Integrityチェックが厳しく、完全なde-Googledスマートフォンでの使用は困難。</div>
+      </div>
+      <div class="amber-item">
+        <div class="amber-label">HNの79コメント——「今からGrapheneOSに乗り換えるべきか」</div>
+        <div class="amber-text">79コメントでの実務的議論: 「GrapheneOS + Sandboxed Google Playという選択肢がある——完全de-Googledより妥協しやすい。Google Playを『サンドボックス内の信頼できないアプリ』として動かすことでSafetyNetも通り、プライバシーも一定守れる」という現実的な提案が最多いいね。MicroG vs Sandboxed Play: 「MicroGはGoogle抜きでGPS互換性を提供する——Sandboxed Playは本物のGPSを隔離して動かす。前者はプライバシー優先、後者は互換性優先」という使い分けの整理。日本ユーザーへの言及: 「日本はmPayment（Suica・Pay系）のPlay Integrity依存が強く、完全de-Googled化のコストが欧米より高い——地域によって現実的な選択肢が変わる」。GrapheneOS開発者コミュニティへの言及: 「GrapheneOSは現在Pixel専用だが、Pixel以外への対応を望む声は多い——セキュリティ重視の設計がFOSSコミュニティで高評価を維持している理由」。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: github.com/microg/GmsCore</span>
+      <span>↑362pt · 💬79+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://github.com/microg/GmsCore/wiki" target="_blank">プロジェクトを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50162177" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="microg-google-android" data-type="like" onclick="toggleFlag('microg-google-android','MicroG Android Google Play Services オープンソース プライバシー','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="microg-google-android" data-type="dislike" onclick="toggleFlag('microg-google-android','MicroG Android Google Play Services オープンソース プライバシー','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 8 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-8" id="s8">
+  <div class="story-num">08</div>
+  <div class="story-inner">
+    <div class="story-kicker">セキュリティ / Tor / 匿名ネットワーク / 個人調査 / インフラ防衛 — 2026-10-21</div>
+    <h2 class="story-headline">
+      300の<br>Tor出口ノードを<br><span style="color:#D4A820">一人で削除した——283pt</span>
+    </h2>
+    <div class="story-body">
+      「How I got over 300 Tor exit nodes removed」がHNで283ポイント・70コメントを集めています。セキュリティ研究者が一人でTorネットワーク上の300以上の悪意ある出口ノード（exit node）を特定・報告し、削除させた顛末を詳しく綴ったブログ記事。個人の執念がTorの健全性に貢献した痛快な記録です。
+    </div>
+    <div class="gold-items">
+      <div class="gold-item">
+        <div class="gold-label">Tor出口ノードの「悪用」とは何か——攻撃の仕組み</div>
+        <div class="gold-text">kaba.cx/posts/20261020_Torの解説: Torネットワークでは通信が3つのノード（Entry・Middle・Exit）を経由して暗号化される。問題は「出口ノード（Exit Node）」——Torを出てインターネットに向かう最後のノードで、HTTPSでない通信は出口ノード運営者に平文で見える。悪意ある出口ノードの攻撃手法: (1) SSLStripping——HTTPSへのリダイレクトをHTTPのまま維持してMitM攻撃。(2) DNS改ざん——特定ドメインを偽のIPへ誘導。(3) トラフィック解析——接続先・タイミング・データ量から通信パターンを抽出。(4) マルウェア注入——ダウンロードファイルに悪性コードを挿入。著者の発見: 研究者は出口ノードから実際に送られるトラフィックを計測・分析し、300以上のノードが「SSLStripを行っている」「改ざんされたDNSレスポンスを返す」などの悪意ある行動をしていることを証明した。証拠収集の方法: 既知のテストURLへの接続を各出口ノード経由で行い、正規のレスポンスと比較することで異常を検出。</div>
+      </div>
+      <div class="gold-item">
+        <div class="gold-label">300ノードを「削除させる」までの交渉と手続き</div>
+        <div class="gold-text">実際のプロセス: (1) 特定——出口ノードのフィンガープリント（公開鍵ハッシュ）を収集し、悪意ある行動との紐付けを記録。(2) Tor Dirauths（Directory Authorities）への報告——Torディレクトリオーソリティはネットワーク全体の「信頼できるノードリスト」を管理しており、問題ノードのBadExitフラグ設定を申請できる。(3) 証拠の整理——単なる「このノードが怪しい」ではなく、「具体的な攻撃手法X・日時Y・フィンガープリントZ」という形式での提出が必要。困難だった点: Dir Authsはボランティアで運営されており、300件の問題報告を処理する帯域幅が限られていた。著者は段階的に報告を分割し、各報告を自動検証できる形式で提出することで処理速度を上げた。結果: 報告したノードのほぼ全てがBadExitフラグを付与されて実質的に無効化され、Torクライアントはこれらのノードを出口に使わなくなった。一人の研究者の努力がTor利用者数百万人のセキュリティを改善した。</div>
+      </div>
+      <div class="gold-item">
+        <div class="gold-label">HNの70コメント——「Torはどのくらい安全か」再考</div>
+        <div class="gold-text">70コメントの核心的な議論: 「300ノードが悪意ある者によって運営されていたことは、Torネットワーク全体の出口ノード（公開情報によると約2000前後）の15%程度が問題があったことを意味する——この比率はTorの匿名性保証に対する信頼を揺るがす数字」という懸念が最多いいね。反論: 「Bad Exitノードの存在は以前から知られており、Tor自身がBadExitフラグの仕組みを持っているのはそのため——重要なのは悪意あるノードが存在することではなく、今回のように検出・除去できる仕組みが機能したこと」。実用的なアドバイス: 「TorはHTTPSと組み合わせることで出口ノード問題の大部分を回避できる——HTTPSであれば出口ノードが見られるのは接続先ドメインのみで通信内容は暗号化されている。Onion Services（.onion）を使えば出口ノード自体が存在しない」。著者への称賛: 「ボランティアベースのセキュリティインフラを一人の研究者の地道な作業が守ったという事実は感動的——こういう人たちがいるからFOSSエコシステムは成立する」。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: kaba.cx</span>
+      <span>↑283pt · 💬70+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://kaba.cx/posts/20261020_Tor/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50166257" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="tor-exit-nodes-removed" data-type="like" onclick="toggleFlag('tor-exit-nodes-removed','Tor 出口ノード 削除 セキュリティ調査 匿名ネットワーク','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="tor-exit-nodes-removed" data-type="dislike" onclick="toggleFlag('tor-exit-nodes-removed','Tor 出口ノード 削除 セキュリティ調査 匿名ネットワーク','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 9 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-9" id="s9">
+  <div class="story-num">09</div>
+  <div class="story-inner">
+    <div class="story-kicker">宇宙科学 / JAXA / 火星 / フォボス / サンプルリターン — 2026-10-21</div>
+    <h2 class="story-headline">
+      JAXAが<br>フォボスの土を<br><span style="color:#5878C8">持ち帰る——76pt</span>
+    </h2>
+    <div class="story-body">
+      「JAXA is about to perform a Phobos sample return mission」がHNで76ポイント・14コメントを集めています。Science誌が詳報したMMX（Martian Moons eXploration）ミッションで、JAXAが火星の衛星フォボスからサンプルを採取・地球に持ち帰る人類史上初の試みが進行中。「フォボスは一体何者か」という太陽系最大の謎に挑みます。
+    </div>
+    <div class="slate-items">
+      <div class="slate-item">
+        <div class="slate-label">フォボスとは何か——太陽系の不思議な小さな月</div>
+        <div class="slate-text">science.orgの記事の背景: フォボス（Phobos）は火星を周回する2つの衛星のうち大きい方（直径約22km）。なぜ「謎」なのか: フォボスの起源については2つの主要仮説が対立している。(1) 捕獲説——火星が小惑星帯の天体を重力で捕獲した。これがモデルとして単純だが、フォボスの軌道（ほぼ円形で赤道面に近い）は捕獲シナリオと合いにくい。(2) 巨大衝突説——地球の月と同様に、大きな天体が火星に衝突し飛び散った破片が集積してフォボスになった。こちらの方が軌道を説明しやすいが、フォボスの低密度（1.87 g/cm³、岩石としては異常に軽い）が謎。フォボスが地球に戻ってくる理由: JAXAの「はやぶさ2」のフォローアップとして設計されたMMXは、フォボスの表面から少なくとも10g以上のサンプルを採取して2029年に地球帰還予定。このサンプルを分析することで「フォボスが何でできているか」「起源はどちらの仮説が正しいか」が明らかになる。</div>
+      </div>
+      <div class="slate-item">
+        <div class="slate-label">MMXミッションの技術的挑戦——フォボスに降りる難しさ</div>
+        <div class="slate-text">MMX（Martian Moons eXploration）の設計: フォボスは重力が非常に弱い（地球の1/1800）ため、着陸というより「ゆっくりぶつかって表面に接触する」という感覚。はやぶさ2との違い: (1) 火星圏はより遠い——地球から片道約20分の通信遅延（小惑星リュウグウは最大20分だったが火星は最大24分）。リアルタイム制御不能なため完全自律的な着陸シーケンスが必要。(2) 火星の重力の影響——フォボスは火星に近いため（火星表面から約6000km）、着陸中も火星の重力勾配が探査機の軌道を乱す。(3) 複数着陸——1回ではなく複数地点からサンプルを採取して起源の多様性を検証する計画。JAXA+国際協力: NASA（惑星探査データの共有）・ESA（通信支援）・CNES（フランス・着陸機器提供）が参加する国際ミッション。打ち上げは2024年に行われており、2026年10月時点で火星圏接近フェーズにある。</div>
+      </div>
+      <div class="slate-item">
+        <div class="slate-label">HNの14コメント——「もしフォボスが火星起源なら何が分かるか」</div>
+        <div class="slate-text">14コメントの科学的議論: 「フォボスのサンプルが巨大衝突起源なら、それは『古い火星の表面物質』を含んでいる可能性がある——つまり現在は浸食・変質してしまった初期火星の地質情報がフォボスに保存されているかもしれない。これは間接的な火星地質探査になる」という洞察が最多いいね。太陽系の歴史への示唆: 「小惑星捕獲説が正しければ、フォボスは小惑星帯の天体の化学組成を持つ——これはCタイプ小惑星の直接サンプルとして、はやぶさ2のリュウグウサンプルとの比較分析が可能になる」。火星移住への実用的示唆: 「フォボスは将来の火星有人探査の『前進基地』候補として議論されている——その物質組成（水氷・揮発性物質の有無）を知ることは資源として使えるかどうかに直結する」。ロマンティックなコメント: 「2029年に地球に戻ってくるフォボスのサンプルは、何十億年も火星のそばにあった物質が初めて地球に来る瞬間——宇宙探査のロマンの結晶」。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: science.org</span>
+      <span>↑76pt · 💬14+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.science.org/content/article/audacious-space-heist-japan-aims-bring-home-bits-martian-moon" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50138490" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="jaxa-phobos-mmx" data-type="like" onclick="toggleFlag('jaxa-phobos-mmx','JAXA MMX フォボス サンプルリターン 火星 宇宙科学','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="jaxa-phobos-mmx" data-type="dislike" onclick="toggleFlag('jaxa-phobos-mmx','JAXA MMX フォボス サンプルリターン 火星 宇宙科学','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 10 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-10" id="s10">
+  <div class="story-num">10</div>
+  <div class="story-inner">
+    <div class="story-kicker">クリエイティブ / ゲーム / 都市計画 / シミュレーション / インタラクティブ — 2026-10-21</div>
+    <h2 class="story-headline">
+      <span style="color:#E04080">SimCity</span><br>ただし<br>許可申請あり——377pt
+    </h2>
+    <div class="story-body">
+      「SimCity, but with Permits」がHNで377ポイント・210コメントを集めています。開発者のPeter Caiが作ったブラウザゲームで、建物を建てるたびに現実と同様の「建築許可申請」プロセスを経なければならない都市シミュレーター。「なぜ何も建たないのか」を体感させる、現実の官僚制度への愛あるツッコミです。
+    </div>
+    <div class="mag-items">
+      <div class="mag-item">
+        <div class="mag-label">このゲームで何が起きるか——「何も建てられない」体験</div>
+        <div class="mag-text">permit.petercai.comのゲーム内容: ゲームを起動すると見慣れたSimCity風のUIが現れるが、何かを建設しようとすると「申請書を提出してください」という画面に遷移する。申請フォームには: 建物の用途・高さ・面積・環境影響評価の要否・近隣住民への通知義務の確認・遺産保護区域チェック・洪水リスク評価などのフィールドが次々と現れる。フォームを埋め終わると「審査には3〜6ヶ月かかります」というメッセージ。待機中は他の工事も「近隣への影響懸念」で申請が必要。ゲームの天才的なデザイン: (1) 理不尽さのリアリティ——「これ、実際の申請プロセスとほぼ同じだ」という既視感。(2) 怒りの生産性——「早くゲームを進めたいのに進められない」というフラストレーションが現実の開発規制への共感に変わる。(3) 風刺の精度——SF・LAのような「建設が難しい都市」の規制地獄を再現。開発者：Peter CaiはYC W24出身のソフトウェアエンジニアで、このゲームはサイドプロジェクト。</div>
+      </div>
+      <div class="mag-item">
+        <div class="mag-label">なぜアメリカ・日本の建設許可はこんなに時間がかかるのか</div>
+        <div class="mag-text">現実の建築許可事情: アメリカの場合: SF・LA・NYCなどの都市では住宅1戸の建設許可に平均12〜18ヶ月を要する。CEQA（カリフォルニア環境品質法）による環境評価、近隣住民の反対意見申請（NIMBY）、複数の審査機関（都市計画局・消防・水道・電気）への個別申請が重なる。「許可コスト」だけで建設費の10〜20%を占める都市もある。日本の場合: 相対的に整備されているが、確認申請（建築確認）・消防同意・高度地区・日影規制など複数の法規制が重なり、特殊な用途では数ヶ月を要する。都市密度と住宅コスト危機の関係: 「なぜ大都市の家賃が上がり続けるか」の一因は「供給が増やせないこと」——そしてその根本には規制の複雑さがある。ゲームはこの経済的事実を体感させることで「規制改革の必要性」を直感的に伝えている。</div>
+      </div>
+      <div class="mag-item">
+        <div class="mag-label">HNの210コメント——「笑えるが笑えない」</div>
+        <div class="mag-text">210コメントでの反応: 「San Francisco市内でADU（accessory dwelling unit）を建てようとして許可取得に2年かかった個人的体験とほぼ同じ——笑えるが笑えない」という体験談が多数。都市計画の専門家から: 「現実には更に複雑で、用途地域の変更申請・公聴会・CEQA Review・上訴機会があり、一つの建物に4〜5つの別々のプロセスが必要なこともある——このゲームは実際より優しい」。エンジニアらしい解決策志向: 「なぜ申請プロセスをデジタル化・並列化しないのか——YIMBY法（California SB 9・AB 2011等）のように法律で審査期間の上限を設ける動きはあるが実装が遅い」。ゲームの技術的感想: 「Webゲームとしての完成度が高い——Tailwindで書かれたUIが現実の政府フォームに似せて作ってあるのが芸が細かい。オープンソースで公開されている（permit.petercai.com/about）ので実装を学ぶのも面白い」。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: permit.petercai.com</span>
+      <span>↑377pt · 💬210+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://permit.petercai.com/" target="_blank">ゲームを遊ぶ →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50170593" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="simcity-with-permits" data-type="like" onclick="toggleFlag('simcity-with-permits','SimCity 許可申請 都市計画 シミュレーション ゲーム','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="simcity-with-permits" data-type="dislike" onclick="toggleFlag('simcity-with-permits','SimCity 許可申請 都市計画 シミュレーション ゲーム','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ══════════════════════════════════════════════════════════════════════════════════ -->
+<footer class="site-footer">
+  <div class="footer-top">
+    <div class="footer-brand">Morning Edition</div>
+    <div class="footer-meta">
+      Issue No.156 · 2026年10月21日<br>
+      Hacker News フロントページより厳選10本<br>
+      キュレーション by Claude · <a href="https://uitarosen.github.io/morning-edition/" style="color:#888;text-decoration:none;">アーカイブ</a>
+    </div>
+    <button class="export-btn" onclick="exportFeedback()">フィードバックをコピー（Firefox/Safari用）</button>
+  </div>
+  <div class="footer-note">⭐ 興味あり / ✕ 興味なし ボタンを押すとフィードバックが保存されます。Chrome/Edgeでは自動的にfeedback.jsonへ書き込まれます。</div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  const STORAGE_KEY = 'morning-edition-feedback-v2';
+  let db = null;
+  let fileHandle = null;
+
+  function loadFromStorage() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      return raw ? JSON.parse(raw) : { liked: {}, disliked: {} };
+    } catch { return { liked: {}, disliked: {} }; }
+  }
+
+  function saveToStorage(data) {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); } catch {}
+  }
+
+  function applyStoredFlags() {
+    const data = loadFromStorage();
+    Object.keys(data.liked || {}).forEach(id => {
+      const btn = document.querySelector(`.like-btn[data-story="${id}"]`);
+      if (btn) btn.classList.add('active');
+    });
+    Object.keys(data.disliked || {}).forEach(id => {
+      const btn = document.querySelector(`.dislike-btn[data-story="${id}"]`);
+      if (btn) btn.classList.add('active');
+    });
+  }
+
+  async function toggleFlag(storyId, title, type) {
+    const data = loadFromStorage();
+    const likeBtn = document.querySelector(`.like-btn[data-story="${storyId}"]`);
+    const dislikeBtn = document.querySelector(`.dislike-btn[data-story="${storyId}"]`);
+    const today = '2026-10-21';
+
+    if (type === 'like') {
+      if (data.liked[storyId]) {
+        delete data.liked[storyId];
+        if (likeBtn) likeBtn.classList.remove('active');
+      } else {
+        data.liked[storyId] = { title, date: today };
+        delete data.disliked[storyId];
+        if (likeBtn) likeBtn.classList.add('active');
+        if (dislikeBtn) dislikeBtn.classList.remove('active');
+      }
+    } else {
+      if (data.disliked[storyId]) {
+        delete data.disliked[storyId];
+        if (dislikeBtn) dislikeBtn.classList.remove('active');
+      } else {
+        data.disliked[storyId] = { title, date: today };
+        delete data.liked[storyId];
+        if (dislikeBtn) dislikeBtn.classList.add('active');
+        if (likeBtn) likeBtn.classList.remove('active');
+      }
+    }
+
+    data.updatedAt = new Date().toISOString();
+    saveToStorage(data);
+    await writeToFile(data);
+  }
+
+  async function writeToFile(data) {
+    if (!('showSaveFilePicker' in window) && !fileHandle) {
+      showToast('保存しました（ブラウザ内）', false);
+      return;
+    }
+    try {
+      if (!fileHandle) {
+        fileHandle = await window.showSaveFilePicker({
+          suggestedName: 'feedback.json',
+          types: [{ description: 'JSON', accept: { 'application/json': ['.json'] } }]
+        });
+      }
+      const writable = await fileHandle.createWritable();
+      await writable.write(JSON.stringify(data, null, 2));
+      await writable.close();
+      showToast('feedback.json に保存しました ✓', false);
+    } catch (e) {
+      if (e.name !== 'AbortError') {
+        showToast('保存しました（ブラウザ内）', false);
+      }
+    }
+  }
+
+  function exportFeedback() {
+    const data = loadFromStorage();
+    const json = JSON.stringify(data, null, 2);
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(json).then(() => showToast('JSONをクリップボードにコピーしました', false));
+    } else {
+      const ta = document.createElement('textarea');
+      ta.value = json; document.body.appendChild(ta); ta.select();
+      document.execCommand('copy'); document.body.removeChild(ta);
+      showToast('JSONをコピーしました', false);
+    }
+  }
+
+  function showToast(msg, isError) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.className = 'toast' + (isError ? ' error' : '');
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2800);
+  }
+
+  document.addEventListener('DOMContentLoaded', applyStoredFlags);
+</script>
+</body>
+</html>
