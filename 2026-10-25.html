@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Morning Edition — 2026年10月25日</title>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --font: 'M PLUS Rounded 1c', 'Hiragino Sans', 'Noto Sans JP', sans-serif; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); background: #111; color: #fff; overflow-x: hidden; }
+
+    .masthead { background: #fff; color: #000; padding: 3rem 4rem 2.5rem; border-bottom: 6px solid #000; position: relative; overflow: hidden; }
+    .masthead::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: repeating-linear-gradient(90deg, #000 0, #000 12px, transparent 12px, transparent 20px); }
+    .masthead-kicker { font-size: 0.85rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: #777; margin-bottom: 0.6rem; }
+    .masthead-title { font-size: clamp(3.5rem, 9vw, 7.5rem); font-weight: 900; line-height: 0.88; letter-spacing: -0.04em; margin-bottom: 1.8rem; }
+    .masthead-meta { display: flex; gap: 3rem; align-items: baseline; flex-wrap: wrap; }
+    .masthead-date { font-size: 1.5rem; font-weight: 700; }
+    .masthead-subtitle { font-size: 1rem; font-weight: 400; color: #555; max-width: 480px; line-height: 1.5; }
+    .masthead-issue { margin-left: auto; text-align: right; }
+    .masthead-issue span { display: block; }
+    .masthead-issue .iss-label { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: #999; }
+    .masthead-issue .iss-num { font-size: 2.2rem; font-weight: 900; color: #000; }
+
+    .toc { background: #1a1a1a; padding: 1.5rem 4rem; display: flex; gap: 1.5rem; flex-wrap: wrap; border-bottom: 1px solid #333; }
+    .toc a { color: #aaa; text-decoration: none; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; transition: color 0.2s; }
+    .toc a:hover { color: #fff; }
+    .toc-num { color: #555; margin-right: 0.3em; }
+
+    .story { position: relative; overflow: hidden; }
+    .story-inner { max-width: 1200px; margin: 0 auto; padding: 5rem 4rem; position: relative; z-index: 1; }
+    .story-num { font-size: clamp(6rem, 18vw, 16rem); font-weight: 900; line-height: 0.8; letter-spacing: -0.06em; opacity: 0.08; position: absolute; top: 1rem; right: 2rem; user-select: none; }
+    .story-badge { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.35em 0.9em; border-radius: 2px; margin-bottom: 1.5rem; }
+    .direct-badge { background: #FFD700; color: #000; }
+    .story-kicker { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; opacity: 0.6; margin-bottom: 0.8rem; }
+    .story-headline { font-size: clamp(2rem, 5vw, 4rem); font-weight: 900; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+    .story-body { font-size: clamp(1rem, 1.5vw, 1.2rem); font-weight: 400; line-height: 1.8; max-width: 680px; opacity: 0.88; margin-bottom: 2rem; }
+    .story-meta { display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center; font-size: 0.8rem; font-weight: 700; opacity: 0.5; }
+    .story-links { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem; }
+    .story-link { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.6em 1.4em; border-radius: 3px; text-decoration: none; transition: opacity 0.2s, transform 0.15s; }
+    .story-link:hover { opacity: 0.75; transform: translateY(-1px); }
+
+    .feedback-buttons { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .flag-btn { background: none; border: 1px solid currentColor; color: inherit; font-family: var(--font); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.5em 1em; border-radius: 3px; cursor: pointer; opacity: 0.32; transition: opacity 0.2s, background 0.2s, color 0.2s, border-color 0.2s, transform 0.15s; }
+    .flag-btn:hover { opacity: 0.72; transform: translateY(-1px); }
+    .flag-btn.like-btn.active { opacity: 1; background: rgba(255,215,0,0.15); border-color: #FFD700; color: #FFD700 !important; }
+    .flag-btn.dislike-btn.active { opacity: 1; background: rgba(255,60,60,0.12); border-color: #FF4444; color: #FF4444 !important; }
+
+    .toast { position: fixed; bottom: 2rem; right: 2rem; background: #1a1a1a; color: #fff; font-family: var(--font); font-size: 0.82rem; font-weight: 700; padding: 0.75em 1.4em; border-radius: 4px; border-left: 3px solid #00C853; z-index: 9999; opacity: 0; transform: translateY(10px); transition: opacity 0.25s, transform 0.25s; pointer-events: none; box-shadow: 0 4px 24px rgba(0,0,0,0.45); }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    .toast.error { border-left-color: #FF5252; }
+
+    /* Story 1 — White */
+    .story-1 { background: #fff; color: #000; min-height: 90vh; display: flex; flex-direction: column; justify-content: center; }
+    .story-1 .story-num { color: #000; opacity: 0.04; }
+    .story-1 .story-kicker { color: #555; opacity: 1; }
+    .story-1 .story-headline { color: #000; }
+    .story-1 .story-body { color: #111; }
+    .story-1 .story-meta { color: #000; }
+    .story-1 .story-link.primary { background: #1a1a1a; color: #fff; }
+    .story-1 .story-link.secondary { background: #f0f0f0; color: #000; }
+    .story-1 .flag-btn { color: #000; }
+    .story-1-accent { position: absolute; bottom: 0; left: 0; width: 100%; height: 8px; background: linear-gradient(90deg, #c00 0%, #f44 50%, #c00 100%); }
+    .story-1 .headline-accent { display: inline-block; background: linear-gradient(135deg, #b00000 0%, #e84040 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .blue-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1.2rem; margin: 2rem 0; max-width: 680px; }
+    .blue-card { border: 2px solid rgba(0,0,0,0.12); background: rgba(0,0,0,0.03); border-radius: 6px; padding: 1.3rem 1.5rem; }
+    .blue-card-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.2em; text-transform: uppercase; color: #333; margin-bottom: 0.4rem; }
+    .blue-card-value { font-size: 1.05rem; font-weight: 900; color: #000; line-height: 1.3; }
+    .blue-card-sub { font-size: 0.75rem; color: #555; margin-top: 0.3rem; line-height: 1.4; }
+
+    /* Story 2 — Dark navy/teal */
+    .story-2 { background: #00080c; color: #b8f0ff; min-height: 80vh; }
+    .story-2::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(0,160,200,0.14) 0%, transparent 65%); }
+    .story-2 .story-num { color: #00A0C8; opacity: 0.07; }
+    .story-2 .story-kicker { color: #20C8E8; opacity: 1; }
+    .story-2 .story-headline { color: #e0f8ff; }
+    .story-2 .story-body { color: #b8f0ff; }
+    .story-2 .story-meta { color: #20C8E8; opacity: 0.5; }
+    .story-2 .story-link.primary { background: #004058; color: #80e8ff; }
+    .story-2 .story-link.secondary { background: rgba(0,160,200,0.08); color: #90d8f0; border: 1px solid rgba(0,160,200,0.22); }
+    .story-2 .flag-btn { color: #b8f0ff; }
+    .teal-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .teal-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(0,160,200,0.07); border-left: 3px solid #00A0C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .teal-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20C8E8; margin-bottom: 0.3rem; }
+    .teal-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 3 — Dark red */
+    .story-3 { background: #0a0000; color: #fff; min-height: 80vh; }
+    .story-3::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(200,20,20,0.16) 0%, transparent 65%); }
+    .story-3 .story-num { color: #C81414; opacity: 0.07; }
+    .story-3 .story-kicker { color: #E84040; opacity: 1; }
+    .story-3 .story-headline { color: #fff; }
+    .story-3 .story-body { color: rgba(255,255,255,0.88); }
+    .story-3 .story-meta { color: #E84040; opacity: 0.5; }
+    .story-3 .story-link.primary { background: #6a0000; color: #fff; }
+    .story-3 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-3 .flag-btn { color: #fff; }
+    .red-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .red-item { background: rgba(200,20,20,0.07); border-left: 3px solid #C81414; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .red-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E84040; margin-bottom: 0.3rem; }
+    .red-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 4 — Dark green */
+    .story-4 { background: #020c04; color: #c8f0d0; min-height: 80vh; }
+    .story-4::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(20,160,70,0.16) 0%, transparent 65%); }
+    .story-4 .story-num { color: #14A046; opacity: 0.07; }
+    .story-4 .story-kicker { color: #30C060; opacity: 1; }
+    .story-4 .story-headline { color: #e0ffe8; }
+    .story-4 .story-body { color: #c8f0d0; }
+    .story-4 .story-meta { color: #30C060; opacity: 0.5; }
+    .story-4 .story-link.primary { background: #063820; color: #80ffb0; }
+    .story-4 .story-link.secondary { background: rgba(20,160,70,0.08); color: #a0e8b0; border: 1px solid rgba(20,160,70,0.22); }
+    .story-4 .flag-btn { color: #c8f0d0; }
+    .green-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .green-item { background: rgba(20,160,70,0.07); border-left: 3px solid #14A046; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .green-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #30C060; margin-bottom: 0.3rem; }
+    .green-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 5 — Dark purple */
+    .story-5 { background: #040010; color: #d8c8ff; min-height: 75vh; }
+    .story-5::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(90,40,200,0.17) 0%, transparent 65%); }
+    .story-5 .story-num { color: #5A28C8; opacity: 0.07; }
+    .story-5 .story-kicker { color: #8050E0; opacity: 1; }
+    .story-5 .story-headline { color: #f0e8ff; }
+    .story-5 .story-body { color: #d8c8ff; }
+    .story-5 .story-meta { color: #8050E0; opacity: 0.5; }
+    .story-5 .story-link.primary { background: #200860; color: #d0a8ff; }
+    .story-5 .story-link.secondary { background: rgba(90,40,200,0.08); color: #c0a0f0; border: 1px solid rgba(90,40,200,0.22); }
+    .story-5 .flag-btn { color: #d8c8ff; }
+    .purple-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .purple-item { background: rgba(90,40,200,0.07); border-left: 3px solid #5A28C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .purple-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #8050E0; margin-bottom: 0.3rem; }
+    .purple-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 6 — Dark cyan */
+    .story-6 { background: #000c10; color: #b8e8f0; min-height: 75vh; }
+    .story-6::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 40%, rgba(0,130,160,0.14) 0%, transparent 65%); }
+    .story-6 .story-num { color: #0080A0; opacity: 0.07; }
+    .story-6 .story-kicker { color: #20B0D0; opacity: 1; }
+    .story-6 .story-headline { color: #e0f4ff; }
+    .story-6 .story-body { color: #b8e8f0; }
+    .story-6 .story-meta { color: #20B0D0; opacity: 0.5; }
+    .story-6 .story-link.primary { background: #003848; color: #80d8f0; }
+    .story-6 .story-link.secondary { background: rgba(0,130,160,0.08); color: #90cce0; border: 1px solid rgba(0,130,160,0.22); }
+    .story-6 .flag-btn { color: #b8e8f0; }
+    .cyan-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .cyan-item { background: rgba(0,130,160,0.07); border-left: 3px solid #0080A0; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .cyan-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20B0D0; margin-bottom: 0.3rem; }
+    .cyan-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 7 — Dark amber */
+    .story-7 { background: #0a0300; color: #ffe0b8; min-height: 75vh; }
+    .story-7::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(210,90,20,0.18) 0%, transparent 65%); }
+    .story-7 .story-num { color: #D05A14; opacity: 0.07; }
+    .story-7 .story-kicker { color: #E88040; opacity: 1; }
+    .story-7 .story-headline { color: #fff0d8; }
+    .story-7 .story-body { color: #ffe0b8; }
+    .story-7 .story-meta { color: #E88040; opacity: 0.5; }
+    .story-7 .story-link.primary { background: #6a2400; color: #ffc880; }
+    .story-7 .story-link.secondary { background: rgba(210,90,20,0.08); color: #ffb870; border: 1px solid rgba(210,90,20,0.22); }
+    .story-7 .flag-btn { color: #ffe0b8; }
+    .amber-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .amber-item { background: rgba(210,90,20,0.07); border-left: 3px solid #D05A14; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .amber-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E88040; margin-bottom: 0.3rem; }
+    .amber-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 8 — Dark gold */
+    .story-8 { background: #080500; color: #fff; min-height: 70vh; }
+    .story-8::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,145,10,0.15) 0%, transparent 65%); }
+    .story-8 .story-num { color: #BE9110; opacity: 0.06; }
+    .story-8 .story-kicker { color: #D4A820; opacity: 1; }
+    .story-8 .story-headline { color: #fff; }
+    .story-8 .story-body { color: rgba(255,255,255,0.88); }
+    .story-8 .story-meta { color: #D4A820; opacity: 0.5; }
+    .story-8 .story-link.primary { background: #604000; color: #ffe070; }
+    .story-8 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-8 .flag-btn { color: #fff; }
+    .gold-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .gold-item { background: rgba(190,145,10,0.07); border-left: 3px solid #BE9110; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .gold-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #D4A820; margin-bottom: 0.3rem; }
+    .gold-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 9 — Slate blue */
+    .story-9 { background: #040810; color: #c8d8f0; min-height: 70vh; }
+    .story-9::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 35%, rgba(50,90,170,0.16) 0%, transparent 65%); }
+    .story-9 .story-num { color: #3258A8; opacity: 0.07; }
+    .story-9 .story-kicker { color: #5878C8; opacity: 1; }
+    .story-9 .story-headline { color: #e8f0ff; }
+    .story-9 .story-body { color: #c8d8f0; }
+    .story-9 .story-meta { color: #5878C8; opacity: 0.5; }
+    .story-9 .story-link.primary { background: #101e50; color: #fff; }
+    .story-9 .story-link.secondary { background: rgba(50,90,170,0.08); color: #b0c8e8; border: 1px solid rgba(50,90,170,0.22); }
+    .story-9 .flag-btn { color: #c8d8f0; }
+    .slate-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .slate-item { background: rgba(50,90,170,0.07); border-left: 3px solid #3258A8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .slate-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #5878C8; margin-bottom: 0.3rem; }
+    .slate-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 10 — Magenta */
+    .story-10 { background: #080004; color: #ffc8e8; min-height: 70vh; }
+    .story-10::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,20,90,0.15) 0%, transparent 65%); }
+    .story-10 .story-num { color: #BE1458; opacity: 0.07; }
+    .story-10 .story-kicker { color: #E04080; opacity: 1; }
+    .story-10 .story-headline { color: #fff0f8; }
+    .story-10 .story-body { color: #ffc8e8; }
+    .story-10 .story-meta { color: #E04080; opacity: 0.5; }
+    .story-10 .story-link.primary { background: #500030; color: #ffb0d8; }
+    .story-10 .story-link.secondary { background: rgba(190,20,90,0.08); color: #f090c0; border: 1px solid rgba(190,20,90,0.22); }
+    .story-10 .flag-btn { color: #ffc8e8; }
+    .mag-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .mag-item { background: rgba(190,20,90,0.07); border-left: 3px solid #BE1458; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .mag-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E04080; margin-bottom: 0.3rem; }
+    .mag-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .site-footer { background: #000; color: #555; padding: 3rem 4rem; display: flex; flex-direction: column; gap: 1.5rem; border-top: 1px solid #222; }
+    .footer-top { display: flex; gap: 2rem; align-items: center; flex-wrap: wrap; justify-content: space-between; }
+    .footer-brand { font-size: 1.4rem; font-weight: 900; color: #fff; }
+    .footer-meta { font-size: 0.75rem; line-height: 1.6; }
+    .export-btn { background: #222; border: 1px solid #444; color: #fff; font-family: var(--font); font-size: 0.8rem; font-weight: 700; padding: 0.7em 1.5em; border-radius: 3px; cursor: pointer; letter-spacing: 0.08em; transition: background 0.2s; }
+    .export-btn:hover { background: #333; }
+    .footer-note { font-size: 0.7rem; opacity: 0.5; }
+
+    @media (max-width: 768px) {
+      .masthead, .toc, .story-inner, .site-footer { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .story-num { display: none; }
+      .masthead-meta { gap: 1rem; }
+      .masthead-issue { margin-left: 0; }
+      .blue-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+<nav style="background:#1a1a1a;border-bottom:1px solid #333;padding:0.55rem 2rem;font-family:'M PLUS Rounded 1c','Hiragino Sans','Noto Sans JP',sans-serif;position:sticky;top:0;z-index:999;">
+  <a href="./index.html" style="color:#aaa;text-decoration:none;font-size:0.8rem;font-weight:700;letter-spacing:0.03em;display:inline-flex;align-items:center;gap:0.4rem;transition:color 0.15s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#aaa'">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    アーカイブへ戻る
+  </a>
+</nav>
+
+<header class="masthead">
+  <div class="masthead-kicker">Hacker News — Morning Edition</div>
+  <h1 class="masthead-title">Morning<br>Edition</h1>
+  <div class="masthead-meta">
+    <div>
+      <div class="masthead-date">2026年10月25日 日曜日</div>
+      <div class="masthead-subtitle">AI・開発ツール・プライバシー・サイエンス — あなたのための10本</div>
+    </div>
+    <div class="masthead-issue">
+      <span class="iss-label">Issue</span>
+      <span class="iss-num">No.160</span>
+    </div>
+  </div>
+</header>
+
+<nav class="toc">
+  <a href="#s1"><span class="toc-num">01</span>Node2Shell→HTTP2Shell——Pythonパッケージを広範囲に汚染するCVE</a>
+  <a href="#s2"><span class="toc-num">02</span>uvとtyが統合——Astralがさらに広がる</a>
+  <a href="#s3"><span class="toc-num">03</span>ローカルWikipedia——徒歩30分圏の場所だけを表示</a>
+  <a href="#s4"><span class="toc-num">04</span>分散SQLiteの12年——rqliteが到達した境地</a>
+  <a href="#s5"><span class="toc-num">05</span>テックセクター外ではAIの成果がまだ見えない</a>
+  <a href="#s6"><span class="toc-num">06</span>反物質を1ヶ月間トラップ——物理学の快挙</a>
+  <a href="#s7"><span class="toc-num">07</span>純粋関数型プログラミングはC言語にどこまで迫れるか</a>
+  <a href="#s8"><span class="toc-num">08</span>GPU-unlock——Nvidia 3000番台のFP/BF16命令レートを解放</a>
+  <a href="#s9"><span class="toc-num">09</span>メディア・映画・アートで20万人が職を失った——AIの影響は?</a>
+  <a href="#s10"><span class="toc-num">10</span>私たちはもっと野心的なソフトウェアを作るべきだ——Dan Luu</a>
+</nav>
+
+<!-- ═══ STORY 1 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-1" id="s1">
+  <div class="story-num">01</div>
+  <div class="story-inner">
+    <div class="story-kicker">セキュリティ / CVE / Python / Brotli / サプライチェーン攻撃 — 2026-10-25</div>
+    <h2 class="story-headline">
+      <span class="headline-accent">Node2Shell が<br>HTTP2Shell に進化</span><br>Python パッケージ<br>広範囲に影響——273pt
+    </h2>
+    <div class="story-body">
+      「Node2Shell evolves to HTTP2Shell, blast radius affects many HTTP libs and apps」がHNで273ポイント・137コメントを集めています。aikido.devが発見した深刻なサプライチェーン脆弱性で、Node2Shellとして知られていた攻撃手法がHTTP2Shellに進化し、Pythonの著名なHTTPライブラリおよびBrotli圧縮ライブラリを通じて多数のアプリケーションに影響を与えるCVE-2026-111497が公表されました。
+    </div>
+    <div class="blue-grid">
+      <div class="blue-card">
+        <div class="blue-card-label">何が起きているか——攻撃の仕組み</div>
+        <div class="blue-card-value">brotliパッケージ経由でシェル実行が可能に</div>
+        <div class="blue-card-sub">aikido.dev/blogの詳細: 悪意あるコードがPythonのbrotliパッケージの依存チェーンに埋め込まれており、HTTP関連ライブラリ（httpx・requests・aiohttp等）経由でインストールされた環境でシェルコマンド実行が可能になる。CVE-2026-111497として登録済み。影響を受けるパッケージは広範で、多くのウェブフレームワークやデータパイプラインツールが間接的な依存として持っている。攻撃が「blast radius」と表現される理由: 直接インストールしていなくても被害に遭うケースが多い。</div>
+      </div>
+      <div class="blue-card">
+        <div class="blue-card-label">確認と対処——今すぐできること</div>
+        <div class="blue-card-value">pip list で brotli のバージョンを確認</div>
+        <div class="blue-card-sub">対処手順: (1) `pip list | grep brotli` で現在のバージョンを確認。(2) `pip-audit` または `safety check` で脆弱性スキャンを実行。(3) `pip install --upgrade brotli` で最新版に更新（パッチ版リリース済み）。(4) CI/CDパイプラインのdependabot・renovateが自動PRを作成するか確認。Pythonの依存関係ロックファイル（requirements.txt / poetry.lock）を使用していない場合は特に注意が必要で、間接依存が把握できていない可能性がある。Dockerイメージはリビルドが必要。</div>
+      </div>
+      <div class="blue-card">
+        <div class="blue-card-label">HNの137コメント——サプライチェーン疲弊と教訓</div>
+        <div class="blue-card-value">「また来た」という反応と実務対応の議論</div>
+        <div class="blue-card-sub">137コメントの主軸: 「Node2Shellという名前で有名になった攻撃パターンが今度はPythonのHTTPエコシステムに来た——名前が変わるたびに報道され、毎回同じ教訓が繰り返される」という既視感のある反応が多数。実務的な議論: 「pip-auditをCI必須にするのはもはや選択肢ではなく義務——依存ツリーが深い現代の開発では手動確認に限界がある」。OSS維持者への言及: 「Brotliのような低レベルのよく使われるパッケージほど攻撃ターゲットになりやすい——メンテナの少ない重要ライブラリへの資金支援が必要」。検出の難しさ: 「間接依存のコードを人間がレビューすることは現実的に不可能——sigstoreやPyPI署名機能の普及がサプライチェーン防衛の鍵になる」。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: aikido.dev/blog</span>
+      <span>↑273pt · 💬137+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.aikido.dev/blog/python-packages-vulnerable-node2shell-brotli-cve-2026-111497" target="_blank">脆弱性詳細を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50219177" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="node2shell-http2shell" data-type="like" onclick="toggleFlag('node2shell-http2shell','Node2Shell HTTP2Shell Python Brotli CVE セキュリティ サプライチェーン','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="node2shell-http2shell" data-type="dislike" onclick="toggleFlag('node2shell-http2shell','Node2Shell HTTP2Shell Python Brotli CVE セキュリティ サプライチェーン','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+    <div class="story-1-accent"></div>
+  </div>
+</section>
+
+<!-- ═══ STORY 2 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-2" id="s2">
+  <div class="story-num">02</div>
+  <div class="story-inner">
+    <div class="story-kicker">開発ツール / Python / uv / ty / 型チェッカー / Astral — 2026-10-25</div>
+    <h2 class="story-headline">
+      <span style="color:#20d8f0">uv と ty が<br>統合される</span><br>Astral のツール戦略<br>が明確に——300pt
+    </h2>
+    <div class="story-body">
+      「Bringing uv and ty together」がHNで300ポイント・109コメントを集めています。RuffとuvでPythonツールチェーンに革命を起こしてきたAstralが、型チェッカーtyをuvと統合する計画を発表しました。Pythonの開発環境管理・パッケージ管理・型チェックを単一ツールで完結させる野心的なビジョンで、TypeScriptにおけるTypeScriptコンパイラのような存在を目指しています。
+    </div>
+    <div class="teal-items">
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">uvとtyの統合——何ができるようになるか</div>
+          <div class="teal-text">astral.sh/blog/uv-ty-integrationの内容: ty（Astralが開発中のPython型チェッカー）をuvのサブコマンドとして統合し、`uv type-check` で実行できるようになる。統合のメリット: (1) uvのプロジェクト環境・インタープリタの情報をtyが直接利用できるため、環境の設定ファイルを二重管理する必要がない。(2) `uv run`・`uv sync`・`uv type-check` で仮想環境・依存管理・型チェックが一貫したインターフェースで動く。(3) Rustで実装されたtyはmypyに比べて数十倍高速とされており、大規模コードベースでの実用性が大きく向上する。現状: tyはまだアルファ段階だが、統合のロードマップが公開されたことで利用計画が立てやすくなった。</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">AstralがPythonエコシステムで狙うもの</div>
+          <div class="teal-text">Astralの戦略的位置付け: Ruff（リンター・フォーマッター）→ uv（パッケージ・環境管理）→ ty（型チェッカー）という流れで、Pythonの開発ツールチェーン全体をRust実装で置き換える動き。既存ツールとの比較: mypyは成熟しているが設定が複雑で大規模コードベースでは遅い。Pyrightは速いが設定がやや難解。tyは「uvと同じように、とにかく速くて設定が少ない」ことを目指している。資金背景: Astralは大型VC調達済みのスタートアップで、オープンソースで無料提供しながらエンタープライズ向けサービスを構築するモデル。Pythonコミュニティへの影響力は急速に拡大中。</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">HNの109コメント——「uvはすでに使っている、tyはどう違うか」</div>
+          <div class="teal-text">109コメントの主軸: 「uvはすでにすべてのPythonプロジェクトで使っている——tyがmypyより速くPyrightと同等なら乗り換える理由が生まれる」という前向きな反応が多数。現状の不満: 「mypyの設定（mypy.ini・pyproject.toml）は複雑で、大規模プロジェクトでは型チェックが5〜10分かかることもある——tyが本当にRuffと同じくらい高速なら採用したい」。懸念: 「AstralがPythonのツールチェーン全体を独占することへの不安——もしAstralの戦略が変わったり買収されたりしたときの代替がない」。実際の速度比較: 「10万行のコードベースでmypy 180秒 vs Pyright 12秒という報告があるが、tyはそこからさらに速い可能性がある——ベンチマークが楽しみ」。tyのGitHubスター数が急増中という観測も。</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: astral.sh/blog</span>
+      <span>↑300pt · 💬109+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://astral.sh/blog/uv-ty-integration" target="_blank">発表を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50172962" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="uv-ty-integration" data-type="like" onclick="toggleFlag('uv-ty-integration','uv ty Astral Python 型チェッカー 開発ツール 統合','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="uv-ty-integration" data-type="dislike" onclick="toggleFlag('uv-ty-integration','uv ty Astral Python 型チェッカー 開発ツール 統合','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 3 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-3" id="s3">
+  <div class="story-num">03</div>
+  <div class="story-inner">
+    <div class="story-kicker">地理 / Web / ローカル / Wikipedia / ナビゲーション — 2026-10-25</div>
+    <h2 class="story-headline">
+      <span style="color:#E84040">ローカルWikipedia</span><br>徒歩30分圏の<br>場所だけ表示——1547pt
+    </h2>
+    <div class="story-body">
+      「Local Wikipedia: Wikipedia, but only for things a half hour walk from you」が本日最多の1547ポイント・243コメントを集めています。現在地から徒歩30分（約2km）圏内に存在する場所・建物・歴史的事件に関するWikipedia記事だけをフィルタリングして表示するウェブアプリです。観光気分で自分の街を歩き直せる体験が、世界中のユーザーから好評を集めています。
+    </div>
+    <div class="red-items">
+      <div class="red-item">
+        <div class="red-label">どんなツールか——体験の核心</div>
+        <div class="red-text">edjefferson.com/localwikiの仕組み: ブラウザのGeolocation APIで現在地を取得し、WikipediaのGeoSearch APIを使って半径2km以内に関連する記事をリアルタイムで取得。PC・スマートフォンどちらでも動作し、歩きながら開くと新しい場所に近づくたびにリストが更新される。意外な発見が多い——普段から見慣れた交差点に戦時中の出来事の記事があったり、近所のビルが歴史的建造物だったりする。日本語Wikipediaは地名・神社仏閣・史跡の記事が充実しており、日本国内での使い勝手が特に良い。</div>
+      </div>
+      <div class="red-item">
+        <div class="red-label">なぜ1547ポイントも集まるのか——情報の地理的フィルタリング</div>
+        <div class="red-text">通常のWikipediaは「何を調べるかを知っていること」が前提——「何を調べるかわからない」が解決されていない。Local Wikipediaは「今いる場所」を起点にすることで、調べる必要すらなく発見が訪れる体験を作っている。HNで「近所を歩く動機になった」「旅先で使ったら知らない歴史が大量に出てきた」という実体験報告が相次ぎ、単純なアイデアが強力なアクティビティに変わっている。技術的シンプルさ（フレームワークなし・サーバーレス）も高評価で、「アイデアの強さがそのまま出た一例」として技術者からも賞賛されている。</div>
+      </div>
+      <div class="red-item">
+        <div class="red-label">HNの243コメント——「これで街が違って見える」</div>
+        <div class="red-text">243コメントの主軸: 「似たコンセプトのアプリはあったが、このシンプルさとWikipediaのコンテンツ量の組み合わせが最大の強み」。技術的提案: 「Wikidata経由で彫刻・噴水・ベンチなどより細粒度の場所を出せるはず」「オフライン対応してほしい」。プライバシー面: 「位置情報をサーバーに送っているのか——オープンソース化して自己ホストできるとなお良い」。機能追加への声: 「特定の期間（例: 江戸時代）に絞って表示するフィルタが欲しい」「AR表示と組み合わせるとさらに面白い」。日本語版への期待: 「日本語Wikipediaには史跡・神社の記事が充実しており、特に旅行中に使えると最強という声が多数」。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: edjefferson.com/localwiki</span>
+      <span>↑1547pt · 💬243+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://edjefferson.com/localwiki/" target="_blank">使ってみる →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50202285" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="local-wikipedia" data-type="like" onclick="toggleFlag('local-wikipedia','ローカルWikipedia 徒歩30分 地理 位置情報 発見','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="local-wikipedia" data-type="dislike" onclick="toggleFlag('local-wikipedia','ローカルWikipedia 徒歩30分 地理 位置情報 発見','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 4 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-4" id="s4">
+  <div class="story-num">04</div>
+  <div class="story-inner">
+    <div class="story-kicker">データベース / SQLite / 分散システム / エンジニアリング / OSS — 2026-10-25</div>
+    <h2 class="story-headline">
+      <span style="color:#30C060">分散SQLiteの<br>12年間</span><br>rqlite が到達した<br>境地——364pt
+    </h2>
+    <div class="story-body">
+      「Twelve years of distributed SQLite」がHNで364ポイント・62コメントを集めています。SQLiteを分散データベースに変えるプロジェクト「rqlite」の作者Philip O'Tooleが、12年間の開発を振り返るブログ記事を公開しました。技術的な変遷・設計の失敗と修正・コミュニティの成長・OSSの持続可能性など、長期にわたるオープンソース開発の実体験が詰まった貴重な記録です。
+    </div>
+    <div class="green-items">
+      <div class="green-item">
+        <div class="green-label">rqliteとは何か——SQLiteを分散させるという挑戦</div>
+        <div class="green-text">philipotoole.com/twelve-years-of-distributed-sqlite/の内容: rqliteはSQLiteをRaftコンセンサスアルゴリズムで複数ノードに分散させるシステム。「なぜSQLiteを分散させるのか」という疑問に著者は「SQLiteは信頼性が極めて高く、組み込み用途で既に使われているシステムがそのまま分散化の恩恵を受けられる」と答える。12年間の主要な進化: (1) 当初はシンプルなマスター・スレーブ構成 → Raftに全面移行。(2) Go言語の成熟に合わせてコードベースを複数回刷新。(3) バックアップ・復元・テレメトリなど運用機能の追加。(4) KubernetesのオペレーターやHelm chartのコミュニティ貢献が増加。現在の利用ケース: エッジコンピューティング・IoTデバイスフリート管理・小規模マイクロサービスの状態管理で採用が増えている。</div>
+      </div>
+      <div class="green-item">
+        <div class="green-label">12年間の失敗と学び——OSSの現実</div>
+        <div class="green-text">著者が率直に語る失敗: (1) 「最初の2年間はAPIが頻繁に変わり、ユーザーがついてこれなかった——安定性への意識が低すぎた」。(2) 「Raft以前の独自コンセンサス実装は最終的に捨てることになった——既存の実装を使うべきだった」。(3) 「ドキュメントを後回しにした結果、GitHubのIssueが同じ質問の繰り返しになった」。持続可能性の課題: 「12年間で受け取った金銭的な支援はほぼゼロ——GitHubスポンサーやOpen Collectiveをいつ始めるかずっと迷っている。OSSは好きでやっているが、メンテナンス負荷が無視できない水準になっている」。最大の報酬: 「世界中の思ってもみなかった場所でrqliteが使われているのを発見するとき——それが12年続ける動力」。</div>
+      </div>
+      <div class="green-item">
+        <div class="green-label">HNの62コメント——「SQLiteの信頼性は分散システムでも生きるか」</div>
+        <div class="green-text">62コメントの主軸: 「rqliteのユースケースとPostgreSQL/MySQLのユースケースの棲み分け——『小さいが分散が必要』という要件が確かに存在し、rqliteはそこに刺さる」という整理が多数。技術的な議論: 「RaftとSQLiteの組み合わせでの書き込みスループットはetcdやCockroachDBに比べてどうか——Raftのリーダー書き込み制約はrqliteでも同じはず」。代替との比較: 「LitestreamはSQLiteをS3にリプリケートする別アプローチで相補的——rqliteは強一貫性が必要な用途向け、Litestreamは読み取り分散や障害復旧向け」。作者への共感: 「12年間タイムラインを振り返る記事を書ける人はそれだけで信頼できる——設計判断の変遷が正直に書かれており、同様のプロジェクトを始める人への最高の参考資料」。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: philipotoole.com</span>
+      <span>↑364pt · 💬62+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://philipotoole.com/twelve-years-of-distributed-sqlite/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50217500" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="distributed-sqlite-12-years" data-type="like" onclick="toggleFlag('distributed-sqlite-12-years','分散SQLite rqlite 12年 Raft エンジニアリング OSS','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="distributed-sqlite-12-years" data-type="dislike" onclick="toggleFlag('distributed-sqlite-12-years','分散SQLite rqlite 12年 Raft エンジニアリング OSS','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 5 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-5" id="s5">
+  <div class="story-num">05</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / 経済 / 生産性 / テックセクター外 / 議論 — 2026-10-25</div>
+    <h2 class="story-headline">
+      <span style="color:#8050E0">テックセクター外では<br>AIの成果が<br>まだ見えない</span>——466pt
+    </h2>
+    <div class="story-body">
+      「No signs of AI payoff outside the tech sector」がHNで466ポイント・449コメントを集めています。アポロ・グローバル・マネジメントのエコノミストによる分析レポートで、AIへの巨大な投資に対して生産性向上の恩恵がテクノロジーセクター以外ではほぼ観測されていないと指摘しています。AI「バブル」か「変革の初期段階」かという根本的な問いに、449コメントの大きな議論が展開されています。
+    </div>
+    <div class="purple-items">
+      <div class="purple-item">
+        <div class="purple-label">レポートが示すデータ——何が見えて何が見えないか</div>
+        <div class="purple-text">apollo.com/wealth/insightsの分析: 米国の生産性統計（BLS）を産業別に分解すると、テクノロジー・情報セクターではここ2年で生産性が急上昇しているが、医療・小売・製造・教育・農業などの非テックセクターでは統計上の改善が見られない。投資額との対比: 2024〜2026年に企業のAI関連IT投資は累計で1兆ドル規模に達すると推計されているが、GDPやTFP（全要素生産性）での回収は観測できていない。「生産性パラドックスの再演」との比較: 1990年代のインターネット普及期にも「コンピュータが至るところにあるのに生産性統計に出てこない」（ソローのパラドックス）という現象があり、その後10年遅れて効果が顕在化した——今回も同じパターンの可能性がある。</div>
+      </div>
+      <div class="purple-item">
+        <div class="purple-label">「遅行指標」仮説 vs 「過大評価」仮説</div>
+        <div class="purple-text">二つの解釈フレーム: (1) 遅行指標仮説——AIの導入がまだ普及段階にあり、統計に出るほど経済全体に浸透していない。電気の普及（1890s〜1920s）も、工場が電気モーターに合わせてラインを再設計するまでに30年かかった。医療や教育は規制・文化的障壁が高く、デジタル化の浸透が遅い。(2) 過大評価仮説——AI が得意なのは「知識労働の一部タスク」であり、経済全体の生産性を動かすには重要なボトルネックに届いていない。農業のトラクターは「農業生産性」を直接向上させたが、AIが主に向上させているのは「情報生成コスト」だけであり、最終的な価値創造に対する貢献は小さいかもしれない。</div>
+      </div>
+      <div class="purple-item">
+        <div class="purple-label">HNの449コメント——エンジニアと経済学者の対立</div>
+        <div class="purple-text">449コメントの対立軸: 「AIを毎日使っているエンジニアとして体感上の生産性向上は明らか——統計が捉えられていないだけ」vs「個人の体感と経済全体の生産性向上は全く別の話——統計が正しい」という根本的な認識のズレが多くのスレッドで繰り返される。最も支持されたコメント: 「AIの恩恵が今最も大きいのは、これまでコードを書けなかった人がコードを書けるようになったこと——しかしその人たちは経済統計ではテックセクターにカウントされていないケースが多い。恩恵の帰属先が計測方法とずれている可能性がある」。反論: 「2つのGDPを比較する際に『AI活用してない世界』というカウンターファクチュアルがないので生産性向上の寄与を分離するのは方法論的に困難——この種のレポートは根本的に不確かさが高い」。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: apollo.com/wealth/insights</span>
+      <span>↑466pt · 💬449+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.apollo.com/wealth/insights-news/insights/daily-spark/no-signs-of-ai-payoff-outside-the-tech-sector" target="_blank">レポートを読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50224463" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="ai-payoff-outside-tech" data-type="like" onclick="toggleFlag('ai-payoff-outside-tech','AI 生産性 経済 テックセクター外 生産性パラドックス','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="ai-payoff-outside-tech" data-type="dislike" onclick="toggleFlag('ai-payoff-outside-tech','AI 生産性 経済 テックセクター外 生産性パラドックス','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 6 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-6" id="s6">
+  <div class="story-num">06</div>
+  <div class="story-inner">
+    <div class="story-kicker">物理学 / 反物質 / 素粒子 / 変わった科学 / CERN — 2026-10-25</div>
+    <h2 class="story-headline">
+      <span style="color:#20B0D0">反物質粒子1個を<br>1ヶ月間トラップ</span><br>物理学の<br>快挙——277pt
+    </h2>
+    <div class="story-body">
+      「Physicists trap a single antimatter particle for a month」がHNで277ポイント・80コメントを集めています。Scientific Americanが報じた物理学の重要な成果で、CERNの研究チームが単一の反物質粒子（反陽子または反水素）を磁場トラップを用いて1ヶ月以上保持することに成功しました。従来数秒から数分だったトラップ時間を大幅に更新し、反物質の精密測定への道が開けました。
+    </div>
+    <div class="cyan-items">
+      <div class="cyan-item">
+        <div>
+          <div class="cyan-label">なぜこれが大きいのか——反物質研究の文脈</div>
+          <div class="cyan-text">scientificamerican.comの記事: 宇宙は理論上、ビッグバンで物質と反物質が等量生成されたはずだが、現在の宇宙は物質で満ちている——これを「バリオン非対称性問題」という。解明の鍵: 物質と反物質が完全に対称なら宇宙は生まれた直後に消えてしまうはず。CPT対称性（電荷・パリティ・時間の反転に対して物理法則が不変）の微妙な破れが答えを握っている可能性がある。今回の意義: 反物質を長時間保持できれば、水素と反水素のスペクトル線を精密に比較できる——違いが見つかればCPT破れの直接証拠になる。従来は短時間しか保持できないため測定精度が低かった。1ヶ月というスケールは、これまで不可能だった精度の実験を現実のものにする。</div>
+        </div>
+      </div>
+      <div class="cyan-item">
+        <div>
+          <div class="cyan-label">どうやって1ヶ月保持するか——磁場トラップの技術</div>
+          <div class="cyan-text">技術的な核心: 反物質は通常の物質と接触すると対消滅するため、極低温・超高真空・強磁場の中でのみ保持できる。CERNのALPHA実験では「磁場の極小点（magnetic minimum）」に反水素を閉じ込めるペニングトラップ改良版を使用。温度は絶対零度近くまで冷却し、反水素が壁に触れることなく浮遊する状態を維持する。今回の改善点: 磁場の安定性を上げることで散乱・逃走を減らし、従来数分〜数十分のトラップ時間を1ヶ月以上に延ばすことに成功。「工学的精度の限界に近いところで動いている実験」とチームは述べている。次のステップ: 保持した反水素にレーザーを当ててスペクトル線を測定する実験が本番となる。</div>
+        </div>
+      </div>
+      <div class="cyan-item">
+        <div>
+          <div class="cyan-label">HNの80コメント——「宇宙の謎に近づく一歩」</div>
+          <div class="cyan-text">80コメントの主軸: 「基礎物理学の実験が工学的精度の限界に押し付けられているロマン——CPT破れが見つかれば標準模型を超える物理の扉が開く」という興奮と、「でも実際に何十年かかるか」という現実的な見方の混在。専門家コメント: 「1ヶ月のトラップ時間があれば、反水素の1S-2S遷移周波数を水素の既知値と10^{-15}精度で比較できるはず——ここに0.000...01%の違いが見つかれば物理学が変わる」。技術への驚嘆: 「絶対零度近く・超高真空・テスラ級磁場を1ヶ月間維持し続けるインフラがすごい——電力・冷却システムの安定性が実験の成否を握っている」。哲学的コメント: 「物質と反物質の非対称性が解明されれば『私たちが存在する理由』が少し明確になる——基礎科学の意義の本質がここにある」。</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: scientificamerican.com</span>
+      <span>↑277pt · 💬80+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.scientificamerican.com/article/physicists-trap-a-single-antimatter-particle-for-a-month/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50186450" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="antimatter-trapped-month" data-type="like" onclick="toggleFlag('antimatter-trapped-month','反物質 トラップ 物理学 CERN CPT対称性 素粒子','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="antimatter-trapped-month" data-type="dislike" onclick="toggleFlag('antimatter-trapped-month','反物質 トラップ 物理学 CERN CPT対称性 素粒子','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 7 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-7" id="s7">
+  <div class="story-num">07</div>
+  <div class="story-inner">
+    <div class="story-kicker">プログラミング / 関数型 / C言語 / パフォーマンス / 言語比較 — 2026-10-25</div>
+    <h2 class="story-headline">
+      <span style="color:#E88040">純粋関数型は<br>C言語に<br>どこまで迫れるか</span>——253pt
+    </h2>
+    <div class="story-body">
+      「How close can pure functional programming get to C?」がHNで253ポイント・87コメントを集めています。Elmの作者として知られるRichard Feldmanが、純粋関数型言語のパフォーマンスがC言語に対してどこまで近づけるかを詳細に分析した記事です。コンパイラ最適化・メモリ管理・副作用の扱いという観点から、関数型言語の理論的・実践的な限界を探っています。
+    </div>
+    <div class="amber-items">
+      <div class="amber-item">
+        <div class="amber-label">純粋関数型のパフォーマンス障壁——どこで遅くなるか</div>
+        <div class="amber-text">rtfeldman.com/fp-vs-cの分析: 純粋関数型言語の主要なオーバーヘッド3つ: (1) 不変データ構造——値を変更するたびに新しいコピーを作るため、Cのインプレース更新より多くのメモリ操作が発生する。(2) ガベージコレクション——明示的なメモリ管理がない分、GCのポーズがキャッシュやリアルタイム処理の妨げになる。(3) 高階関数とクロージャ——動的なディスパッチがコンパイラの最適化（インライン化・ループアンロール）を阻む。Feldmanの主張: 「しかし現代のコンパイラ技術（特にML系言語のコンパイラ）はこれらのオーバーヘッドを驚くほど削減できる——適切なユースケースでは10〜20%の差に収まる」。</div>
+      </div>
+      <div class="amber-item">
+        <div class="amber-label">「純粋」であることの最適化メリット</div>
+        <div class="amber-text">逆説的なメリット: 副作用がないことはコンパイラに強力な保証を与える。(1) エイリアシング解析——「この関数はこのメモリを変更しない」が保証できるため、コンパイラが積極的に命令を並べ替えられる。(2) 並列化——純粋関数はデータ依存関係がなければ自動的に並列実行できる。(3) モナドによる「制御された副作用」——Haskell/Rustのアプローチでは、副作用を型システムで明示することで、コンパイラが副作用のない部分を最大限最適化できる。Rust の位置付け: 厳密には純粋関数型ではないが、所有権システムが関数型のメモリ安全性とCのパフォーマンスを両立させる実装例として紹介されている。</div>
+      </div>
+      <div class="amber-item">
+        <div class="amber-label">HNの87コメント——「ベンチマークは文脈が全て」</div>
+        <div class="amber-text">87コメントの主軸: 「Cに『近い』かどうかはベンチマークの選び方次第——文字列処理・数値計算・メモリ集約型の問題では全然違う結果になる」というベンチマーク文脈論が多数。Haskellコミュニティからの声: 「GHCのSTG→ネイティブコード変換は想像以上に最適化が効く——特にリスト融合（list fusion）が有効な場合はCの実装と遜色ない生成コードになる」。Rustへの言及: 「Rustを関数型スタイルで書いても（イテレータ・クロージャ多用）Cと互角のパフォーマンスが出る——これが最現実的な答えでは」。哲学的議論: 「純粋関数型とCのパフォーマンス比較は少し違う問い——本当に重要なのはプログラマが書けるコードの品質とパフォーマンスのバランスであり、C が勝てるのはプログラマが最大限努力した場合だけ」。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: rtfeldman.com</span>
+      <span>↑253pt · 💬87+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://rtfeldman.com/fp-vs-c" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50218195" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="fp-vs-c-performance" data-type="like" onclick="toggleFlag('fp-vs-c-performance','関数型プログラミング C言語 パフォーマンス Haskell Elm Rust','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="fp-vs-c-performance" data-type="dislike" onclick="toggleFlag('fp-vs-c-performance','関数型プログラミング C言語 パフォーマンス Haskell Elm Rust','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 8 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-8" id="s8">
+  <div class="story-num">08</div>
+  <div class="story-inner">
+    <div class="story-kicker">ハードウェア / GPU / Nvidia / 機械学習 / パフォーマンス — 2026-10-25</div>
+    <h2 class="story-headline">
+      <span style="color:#D4A820">GPU-unlock</span><br>Nvidia 3000番台の<br>FP/BF16命令を解放——184pt
+    </h2>
+    <div class="story-body">
+      「GPU-unlock: FP/BF16 instruction issue rate on Nvidia 3000's cards」がHNで184ポイント・61コメントを集めています。GitHubで公開されたgpu-unlockプロジェクトが、コンシューマ向けNvidia RTX 3000番台GPUのFP16/BF16演算における命令発行レートの制限を解除することで、AIワークロードでのパフォーマンスを大幅に向上できることを示しました。
+    </div>
+    <div class="gold-items">
+      <div class="gold-item">
+        <div class="gold-label">何が制限されていて何を解除するか</div>
+        <div class="gold-text">github.com/Zagitta/gpu-unlockの内容: Nvidiaはコンシューマ向けGPU（GeForce RTX 3000番台）と専門家向けGPU（A100・H100等）で、FP16/BF16演算の命令発行レートを意図的に異なる設定にしているとされている。コンシューマ版は本来のハードウェア性能を人為的に制限しており、ソフトウェアレベルでその制限を迂回することで演算速度が向上する。実測値: 特定のLLM推論ワークロードで最大30〜40%のスループット改善が報告されている（ただしワークロード依存）。注意点: ドライバの変更を伴うため、安定性・対応GPUモデル・使用条件を確認する必要がある。Windowsでは機能しないケースが多い。</div>
+      </div>
+      <div class="gold-item">
+        <div class="gold-label">Nvidiaの製品差別化戦略への視点</div>
+        <div class="gold-text">業界的な文脈: Nvidiaは同一のダイ（チップ）を異なるSKU（製品番号）で販売するとき、ファームウェア・ドライバレベルで機能を制限して価格帯を分けるという戦略をとっている。同様の事例: RTX 3090とA5000は同じダイでありながら倍以上の価格差がある——その差の一部は製品保証・サポート・ECC機能にあるが、一部はソフトウェア的な制限でもある。コミュニティの反応: 「自分が買ったハードウェアの性能を使い切るのは正当な権利」vs「ライセンス違反になる可能性がある」という議論は常にある。H100が1枚数万ドルする状況で、家庭でローカルLLMを動かしたいユーザーにとってコンシューマGPUの最大活用は切実な問題。</div>
+      </div>
+      <div class="gold-item">
+        <div class="gold-label">HNの61コメント——「試した人の報告と法的グレーゾーン」</div>
+        <div class="gold-text">61コメントの主軸: 実際に試した人からの詳細な報告——「RTX 3090でllama.cpp実行時にBF16のトークン/秒が27%向上した。ただし高負荷時の温度が3〜5°C上昇したため冷却の見直しが必要だった」。法的・倫理的な議論: 「NvidiaのEULAにはGPUをデータセンターや商用ワークロードに使用することを制限する条項がある——unlockすることがその制限を回避することになるか法的に不明確」。技術的な詳細への興味: 「制限がドライバの何層目にあるのか——カーネルモジュールなのか、CUDAランタイムなのか、ファームウェアなのか——それによって方法の安定性と安全性が大きく変わる」。実用性への議論: 「RTX 3000世代は2024年に登場したRTX 4000と比べてすでに性能差が大きい——unlockしても一時的な延命措置」。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: github.com/Zagitta/gpu-unlock</span>
+      <span>↑184pt · 💬61+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://github.com/Zagitta/gpu-unlock" target="_blank">GitHubを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50219700" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="gpu-unlock-nvidia-3000" data-type="like" onclick="toggleFlag('gpu-unlock-nvidia-3000','GPU unlock Nvidia RTX 3000 FP16 BF16 機械学習 ハードウェア','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="gpu-unlock-nvidia-3000" data-type="dislike" onclick="toggleFlag('gpu-unlock-nvidia-3000','GPU unlock Nvidia RTX 3000 FP16 BF16 機械学習 ハードウェア','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 9 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-9" id="s9">
+  <div class="story-num">09</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / 雇用 / クリエイティブ / メディア / 経済 — 2026-10-25</div>
+    <h2 class="story-headline">
+      <span style="color:#5878C8">メディア・映画・アートで<br>20万人が<br>仕事を失った</span>——93pt
+    </h2>
+    <div class="story-body">
+      「America Has Lost 200k of Jobs in Media, Film and the Arts. How Much Is AI?」がHNで93ポイント・57コメントを集めています。Apricitas Economicsが経済統計を詳細に分析し、2022〜2026年にかけてメディア・映画・美術・音楽・写真などクリエイティブ産業で約20万人の雇用が失われたことを示しました。AIの影響がどこまでかを丁寧に切り分けた珍しい分析です。
+    </div>
+    <div class="slate-items">
+      <div class="slate-item">
+        <div class="slate-label">20万人のうちどれだけがAIか——数字の中身</div>
+        <div class="slate-text">apricitas.io/p/ai-and-the-fall-of-the-creative-classの分析: 雇用喪失の内訳を産業別に分解すると: (1) デジタルメディア（オンラインニュース・ライター）——約7万人減。金利上昇による広告収入減とレイオフが主因だが、AIライティングツールの普及が採用を抑制。(2) 映像制作・VFX——約4万人減。コロナ後の制作再開期の需要剥落 + AIによる一部工程の自動化（背景生成・ロトスコープなど）。(3) イラスト・グラフィックデザイン——約3万人減。Midjourney・DALL-Eの普及が最も直接的な影響として観測。(4) 音楽制作・写真——約6万人減。ストリーミング収益の構造変化に加えAI作曲・AI写真編集の影響。著者の結論: 「AIが唯一の原因ではないが、この2年間で雇用喪失を加速させた明確な要因のひとつ」。</div>
+      </div>
+      <div class="slate-item">
+        <div class="slate-label">「クリエイティブクラスの崩壊」の意味——社会的インパクト</div>
+        <div class="slate-text">フロリダ「クリエイティブクラス」論との関係: 2000年代の都市経済学者リチャード・フロリダは「クリエイティブ産業が都市経済の成長エンジン」と論じた。その層が今AIに置き換えられつつあることは、都市の経済的多様性・文化的豊かさに長期的な影響を与えうる。「入門レベル」雇用の消滅: 特に懸念されているのはエントリーレベルの仕事——ジュニアグラフィックデザイナー・コピーライター見習い・ストックフォトグラファーなど、キャリアを始める若者が踏み台にしてきた職種が消えつつある。「熟練者が生き残る」構造: AIは初歩的な大量生産的コンテンツを代替し、クリエイティブ方向性を決める上位の仕事はむしろ価値が上がる。しかしその「上位の仕事」は相対的に少ない。</div>
+      </div>
+      <div class="slate-item">
+        <div class="slate-label">HNの57コメント——「これは始まりに過ぎない」という声</div>
+        <div class="slate-text">57コメントの主軸: 「20万人という数字は氷山の一角——クリエイティブ産業の構造変化はこれから本格化する」という悲観的な見通しと、「デジタルカメラが写真家を減らしたか？ 最終的にはパイが拡大した」という楽観論の対立。クリエイターからの声: 「私はイラストレーターで仕事が3分の1になった——ただしAIで作った画像の品質管理・プロンプトエンジニアリングの仕事が新たに生まれており、全体収入はさほど変わっていない」。経済学的反論: 「サービス業で同規模の雇用消滅が起きても報道されないのに、クリエイティブ産業の話題性が高いため過大に報道される傾向がある」。政策的議論: 「AI生成コンテンツへの課税でUBI財源を確保するという提案が欧州議会で議論されている——AIが置き換えた労働の価値をどう社会に還元するかは制度設計の問題」。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: apricitas.io</span>
+      <span>↑93pt · 💬57+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.apricitas.io/p/ai-and-the-fall-of-the-creative-class" target="_blank">分析を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50226419" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="ai-media-jobs-loss" data-type="like" onclick="toggleFlag('ai-media-jobs-loss','AI クリエイティブ 雇用喪失 メディア 映画 20万人 経済','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="ai-media-jobs-loss" data-type="dislike" onclick="toggleFlag('ai-media-jobs-loss','AI クリエイティブ 雇用喪失 メディア 映画 20万人 経済','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 10 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-10" id="s10">
+  <div class="story-num">10</div>
+  <div class="story-inner">
+    <div class="story-kicker">ソフトウェア / エンジニアリング文化 / 野心 / Dan Luu / 議論 — 2026-10-25</div>
+    <h2 class="story-headline">
+      <span style="color:#E04080">もっと野心的な<br>ソフトウェアを<br>作るべきだ</span>——135pt
+    </h2>
+    <div class="story-body">
+      「We should be more ambitious with the software we build」がHNで135ポイント・90コメントを集めています。エンジニアリングブログで知られるDan Luuが、現代のソフトウェア開発が過度にリスク回避的になっており、真に難しい問題を解こうとする野心が業界全体から失われつつあるという問題提起をしました。
+    </div>
+    <div class="mag-items">
+      <div class="mag-item">
+        <div class="mag-label">Dan Luuが指摘する「野心の欠如」——何が起きているか</div>
+        <div class="mag-text">danluu.com/ambitious/の主張: 現代のソフトウェアエンジニアリングは「既存の問題を少し良く解く」ことに最適化されており、「根本的に新しいことを試みる」野心が失われている。具体的な観察: (1) スタートアップでさえ「既存サービスにAIを足しただけ」の製品が大半を占める。(2) 長期的なリサーチが必要な問題（分散システムの根本改善・プログラミング言語の革新・OS設計の刷新）に取り組む人が業界全体で減っている。(3) 「失敗のコスト」を最小化する文化が浸透し、大きく失敗する可能性のあることに挑戦しにくくなっている。Luuの論点: 「野心的なソフトウェアはたいてい最初は酷い出来に見える——Gitが最初に出たとき多くの人が複雑すぎると批判した。野心は結果が出るまで理解されない」。</div>
+      </div>
+      <div class="mag-item">
+        <div class="mag-label">「野心的なソフトウェア」の条件——何がそれを可能にするか</div>
+        <div class="mag-text">Luuが示す条件: (1) 時間的余裕——野心的なプロジェクトは短期KPIに縛られない環境が必要。BellラボやXerox PARCが生まれた理由はここにある。(2) 失敗の許容——「失敗した野心的プロジェクト」をキャリアの汚点にしない文化。(3) 「なぜやるか」の明確さ——便利さや効率だけでなく「これが実現したら世界がどう変わるか」を語れるビジョン。現代の阻害要因: VC支配のスタートアップエコシステムは18〜24ヶ月でのリターンを求める。大企業は四半期ごとのOKR。アカデミアは査読論文のカウント。どれも5〜10年かかる野心的プロジェクトとは相性が悪い。Luuの処方箋: 「小さな会社・個人プロジェクト・コミュニティ資金が最後の砦——個人が野心的なプロジェクトを進めやすくする環境整備が必要」。</div>
+      </div>
+      <div class="mag-item">
+        <div class="mag-label">HNの90コメント——「自分がやっていることへの問い返し」</div>
+        <div class="mag-text">90コメントの主軸: 「これを読んで自分の今のプロジェクトが『野心的』かどうかを問い返した——答えはNOだった」という内省的な反応が多数いいねを集めた。逆張りコメント: 「野心的なソフトウェアの多くは実際には使われない——Haskellのエコシステムはいつまでも『将来有望』のまま。実用的な改善の積み重ねの方が世界を変えた事例が多い（TCP/IPはシンプルなプロトコルの積み重ね）」。AI文脈: 「AIが野心的なソフトウェア開発を可能にするかもしれない——1人のエンジニアが以前の小チームと同等の実装速度を持てば、野心的なプロジェクトの参入障壁が下がる」。読んで実行した人: 「この記事を読んだ日に、3年間「いつかやる」と言い続けていた言語処理エンジンのプロトタイプを書き始めた——動機付けとして機能した」。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: danluu.com</span>
+      <span>↑135pt · 💬90+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://danluu.com/ambitious/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50225695" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="ambitious-software-building" data-type="like" onclick="toggleFlag('ambitious-software-building','野心的なソフトウェア Dan Luu エンジニアリング文化 ビジョン','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="ambitious-software-building" data-type="dislike" onclick="toggleFlag('ambitious-software-building','野心的なソフトウェア Dan Luu エンジニアリング文化 ビジョン','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-top">
+    <div class="footer-brand">Morning Edition</div>
+    <button class="export-btn" onclick="exportFeedback()">フィードバックをコピー</button>
+  </div>
+  <div class="footer-meta">
+    Hacker News フロントページから毎朝キュレーション · 2026年10月25日 · No.160<br>
+    フィードバックボタンでお好みの記事を記録すると、次号の選定に反映されます。
+  </div>
+  <div class="footer-note">
+    Chrome/Edge: ⭐または✕を押すとフィードバックが自動保存されます（File System Access API）。Firefox/Safariは「コピー」ボタンをご利用ください。
+  </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(function() {
+  const STORAGE_KEY = 'morning-edition-feedback-v2';
+  const TODAY = '2026-10-25';
+  let db = null;
+  let fsHandle = null;
+
+  function loadFromStorage() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      return raw ? JSON.parse(raw) : { liked: {}, disliked: {} };
+    } catch (e) { return { liked: {}, disliked: {} }; }
+  }
+
+  function saveToStorage(data) {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); } catch (e) {}
+  }
+
+  function showToast(msg, isError) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.className = 'toast' + (isError ? ' error' : '');
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2800);
+  }
+
+  function openIDB() {
+    return new Promise((resolve, reject) => {
+      const req = indexedDB.open('morning-edition', 1);
+      req.onupgradeneeded = e => e.target.result.createObjectStore('flags', { keyPath: 'id' });
+      req.onsuccess = e => resolve(e.target.result);
+      req.onerror = reject;
+    });
+  }
+
+  async function getIDBData() {
+    if (!db) db = await openIDB();
+    return new Promise((resolve) => {
+      const tx = db.transaction('flags', 'readonly');
+      const req = tx.objectStore('flags').get('main');
+      req.onsuccess = () => resolve(req.result ? req.result.data : { liked: {}, disliked: {} });
+      req.onerror = () => resolve({ liked: {}, disliked: {} });
+    });
+  }
+
+  async function setIDBData(data) {
+    if (!db) db = await openIDB();
+    return new Promise((resolve) => {
+      const tx = db.transaction('flags', 'readwrite');
+      tx.objectStore('flags').put({ id: 'main', data });
+      tx.oncomplete = resolve;
+    });
+  }
+
+  async function tryWriteFile(data) {
+    try {
+      if (!fsHandle) {
+        if (!window.showSaveFilePicker) return false;
+        fsHandle = await window.showSaveFilePicker({
+          suggestedName: 'feedback.json',
+          types: [{ description: 'JSON', accept: { 'application/json': ['.json'] } }]
+        });
+      }
+      const writable = await fsHandle.createWritable();
+      await writable.write(JSON.stringify({ ...data, updatedAt: new Date().toISOString() }, null, 2));
+      await writable.close();
+      return true;
+    } catch (e) { return false; }
+  }
+
+  async function loadState() {
+    let data;
+    try { data = await getIDBData(); } catch (e) { data = loadFromStorage(); }
+    document.querySelectorAll('.flag-btn').forEach(btn => {
+      const story = btn.dataset.story;
+      const type = btn.dataset.type;
+      if (type === 'like' && data.liked && data.liked[story]) btn.classList.add('active');
+      if (type === 'dislike' && data.disliked && data.disliked[story]) btn.classList.add('active');
+    });
+  }
+
+  window.toggleFlag = async function(storyId, title, type) {
+    let data;
+    try { data = await getIDBData(); } catch (e) { data = loadFromStorage(); }
+    if (!data.liked) data.liked = {};
+    if (!data.disliked) data.disliked = {};
+
+    const opposite = type === 'like' ? 'disliked' : 'liked';
+    const current = type === 'like' ? 'liked' : 'disliked';
+
+    delete data[opposite][storyId];
+    document.querySelector(`.flag-btn[data-story="${storyId}"][data-type="${type === 'like' ? 'dislike' : 'like'}"]`)?.classList.remove('active');
+
+    const btn = document.querySelector(`.flag-btn[data-story="${storyId}"][data-type="${type}"]`);
+    if (data[current][storyId]) {
+      delete data[current][storyId];
+      btn?.classList.remove('active');
+    } else {
+      data[current][storyId] = { title, date: TODAY };
+      btn?.classList.add('active');
+    }
+
+    try { await setIDBData(data); } catch (e) {}
+    saveToStorage(data);
+
+    const saved = await tryWriteFile(data);
+    if (saved) showToast('✓ フィードバックを保存しました');
+  };
+
+  window.exportFeedback = async function() {
+    let data;
+    try { data = await getIDBData(); } catch (e) { data = loadFromStorage(); }
+    const json = JSON.stringify({ ...data, updatedAt: new Date().toISOString() }, null, 2);
+    try {
+      await navigator.clipboard.writeText(json);
+      showToast('✓ クリップボードにコピーしました');
+    } catch (e) { showToast('コピーできませんでした', true); }
+  };
+
+  loadState();
+})();
+</script>
+</body>
+</html>
