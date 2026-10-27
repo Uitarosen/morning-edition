@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Morning Edition — 2026年10月28日</title>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --font: 'M PLUS Rounded 1c', 'Hiragino Sans', 'Noto Sans JP', sans-serif; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); background: #111; color: #fff; overflow-x: hidden; }
+
+    .masthead { background: #fff; color: #000; padding: 3rem 4rem 2.5rem; border-bottom: 6px solid #000; position: relative; overflow: hidden; }
+    .masthead::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: repeating-linear-gradient(90deg, #000 0, #000 12px, transparent 12px, transparent 20px); }
+    .masthead-kicker { font-size: 0.85rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: #777; margin-bottom: 0.6rem; }
+    .masthead-title { font-size: clamp(3.5rem, 9vw, 7.5rem); font-weight: 900; line-height: 0.88; letter-spacing: -0.04em; margin-bottom: 1.8rem; }
+    .masthead-meta { display: flex; gap: 3rem; align-items: baseline; flex-wrap: wrap; }
+    .masthead-date { font-size: 1.5rem; font-weight: 700; }
+    .masthead-subtitle { font-size: 1rem; font-weight: 400; color: #555; max-width: 480px; line-height: 1.5; }
+    .masthead-issue { margin-left: auto; text-align: right; }
+    .masthead-issue span { display: block; }
+    .masthead-issue .iss-label { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: #999; }
+    .masthead-issue .iss-num { font-size: 2.2rem; font-weight: 900; color: #000; }
+
+    .toc { background: #1a1a1a; padding: 1.5rem 4rem; display: flex; gap: 1.5rem; flex-wrap: wrap; border-bottom: 1px solid #333; }
+    .toc a { color: #aaa; text-decoration: none; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; transition: color 0.2s; }
+    .toc a:hover { color: #fff; }
+    .toc-num { color: #555; margin-right: 0.3em; }
+
+    .story { position: relative; overflow: hidden; }
+    .story-inner { max-width: 1200px; margin: 0 auto; padding: 5rem 4rem; position: relative; z-index: 1; }
+    .story-num { font-size: clamp(6rem, 18vw, 16rem); font-weight: 900; line-height: 0.8; letter-spacing: -0.06em; opacity: 0.08; position: absolute; top: 1rem; right: 2rem; user-select: none; }
+    .story-badge { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.35em 0.9em; border-radius: 2px; margin-bottom: 1.5rem; }
+    .direct-badge { background: #FFD700; color: #000; }
+    .story-kicker { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; opacity: 0.6; margin-bottom: 0.8rem; }
+    .story-headline { font-size: clamp(2rem, 5vw, 4rem); font-weight: 900; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+    .story-body { font-size: clamp(1rem, 1.5vw, 1.2rem); font-weight: 400; line-height: 1.8; max-width: 680px; opacity: 0.88; margin-bottom: 2rem; }
+    .story-meta { display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center; font-size: 0.8rem; font-weight: 700; opacity: 0.5; }
+    .story-links { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem; }
+    .story-link { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.6em 1.4em; border-radius: 3px; text-decoration: none; transition: opacity 0.2s, transform 0.15s; }
+    .story-link:hover { opacity: 0.75; transform: translateY(-1px); }
+
+    .feedback-buttons { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .flag-btn { background: none; border: 1px solid currentColor; color: inherit; font-family: var(--font); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.5em 1em; border-radius: 3px; cursor: pointer; opacity: 0.32; transition: opacity 0.2s, background 0.2s, color 0.2s, border-color 0.2s, transform 0.15s; }
+    .flag-btn:hover { opacity: 0.72; transform: translateY(-1px); }
+    .flag-btn.like-btn.active { opacity: 1; background: rgba(255,215,0,0.15); border-color: #FFD700; color: #FFD700 !important; }
+    .flag-btn.dislike-btn.active { opacity: 1; background: rgba(255,60,60,0.12); border-color: #FF4444; color: #FF4444 !important; }
+
+    .toast { position: fixed; bottom: 2rem; right: 2rem; background: #1a1a1a; color: #fff; font-family: var(--font); font-size: 0.82rem; font-weight: 700; padding: 0.75em 1.4em; border-radius: 4px; border-left: 3px solid #00C853; z-index: 9999; opacity: 0; transform: translateY(10px); transition: opacity 0.25s, transform 0.25s; pointer-events: none; box-shadow: 0 4px 24px rgba(0,0,0,0.45); }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    .toast.error { border-left-color: #FF5252; }
+
+    /* Story 1 — White */
+    .story-1 { background: #fff; color: #000; min-height: 90vh; display: flex; flex-direction: column; justify-content: center; }
+    .story-1 .story-num { color: #000; opacity: 0.04; }
+    .story-1 .story-kicker { color: #555; opacity: 1; }
+    .story-1 .story-headline { color: #000; }
+    .story-1 .story-body { color: #111; }
+    .story-1 .story-meta { color: #000; }
+    .story-1 .story-link.primary { background: #1a1a1a; color: #fff; }
+    .story-1 .story-link.secondary { background: #f0f0f0; color: #000; }
+    .story-1 .flag-btn { color: #000; }
+    .story-1-accent { position: absolute; bottom: 0; left: 0; width: 100%; height: 8px; background: linear-gradient(90deg, #1a0050 0%, #5a20e0 50%, #1a0050 100%); }
+    .story-1 .headline-accent { display: inline-block; background: linear-gradient(135deg, #3a00c0 0%, #7040f0 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .blue-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1.2rem; margin: 2rem 0; max-width: 680px; }
+    .blue-card { border: 2px solid rgba(0,0,0,0.12); background: rgba(0,0,0,0.03); border-radius: 6px; padding: 1.3rem 1.5rem; }
+    .blue-card-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.2em; text-transform: uppercase; color: #333; margin-bottom: 0.4rem; }
+    .blue-card-value { font-size: 1.05rem; font-weight: 900; color: #000; line-height: 1.3; }
+    .blue-card-sub { font-size: 0.75rem; color: #555; margin-top: 0.3rem; line-height: 1.4; }
+
+    /* Story 2 — Dark navy/teal */
+    .story-2 { background: #00080c; color: #b8f0ff; min-height: 80vh; }
+    .story-2::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(0,160,200,0.14) 0%, transparent 65%); }
+    .story-2 .story-num { color: #00A0C8; opacity: 0.07; }
+    .story-2 .story-kicker { color: #20C8E8; opacity: 1; }
+    .story-2 .story-headline { color: #e0f8ff; }
+    .story-2 .story-body { color: #b8f0ff; }
+    .story-2 .story-meta { color: #20C8E8; opacity: 0.5; }
+    .story-2 .story-link.primary { background: #004058; color: #80e8ff; }
+    .story-2 .story-link.secondary { background: rgba(0,160,200,0.08); color: #90d8f0; border: 1px solid rgba(0,160,200,0.22); }
+    .story-2 .flag-btn { color: #b8f0ff; }
+    .teal-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .teal-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(0,160,200,0.07); border-left: 3px solid #00A0C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .teal-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20C8E8; margin-bottom: 0.3rem; }
+    .teal-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 3 — Dark red */
+    .story-3 { background: #0a0000; color: #fff; min-height: 80vh; }
+    .story-3::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(200,20,20,0.16) 0%, transparent 65%); }
+    .story-3 .story-num { color: #C81414; opacity: 0.07; }
+    .story-3 .story-kicker { color: #E84040; opacity: 1; }
+    .story-3 .story-headline { color: #fff; }
+    .story-3 .story-body { color: rgba(255,255,255,0.88); }
+    .story-3 .story-meta { color: #E84040; opacity: 0.5; }
+    .story-3 .story-link.primary { background: #6a0000; color: #fff; }
+    .story-3 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-3 .flag-btn { color: #fff; }
+    .red-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .red-item { background: rgba(200,20,20,0.07); border-left: 3px solid #C81414; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .red-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E84040; margin-bottom: 0.3rem; }
+    .red-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 4 — Dark green */
+    .story-4 { background: #020c04; color: #c8f0d0; min-height: 80vh; }
+    .story-4::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(20,160,70,0.16) 0%, transparent 65%); }
+    .story-4 .story-num { color: #14A046; opacity: 0.07; }
+    .story-4 .story-kicker { color: #30C060; opacity: 1; }
+    .story-4 .story-headline { color: #e0ffe8; }
+    .story-4 .story-body { color: #c8f0d0; }
+    .story-4 .story-meta { color: #30C060; opacity: 0.5; }
+    .story-4 .story-link.primary { background: #063820; color: #80ffb0; }
+    .story-4 .story-link.secondary { background: rgba(20,160,70,0.08); color: #a0e8b0; border: 1px solid rgba(20,160,70,0.22); }
+    .story-4 .flag-btn { color: #c8f0d0; }
+    .green-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .green-item { background: rgba(20,160,70,0.07); border-left: 3px solid #14A046; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .green-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #30C060; margin-bottom: 0.3rem; }
+    .green-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 5 — Dark purple */
+    .story-5 { background: #040010; color: #d8c8ff; min-height: 75vh; }
+    .story-5::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(90,40,200,0.17) 0%, transparent 65%); }
+    .story-5 .story-num { color: #5A28C8; opacity: 0.07; }
+    .story-5 .story-kicker { color: #8050E0; opacity: 1; }
+    .story-5 .story-headline { color: #f0e8ff; }
+    .story-5 .story-body { color: #d8c8ff; }
+    .story-5 .story-meta { color: #8050E0; opacity: 0.5; }
+    .story-5 .story-link.primary { background: #200860; color: #d0a8ff; }
+    .story-5 .story-link.secondary { background: rgba(90,40,200,0.08); color: #c0a0f0; border: 1px solid rgba(90,40,200,0.22); }
+    .story-5 .flag-btn { color: #d8c8ff; }
+    .purple-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .purple-item { background: rgba(90,40,200,0.07); border-left: 3px solid #5A28C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .purple-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #8050E0; margin-bottom: 0.3rem; }
+    .purple-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 6 — Dark cyan */
+    .story-6 { background: #000c10; color: #b8e8f0; min-height: 75vh; }
+    .story-6::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 40%, rgba(0,130,160,0.14) 0%, transparent 65%); }
+    .story-6 .story-num { color: #0080A0; opacity: 0.07; }
+    .story-6 .story-kicker { color: #20B0D0; opacity: 1; }
+    .story-6 .story-headline { color: #e0f4ff; }
+    .story-6 .story-body { color: #b8e8f0; }
+    .story-6 .story-meta { color: #20B0D0; opacity: 0.5; }
+    .story-6 .story-link.primary { background: #003848; color: #80d8f0; }
+    .story-6 .story-link.secondary { background: rgba(0,130,160,0.08); color: #90cce0; border: 1px solid rgba(0,130,160,0.22); }
+    .story-6 .flag-btn { color: #b8e8f0; }
+    .cyan-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .cyan-item { background: rgba(0,130,160,0.07); border-left: 3px solid #0080A0; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .cyan-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20B0D0; margin-bottom: 0.3rem; }
+    .cyan-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 7 — Dark amber */
+    .story-7 { background: #0a0300; color: #ffe0b8; min-height: 75vh; }
+    .story-7::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(210,90,20,0.18) 0%, transparent 65%); }
+    .story-7 .story-num { color: #D05A14; opacity: 0.07; }
+    .story-7 .story-kicker { color: #E88040; opacity: 1; }
+    .story-7 .story-headline { color: #fff0d8; }
+    .story-7 .story-body { color: #ffe0b8; }
+    .story-7 .story-meta { color: #E88040; opacity: 0.5; }
+    .story-7 .story-link.primary { background: #6a2400; color: #ffc880; }
+    .story-7 .story-link.secondary { background: rgba(210,90,20,0.08); color: #ffb870; border: 1px solid rgba(210,90,20,0.22); }
+    .story-7 .flag-btn { color: #ffe0b8; }
+    .amber-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .amber-item { background: rgba(210,90,20,0.07); border-left: 3px solid #D05A14; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .amber-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E88040; margin-bottom: 0.3rem; }
+    .amber-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 8 — Dark gold */
+    .story-8 { background: #080500; color: #fff; min-height: 70vh; }
+    .story-8::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,145,10,0.15) 0%, transparent 65%); }
+    .story-8 .story-num { color: #BE9110; opacity: 0.06; }
+    .story-8 .story-kicker { color: #D4A820; opacity: 1; }
+    .story-8 .story-headline { color: #fff; }
+    .story-8 .story-body { color: rgba(255,255,255,0.88); }
+    .story-8 .story-meta { color: #D4A820; opacity: 0.5; }
+    .story-8 .story-link.primary { background: #604000; color: #ffe070; }
+    .story-8 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-8 .flag-btn { color: #fff; }
+    .gold-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .gold-item { background: rgba(190,145,10,0.07); border-left: 3px solid #BE9110; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .gold-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #D4A820; margin-bottom: 0.3rem; }
+    .gold-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 9 — Slate blue */
+    .story-9 { background: #040810; color: #c8d8f0; min-height: 70vh; }
+    .story-9::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 35%, rgba(50,90,170,0.16) 0%, transparent 65%); }
+    .story-9 .story-num { color: #3258A8; opacity: 0.07; }
+    .story-9 .story-kicker { color: #5878C8; opacity: 1; }
+    .story-9 .story-headline { color: #e8f0ff; }
+    .story-9 .story-body { color: #c8d8f0; }
+    .story-9 .story-meta { color: #5878C8; opacity: 0.5; }
+    .story-9 .story-link.primary { background: #101e50; color: #fff; }
+    .story-9 .story-link.secondary { background: rgba(50,90,170,0.08); color: #b0c8e8; border: 1px solid rgba(50,90,170,0.22); }
+    .story-9 .flag-btn { color: #c8d8f0; }
+    .slate-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .slate-item { background: rgba(50,90,170,0.07); border-left: 3px solid #3258A8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .slate-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #5878C8; margin-bottom: 0.3rem; }
+    .slate-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 10 — Magenta */
+    .story-10 { background: #080004; color: #ffc8e8; min-height: 70vh; }
+    .story-10::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,20,90,0.15) 0%, transparent 65%); }
+    .story-10 .story-num { color: #BE1458; opacity: 0.07; }
+    .story-10 .story-kicker { color: #E04080; opacity: 1; }
+    .story-10 .story-headline { color: #fff0f8; }
+    .story-10 .story-body { color: #ffc8e8; }
+    .story-10 .story-meta { color: #E04080; opacity: 0.5; }
+    .story-10 .story-link.primary { background: #500030; color: #ffb0d8; }
+    .story-10 .story-link.secondary { background: rgba(190,20,90,0.08); color: #f090c0; border: 1px solid rgba(190,20,90,0.22); }
+    .story-10 .flag-btn { color: #ffc8e8; }
+    .mag-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .mag-item { background: rgba(190,20,90,0.07); border-left: 3px solid #BE1458; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .mag-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E04080; margin-bottom: 0.3rem; }
+    .mag-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .site-footer { background: #000; color: #555; padding: 3rem 4rem; display: flex; flex-direction: column; gap: 1.5rem; border-top: 1px solid #222; }
+    .footer-top { display: flex; gap: 2rem; align-items: center; flex-wrap: wrap; justify-content: space-between; }
+    .footer-brand { font-size: 1.4rem; font-weight: 900; color: #fff; }
+    .footer-meta { font-size: 0.75rem; line-height: 1.6; }
+    .export-btn { background: #222; border: 1px solid #444; color: #fff; font-family: var(--font); font-size: 0.8rem; font-weight: 700; padding: 0.7em 1.5em; border-radius: 3px; cursor: pointer; letter-spacing: 0.08em; transition: background 0.2s; }
+    .export-btn:hover { background: #333; }
+    .footer-note { font-size: 0.7rem; opacity: 0.5; }
+
+    @media (max-width: 768px) {
+      .masthead, .toc, .story-inner, .site-footer { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .story-num { display: none; }
+      .masthead-meta { gap: 1rem; }
+      .masthead-issue { margin-left: 0; }
+      .blue-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+<nav style="background:#1a1a1a;border-bottom:1px solid #333;padding:0.55rem 2rem;font-family:'M PLUS Rounded 1c','Hiragino Sans','Noto Sans JP',sans-serif;position:sticky;top:0;z-index:999;">
+  <a href="./index.html" style="color:#aaa;text-decoration:none;font-size:0.8rem;font-weight:700;letter-spacing:0.03em;display:inline-flex;align-items:center;gap:0.4rem;transition:color 0.15s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#aaa'">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    アーカイブへ戻る
+  </a>
+</nav>
+
+<header class="masthead">
+  <div class="masthead-kicker">Hacker News — Morning Edition</div>
+  <h1 class="masthead-title">Morning<br>Edition</h1>
+  <div class="masthead-meta">
+    <div>
+      <div class="masthead-date">2026年10月28日 水曜日</div>
+      <div class="masthead-subtitle">AI・開発ツール・プライバシー・サイエンス — あなたのための10本</div>
+    </div>
+    <div class="masthead-issue">
+      <span class="iss-label">Issue</span>
+      <span class="iss-num">No.162</span>
+    </div>
+  </div>
+</header>
+
+<nav class="toc">
+  <a href="#s1"><span class="toc-num">01</span>米政府が監視に関する秘密裁判所命令を隠蔽——Wired報道</a>
+  <a href="#s2"><span class="toc-num">02</span>DeepMind「Genie 4」——世界シミュレーターの新世代</a>
+  <a href="#s3"><span class="toc-num">03</span>Ghostty 1.4リリース——ターミナルエミュレータの進化</a>
+  <a href="#s4"><span class="toc-num">04</span>WikipediaのAI生成コンテンツ大規模クリーンアップ作戦</a>
+  <a href="#s5"><span class="toc-num">05</span>PythonのJIT実験的実装が削除へ——理由と今後</a>
+  <a href="#s6"><span class="toc-num">06</span>⚡ AnthropicがスタンフォードのAI著作権訴訟に直面</a>
+  <a href="#s7"><span class="toc-num">07</span>警察がAIで「不審な運転」を検知——プライバシー論争</a>
+  <a href="#s8"><span class="toc-num">08</span>DiscordがパブリックサーバーのメッセージをGoogle検索可能に</a>
+  <a href="#s9"><span class="toc-num">09</span>Tailscale SSH脆弱性——調査と修正の経緯</a>
+  <a href="#s10"><span class="toc-num">10</span>⚡ Claudeによる創薬加速の初期成果——Anthropicが発表</a>
+</nav>
+
+<!-- ═══ STORY 1 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-1" id="s1">
+  <div class="story-num">01</div>
+  <div class="story-inner">
+    <div class="story-kicker">プライバシー / 監視 / 米政府 / 秘密裁判所 / FISA — 2026-10-28</div>
+    <h2 class="story-headline">
+      <span class="headline-accent">米政府が隠す<br>秘密の監視命令</span><br>裁判所命令の非公開<br>が明らかに——684pt
+    </h2>
+    <div class="story-body">
+      「US Government is hiding a secret court ruling about how it spies on Americans」がHNで684ポイント・243コメントを集めています。Wired誌が報じた調査報道で、米国政府がアメリカ市民への監視方法を定めた秘密の裁判所命令を非公開にし続けていることが判明しました。FISA（外国諜報活動監視法）裁判所が出した命令の内容を政府が開示拒否しており、市民の知る権利と国家安全保障の緊張が再び問われています。
+    </div>
+    <div class="blue-grid">
+      <div class="blue-card">
+        <div class="blue-card-label">何が隠されているのか</div>
+        <div class="blue-card-value">FISA裁判所の非公開命令</div>
+        <div class="blue-card-sub">Wiredが入手した情報によれば、米政府はFISA裁判所が出した監視手法に関する命令を複数年にわたり非公開にしている。命令の具体的内容は不明だが、情報機関が米国内の通信データへアクセスする新たな法的根拠を確立した可能性が高いとされる。スノーデン以降に強化された情報開示の仕組みが、今も抜け穴を抱えていることが示された格好だ。EFF（電子フロンティア財団）などの市民団体は情報公開訴訟を準備中。</div>
+      </div>
+      <div class="blue-card">
+        <div class="blue-card-label">なぜ今これが問題なのか</div>
+        <div class="blue-card-value">監視の透明性と民主主義</div>
+        <div class="blue-card-sub">背景: 2013年のスノーデン暴露後、米国はFISA裁判所の命令の一部開示を義務付ける改革を行ったが、今回の件はその仕組みが機能していないことを示す。技術的な含意: 大量監視が個人の通信・位置情報・ブラウジング履歴に及んでいる可能性。開発者・エンジニアへの影響: 自社サービスが知らぬ間に監視のバックドアとして使われるリスクへの再考が求められる。VPN・暗号化ツール利用の実践的見直しタイミングとしても注目されている。</div>
+      </div>
+      <div class="blue-card">
+        <div class="blue-card-label">HNの243コメント——「スノーデンは正しかった」</div>
+        <div class="blue-card-value">根強い不信と実践的対策</div>
+        <div class="blue-card-sub">243コメントの論点: 「スノーデン暴露から10年以上経っても構造は変わっていない」という冷笑的な声が多数。最もUpvoteされたコメント: 「民主主義において、法の支配が機能するには法の内容が公開されていなければならない——秘密の法律は専制主義と変わらない」。実践的な対策として挙げられているツール: Signal（エンドツーエンド暗号化）、Tor Browser、自己ホスト型メール。エンジニア視点の指摘: 「クラウドサービスに個人情報を預けることのリスクを改めて見直すべき」。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: wired.com</span>
+      <span>↑684pt · 💬243+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.wired.com/story/the-us-government-is-hiding-a-secret-court-ruling-about-how-it-spies-on-americans/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50259604" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="us-secret-spying-court" data-type="like" onclick="toggleFlag('us-secret-spying-court','米政府 秘密裁判所命令 監視 FISA プライバシー','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="us-secret-spying-court" data-type="dislike" onclick="toggleFlag('us-secret-spying-court','米政府 秘密裁判所命令 監視 FISA プライバシー','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+    <div class="story-1-accent"></div>
+  </div>
+</section>
+
+<!-- ═══ STORY 2 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-2" id="s2">
+  <div class="story-num">02</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / DeepMind / 世界モデル / ゲーム / シミュレーション — 2026-10-28</div>
+    <h2 class="story-headline">
+      <span style="color:#20d8f0">DeepMind<br>「Genie 4」発表</span><br>世界シミュレーターの<br>新世代——600pt
+    </h2>
+    <div class="story-body">
+      「Genie 4」がHNで600ポイント・370コメントを集めています。Google DeepMindが発表した次世代の世界シミュレーションモデルで、テキストや画像のプロンプトから高品質なインタラクティブ環境をリアルタイム生成できます。前世代のGenie 2から大幅に進化し、物理シミュレーションの精度と生成速度が飛躍的に向上。AIエージェントのトレーニング環境として、またゲーム・シミュレーション開発の新パラダイムとして注目を集めています。
+    </div>
+    <div class="teal-items">
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">Genie 4の技術的進化——何が変わったか</div>
+          <div class="teal-text">Genie 4の核心: テキストプロンプトから完全にインタラクティブな3D環境をリアルタイム生成できる世界モデル。前世代との違い: Genie 2が2Dゲーム環境を静的に生成していたのに対し、Genie 4は(1)物理法則をより正確に学習した3D空間、(2)エージェントの行動に対するリアルタイムの反応、(3)テキスト→環境の生成が従来の10倍以上高速化された。技術的基盤: 拡散モデルと強化学習の組み合わせによるworld model architectureで、環境の「因果関係」を内部表現として保持する。</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">実用的な意味——AIトレーニングと開発への影響</div>
+          <div class="teal-text">最も重要な応用: AIエージェントのトレーニング環境として。現在、強化学習エージェントの訓練には膨大なシミュレーション時間が必要だが、Genie 4のような世界モデルがあれば実環境に近い多様なシナリオを自動生成できる。ゲーム開発への応用: コンセプトを言語で記述するだけで、プロトタイプレベルのインタラクティブゲームが数分で生成可能になる可能性。DeepMindの戦略: Gemini・AlphaCode・AlphaFoldに続く「AIによる科学加速」の一環として、シミュレーション基盤を自社で構築する動き。Google Cloud経由でのAPI提供も示唆されている。</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">HNの370コメント——「AGIへの道か過大評価か」</div>
+          <div class="teal-text">370コメントの主軸: 「世界モデルはAGIの核心コンポーネントか」という根本的な問いをめぐる議論。技術者の懐疑論: 「デモは印象的だが、実際に物理法則を理解しているのではなく、それらしく見える映像を生成しているだけでは——hallucination問題の3D版」。楽観論: 「Yann LeCunがずっと主張してきた『世界モデルなしにAGIはない』という主張が現実に近づいている証拠」。比較: OpenAIのSoraが動画生成に留まるのに対し、Genieはインタラクティブ性を持つ点で一歩先を行くという評価が多い。開発者の関心: APIが公開された場合の活用アイデアが続出——ロボティクス訓練、プロトタイピングツール、教育シミュレーション。</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: deepmind.google</span>
+      <span>↑600pt · 💬370+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://deepmind.google/blog/genie-4-a-new-generation-of-world-simulation/" target="_blank">ブログを読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50261319" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="genie-4-deepmind" data-type="like" onclick="toggleFlag('genie-4-deepmind','DeepMind Genie 4 世界モデル シミュレーション AI','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="genie-4-deepmind" data-type="dislike" onclick="toggleFlag('genie-4-deepmind','DeepMind Genie 4 世界モデル シミュレーション AI','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 3 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-3" id="s3">
+  <div class="story-num">03</div>
+  <div class="story-inner">
+    <div class="story-kicker">開発ツール / ターミナル / Ghostty / リリース / CLI — 2026-10-28</div>
+    <h2 class="story-headline">
+      <span style="color:#E84040">Ghostty 1.4<br>リリース</span><br>ターミナルの<br>新標準へ——576pt
+    </h2>
+    <div class="story-body">
+      「Ghostty 1.4」がHNで576ポイント・175コメントを集めています。Mitchell Hashimoto（HashiCorpの共同創業者）が開発するGPUアクセラレーション対応ターミナルエミュレータの最新版です。Zig言語で書かれた高速・低レイテンシのターミナルで、macOS・Linuxに対応。1.4ではパフォーマンス改善、新機能追加、バグ修正が行われ、日常的なターミナル操作体験を大きく向上させる内容となっています。
+    </div>
+    <div class="red-items">
+      <div class="red-item">
+        <div class="red-label">Ghostty 1.4の主な新機能と改善点</div>
+        <div class="red-text">1.4の主要変更: (1) タイル分割（splits）の大幅改善——キーボードナビゲーションが直感的になり、分割画面の管理がより柔軟に。(2) ターミナルの描画パイプラインを最適化——特にスクロール時のパフォーマンスが向上し、大量ログの閲覧でも滑らかな操作感。(3) カスタムシェーダーサポートの強化——CRTスキャンラインやグリッチエフェクトなど視覚的カスタマイズが可能に。(4) SSH経由の接続時にもネイティブ品質のレンダリングを維持する改善。Ghosttyの特徴: iTerm2・Alacritty・kittyと比較して「設定が少なくていい＋速い」という評価が多い。</div>
+      </div>
+      <div class="red-item">
+        <div class="red-label">なぜGhosttyが注目されるのか——競合との比較</div>
+        <div class="red-text">ターミナル戦争の現状: 2024年のGhostty 1.0リリース以来、iTerm2・Warp・Alacritty・kittyに割り込む形で急速にシェアを拡大。Mitchell Hashimotoの影響力: VagrantやTerraformを生んだ開発者が「自分が毎日使うツールだから完璧に作る」という動機で開発しており、プロ向けの実用性へのこだわりが強い。Zig言語の選択: メモリ安全性とパフォーマンスを両立するためZigを採用。コンパイル済みバイナリのサイズが小さく、起動が即座。Claude Code・gh CLIなどのCLIツールとの相性も良く、日本語を含む多バイト文字の表示が他のターミナルより安定しているという報告も。</div>
+      </div>
+      <div class="red-item">
+        <div class="red-label">HNの175コメント——「ついに乗り換えた」報告続出</div>
+        <div class="red-text">175コメントの温度: Ghosttyに乗り換えた報告が多数。「iTerm2を10年使ってきたが今週Ghosttyに完全移行した」というコメントが最上位。実用的なTips: `ghostty +list-themes`でテーマ一覧、`cmd+,`で設定ファイルを即開けることなど。批判的な声: 「WarpのAI機能と比べると機能が少ない」という意見もあるが、「シンプルさが美徳」という反論も。Linux対応の改善: 1.4でLinux版のWebGL描画が安定し、Arch Linux・Ubuntu双方でのパッケージが整備された点を評価する声。macOSユーザーへのTip: Homebrewで`brew install ghostty`で即インストール可能。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: ghostty.org</span>
+      <span>↑576pt · 💬175+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://ghostty.org/docs/install/release-notes/1-4-0" target="_blank">リリースノートを読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50261998" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="ghostty-1-4" data-type="like" onclick="toggleFlag('ghostty-1-4','Ghostty 1.4 ターミナル 開発ツール Zig CLI','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="ghostty-1-4" data-type="dislike" onclick="toggleFlag('ghostty-1-4','Ghostty 1.4 ターミナル 開発ツール Zig CLI','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 4 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-4" id="s4">
+  <div class="story-num">04</div>
+  <div class="story-inner">
+    <div class="story-kicker">Wikipedia / AI / コンテンツ品質 / LLM / オープンソース — 2026-10-28</div>
+    <h2 class="story-headline">
+      <span style="color:#30d870">WikipediaがAI<br>生成記事を<br>大掃除</span>——411pt
+    </h2>
+    <div class="story-body">
+      「Wikipedia's Cleanup of AI-Generated Content」がHNで411ポイント・187コメントを集めています。IEEE Spectrumが報じたWikipediaのWikiProject AI Writing Cleanupイニシアチブで、ボランティア編集者たちがAIで生成・混入した低品質なコンテンツを組織的に特定・修正・削除しています。2026年だけで数万件の記事がAI生成の痕跡を持つとされ、Wikipediaの情報の信頼性を守るための戦いが続いています。
+    </div>
+    <div class="green-items">
+      <div class="green-item">
+        <div class="green-label">問題の規模——どれだけのAI混入が起きているか</div>
+        <div class="green-text">WikiProject AI Writing Cleanupの発見: 2025〜2026年にかけて、Wikipedia英語版だけで推定3〜5万件の記事にAI生成文章が混入しているとされる。手口: (1) 新規投稿者がAIで生成した文章をそのまま貼り付け、(2) 既存記事の一部をAI生成文で差し替える、(3) 低品質なスタブ記事をAI生成で水増しする。検出方法: 文体の不自然さ（過度に丁寧な説明調、「もちろん」「確かに」等の副詞多用）、事実確認なしの自信満々な誤情報、出典が存在しない統計の引用など。日本語版への影響: 英語版ほど組織的ではないが、同様の問題が発生していると見られる。</div>
+      </div>
+      <div class="green-item">
+        <div class="green-label">Wikipediaの対策——人力とAIの組み合わせ</div>
+        <div class="green-text">WikiProject AI Writing Cleanupの戦略: (1) AI検出ツール（GPTZero・Turnitin等）をボランティア編集者向けに提供、ただし誤検知を考慮して人間の最終判断を必須に。(2) 新規ユーザーのAI生成記事には自動フラグを立てる試験的システム。(3) 編集者コミュニティへのガイドライン強化——「AI支援の透明な開示」を求める提案が進行中。限界: Wikipedia自体が少数のボランティアで運営されており、AIが生成するスピードに人力が追いつけないという根本的な問題がある。逆説: Wikipedia自体がAIのトレーニングデータとして使われており、汚染が進むほどAIの品質も低下するという悪循環が懸念される。</div>
+      </div>
+      <div class="green-item">
+        <div class="green-label">HNの187コメント——「インターネットの信頼性の崩壊」</div>
+        <div class="green-text">187コメントの主題: 「AIによるコンテンツ汚染がWikipedia以外にも広がっている」という問題意識。印象的なコメント: 「10年後には、インターネット上のテキストの大半がAI生成になり、そのAIはAI生成テキストで訓練されるという再帰的な崩壊が起きるのでは」——これがHNで最もUpvoteされた。技術的な提案: 「人間が書いたコンテンツに暗号署名を付けるC2PA（Coalition for Content Provenance and Authenticity）のような仕組みが必要では」という声。Wikipediaへの敬意: 「こうした問題に対処しようとするWikipediaコミュニティの努力は称賛に値する」という肯定的な評価も多い。実践的なTip: Wikipedia記事を参照する際は、最近追加された段落の出典を必ず確認する習慣が重要。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: spectrum.ieee.org</span>
+      <span>↑411pt · 💬187+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://spectrum.ieee.org/wikipedia-wikiproject-ai-writing-cleanup" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50257326" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="wikipedia-ai-cleanup" data-type="like" onclick="toggleFlag('wikipedia-ai-cleanup','Wikipedia AI生成 コンテンツ品質 LLM オープンソース','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="wikipedia-ai-cleanup" data-type="dislike" onclick="toggleFlag('wikipedia-ai-cleanup','Wikipedia AI生成 コンテンツ品質 LLM オープンソース','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 5 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-5" id="s5">
+  <div class="story-num">05</div>
+  <div class="story-inner">
+    <div class="story-kicker">Python / JIT / パフォーマンス / CPython / 開発 — 2026-10-28</div>
+    <h2 class="story-headline">
+      <span style="color:#9060f0">PythonのJIT<br>実験実装が<br>削除へ</span>——407pt
+    </h2>
+    <div class="story-body">
+      「Python's experimental JIT to be removed」がHNで407ポイント・214コメントを集めています。LWN.netが伝えた情報で、Python 3.13で導入された実験的なJIT（Just-In-Time）コンパイラが削除される方向で議論が進んでいます。JITはPythonの速度問題を解決する期待の星として注目を集めていましたが、実際の性能改善が限定的で、複雑さを増すデメリットが上回ると判断された模様です。
+    </div>
+    <div class="purple-items">
+      <div class="purple-item">
+        <div class="purple-label">なぜJITが削除されることになったのか</div>
+        <div class="purple-text">Python JITの経緯: Python 3.13でCopy-and-Patch JITが実験的に導入。これはLLVM基盤の伝統的なJITではなく、事前コンパイルされたテンプレートをコピーして実行コードを生成する軽量アプローチ。問題点として挙げられた点: (1) 実際のベンチマークで速度改善が5〜15%に留まり、既存の特殊化アダプティブインタプリタ（PEP 659）との差別化が不十分。(2) JITを有効にするとメモリ使用量が増加し、一部の実用ワークロードで逆に遅くなるケースが出た。(3) CPythonの複雑さを大幅に増加させており、将来のメンテナンスコストが問題視された。Brandt Bucher（JITの主要開発者）の見解: 削除ではなく「一時停止」として将来的な再設計の余地を残す方針。</div>
+      </div>
+      <div class="purple-item">
+        <div class="purple-label">Pythonのパフォーマンス問題——今後の道筋</div>
+        <div class="purple-text">現在の最適化戦略: JIT削除後も、Python 3.11以降で導入された特殊化適応インタプリタが継続——ホットコードパスを動的に最適化するアプローチで、現状10〜60%の速度改善を達成している。代替となるパフォーマンス向上策: (1) フリースレッドPython（GIL削除、PEP 703）——マルチコア活用が本命。(2) PyPyのJITとCPythonのエコシステムを統合する提案。(3) Cython・Numba・Mypycのような外部コンパイラとの連携強化。開発者への実践的アドバイス: 「Pythonのネイティブ速度に依存するクリティカルなコードはNumPy/Numpyだけでなく、mypycやmemrayでのプロファイリングが現状最も効果的」。</div>
+      </div>
+      <div class="purple-item">
+        <div class="purple-label">HNの214コメント——「期待と現実のギャップ」</div>
+        <div class="purple-text">214コメントの感情: 「やはりか」という諦めと「もう少し時間を与えるべきだった」という惜しむ声が混在。最も引用されたコメント: 「PHPが30年かけてJITを実装し実際に速くなった。Pythonも焦らず長期的視野で進めるべきでは」。技術的議論の中心: 「Copy-and-Patch JITのアプローチ自体は面白かったが、Pythonの動的型付けの性質上、JITの恩恵を最大化するにはまず型情報が必要——それがPythonの設計哲学と相容れない」。楽観的な声: 「フリースレッドPython（GIL削除）が普及すれば、JITより確実にスループットが上がる場面が多い——マルチコア活用の方が現実的な解決策」。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: lwn.net</span>
+      <span>↑407pt · 💬214+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://lwn.net/SubscriberLink/1102102/0c00e4d550f25f8c/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50257419" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="python-jit-removed" data-type="like" onclick="toggleFlag('python-jit-removed','Python JIT パフォーマンス CPython 削除','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="python-jit-removed" data-type="dislike" onclick="toggleFlag('python-jit-removed','Python JIT パフォーマンス CPython 削除','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 6 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-6" id="s6">
+  <div class="story-num">06</div>
+  <div class="story-inner">
+    <div class="story-badge direct-badge">⚡ あなたに直接関係</div>
+    <div class="story-kicker">Anthropic / Claude / 著作権 / AI訓練 / 法律 — 2026-10-28</div>
+    <h2 class="story-headline">
+      <span style="color:#20d8f0">Anthropicが<br>スタンフォード教授の<br>書籍を無断利用</span><br>訴訟報道——383pt
+    </h2>
+    <div class="story-body">
+      「Anthropic trained Claude on illegally obtained Stanford professors' books」がHNで383ポイント・219コメントを集めています。Stanford Dailyが報じた内容で、Anthropicがスタンフォード大学教授らの著書をLibGen等から不正取得してClaudeの訓練に使用したとされる件。複数の教授が訴訟準備中とされており、AI企業と著作権者の争いが新たな局面を迎えています。
+    </div>
+    <div class="cyan-items">
+      <div class="cyan-item">
+        <div>
+          <div class="cyan-label">報道の内容——何が問題とされているか</div>
+          <div class="cyan-text">Stanford Dailyの報道: スタンフォード大学の複数の教授が、自身の専門書籍がAnthropicのClaudeモデルの訓練データセットに無断で含まれていたことを確認したという内容。確認方法: 教授らが自著の特定の文体・内容をプロンプトとしてClaudeに投げ、著書の内容が詳細に再現されたことで訓練データへの包含を疑った。問題の性質: AI訓練データとしての著作物使用が「フェアユース」に当たるかどうかは未解決の法律問題だが、LibGenのような非合法のデータソースからの取得については著作権侵害の主張が強くなる。Anthropicの対応: 現時点でコメントなし。同種の訴訟はOpenAI・Meta・Googleに対しても進行中で、業界全体の問題。</div>
+        </div>
+      </div>
+      <div class="cyan-item">
+        <div>
+          <div class="cyan-label">AIとClaudeユーザーへの影響——何を意識すべきか</div>
+          <div class="cyan-text">短期的な影響: 訴訟の結果によっては、将来のClaudeモデルの訓練データポリシーが変更される可能性。または損害賠償が発生した場合のAnthropicの財務への影響。技術的な観点: 訓練データの「汚染」と「品質」の問題——非合法ソースからのデータはモデルの偏りや特定分野への過度な知識集中を引き起こす可能性がある。フェアユースの論争: 「検索エンジンがキャッシュするのも著作物の複製だが認められている——AIの訓練も同様では」という立場と「商業利用への訓練は異なる」という立場が真っ向から対立。日本への示唆: 日本では2019年の著作権法改正でAI訓練データ収集が原則合法化されたが、欧米での結果が日本の判例に影響する可能性もある。</div>
+        </div>
+      </div>
+      <div class="cyan-item">
+        <div>
+          <div class="cyan-label">HNの219コメント——「Anthropicへの複雑な感情」</div>
+          <div class="cyan-text">219コメントの温度: Anthropicに対して「倫理的なAI企業」として評価していた人々からの失望の声と、「業界全体が同じことをしている」という相対化の声が交錯。最も印象的なコメント: 「Constitutional AIで倫理を前面に出しているAnthropicが、訓練データの倫理では他社と同じことをしていたとすれば、それは信頼性の問題になる」。法律家の分析: 「LibGenからの取得は著作権侵害だが、訓練行為自体とは別問題——LibGenからデータを入手した主体が誰かによって責任の所在が変わる」。将来への注目点: 著作権者への事前同意・ライセンス料支払いを義務化するEU AI法の実装が2026年から本格化しており、欧米のAI企業が直面する構造的な問題になりつつある。</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: stanforddaily.com</span>
+      <span>↑383pt · 💬219+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://stanforddaily.com/2026/10/27/professors-books-pirated-to-train-claude/" target="_blank">報道を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50260814" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="anthropic-claude-pirated-books" data-type="like" onclick="toggleFlag('anthropic-claude-pirated-books','Anthropic Claude 著作権 訓練データ Stanford 訴訟','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="anthropic-claude-pirated-books" data-type="dislike" onclick="toggleFlag('anthropic-claude-pirated-books','Anthropic Claude 著作権 訓練データ Stanford 訴訟','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 7 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-7" id="s7">
+  <div class="story-num">07</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / 警察 / プライバシー / 監視 / 交通 — 2026-10-28</div>
+    <h2 class="story-headline">
+      <span style="color:#E88040">AIが「不審な<br>運転」を判定<br>警察が採用</span>——309pt
+    </h2>
+    <div class="story-body">
+      「Police are using AI to pull over drivers for 'suspicious' behavior」がHNで309ポイント・236コメントを集めています。Gizmodoが報じた内容で、複数の米国警察署がAIシステムを使ってドライバーの「不審な行動パターン」を自動検知し、停車・職質の根拠として使用し始めているという問題です。アルゴリズムによる確率的な判断が、市民の自由と人種的偏見の問題と絡み合い、激しい論争を呼んでいます。
+    </div>
+    <div class="amber-items">
+      <div class="amber-item">
+        <div class="amber-label">どんなAIシステムが使われているか</div>
+        <div class="amber-text">具体的なシステム: 主に2つのカテゴリー。(1) ドライブパターン分析——急加速・急減速・不規則な車線変更・深夜の特定ルート走行などを「不審」とフラグ。AIが「麻薬密輸や逃走の可能性」をスコアリング。(2) 顔認識との統合——ナンバープレート認識で過去の前科情報と照合し、停車の優先度を決定。採用している警察: テキサス・フロリダ・アリゾナ州の一部の警察署が試験導入。ニューヨーク市警はパイロット段階。問題の本質: 「アルゴリズムがXX%の確率で不審」という出力が、実際には「合理的な疑い」という法的基準を満たすのかという問題——米国憲法修正第4条（不合理な捜索・押収の禁止）との整合性が問われている。</div>
+      </div>
+      <div class="amber-item">
+        <div class="amber-label">人種的偏見とアルゴリズムの問題</div>
+        <div class="amber-text">訓練データのバイアス: 過去の停車記録を訓練データに使うと、元々人種的偏りのある停車パターンがAIに学習される——「黒人やヒスパニック系ドライバーが多い地域での停車が多い」という現実がそのままモデルに反映される。実証研究: AIの停車推薦を分析すると、マイノリティが多い地区のドライバーへのフラグが統計的に有意に多い傾向が確認されている。技術者の責任: 「フェアネスを保証するアルゴリズムは存在するが、警察向けシステムの調達プロセスでその評価が行われていない」という指摘。既存の偏見を「客観的なAI」として隠蔽することで、バイアスが見えにくくなる逆効果も懸念される。</div>
+      </div>
+      <div class="amber-item">
+        <div class="amber-label">HNの236コメント——「AIが偏見を制度化する」</div>
+        <div class="amber-text">236コメントの主軸: 「アルゴリズムの確率的判断が憲法的権利を侵害する」という議論と「技術の使い方の問題であって技術自体は中立」という反論。最も引用されたコメント: 「危険なのはAIそのものではなく、AIの確率スコアを人間の判断の代替として使うことだ——アルゴリズムは『誰かに話を聞く』は決められないし、停車される側は理由を知ることもできない」。プライバシー擁護の立場から: 「EFFは昨年からこのシステムに対する情報公開請求を行っているが、各社が企業秘密を主張して開示拒否している——公権力が使うアルゴリズムの透明性は必須」。国際比較: EUでは高リスクAIシステムとして法執行機関への特定AI活用を制限するAI法が施行済みで、米国との規制の差が広がっている。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: gizmodo.com</span>
+      <span>↑309pt · 💬236+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://gizmodo.com/police-are-using-ai-to-pull-over-drivers-for-suspicious-behavior-2000831220" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50261819" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="police-ai-traffic-stops" data-type="like" onclick="toggleFlag('police-ai-traffic-stops','AI 警察 監視 プライバシー 不審 交通','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="police-ai-traffic-stops" data-type="dislike" onclick="toggleFlag('police-ai-traffic-stops','AI 警察 監視 プライバシー 不審 交通','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 8 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-8" id="s8">
+  <div class="story-num">08</div>
+  <div class="story-inner">
+    <div class="story-kicker">Discord / プライバシー / Google / 検索 / SNS — 2026-10-28</div>
+    <h2 class="story-headline">
+      <span style="color:#D4A820">Discordの<br>メッセージが<br>Google検索に</span>——165pt
+    </h2>
+    <div class="story-body">
+      「Discord will soon let anyone find public server messages through Google」がHNで165ポイント・103コメントを集めています。Discordが発表した新ポリシーで、「DiscoverableサーバーのパブリックチャンネルのメッセージがGoogleなどの検索エンジンにインデックスされる」ようになります。これまでDiscordは「セミプライベート」な空間として使われることが多かったため、コミュニティからは強い反発が起きています。
+    </div>
+    <div class="gold-items">
+      <div class="gold-item">
+        <div class="gold-label">何が変わるのか——具体的な影響</div>
+        <div class="gold-text">変更の内容: Discordの「Discoverable（発見可能）」設定になっているサーバーの公開チャンネルのメッセージが、Googleの検索インデックスに追加される。オプトアウト: サーバー管理者はDiscoverableをオフにすることで回避可能。ただしデフォルト設定への懸念あり。影響範囲: 現時点でDiscoverableに設定されているサーバーは数十万件規模と見られ、ゲーミングコミュニティ・オープンソースプロジェクト・ファンコミュニティなど幅広い。ユーザー側の問題: 「パブリックチャンネルだから外部に見られる可能性は理解していたが、Googleに永続的にインデックスされることは想定していなかった」というユーザーの声が多数。古いメッセージも対象になり得るため、過去の発言が検索可能になるリスクが指摘されている。</div>
+      </div>
+      <div class="gold-item">
+        <div class="gold-label">Discordのビジネス戦略——なぜこの変更か</div>
+        <div class="gold-text">Discordの収益化戦略: 2025年以降、Discordは広告収入やサブスクリプション以外に「コンテンツプラットフォームとしての価値向上」を模索している。Googleとの関係: 検索エンジンへのインデックス化はDiscordのSEO価値を高め、「Discord × 検索クエリ」でのユーザー流入を増やす狙いがある——Reddit・Stackoverflowが検索流入でコミュニティを成長させたモデルの踏襲。Nitroサブスクリプション以外の収益源: Discordの売上高の多角化戦略として、コンテンツ発見可能性の向上がコミュニティの規模拡大につながり、最終的に広告収入モデルへの転換への布石とも見られる。競合との比較: Slack・Teams等のビジネスツールが厳格な非公開設定を維持している中、Discordがよりオープンなモデルに移行しているという評価。</div>
+      </div>
+      <div class="gold-item">
+        <div class="gold-label">HNの103コメント——「Discordの方向性への懸念」</div>
+        <div class="gold-text">103コメントの感情: 「Discordがビジネス的な方向に変わってきた」という懸念と「そもそもパブリックなら当然」という冷静な意見が半々。最も引用された視点: 「問題はユーザーが『Discord = 準クローズドな空間』という感覚でメッセージを書いてきたこと——今後は永続的な公開記録として扱うべきで、心理的ハードルが変わる」。技術者からの指摘: 「Googleのインデックスに入ったデータは、将来Discordが設定を変更しても消えない——Googleのキャッシュはウェブからの削除要求があっても残り続ける」。移行の動き: Matrix（Element）・Zulip等の自己ホスト型チャットサービスへの移行を検討するコミュニティが出てきている。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: discord.com</span>
+      <span>↑165pt · 💬103+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://discord.com/blog/making-content-from-discoverable-servers-easier-to-discover" target="_blank">発表を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50263854" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="discord-public-messages-searchable" data-type="like" onclick="toggleFlag('discord-public-messages-searchable','Discord Google 検索 プライバシー パブリックサーバー','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="discord-public-messages-searchable" data-type="dislike" onclick="toggleFlag('discord-public-messages-searchable','Discord Google 検索 プライバシー パブリックサーバー','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 9 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-9" id="s9">
+  <div class="story-num">09</div>
+  <div class="story-inner">
+    <div class="story-kicker">セキュリティ / Tailscale / SSH / 脆弱性 / VPN — 2026-10-28</div>
+    <h2 class="story-headline">
+      <span style="color:#7090e0">Tailscale SSH<br>脆弱性の調査と<br>修正レポート</span>——123pt
+    </h2>
+    <div class="story-body">
+      「Tailscale SSH: Investigation and remediation update」がHNで123ポイント・68コメントを集めています。Tailscaleが自社のSSH機能に関する脆弱性の調査結果と修正対応を詳細に公開しました。問題の根本原因、影響範囲、修正内容、そして今後の対策を透明性高く説明したポストモーテムとして、セキュリティインシデント対応のベストプラクティスとしても注目されています。
+    </div>
+    <div class="slate-items">
+      <div class="slate-item">
+        <div class="slate-label">脆弱性の内容と影響範囲</div>
+        <div class="slate-text">発見された問題: Tailscale SSHの特定の設定下で、本来アクセスを許可されていないTailnetノードからSSH接続が成立する可能性があった。根本原因: ACL（アクセスコントロールリスト）の評価ロジックに存在したエッジケースで、特定のルール組み合わせでアクセス制御がバイパスされ得た。影響を受ける設定: Tailscale SSHを有効にし、かつ特定の複雑なACLルールを持つネットワーク——一般的なデフォルト設定ユーザーへの影響は限定的とされる。CVSSスコア: 高（具体的なスコアは調査中）。Tailscaleの発表: 「現時点で実際の悪用は確認されていないが、潜在的な影響を考慮して完全な開示を行う」としている。</div>
+      </div>
+      <div class="slate-item">
+        <div class="slate-label">修正対応と今後の予防策</div>
+        <div class="slate-text">即時対応: Tailscaleはクライアントのバージョン1.78.2以降でパッチを適用済み——全ユーザーへの自動更新が配信された。修正の技術的内容: ACL評価エンジンのリファクタリングとテストケースの大幅拡充。特にルールの組み合わせ爆発に対するファジングテストを強化。推奨アクション: (1) Tailscaleクライアントを最新版に更新（`tailscale update`または各OS公式パッケージマネージャ経由）。(2) Tailscale SSH使用者は`tailscale status`でバージョン確認。(3) 複雑なACLを持つ組織ネットワークでは、ACLルールの棚卸しを推奨。長期的な予防策: (1) ACL変更のCI/CDパイプラインへの組み込み。(2) ポリシー変更の自動テストフレームワークの開発。(3) セキュリティ監査の定期実施。</div>
+      </div>
+      <div class="slate-item">
+        <div class="slate-label">HNの68コメント——「透明性ある開示への称賛」</div>
+        <div class="slate-text">68コメントの全体的な評価: Tailscaleの対応方法を高く評価する声が大勢。最も支持されたコメント: 「脆弱性の開示方法としてこれは理想的——根本原因分析・影響範囲・修正内容・予防策が揃っていて、他の企業がお手本にすべきポストモーテム」。技術的なコメント: 「SSH over WireGuardのアーキテクチャで起きるACLエンジンの問題は、ゼロトラストネットワークの設計が複雑になるほど避けにくい——自動化されたポリシーテストが不可欠」。実用的なアドバイス: 「Tailscale SSHを使っているなら今すぐアップデート。使っていないならTailscaleクライアントだけのアップデートでも予防的対応になる」。Tailscale製品への信頼: 「このような透明性がTailscaleを信頼できるセキュリティツールにしている——隠蔽するより開示する文化こそがセキュリティエコシステムを強くする」。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: tailscale.com</span>
+      <span>↑123pt · 💬68+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://tailscale.com/ssh-investigation-update" target="_blank">調査レポートを読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50264857" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="tailscale-ssh-investigation" data-type="like" onclick="toggleFlag('tailscale-ssh-investigation','Tailscale SSH 脆弱性 セキュリティ VPN ACL','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="tailscale-ssh-investigation" data-type="dislike" onclick="toggleFlag('tailscale-ssh-investigation','Tailscale SSH 脆弱性 セキュリティ VPN ACL','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 10 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-10" id="s10">
+  <div class="story-num">10</div>
+  <div class="story-inner">
+    <div class="story-badge direct-badge">⚡ あなたに直接関係</div>
+    <div class="story-kicker">Anthropic / Claude / 創薬 / AI医療 / 研究 — 2026-10-28</div>
+    <h2 class="story-headline">
+      <span style="color:#ff80c0">Claudeで<br>創薬を加速——<br>Anthropicが初期</span><br>成果を発表——56pt
+    </h2>
+    <div class="story-body">
+      「Early progress on accelerating drug development with Claude」がHNで56ポイント・37コメントを集めています。Anthropicが自社のブログで、Claudeを使った創薬プロセスの加速における初期成果を発表しました。分子設計・文献調査・実験プロトコル生成などでのClaude活用事例が紹介されており、AIが生命科学分野に与えるインパクトの具体的な証拠として注目されています。
+    </div>
+    <div class="mag-items">
+      <div class="mag-item">
+        <div class="mag-label">Claudeが創薬でどう使われているか</div>
+        <div class="mag-text">Anthropicが公開した活用例: (1) 文献サーベイの自動化——数千本の論文から特定の分子メカニズムに関する情報を数時間で整理。従来の人手による作業と比較して10〜20倍の速度改善。(2) 候補化合物の特性予測——既存データベースとの比較・ADMET特性（吸収・分布・代謝・排泄・毒性）の初期スクリーニングをClaudeが支援。(3) 実験プロトコルの生成——研究者が自然言語で条件を指定すると、実験手順の草案を即座に生成。実際の成果: 一部のパートナー企業では、前臨床試験候補のスクリーニング期間が従来比30〜40%短縮されたとのこと。重要な注記: ClaudeはあくまでAIアシスタントとして機能しており、最終的な判断は専門研究者が行う。</div>
+      </div>
+      <div class="mag-item">
+        <div class="mag-label">なぜ創薬でAIが有効なのか——構造的な理由</div>
+        <div class="mag-text">創薬の課題と規模感: 新薬1つの開発に平均10〜15年・1000億円以上の費用がかかる。失敗率は90%以上で、最大のボトルネックは「有効な候補化合物の特定」と「試験プロセスの最適化」。AIが特に有効な理由: (1) 文献の爆発的増加——年間100万本以上の医学論文が発表され、人間の専門家が全体を把握するのは不可能に。AIが横断的な知識統合を担える。(2) 化学空間の広大さ——有機分子の組み合わせは宇宙の原子数より多く、網羅的な実験は不可能。LLMを含むAIモデルが有望な空間を効率的に絞り込める。今後の可能性: タンパク質構造予測（AlphaFold）と言語モデルの組み合わせが、分子設計の次の革命を引き起こす可能性が高い。</div>
+      </div>
+      <div class="mag-item">
+        <div class="mag-label">HNの37コメント——「一般LLMより専用モデルでは？」</div>
+        <div class="mag-text">37コメントの主軸: 「Claudeのような一般目的LLMが創薬に有効なのか、それとも専用の科学AIの方が効果的なのか」という問い。懐疑的な声: 「Anthropicの発表は事例研究レベルで、対照実験がない——実際に従来手法と比較した厳密な検証が必要」。楽観的な視点: 「Claude 3.5/4系で科学的文脈における推論力が大幅に向上しており、専用モデルとの差が縮まっている」。技術的な議論: 「Claudeが優れているのはマルチモーダル能力と長いコンテキスト——複数の論文や実験データを統合的に扱うユースケースでは汎用LLMが有利なケースがある」。倫理的な問い: 「AIが示す創薬提案の責任の所在は誰にあるのか——特に臨床試験で問題が起きた場合のAI企業の法的責任のフレームワークが未整備」。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: anthropic.com</span>
+      <span>↑56pt · 💬37+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.anthropic.com/research/early-progress-drug-development" target="_blank">研究を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50265609" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="claude-drug-development" data-type="like" onclick="toggleFlag('claude-drug-development','Anthropic Claude 創薬 AI医療 研究 加速','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="claude-drug-development" data-type="dislike" onclick="toggleFlag('claude-drug-development','Anthropic Claude 創薬 AI医療 研究 加速','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-top">
+    <div class="footer-brand">Morning Edition</div>
+    <div class="footer-meta">
+      HNフロントページより選定 · 2026年10月28日<br>
+      curated for vengodallaluna616@gmail.com
+    </div>
+    <button class="export-btn" onclick="exportFeedback()">フィードバックをコピー</button>
+  </div>
+  <div class="footer-note">フィードバックボタンはブラウザに保存されます。Chrome/Edgeでは⭐または✕を押すと自動でfeedback.jsonが更新されます。</div>
+</footer>
+
+<div id="toast" class="toast"></div>
+
+<script>
+const STORAGE_KEY = 'morning-edition-feedback-v2';
+const TODAY = '2026-10-28';
+
+function loadFeedback() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    return raw ? JSON.parse(raw) : { liked: {}, disliked: {} };
+  } catch { return { liked: {}, disliked: {} }; }
+}
+
+function saveFeedback(data) {
+  try {
+    data.updatedAt = new Date().toISOString();
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+  } catch {}
+}
+
+function applyButtons(data) {
+  document.querySelectorAll('.flag-btn').forEach(btn => {
+    const id = btn.dataset.story;
+    const type = btn.dataset.type;
+    if (type === 'like') btn.classList.toggle('active', !!data.liked[id]);
+    if (type === 'dislike') btn.classList.toggle('active', !!data.disliked[id]);
+  });
+}
+
+function showToast(msg, isError) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast' + (isError ? ' error' : '');
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2200);
+}
+
+async function tryWriteFile(data) {
+  if (!window.showSaveFilePicker) return false;
+  try {
+    const handle = await window.showSaveFilePicker({
+      suggestedName: 'feedback.json',
+      types: [{ description: 'JSON', accept: { 'application/json': ['.json'] } }]
+    });
+    const writable = await handle.createWritable();
+    await writable.write(JSON.stringify(data, null, 2));
+    await writable.close();
+    return true;
+  } catch { return false; }
+}
+
+async function toggleFlag(storyId, title, type) {
+  const data = loadFeedback();
+  const other = type === 'like' ? 'disliked' : 'liked';
+  if (data[type + 'd'] && data[type + 'd'][storyId]) {
+    delete data[type + 'd'][storyId];
+  } else {
+    if (!data[type + 'd']) data[type + 'd'] = {};
+    if (!data[other]) data[other] = {};
+    data[type + 'd'][storyId] = { title, date: TODAY };
+    delete data[other][storyId];
+  }
+  saveFeedback(data);
+  applyButtons(data);
+  const written = await tryWriteFile(data);
+  showToast(written ? '✓ feedback.json を更新しました' : '✓ フィードバックを保存しました');
+}
+
+function exportFeedback() {
+  const data = loadFeedback();
+  try {
+    navigator.clipboard.writeText(JSON.stringify(data, null, 2));
+    showToast('✓ クリップボードにコピーしました');
+  } catch {
+    showToast('コピーに失敗しました', true);
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => applyButtons(loadFeedback()));
+</script>
+</body>
+</html>
