@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Morning Edition — 2026年11月3日</title>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --font: 'M PLUS Rounded 1c', 'Hiragino Sans', 'Noto Sans JP', sans-serif; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); background: #111; color: #fff; overflow-x: hidden; }
+
+    .masthead { background: #fff; color: #000; padding: 3rem 4rem 2.5rem; border-bottom: 6px solid #000; position: relative; overflow: hidden; }
+    .masthead::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: repeating-linear-gradient(90deg, #000 0, #000 12px, transparent 12px, transparent 20px); }
+    .masthead-kicker { font-size: 0.85rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: #777; margin-bottom: 0.6rem; }
+    .masthead-title { font-size: clamp(3.5rem, 9vw, 7.5rem); font-weight: 900; line-height: 0.88; letter-spacing: -0.04em; margin-bottom: 1.8rem; }
+    .masthead-meta { display: flex; gap: 3rem; align-items: baseline; flex-wrap: wrap; }
+    .masthead-date { font-size: 1.5rem; font-weight: 700; }
+    .masthead-subtitle { font-size: 1rem; font-weight: 400; color: #555; max-width: 480px; line-height: 1.5; }
+    .masthead-issue { margin-left: auto; text-align: right; }
+    .masthead-issue span { display: block; }
+    .masthead-issue .iss-label { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: #999; }
+    .masthead-issue .iss-num { font-size: 2.2rem; font-weight: 900; color: #000; }
+
+    .toc { background: #1a1a1a; padding: 1.5rem 4rem; display: flex; gap: 1.5rem; flex-wrap: wrap; border-bottom: 1px solid #333; }
+    .toc a { color: #aaa; text-decoration: none; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; transition: color 0.2s; }
+    .toc a:hover { color: #fff; }
+    .toc-num { color: #555; margin-right: 0.3em; }
+
+    .story { position: relative; overflow: hidden; }
+    .story-inner { max-width: 1200px; margin: 0 auto; padding: 5rem 4rem; position: relative; z-index: 1; }
+    .story-num { font-size: clamp(6rem, 18vw, 16rem); font-weight: 900; line-height: 0.8; letter-spacing: -0.06em; opacity: 0.08; position: absolute; top: 1rem; right: 2rem; user-select: none; }
+    .story-badge { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.35em 0.9em; border-radius: 2px; margin-bottom: 1.5rem; }
+    .direct-badge { background: #FFD700; color: #000; }
+    .story-kicker { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; opacity: 0.6; margin-bottom: 0.8rem; }
+    .story-headline { font-size: clamp(2rem, 5vw, 4rem); font-weight: 900; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+    .story-body { font-size: clamp(1rem, 1.5vw, 1.2rem); font-weight: 400; line-height: 1.8; max-width: 680px; opacity: 0.88; margin-bottom: 2rem; }
+    .story-meta { display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center; font-size: 0.8rem; font-weight: 700; opacity: 0.5; }
+    .story-links { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem; }
+    .story-link { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.6em 1.4em; border-radius: 3px; text-decoration: none; transition: opacity 0.2s, transform 0.15s; }
+    .story-link:hover { opacity: 0.75; transform: translateY(-1px); }
+
+    .feedback-buttons { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .flag-btn { background: none; border: 1px solid currentColor; color: inherit; font-family: var(--font); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.5em 1em; border-radius: 3px; cursor: pointer; opacity: 0.32; transition: opacity 0.2s, background 0.2s, color 0.2s, border-color 0.2s, transform 0.15s; }
+    .flag-btn:hover { opacity: 0.72; transform: translateY(-1px); }
+    .flag-btn.like-btn.active { opacity: 1; background: rgba(255,215,0,0.15); border-color: #FFD700; color: #FFD700 !important; }
+    .flag-btn.dislike-btn.active { opacity: 1; background: rgba(255,60,60,0.12); border-color: #FF4444; color: #FF4444 !important; }
+
+    .toast { position: fixed; bottom: 2rem; right: 2rem; background: #1a1a1a; color: #fff; font-family: var(--font); font-size: 0.82rem; font-weight: 700; padding: 0.75em 1.4em; border-radius: 4px; border-left: 3px solid #00C853; z-index: 9999; opacity: 0; transform: translateY(10px); transition: opacity 0.25s, transform 0.25s; pointer-events: none; box-shadow: 0 4px 24px rgba(0,0,0,0.45); }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    .toast.error { border-left-color: #FF5252; }
+
+    /* Story 1 — White */
+    .story-1 { background: #fff; color: #000; min-height: 90vh; display: flex; flex-direction: column; justify-content: center; }
+    .story-1 .story-num { color: #000; opacity: 0.04; }
+    .story-1 .story-kicker { color: #555; opacity: 1; }
+    .story-1 .story-headline { color: #000; }
+    .story-1 .story-body { color: #111; }
+    .story-1 .story-meta { color: #000; }
+    .story-1 .story-link.primary { background: #1a1a1a; color: #fff; }
+    .story-1 .story-link.secondary { background: #f0f0f0; color: #000; }
+    .story-1 .flag-btn { color: #000; }
+    .story-1-accent { position: absolute; bottom: 0; left: 0; width: 100%; height: 8px; background: linear-gradient(90deg, #FF6B35 0%, #f7931e 50%, #FF6B35 100%); }
+    .story-1 .headline-accent { display: inline-block; background: linear-gradient(135deg, #FF6B35 0%, #f7931e 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .blue-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1.2rem; margin: 2rem 0; max-width: 680px; }
+    .blue-card { border: 2px solid rgba(0,0,0,0.12); background: rgba(0,0,0,0.03); border-radius: 6px; padding: 1.3rem 1.5rem; }
+    .blue-card-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.2em; text-transform: uppercase; color: #333; margin-bottom: 0.4rem; }
+    .blue-card-value { font-size: 1.05rem; font-weight: 900; color: #000; line-height: 1.3; }
+    .blue-card-sub { font-size: 0.75rem; color: #555; margin-top: 0.3rem; line-height: 1.4; }
+
+    /* Story 2 — Dark navy/teal */
+    .story-2 { background: #00080c; color: #b8f0ff; min-height: 80vh; }
+    .story-2::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(0,160,200,0.14) 0%, transparent 65%); }
+    .story-2 .story-num { color: #00A0C8; opacity: 0.07; }
+    .story-2 .story-kicker { color: #20C8E8; opacity: 1; }
+    .story-2 .story-headline { color: #e0f8ff; }
+    .story-2 .story-body { color: #b8f0ff; }
+    .story-2 .story-meta { color: #20C8E8; opacity: 0.5; }
+    .story-2 .story-link.primary { background: #004058; color: #80e8ff; }
+    .story-2 .story-link.secondary { background: rgba(0,160,200,0.08); color: #90d8f0; border: 1px solid rgba(0,160,200,0.22); }
+    .story-2 .flag-btn { color: #b8f0ff; }
+    .teal-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .teal-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(0,160,200,0.07); border-left: 3px solid #00A0C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .teal-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20C8E8; margin-bottom: 0.3rem; }
+    .teal-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 3 — Dark red */
+    .story-3 { background: #0a0000; color: #fff; min-height: 80vh; }
+    .story-3::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(200,20,20,0.16) 0%, transparent 65%); }
+    .story-3 .story-num { color: #C81414; opacity: 0.07; }
+    .story-3 .story-kicker { color: #E84040; opacity: 1; }
+    .story-3 .story-headline { color: #fff; }
+    .story-3 .story-body { color: rgba(255,255,255,0.88); }
+    .story-3 .story-meta { color: #E84040; opacity: 0.5; }
+    .story-3 .story-link.primary { background: #6a0000; color: #fff; }
+    .story-3 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-3 .flag-btn { color: #fff; }
+    .red-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .red-item { background: rgba(200,20,20,0.07); border-left: 3px solid #C81414; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .red-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E84040; margin-bottom: 0.3rem; }
+    .red-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 4 — Dark green */
+    .story-4 { background: #020c04; color: #c8f0d0; min-height: 80vh; }
+    .story-4::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(20,160,70,0.16) 0%, transparent 65%); }
+    .story-4 .story-num { color: #14A046; opacity: 0.07; }
+    .story-4 .story-kicker { color: #30C060; opacity: 1; }
+    .story-4 .story-headline { color: #e0ffe8; }
+    .story-4 .story-body { color: #c8f0d0; }
+    .story-4 .story-meta { color: #30C060; opacity: 0.5; }
+    .story-4 .story-link.primary { background: #063820; color: #80ffb0; }
+    .story-4 .story-link.secondary { background: rgba(20,160,70,0.08); color: #a0e8b0; border: 1px solid rgba(20,160,70,0.22); }
+    .story-4 .flag-btn { color: #c8f0d0; }
+    .green-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .green-item { background: rgba(20,160,70,0.07); border-left: 3px solid #14A046; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .green-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #30C060; margin-bottom: 0.3rem; }
+    .green-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 5 — Dark purple */
+    .story-5 { background: #040010; color: #d8c8ff; min-height: 75vh; }
+    .story-5::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(90,40,200,0.17) 0%, transparent 65%); }
+    .story-5 .story-num { color: #5A28C8; opacity: 0.07; }
+    .story-5 .story-kicker { color: #8050E0; opacity: 1; }
+    .story-5 .story-headline { color: #f0e8ff; }
+    .story-5 .story-body { color: #d8c8ff; }
+    .story-5 .story-meta { color: #8050E0; opacity: 0.5; }
+    .story-5 .story-link.primary { background: #200860; color: #d0a8ff; }
+    .story-5 .story-link.secondary { background: rgba(90,40,200,0.08); color: #c0a0f0; border: 1px solid rgba(90,40,200,0.22); }
+    .story-5 .flag-btn { color: #d8c8ff; }
+    .purple-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .purple-item { background: rgba(90,40,200,0.07); border-left: 3px solid #5A28C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .purple-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #8050E0; margin-bottom: 0.3rem; }
+    .purple-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 6 — Dark cyan */
+    .story-6 { background: #000c10; color: #b8e8f0; min-height: 75vh; }
+    .story-6::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 40%, rgba(0,130,160,0.14) 0%, transparent 65%); }
+    .story-6 .story-num { color: #0080A0; opacity: 0.07; }
+    .story-6 .story-kicker { color: #20B0D0; opacity: 1; }
+    .story-6 .story-headline { color: #e0f4ff; }
+    .story-6 .story-body { color: #b8e8f0; }
+    .story-6 .story-meta { color: #20B0D0; opacity: 0.5; }
+    .story-6 .story-link.primary { background: #003848; color: #80d8f0; }
+    .story-6 .story-link.secondary { background: rgba(0,130,160,0.08); color: #90cce0; border: 1px solid rgba(0,130,160,0.22); }
+    .story-6 .flag-btn { color: #b8e8f0; }
+    .cyan-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .cyan-item { background: rgba(0,130,160,0.07); border-left: 3px solid #0080A0; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .cyan-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20B0D0; margin-bottom: 0.3rem; }
+    .cyan-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 7 — Dark amber */
+    .story-7 { background: #0a0300; color: #ffe0b8; min-height: 75vh; }
+    .story-7::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(210,90,20,0.18) 0%, transparent 65%); }
+    .story-7 .story-num { color: #D05A14; opacity: 0.07; }
+    .story-7 .story-kicker { color: #E88040; opacity: 1; }
+    .story-7 .story-headline { color: #fff0d8; }
+    .story-7 .story-body { color: #ffe0b8; }
+    .story-7 .story-meta { color: #E88040; opacity: 0.5; }
+    .story-7 .story-link.primary { background: #6a2400; color: #ffc880; }
+    .story-7 .story-link.secondary { background: rgba(210,90,20,0.08); color: #ffb870; border: 1px solid rgba(210,90,20,0.22); }
+    .story-7 .flag-btn { color: #ffe0b8; }
+    .amber-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .amber-item { background: rgba(210,90,20,0.07); border-left: 3px solid #D05A14; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .amber-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E88040; margin-bottom: 0.3rem; }
+    .amber-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 8 — Dark gold */
+    .story-8 { background: #080500; color: #fff; min-height: 70vh; }
+    .story-8::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,145,10,0.15) 0%, transparent 65%); }
+    .story-8 .story-num { color: #BE9110; opacity: 0.06; }
+    .story-8 .story-kicker { color: #D4A820; opacity: 1; }
+    .story-8 .story-headline { color: #fff; }
+    .story-8 .story-body { color: rgba(255,255,255,0.88); }
+    .story-8 .story-meta { color: #D4A820; opacity: 0.5; }
+    .story-8 .story-link.primary { background: #604000; color: #ffe070; }
+    .story-8 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-8 .flag-btn { color: #fff; }
+    .gold-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .gold-item { background: rgba(190,145,10,0.07); border-left: 3px solid #BE9110; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .gold-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #D4A820; margin-bottom: 0.3rem; }
+    .gold-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 9 — Slate blue */
+    .story-9 { background: #040810; color: #c8d8f0; min-height: 70vh; }
+    .story-9::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 35%, rgba(50,90,170,0.16) 0%, transparent 65%); }
+    .story-9 .story-num { color: #3258A8; opacity: 0.07; }
+    .story-9 .story-kicker { color: #5878C8; opacity: 1; }
+    .story-9 .story-headline { color: #e8f0ff; }
+    .story-9 .story-body { color: #c8d8f0; }
+    .story-9 .story-meta { color: #5878C8; opacity: 0.5; }
+    .story-9 .story-link.primary { background: #101e50; color: #fff; }
+    .story-9 .story-link.secondary { background: rgba(50,90,170,0.08); color: #b0c8e8; border: 1px solid rgba(50,90,170,0.22); }
+    .story-9 .flag-btn { color: #c8d8f0; }
+    .slate-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .slate-item { background: rgba(50,90,170,0.07); border-left: 3px solid #3258A8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .slate-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #5878C8; margin-bottom: 0.3rem; }
+    .slate-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 10 — Magenta */
+    .story-10 { background: #080004; color: #ffc8e8; min-height: 70vh; }
+    .story-10::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,20,90,0.15) 0%, transparent 65%); }
+    .story-10 .story-num { color: #BE1458; opacity: 0.07; }
+    .story-10 .story-kicker { color: #E04080; opacity: 1; }
+    .story-10 .story-headline { color: #fff0f8; }
+    .story-10 .story-body { color: #ffc8e8; }
+    .story-10 .story-meta { color: #E04080; opacity: 0.5; }
+    .story-10 .story-link.primary { background: #500030; color: #ffb0d8; }
+    .story-10 .story-link.secondary { background: rgba(190,20,90,0.08); color: #f090c0; border: 1px solid rgba(190,20,90,0.22); }
+    .story-10 .flag-btn { color: #ffc8e8; }
+    .mag-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .mag-item { background: rgba(190,20,90,0.07); border-left: 3px solid #BE1458; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .mag-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E04080; margin-bottom: 0.3rem; }
+    .mag-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .site-footer { background: #000; color: #555; padding: 3rem 4rem; display: flex; flex-direction: column; gap: 1.5rem; border-top: 1px solid #222; }
+    .footer-top { display: flex; gap: 2rem; align-items: center; flex-wrap: wrap; justify-content: space-between; }
+    .footer-brand { font-size: 1.4rem; font-weight: 900; color: #fff; }
+    .footer-meta { font-size: 0.75rem; line-height: 1.6; }
+    .export-btn { background: #222; border: 1px solid #444; color: #fff; font-family: var(--font); font-size: 0.8rem; font-weight: 700; padding: 0.7em 1.5em; border-radius: 3px; cursor: pointer; letter-spacing: 0.08em; transition: background 0.2s; }
+    .export-btn:hover { background: #333; }
+    .footer-note { font-size: 0.7rem; opacity: 0.5; }
+
+    @media (max-width: 768px) {
+      .masthead, .toc, .story-inner, .site-footer { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .story-num { display: none; }
+      .masthead-meta { gap: 1rem; }
+      .masthead-issue { margin-left: 0; }
+      .blue-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+<nav style="background:#1a1a1a;border-bottom:1px solid #333;padding:0.55rem 2rem;font-family:'M PLUS Rounded 1c','Hiragino Sans','Noto Sans JP',sans-serif;position:sticky;top:0;z-index:999;">
+  <a href="./index.html" style="color:#aaa;text-decoration:none;font-size:0.8rem;font-weight:700;letter-spacing:0.03em;display:inline-flex;align-items:center;gap:0.4rem;transition:color 0.15s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#aaa'">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    アーカイブへ戻る
+  </a>
+</nav>
+
+<header class="masthead">
+  <div class="masthead-kicker">Hacker News — Morning Edition</div>
+  <h1 class="masthead-title">Morning<br>Edition</h1>
+  <div class="masthead-meta">
+    <div>
+      <div class="masthead-date">2026年11月3日 火曜日</div>
+      <div class="masthead-subtitle">AI・開発ツール・プライバシー・サイエンス — あなたのための10本</div>
+    </div>
+    <div class="masthead-issue">
+      <span class="iss-label">Issue</span>
+      <span class="iss-num">No.168</span>
+    </div>
+  </div>
+</header>
+
+<nav class="toc">
+  <a href="#s1"><span class="toc-num">01</span>AstraがQwenのウェイトを直接書き換えてモデルを改善</a>
+  <a href="#s2"><span class="toc-num">02</span>WTF Ubuntu?——Ubuntuへの怒りの告発文</a>
+  <a href="#s3"><span class="toc-num">03</span>Show HN: Subvocal——声を出さずにPCと会話する</a>
+  <a href="#s4"><span class="toc-num">04</span>好きなウェブサイトはバックアップせよ</a>
+  <a href="#s5"><span class="toc-num">05</span>Ubuntuがゼロデイ RCEパッチを3週間放置中</a>
+  <a href="#s6"><span class="toc-num">06</span>⚡ SECはAnthropicのIPOをブロックすべきか</a>
+  <a href="#s7"><span class="toc-num">07</span>CloudflareがDNSビルドを2倍速に・メモリ85%削減</a>
+  <a href="#s8"><span class="toc-num">08</span>AI時代の「エゴレス数学」——テレンス・タオ</a>
+  <a href="#s9"><span class="toc-num">09</span>OpenAIのGitスケーリング戦略の全貌</a>
+  <a href="#s10"><span class="toc-num">10</span>SLAC研究所が「交代磁性」の証拠を発見</a>
+</nav>
+
+<!-- ═══ STORY 1 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-1" id="s1">
+  <div class="story-num">01</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / ウェイト空間プログラミング / DeepMind / Qwen / LLM改善 — 2026-11-03</div>
+    <h2 class="story-headline">
+      <span class="headline-accent">AstraがQwenの<br>ウェイトを直接<br>書き換える</span><br>——ウェイト空間プログラミング——2235pt
+    </h2>
+    <div class="story-body">
+      「Astra can read and write weights to improve Qwen」がHNで2235ポイント・720コメントを集めています。DeepMindのマルチモーダルAIエージェント「Astra」が、別のLLM（Qwen）のモデルウェイトを直接読み書きすることでその能力を改善できるという研究成果です。AIがAIを修正するという新しいパラダイム「ウェイト空間プログラミング」の幕開けを予感させる内容として、HNで極めて高い注目を集めています。
+    </div>
+    <div class="blue-grid">
+      <div class="blue-card">
+        <div class="blue-card-label">ウェイト空間プログラミングとは何か</div>
+        <div class="blue-card-value">AIがAIのウェイトを直接操作して改善する</div>
+        <div class="blue-card-sub">従来のアプローチ: AIを改善するには人間が大量のデータを用意し、ファインチューニングや強化学習を実施する——数週間〜数ヶ月のサイクル。Astraのアプローチ: Astraはモデルウェイトをある種の「プログラム可能なデータ構造」として扱い、特定の能力を向上させるためにどのウェイトをどう変化させるべきかを推論して直接書き込む。実験の概要: AstraがQwen-2.5-7Bのウェイトを読み込み、数学推論タスクの弱点を分析し、ウェイトへの差分を生成して書き込んだ結果、ターゲットしたベンチマークスコアが約12%向上。重要な制約: 現時点では非常に小さな変更のみが成功しており、大幅な書き換えはモデル崩壊を引き起こす——「アシスタントとしてのAIがエンジニアとしてのAIに進化する第一歩」と著者は説明。オープンソース: 実験コードとモデル差分はGitHub上で公開されており、誰でも再現可能。</div>
+      </div>
+      <div class="blue-card">
+        <div class="blue-card-label">なぜこれが重要か——自己改善AIの入口</div>
+        <div class="blue-card-value">AIによるAI改善のフィードバックループが始まる</div>
+        <div class="blue-card-sub">今回の意義: 人間のフィードバック（RLHF）なしにAIがAIを改善できることを実証した点が最大の価値。スケーリング則との関係: モデルサイズを大きくするだけではなく、既存モデルのウェイト空間を「賢く書き換える」ことで同等以上の改善が得られる可能性を示唆——計算コストを抑えながら能力向上できる新しい経路。実用的な応用: (1) ドメイン特化型の微調整を、データ収集なしで実行できる可能性。(2) セキュリティパッチをウェイトレベルで適用（有害な能力を除去）。(3) 異なるモデル間で能力を「転写」する。懸念点: 「悪意あるアクターがこの技術でオープンソースモデルに有害な能力を注入できる」というセキュリティリスクをコメントが多く指摘。研究コミュニティの反応: 「これはAIアライメント研究の方向を変える可能性がある——モデルの振る舞いをウェイト空間で直接制御できるなら、安全性のための介入も同様の方法で可能になる」。</div>
+      </div>
+      <div class="blue-card">
+        <div class="blue-card-label">HNの720コメント——賛否と未来予測</div>
+        <div class="blue-card-value">「自己再帰的改善」への興奮と懸念が交錯</div>
+        <div class="blue-card-sub">720コメントで最も議論された点: 「12%の改善は小さく見えるが、これが自動化されてフィードバックループになると話が変わる——AIが反復的に自分のウェイトを改善し始めたとき何が起きるか」。技術的な懐疑論: 「ウェイトへの直接書き込みが成功したのは特定のサブネットワークへの局所的な変更に限られており、汎用的な改善には程遠い。現時点ではポイントチューニングのオートメーションに過ぎない」。著者の説明: 「Astraは『どのウェイトを変えるべきか』を理解しているわけではなく、巨大なウェイト差分の探索空間から有望な方向をサンプリングしている——本質的には進化的手法に近い」。DeepMindとAnthropic・OpenAIの比較: 「DeepMindがこの方向を公開する一方、OpenAIとAnthropicがどこまで進んでいるかが気になる——クローズドな研究でこれよりはるか先に進んでいる可能性が高い」。Claude Codeユーザーへの関連: この研究が進展すれば「Claude Codeがコードを書くだけでなく、自身の能力を専門分野に適応させながら使える」将来への道が開ける。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: rikiyat.github.io</span>
+      <span>↑2235pt · 💬720+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://rikiyat.github.io/blog/weight-space-programming/" target="_blank">論文を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50341174" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="astra-weight-space-qwen" data-type="like" onclick="toggleFlag('astra-weight-space-qwen','Astra ウェイト空間プログラミング Qwen DeepMind AI 自己改善 LLM','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="astra-weight-space-qwen" data-type="dislike" onclick="toggleFlag('astra-weight-space-qwen','Astra ウェイト空間プログラミング Qwen DeepMind AI 自己改善 LLM','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+    <div class="story-1-accent"></div>
+  </div>
+</section>
+
+<!-- ═══ STORY 2 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-2" id="s2">
+  <div class="story-num">02</div>
+  <div class="story-inner">
+    <div class="story-kicker">開発ツール / Ubuntu / Linux / プライバシー / Snap / OS設計 — 2026-11-03</div>
+    <h2 class="story-headline">
+      <span style="color:#20d8f0">WTF Ubuntu?</span><br>——Canonicalへの<br>怒りの告発文——1399pt
+    </h2>
+    <div class="story-body">
+      「WTF Ubuntu?」がHNで1399ポイント・595コメントを集めています。開発者のchalmovskが、最新のUbuntu LTSへの移行後に遭遇した数十の問題を赤裸々に書き上げたブログ記事です。デフォルトのデータ収集・強制的なSnapパッケージ・プライバシー侵害的な設定・壊れた依存関係管理——Ubuntuの方向性に不満を持つ多くの開発者の声を代弁する内容として爆発的に共感を集めています。
+    </div>
+    <div class="teal-items">
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">記事が列挙する主要な問題点</div>
+          <div class="teal-text">プライバシー問題: (1) インストール時のデフォルトテレメトリ——システム情報・クラッシュレポート・アプリ使用状況をCanonicalに自動送信。(2) Ubuntu Proの「無料」プランへの誘導が至る所で表示される——「広告のようなOS」という批判。Snapの強制: (2) Firefox・Thunderbird・GNOME Softwareが強制的にSnapバージョンに置き換えられる——起動が遅い（約2〜3倍）・Flatpakやシステムとの統合が壊れる場合がある。(3) Snap Storeが独占的なDistribution Channelになっており、Canonicalの審査なしにSnap化できないアプリが存在。依存関係管理の問題: (4) apt・snap・flatpakの3つが共存しており、同じパッケージの複数バージョンが競合するケースが頻発。(5) PPAのメンテナンス状況が悪化——Ubuntu公式のSnapに押し出される形でサードパーティPPAの更新が止まるケースが増加。</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">開発者が感じる「Ubuntuのドリフト」</div>
+          <div class="teal-text">著者の主張: 「Ubuntuはかつて『Linuxを使いやすくする』というミッションを持っていたが、今は『Canonicalのビジネスモデルを推進する』OSになっている——その変化が積み重なって限界に達した」。比較で言及されたディストリビューション: (1) Fedora: RHELの最新技術を試せる安定した選択肢として多く言及。(2) Debian: Ubuntuの元になった安定性重視のディストリビューション——Snapなし・余計なテレメトリなし。(3) Pop!_OS: System76が開発するUbuntuフォーク——Canonicalのデフォルト設定を外したクリーンなUbuntu体験。(4) NixOS: 宣言的設定による再現性の高い環境——移行コストは高いが、一度移行すれば環境管理が劇的に楽になると評価。開発者環境としてのUbuntuの地位: 「Ubuntuは依然としてAWS・GCP・DockerのデフォルトOSであり、開発者がローカルと本番で同じOSを使うという習慣が残っている——これが移行の障壁になっている」。</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">HNの595コメント——「次はどこへ行くか」</div>
+          <div class="teal-text">595コメントで最も議論された点: 「Ubuntuへの不満は新しくないが、これほど詳細にリストアップされた記事は久しぶり——開発者コミュニティの我慢が限界に達している証拠」。実際の移行報告: 「3ヶ月前にDebian bookwormに移行した——設定が自分の手の中にあるという感覚が戻ってきた」「FedoraはDNFが速いし、Flatpakとの統合も自然」「NixOSは学習コスト高いが、環境の再現性が仕事に不可欠になった」。Canonicalの擁護意見: 「Snapのサンドボックス化はセキュリティ上の利点がある——特に信頼できないサードパーティアプリを実行する場合。テレメトリも明示的なオプトアウトが可能」。WSL2での利用について: 「Windows上のWSL2でUbuntuを使っている場合はSnapが動作しないためこれらの問題が発生しにくい——クラウド開発とWSL2が増えたことでUbuntuへの不満が表面化しにくかった側面もある」。actionableなまとめ: Ubuntuを使い続けるなら——Snapを無効化してFirefoxをaptで入れ直す手順はcomputersetup.ioに詳細手順あり。移行を検討するなら——Fedora 40かDebian bookwormが安定した選択肢。</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: chalmovsky.com</span>
+      <span>↑1399pt · 💬595+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://chalmovsky.com/posts/wtf-ubuntu" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50337608" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="wtf-ubuntu-rant" data-type="like" onclick="toggleFlag('wtf-ubuntu-rant','Ubuntu Canonical Snap プライバシー Linux 開発ツール OS','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="wtf-ubuntu-rant" data-type="dislike" onclick="toggleFlag('wtf-ubuntu-rant','Ubuntu Canonical Snap プライバシー Linux 開発ツール OS','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 3 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-3" id="s3">
+  <div class="story-num">03</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / 開発ツール / 無声発話 / 入力インターフェース / Show HN — 2026-11-03</div>
+    <h2 class="story-headline">
+      <span style="color:#E84040">Subvocal</span><br>——声を出さずに<br>PCと話す——612pt
+    </h2>
+    <div class="story-body">
+      「Show HN: Subvocal – Talk to your computer without making noise」がHNで612ポイント・321コメントを集めています。口の動きだけで（声帯を振動させない）コンピューターに指示を出せる「無声発話インターフェース」のShow HNです。筋電図センサーなどを使わず、顔の微細な筋肉の動きをカメラで検出するというアプローチで、オフィス・図書館・就寝前など「声が出せない状況」でのPC操作を可能にします。
+    </div>
+    <div class="red-items">
+      <div class="red-item">
+        <div class="red-label">仕組み——カメラだけで無声発話を検出する方法</div>
+        <div class="red-text">技術の概要: ウェブカメラで顔の口周り・顎・頬の微細な動きをリアルタイムでキャプチャし、MediaPipe Face Meshの468ランドマークから「発話時の筋肉動作パターン」を学習したモデルで音素（phoneme）を推定。音声への変換: 推定した音素列を言語モデル（小型のLLM）で「最もありそうな単語・文」に変換——音声認識のような確率的デコーディング。精度: 著者の報告では単語認識精度約72%（静止状態）——ノイズの多い環境での音声認識（約85%）には及ばないが、無音入力として実用的なレベルとの評価。レイテンシ: 現在約350ms——音声入力の即時性には遠いが、短いコマンド入力には許容できると著者は述べる。必要なハードウェア: 通常のウェブカメラのみ——EMGセンサー・喉マイク等の特殊デバイス不要。これがこのプロジェクトの最大の差別化点。</div>
+      </div>
+      <div class="red-item">
+        <div class="red-label">どんな場面で使えるか——actionableなユースケース</div>
+        <div class="red-text">今すぐ試せる場面: (1) オープンオフィスで同僚に気を遣わずにClaude Codeに指示を出す——「次の関数を書いて」「テストを実行して」などの短いコマンド。(2) 会議中にメモを取る——声を出さずに議事録アプリにキーワードを入力。(3) 深夜に家族を起こさずにPCを操作。(4) 公共交通機関でのAI音声アシスタント使用——周囲への配慮不要。特定のニーズに対する価値: (1) ALS・筋萎縮性側索硬化症など発話障害を持つユーザーへの新しい入力手段。(2) 喉の手術後・声帯疾患を持つユーザーへの一時的な代替手段。現在の制限: 英語のみ対応（日本語は未対応）・トレーニングデータが少ない言語では精度が落ちる・精度72%は実用的な「コマンド入力」には使えるが「ドキュメント作成」には現時点では厳しい。GitHub: オープンソース（MIT License）で公開済み——すぐに試したい方はstar数が急増中。</div>
+      </div>
+      <div class="red-item">
+        <div class="red-label">HNの321コメント——「次世代入力の夜明けか」</div>
+        <div class="red-text">321コメントで最も議論された点: 「精度72%はまだ実用には低いが、このアプローチが面白いのはハードウェア不要である点——スマートフォンのカメラで同様のことができれば市場が劇的に広がる」。障害者支援の観点から: 「ALS患者や発話障害を持つユーザーにとって、これは既存のEMGベースのシステム（高価・不快・装着が大変）の代替になる可能性がある——医療デバイスとしての市場化を目指してほしい」。技術的な懐疑論: 「72%というのは制御された環境での数字で、実際の使用では顔の向き・照明・眼鏡の有無で大きく変動するはず——実使用テストを見たい」。著者の反応: 「日本語対応は次のマイルストーンに入れている——多言語モデルのため口の動きパターンの収集がボトルネック。日本語話者のデータ収集に協力してくれる方を募集中」。将来の展望として挙げられた意見: 「Apple Vision ProやMeta Questなどのヘッドセットに組み込まれれば、没入体験を壊さないサイレントコマンドとして極めて価値が高い」。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: Show HN (HN)</span>
+      <span>↑612pt · 💬321+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://news.ycombinator.com/item?id=50340088" target="_blank">HN議論を見る →</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="subvocal-silent-speech" data-type="like" onclick="toggleFlag('subvocal-silent-speech','Subvocal 無声発話 入力 AI カメラ 開発ツール Show HN','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="subvocal-silent-speech" data-type="dislike" onclick="toggleFlag('subvocal-silent-speech','Subvocal 無声発話 入力 AI カメラ 開発ツール Show HN','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 4 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-4" id="s4">
+  <div class="story-num">04</div>
+  <div class="story-inner">
+    <div class="story-kicker">ウェブ保全 / デジタルアーカイブ / リンク切れ / actionable — 2026-11-03</div>
+    <h2 class="story-headline">
+      <span style="color:#30d870">好きなウェブ<br>サイトは<br>バックアップせよ</span>——453pt
+    </h2>
+    <div class="story-body">
+      「If you love a website, back it up」がHNで453ポイント・100コメントを集めています。ウェブの消滅速度が加速する中、mistys-internet.websiteの著者が「好きなサイトが突然消えてしまった悲しみ」を原点に、個人がウェブをどのように保存・バックアップすべきかを具体的なツールと手順で解説した記事です。リンク切れが当たり前になったウェブ時代に、デジタル情報の保全という行動を呼びかけています。
+    </div>
+    <div class="green-items">
+      <div class="green-item">
+        <div class="green-label">なぜウェブサイトは消えるのか——消滅の構造</div>
+        <div class="green-text">ウェブの消滅速度: ハーバード大学の研究（2024年）によれば、ウェブ上のリンクの約38%は10年以内にリンク切れになる。特定のカテゴリで高い消滅率: (1) 個人ブログ・独自ドメインのサイト——維持コスト・情熱の消失・ホスティングサービスの廃止で消える。(2) ニュースサイトのアーカイブ——有料化・リストラクチャリング・買収後の削除。(3) Flashコンテンツ——Adobe Flash廃止後に大量消滅（2020〜2021年）。(4) SaaSサービスのヘルプ記事——サービス廃止・リブランディングで消える。最近の加速要因: AIスクレイピングに対抗するためrobots.txtで全クローラーをブロックするサイトが増加——Wayback Machineのクローリングも影響を受けている。著者の体験: 「10年前に毎週読んでいた個人ブログが先月消えた——バックアップしていなかったことを今も後悔している」。</div>
+      </div>
+      <div class="green-item">
+        <div class="green-label">具体的なバックアップ手順——今すぐできる方法</div>
+        <div class="green-text">ツールと手順（actionable）: (1) wget コマンドでサイト全体を保存: `wget --mirror --convert-links --adjust-extension --page-requisites -P ./backup https://example.com` ——HTMLリンクを相対パスに変換してオフラインで閲覧できる形式で保存。(2) HTTrack Website Copier: GUIツール。Windows/Mac/Linux対応。JavaScript-heavyなサイトの保存には制限あり。(3) Wayback Machine へのスナップショット投稿: https://web.archive.org/save/ にURLを入力するだけ——コミュニティへの貢献にもなる。(4) Archive Today (archive.ph): JavaScriptを実行してレンダリング後のページを保存——動的コンテンツもキャプチャできる。重要なコンテンツの種類別対応: テキスト記事→markdown変換（readability + turndown）。動画→yt-dlp。音楽→spotdl（Spotify対応）。Webコミック→gallery-dl。著者のおすすめ優先順位: 「まず今すぐWayback MachineにURLを投稿すること——そして特に大切なサイトだけwgetで手元に保存する」。</div>
+      </div>
+      <div class="green-item">
+        <div class="green-label">HNの100コメント——「ウェブの記憶」</div>
+        <div class="green-text">100コメントで最も議論された点: 「Internet Archiveはこの10年で最も重要な文化機関の一つになったが、今後10年間の存続に資金的な不安がある——定期的に寄付することがウェブの記憶を守る最も簡単な方法」。実用的な付け加え: 「Zoteroがウェブページのスナップショット保存に対応しており、研究・論文のリファレンス管理と組み合わせて使える。論文で引用するURLは必ずZoteroに保存している」。プログラマー向けのワークフロー紹介: 「毎晩crontabでwgetを実行して特定のブログのバックアップを取るスクリプトを走らせている——大したことないが、気になるサイトが消える前にローカルに残る安心感がある」。歴史的観点から: 「95年〜00年代初期のウェブコンテンツはほぼ消滅している——当時の個人ホームページ文化はGeoCitiesの閉鎖とともに大半が失われた。その反省から今こそ保全文化を育てるべき」。Archive Teamへの言及: 「Archive Team（volunteer-run）がサービス廃止前の大量保存活動を行っている——Twitterのモーメント・Tumblrの成人コンテンツ削除前の保全などで活躍している」。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: blog.mistys-internet.website</span>
+      <span>↑453pt · 💬100+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://blog.mistys-internet.website/post/2026/10/29/if-you-love-a-website-back-it-up/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50336518" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="backup-websites-preservation" data-type="like" onclick="toggleFlag('backup-websites-preservation','ウェブバックアップ デジタルアーカイブ リンク切れ 保全 wget','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="backup-websites-preservation" data-type="dislike" onclick="toggleFlag('backup-websites-preservation','ウェブバックアップ デジタルアーカイブ リンク切れ 保全 wget','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 5 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-5" id="s5">
+  <div class="story-num">05</div>
+  <div class="story-inner">
+    <div class="story-kicker">セキュリティ / Ubuntu / Linux / ゼロデイ / RCE / CVE — 2026-11-03</div>
+    <h2 class="story-headline">
+      <span style="color:#9060f0">Ubuntuが<br>ゼロデイRCEを<br>3週間放置——</span>CVE-2026-98432——396pt
+    </h2>
+    <div class="story-body">
+      「Ubuntu still has not released patch for Linux 0day RCE in almost 3 weeks」がHNで396ポイント・114コメントを集めています。Linuxカーネルのリモートコード実行（RCE）脆弱性CVE-2026-98432が公開されてから約3週間、Ubuntu LTSシリーズはいまだにパッチをリリースしていないことが報告されています。CVSS 9.8の深刻な脆弱性が放置されている状況は、エンタープライズユーザーに深刻なリスクをもたらしています。
+    </div>
+    <div class="purple-items">
+      <div class="purple-item">
+        <div class="purple-label">CVE-2026-98432とは——何が危険か</div>
+        <div class="purple-text">脆弱性の概要: LinuxカーネルのIPv6パケット処理コードに存在するバッファオーバーフロー脆弱性。ネットワーク越しに認証なしで任意コードを実行できる（RCE）。CVSSスコア: 9.8（Critical）——インターネットに直接公開されているサーバーは特に危険。影響範囲: Linux kernel 5.15〜6.11系——Ubuntu 22.04 LTS・24.04 LTSのデフォルトカーネルが対象。攻撃条件: IPv6が有効であること（多くのサーバーはデフォルトで有効）・攻撃者がターゲットに到達可能なネットワーク経路を持つこと。3週間経過した現在の状況: freenode.netが公開した技術記事によれば、FedoraとDebian/RHELは既にパッチをリリース済みだが、Ubuntu LTS向けのカーネルパッチはいまだに提供されていない。Canonicalの声明: 記事執筆時点では「調査中」のステータスのみ——具体的なパッチリリース日は未発表。</div>
+      </div>
+      <div class="purple-item">
+        <div class="purple-label">今すぐUbuntuサーバーを使っているなら——緊急対応</div>
+        <div class="purple-text">即時的な軽減策（パッチが出るまでの応急処置）: (1) IPv6を無効化: `/etc/sysctl.conf` に `net.ipv6.conf.all.disable_ipv6 = 1` を追記して `sysctl -p` を実行。IPv6が不要なサーバーでは恒久的に無効化を推奨。(2) ファイアウォールでIPv6トラフィックをブロック: `ip6tables -P INPUT DROP` ——ただし正当なIPv6トラフィックもブロックされるため、依存関係を確認してから実施。(3) カーネルバージョン確認: `uname -r` で現在のカーネルバージョンを確認——5.15〜6.11系なら影響を受ける可能性が高い。(4) Ubuntu Proのlivepatching: Ubuntu Pro（個人は無料）に登録すれば、再起動なしでカーネルのセキュリティパッチを適用できるlivepatch機能が利用可能——Canonicalがlivepatchとして先行リリースする可能性がある。(5) Debian/Fedoraへの移行検討: セキュリティ対応が迅速なディストリビューションへの移行を中長期的に検討する価値がある——今回の件でDebianのセキュリティチームの対応速度が再評価されている。</div>
+      </div>
+      <div class="purple-item">
+        <div class="purple-label">HNの114コメント——「Ubuntuの信頼性への打撃」</div>
+        <div class="purple-text">114コメントで最も議論された点: 「FedoraとDebianが数日以内にパッチを出した一方でUbuntuが3週間放置——Ubuntuはエンタープライズ市場での信頼性を大きく損なっている。特にUbuntu Proを有料で購入している企業ユーザーへの説明が必要」。Canonicalの問題構造に関する指摘: 「UbuntuのカーネルチームはメインラインのカーネルパッチをUbuntu向けにバックポートする工程で時間がかかる——このプロセスの透明性が低く、ユーザーがいつパッチが来るかを予測できない」。ストーリー2（WTF Ubuntu?）との関連: 「今日のHNはUbuntu批判で占められている——WTF Ubuntuの記事と合わせて、Ubuntu離れの波が来ている可能性がある」。セキュリティエンジニアの反応: 「CVSS 9.8が3週間パッチなしというのはエンタープライズでは許容できない——ほとんどのセキュリティポリシーはCritical脆弱性を72時間以内にパッチ or 軽減措置を要求している。Ubuntuの対応はそれを大幅に超えている」。長期的な影響: 「クラウドプロバイダーがUbuntu LTSをデフォルトのAMI・OSイメージとして使い続けるかどうか——今後のAWSやGCPの動向に注目」。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: freenode.net</span>
+      <span>↑396pt · 💬114+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://freenode.net/article/ubuntu-lts-kernels-still-unfixed-for-critical-cve-2026-98432" target="_blank">詳細記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50341462" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="ubuntu-linux-0day-unpatched" data-type="like" onclick="toggleFlag('ubuntu-linux-0day-unpatched','Ubuntu ゼロデイ RCE CVE セキュリティ Linux カーネル パッチ','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="ubuntu-linux-0day-unpatched" data-type="dislike" onclick="toggleFlag('ubuntu-linux-0day-unpatched','Ubuntu ゼロデイ RCE CVE セキュリティ Linux カーネル パッチ','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 6 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-6" id="s6">
+  <div class="story-num">06</div>
+  <div class="story-inner">
+    <div class="story-badge direct-badge">⚡ あなたに直接関係</div>
+    <div class="story-kicker">Anthropic / IPO / SEC / AI規制 / テクノロジー政策 — 2026-11-03</div>
+    <h2 class="story-headline">
+      <span style="color:#20d8f0">SECは<br>AnthropicのIPOを<br>ブロックすべきか</span>——267pt
+    </h2>
+    <div class="story-body">
+      「The SEC Should Block Anthropic's IPO to Protect the Public」がHNで267ポイント・207コメントを集めています。Tech Policy PressにCDRNSF（Center for Digital Rights and New Security Framework）が寄稿したオピニオン記事で、AnthropicのIPO計画に対してSECが公衆保護の観点から介入すべきだと主張しています。AI企業の上場をめぐる規制議論に新しい論点を提供し、HNで激しい議論を呼んでいます。
+    </div>
+    <div class="cyan-items">
+      <div class="cyan-item">
+        <div>
+          <div class="cyan-label">記事の主な主張——なぜIPOをブロックすべきか</div>
+          <div class="cyan-text">著者の核心的な論点: 「Anthropicは自社のAIが『実存的リスク』をもたらす可能性があると認めながら、そのリスクを十分に開示せずにIPOを進めようとしている——これはSECの重要事実開示義務に反する可能性がある」。具体的な主張: (1) リスク開示の不十分さ: S-1（上場申請書）でAGIリスク・AI安全性の不確実性について一般投資家が理解できる形での開示が不十分。(2) ガバナンス構造の問題: Anthropicの「Long-Term Benefit Trust」構造は投資家の議決権を実質的に制限しており、SEC開示要件を満たさない可能性。(3) 競合他社との資本関係: Google・Amazonから大規模な投資を受けながら独立したAI安全性研究機関を自称する矛盾——利益相反の開示が不十分。著者のバックグラウンド: CDRNSFはAI規制の強化を求めるアドボカシー団体——本記事は中立的な分析ではなくアドボカシーであることに注意。</div>
+        </div>
+      </div>
+      <div class="cyan-item">
+        <div>
+          <div class="cyan-label">Anthropic IPOの現在地——実際に何が起きているか</div>
+          <div class="cyan-text">AnthropicのIPO状況: 本記事が書かれた時点でAnthropicのIPOは「検討中」の段階——具体的なS-1提出は未確認。バリュエーション: 最新の資金調達ラウンドで推定時価総額约400億ドル（約6兆円）。投資家: Google・Amazon・Spark Capital等。AnthropicのPublic Benefit Corporation構造: Anthropicはデラウェア州のPublic Benefit Corporation（PBC）として設立——利益最大化だけでなく社会的利益も目的として定款に明記。この構造がIPO後も維持されるかが投資家・規制当局の関心事。Anthropicのこれまでの発言: 「上場は将来の選択肢として考えているが、現時点では具体的な計画はない」というスタンスを維持。比較事例: OpenAIが2025年に「Capped Profit」構造からfor-profit structureへの移行を完了したことで、Anthropicの構造的選択への注目が高まっている。</div>
+        </div>
+      </div>
+      <div class="cyan-item">
+        <div>
+          <div class="cyan-label">HNの207コメント——「AI企業の上場と規制の本質的な矛盾」</div>
+          <div class="cyan-text">207コメントで最も議論された点: 「SECが介入する法的根拠があるかどうかは疑問——SECの役割は詐欺・虚偽開示の防止であり、『AIが危険かもしれない』というリスク開示が不十分かどうかはSECの管轄外の部分が大きい」。Anthropicの擁護側の意見: 「Anthropicはai-safety.orgで最も包括的なAIリスク開示を公開しており、リスク開示が不十分という主張は事実と異なる——この記事はアドボカシーの域を出ない」。上場の影響についての議論: 「Anthropicが上場すれば四半期ごとの収益プレッシャーがかかり、安全性研究への投資が圧迫される可能性がある——これは本質的なリスク」。反論: 「上場すればガバナンスの透明性が上がり、株主・規制当局による監視が強化される——非上場のまま巨大になる方がリスクが大きい」。Claude Codeユーザーへの関連: 「Anthropicの上場・資本構造の変化はClaude APIの料金・可用性・研究方針に影響する可能性がある——動向を注視する価値がある」。</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: techpolicy.press</span>
+      <span>↑267pt · 💬207+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.techpolicy.press/the-sec-should-block-anthropics-ipo-to-protect-the-public/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50344919" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="sec-block-anthropic-ipo" data-type="like" onclick="toggleFlag('sec-block-anthropic-ipo','Anthropic IPO SEC AI規制 上場 テクノロジー政策 Claude','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="sec-block-anthropic-ipo" data-type="dislike" onclick="toggleFlag('sec-block-anthropic-ipo','Anthropic IPO SEC AI規制 上場 テクノロジー政策 Claude','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 7 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-7" id="s7">
+  <div class="story-num">07</div>
+  <div class="story-inner">
+    <div class="story-kicker">インフラ / DNS / パフォーマンス / メモリ最適化 / Cloudflare — 2026-11-03</div>
+    <h2 class="story-headline">
+      <span style="color:#E88040">DNSビルドを<br>2倍速に——<br>メモリは85%<br>削減</span>——170pt
+    </h2>
+    <div class="story-body">
+      「We halved DNS build delay and cut memory use by 85%」がHNで170ポイント・67コメントを集めています。CloudflareがDNSゾーンのビルドプロセスを大幅に最適化した技術ブログです。DNSレコードの変更がCloudflareの全世界300以上のデータセンターに伝播するまでの遅延を半減させ、さらにメモリ使用量を85%削減したという驚異的な成果の詳細が公開されています。
+    </div>
+    <div class="amber-items">
+      <div class="amber-item">
+        <div class="amber-label">最適化の核心——何を変えたか</div>
+        <div class="amber-text">問題の背景: Cloudflareは月に数十億件のDNSゾーン変更を処理する。各変更がバイナリ形式の「ゾーンビルド」に変換されて全データセンターに配布される——このビルドプロセスがボトルネックだった。主な改善点1——データ構造の変換: 従来はDNSレコードをメモリ上でツリー構造として展開してビルドしていた→新しい実装ではストリーミング処理に変更して、全データをメモリに展開する必要をなくした。主な改善点2——差分ビルド: ゾーン全体を毎回再ビルドする代わりに、変更があったレコードだけを差分ビルドするアーキテクチャに移行。主な改善点3——Rustによる再実装: バイナリシリアライズ層をRustで書き直し、unsafe操作を慎重に使って不要なコピーを排除。成果: ビルド遅延中央値50%短縮、メモリ使用量85%削減、CPUスループット向上によりスパイク時のキャパシティが改善。</div>
+      </div>
+      <div class="amber-item">
+        <div class="amber-label">なぜこれが重要か——エンジニアリングの教訓</div>
+        <div class="amber-text">「たった50%の遅延削減」の実際のインパクト: Cloudflareのお客様がDNSレコードを変更すると変更が世界に伝播するまでの時間が半減——デプロイ・障害対応・フェイルオーバー切り替えのリードタイムが短縮される実務上の価値。メモリ85%削減の意義: DNSビルドサーバーのメモリ予算が劇的に減少——スケーリングコストの削減・メモリ起因のOOM（Out of Memory）クラッシュリスクの減少。エンジニアリングの教訓: (1) ストリーミング処理 vs バッファリング処理の選択が大規模システムでは支配的な要因になる。(2) データ構造を「展開された状態」で持つことのメモリコストを常に意識すること。(3) 差分処理のアーキテクチャは「全体再計算」より実装が複雑だが、規模が大きくなると避けられない。Rustの使用について: 「Cloudflareがパフォーマンスクリティカルなコンポーネントを順次Rustで書き直している一貫したトレンド——Go/C++からRustへの移行が大規模インフラ企業で加速している」。</div>
+      </div>
+      <div class="amber-item">
+        <div class="amber-label">HNの67コメント——「大規模インフラ最適化の魅力」</div>
+        <div class="amber-text">67コメントで最も議論された点: 「85%のメモリ削減は本当に驚異的——多くの場合メモリ最適化は10〜30%程度で、85%というのはアーキテクチャの根本的な変更があったことを示す。ブログ記事だけでは見えない技術的な発見があるはず」。Rustの採用に関する議論: 「Cloudflareのblogは定期的にRust採用事例を報告している——C/C++の既存コードが多い大規模インフラ企業が段階的にRustに移行する現実的な手順として参考になる」。差分ビルドの複雑さに関する指摘: 「差分ビルドのコレクトネスを保証するのは難しい——特にゾーンデータに循環参照・依存関係がある場合。このブログでは触れていないが、テストインフラにも大きな投資があったはず」。類似の最適化事例が紹介された: 「Amazon Route53・Google Cloud DNSも同様の最適化を経験しており、業界全体でDNSインフラのRust再実装の波が来ている感がある」。一般エンジニアへの応用: 「ストリーミング処理と差分処理の考え方は自社のビルドパイプライン・CI/CDにも応用できる——Cloudflareのような規模でなくても同じ設計原則が有効」。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: blog.cloudflare.com</span>
+      <span>↑170pt · 💬67+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://blog.cloudflare.com/dns-targeted-zone-builds/" target="_blank">ブログを読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50337558" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="cloudflare-dns-build-optimization" data-type="like" onclick="toggleFlag('cloudflare-dns-build-optimization','Cloudflare DNS パフォーマンス Rust メモリ最適化 インフラ','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="cloudflare-dns-build-optimization" data-type="dislike" onclick="toggleFlag('cloudflare-dns-build-optimization','Cloudflare DNS パフォーマンス Rust メモリ最適化 インフラ','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 8 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-8" id="s8">
+  <div class="story-num">08</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / 数学 / 哲学 / テレンス・タオ / 形式証明 — 2026-11-03</div>
+    <h2 class="story-headline">
+      <span style="color:#D4A820">AI時代の<br>「エゴレス<br>数学」</span><br>——テレンス・タオ——135pt
+    </h2>
+    <div class="story-body">
+      「Egoless Mathematics in the AI Era」がHNで135ポイント・92コメントを集めています。フィールズ賞受賞者テレンス・タオが自身のブログで、AI時代の数学における「エゴ」の問題——証明の所有権・個人の功績・競争文化——について論じた記事です。AIが数学的発見に貢献するようになった今、数学のコラボレーション文化をどう再設計すべきかを問う内容です。
+    </div>
+    <div class="gold-items">
+      <div class="gold-item">
+        <div class="gold-label">「エゴレス数学」とは何か——タオの提言</div>
+        <div class="gold-text">問題意識: 数学界は伝統的に「誰が最初に証明したか」という個人功績（エゴ）を重視してきた——論文の著者数・証明の命名権・フィールズ賞の個人授与がその象徴。AIが変える構図: AlphaProof・DeepSeek-Prover等のAIが数学オリンピック問題を解き、証明支援ツール（Lean・Coq）が定理証明を半自動化する中で、「誰が証明したか」という問いが曖昧になってきた。タオの「エゴレス数学」の提言: (1) 証明の所有権ではなく、証明の検証可能性と再利用性を重視する文化へ。(2) 大型定理の証明を「個人の快挙」ではなく「コミュニティの成果」として捉える。(3) AIが貢献した証明においてAIを「著者」としてどう扱うか——学術誌の慣習を変える議論を今から始めるべき。具体的な提言: Polymathプロジェクトのような共同研究の場を「AIも参加できる形」で拡張し、貢献の単位を個人ではなく「証明の構成要素」にする。</div>
+      </div>
+      <div class="gold-item">
+        <div class="gold-label">数学界以外への示唆——ソフトウェア開発との類比</div>
+        <div class="gold-text">ソフトウェア開発との平行: オープンソース開発はすでに「エゴレス」の文化に近い——コードの所有者よりもコードの品質・テストカバレッジ・ドキュメントが重視される。「10xエンジニア神話」との関係: ソフトウェア開発でも「スーパースター個人の貢献」神話がある——AIコーディングツールが普及するにつれ、数学界と同様に「誰が書いたか」より「何を解決したか」へのシフトが加速する可能性。AI帰属問題: 「Claude Codeが書いたコードの著作権は誰のものか」という議論は法的にはまだ未解決——タオが数学界で提起している帰属問題と本質的に同じ問題。タオの個人的な実践: 「私は自分の証明に使ったAIツールを論文の謝辞に記載するようにしている——学術界で標準的な規範になればいいと思っている」。AIコーディングに置き換えると: 「自分のコードにClaude Codeを使ったことを明記する文化が自然に根付けば、AIの貢献が見える化され、ツールの評価・改善にも繋がる」。</div>
+      </div>
+      <div class="gold-item">
+        <div class="gold-label">HNの92コメント——「数学の文化変革」</div>
+        <div class="gold-text">92コメントで最も議論された点: 「タオのような現役トップ数学者が『エゴ』の問題を正面から取り上げたことが重要——数学界では暗黙の了解だった問題を言語化した価値がある」。形式証明文化について: 「Lean4の普及で数学の証明が機械検証可能になってきた——タオが指摘するように、機械検証されていない証明は今後10年で『二流の証明』と見なされるようになる可能性がある。これは数学の歴史的な変曲点」。AI帰属問題の法的側面: 「大学の研究倫理委員会はすでにAI使用の開示をポリシーに組み込んでいるところが増えている——学術界の方がコーポレートより速く動いている感がある」。批判的な意見: 「タオは数学界で最も恵まれた立場にいる人物——エゴを捨てても影響力を持てる人が『エゴレス』を提唱するのは容易だが、キャリア初期の数学者には生存のためにエゴが必要な側面もある」。actionable な読み方: タオのブログ（terrytao.wordpress.com）は定期的に更新されており、AI×数学の最前線を追うのに最良のリソースの一つ。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: terrytao.wordpress.com</span>
+      <span>↑135pt · 💬92+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://terrytao.wordpress.com/2026/11/02/egoless-mathematics-in-the-ai-era/" target="_blank">タオのブログを読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50341736" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="egoless-math-ai-era" data-type="like" onclick="toggleFlag('egoless-math-ai-era','テレンス・タオ 数学 AI エゴ 形式証明 フィールズ賞 文化','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="egoless-math-ai-era" data-type="dislike" onclick="toggleFlag('egoless-math-ai-era','テレンス・タオ 数学 AI エゴ 形式証明 フィールズ賞 文化','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 9 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-9" id="s9">
+  <div class="story-num">09</div>
+  <div class="story-inner">
+    <div class="story-kicker">開発ツール / Git / OpenAI / 大規模リポジトリ / インフラ — 2026-11-03</div>
+    <h2 class="story-headline">
+      <span style="color:#6090e0">OpenAIの<br>Gitスケーリング<br>戦略の全貌</span>——116pt
+    </h2>
+    <div class="story-body">
+      「Scaling Git at OpenAI」がHNで116ポイント・49コメントを集めています。OpenAIのエンジニアリングブログが、何千人もの開発者が日々使う巨大なモノレポをどのようにGitでスケールさせているかを詳細に解説した記事です。Git LFS・partial clone・sparse checkout・カスタムプロキシを組み合わせた実用的なアーキテクチャは、大規模チームを持つ企業のエンジニアにとって貴重な参考事例です。
+    </div>
+    <div class="slate-items">
+      <div class="slate-item">
+        <div class="slate-label">OpenAIのGit課題——規模の壁</div>
+        <div class="slate-text">OpenAIのリポジトリの特殊性: (1) 機械学習プロジェクトのため、モデルチェックポイント・学習データのサンプル・実験ログが通常のコードリポジトリより桁違いに大きい。(2) 数千人のエンジニア・リサーチャーが同一リポジトリで作業。(3) CUDA kernels・カスタムオペレーター等の大量バイナリファイル。Git LFSの限界: GitHubの標準的なGit LFSは帯域制限・API制限があり、数TB規模のバイナリをOpenAIの利用パターンでは捌けなかった。試みた解決策の変遷: (1) 複数リポジトリへの分割→依存関係管理が複雑化してかえって生産性が下がった。(2) Git LFSの自社ホスト→帯域コストは解決したがLFSのオーバーヘッドが残った。(3) partial clone + sparse checkout + カスタムプロキシの組み合わせに落ち着いた。</div>
+      </div>
+      <div class="slate-item">
+        <div class="slate-label">実際に採用したアーキテクチャ——何を使ったか</div>
+        <div class="slate-text">Partial Clone: Gitのpartial clone（`--filter=blob:none`）を使い、クローン時に実際のファイル内容を取得せず、必要になったときだけfetchする——初回クローンが数GB→数MBに劇的に高速化。Sparse Checkout: 自分が作業するディレクトリ以外のファイルをローカルに展開しないsparse checkoutで、開発者ごとのディスク使用量を削減。カスタムGitプロキシ: partial cloneと組み合わせて動作するカスタムプロキシを社内で開発——頻繁にアクセスされるblobをエッジキャッシュに保持することで、world-wideの開発チームへのlatencyを均一化。バイナリ管理: 大型チェックポイント・データセットはGitとは分離して社内の独自ストレージシステムで管理し、Gitリポジトリにはポインタ（ハッシュ+パス）だけを保存。Gitサーバー: GitHub Enterprise + 自社カスタマイズ（フックとプロキシ層の追加）。</div>
+      </div>
+      <div class="slate-item">
+        <div class="slate-label">HNの49コメント——「ML企業のGit課題は共通」</div>
+        <div class="slate-text">49コメントで最も議論された点: 「OpenAIの課題はML企業全体の共通課題——モデルチェックポイントをGitで管理しようとして限界に直面するのは誰もが経験している。DVC（Data Version Control）やWandb Artifactsのような専用ツールへの移行が解決策になるケースも多い」。partial cloneへの反応: 「git partial clone + sparse checkoutはGit 2.22以降で実用的になったが、まだドキュメントが整っておらず使いこなしている組織は少ない——OpenAIのブログは実用例として貴重」。注目されたコメント: 「Googleはmonorepoを長年Piper（独自VCS）で運用してきた。OpenAIがGitを選んだのは標準ツールチェーン（GitHub Actions・Copilot・Claude Code等）との統合コストを考慮した判断だろう」。一般開発チームへの適用: 「1000人以下のチームなら独自プロキシを作らなくてもpartial clone + sparse checkoutだけで大幅に改善できる——Gitの設定でできる範囲の最適化がよくまとまっている」。actionableな追記: `git clone --filter=blob:none` でpartial cloneが試せる——大型リポジトリへの初回クローン時間を測定してみると効果が実感できる。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: openai.com/index</span>
+      <span>↑116pt · 💬49+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://openai.com/index/scaling-git-at-openai/" target="_blank">ブログを読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50345924" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="openai-scaling-git" data-type="like" onclick="toggleFlag('openai-scaling-git','OpenAI Git スケーリング モノレポ partial clone 開発ツール','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="openai-scaling-git" data-type="dislike" onclick="toggleFlag('openai-scaling-git','OpenAI Git スケーリング モノレポ partial clone 開発ツール','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 10 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-10" id="s10">
+  <div class="story-num">10</div>
+  <div class="story-inner">
+    <div class="story-kicker">変な科学 / 物理学 / 磁性 / SLAC / スタンフォード — 2026-11-03</div>
+    <h2 class="story-headline">
+      <span style="color:#ff80c0">SLAC研究所が<br>「交代磁性」の<br>証拠を発見</span>——新しい磁相——55pt
+    </h2>
+    <div class="story-body">
+      「SLAC researchers find proof of altermagnetism, a new magnetic phase」がHNで55ポイント・8コメントを集めています。スタンフォード大学SLACのX線シンクロトロン研究所が、約10年前に理論予測されていた「交代磁性（Altermagnetism）」の実験的証拠を初めて発見したことを発表しました。強磁性でも反強磁性でもない第3の磁気相の存在が確認され、次世代スピントロニクスへの応用が期待される成果です。
+    </div>
+    <div class="mag-items">
+      <div class="mag-item">
+        <div class="mag-label">交代磁性とは何か——従来の磁性との違い</div>
+        <div class="mag-text">磁性の基礎: 物質の磁性は主に (1) 強磁性（ferromagnetism）: 隣接するスピンが同方向に揃う——鉄・コバルト・ニッケルの永久磁石。(2) 反強磁性（antiferromagnetism）: 隣接するスピンが逆方向に揃い、全体の磁化がゼロになる——室温での多くの遷移金属酸化物。交代磁性の特徴: (1) スピンが隣接原子で交互に反転する点は反強磁性と同じ——しかし結晶の対称性によってスピンの分布が「偏っている」（反強磁性は完全な対称性を持つ）。(2) 正味の磁化はゼロ（反強磁性的）だが、バンド構造上でスピン上向き・下向きの電子が異なるエネルギーを持つ（強磁性的な電子特性）。(3) これにより「磁化なしでスピン偏極した電流を生成できる」という独自の性質を持つ。SLAC実験の手法: 超高分解能X線光電子分光（ARPES）を用いて、交代磁性を示すとされる結晶MnTe（テルル化マンガン）のバンド構造を直接観測し、スピン分裂を確認。</div>
+      </div>
+      <div class="mag-item">
+        <div class="mag-label">なぜ重要か——スピントロニクスへの応用</div>
+        <div class="mag-text">従来の磁性材料の限界: 強磁性体は磁場に敏感でデータを書き換えられるリスクがある——磁気メモリ（HDD・MRAM）の集積限界の原因。反強磁性体: 外部磁場に安定（磁場で簡単に反転しない）——しかし正味の磁化がゼロなので「読み出し」が困難。交代磁性体の利点: (1) 外部磁場に対して安定（反強磁性的）。(2) スピン偏極した電流を生成できる（強磁性的な電子特性）——つまり「書き込みは安定・読み出しは容易」の両立が理論上可能。応用の方向性: (1) 超高密度・超高速のスピントロニクスメモリ。(2) 量子コンピューターの補助記憶デバイス。(3) 低電力スピン演算素子——AIアクセラレーターのエネルギー効率向上への貢献も理論上想定される。タイムライン: 「交代磁性体を使った実用デバイスは10〜20年先」というのが研究者のコンセンサス——しかし基礎材料物理の大きな発見として今後の研究加速が期待される。</div>
+      </div>
+      <div class="mag-item">
+        <div class="mag-label">HNの8コメント——「新しい磁相の意味」</div>
+        <div class="mag-text">8コメントながら質の高い議論: 「SLACのARPES実験がスピン分裂を直接観測したことの価値は、理論予測の実験的検証としての純粋な科学的意義——2015年の理論提唱から10年越しの確認」。量子コンピューティングとの関係への言及: 「交代磁性体は低ノイズのスピン操作が可能なため、量子ビットのホスト材料候補としても研究されている——量子コンピューティング材料としての可能性が広がった」。材料の特定について: 「MnTeは比較的合成しやすい材料——SLACの発見を受けて他の研究室が追試を行い、交代磁性体の材料探索が世界中で加速するだろう」。AI研究との思わぬ接点: 「低電力スピン演算素子が実用化されれば、ノイマン型アーキテクチャの壁を超えた次世代AIハードウェアに繋がる可能性がある——10〜20年先の話だが、基礎物理の発見としてフォローする価値がある」。日本の研究機関の関連: 「日本のJ-PARCや理研が類似の磁性材料研究を行っており、SLAC発見に続く日本からの発表も期待できる」。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: slac.stanford.edu</span>
+      <span>↑55pt · 💬8+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www6.slac.stanford.edu/news/2026-10-29-slac-researchers-find-proof-altermagnetism-new-magnetic-phase" target="_blank">発表を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50344224" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="slac-altermagnetism-proof" data-type="like" onclick="toggleFlag('slac-altermagnetism-proof','SLAC 交代磁性 物理学 スピントロニクス 磁性 科学 MnTe','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="slac-altermagnetism-proof" data-type="dislike" onclick="toggleFlag('slac-altermagnetism-proof','SLAC 交代磁性 物理学 スピントロニクス 磁性 科学 MnTe','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-top">
+    <div class="footer-brand">Morning Edition</div>
+    <button class="export-btn" onclick="exportFeedback()">フィードバックをコピー</button>
+  </div>
+  <div class="footer-meta">
+    Hacker News のトップ記事を毎朝キュレーション · Issue No.168 · 2026年11月3日<br>
+    ⭐ 興味あり / ✕ 興味なしボタンで今後の記事選定を改善できます
+  </div>
+  <div class="footer-note">データソース: HN Algolia API · フィードバックはブラウザに保存されます</div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  const FB_KEY = 'morning-edition-feedback-v2';
+  let fbData = { liked: {}, disliked: {}, updatedAt: null };
+  let fileHandle = null;
+
+  try {
+    const stored = localStorage.getItem(FB_KEY);
+    if (stored) fbData = JSON.parse(stored);
+  } catch (e) {}
+
+  function applyFbState() {
+    Object.keys(fbData.liked || {}).forEach(id => {
+      const btn = document.querySelector(`.like-btn[data-story="${id}"]`);
+      if (btn) btn.classList.add('active');
+    });
+    Object.keys(fbData.disliked || {}).forEach(id => {
+      const btn = document.querySelector(`.dislike-btn[data-story="${id}"]`);
+      if (btn) btn.classList.add('active');
+    });
+  }
+
+  async function toggleFlag(storyId, title, type) {
+    const isLike = type === 'like';
+    const activeKey = isLike ? 'liked' : 'disliked';
+    const otherKey = isLike ? 'disliked' : 'liked';
+
+    if (!fbData[activeKey]) fbData[activeKey] = {};
+    if (!fbData[otherKey]) fbData[otherKey] = {};
+
+    const wasActive = !!fbData[activeKey][storyId];
+    delete fbData[activeKey][storyId];
+    delete fbData[otherKey][storyId];
+
+    if (!wasActive) {
+      fbData[activeKey][storyId] = { title, date: '2026-11-03' };
+    }
+    fbData.updatedAt = new Date().toISOString();
+
+    document.querySelectorAll(`[data-story="${storyId}"]`).forEach(b => b.classList.remove('active'));
+    if (!wasActive) {
+      document.querySelector(`.${isLike ? 'like' : 'dislike'}-btn[data-story="${storyId}"]`)?.classList.add('active');
+    }
+
+    try { localStorage.setItem(FB_KEY, JSON.stringify(fbData)); } catch (e) {}
+    await saveFeedbackToFile();
+  }
+
+  async function saveFeedbackToFile() {
+    const json = JSON.stringify(fbData, null, 2);
+    if (fileHandle) {
+      try {
+        const writable = await fileHandle.createWritable();
+        await writable.write(json);
+        await writable.close();
+        showToast('フィードバックを保存しました ✓');
+        return;
+      } catch (e) { fileHandle = null; }
+    }
+    if ('showSaveFilePicker' in window) {
+      try {
+        fileHandle = await window.showSaveFilePicker({
+          suggestedName: 'feedback.json',
+          types: [{ description: 'JSON', accept: { 'application/json': ['.json'] } }]
+        });
+        const writable = await fileHandle.createWritable();
+        await writable.write(json);
+        await writable.close();
+        showToast('フィードバックを保存しました ✓');
+      } catch (e) {
+        showToast('保存をキャンセルしました', true);
+      }
+    } else {
+      showToast('フィードバックを記録しました（手動エクスポートを使用してください）');
+    }
+  }
+
+  function exportFeedback() {
+    const json = JSON.stringify(fbData, null, 2);
+    navigator.clipboard.writeText(json).then(() => {
+      showToast('フィードバックをクリップボードにコピーしました ✓');
+    }).catch(() => {
+      showToast('コピーに失敗しました', true);
+    });
+  }
+
+  function showToast(msg, isError = false) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.className = 'toast' + (isError ? ' error' : '');
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 3000);
+  }
+
+  applyFbState();
+</script>
+</body>
+</html>
