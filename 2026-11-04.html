@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Morning Edition — 2026年11月4日</title>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --font: 'M PLUS Rounded 1c', 'Hiragino Sans', 'Noto Sans JP', sans-serif; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); background: #111; color: #fff; overflow-x: hidden; }
+
+    .masthead { background: #fff; color: #000; padding: 3rem 4rem 2.5rem; border-bottom: 6px solid #000; position: relative; overflow: hidden; }
+    .masthead::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: repeating-linear-gradient(90deg, #000 0, #000 12px, transparent 12px, transparent 20px); }
+    .masthead-kicker { font-size: 0.85rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: #777; margin-bottom: 0.6rem; }
+    .masthead-title { font-size: clamp(3.5rem, 9vw, 7.5rem); font-weight: 900; line-height: 0.88; letter-spacing: -0.04em; margin-bottom: 1.8rem; }
+    .masthead-meta { display: flex; gap: 3rem; align-items: baseline; flex-wrap: wrap; }
+    .masthead-date { font-size: 1.5rem; font-weight: 700; }
+    .masthead-subtitle { font-size: 1rem; font-weight: 400; color: #555; max-width: 480px; line-height: 1.5; }
+    .masthead-issue { margin-left: auto; text-align: right; }
+    .masthead-issue span { display: block; }
+    .masthead-issue .iss-label { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: #999; }
+    .masthead-issue .iss-num { font-size: 2.2rem; font-weight: 900; color: #000; }
+
+    .toc { background: #1a1a1a; padding: 1.5rem 4rem; display: flex; gap: 1.5rem; flex-wrap: wrap; border-bottom: 1px solid #333; }
+    .toc a { color: #aaa; text-decoration: none; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; transition: color 0.2s; }
+    .toc a:hover { color: #fff; }
+    .toc-num { color: #555; margin-right: 0.3em; }
+
+    .story { position: relative; overflow: hidden; }
+    .story-inner { max-width: 1200px; margin: 0 auto; padding: 5rem 4rem; position: relative; z-index: 1; }
+    .story-num { font-size: clamp(6rem, 18vw, 16rem); font-weight: 900; line-height: 0.8; letter-spacing: -0.06em; opacity: 0.08; position: absolute; top: 1rem; right: 2rem; user-select: none; }
+    .story-badge { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.35em 0.9em; border-radius: 2px; margin-bottom: 1.5rem; }
+    .direct-badge { background: #FFD700; color: #000; }
+    .story-kicker { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; opacity: 0.6; margin-bottom: 0.8rem; }
+    .story-headline { font-size: clamp(2rem, 5vw, 4rem); font-weight: 900; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+    .story-body { font-size: clamp(1rem, 1.5vw, 1.2rem); font-weight: 400; line-height: 1.8; max-width: 680px; opacity: 0.88; margin-bottom: 2rem; }
+    .story-meta { display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center; font-size: 0.8rem; font-weight: 700; opacity: 0.5; }
+    .story-links { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem; }
+    .story-link { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.6em 1.4em; border-radius: 3px; text-decoration: none; transition: opacity 0.2s, transform 0.15s; }
+    .story-link:hover { opacity: 0.75; transform: translateY(-1px); }
+
+    .feedback-buttons { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .flag-btn { background: none; border: 1px solid currentColor; color: inherit; font-family: var(--font); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.5em 1em; border-radius: 3px; cursor: pointer; opacity: 0.32; transition: opacity 0.2s, background 0.2s, color 0.2s, border-color 0.2s, transform 0.15s; }
+    .flag-btn:hover { opacity: 0.72; transform: translateY(-1px); }
+    .flag-btn.like-btn.active { opacity: 1; background: rgba(255,215,0,0.15); border-color: #FFD700; color: #FFD700 !important; }
+    .flag-btn.dislike-btn.active { opacity: 1; background: rgba(255,60,60,0.12); border-color: #FF4444; color: #FF4444 !important; }
+
+    .toast { position: fixed; bottom: 2rem; right: 2rem; background: #1a1a1a; color: #fff; font-family: var(--font); font-size: 0.82rem; font-weight: 700; padding: 0.75em 1.4em; border-radius: 4px; border-left: 3px solid #00C853; z-index: 9999; opacity: 0; transform: translateY(10px); transition: opacity 0.25s, transform 0.25s; pointer-events: none; box-shadow: 0 4px 24px rgba(0,0,0,0.45); }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    .toast.error { border-left-color: #FF5252; }
+
+    /* Story 1 — White */
+    .story-1 { background: #fff; color: #000; min-height: 90vh; display: flex; flex-direction: column; justify-content: center; }
+    .story-1 .story-num { color: #000; opacity: 0.04; }
+    .story-1 .story-kicker { color: #555; opacity: 1; }
+    .story-1 .story-headline { color: #000; }
+    .story-1 .story-body { color: #111; }
+    .story-1 .story-meta { color: #000; }
+    .story-1 .story-link.primary { background: #1a1a1a; color: #fff; }
+    .story-1 .story-link.secondary { background: #f0f0f0; color: #000; }
+    .story-1 .flag-btn { color: #000; }
+    .story-1-accent { position: absolute; bottom: 0; left: 0; width: 100%; height: 8px; background: linear-gradient(90deg, #FF6B35 0%, #f7931e 50%, #FF6B35 100%); }
+    .story-1 .headline-accent { display: inline-block; background: linear-gradient(135deg, #FF6B35 0%, #f7931e 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .blue-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1.2rem; margin: 2rem 0; max-width: 680px; }
+    .blue-card { border: 2px solid rgba(0,0,0,0.12); background: rgba(0,0,0,0.03); border-radius: 6px; padding: 1.3rem 1.5rem; }
+    .blue-card-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.2em; text-transform: uppercase; color: #333; margin-bottom: 0.4rem; }
+    .blue-card-value { font-size: 1.05rem; font-weight: 900; color: #000; line-height: 1.3; }
+    .blue-card-sub { font-size: 0.75rem; color: #555; margin-top: 0.3rem; line-height: 1.4; }
+
+    /* Story 2 — Dark navy/teal */
+    .story-2 { background: #00080c; color: #b8f0ff; min-height: 80vh; }
+    .story-2::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(0,160,200,0.14) 0%, transparent 65%); }
+    .story-2 .story-num { color: #00A0C8; opacity: 0.07; }
+    .story-2 .story-kicker { color: #20C8E8; opacity: 1; }
+    .story-2 .story-headline { color: #e0f8ff; }
+    .story-2 .story-body { color: #b8f0ff; }
+    .story-2 .story-meta { color: #20C8E8; opacity: 0.5; }
+    .story-2 .story-link.primary { background: #004058; color: #80e8ff; }
+    .story-2 .story-link.secondary { background: rgba(0,160,200,0.08); color: #90d8f0; border: 1px solid rgba(0,160,200,0.22); }
+    .story-2 .flag-btn { color: #b8f0ff; }
+    .teal-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .teal-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(0,160,200,0.07); border-left: 3px solid #00A0C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .teal-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20C8E8; margin-bottom: 0.3rem; }
+    .teal-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 3 — Dark red */
+    .story-3 { background: #0a0000; color: #fff; min-height: 80vh; }
+    .story-3::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(200,20,20,0.16) 0%, transparent 65%); }
+    .story-3 .story-num { color: #C81414; opacity: 0.07; }
+    .story-3 .story-kicker { color: #E84040; opacity: 1; }
+    .story-3 .story-headline { color: #fff; }
+    .story-3 .story-body { color: rgba(255,255,255,0.88); }
+    .story-3 .story-meta { color: #E84040; opacity: 0.5; }
+    .story-3 .story-link.primary { background: #6a0000; color: #fff; }
+    .story-3 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-3 .flag-btn { color: #fff; }
+    .red-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .red-item { background: rgba(200,20,20,0.07); border-left: 3px solid #C81414; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .red-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E84040; margin-bottom: 0.3rem; }
+    .red-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 4 — Dark green */
+    .story-4 { background: #020c04; color: #c8f0d0; min-height: 80vh; }
+    .story-4::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(20,160,70,0.16) 0%, transparent 65%); }
+    .story-4 .story-num { color: #14A046; opacity: 0.07; }
+    .story-4 .story-kicker { color: #30C060; opacity: 1; }
+    .story-4 .story-headline { color: #e0ffe8; }
+    .story-4 .story-body { color: #c8f0d0; }
+    .story-4 .story-meta { color: #30C060; opacity: 0.5; }
+    .story-4 .story-link.primary { background: #063820; color: #80ffb0; }
+    .story-4 .story-link.secondary { background: rgba(20,160,70,0.08); color: #a0e8b0; border: 1px solid rgba(20,160,70,0.22); }
+    .story-4 .flag-btn { color: #c8f0d0; }
+    .green-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .green-item { background: rgba(20,160,70,0.07); border-left: 3px solid #14A046; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .green-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #30C060; margin-bottom: 0.3rem; }
+    .green-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 5 — Dark purple */
+    .story-5 { background: #040010; color: #d8c8ff; min-height: 75vh; }
+    .story-5::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(90,40,200,0.17) 0%, transparent 65%); }
+    .story-5 .story-num { color: #5A28C8; opacity: 0.07; }
+    .story-5 .story-kicker { color: #8050E0; opacity: 1; }
+    .story-5 .story-headline { color: #f0e8ff; }
+    .story-5 .story-body { color: #d8c8ff; }
+    .story-5 .story-meta { color: #8050E0; opacity: 0.5; }
+    .story-5 .story-link.primary { background: #200860; color: #d0a8ff; }
+    .story-5 .story-link.secondary { background: rgba(90,40,200,0.08); color: #c0a0f0; border: 1px solid rgba(90,40,200,0.22); }
+    .story-5 .flag-btn { color: #d8c8ff; }
+    .purple-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .purple-item { background: rgba(90,40,200,0.07); border-left: 3px solid #5A28C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .purple-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #8050E0; margin-bottom: 0.3rem; }
+    .purple-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 6 — Dark cyan */
+    .story-6 { background: #000c10; color: #b8e8f0; min-height: 75vh; }
+    .story-6::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 40%, rgba(0,130,160,0.14) 0%, transparent 65%); }
+    .story-6 .story-num { color: #0080A0; opacity: 0.07; }
+    .story-6 .story-kicker { color: #20B0D0; opacity: 1; }
+    .story-6 .story-headline { color: #e0f4ff; }
+    .story-6 .story-body { color: #b8e8f0; }
+    .story-6 .story-meta { color: #20B0D0; opacity: 0.5; }
+    .story-6 .story-link.primary { background: #003848; color: #80d8f0; }
+    .story-6 .story-link.secondary { background: rgba(0,130,160,0.08); color: #90cce0; border: 1px solid rgba(0,130,160,0.22); }
+    .story-6 .flag-btn { color: #b8e8f0; }
+    .cyan-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .cyan-item { background: rgba(0,130,160,0.07); border-left: 3px solid #0080A0; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .cyan-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20B0D0; margin-bottom: 0.3rem; }
+    .cyan-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 7 — Dark amber */
+    .story-7 { background: #0a0300; color: #ffe0b8; min-height: 75vh; }
+    .story-7::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(210,90,20,0.18) 0%, transparent 65%); }
+    .story-7 .story-num { color: #D05A14; opacity: 0.07; }
+    .story-7 .story-kicker { color: #E88040; opacity: 1; }
+    .story-7 .story-headline { color: #fff0d8; }
+    .story-7 .story-body { color: #ffe0b8; }
+    .story-7 .story-meta { color: #E88040; opacity: 0.5; }
+    .story-7 .story-link.primary { background: #6a2400; color: #ffc880; }
+    .story-7 .story-link.secondary { background: rgba(210,90,20,0.08); color: #ffb870; border: 1px solid rgba(210,90,20,0.22); }
+    .story-7 .flag-btn { color: #ffe0b8; }
+    .amber-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .amber-item { background: rgba(210,90,20,0.07); border-left: 3px solid #D05A14; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .amber-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E88040; margin-bottom: 0.3rem; }
+    .amber-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 8 — Dark gold */
+    .story-8 { background: #080500; color: #fff; min-height: 70vh; }
+    .story-8::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,145,10,0.15) 0%, transparent 65%); }
+    .story-8 .story-num { color: #BE9110; opacity: 0.06; }
+    .story-8 .story-kicker { color: #D4A820; opacity: 1; }
+    .story-8 .story-headline { color: #fff; }
+    .story-8 .story-body { color: rgba(255,255,255,0.88); }
+    .story-8 .story-meta { color: #D4A820; opacity: 0.5; }
+    .story-8 .story-link.primary { background: #604000; color: #ffe070; }
+    .story-8 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-8 .flag-btn { color: #fff; }
+    .gold-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .gold-item { background: rgba(190,145,10,0.07); border-left: 3px solid #BE9110; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .gold-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #D4A820; margin-bottom: 0.3rem; }
+    .gold-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 9 — Slate blue */
+    .story-9 { background: #040810; color: #c8d8f0; min-height: 70vh; }
+    .story-9::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 35%, rgba(50,90,170,0.16) 0%, transparent 65%); }
+    .story-9 .story-num { color: #3258A8; opacity: 0.07; }
+    .story-9 .story-kicker { color: #5878C8; opacity: 1; }
+    .story-9 .story-headline { color: #e8f0ff; }
+    .story-9 .story-body { color: #c8d8f0; }
+    .story-9 .story-meta { color: #5878C8; opacity: 0.5; }
+    .story-9 .story-link.primary { background: #101e50; color: #fff; }
+    .story-9 .story-link.secondary { background: rgba(50,90,170,0.08); color: #b0c8e8; border: 1px solid rgba(50,90,170,0.22); }
+    .story-9 .flag-btn { color: #c8d8f0; }
+    .slate-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .slate-item { background: rgba(50,90,170,0.07); border-left: 3px solid #3258A8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .slate-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #5878C8; margin-bottom: 0.3rem; }
+    .slate-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 10 — Magenta */
+    .story-10 { background: #080004; color: #ffc8e8; min-height: 70vh; }
+    .story-10::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,20,90,0.15) 0%, transparent 65%); }
+    .story-10 .story-num { color: #BE1458; opacity: 0.07; }
+    .story-10 .story-kicker { color: #E04080; opacity: 1; }
+    .story-10 .story-headline { color: #fff0f8; }
+    .story-10 .story-body { color: #ffc8e8; }
+    .story-10 .story-meta { color: #E04080; opacity: 0.5; }
+    .story-10 .story-link.primary { background: #500030; color: #ffb0d8; }
+    .story-10 .story-link.secondary { background: rgba(190,20,90,0.08); color: #f090c0; border: 1px solid rgba(190,20,90,0.22); }
+    .story-10 .flag-btn { color: #ffc8e8; }
+    .mag-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .mag-item { background: rgba(190,20,90,0.07); border-left: 3px solid #BE1458; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .mag-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E04080; margin-bottom: 0.3rem; }
+    .mag-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .site-footer { background: #000; color: #555; padding: 3rem 4rem; display: flex; flex-direction: column; gap: 1.5rem; border-top: 1px solid #222; }
+    .footer-top { display: flex; gap: 2rem; align-items: center; flex-wrap: wrap; justify-content: space-between; }
+    .footer-brand { font-size: 1.4rem; font-weight: 900; color: #fff; }
+    .footer-meta { font-size: 0.75rem; line-height: 1.6; }
+    .export-btn { background: #222; border: 1px solid #444; color: #fff; font-family: var(--font); font-size: 0.8rem; font-weight: 700; padding: 0.7em 1.5em; border-radius: 3px; cursor: pointer; letter-spacing: 0.08em; transition: background 0.2s; }
+    .export-btn:hover { background: #333; }
+    .footer-note { font-size: 0.7rem; opacity: 0.5; }
+
+    @media (max-width: 768px) {
+      .masthead, .toc, .story-inner, .site-footer { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .story-num { display: none; }
+      .masthead-meta { gap: 1rem; }
+      .masthead-issue { margin-left: 0; }
+      .blue-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+<nav style="background:#1a1a1a;border-bottom:1px solid #333;padding:0.55rem 2rem;font-family:'M PLUS Rounded 1c','Hiragino Sans','Noto Sans JP',sans-serif;position:sticky;top:0;z-index:999;">
+  <a href="./index.html" style="color:#aaa;text-decoration:none;font-size:0.8rem;font-weight:700;letter-spacing:0.03em;display:inline-flex;align-items:center;gap:0.4rem;transition:color 0.15s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#aaa'">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    アーカイブへ戻る
+  </a>
+</nav>
+
+<header class="masthead">
+  <div class="masthead-kicker">Hacker News — Morning Edition</div>
+  <h1 class="masthead-title">Morning<br>Edition</h1>
+  <div class="masthead-meta">
+    <div>
+      <div class="masthead-date">2026年11月4日 水曜日</div>
+      <div class="masthead-subtitle">AI・開発ツール・プライバシー・サイエンス — あなたのための10本</div>
+    </div>
+    <div class="masthead-issue">
+      <span class="iss-label">Issue</span>
+      <span class="iss-num">No.169</span>
+    </div>
+  </div>
+</header>
+
+<nav class="toc">
+  <a href="#s1"><span class="toc-num">01</span>Postmanが無断でAIプラグインを自動インストール・API全データを送信</a>
+  <a href="#s2"><span class="toc-num">02</span>「AstraがQwenのウェイトを改善」は誇大——事実確認</a>
+  <a href="#s3"><span class="toc-num">03</span>車のナビを自分でジェイルブレイクして時刻を変えた話</a>
+  <a href="#s4"><span class="toc-num">04</span>Googleが「AI拒否校」の検索を切る——教育AIの強制力</a>
+  <a href="#s5"><span class="toc-num">05</span>現代チェスエンジンをPentiumで動かせば1996年のカスパロフに勝てるか</a>
+  <a href="#s6"><span class="toc-num">06</span>ラップトップのQwen 27Bがモデルウェイトを解釈できる</a>
+  <a href="#s7"><span class="toc-num">07</span>Mac at Any Scale——Macをサーバーとして大規模展開する方法</a>
+  <a href="#s8"><span class="toc-num">08</span>ヴェスヴィオ巻物：2000年ぶりに読めた文字</a>
+  <a href="#s9"><span class="toc-num">09</span>私のAI活用法（2026年10月版）——具体的な使い方の公開</a>
+  <a href="#s10"><span class="toc-num">10</span>$800のオープンソース全身グリッパーロボット「Stringman」</a>
+</nav>
+
+<!-- ═══ STORY 1 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-1" id="s1">
+  <div class="story-num">01</div>
+  <div class="story-inner">
+    <div class="story-kicker">プライバシー / 開発ツール / Postman / AI / セキュリティ — 2026-11-04</div>
+    <h2 class="story-headline">
+      <span class="headline-accent">Postmanが無断で<br>AIプラグインを<br>自動インストール</span><br>——全APIデータを外部送信——868pt
+    </h2>
+    <div class="story-body">
+      「Postman silently auto-installs AI plugins and attempts to share all API data」がHNで868ポイント・284コメントを集めています。開発者のsidgarimella氏がGitHubのissueで報告した問題で、PostmanがユーザーへのCI/CDなしに独自のAIプラグインをサイレントインストールし、ユーザーのAPIリクエスト・レスポンス・認証情報を含む全データをPostmanのサーバーに送信しようとしていることが発覚しました。開発者ツールにおける信頼と透明性の問題として、HNで強い反応を引き起こしています。
+    </div>
+    <div class="blue-grid">
+      <div class="blue-card">
+        <div class="blue-card-label">何が起きているか——具体的な問題</div>
+        <div class="blue-card-value">無断インストール＋全APIデータの外部送信</div>
+        <div class="blue-card-sub">報告された問題: (1) Postman 11.xへのアップデート後、ユーザーが気づかないうちに「Postman AI」プラグインが自動インストールされる。(2) プラグインは起動時にAPIコレクション・リクエスト履歴・環境変数（APIキー・パスワードを含む）をPostmanのAI基盤に送信しようとする。(3) オプトアウト設定はあるが、デフォルトはオプトイン——アップデートの注記には小さな文字でのみ記載。(4) エンタープライズプランでは設定でオフにできるが、個人・チームプランでは制限が薄い。影響範囲: Postmanは全世界で3,000万人以上の開発者が使用する最大手のAPIテストツール——医療・金融・インフラ開発者を含む。セキュリティへの影響: 「開発環境のAPIキーがPostmanのAIサーバーに送信されるということは、Postmanが漏洩した場合に攻撃者が大量の実環境APIキーを入手できる」。</div>
+      </div>
+      <div class="blue-card">
+        <div class="blue-card-label">HNの284コメント——移行先とリアクション</div>
+        <div class="blue-card-value">「Insomniaへ移行」「Bruno一択」という声が殺到</div>
+        <div class="blue-card-sub">コミュニティの反応: 「これはPostmanの終わりの始まり——信頼を失ったツールは開発者には使えない」という声が多数。推奨代替ツール: (1) Bruno: オープンソースのAPIテストツール——コレクションをGitで管理できるローカルファーストな設計。外部サーバーに一切データを送らない。(2) Insomnia: Kong社が開発するオープンソースのPostman代替——クラウド機能はオプトイン。(3) HTTPie: シンプルなCLIベースツール——クラウド不要。(4) VS Code REST Client: 拡張機能でリクエストを.httpファイルとして管理——GitリポジトリにAPIテストを含められる。actionable: 今すぐPostmanの設定→Privacy→「Allow Postman to use my API requests for AI training」をオフにするか、Brunoへの移行を検討する。</div>
+      </div>
+      <div class="blue-card">
+        <div class="blue-card-label">なぜこれが重要か——開発ツールの信頼崩壊</div>
+        <div class="blue-card-value">「ツールが武器になる」時代の警鐘</div>
+        <div class="blue-card-sub">背景: PostmanはAdvent VC主導で2021年に$5.6Bの評価を受けたユニコーン企業——投資家への回収圧力がAI機能のマネタイズに向かわせているという見方がある。開発ツール業界の問題構造: 「無料→SaaSモデル→AIデータ収集」というパターンがPostmanだけでなく複数のDevToolsで顕在化している——開発者のAPIキーやコードという極めてセンシティブなデータが狙われている。コンプライアンス上の問題: 多くの企業では「認証情報を外部サービスに送信してはいけない」というセキュリティポリシーがある——Postmanのデフォルト設定はこのポリシーに違反する可能性がある。Claude Codeとの関連: MCP(Model Context Protocol)を通じてAPIクライアントとAIが連携する方向が進んでいる中、開発ツールのデータプライバシーは今後ますます重要な問題になる。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: github.com/postmanlabs</span>
+      <span>↑868pt · 💬284+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://github.com/postmanlabs/postman-app-support/issues/14370" target="_blank">GitHub issueを読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50354960" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="postman-ai-plugins-data-sharing" data-type="like" onclick="toggleFlag('postman-ai-plugins-data-sharing','Postman AIプラグイン サイレントインストール APIデータ送信 プライバシー','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="postman-ai-plugins-data-sharing" data-type="dislike" onclick="toggleFlag('postman-ai-plugins-data-sharing','Postman AIプラグイン サイレントインストール APIデータ送信 プライバシー','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+    <div class="story-1-accent"></div>
+  </div>
+</section>
+
+<!-- ═══ STORY 2 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-2" id="s2">
+  <div class="story-num">02</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / LLM / DeepMind / Qwen / ファクトチェック — 2026-11-04</div>
+    <h2 class="story-headline">
+      <span style="color:#20d8f0">「AstraがQwenの<br>ウェイトを改善」は<br>誇大だった</span><br>——honnibal.devが事実確認——844pt
+    </h2>
+    <div class="story-body">
+      「The 'Astra can read and write weights to improve Qwen' post is misleading」がHNで844ポイント・187コメントを集めています。spaCyの開発者として知られるMatt Honnibal（@syllogism）が、前日にHNで大バズりした「AstraがQwenのウェイトを直接書き換えて改善できる」という主張を詳細に検証。実際に何が行われていたかを技術的に解説し、AI研究の報道における「印象操作」の問題を指摘した記事です。
+    </div>
+    <div class="teal-items">
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">元の主張と実際の内容の違い</div>
+          <div class="teal-text">誇大に聞こえた主張: 「DeepMindのAstraがQwen-2.5のウェイトを読み書きして能力を改善できる——AIがAIを自律的に改善するウェイト空間プログラミングの実証」。Honnibalの事実確認: (1) 「ウェイトの読み書き」の実態は、Astraが少数のパラメータを手動で指定した非常に狭い範囲で微調整しただけ——「AGI的な自己改善」とは程遠い。(2) ベンチマーク改善の「約12%」は、特定の数学タスクのサブセットのみ——汎用的な改善ではない。(3) 実験コードを読むと、Astraはどのウェイトを変えるかを推論しているのではなく、人間が指定したパラメータ範囲内で勾配降下法に近い方法を実行しているだけ。(4) 「これは基本的にプログラマブルなファインチューニングの別表現であり、革命的な新技術ではない」。</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">なぜこういう誇大報道が起きるのか</div>
+          <div class="teal-text">Honnibalの分析: 「AI研究の発表タイトルや要約は、印象的に聞こえるよう意図的に構成されることが増えている——査読前のプレプリント文化と組み合わさると、技術的に不正確だが「すごそうな」内容がSNSで爆発的に広がる」。読者側の問題: 「HNのような技術者コミュニティでさえ、タイトルだけで大量のポイントが集まることがある——論文の実装詳細を読んだ人は少数だった」。HNコミュニティの反応: 「これを指摘してくれてありがとう——昨日の議論で懐疑的なコメントをしたら批判されたが、今日Honnibalが詳しく検証してくれた」「AI研究のファクトチェック文化が必要」。今後への教訓: 「『AIがAIを改善した』という見出しには、実装詳細を必ず確認する習慣が必要——こういった誇張は業界全体への信頼を損なう」。</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">Actionable——AI研究を正しく読む技術</div>
+          <div class="teal-text">Honnibalが推奨する読み方: (1) 「実装コードを読む」——論文やブログの要約でなくコードそのものを見ると何をやっているかが明確になる。(2) 「ベンチマークの範囲を確認する」——「タスクXで改善」がどの程度の汎用性を持つかを確かめる。(3) 「実験設定のベースラインを確認する」——比較対象が弱い場合、改善幅は大きく見えがち。(4) 「作者のインセンティブを考える」——資金調達中のスタートアップと大学研究者では発表のインセンティブが異なる。ツール: Semantic Scholar・Papers With Code・connected paperなどで論文の引用・再現状況を確認できる。誇大報道に対抗するコミュニティ: LessWrong・Alignment Forum・Alex Tamkin氏のAI Sagaなどが技術的に正確なAI研究解説を提供している。</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: honnibal.dev</span>
+      <span>↑844pt · 💬187+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://honnibal.dev/blog/astra-read-write-misleading" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50351111" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="astra-qwen-weights-misleading" data-type="like" onclick="toggleFlag('astra-qwen-weights-misleading','Astra Qwen ウェイト 誇大報道 ファクトチェック AI LLM','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="astra-qwen-weights-misleading" data-type="dislike" onclick="toggleFlag('astra-qwen-weights-misleading','Astra Qwen ウェイト 誇大報道 ファクトチェック AI LLM','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 3 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-3" id="s3">
+  <div class="story-num">03</div>
+  <div class="story-inner">
+    <div class="story-kicker">リバースエンジニアリング / 車載システム / ハードウェアハック / Renault — 2026-11-04</div>
+    <h2 class="story-headline">
+      車のナビを自分で<br><span style="color:#E84040">ジェイルブレイク</span><br>して時刻を変えた
+    </h2>
+    <div class="story-body">
+      「Jailbreaking my car's navigation system just so I can change the time」がHNで530ポイント・210コメントを集めています。エストニアのエンジニアxx_ns氏が、自分のRenault車の純正カーナビシステムを数週間かけてリバースエンジニアリングし、時刻設定のロックを解除するまでの全過程を詳述したブログ記事です。なぜそこまで——という問いへの答えが「夏時間に対応していないからイライラしたから」という点も含め、エンジニアの心理をよく捉えたユーモラスな記録です。
+    </div>
+    <div class="red-items">
+      <div class="red-item">
+        <div class="red-label">ハックの全工程——何をどうやったか</div>
+        <div class="red-text">問題の発端: Renaultの純正ナビ（MediaNav Evolution）はGPS信号から自動的に時刻を取得するが、エストニアの夏時間（EET/EEST）への対応が壊れており、常に1時間ずれた時刻を表示していた。メーカーサポートの対応: 「これは仕様です。ファームウェアアップデートで修正を検討します」→3年経っても修正なし。ハックの手順: (1) OBD-IIポートからシステムのUARTコンソールへのアクセスを発見。(2) ファームウェアをシリアル接続で抽出してbinwalkで解析。(3) Linux ELFバイナリとして実行されているナビアプリのリバースエンジニアリング。(4) 時刻同期ロジックを担当しているC関数を特定。(5) ARM向けのパッチバイナリを作成してシステムに書き込み。結果: 「念願の正しい時刻が表示されるようになった。所要時間: 約4週間」。</div>
+      </div>
+      <div class="red-item">
+        <div class="red-label">HNの210コメント——「修理権」の権利運動</div>
+        <div class="red-text">最多コメントのスレッド: 「修理する権利（Right to Repair）の完璧な事例——自分が買った製品を自分で修正できないのはおかしい」という議論に発展。欧州の法的背景: EUでは2024年に修理権指令（Right to Repair Directive）が成立——メーカーは製品の修理に必要な情報・部品・ソフトウェアを合理的な価格で提供することが義務付けられた。日本の状況: 「日本では修理権の法整備が遅れているが、2025年に経産省が検討を開始した」というコメントも。技術的な興味: 「OBD-IIポートからUARTコンソールへのアクセスという発想が面白い——汎用車診断ポートが実は強力なデバッグ入口になっている」。類似事例: 「古いBMWのiDriveをハックした話」「ToyotaのEntune APIを解析した話」が次々とリンクされた。</div>
+      </div>
+      <div class="red-item">
+        <div class="red-label">Actionable——自分でも試してみたい人へ</div>
+        <div class="red-text">入門リソース: (1) car-hacking.orgの「Car Hacker's Handbook」——OBD-IIプロトコルからCANバスのリバースエンジニアリングまで体系的に学べる無料書籍。(2) OpenGaragesコミュニティ——車載システムのハックを共有するオープンコミュニティ。(3) CANtoolsライブラリ（Python）——CANバスのデータをデコードするためのPythonライブラリ。注意事項: 「ECU（エンジン制御ユニット）への書き込みは安全上のリスクがある——ナビ系の独立したシステムのみを対象にすること」「車のコンピュータへの不正アクセスは国・地域によっては違法になる場合がある——自己責任で」。最初のステップ: 中古OBD-IIアダプター（\$10〜\$30）とTorqueアプリで自分の車の基本データを読むことから始められる。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: blog.nns.ee</span>
+      <span>↑530pt · 💬210+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://blog.nns.ee/2026/11/02/renault-hack/" target="_blank">ブログを読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50339288" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="car-navigation-jailbreak" data-type="like" onclick="toggleFlag('car-navigation-jailbreak','Renault カーナビ ジェイルブレイク リバースエンジニアリング OBD2','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="car-navigation-jailbreak" data-type="dislike" onclick="toggleFlag('car-navigation-jailbreak','Renault カーナビ ジェイルブレイク リバースエンジニアリング OBD2','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 4 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-4" id="s4">
+  <div class="story-num">04</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / 教育政策 / Google / 学校 / テクノロジーと教育 — 2026-11-04</div>
+    <h2 class="story-headline">
+      Googleが<br><span style="color:#30C060">「AI拒否校」の<br>検索を切る</span><br>——教育現場のAI強制力——486pt
+    </h2>
+    <div class="story-body">
+      「Google will turn off search for schools that reject AI」がHNで486ポイント・356コメントを集めています。New York Timesが報じた内容で、Googleが学校向け検索ツール「Google for Education」の新規約において、AI学習ツール（Google Gemini for Education）の導入を拒否した学校に対して検索機能へのアクセスを段階的に制限するという方針を発表しました。教育現場でのテクノロジー強制力と、ビッグテックの教育市場支配について大きな議論を呼んでいます。
+    </div>
+    <div class="green-items">
+      <div class="green-item">
+        <div class="green-label">Googleの方針の具体的内容</div>
+        <div class="green-text">新規約の内容: (1) 2027年1月以降、Google for Educationの利用校はGemini for Educationの試験的利用を受け入れることが必須になる——拒否した場合はGoogle Workspace for Educationのコア機能（検索・Gmail・Drive）が制限される。(2) 完全な無効化オプションはなく、AIがオフの場合でも「データ収集のみ」モードが継続する——教育データを機械学習に使用することへの同意が事実上の前提条件に。(3) 無料プランはAI機能を含むパッケージへの移行を促す形で段階廃止。教育現場への影響: 世界1.7億人の学生・教師が利用するGoogle for Education——特に途上国・公立校では代替手段がなく、事実上の強制となる可能性。</div>
+      </div>
+      <div class="green-item">
+        <div class="green-label">HNの356コメント——「EdTechの植民地化」</div>
+        <div class="green-text">最多議論のポイント: 「これはEdTechプラットフォームの教育現場への完全な支配を示す事例——インフラを握ることで政策決定を強制できる」。教師・管理者からの声: 「小学校でAIツールを子どもに使わせることへの保護者の反対は大きい——でも検索が使えなくなると授業が成り立たない」「Googleへの依存から脱却したくても代替ツールの整備に数年かかる」。競合他社の反応: Microsoft Educationも同様の方向に動いているというコメントが複数。欧州の対応: 「GDPRとDSA（デジタルサービス法）のもとではこの規約変更はEUで違法になる可能性——Googleは欧州の学校向けに別途交渉を行うと予測される」。日本の状況: 「GIGAスクール構想でChromebookを全国展開した日本はGoogle依存度が特に高い——このニュースは他人事ではない」。</div>
+      </div>
+      <div class="green-item">
+        <div class="green-label">Actionable——学校のGoogleへの依存度を下げる選択肢</div>
+        <div class="green-text">代替プラットフォーム: (1) Nextcloud Education: セルフホスト型のコラボレーションスイート——EU内でサーバーを持てばGDPR完全対応。(2) LibreOffice Online (Collabora): ドキュメント・スプレッドシートのオープンソース代替。(3) Moodle: 世界最大のオープンソースLMS——Googleクラスルームの代替として機能。(4) DuckDuckGo for Schools: 広告なし・追跡なしの学校向け検索——Googleほど賢くはないが独立性が高い。日本の選択肢: 「端末はChromebookのまま、アカウントをMicrosoftに移行するGIGAスクールの学校が増えている」という現場報告。長期的視点: 「教育インフラを特定のプラットフォームに依存させることへのリスクを今こそ再評価する時期——オープンスタンダードへの投資が重要」。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: nytimes.com</span>
+      <span>↑486pt · 💬356+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.nytimes.com/2026/11/03/us/google-search-schools-restrict-ai.html" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50353192" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="google-search-schools-ai" data-type="like" onclick="toggleFlag('google-search-schools-ai','Google 学校 AI 検索制限 教育政策 EdTech','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="google-search-schools-ai" data-type="dislike" onclick="toggleFlag('google-search-schools-ai','Google 学校 AI 検索制限 教育政策 EdTech','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 5 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-5" id="s5">
+  <div class="story-num">05</div>
+  <div class="story-inner">
+    <div class="story-kicker">チェス / アルゴリズム / コンピューターサイエンス / 歴史的思考実験 — 2026-11-04</div>
+    <h2 class="story-headline">
+      現代チェスエンジンを<br><span style="color:#8050E0">Pentiumで動かせば</span><br>1996年のカスパロフに<br>勝てるか？
+    </h2>
+    <div class="story-body">
+      「Could a modern chess engine on a Pentium have defeated Kasparov in 1996?」がHNで414ポイント・189コメントを集めています。セキュリティ研究者のNicholas Carliniが書いた思考実験記事で、1996年当時のハードウェア（Pentium Pro 200MHz）に現代のチェスエンジン（Stockfish 17やLeela Chess Zero）を移植して動かした場合、どの程度の強さになるかを実際にベンチマークしながら計算した内容です。「アルゴリズムの改善」と「ハードウェアの改善」のどちらがより大きく貢献したかを明らかにする実験として注目を集めています。
+    </div>
+    <div class="purple-items">
+      <div class="purple-item">
+        <div class="purple-label">実験の結果——アルゴリズム vs ハードウェア</div>
+        <div class="purple-text">背景: 1996年のDeep Blue vs Kasparovマッチ——IBM製の専用チェスハードウェアとカスタムチップが毎秒2億手を計算してカスパロフに最初の公式対局で1勝した歴史的事件。Carliniの実験: 現代のStockfish 17を「Pentium Pro相当の計算速度（約100万ノード/秒）」に制限してシミュレーション。現代Stockfishの計算効率: 同じノード数で計算した場合、Stockfish 17は1996年のDeep Blueより推定2000Eloポイント以上強い。理由: (1) アルファ・ベータ法の改良（MCTS・移動順序最適化）で無駄な探索を大幅削減。(2) 評価関数のニューラルネット化（NNUE）で局面評価の精度が劇的向上。(3) 並列化アルゴリズムの改善で複数コアを効率的に活用。結論: 「Pentiumで動かした現代Stockfishは、1996年当時のカスパロフを高確率で倒せる——アルゴリズムの改善が40年で1000Elo以上に相当することを示している」。</div>
+      </div>
+      <div class="purple-item">
+        <div class="purple-label">HNの189コメント——AI全般への示唆</div>
+        <div class="purple-text">最も評価されたコメント: 「これはチェスだけでなく、ML全体に言えること——GPT-4レベルの能力をGPT-2時代のGPUで実現できるアルゴリズムが既にある可能性が高い。コンピューティングコストよりアルゴリズムのブレークスルーが先に来る」。量子コンピューティングとの比較: 「量子コンピュータのハードウェア改善を待つよりも、古典コンピュータ上のアルゴリズム改善の方が実用的な意味でずっと速く進歩している」。類似研究: 「Chess Algorithmic Progressという2024年の論文でも同様の結論——1990年代から現在までチェスエンジンはほぼ毎年30Eloずつ向上、ハードウェアは同期間に約15Elo相当の貢献」。日本のコメント: 「将棋ソフト（YaneuraOuなど）でも同様の分析があり、2010年代中盤には既にプロを超えていたが、当時のハードウェアを当時のアルゴリズムで動かした場合はプロに及ばなかった」。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: nicholas.carlini.com</span>
+      <span>↑414pt · 💬189+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://nicholas.carlini.com/writing/2026/algorithmic-improvements-chess.html" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50349276" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="chess-engine-kasparov-1996" data-type="like" onclick="toggleFlag('chess-engine-kasparov-1996','チェスエンジン Stockfish カスパロフ 1996 アルゴリズム改善 Pentium','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="chess-engine-kasparov-1996" data-type="dislike" onclick="toggleFlag('chess-engine-kasparov-1996','チェスエンジン Stockfish カスパロフ 1996 アルゴリズム改善 Pentium','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 6 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-6" id="s6">
+  <div class="story-num">06</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / LLM / Qwen / ローカルAI / モデル解釈可能性 — 2026-11-04</div>
+    <h2 class="story-headline">
+      ラップトップの<br><span style="color:#20B0D0">Qwen 27B</span>が<br>モデルウェイトを<br>解釈できる——400pt
+    </h2>
+    <div class="story-body">
+      「Qwen 3.8 27B on my laptop can interpret model weights, too」がHNで400ポイント・135コメントを集めています。Simon Willison氏がblog.simonwillison.netで公開した実験記事で、MacBook Pro（M4 Max）でOllama経由でローカル実行しているQwen 3.8 27Bモデルが、別のLLMのウェイトを読み込んで「このウェイトパターンが何を表現しているか」を解釈できることを実証した内容です。ローカルで動くモデルでもウェイト解釈能力を持てることへの驚きと、その実用的含意を考察しています。
+    </div>
+    <div class="cyan-items">
+      <div class="cyan-item">
+        <div class="cyan-label">実験の内容——何ができて何ができないか</div>
+        <div class="cyan-text">実験の設定: Simon氏がQwen 3.8 27B（4bit量子化、約16GBのVRAM消費）をM4 MaxのMacBook Proでローカル実行。llama.cppのツールを通じて、小型のモデル（GPT-2 Small相当）のウェイトテンソルをCSVとしてエクスポートしてQwenに渡した。できたこと: (1) 埋め込み層の特定次元が「地名」「感情表現」などの意味的クラスターに対応している傾向を正しく推論。(2) アテンションヘッドの重みパターンから「このヘッドは主語・動詞の依存関係に敏感」という推論を生成。(3) 「このモデルは英語テキストで学習されている」「語彙サイズから約50K tokenの辞書を使っている」という推論も正確。できなかったこと: 大規模モデル（70B+）のウェイトを直接解釈することはメモリ制約から不可能。個々の「ニューロン」が何を表現しているかを精密に特定するには専用の解釈可能性ツールが必要。</div>
+      </div>
+      <div class="cyan-item">
+        <div class="cyan-label">なぜこれが面白いのか——モデル解釈可能性の民主化</div>
+        <div class="cyan-text">解釈可能性研究の現状: LLMの内部表現を人間が理解できる概念にマッピングする「モデル解釈可能性（Interpretability）」研究は、Anthropic・DeepMind・EleutherAIなどが先端を走る研究分野——従来は大規模な計算資源が必要とされていた。ローカルモデルでの実現の意義: 「27Bのモデルが解釈可能性タスクを小型モデルに対して実行できるなら、研究者・開発者が手元の環境で自分のモデルを理解するためのツールとして使える」。Claude Codeとの関連: Anthropicが開発している「Mechanistic Interpretability」研究——モデルが特定の推論をする際にどの回路が活性化するかを理解する——とローカルQwenの実験は同じ方向性を向いている。将来の展望: 「ファインチューニングしたモデルがどこで元のベースモデルから乖離したかを理解したり、安全性上問題のある内部表現を特定したりするためのローカルツールが生まれる可能性」。</div>
+      </div>
+      <div class="cyan-item">
+        <div class="cyan-label">Actionable——自分でも試す方法</div>
+        <div class="cyan-text">必要なもの: (1) MacBook Pro M4 / M3 以上（32GB RAM推奨、16GBでも可能）またはNVIDIA GPU 24GB+。(2) Ollama（https://ollama.com）——1コマンドでQwen 3.8 27Bを取得・実行できる。(3) llama.cppのconvert-hf-to-gguf.pyスクリプト——HuggingFaceモデルのウェイトをGGUF形式に変換してテキストとして操作できる。試し方: (1) `ollama pull qwen3.8:27b`でモデルをダウンロード。(2) GPT-2 SmallのウェイトをHuggingFaceから取得してCSV化。(3) プロンプトに「このウェイトテンソルが何を表現しているか推論してください」として渡す。Simon氏のGistにサンプルスクリプトとプロンプトが公開されている。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: simonwillison.net</span>
+      <span>↑400pt · 💬135+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://simonwillison.net/2026/Nov/3/qwen-can-interpret-model-weights/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50355251" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="qwen-27b-model-weights-laptop" data-type="like" onclick="toggleFlag('qwen-27b-model-weights-laptop','Qwen 27B ローカルAI ウェイト解釈 Interpretability MacBook','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="qwen-27b-model-weights-laptop" data-type="dislike" onclick="toggleFlag('qwen-27b-model-weights-laptop','Qwen 27B ローカルAI ウェイト解釈 Interpretability MacBook','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 7 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-7" id="s7">
+  <div class="story-num">07</div>
+  <div class="story-inner">
+    <div class="story-kicker">インフラ / Apple Silicon / MacOS / クラウド代替 / ハードウェア — 2026-11-04</div>
+    <h2 class="story-headline">
+      Mac at<br><span style="color:#E88040">Any Scale</span><br>——Macをサーバーとして<br>大規模展開する方法——279pt
+    </h2>
+    <div class="story-body">
+      「Mac at Any Scale」がHNで279ポイント・159コメントを集めています。namespace.soが公開したブログ記事で、Apple Silicon Macを大規模なコンピューティングクラスターとして展開する方法論——ラックマウント設計、MDMによる自動管理、ネットワーキング、コスト比較を包括的に解説した内容です。AIワークロードに特化したMacクラスターを構築して、NVIDIA GPU環境と比較したパフォーマンスとコストを詳述しています。
+    </div>
+    <div class="amber-items">
+      <div class="amber-item">
+        <div class="amber-label">なぜ今Macクラスターなのか</div>
+        <div class="amber-text">Apple Siliconのメリット: (1) ユニファイドメモリ——CPUとGPUが同一の物理メモリを共有することで、NVIDIA環境で頻繁に発生するCPU-GPU間のデータ転送ボトルネックがない。(2) Metal APIとMLX——Appleの機械学習フレームワークMLXはM3/M4チップで最適化されており、推論速度がA100 GPUに匹敵するケースがある。(3) コスト構造——Mac Studio（M4 Ultra 192GB RAM、約$4,000）はNVIDIA H100（約$30,000）より圧倒的に安価。(4) 低消費電力——H100が700Wなのに対してMac Studioは90W程度。コスト比較: 「192GBの高帯域メモリを$4,000で手に入れられるのはMac Studio以外に選択肢がない」——70B LLMの推論ワークロードでの実測コスト効率はH100の3〜5倍とのデータを示している。</div>
+      </div>
+      <div class="amber-item">
+        <div class="amber-label">運用の実際——Scale時の課題</div>
+        <div class="amber-text">ラックマウント設計: Mac StudioはラックマウントオプションがないためOWCなどのサードパーティシェルフを使用——1Uに2台収納可能。熱管理: 「Mac Miniは問題が大きい——Mac Studioの冷却設計はサーバー環境でも問題なく動作するが、Mac Miniを密閉ラックに詰めると熱暴走する」。MDM管理: Apple Business Manager + Jamf Pro を使ったゼロタッチプロビジョニングで台数が増えても管理コストが線形増加しない設計。ネットワーク: 10GbE（Thunderbolt-to-10GbE変換）を推奨——複数台をL2スイッチで接続してリンクアグリゲーション。ストレージ: Mac内蔵SSDの書き込み寿命を考慮してモデルウェイトはNASに置きネットワーク越しに読み込む設計が推奨されている。OS更新管理: 「Appleはサイレントアップデートを止められない——MDMで強制延期できるが永遠には無理。これが大規模運用で最も頭を悩ます問題」。</div>
+      </div>
+      <div class="amber-item">
+        <div class="amber-label">HNコミュニティの評価——実運用者の声</div>
+        <div class="amber-text">HNの159コメントから: 「70B LLM推論でMac Studioのコスト効率は確かに優れている——8台のMac Studio M4 Ultraで$32,000・合計1536GBメモリ vs H100 1枚$30,000で80GBメモリ、比較にならない」。限界への言及: 「学習（Training）ではNVIDIAが圧倒的——Mac Siliconが優れているのは大型モデルの推論（Inference）に限定される」「CUDA エコシステムの圧倒的な成熟度は依然として大きな差」。コンプライアンス上のメリット: 「データをAppleのサーバーに出さず完全にオンプレミスで運用できる——医療・金融・法律分野での採用が増えている」。日本の事例: 「Sakura InternetがMac Miniクラスターを使ったAI推論クラウドをβ提供中——日本では珍しいオンプレAIインフラ事例」。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: namespace.so</span>
+      <span>↑279pt · 💬159+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://namespace.so/blog/mac-at-any-scale" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50352758" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="mac-at-any-scale" data-type="like" onclick="toggleFlag('mac-at-any-scale','Mac Apple Silicon クラスター インフラ AI推論 コスト','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="mac-at-any-scale" data-type="dislike" onclick="toggleFlag('mac-at-any-scale','Mac Apple Silicon クラスター インフラ AI推論 コスト','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 8 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-8" id="s8">
+  <div class="story-num">08</div>
+  <div class="story-inner">
+    <div class="story-kicker">考古学 / ヴェスヴィオ巻物 / 古典学 / AIと文化遺産 — 2026-11-04</div>
+    <h2 class="story-headline">
+      ヴェスヴィオ巻物<br><span style="color:#D4A820">PHerc. 306B</span>から<br>2000年ぶりに<br>文字が読めた——106pt
+    </h2>
+    <div class="story-body">
+      「Writing seen in PHerc. 306B, for the first time in 2000 years」がHNで106ポイント・13コメントを集めています。Vesuvius Challengeチームが公開した速報記事で、ヘルクラネウム写本（ヴェスヴィオ巻物）のコレクションの一つPHerc. 306Bから、AIによるX線CTスキャン解析によって新たなテキストが読み解かれたという報告です。2000年前にヴェスヴィオ火山の噴火で炭化した巻物から次々と文字が解読されるプロセスが着実に進んでいます。
+    </div>
+    <div class="gold-items">
+      <div class="gold-item">
+        <div class="gold-label">Vesuvius Challenge——世界が注目するプロジェクト</div>
+        <div class="gold-text">背景: ヘルクラネウム写本は79年のヴェスヴィオ火山噴火で炭化した約1,800本の巻物——物理的に開こうとすると粉砕するため、2,000年間内容が不明なまま。2023年のブレークスルー: Vesuvius Challengeが設定した$1,000,000の賞金と、機械学習・X線マイクロCT技術の組み合わせにより、2023年末に最初の文章解読に成功。現在の進捗: PHerc. 306Bは今年初めて高解像度スキャンが完了——今回の報告はその初期解析結果。解読された内容: まだ断片的だが、ギリシャ語の哲学的テキストの一部と推定されるフレーズが確認されている。意義: 「これはまだ全体の1%にも満たない——これが完全に解読されると、プラトンやアリストテレスの時代の失われた著作が復元できる可能性がある」。</div>
+      </div>
+      <div class="gold-item">
+        <div class="gold-label">AIがどう貢献しているか——技術解説</div>
+        <div class="gold-text">技術スタック: (1) X線マイクロCT——医療用CTスキャナーを超える分解能（4μm）で炭化巻物の内部構造を3D撮影。(2) Crinkle Detection——炭化で折りたたまれた羊皮紙の「しわ」をAIが3D空間で追跡・平坦化する。(3) Ink Detection——炭素インクと炭化した紙の微細な密度差をConvolutional Neural Networkで識別。(4) Virtual Unrolling——3D点群から2D展開図を生成してテキストを読める状態に。重要な技術的発見: 「インクが表面だけでなく羊皮紙の繊維内部に浸透している——このインクのtextureをAIが学習することで識別精度が劇的に向上した（2024年のキーブレークスルー）」。オープンソース: 解析コードは全てGitHubで公開——誰でも参加できる市民科学プロジェクトとして機能している。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: scrollprize.substack.com</span>
+      <span>↑106pt · 💬13+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://scrollprize.substack.com/p/writing-seen-in-pherc-306b-for-the" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50342119" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="vesuvius-scroll-pherc-306b" data-type="like" onclick="toggleFlag('vesuvius-scroll-pherc-306b','ヴェスヴィオ巻物 ヘルクラネウム写本 Vesuvius Challenge AI 考古学','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="vesuvius-scroll-pherc-306b" data-type="dislike" onclick="toggleFlag('vesuvius-scroll-pherc-306b','ヴェスヴィオ巻物 ヘルクラネウム写本 Vesuvius Challenge AI 考古学','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 9 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-9" id="s9">
+  <div class="story-num">09</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI活用 / ワークフロー / 開発者の視点 / Actionable — 2026-11-04</div>
+    <h2 class="story-headline">
+      私のAI活用法<br><span style="color:#5878C8">（2026年10月版）</span><br>——具体的な使い方を<br>公開——44pt
+    </h2>
+    <div class="story-body">
+      「How I use AI (Oct 2026)」がHNで44ポイント・48コメントを集めています。ソフトウェアエンジニアのben.stolovitz.comが書いた記事で、2026年10月時点での自分のAI活用ワークフローを詳細に公開したものです。コーディング・リサーチ・文章作成のそれぞれでどのツールをどう使っているか、何が期待通りで何が期待外れだったかを率直に記録した内容として、HNの技術者コミュニティで実践的な議論を呼んでいます。
+    </div>
+    <div class="slate-items">
+      <div class="slate-item">
+        <div class="slate-label">著者の現在のAIツールスタック</div>
+        <div class="slate-text">コーディング: Claude Code（メイン）——「長いコンテキストを保持しながら複数ファイルにわたる修正ができる点が他ツールと一線を画す。ただし時々全く関係ないコードを書き換えることがある」。補助: Cursor（特定のコードブロックの生成）とGitHub Copilot（インライン補完）を併用。リサーチ: Perplexity Pro——「Webを検索してまとめてくれる機能が研究の初期段階に便利。ただし引用の正確性を必ず確認する必要がある」。文章作成: Claude.ai Sonnet 4.6——「長い文章の構造を整えたり、難しい概念を説明するドラフトを作るのに使う。自分の声で書き直すのは最終ステップ」。コマンドライン: Claude Code + シェルスクリプト自動生成——「ログ解析やデータ変換の一時スクリプトを口頭で説明して書いてもらう」。</div>
+      </div>
+      <div class="slate-item">
+        <div class="slate-label">何がうまくいっていて何がうまくいっていないか</div>
+        <div class="slate-text">うまくいっていること: (1) コードのデバッグ——「エラーメッセージとスタックトレースを渡すと的確な原因と修正方法が返ってくる——Google検索より速いケースが多い」。(2) ボイラープレートコードの生成——「Reactコンポーネント・テストケース・設定ファイルなど型が決まったコードは90%以上正確に生成される」。(3) リファクタリングの提案——「『このコードをもっと読みやすくして』が驚くほど的確」。うまくいっていないこと: (1) 「新しいAPIへの対応」——学習データのカットオフ以降のAPIは間違った使い方を自信満々に提案する。(2) 「長期プロジェクトの一貫性」——会話をまたぐとコンテキストが失われる問題はまだ完全には解決されていない。(3) 「ビジネス判断」——「これを使うべきか」という判断はAIより人間の方が遥かに優れている。</div>
+      </div>
+      <div class="slate-item">
+        <div class="slate-label">HNコメントから——他の開発者のワークフロー</div>
+        <div class="slate-text">注目コメント集: 「私は会議メモの整理にClaude APIを直接呼んでいる——自分専用のプロンプトを磨いた結果、ミーティング後5分で次のアクションアイテムリストが完成する」。「AIをペアプログラマーとして使う際の重要な気づき: 自分がコードを理解していないままAIに依頼すると、後でデバッグできなくなる——AIは書ける速度を上げるが、理解の代わりにはならない」。「検索エンジンとしてのAI活用が一番ROIが高い——Google検索でドキュメントを探す時間をAIへの質問に置き換えると、1日あたり1〜2時間節約できる」。「音声入力＋Claude APIの組み合わせが予想以上に強力——アイデアを喋るだけでドラフトが出てくる」。actionableまとめ: 自分のAI活用を記録して定期的に見直すことが重要——3ヶ月前にうまくいかなかったことが今はうまくいくようになっていることが多い。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: ben.stolovitz.com</span>
+      <span>↑44pt · 💬48+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://ben.stolovitz.com/posts/how-use-ai-oct-2026/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50355767" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="how-i-use-ai-oct-2026" data-type="like" onclick="toggleFlag('how-i-use-ai-oct-2026','AI活用法 ワークフロー Claude Code 開発者 2026年','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="how-i-use-ai-oct-2026" data-type="dislike" onclick="toggleFlag('how-i-use-ai-oct-2026','AI活用法 ワークフロー Claude Code 開発者 2026年','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 10 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-10" id="s10">
+  <div class="story-num">10</div>
+  <div class="story-inner">
+    <div class="story-kicker">ロボット工学 / オープンソース / ハードウェア / DIY — 2026-11-04</div>
+    <h2 class="story-headline">
+      $800の<br><span style="color:#E04080">オープンソース</span><br>全身グリッパーロボット<br>「Stringman」——254pt
+    </h2>
+    <div class="story-body">
+      「Stringman, an $800 open-source room scale gripper robot」がHNで254ポイント・104コメントを集めています。neufangled.comが発表したプロジェクトで、$800以下で構築できる部屋スケールの全身グリッパーロボット「Stringman」の設計図・ソフトウェア・製造ガイドを完全オープンソースで公開しました。商業用ロボットアームが数十万円〜数百万円する中、安価にアクセス可能なロボット研究プラットフォームとして注目を集めています。
+    </div>
+    <div class="mag-items">
+      <div class="mag-item">
+        <div class="mag-label">Stringmanの設計——何ができるロボットか</div>
+        <div class="mag-text">基本仕様: 天井から吊り下げるワイヤー駆動方式（ストリング＝糸が名前の由来）——複数のモーターがワイヤーを制御することで3D空間をカバー。可動範囲: 3m×3m程度の部屋スケール——「ルームスケール」と呼ばれる理由はここにある。グリッパー: 2指の簡易グリッパーでペットボトル・コップ・小型パッケージの把持が可能。コスト内訳: Dynamixelサーボモーター（約$300）+ 3Dプリントフレーム（約$80）+ 制御ボード（Raspberry Pi、約$80）+ ワイヤー・プーリー類（約$60）+ その他（$280）。制御ソフトウェア: ROSベースのコントロールスタック——ROS2 Humbleで動作。ローカルでLLMと組み合わせる自然言語制御デモも公開済み。解決している問題: 「産業用ロボットアームは$5,000〜$50,000——$800で部屋スケールの操作ができるプラットフォームは研究・教育用途で革命的」。</div>
+      </div>
+      <div class="mag-item">
+        <div class="mag-label">HNの104コメント——実用性と限界の議論</div>
+        <div class="mag-text">ポジティブな反応: 「ロボット研究の民主化——大学の研究室レベルのプラットフォームが個人の家に置けるようになる」「教育用途が特に面白い——中高生がロボットプログラミングを学ぶ実物のプラットフォームとして最適」。技術的な課題の指摘: 「ワイヤー駆動方式は可動域が広い反面、剛性が低い——高精度な作業には向かない」「キャリブレーションが難しいという報告が多い」。比較: 「LowCostRobot（$300のデスクロボットアーム）と組み合わせると研究用途に強力」「Boston Dynamicsのに比べると可愛いくらいだが、価格差を考えると驚異的」。自律化への展望: 「ROS2＋Qwen 27B（ローカルLLM）＋深度カメラを組み合わせた自律ピッキングのデモが印象的——自然言語で『テーブルの上のりんごを取って』と言うと実行できる」。製作事例: GitHub上に既に10件以上の製作レポートが上がっている——日本語の製作ガイド翻訳も計画中とのコメントあり。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: neufangled.com</span>
+      <span>↑254pt · 💬104+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://neufangled.com/" target="_blank">プロジェクトを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50354358" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="stringman-open-source-robot" data-type="like" onclick="toggleFlag('stringman-open-source-robot','Stringman ロボット オープンソース DIY グリッパー ワイヤー駆動','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="stringman-open-source-robot" data-type="dislike" onclick="toggleFlag('stringman-open-source-robot','Stringman ロボット オープンソース DIY グリッパー ワイヤー駆動','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand">Morning Edition</div>
+      <div class="footer-meta">
+        Hacker News 日本語キュレーション · 2026年11月4日 · Issue No.169<br>
+        毎朝7時 · 10本厳選 · AI・開発ツール・プライバシー・サイエンス
+      </div>
+    </div>
+    <button class="export-btn" onclick="exportFeedback()">フィードバックをエクスポート</button>
+  </div>
+  <div class="footer-note">
+    © 2026 Morning Edition · Source: Hacker News Algolia API · フィードバックはブラウザに保存されます
+  </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  // ── Feedback v2: File System Access API + IndexedDB fallback ──────────────────
+  const FB_KEY = 'morning-edition-feedback-v2';
+  const TARGET_FILENAME = 'feedback.json';
+  let fileHandle = null;
+
+  function getFeedback() {
+    try {
+      const raw = localStorage.getItem(FB_KEY);
+      return raw ? JSON.parse(raw) : { liked: {}, disliked: {}, updatedAt: null };
+    } catch { return { liked: {}, disliked: {}, updatedAt: null }; }
+  }
+
+  function saveFeedback(fb) {
+    try { localStorage.setItem(FB_KEY, JSON.stringify(fb)); } catch {}
+  }
+
+  function showToast(msg, isError) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.className = 'toast show' + (isError ? ' error' : '');
+    clearTimeout(t._timer);
+    t._timer = setTimeout(() => { t.className = 'toast'; }, 3000);
+  }
+
+  async function persistToFile(fb) {
+    const json = JSON.stringify(fb, null, 2);
+    if (fileHandle) {
+      try {
+        const w = await fileHandle.createWritable();
+        await w.write(json); await w.close();
+        return true;
+      } catch { fileHandle = null; }
+    }
+    if (!window.showOpenFilePicker) return false;
+    try {
+      const [fh] = await window.showOpenFilePicker({
+        id: 'morning-feedback',
+        startIn: 'downloads',
+        types: [{ description: 'JSON', accept: { 'application/json': ['.json'] } }]
+      });
+      fileHandle = fh;
+      const w = await fileHandle.createWritable();
+      await w.write(json); await w.close();
+      return true;
+    } catch { return false; }
+  }
+
+  function restoreButtons() {
+    const fb = getFeedback();
+    document.querySelectorAll('.flag-btn').forEach(btn => {
+      const id = btn.dataset.story;
+      const type = btn.dataset.type;
+      if ((type === 'like' && fb.liked[id]) || (type === 'dislike' && fb.disliked[id])) {
+        btn.classList.add('active');
+      }
+    });
+  }
+
+  async function toggleFlag(id, title, type) {
+    const fb = getFeedback();
+    const isLike = type === 'like';
+    const bucket = isLike ? 'liked' : 'disliked';
+    const other = isLike ? 'disliked' : 'liked';
+
+    if (fb[bucket][id]) {
+      delete fb[bucket][id];
+    } else {
+      fb[bucket][id] = { title, date: '2026-11-04' };
+      delete fb[other][id];
+    }
+    fb.updatedAt = new Date().toISOString();
+    saveFeedback(fb);
+
+    // Update buttons
+    document.querySelectorAll(`[data-story="${id}"]`).forEach(btn => {
+      btn.classList.remove('active');
+    });
+    document.querySelectorAll(`[data-story="${id}"][data-type="${type}"]`).forEach(btn => {
+      if (fb[bucket][id]) btn.classList.add('active');
+    });
+
+    const saved = await persistToFile(fb);
+    if (saved) {
+      showToast(isLike ? '⭐ 興味ありとしてフィードバックを保存しました' : '✕ 興味なしとしてフィードバックを保存しました', false);
+    } else {
+      showToast('ブラウザに保存しました（ファイル自動保存は次回起動時に設定）', false);
+    }
+  }
+
+  function exportFeedback() {
+    const fb = getFeedback();
+    const json = JSON.stringify(fb, null, 2);
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(json)
+        .then(() => showToast('フィードバックをクリップボードにコピーしました', false))
+        .catch(() => promptDownload(json));
+    } else {
+      promptDownload(json);
+    }
+  }
+
+  function promptDownload(json) {
+    const blob = new Blob([json], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = TARGET_FILENAME; a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  document.addEventListener('DOMContentLoaded', restoreButtons);
+</script>
+</body>
+</html>
