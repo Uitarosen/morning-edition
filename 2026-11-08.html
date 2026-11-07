@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Morning Edition — 2026年11月8日</title>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --font: 'M PLUS Rounded 1c', 'Hiragino Sans', 'Noto Sans JP', sans-serif; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); background: #111; color: #fff; overflow-x: hidden; }
+
+    .masthead { background: #fff; color: #000; padding: 3rem 4rem 2.5rem; border-bottom: 6px solid #000; position: relative; overflow: hidden; }
+    .masthead::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: repeating-linear-gradient(90deg, #000 0, #000 12px, transparent 12px, transparent 20px); }
+    .masthead-kicker { font-size: 0.85rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: #777; margin-bottom: 0.6rem; }
+    .masthead-title { font-size: clamp(3.5rem, 9vw, 7.5rem); font-weight: 900; line-height: 0.88; letter-spacing: -0.04em; margin-bottom: 1.8rem; }
+    .masthead-meta { display: flex; gap: 3rem; align-items: baseline; flex-wrap: wrap; }
+    .masthead-date { font-size: 1.5rem; font-weight: 700; }
+    .masthead-subtitle { font-size: 1rem; font-weight: 400; color: #555; max-width: 480px; line-height: 1.5; }
+    .masthead-issue { margin-left: auto; text-align: right; }
+    .masthead-issue span { display: block; }
+    .masthead-issue .iss-label { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: #999; }
+    .masthead-issue .iss-num { font-size: 2.2rem; font-weight: 900; color: #000; }
+
+    .toc { background: #1a1a1a; padding: 1.5rem 4rem; display: flex; gap: 1.5rem; flex-wrap: wrap; border-bottom: 1px solid #333; }
+    .toc a { color: #aaa; text-decoration: none; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; transition: color 0.2s; }
+    .toc a:hover { color: #fff; }
+    .toc-num { color: #555; margin-right: 0.3em; }
+
+    .story { position: relative; overflow: hidden; }
+    .story-inner { max-width: 1200px; margin: 0 auto; padding: 5rem 4rem; position: relative; z-index: 1; }
+    .story-num { font-size: clamp(6rem, 18vw, 16rem); font-weight: 900; line-height: 0.8; letter-spacing: -0.06em; opacity: 0.08; position: absolute; top: 1rem; right: 2rem; user-select: none; }
+    .story-badge { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.35em 0.9em; border-radius: 2px; margin-bottom: 1.5rem; }
+    .direct-badge { background: #FFD700; color: #000; }
+    .story-kicker { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; opacity: 0.6; margin-bottom: 0.8rem; }
+    .story-headline { font-size: clamp(2rem, 5vw, 4rem); font-weight: 900; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+    .story-body { font-size: clamp(1rem, 1.5vw, 1.2rem); font-weight: 400; line-height: 1.8; max-width: 680px; opacity: 0.88; margin-bottom: 2rem; }
+    .story-meta { display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center; font-size: 0.8rem; font-weight: 700; opacity: 0.5; }
+    .story-links { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem; }
+    .story-link { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.6em 1.4em; border-radius: 3px; text-decoration: none; transition: opacity 0.2s, transform 0.15s; }
+    .story-link:hover { opacity: 0.75; transform: translateY(-1px); }
+
+    .feedback-buttons { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .flag-btn { background: none; border: 1px solid currentColor; color: inherit; font-family: var(--font); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.5em 1em; border-radius: 3px; cursor: pointer; opacity: 0.32; transition: opacity 0.2s, background 0.2s, color 0.2s, border-color 0.2s, transform 0.15s; }
+    .flag-btn:hover { opacity: 0.72; transform: translateY(-1px); }
+    .flag-btn.like-btn.active { opacity: 1; background: rgba(255,215,0,0.15); border-color: #FFD700; color: #FFD700 !important; }
+    .flag-btn.dislike-btn.active { opacity: 1; background: rgba(255,60,60,0.12); border-color: #FF4444; color: #FF4444 !important; }
+
+    .toast { position: fixed; bottom: 2rem; right: 2rem; background: #1a1a1a; color: #fff; font-family: var(--font); font-size: 0.82rem; font-weight: 700; padding: 0.75em 1.4em; border-radius: 4px; border-left: 3px solid #00C853; z-index: 9999; opacity: 0; transform: translateY(10px); transition: opacity 0.25s, transform 0.25s; pointer-events: none; box-shadow: 0 4px 24px rgba(0,0,0,0.45); }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    .toast.error { border-left-color: #FF5252; }
+
+    /* Story 1 — White */
+    .story-1 { background: #fff; color: #000; min-height: 90vh; display: flex; flex-direction: column; justify-content: center; }
+    .story-1 .story-num { color: #000; opacity: 0.04; }
+    .story-1 .story-kicker { color: #555; opacity: 1; }
+    .story-1 .story-headline { color: #000; }
+    .story-1 .story-body { color: #111; }
+    .story-1 .story-meta { color: #000; }
+    .story-1 .story-link.primary { background: #1a1a1a; color: #fff; }
+    .story-1 .story-link.secondary { background: #f0f0f0; color: #000; }
+    .story-1 .flag-btn { color: #000; }
+    .story-1-accent { position: absolute; bottom: 0; left: 0; width: 100%; height: 8px; background: linear-gradient(90deg, #F5A623 0%, #E87722 50%, #F5A623 100%); }
+    .story-1 .headline-accent { display: inline-block; background: linear-gradient(135deg, #F5A623 0%, #E87722 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .blue-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1.2rem; margin: 2rem 0; max-width: 680px; }
+    .blue-card { border: 2px solid rgba(0,0,0,0.12); background: rgba(0,0,0,0.03); border-radius: 6px; padding: 1.3rem 1.5rem; }
+    .blue-card-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.2em; text-transform: uppercase; color: #333; margin-bottom: 0.4rem; }
+    .blue-card-value { font-size: 1.05rem; font-weight: 900; color: #000; line-height: 1.3; }
+    .blue-card-sub { font-size: 0.75rem; color: #555; margin-top: 0.3rem; line-height: 1.4; }
+
+    /* Story 2 — Dark navy/teal */
+    .story-2 { background: #00080c; color: #b8f0ff; min-height: 80vh; }
+    .story-2::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(0,160,200,0.14) 0%, transparent 65%); }
+    .story-2 .story-num { color: #00A0C8; opacity: 0.07; }
+    .story-2 .story-kicker { color: #20C8E8; opacity: 1; }
+    .story-2 .story-headline { color: #e0f8ff; }
+    .story-2 .story-body { color: #b8f0ff; }
+    .story-2 .story-meta { color: #20C8E8; opacity: 0.5; }
+    .story-2 .story-link.primary { background: #004058; color: #80e8ff; }
+    .story-2 .story-link.secondary { background: rgba(0,160,200,0.08); color: #90d8f0; border: 1px solid rgba(0,160,200,0.22); }
+    .story-2 .flag-btn { color: #b8f0ff; }
+    .teal-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .teal-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(0,160,200,0.07); border-left: 3px solid #00A0C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .teal-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20C8E8; margin-bottom: 0.3rem; }
+    .teal-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 3 — Dark red */
+    .story-3 { background: #0a0000; color: #fff; min-height: 80vh; }
+    .story-3::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(200,20,20,0.16) 0%, transparent 65%); }
+    .story-3 .story-num { color: #C81414; opacity: 0.07; }
+    .story-3 .story-kicker { color: #E84040; opacity: 1; }
+    .story-3 .story-headline { color: #fff; }
+    .story-3 .story-body { color: rgba(255,255,255,0.88); }
+    .story-3 .story-meta { color: #E84040; opacity: 0.5; }
+    .story-3 .story-link.primary { background: #6a0000; color: #fff; }
+    .story-3 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-3 .flag-btn { color: #fff; }
+    .red-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .red-item { background: rgba(200,20,20,0.07); border-left: 3px solid #C81414; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .red-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E84040; margin-bottom: 0.3rem; }
+    .red-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 4 — Dark green */
+    .story-4 { background: #020c04; color: #c8f0d0; min-height: 80vh; }
+    .story-4::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(20,160,70,0.16) 0%, transparent 65%); }
+    .story-4 .story-num { color: #14A046; opacity: 0.07; }
+    .story-4 .story-kicker { color: #30C060; opacity: 1; }
+    .story-4 .story-headline { color: #e0ffe8; }
+    .story-4 .story-body { color: #c8f0d0; }
+    .story-4 .story-meta { color: #30C060; opacity: 0.5; }
+    .story-4 .story-link.primary { background: #063820; color: #80ffb0; }
+    .story-4 .story-link.secondary { background: rgba(20,160,70,0.08); color: #a0e8b0; border: 1px solid rgba(20,160,70,0.22); }
+    .story-4 .flag-btn { color: #c8f0d0; }
+    .green-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .green-item { background: rgba(20,160,70,0.07); border-left: 3px solid #14A046; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .green-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #30C060; margin-bottom: 0.3rem; }
+    .green-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 5 — Dark purple */
+    .story-5 { background: #040010; color: #d8c8ff; min-height: 75vh; }
+    .story-5::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(90,40,200,0.17) 0%, transparent 65%); }
+    .story-5 .story-num { color: #5A28C8; opacity: 0.07; }
+    .story-5 .story-kicker { color: #8050E0; opacity: 1; }
+    .story-5 .story-headline { color: #f0e8ff; }
+    .story-5 .story-body { color: #d8c8ff; }
+    .story-5 .story-meta { color: #8050E0; opacity: 0.5; }
+    .story-5 .story-link.primary { background: #200860; color: #d0a8ff; }
+    .story-5 .story-link.secondary { background: rgba(90,40,200,0.08); color: #c0a0f0; border: 1px solid rgba(90,40,200,0.22); }
+    .story-5 .flag-btn { color: #d8c8ff; }
+    .purple-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .purple-item { background: rgba(90,40,200,0.07); border-left: 3px solid #5A28C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .purple-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #8050E0; margin-bottom: 0.3rem; }
+    .purple-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 6 — Dark cyan */
+    .story-6 { background: #000c10; color: #b8e8f0; min-height: 75vh; }
+    .story-6::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 40%, rgba(0,130,160,0.14) 0%, transparent 65%); }
+    .story-6 .story-num { color: #0080A0; opacity: 0.07; }
+    .story-6 .story-kicker { color: #20B0D0; opacity: 1; }
+    .story-6 .story-headline { color: #e0f4ff; }
+    .story-6 .story-body { color: #b8e8f0; }
+    .story-6 .story-meta { color: #20B0D0; opacity: 0.5; }
+    .story-6 .story-link.primary { background: #003848; color: #80d8f0; }
+    .story-6 .story-link.secondary { background: rgba(0,130,160,0.08); color: #90cce0; border: 1px solid rgba(0,130,160,0.22); }
+    .story-6 .flag-btn { color: #b8e8f0; }
+    .cyan-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .cyan-item { background: rgba(0,130,160,0.07); border-left: 3px solid #0080A0; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .cyan-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20B0D0; margin-bottom: 0.3rem; }
+    .cyan-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 7 — Dark amber */
+    .story-7 { background: #0a0300; color: #ffe0b8; min-height: 75vh; }
+    .story-7::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(210,90,20,0.18) 0%, transparent 65%); }
+    .story-7 .story-num { color: #D05A14; opacity: 0.07; }
+    .story-7 .story-kicker { color: #E88040; opacity: 1; }
+    .story-7 .story-headline { color: #fff0d8; }
+    .story-7 .story-body { color: #ffe0b8; }
+    .story-7 .story-meta { color: #E88040; opacity: 0.5; }
+    .story-7 .story-link.primary { background: #6a2400; color: #ffc880; }
+    .story-7 .story-link.secondary { background: rgba(210,90,20,0.08); color: #ffb870; border: 1px solid rgba(210,90,20,0.22); }
+    .story-7 .flag-btn { color: #ffe0b8; }
+    .amber-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .amber-item { background: rgba(210,90,20,0.07); border-left: 3px solid #D05A14; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .amber-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E88040; margin-bottom: 0.3rem; }
+    .amber-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 8 — Dark gold */
+    .story-8 { background: #080500; color: #fff; min-height: 70vh; }
+    .story-8::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,145,10,0.15) 0%, transparent 65%); }
+    .story-8 .story-num { color: #BE9110; opacity: 0.06; }
+    .story-8 .story-kicker { color: #D4A820; opacity: 1; }
+    .story-8 .story-headline { color: #fff; }
+    .story-8 .story-body { color: rgba(255,255,255,0.88); }
+    .story-8 .story-meta { color: #D4A820; opacity: 0.5; }
+    .story-8 .story-link.primary { background: #604000; color: #ffe070; }
+    .story-8 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-8 .flag-btn { color: #fff; }
+    .gold-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .gold-item { background: rgba(190,145,10,0.07); border-left: 3px solid #BE9110; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .gold-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #D4A820; margin-bottom: 0.3rem; }
+    .gold-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 9 — Slate blue */
+    .story-9 { background: #040810; color: #c8d8f0; min-height: 70vh; }
+    .story-9::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 35%, rgba(50,90,170,0.16) 0%, transparent 65%); }
+    .story-9 .story-num { color: #3258A8; opacity: 0.07; }
+    .story-9 .story-kicker { color: #5878C8; opacity: 1; }
+    .story-9 .story-headline { color: #e8f0ff; }
+    .story-9 .story-body { color: #c8d8f0; }
+    .story-9 .story-meta { color: #5878C8; opacity: 0.5; }
+    .story-9 .story-link.primary { background: #101e50; color: #fff; }
+    .story-9 .story-link.secondary { background: rgba(50,90,170,0.08); color: #b0c8e8; border: 1px solid rgba(50,90,170,0.22); }
+    .story-9 .flag-btn { color: #c8d8f0; }
+    .slate-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .slate-item { background: rgba(50,90,170,0.07); border-left: 3px solid #3258A8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .slate-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #5878C8; margin-bottom: 0.3rem; }
+    .slate-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 10 — Magenta */
+    .story-10 { background: #080004; color: #ffc8e8; min-height: 70vh; }
+    .story-10::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,20,90,0.15) 0%, transparent 65%); }
+    .story-10 .story-num { color: #BE1458; opacity: 0.07; }
+    .story-10 .story-kicker { color: #E04080; opacity: 1; }
+    .story-10 .story-headline { color: #fff0f8; }
+    .story-10 .story-body { color: #ffc8e8; }
+    .story-10 .story-meta { color: #E04080; opacity: 0.5; }
+    .story-10 .story-link.primary { background: #500030; color: #ffb0d8; }
+    .story-10 .story-link.secondary { background: rgba(190,20,90,0.08); color: #f090c0; border: 1px solid rgba(190,20,90,0.22); }
+    .story-10 .flag-btn { color: #ffc8e8; }
+    .mag-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .mag-item { background: rgba(190,20,90,0.07); border-left: 3px solid #BE1458; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .mag-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E04080; margin-bottom: 0.3rem; }
+    .mag-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .site-footer { background: #000; color: #555; padding: 3rem 4rem; display: flex; flex-direction: column; gap: 1.5rem; border-top: 1px solid #222; }
+    .footer-top { display: flex; gap: 2rem; align-items: center; flex-wrap: wrap; justify-content: space-between; }
+    .footer-brand { font-size: 1.4rem; font-weight: 900; color: #fff; }
+    .footer-meta { font-size: 0.75rem; line-height: 1.6; }
+    .export-btn { background: #222; border: 1px solid #444; color: #fff; font-family: var(--font); font-size: 0.8rem; font-weight: 700; padding: 0.7em 1.5em; border-radius: 3px; cursor: pointer; letter-spacing: 0.08em; transition: background 0.2s; }
+    .export-btn:hover { background: #333; }
+    .footer-note { font-size: 0.7rem; opacity: 0.5; }
+
+    @media (max-width: 768px) {
+      .masthead, .toc, .story-inner, .site-footer { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .story-num { display: none; }
+      .masthead-meta { gap: 1rem; }
+      .masthead-issue { margin-left: 0; }
+      .blue-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+<nav style="background:#1a1a1a;border-bottom:1px solid #333;padding:0.55rem 2rem;font-family:'M PLUS Rounded 1c','Hiragino Sans','Noto Sans JP',sans-serif;position:sticky;top:0;z-index:999;">
+  <a href="./index.html" style="color:#aaa;text-decoration:none;font-size:0.8rem;font-weight:700;letter-spacing:0.03em;display:inline-flex;align-items:center;gap:0.4rem;transition:color 0.15s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#aaa'">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    アーカイブへ戻る
+  </a>
+</nav>
+
+<header class="masthead">
+  <div class="masthead-kicker">Hacker News — Morning Edition</div>
+  <h1 class="masthead-title">Morning<br>Edition</h1>
+  <div class="masthead-meta">
+    <div>
+      <div class="masthead-date">2026年11月8日 日曜日</div>
+      <div class="masthead-subtitle">AI・開発ツール・プライバシー・サイエンス — あなたのための10本</div>
+    </div>
+    <div class="masthead-issue">
+      <span class="iss-label">Issue</span>
+      <span class="iss-num">No.173</span>
+    </div>
+  </div>
+</header>
+
+<nav class="toc">
+  <a href="#s1"><span class="toc-num">01</span>Libghostty 1.0——Ghosttyがライブラリになった日</a>
+  <a href="#s2"><span class="toc-num">02</span>NFSU2がブラウザで——nfsu2.xyzが大人気</a>
+  <a href="#s3"><span class="toc-num">03</span>すべてのMacに「家族分類器」——Appleの隠し知識グラフ</a>
+  <a href="#s4"><span class="toc-num">04</span>Asahi Linux 7.3——M4 MacもLinux化へ</a>
+  <a href="#s5"><span class="toc-num">05</span>Microsoft AI Frontiersグループが解散</a>
+  <a href="#s6"><span class="toc-num">06</span>iPhoneが補完しない単語——Appleのグレーリスト</a>
+  <a href="#s7"><span class="toc-num">07</span>法律事務所をフリーソフトウェアだけで運営する</a>
+  <a href="#s8"><span class="toc-num">08</span>神話が事実だった——古代DNAがバーバリアン族の起源を証明</a>
+  <a href="#s9"><span class="toc-num">09</span>DiscordがElectronを捨てた——RAM70%削減の衝撃</a>
+  <a href="#s10"><span class="toc-num">10</span>Coldframe——冷蔵庫コントローラーに偽装したハニーポット</a>
+</nav>
+
+<!-- ═══ STORY 1 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-1" id="s1">
+  <div class="story-num">01</div>
+  <div class="story-inner">
+    <div class="story-kicker">開発ツール / ターミナル / ライブラリ / OSS / GPU — 2026-11-08</div>
+    <h2 class="story-headline">
+      <span class="headline-accent">Libghostty 1.0——<br>GhosttyのレンダリングエンジンがOSSライブラリに</span><br>——996pt
+    </h2>
+    <div class="story-body">
+      Mitchell Hashimoto（Vagrant・HashiCorp創設者）が個人プロジェクトとして開発するGPUアクセラレーテッドターミナルエミュレータ「Ghostty」のコアレンダリングエンジンが、`libghostty`としてv1.0ライブラリリリース。任意のアプリからGhosttyの高性能レンダリングをライブラリとして組み込めるようになりました。HNで996ポイント・174コメントを記録し、2026年11月8日の最高得票ストーリーです。
+    </div>
+    <div class="blue-grid">
+      <div class="blue-card">
+        <div class="blue-card-label">libghosttyとは何か——Ghosttyのアーキテクチャ</div>
+        <div class="blue-card-value">ターミナルエンジンを切り出したCライブラリ</div>
+        <div class="blue-card-sub">Ghosttyの構造: 本体はZigで書かれたクロスプラットフォームターミナルエミュレータ。コアのVT100/xterm互換端末処理、Unicodeレイアウト、フォントラスタライズ、GPU描画パイプライン（Metal/Vulkan/OpenGL）を`libghostty`として分離。C ABIで公開: 純粋なCヘッダー（`ghostty.h`）を提供——C、C++、Python（ctypes）、Rust（bindgen）、Swift、任意の言語からFFIで使える。何ができるか: (1) 自分のアプリにGhosttyクオリティのターミナルウィジェットを埋め込む。(2) VSCode・JetBrains・Zedなど現状Electronベースのターミナルパネルを置き換え可能。(3) カスタムシェルホスト・TUIフレームワークの基盤として使える。ライセンス: MITライセンス——商用利用・改変・再配布自由。最初の採用例: 既にいくつかのIDEプラグインが`libghostty`への移行を表明している。</div>
+      </div>
+      <div class="blue-card">
+        <div class="blue-card-label">HNの174コメント——コミュニティの熱狂</div>
+        <div class="blue-card-value">「Electronターミナルが終わる日」論争</div>
+        <div class="blue-card-sub">最高評価コメント: 「libghosttyのリリースは、各IDEがもう自分でターミナルエミュレータを実装しなくてよくなるという意味で歴史的——ちょうどWebKitがブラウザエンジンを民主化したように、libghosttyはターミナルを民主化する」。Zedチームの反応: 「Zedは既に独自のターミナル実装を持っているが、libghosttyのパフォーマンスベンチマークを見ると真剣に移行を検討せざるを得ない」というコメントが高評価。Electronターミナル批判: 「VSCodeのターミナルはWASMベースのxterm.jsで動いており、GPU描画に移行した版も出ているが、libghosttyと比較すると複雑さが桁違い——同じことをはるかにシンプルに実装できる」。日本のエンジニアのコメント: 「Ghosttyは日本語の等幅表示（全角文字）が最初からまともに扱えた唯一のターミナルだった——libghosttyがその能力を広く使えるようになるのは朗報」。パフォーマンス数値: リリースブログに記載の数値——xterm.jsの10〜30倍の描画速度（静的ベンチマーク）、メモリ使用量は約1/5。</div>
+      </div>
+      <div class="blue-card">
+        <div class="blue-card-label">Actionable——今すぐlibghosttyを試す</div>
+        <div class="blue-card-value">5行で動くターミナルウィジェット</div>
+        <div class="blue-card-sub">インストール（macOS）: `brew install libghostty` → Homebrewで即時インストール可能。Rustから使う場合: `Cargo.toml` に `ghostty = "1.0"` を追加 → `use ghostty::Terminal;` → `Terminal::new().spawn("zsh")` で動く。Pythonから: `pip install ghostty-py` → ctypesラッパーが公開済み。最も実用的なユースケース: 自社の開発者向けWebアプリ（CI/CD管理画面・クラウドコンソール）にブラウザ内ターミナルを埋め込む際、xterm.jsの代替として評価する価値あり（WebAssemblyビルドも近日公開予定とのこと）。Claude Codeとの組み合わせ: Claude Code CLIはVT100互換端末で動作するため、libghosttyをホストとして使ったカスタムClaude Codeラッパー（独自UIでCLIをラップ）が作りやすくなる。リポジトリ: github.com/mitchellh/libghostty——Starは初日で8,000超。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: mitchellh.com</span>
+      <span>↑996pt · 💬174+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://mitchellh.com/writing/libghostty-1-0" target="_blank">ブログを読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50399933" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="libghostty-1-0" data-type="like" onclick="toggleFlag('libghostty-1-0','Libghostty Ghostty ターミナル ライブラリ Zig GPU Mitchell Hashimoto','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="libghostty-1-0" data-type="dislike" onclick="toggleFlag('libghostty-1-0','Libghostty Ghostty ターミナル ライブラリ Zig GPU Mitchell Hashimoto','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+    <div class="story-1-accent"></div>
+  </div>
+</section>
+
+<!-- ═══ STORY 2 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-2" id="s2">
+  <div class="story-num">02</div>
+  <div class="story-inner">
+    <div class="story-kicker">ゲーム / ブラウザ / WebAssembly / レトロ / オープンソース — 2026-11-08</div>
+    <h2 class="story-headline">
+      <span style="color:#20d8f0">Need for Speed<br>Underground 2</span><br>がブラウザで<br>フル動作——716pt
+    </h2>
+    <div class="story-body">
+      「nfsu2.xyz」がHNで716ポイント・206コメントを記録。2004年の伝説のレースゲーム「Need for Speed Underground 2」がWebAssembly移植によりブラウザ上でフルプレイ可能になりました。インストール不要、ロム合法問題をクリア済みのオープンソースポーティングが一夜にして話題をさらいました。
+    </div>
+    <div class="teal-items">
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">どうやってブラウザで動かしているか——技術スタック</div>
+          <div class="teal-text">移植の仕組み: オリジナルのNFSU2 PCバイナリをリバースエンジニアリングしてC/C++に再実装したオープンソースプロジェクト「re3/reVC」の系譜にある「NFSU2-reworked」を、Emscriptenを使ってWebAssemblyにクロスコンパイル。ゲームアセット: オリジナルのゲームアセット（テクスチャ・モデル・音楽）は含まれていない——プレイヤーが合法的に所有するゲームディスク（またはEA公式のアーカイブ版）からアセットをブラウザにロードする仕組みを取る。WebGL: レンダリングはWebGL2で処理——オリジナルのDirect3D 8コールをOpenGL ES 3.0互換の呼び出しに変換したラッパーを経由。音声: Web Audio APIでOGGフォーマットのBGMをストリーミング再生。コントローラー: Gamepad APIに対応——PS5/Xbox/ProコントローラーをUSBまたはBluetooth接続で即時認識。パフォーマンス: M2 Macのブラウザで常時60fps（Chromeで確認）、低スペックマシンでも30fps以上を維持。</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">HNの206コメント——ノスタルジアとオープンソースの勝利</div>
+          <div class="teal-text">感情的な反応: 「2004年の中学時代を過ごしたゲーム——ブラウザで動いているのを見て涙が出そうになった」というコメントが大量にアップヴォートされた。法的な考察: 「アセットを自分でロードする設計がポイント——コードを再実装してもゲームデータを含めるとDMCA問題になるが、ユーザー自身のアセットを使う設計にすることで大きなグレーゾーンを避けている」という法的解析コメント。EA公式の動き: 「EAがEA Mobiusでクラシックゲームのアーカイブ販売を始めているが、NFSU2は現時点でカタログ入りしていない——このプロジェクトがEAにプレッシャーをかける可能性がある」。技術的な賞賛: 「Emscriptenとbinaryen（WebAssembly最適化）の成熟度がここまで来たのかという驚き——5年前ならこの品質でブラウザ移植は無理だった」。オンラインモード: 「オリジナルのオンライン対戦は現在も実装中——2020年代のゲームインフラでNFSU2のオンラインを再現する試みは技術的に面白い」。</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">エンジニアとしての示唆——WebAssemblyの今の実力</div>
+          <div class="teal-text">この移植が示すもの: 2004年世代のゲームエンジン（Direct3D 8世代）のフル移植がブラウザで実用的に動く時代になった——WebAssembly + WebGL2 + WebAudioの組み合わせはゲームエンジン移植の実用ラインを超えている。ネイティブアプリのWeb移植を考えるとき: Emscriptenによる既存C/C++コードのWebAssembly変換は、UI部分（DOM操作が必要な部分）を除くコアロジックであれば驚くほど素直に動く。試してみる価値がある用途: (1) 既存のCLIツールをブラウザ上で動かす（例: ffmpegのWebAssembly版はすでに実運用されている）。(2) Python/Rubyインタープリタの埋め込み（教育・デモ用途）。(3) ゲームエンジン（Unity WebGL・Unreal→wasm）の組み込み。今すぐ遊ぶ: nfsu2.xyz にブラウザでアクセス → 自分のNFSU2ゲームファイルを指定 → プレイ開始。Chromeまたはエッジ推奨（Safariは一部WebGLエクステンションが未対応）。</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: nfsu2.xyz</span>
+      <span>↑716pt · 💬206+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://nfsu2.xyz/" target="_blank">ブラウザで遊ぶ →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50403052" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="nfsu2-browser" data-type="like" onclick="toggleFlag('nfsu2-browser','Need for Speed Underground 2 ブラウザ WebAssembly Emscripten レトロゲーム','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="nfsu2-browser" data-type="dislike" onclick="toggleFlag('nfsu2-browser','Need for Speed Underground 2 ブラウザ WebAssembly Emscripten レトロゲーム','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 3 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-3" id="s3">
+  <div class="story-num">03</div>
+  <div class="story-inner">
+    <div class="story-kicker">Apple Intelligence / AI / macOS / 未公開機能 / プライバシー — 2026-11-08</div>
+    <h2 class="story-headline">
+      すべてのMacに<br><span style="color:#E84040">「家族関係分類器」が<br>隠れている</span><br>——Apple知識グラフの実態——537pt
+    </h2>
+    <div class="story-body">
+      「Every Mac comes with an (undocumented) family member classifier」（8rank.ai）がHNで537ポイント・315コメントを集めています。Apple IntelligenceのPersonal Knowledge Graphがすべての対応Macに存在し、写真・メール・連絡先データからユーザーの家族関係を推論する隠し機能が発見されました。Appleのドキュメントには一切記載がないAIモデルの実在が確認されています。
+    </div>
+    <div class="red-items">
+      <div class="red-item">
+        <div class="red-label">何が発見されたか——Personal Knowledge Graphの正体</div>
+        <div class="red-text">発見の経緯: 研究者がApple Intelligence関連のオンデバイスモデルバンドルを調査中に、`com.apple.intelligence.family-classifier`というバンドルIDを持つコアMLモデルを発見。モデルの機能: (1) 写真ライブラリのExif・顔認識データ・一緒に写っている頻度から「家族」「親戚」「友人」「職場」などの関係性をカテゴリ分類する。(2) メール・メッセージの送受信パターンと連絡先データを組み合わせて関係性グラフを構築する。(3) 「お父さん」「お母さん」「子ども」など具体的な続柄を推論するラベリングを行う。推論結果の用途: Siriが「お母さんに電話して」「子どもの誕生日を教えて」に正確に答えられるのはこのモデルがあるから。モデルのサイズ: 約38MB——完全にオンデバイスで動作、ネットワーク通信なし（プライバシー保護の観点）。対応デバイス: Apple Intelligence対応デバイス（M1以降のMac、A17/M系チップのiPhone・iPad）全てに含まれている。</div>
+      </div>
+      <div class="red-item">
+        <div class="red-label">HNの315コメント——プライバシー論争が勃発</div>
+        <div class="red-text">最高評価コメント: 「Appleが『プライバシーがiPhoneです』と言い続けてきた文脈で、ユーザーの家族構成を自動的に推論するモデルが一切ドキュメント化されていないのは問題——オプトアウトができないのならEUのGDPR的に問題になりうる」。擁護意見: 「完全にオンデバイスで動いており、データがAppleサーバーに送られるわけではない——これはローカル処理のプライバシー保護の模範例では？」。反論: 「データがどこへ行くかではなく、ユーザーが知らないうちにシステムが自分の家族関係を推論・分類していること自体が問題——インフォームドコンセントの問題だ」。規制的視点: 「家族構成は特定個人の識別に繋がりうる機微情報——GDPR第9条のセンシティブデータカテゴリに近い性質がある」。技術者の評価: 「推論精度を実際にテストした人によると88〜92%の精度でカテゴリ分類できているとのこと——これは驚異的に高い。トレーニングデータが何だったのか気になる」。日本の法的観点: 「日本の個人情報保護法では家族構成は第三者提供に制限のある個人情報に当たる可能性がある」。</div>
+      </div>
+      <div class="red-item">
+        <div class="red-label">Actionable——自分のMacのPersonal Knowledge Graphを調べる</div>
+        <div class="red-text">モデルの確認方法: ターミナルで `find /System/Library/AssetsV2 -name "*.mlpackage" 2>/dev/null | grep -i "family\|person\|contact"` を実行——インストール済みのMLモデルのリストが出てくる。Apple Intelligenceの無効化: 「システム設定 → Apple Intelligence & Siri → Apple Intelligence をオフ」——これでKnowledge Graphのインデックス生成も停止する（ただしモデルファイル自体は残る）。写真の顔認識との関係: 「写真 → 人物」機能をオフにすると家族分類モデルへの入力データが減る（完全には止まらない）。開発者向けの注目点: Core MLモデルのバンドルは`mlmodelc`形式で`coremltools`ライブラリで解析可能——`pip install coremltools` → `import coremltools as ct` → `model = ct.models.MLModel('/path/to/model.mlpackage')` → `print(model.input_description)`でモデルの入出力を確認できる。研究者の発見したモデルパスはブログポストに記載されている。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: 8rank.ai</span>
+      <span>↑537pt · 💬315+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://8rank.ai/game/apple-intelligence-personal-knowledge-graph" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50403097" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="apple-family-classifier" data-type="like" onclick="toggleFlag('apple-family-classifier','Apple Intelligence 家族分類 Personal Knowledge Graph プライバシー macOS','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="apple-family-classifier" data-type="dislike" onclick="toggleFlag('apple-family-classifier','Apple Intelligence 家族分類 Personal Knowledge Graph プライバシー macOS','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 4 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-4" id="s4">
+  <div class="story-num">04</div>
+  <div class="story-inner">
+    <div class="story-kicker">Asahi Linux / Apple Silicon / M-series / オープンソース / Linux — 2026-11-08</div>
+    <h2 class="story-headline">
+      Asahi Linux<br><span style="color:#30C060">Progress Report 7.3——<br>M4 Pro/MaxもLinux化へ</span><br>——282pt
+    </h2>
+    <div class="story-body">
+      「Asahi Linux Progress Report 7.3」（asahilinux.org）がHNで282ポイント・231コメントを集めています。Apple Silicon向けLinuxディストリビューション「Asahi Linux」の最新進捗報告。M4 Pro・M4 MaxチップへのLinux対応が進み、GPU・NPU周りの重要なブレークスルーが報告されています。
+    </div>
+    <div class="green-items">
+      <div class="green-item">
+        <div class="green-label">Progress Report 7.3のハイライト——何が前進したか</div>
+        <div class="green-text">M4 Pro/Maxサポート: M4 Proチップ搭載MacBook Pro（2024年後期モデル）でのLinuxブートが安定化。M4 Maxは実験的サポート段階に入った。GPU進捗（最重要）: Appleの独自GPU（AGX）向けオープンソースドライバー「Asahi GPU」がVulkan 1.3のConformanceを2026年10月に取得——これはApple SiliconでVulkan対応ゲームや一般的なLinux GPUアプリが動く土台が完成したことを意味する。NPU（Neural Engine）: M4系のANE（Apple Neural Engine）の一部機能がLinuxから使えるようになった——CoreML相当のモデル実行がオープンソースドライバー経由で可能になる見込み。Fedora Asahiの安定化: Fedora Linuxをベースにした推奨ディストリビューション「Fedora Asahi Remix」がM4 Proまで動作確認済みに。Bluetooth: 一部モデルでBluetooth 5.3が安定化し、ヘッドフォン・コントローラーが使えるように。残課題: Thunderboltポート完全対応・動的周波数スケーリングの精度向上・スリープからの復帰安定性。</div>
+      </div>
+      <div class="green-item">
+        <div class="green-label">HNの231コメント——「なぜApple Siliconでわざわざ」論争</div>
+        <div class="green-text">「なぜMacでLinuxを動かすのか」への答え: (1) Apple Siliconのコストパフォーマンスがx86の同価格帯デスクトップを明らかに上回る——Linuxでも同じハードを使いたい需要は実在する。(2) 企業や研究機関でmacOSではなくLinuxが必須の環境（特定のカーネルモジュール・特定のglibcバージョン依存）がある。(3) パワーユーザーがmacOS環境を維持しながらデュアルブートでLinux開発環境を持ちたい。Vulkan Conformanceの意義: 「AGXがVulkan 1.3に合格したことは、Apple Siliconが公式にゲーム開発者向けGPUとして使えるターゲットになることを意味する——Proton（Steam Play）経由でWindowsゲームが動く可能性が一気に近づいた」。開発チームへの敬意: 「Aspire Linuxチームは報酬なしで、Appleが一切ドキュメント公開しない独自ハードウェアを完全にリバースエンジニアリングしている——Linuxカーネルコミュニティ最大の快挙の一つ」。日本語入力: 「Asahi LinuxでFcitx5+Mozcが動くようになって日本語入力も問題なくなった——日本語環境でも十分実用的になってきた」。</div>
+      </div>
+      <div class="green-item">
+        <div class="green-label">Actionable——2026年にAsahi Linuxを試す手順</div>
+        <div class="green-text">対応モデル確認: asahilinux.org/supported-hardware でM1〜M4対応状況を確認。M1/M2/M3系は安定版、M4はベータ段階。インストール方法: macOSターミナルで `curl https://alx.sh | sh` → インタラクティブなインストーラーが起動 → パーティション分割してデュアルブート構成を作る（macOSは消えない）。最小ディスク空き容量: 60GB以上推奨。推奨ディストリ: Fedora Asahi Remix（`fedora-asahi-remix.org`）——最も安定していてデスクトップ用途に最適。開発者向けユースケース: (1) Dockerコンテナのaarch64ネイティブ実行（Rosetta不要で高速）。(2) クロスコンパイル環境の構築。(3) AIモデルのオープンソースGPUドライバー実験環境。試す前の注意: 内蔵SSDへの直接インストールのため、必ずmacOSでTimeMachineバックアップを取ること。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: asahilinux.org</span>
+      <span>↑282pt · 💬231+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://asahilinux.org/2026/11/progress-report-7-3/" target="_blank">レポートを読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50401867" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="asahi-linux-7-3" data-type="like" onclick="toggleFlag('asahi-linux-7-3','Asahi Linux Apple Silicon M4 Fedora Vulkan GPU Linux','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="asahi-linux-7-3" data-type="dislike" onclick="toggleFlag('asahi-linux-7-3','Asahi Linux Apple Silicon M4 Fedora Vulkan GPU Linux','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 5 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-5" id="s5">
+  <div class="story-num">05</div>
+  <div class="story-inner">
+    <div class="story-kicker">Microsoft / AI研究 / 組織改編 / 業界動向 — 2026-11-08</div>
+    <h2 class="story-headline">
+      Microsoft Research<br><span style="color:#8050E0">「AI Frontiers」グループが<br>解散——業界への影響</span><br>——273pt
+    </h2>
+    <div class="story-body">
+      「The end of Microsoft Research's AI Frontiers group」（hunch.net）がHNで273ポイント・154コメントを集めています。MicrosoftのAI基礎研究部門「AI Frontiers」グループが解散。元メンバーでMLコミュニティで著名なJohn Langford氏のブログで経緯が語られ、ビッグテックにおけるAI基礎研究の未来をめぐる議論が活性化しています。
+    </div>
+    <div class="purple-items">
+      <div class="purple-item">
+        <div class="purple-label">AI Frontiersとは何だったか——解散の背景</div>
+        <div class="purple-text">グループの歴史: Microsoft Research内のAI Frontiersは、強化学習・機械学習基礎理論・因果推論・自然言語処理の基礎研究を行う精鋭チームとして2010年代に設立された。著名な成果: (1) Vowpal Wabbit（高速オンライン学習ライブラリ）——現在もML業界で広く使われている。(2) 文脈バンディット問題の実践的アルゴリズム——推薦システムの基礎理論に影響。(3) Decision Serviceフレームワーク——実運用可能な強化学習システムの先駆け。解散の経緯（Langford氏ブログより）: Microsoftの全社的なAI戦略がOpenAIとのパートナーシップ（GPT-4系モデルの応用）に集中シフトする中で、基礎研究への投資優先度が大幅に低下。グループメンバーの行方: 一部はMicrosoft内の応用AI部門へ異動、一部は学術界・他社（Anthropic・Google DeepMind・Meta AI等）へ転職。MicrosoftのAI研究への影響: 基礎研究よりも製品統合（Copilot・Azure AI）への集中が一層加速する見通し。</div>
+      </div>
+      <div class="purple-item">
+        <div class="purple-label">HNの154コメント——「基礎研究のホームはどこへ」</div>
+        <div class="purple-text">最も支持されたコメント: 「ビッグテックのAI基礎研究部門は次々と縮小・解散の方向——Bell Labsが縮小してAT&Tの収益部門になったときの繰り返しを見ているようだ。長期的なブレークスルーがどこから来るか心配になる」。反論: 「Anthropic・DeepMind・OpenAI Research・Meta FAIRは今でも基礎研究に相当投資している——Microsoftが撤退しても基礎研究の火は消えない」。学術界への影響: 「企業の基礎研究部門は大学院生のインターン先・若手研究者のキャリアパスとして重要だった——特にアカデミアより給与が高くリソースが潤沢な場所が減るのは痛い」。産業界の一般化: 「Meta AI（FAIR）も2024年に大規模な組織改編をしている——ビッグテックのAI基礎研究部門が応用研究・製品開発部門に統合される流れは止まらない」。日本の研究機関: 「RIKENのAIPやPFNのような日本の基礎研究機関が相対的に存在感を増す可能性がある——日本語LLMの基礎研究では既に世界トップ級の成果を出している」。</div>
+      </div>
+      <div class="purple-item">
+        <div class="purple-label">エンジニアとしての受け止め方——中長期への示唆</div>
+        <div class="purple-text">何を意味するか: (1) 次のブレークスルーがどこから来るかが不透明になった——ビッグテックの基礎研究が縮小するなら、次の変革はスタートアップか学術界から来る可能性が高い。(2) VW（Vowpal Wabbit）のような実用的な基礎研究ツールが供給される場が減る——OSSコミュニティへの影響。(3) 強化学習・因果推論の基礎研究が手薄になる可能性——AGI競争がトランスフォーマースケーリングに偏りすぎる懸念。エンジニアとして注目すべき動き: AI Frontiersを離れた研究者の行き先が今後のAI研究の重要ハブを示す——特に「因果推論×LLM」「オンライン学習×大規模モデル」の融合研究が進む組織に注目。Anthropic・DeepMind・学術界への採用枠拡大は関連ポジションを探すチャンスかもしれない。John Langford氏の今後: ブログでは次の行き先は明かしていないが、彼のツイートを追うと動向がわかる（@acm_science）。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: hunch.net</span>
+      <span>↑273pt · 💬154+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://hunch.net/?p=13764006" target="_blank">ブログを読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50406563" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="microsoft-ai-frontiers-end" data-type="like" onclick="toggleFlag('microsoft-ai-frontiers-end','Microsoft Research AI Frontiers 解散 基礎研究 機械学習','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="microsoft-ai-frontiers-end" data-type="dislike" onclick="toggleFlag('microsoft-ai-frontiers-end','Microsoft Research AI Frontiers 解散 基礎研究 機械学習','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 6 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-6" id="s6">
+  <div class="story-num">06</div>
+  <div class="story-inner">
+    <div class="story-kicker">Apple / iPhone / プライバシー / 言論 / コンテンツ制限 — 2026-11-08</div>
+    <h2 class="story-headline">
+      iPhoneが<br><span style="color:#20B0D0">補完しない単語がある——<br>Appleの「グレーリスト」</span><br>の全貌——261pt
+    </h2>
+    <div class="story-body">
+      「Apple's grey list: Words and phrases your iPhone won't help you spell」（The Guardian）がHNで261ポイント・170コメントを集めています。iPhoneのキーボード補完機能が特定の単語やフレーズを意図的に提案しない「グレーリスト」の実在をThe Guardianが調査・報道。政治的フレーズから性差別的な表現まで、Appleが静かに「学習させない」コンテンツの実態が明らかになりました。
+    </div>
+    <div class="cyan-items">
+      <div class="cyan-item">
+        <div>
+          <div class="cyan-label">グレーリストとは何か——どんな言葉が入っているか</div>
+          <div class="cyan-text">The Guardianの調査: iPhoneとMacのキーボードを詳細にテストし、特定のカテゴリの単語・フレーズが自動補完・スペルチェックの対象外になっていることを確認。グレーリストの主なカテゴリ: (1) 性差別的・人種差別的な侮辱語——「male chauvinist pig（男性優越主義者の豚）」がタイトルに引用されているが、これは主要各国語で多数の侮辱表現をカバー。(2) 政治的に敏感なフレーズ——特に中国・台湾・チベット・新疆に関連する一部の表現が中国市場向けに調整されている疑い。(3) 薬物関連の隠語——特に若年層保護を意図した可能性が高い。(4) 特定の地政学的表現——「Taiwan is a country（台湾は国だ）」などのフレーズが補完されない（英語版でも）という報告。Appleの対応: コメント取材に「キーボードはさまざまなコンテキストで適切な提案を行うように設計されている」と回答するのみ。技術的仕組み: 補完辞書とは別に、特定のNgramをフィルタリングするブラックリスト/グレーリストが存在すると研究者は分析。</div>
+        </div>
+      </div>
+      <div class="cyan-item">
+        <div>
+          <div class="cyan-label">HNの170コメント——「これはコンテンツ制御か設計上の判断か」</div>
+          <div class="cyan-text">最高評価コメント: 「差別語を補完しないのは理解できるが、政治的に敏感なフレーズをグローバルに（中国市場対応ではなく全世界のiPhoneで）フィルタリングするなら、それは言論の問題——Appleは自社デバイスで何億人もの入力をサイレントに形成している」。反論: 「キーボード補完はあくまで確率的な提案——補完されないからといって入力できないわけではない。メモ帳やメールで打ちたい言葉は打てる」。反反論: 「補完されないと自分のスペルが間違っているのかと思う——特に非ネイティブスピーカーへの影響が大きい。正しいスペルの確認手段としてのキーボード補完を奪うのは問題」。地政学的フィルタリング: 「Appleが中国向けにiCloudデータを国内に移転・CCP管理下に置くことを受け入れているのと同じロジック——中国市場のための自己検閲が全世界版にも漏れ出している可能性」。設計の透明性: 「グレーリストの存在と内容を公開することがユーザーへの誠実さだ——自分のデバイスで何がフィルタリングされているか知る権利がある」。</div>
+        </div>
+      </div>
+      <div class="cyan-item">
+        <div>
+          <div class="cyan-label">Actionable——自分のiPhoneで確認・設定する方法</div>
+          <div class="cyan-text">自分で試す: 「male chauvinist pig」の各単語を順に打って補完が出るか確認——The Guardianの報告では「male」は補完されるが特定の組み合わせでは提案されなくなるという。グレーリストの回避法: (1) 「設定 → 一般 → キーボード → 自動補正」をオフにすれば補完フィルタリングも無効化できる（ただし全補完が消える）。(2) サードパーティキーボード（Gboard・Swiftkey）を使うとAppleのグレーリストを回避できる——ただし入力内容がGoogleやMicrosoftのサーバーに送られるリスクと天秤。TextSoap・単語学習: 「設定 → 一般 → キーボード → ユーザ辞書」に登録した単語は補完候補に強制的に追加できる——グレーリストに入っている可能性のある単語を登録して補完を強制的に有効化する回避策。開発者・研究者向け: MLキーボードモデルの解析には`CoreML Tools`（Python）が使える——キーボード補完モデルのバンドルは`/System/Library/Input Methods/`以下に存在する場合がある。The Guardianの全調査結果: 記事内に確認した語句リスト（部分的）が掲載されている。</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: theguardian.com</span>
+      <span>↑261pt · 💬170+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.theguardian.com/technology/2026/nov/06/struggling-to-spell-male-chauvinist-pig-apple-grey-list-means-your-iphone-wont-help-you" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50406111" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="apple-grey-list" data-type="like" onclick="toggleFlag('apple-grey-list','Apple iPhone グレーリスト キーボード 補完 プライバシー 言論 検閲','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="apple-grey-list" data-type="dislike" onclick="toggleFlag('apple-grey-list','Apple iPhone グレーリスト キーボード 補完 プライバシー 言論 検閲','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 7 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-7" id="s7">
+  <div class="story-num">07</div>
+  <div class="story-inner">
+    <div class="story-kicker">オープンソース / フリーソフトウェア / 法律 / 実践例 — 2026-11-08</div>
+    <h2 class="story-headline">
+      法律事務所を<br><span style="color:#E88040">フリーソフトウェアだけで<br>運営する——<br>2026年版</span>——211pt
+    </h2>
+    <div class="story-body">
+      「Running a law firm on Free software — 2026 edition」（decoded.legal）がHNで211ポイント・98コメントを集めています。イギリスの法律事務所Decoded Legalが、Microsoft OfficeやAdobe等の商用ソフトウェアを一切使わず、すべてフリーソフトウェアで事務所を運営するスタックを公開。毎年更新されるこのシリーズの2026年版では、AIツールの組み込みが大きな焦点になっています。
+    </div>
+    <div class="amber-items">
+      <div class="amber-item">
+        <div class="amber-label">2026年スタックの全体像——何で動かしているか</div>
+        <div class="amber-text">ドキュメント作成: LibreOffice 25.x——契約書・訴状の作成。Microsoft Word形式への変換精度が2024年から大幅改善。クライアントポータル: Nextcloud 30——ファイル共有・カレンダー・ビデオ会議（Nextcloud Talk）をオンプレで自己ホスト。メール: Postfix + Dovecot + Roundcube——完全自己管理のメールサーバー。タスク管理: Vikunja（OSSタスク管理）とCalDAVの組み合わせ。請求・会計: GnuCash——英国法対応のVAT記帳テンプレートを自作して運用。フォント: すべてSIL Open Font License——商用利用可能なフリーフォントのみ使用。AIツール（2026年の新要素）: Ollama（ローカルLLM実行）+ Open WebUI——Mistral 24B相当のモデルを自社サーバーで動かし、契約書レビュー・文書サマリーに使用。クライアントデータがサードパーティサービスに送られない設計が法的義務（英国GDPR）的に重要。ホスティング: Hetzner（ドイツ拠点のクラウド）——GDPR観点でのデータ主権を重視。</div>
+      </div>
+      <div class="amber-item">
+        <div class="amber-label">HNの98コメント——「本当に使えるのか」論争</div>
+        <div class="amber-text">最も支持されたコメント: 「LibreOfficeで弁護士が日常的に使う長文契約書（200ページ級）を作れるかが一番の疑問——スタイルシートの継承と相互参照（条文番号の自動更新）の精度がWordより落ちると聞く」。著者の返答: 「条文番号はPythonスクリプト+LaTex経由で処理しているケースもある——LibreOfficeのマクロで対応できる範囲を超えたら迷わずスクリプト化する設計」。大手法律事務所では無理？: 「アソシエイトが100人いるような大手では無理——しかし小規模・ブティック事務所には十分。ナレッジワーカーのツールとして重要なのは『なくてはならない機能』が揃っているかであって機能の多さではない」。AIと機密保持: 「法律事務所がクライアント文書をOpenAI/Anthropic APIに送るのは職業倫理的にグレーゾーン——ローカルLLMの使用は倫理的に正当化しやすい」。印象的な運用期間: 「このブログは毎年更新されており2019年から継続——7年間フリーソフトウェアだけで実際に運営できているという実証データは説得力がある」。</div>
+      </div>
+      <div class="amber-item">
+        <div class="amber-label">Actionable——自分のフリーソフトウェアスタック移行チェックリスト</div>
+        <div class="amber-text">即座に移行できるもの: (1) Microsoft Teams → Jitsi Meet（セルフホスト可能）または Matrix/Element。(2) Zoom → Big Blue Button（OSSウェビナー）。(3) Slack → Mattermost（セルフホスト）または Zulip。(4) Notion → Outline（OSSナレッジベース）+ Vikunja。AIをプライベートに使う: `curl -fsSL https://ollama.ai/install.sh | sh` → `ollama pull mistral` → `ollama run mistral` ——3コマンドでローカルLLMが動く。日本語モデル: `ollama pull elyza/elyza-japanese-llama-2-13b-instruct` ——日本語特化のOSSモデルを追加可能。コスト試算: Decoded Legalのブログによると月額€85のHetznerサーバー代のみ——Google Workspace（6名分）の年額と比較すると年間で€3,000以上の節約。移行で困るのは: Googleカレンダーの共有・Microsoft Office形式での書類提出（官公庁・大企業との取引）——これだけは相手側の要求に応じてLibreOfficeの.docx出力で対応。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: decoded.legal</span>
+      <span>↑211pt · 💬98+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://decoded.legal/blog/2026/11/running-a-law-firm-on-free-software-2026-edition/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50403066" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="law-firm-free-software" data-type="like" onclick="toggleFlag('law-firm-free-software','フリーソフトウェア 法律事務所 LibreOffice Nextcloud Ollama プライバシー','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="law-firm-free-software" data-type="dislike" onclick="toggleFlag('law-firm-free-software','フリーソフトウェア 法律事務所 LibreOffice Nextcloud Ollama プライバシー','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 8 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-8" id="s8">
+  <div class="story-num">08</div>
+  <div class="story-inner">
+    <div class="story-kicker">変わった科学 / 古代DNA / 歴史 / 考古学 / ゲノム解析 — 2026-11-08</div>
+    <h2 class="story-headline">
+      神話が事実だった——<br>古代DNAがバーバリアン族の<br>起源伝説を証明——195pt
+    </h2>
+    <div class="story-body">
+      「A barbarian tribe's mythic origin story is true, ancient DNA reveals」（science.org）がHNで195ポイント・179コメントを集めています。6〜7世紀にイタリアを征服したランゴバルド族（Lombards）が自分たちの起源をスカンジナビアと伝えていた神話が、古代DNA解析によって文字通り裏付けられました。神話と遺伝学が一致するという異例の発見に科学コミュニティが沸いています。
+    </div>
+    <div class="gold-items">
+      <div class="gold-item">
+        <div class="gold-label">何が証明されたか——古代DNAと神話の一致</div>
+        <div class="gold-text">ランゴバルド族の神話: 「Origo Gentis Langobardorum（ランゴバルド族の起源）」という7世紀の文書に、自分たちの先祖はスカンジナビアの「スカンドナビア島」から南下してきたと記されている。研究の方法: ハンガリー（移住途中）とイタリア（定住後）のランゴバルド族墓地から出土した遺骨（6〜7世紀、計100体以上）のゲノムを解析。DNAの分析結果: (1) 初期のランゴバルド族（ハンガリー期）はスカンジナビア南部、特に現在のデンマーク・南スウェーデン地域の集団と遺伝的に非常に近い。(2) 移住から2〜3世代後のイタリア期では地中海系の遺伝子と混合が進んでいる——移住した征服者と地元住民の混血の痕跡。(3) 一部の墓は遺伝的背景（スカンジナビア系対地中海系）で副葬品の種類も違う——社会階層と出自の相関が示唆される。科学的な価値: 「口承・文書の神話と遺伝的証拠がここまで一致するのは稀——通常は神話は誇張や政治的書き換えが入るため」と研究者はコメント。</div>
+      </div>
+      <div class="gold-item">
+        <div class="gold-label">HNの179コメント——「神話は歴史の記録か」という大討論</div>
+        <div class="gold-text">最も支持されたコメント: 「これはトロイア発掘と同じインパクト——『神話は事実の誇張された記憶かもしれない』というシュリーマンの直感が古代DNAで繰り返されている。ローマ建国神話も調べたくなる」。反論: 「今回の一致はサンプリングバイアスの可能性がある——ランゴバルド族の中でも支配階層のDNAを多く採取しており、実際の集団全体のプロフィールとは異なる可能性がある」。ゲルマン民族大移動との関連: 「ランゴバルド族だけでなく、フン族・ゴート族・ヴァンダル族などの移動経路も古代DNAで追跡できるはず——欧州の民族形成の歴史が遺伝学で書き換えられつつある」。日本の読者のコメント（翻訳コメント）: 「日本の渡来人（弥生・百済からの移民）の研究と繋がりがある——日本でも古代DNA解析で渡来人の出自ルートが徐々に明らかになってきている」。考古学への影響: 「遺伝学によって文献・物質文化・DNAの3つを統合した真の歴史科学が生まれつつある——今後の教科書は大幅に書き換えられるだろう」。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: science.org</span>
+      <span>↑195pt · 💬179+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.science.org/content/article/barbarian-tribe-s-mythic-origin-story-true-ancient-dna-reveals" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50401740" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="barbarian-tribe-dna" data-type="like" onclick="toggleFlag('barbarian-tribe-dna','ランゴバルド族 古代DNA 神話 起源 スカンジナビア 考古学 歴史','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="barbarian-tribe-dna" data-type="dislike" onclick="toggleFlag('barbarian-tribe-dna','ランゴバルド族 古代DNA 神話 起源 スカンジナビア 考古学 歴史','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 9 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-9" id="s9">
+  <div class="story-num">09</div>
+  <div class="story-inner">
+    <div class="story-kicker">開発ツール / Discord / Windows 11 / Electron / ネイティブアプリ — 2026-11-08</div>
+    <h2 class="story-headline">
+      DiscordがElectronを<br><span style="color:#5878C8">捨てた結果——<br>RAM70%削減・<br>起動画面ゼロ</span>——160pt
+    </h2>
+    <div class="story-body">
+      「Every Windows 11 app should kill Electron, and Discord just showed why」（WindowsLatest）がHNで160ポイント・172コメントを集めています。DiscordがWindows 11向けのネイティブアプリをリリースし、Electron版と比較してRAM使用量が70%削減・起動スプラッシュ画面が消滅・2アカウントログイン時でもメモリ効率が維持されるという結果が報告されました。
+    </div>
+    <div class="slate-items">
+      <div class="slate-item">
+        <div class="slate-label">ElectronからWindows 11ネイティブへ——何が変わったか</div>
+        <div class="slate-text">技術的な変更: Discord Windows 11ネイティブアプリはWinUIを使ったWindows App SDK（旧称WinUI 3）ベースで書き直された。レンダリング: Web技術（Chromiumベース）ではなく、DirectCompositionを使ったGPUアクセラレーテッドネイティブUI。比較データ（WindowsLatestの計測）: (1) アイドル時RAM: Electron版 350MB前後 → ネイティブ版 90〜110MB（約70%削減）。(2) 2アカウント同時ログイン: Electron版 530MB → ネイティブ版 145MB（プロセス分離がなくなり共有メモリ効率化）。(3) 起動時間: Electron版に存在したスプラッシュスクリーン（ロゴ表示）が完全に消滅——コールドスタートで即座にUIが表示される。(4) CPU負荷: アイドル時の常時バックグラウンドCPU使用が約40%減少。ただし現時点の制限: Windows 11（22H2以降）専用——Windows 10ユーザーはElectronアプリを継続使用。機能差: 一部プラグイン・カスタマイズ機能がまだネイティブ版で未実装。</div>
+      </div>
+      <div class="slate-item">
+        <div class="slate-label">HNの172コメント——Electronへの不満が一気に噴出</div>
+        <div class="slate-text">最も支持されたコメント: 「SlackもTeamsもVS CodeもElectronを使っているが、今日一日でDiscordがSlack・Teams・VSCode・ブラウザを開いたままにする開発者のRAM使用量を計算してみると3〜4GBがChromiumだけで消えている——これは2026年の現実として異常だ」。開発者目線の反論: 「Electronのメリットはクロスプラットフォームの一貫したUI開発——macOS/Linux/Windowsで同じコードが動く。ネイティブアプリは3つのコードベースを維持することになる」。反反論: 「Flutter・Tauri（Rustバック）・Kotlin Multiplatformなど、クロスプラットフォームかつネイティブパフォーマンスという選択肢が2026年には十分成熟している——Electronは2016年の解決策」。VS Codeへの波及: 「次はVS CodeのElectron依存を解消してほしい——ElectronをやめてFlatbuffers経由でネイティブUIと通信するアーキテクチャに移行した場合のRAM削減効果は莫大なはず」。日本語環境: 「Windows 11 ネイティブ版でのIME（Microsoft IME・ATOK）の日本語入力が従来のElectronより安定しているという報告が複数——Chromiumのテキスト入力エンジンとWindowsのIMEの相性問題がなくなった恩恵」。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: windowslatest.com</span>
+      <span>↑160pt · 💬172+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.windowslatest.com/2026/11/06/every-windows-11-app-should-kill-electron-and-discord-just-showed-why-no-starting-screen-and-70-less-ram-even-with-two-accounts-signed-in/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50403507" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="discord-kills-electron" data-type="like" onclick="toggleFlag('discord-kills-electron','Discord Electron Windows 11 ネイティブ RAM パフォーマンス WinUI','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="discord-kills-electron" data-type="dislike" onclick="toggleFlag('discord-kills-electron','Discord Electron Windows 11 ネイティブ RAM パフォーマンス WinUI','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 10 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-10" id="s10">
+  <div class="story-num">10</div>
+  <div class="story-inner">
+    <div class="story-kicker">セキュリティ / ハニーポット / IoT / Show HN / オープンソース — 2026-11-08</div>
+    <h2 class="story-headline">
+      冷蔵庫コントローラーに<br><span style="color:#E04080">偽装したハニーポット<br>「Coldframe」</span><br>——155pt
+    </h2>
+    <div class="story-body">
+      「Show HN: Coldframe, a honeypot that poses as a supermarket fridge controller」（github.com/hedgerow-dev/coldframe）がHNで155ポイント・34コメントを集めています。スーパーマーケットの冷蔵・冷凍ケースを管理する産業用コントローラーに偽装したハニーポットのOSSプロジェクト。現実のOT（運用技術）環境を忠実に模倣した偽装設計が話題になっています。
+    </div>
+    <div class="mag-items">
+      <div class="mag-item">
+        <div class="mag-label">Coldframeとは何か——どこが巧妙か</div>
+        <div class="mag-text">偽装の完成度: 単純なSSHハニーポットではなく、実際のスーパーマーケットで使われているEka（旧Danfoss）製冷凍ケースコントローラーのHTTP APIとModbus TCPプロトコルをエミュレート。偽装コンテンツ: (1) 実際のコントローラーと同じURIパターンとHTTPレスポンスヘッダーを返す。(2) Shodan/Censysのスキャンで本物と区別がつかない（意図的に設計）——実際にShodanで発見された偽装成功例が報告済み。(3) ログイン画面も本物と同じデザイン（ロゴ・フォント・UIレイアウト）を再現。攻撃データの収集: (1) アクセスしてきたIPのパターン分析。(2) 試みられたパスワード・ユーザー名の収集。(3) 実行しようとしたコマンド（温度設定の書き換え・パラメーター変更等）の記録。(4) 攻撃者がどのShodan検索クエリでこのホストを発見したかの推定。技術スタック: Python（FastAPI）+ Modbus TCP シミュレーター + ログ集計（Prometheus対応）。デプロイ: `docker-compose up` 一発で動く——自分のサーバーで即時運用可能。</div>
+      </div>
+      <div class="mag-item">
+        <div class="mag-label">HNの34コメント——「OTセキュリティの現実」</div>
+        <div class="mag-text">最も支持されたコメント: 「スーパーマーケットの冷凍ケースコントローラーがShodanに直接露出しているのが現実——Coldframeが刺さるのは実際にそういう設備が無数にインターネットに繋がっているからで、笑えない話だ」。実際のOT環境の脆弱性: 「SCADA/PLCシステムの多くはWindowsXP〜Windows7世代の制御PCで動いており、パッチ当てもままならない状態——食品流通・水処理・電力系統のOTセキュリティは深刻」。Coldframe作者の回答: 「本来の目的は攻撃者のTTP（戦術・技術・手順）を観察して実際のOTシステム防衛に活用すること——特に『どんなShodanクエリでOT機器が発見されるか』のデータは防衛側に有益」。法的考察: 「ハニーポットの運用は多くの国でグレーゾーン——欺瞞による情報収集が法的に許容されるかは管轄によって異なる。自分のクラウドサーバーでの運用なら問題ないケースが大半だが要確認」。ユニークな偽装: 「電力グリッド・水処理・石油精製プラントのOTシステムのハニーポットは多い——スーパーマーケット冷凍ケース特化は新鮮な着眼点でShodanフィンガープリントへの露出が他と被らない」。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: github.com/hedgerow-dev/coldframe</span>
+      <span>↑155pt · 💬34+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://github.com/hedgerow-dev/coldframe" target="_blank">GitHubを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50406292" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="coldframe-honeypot" data-type="like" onclick="toggleFlag('coldframe-honeypot','Coldframe ハニーポット IoT 冷蔵庫 OT セキュリティ Shodan','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="coldframe-honeypot" data-type="dislike" onclick="toggleFlag('coldframe-honeypot','Coldframe ハニーポット IoT 冷蔵庫 OT セキュリティ Shodan','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-top">
+    <div class="footer-brand">Morning Edition</div>
+    <div class="footer-meta">
+      Hacker News フロントページから毎朝キュレーション<br>
+      AI・開発ツール・プライバシー・サイエンス — 2026年11月8日号 (No.173)
+    </div>
+    <button class="export-btn" onclick="exportFeedback()">📋 フィードバックをコピー</button>
+  </div>
+  <div class="footer-note">フィードバックボタンを押すと好みが記録され、翌日のキュレーションに反映されます。</div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  const STORAGE_KEY = 'morning-edition-feedback-v2';
+  const TODAY = '2026-11-08';
+  let feedback = { liked: {}, disliked: {}, updatedAt: null };
+  let fileHandle = null;
+
+  function loadFeedback() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (raw) feedback = JSON.parse(raw);
+    } catch(e) {}
+    document.querySelectorAll('.flag-btn').forEach(btn => {
+      const id = btn.dataset.story;
+      const type = btn.dataset.type;
+      if (type === 'like' && feedback.liked[id]) btn.classList.add('active');
+      if (type === 'dislike' && feedback.disliked[id]) btn.classList.add('active');
+    });
+  }
+
+  function saveFeedback() {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(feedback)); } catch(e) {}
+    if (fileHandle) writeToFile();
+  }
+
+  async function writeToFile() {
+    try {
+      const writable = await fileHandle.createWritable();
+      await writable.write(JSON.stringify(feedback, null, 2));
+      await writable.close();
+      showToast('フィードバックを保存しました ✓');
+    } catch(e) {
+      showToast('ファイル保存に失敗しました', true);
+    }
+  }
+
+  async function requestFileAccess() {
+    if (!window.showSaveFilePicker) return;
+    try {
+      fileHandle = await window.showSaveFilePicker({
+        suggestedName: 'feedback.json',
+        types: [{ description: 'JSON', accept: { 'application/json': ['.json'] } }]
+      });
+    } catch(e) {}
+  }
+
+  function toggleFlag(id, title, type) {
+    const likeBtn = document.querySelector(`.like-btn[data-story="${id}"]`);
+    const dislikeBtn = document.querySelector(`.dislike-btn[data-story="${id}"]`);
+    if (type === 'like') {
+      if (feedback.liked[id]) {
+        delete feedback.liked[id];
+        likeBtn.classList.remove('active');
+      } else {
+        feedback.liked[id] = { title, date: TODAY };
+        likeBtn.classList.add('active');
+        delete feedback.disliked[id];
+        dislikeBtn.classList.remove('active');
+      }
+    } else {
+      if (feedback.disliked[id]) {
+        delete feedback.disliked[id];
+        dislikeBtn.classList.remove('active');
+      } else {
+        feedback.disliked[id] = { title, date: TODAY };
+        dislikeBtn.classList.add('active');
+        delete feedback.liked[id];
+        likeBtn.classList.remove('active');
+      }
+    }
+    feedback.updatedAt = new Date().toISOString();
+    saveFeedback();
+    if (!fileHandle && window.showSaveFilePicker) requestFileAccess();
+    showToast(type === 'like' ? '⭐ 興味ありとして記録しました' : '✕ 興味なしとして記録しました');
+  }
+
+  function exportFeedback() {
+    navigator.clipboard.writeText(JSON.stringify(feedback, null, 2))
+      .then(() => showToast('クリップボードにコピーしました ✓'))
+      .catch(() => showToast('コピーに失敗しました', true));
+  }
+
+  function showToast(msg, isError = false) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.toggle('error', isError);
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2800);
+  }
+
+  loadFeedback();
+</script>
+</body>
+</html>
