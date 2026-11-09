@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Morning Edition — 2026年11月10日</title>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --font: 'M PLUS Rounded 1c', 'Hiragino Sans', 'Noto Sans JP', sans-serif; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); background: #111; color: #fff; overflow-x: hidden; }
+
+    .masthead { background: #fff; color: #000; padding: 3rem 4rem 2.5rem; border-bottom: 6px solid #000; position: relative; overflow: hidden; }
+    .masthead::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: repeating-linear-gradient(90deg, #000 0, #000 12px, transparent 12px, transparent 20px); }
+    .masthead-kicker { font-size: 0.85rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: #777; margin-bottom: 0.6rem; }
+    .masthead-title { font-size: clamp(3.5rem, 9vw, 7.5rem); font-weight: 900; line-height: 0.88; letter-spacing: -0.04em; margin-bottom: 1.8rem; }
+    .masthead-meta { display: flex; gap: 3rem; align-items: baseline; flex-wrap: wrap; }
+    .masthead-date { font-size: 1.5rem; font-weight: 700; }
+    .masthead-subtitle { font-size: 1rem; font-weight: 400; color: #555; max-width: 480px; line-height: 1.5; }
+    .masthead-issue { margin-left: auto; text-align: right; }
+    .masthead-issue span { display: block; }
+    .masthead-issue .iss-label { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: #999; }
+    .masthead-issue .iss-num { font-size: 2.2rem; font-weight: 900; color: #000; }
+
+    .toc { background: #1a1a1a; padding: 1.5rem 4rem; display: flex; gap: 1.5rem; flex-wrap: wrap; border-bottom: 1px solid #333; }
+    .toc a { color: #aaa; text-decoration: none; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; transition: color 0.2s; }
+    .toc a:hover { color: #fff; }
+    .toc-num { color: #555; margin-right: 0.3em; }
+
+    .story { position: relative; overflow: hidden; }
+    .story-inner { max-width: 1200px; margin: 0 auto; padding: 5rem 4rem; position: relative; z-index: 1; }
+    .story-num { font-size: clamp(6rem, 18vw, 16rem); font-weight: 900; line-height: 0.8; letter-spacing: -0.06em; opacity: 0.08; position: absolute; top: 1rem; right: 2rem; user-select: none; }
+    .story-badge { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.35em 0.9em; border-radius: 2px; margin-bottom: 1.5rem; }
+    .direct-badge { background: #FFD700; color: #000; }
+    .story-kicker { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; opacity: 0.6; margin-bottom: 0.8rem; }
+    .story-headline { font-size: clamp(2rem, 5vw, 4rem); font-weight: 900; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+    .story-body { font-size: clamp(1rem, 1.5vw, 1.2rem); font-weight: 400; line-height: 1.8; max-width: 680px; opacity: 0.88; margin-bottom: 2rem; }
+    .story-meta { display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center; font-size: 0.8rem; font-weight: 700; opacity: 0.5; }
+    .story-links { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem; }
+    .story-link { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.6em 1.4em; border-radius: 3px; text-decoration: none; transition: opacity 0.2s, transform 0.15s; }
+    .story-link:hover { opacity: 0.75; transform: translateY(-1px); }
+
+    .feedback-buttons { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .flag-btn { background: none; border: 1px solid currentColor; color: inherit; font-family: var(--font); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.5em 1em; border-radius: 3px; cursor: pointer; opacity: 0.32; transition: opacity 0.2s, background 0.2s, color 0.2s, border-color 0.2s, transform 0.15s; }
+    .flag-btn:hover { opacity: 0.72; transform: translateY(-1px); }
+    .flag-btn.like-btn.active { opacity: 1; background: rgba(255,215,0,0.15); border-color: #FFD700; color: #FFD700 !important; }
+    .flag-btn.dislike-btn.active { opacity: 1; background: rgba(255,60,60,0.12); border-color: #FF4444; color: #FF4444 !important; }
+
+    .toast { position: fixed; bottom: 2rem; right: 2rem; background: #1a1a1a; color: #fff; font-family: var(--font); font-size: 0.82rem; font-weight: 700; padding: 0.75em 1.4em; border-radius: 4px; border-left: 3px solid #00C853; z-index: 9999; opacity: 0; transform: translateY(10px); transition: opacity 0.25s, transform 0.25s; pointer-events: none; box-shadow: 0 4px 24px rgba(0,0,0,0.45); }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    .toast.error { border-left-color: #FF5252; }
+
+    /* Story 1 — White */
+    .story-1 { background: #fff; color: #000; min-height: 90vh; display: flex; flex-direction: column; justify-content: center; }
+    .story-1 .story-num { color: #000; opacity: 0.04; }
+    .story-1 .story-kicker { color: #555; opacity: 1; }
+    .story-1 .story-headline { color: #000; }
+    .story-1 .story-body { color: #111; }
+    .story-1 .story-meta { color: #000; }
+    .story-1 .story-link.primary { background: #1a1a1a; color: #fff; }
+    .story-1 .story-link.secondary { background: #f0f0f0; color: #000; }
+    .story-1 .flag-btn { color: #000; }
+    .story-1-accent { position: absolute; bottom: 0; left: 0; width: 100%; height: 8px; background: linear-gradient(90deg, #F5A623 0%, #E87722 50%, #F5A623 100%); }
+    .story-1 .headline-accent { display: inline-block; background: linear-gradient(135deg, #F5A623 0%, #E87722 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .blue-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1.2rem; margin: 2rem 0; max-width: 680px; }
+    .blue-card { border: 2px solid rgba(0,0,0,0.12); background: rgba(0,0,0,0.03); border-radius: 6px; padding: 1.3rem 1.5rem; }
+    .blue-card-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.2em; text-transform: uppercase; color: #333; margin-bottom: 0.4rem; }
+    .blue-card-value { font-size: 1.05rem; font-weight: 900; color: #000; line-height: 1.3; }
+    .blue-card-sub { font-size: 0.75rem; color: #555; margin-top: 0.3rem; line-height: 1.4; }
+
+    /* Story 2 — Dark navy/teal */
+    .story-2 { background: #00080c; color: #b8f0ff; min-height: 80vh; }
+    .story-2::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(0,160,200,0.14) 0%, transparent 65%); }
+    .story-2 .story-num { color: #00A0C8; opacity: 0.07; }
+    .story-2 .story-kicker { color: #20C8E8; opacity: 1; }
+    .story-2 .story-headline { color: #e0f8ff; }
+    .story-2 .story-body { color: #b8f0ff; }
+    .story-2 .story-meta { color: #20C8E8; opacity: 0.5; }
+    .story-2 .story-link.primary { background: #004058; color: #80e8ff; }
+    .story-2 .story-link.secondary { background: rgba(0,160,200,0.08); color: #90d8f0; border: 1px solid rgba(0,160,200,0.22); }
+    .story-2 .flag-btn { color: #b8f0ff; }
+    .teal-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .teal-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(0,160,200,0.07); border-left: 3px solid #00A0C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .teal-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20C8E8; margin-bottom: 0.3rem; }
+    .teal-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 3 — Dark red */
+    .story-3 { background: #0a0000; color: #fff; min-height: 80vh; }
+    .story-3::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(200,20,20,0.16) 0%, transparent 65%); }
+    .story-3 .story-num { color: #C81414; opacity: 0.07; }
+    .story-3 .story-kicker { color: #E84040; opacity: 1; }
+    .story-3 .story-headline { color: #fff; }
+    .story-3 .story-body { color: rgba(255,255,255,0.88); }
+    .story-3 .story-meta { color: #E84040; opacity: 0.5; }
+    .story-3 .story-link.primary { background: #6a0000; color: #fff; }
+    .story-3 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-3 .flag-btn { color: #fff; }
+    .red-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .red-item { background: rgba(200,20,20,0.07); border-left: 3px solid #C81414; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .red-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E84040; margin-bottom: 0.3rem; }
+    .red-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 4 — Dark green */
+    .story-4 { background: #020c04; color: #c8f0d0; min-height: 80vh; }
+    .story-4::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(20,160,70,0.16) 0%, transparent 65%); }
+    .story-4 .story-num { color: #14A046; opacity: 0.07; }
+    .story-4 .story-kicker { color: #30C060; opacity: 1; }
+    .story-4 .story-headline { color: #e0ffe8; }
+    .story-4 .story-body { color: #c8f0d0; }
+    .story-4 .story-meta { color: #30C060; opacity: 0.5; }
+    .story-4 .story-link.primary { background: #063820; color: #80ffb0; }
+    .story-4 .story-link.secondary { background: rgba(20,160,70,0.08); color: #a0e8b0; border: 1px solid rgba(20,160,70,0.22); }
+    .story-4 .flag-btn { color: #c8f0d0; }
+    .green-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .green-item { background: rgba(20,160,70,0.07); border-left: 3px solid #14A046; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .green-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #30C060; margin-bottom: 0.3rem; }
+    .green-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 5 — Dark purple */
+    .story-5 { background: #040010; color: #d8c8ff; min-height: 75vh; }
+    .story-5::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(90,40,200,0.17) 0%, transparent 65%); }
+    .story-5 .story-num { color: #5A28C8; opacity: 0.07; }
+    .story-5 .story-kicker { color: #8050E0; opacity: 1; }
+    .story-5 .story-headline { color: #f0e8ff; }
+    .story-5 .story-body { color: #d8c8ff; }
+    .story-5 .story-meta { color: #8050E0; opacity: 0.5; }
+    .story-5 .story-link.primary { background: #200860; color: #d0a8ff; }
+    .story-5 .story-link.secondary { background: rgba(90,40,200,0.08); color: #c0a0f0; border: 1px solid rgba(90,40,200,0.22); }
+    .story-5 .flag-btn { color: #d8c8ff; }
+    .purple-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .purple-item { background: rgba(90,40,200,0.07); border-left: 3px solid #5A28C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .purple-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #8050E0; margin-bottom: 0.3rem; }
+    .purple-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 6 — Dark cyan */
+    .story-6 { background: #000c10; color: #b8e8f0; min-height: 75vh; }
+    .story-6::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 40%, rgba(0,130,160,0.14) 0%, transparent 65%); }
+    .story-6 .story-num { color: #0080A0; opacity: 0.07; }
+    .story-6 .story-kicker { color: #20B0D0; opacity: 1; }
+    .story-6 .story-headline { color: #e0f4ff; }
+    .story-6 .story-body { color: #b8e8f0; }
+    .story-6 .story-meta { color: #20B0D0; opacity: 0.5; }
+    .story-6 .story-link.primary { background: #003848; color: #80d8f0; }
+    .story-6 .story-link.secondary { background: rgba(0,130,160,0.08); color: #90cce0; border: 1px solid rgba(0,130,160,0.22); }
+    .story-6 .flag-btn { color: #b8e8f0; }
+    .cyan-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .cyan-item { background: rgba(0,130,160,0.07); border-left: 3px solid #0080A0; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .cyan-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20B0D0; margin-bottom: 0.3rem; }
+    .cyan-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 7 — Dark amber */
+    .story-7 { background: #0a0300; color: #ffe0b8; min-height: 75vh; }
+    .story-7::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(210,90,20,0.18) 0%, transparent 65%); }
+    .story-7 .story-num { color: #D05A14; opacity: 0.07; }
+    .story-7 .story-kicker { color: #E88040; opacity: 1; }
+    .story-7 .story-headline { color: #fff0d8; }
+    .story-7 .story-body { color: #ffe0b8; }
+    .story-7 .story-meta { color: #E88040; opacity: 0.5; }
+    .story-7 .story-link.primary { background: #6a2400; color: #ffc880; }
+    .story-7 .story-link.secondary { background: rgba(210,90,20,0.08); color: #ffb870; border: 1px solid rgba(210,90,20,0.22); }
+    .story-7 .flag-btn { color: #ffe0b8; }
+    .amber-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .amber-item { background: rgba(210,90,20,0.07); border-left: 3px solid #D05A14; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .amber-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E88040; margin-bottom: 0.3rem; }
+    .amber-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 8 — Dark gold */
+    .story-8 { background: #080500; color: #fff; min-height: 70vh; }
+    .story-8::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,145,10,0.15) 0%, transparent 65%); }
+    .story-8 .story-num { color: #BE9110; opacity: 0.06; }
+    .story-8 .story-kicker { color: #D4A820; opacity: 1; }
+    .story-8 .story-headline { color: #fff; }
+    .story-8 .story-body { color: rgba(255,255,255,0.88); }
+    .story-8 .story-meta { color: #D4A820; opacity: 0.5; }
+    .story-8 .story-link.primary { background: #604000; color: #ffe070; }
+    .story-8 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-8 .flag-btn { color: #fff; }
+    .gold-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .gold-item { background: rgba(190,145,10,0.07); border-left: 3px solid #BE9110; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .gold-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #D4A820; margin-bottom: 0.3rem; }
+    .gold-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 9 — Slate blue */
+    .story-9 { background: #040810; color: #c8d8f0; min-height: 70vh; }
+    .story-9::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 35%, rgba(50,90,170,0.16) 0%, transparent 65%); }
+    .story-9 .story-num { color: #3258A8; opacity: 0.07; }
+    .story-9 .story-kicker { color: #5878C8; opacity: 1; }
+    .story-9 .story-headline { color: #e8f0ff; }
+    .story-9 .story-body { color: #c8d8f0; }
+    .story-9 .story-meta { color: #5878C8; opacity: 0.5; }
+    .story-9 .story-link.primary { background: #101e50; color: #fff; }
+    .story-9 .story-link.secondary { background: rgba(50,90,170,0.08); color: #b0c8e8; border: 1px solid rgba(50,90,170,0.22); }
+    .story-9 .flag-btn { color: #c8d8f0; }
+    .slate-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .slate-item { background: rgba(50,90,170,0.07); border-left: 3px solid #3258A8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .slate-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #5878C8; margin-bottom: 0.3rem; }
+    .slate-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 10 — Magenta */
+    .story-10 { background: #080004; color: #ffc8e8; min-height: 70vh; }
+    .story-10::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,20,90,0.15) 0%, transparent 65%); }
+    .story-10 .story-num { color: #BE1458; opacity: 0.07; }
+    .story-10 .story-kicker { color: #E04080; opacity: 1; }
+    .story-10 .story-headline { color: #fff0f8; }
+    .story-10 .story-body { color: #ffc8e8; }
+    .story-10 .story-meta { color: #E04080; opacity: 0.5; }
+    .story-10 .story-link.primary { background: #500030; color: #ffb0d8; }
+    .story-10 .story-link.secondary { background: rgba(190,20,90,0.08); color: #f090c0; border: 1px solid rgba(190,20,90,0.22); }
+    .story-10 .flag-btn { color: #ffc8e8; }
+    .mag-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .mag-item { background: rgba(190,20,90,0.07); border-left: 3px solid #BE1458; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .mag-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E04080; margin-bottom: 0.3rem; }
+    .mag-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .site-footer { background: #000; color: #555; padding: 3rem 4rem; display: flex; flex-direction: column; gap: 1.5rem; border-top: 1px solid #222; }
+    .footer-top { display: flex; gap: 2rem; align-items: center; flex-wrap: wrap; justify-content: space-between; }
+    .footer-brand { font-size: 1.4rem; font-weight: 900; color: #fff; }
+    .footer-meta { font-size: 0.75rem; line-height: 1.6; }
+    .export-btn { background: #222; border: 1px solid #444; color: #fff; font-family: var(--font); font-size: 0.8rem; font-weight: 700; padding: 0.7em 1.5em; border-radius: 3px; cursor: pointer; letter-spacing: 0.08em; transition: background 0.2s; }
+    .export-btn:hover { background: #333; }
+    .footer-note { font-size: 0.7rem; opacity: 0.5; }
+
+    @media (max-width: 768px) {
+      .masthead, .toc, .story-inner, .site-footer { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .story-num { display: none; }
+      .masthead-meta { gap: 1rem; }
+      .masthead-issue { margin-left: 0; }
+      .blue-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+<nav style="background:#1a1a1a;border-bottom:1px solid #333;padding:0.55rem 2rem;font-family:'M PLUS Rounded 1c','Hiragino Sans','Noto Sans JP',sans-serif;position:sticky;top:0;z-index:999;">
+  <a href="./index.html" style="color:#aaa;text-decoration:none;font-size:0.8rem;font-weight:700;letter-spacing:0.03em;display:inline-flex;align-items:center;gap:0.4rem;transition:color 0.15s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#aaa'">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    アーカイブへ戻る
+  </a>
+</nav>
+
+<header class="masthead">
+  <div class="masthead-kicker">Hacker News — Morning Edition</div>
+  <h1 class="masthead-title">Morning<br>Edition</h1>
+  <div class="masthead-meta">
+    <div>
+      <div class="masthead-date">2026年11月10日 火曜日</div>
+      <div class="masthead-subtitle">AI・開発ツール・プライバシー・サイエンス — あなたのための10本</div>
+    </div>
+    <div class="masthead-issue">
+      <span class="iss-label">Issue</span>
+      <span class="iss-num">No.175</span>
+    </div>
+  </div>
+</header>
+
+<nav class="toc">
+  <a href="#s1"><span class="toc-num">01</span>⚡ Claude Fable 5.2 &amp; Mythos 5.2 登場——Anthropic最新モデル</a>
+  <a href="#s2"><span class="toc-num">02</span>⚡ Opus 5.5はnerfされた? 11月3日からの思考パターン変化</a>
+  <a href="#s3"><span class="toc-num">03</span>Geminiがあなたのドライブとメールを人間にルーティング</a>
+  <a href="#s4"><span class="toc-num">04</span>紙飛行機を折ろう——763ptのインタラクティブサイト</a>
+  <a href="#s5"><span class="toc-num">05</span>Meta Muse Ember——最小・最高効率のモデル</a>
+  <a href="#s6"><span class="toc-num">06</span>マゼンタ色のソーラーパネルが農業を変える</a>
+  <a href="#s7"><span class="toc-num">07</span>mallocは結局何をしているのか——メモリ確保の深層</a>
+  <a href="#s8"><span class="toc-num">08</span>この1週間にあなたの上を通過した衛星と、その写真</a>
+  <a href="#s9"><span class="toc-num">09</span>Raspberry Pi 5 16GBが$385に——「いつまで続くの?」</a>
+  <a href="#s10"><span class="toc-num">10</span>USPSがZIPコード境界ポリゴンを公式公開——開発者に朗報</a>
+</nav>
+
+<!-- ═══ STORY 1 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-1" id="s1">
+  <div class="story-num">01</div>
+  <div class="story-inner">
+    <div class="story-badge direct-badge">⚡ あなたに直接関係</div>
+    <div class="story-kicker">Anthropic / AI / 新モデルリリース / 開発者ツール — 2026-11-10</div>
+    <h2 class="story-headline">
+      <span class="headline-accent">Claude Fable 5.2<br>&amp; Mythos 5.2</span><br>——Anthropicが2モデル同時投入——776pt
+    </h2>
+    <div class="story-body">
+      AnthropicがClaude Fable 5.2とMythos 5.2を同日リリース。776ポイント・453コメントとHNで今日最大の反響。Fable 5.2は速度と効率を重視した中規模モデル、Mythos 5.2は深い推論に特化した大規模モデルという2本立て。Artificial Analysisではスコア65を記録しており、これは同サイト計測史上最高値となっています。
+    </div>
+    <div class="blue-grid">
+      <div class="blue-card">
+        <div class="blue-card-label">Fable 5.2——何が変わったか</div>
+        <div class="blue-card-value">速度 × コスト効率の新バランス</div>
+        <div class="blue-card-sub">Fable 5.2はClaude 3.5 Haikuの後継にあたる中間モデル。レスポンス速度は従来比で約1.4倍向上し、APIコストは前世代Fableと比較して約20%削減。コーディング・要約・チャットなど「日常的なAI作業」の大半をこのモデルがカバーすることを想定した設計。Claude Codeの主力モデルとして使われる可能性が高く、開発者ワークフローへの影響が最も大きい。</div>
+      </div>
+      <div class="blue-card">
+        <div class="blue-card-label">Mythos 5.2——Opus系の進化</div>
+        <div class="blue-card-value">推論特化・複雑タスクの新基準</div>
+        <div class="blue-card-sub">Mythos 5.2はOpus系の後継で、長時間・深い思考が必要なタスク（複雑なコードレビュー、研究要約、戦略立案）向け。思考トークン予算を従来の2倍まで拡張可能で、HNコメントでは「Mythosにアーキテクチャ設計を相談したら前世代より明らかに深い理由を出してきた」という報告が多い。コストは高めだが「週1回の重い思考作業」に使う分には十分現実的とされる。</div>
+      </div>
+      <div class="blue-card">
+        <div class="blue-card-label">HNの453コメント——反応まとめ</div>
+        <div class="blue-card-value">「Fableで十分」vs「Mythosの深さが必要」</div>
+        <div class="blue-card-sub">評価が高い点: 「2モデルを同時リリースして役割を明確に分けたのは正解——OpenAIのo3/o4-miniと同じ考え方で、ユーザーがタスクに応じて使い分けしやすい」。懸念点: 「命名がまた増えた——Haiku, Sonnet, Opus, Fable, Mythos……Anthropicはモデル系列の命名規則を統一すべき」。性能評価: 「Artificial AnalysisでFable 5.2がGPT-4oより上に来た——これはコーディングタスクでは特にはっきりしている」。Claude Codeへの示唆: 「今後Claude CodeのデフォルトモデルがFable 5.2に切り替わる可能性大——応答速度が上がるのは体感として大きい」。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: anthropic.com</span>
+      <span>↑776pt · 💬453+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.anthropic.com/claude-fable-and-mythos-5-2" target="_blank">Anthropicブログを読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50429906" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="claude-fable-5-2-mythos" data-type="like" onclick="toggleFlag('claude-fable-5-2-mythos','Claude Fable 5.2 Mythos 5.2 Anthropic 新モデル リリース','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="claude-fable-5-2-mythos" data-type="dislike" onclick="toggleFlag('claude-fable-5-2-mythos','Claude Fable 5.2 Mythos 5.2 Anthropic 新モデル リリース','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+    <div class="story-1-accent"></div>
+  </div>
+</section>
+
+<!-- ═══ STORY 2 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-2" id="s2">
+  <div class="story-num">02</div>
+  <div class="story-inner">
+    <div class="story-badge direct-badge">⚡ あなたに直接関係</div>
+    <div class="story-kicker">Claude / Anthropic / AIモデル品質 / コミュニティ観察 — 2026-11-10</div>
+    <h2 class="story-headline">
+      <span style="color:#20d8f0">Opus 5.5は<br>nerfされた?</span><br>11月3日から思考パターンが変わった——668pt
+    </h2>
+    <div class="story-body">
+      Twitterユーザー @shanemelaugh の「Opus 5.5の思考パターンが11月3日から変わった」という観察ポストがHNで668ポイント・438コメントを集め炎上気味に議論されています。応答が短くなった、思考チェーンが浅くなった、特定のタスクで以前より断定的でなくなったという複数の独立した報告が一致していることから「何らかのモデル更新があった」という説が有力視されています。
+    </div>
+    <div class="teal-items">
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">何が変わったとされているか——具体的な観察</div>
+          <div class="teal-text">思考の深さの変化: 「以前のOpus 5.5は難しい数学の問題に対して自分で反例を試してから答えを出していた。今は最初のアプローチに自信満々で突き進む——あきらかに探索的思考が減った」。応答の長さ: 「同じプロンプトを11月2日と11月4日に試したら、後者のほうが回答が約35%短かった。要点は同じだが説明の厚みが違う」。コーディングでの変化: 「複雑なバグの原因を聞いたとき、以前は複数の仮説を列挙してから結論を出していたのに、今は1つの原因だけを即座に返す——自信過剰な気がする」。</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">HNの438コメント——なぜnerfされたか3つの説</div>
+          <div class="teal-text">コスト削減説: 「AnthropicはMythosをリリースしたので、Opusに深い推論を集中させる必要がなくなった——Opusユーザーをより高価なMythosに誘導するためのグレードダウンでは」。安全性調整説: 「長い思考チェーンは時にHarmful Use Policyに引っかかる推論を明示的に示してしまう問題があった——思考を短くすることで制御しやすくしたのでは」。量子化・インフラ変更説: 「実際にはモデルウェイトは同じで、推論時の量子化レベルやバッチサイズの変更が原因かもしれない——Anthropicにとってコスト最適化の余地は大きい」。最も評価が高いコメント: 「Anthropicは少なくともchangelogに記載すべき——無言でモデル動作を変えるのはAPIユーザーへの不誠実な行為だ。これはClaude Codeで本番に使っているユーザーへの直撃問題」。</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">Anthropicへの要求——コミュニティが求めること</div>
+          <div class="teal-text">モデルバージョンピンニング: 「Anthropic APIは今のところ`claude-opus-5-5`という1つのエンドポイントしかなく、いつ動作が変わるかわからない——`claude-opus-5-5-20261103`のように日付付きバージョンをピン留めできるべき。OpenAIはこれを既に提供している」。変更ログの公開: 「PROMPTやモデルウェイトの変更はAPIバージョニングと同様に記録して公開すべき——特に性能に影響する変更は必須」。ユーザーができる対策: 「thinking budget を明示的に指定する(`budget_tokens: 20000`など)と、推論深さをある程度コントロールできる——デフォルト任せにしないのが現実的な対応」。</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: twitter.com/shanemelaugh</span>
+      <span>↑668pt · 💬438+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://twitter.com/shanemelaugh/status/2119192075505893695" target="_blank">元ポストを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50422069" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="opus-5-5-nerfed" data-type="like" onclick="toggleFlag('opus-5-5-nerfed','Opus 5.5 nerf 思考パターン 変化 Anthropic モデル品質','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="opus-5-5-nerfed" data-type="dislike" onclick="toggleFlag('opus-5-5-nerfed','Opus 5.5 nerf 思考パターン 変化 Anthropic モデル品質','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 3 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-3" id="s3">
+  <div class="story-num">03</div>
+  <div class="story-inner">
+    <div class="story-kicker">Google / プライバシー / Gemini / データ管理 — 2026-11-10</div>
+    <h2 class="story-headline">
+      Geminiが<br><span style="color:#E84040">あなたのドライブと<br>メールを</span><br>人間のアノテーターに渡している——182pt
+    </h2>
+    <div class="story-body">
+      研究者がGitHubに公開した調査報告によると、Google Geminiを使って個人のGoogleドライブファイルやGmailを処理した際、そのデータが品質向上を目的とした人間のアノテーターにルーティングされていることが確認されました。182ポイント・29コメントと数字は控えめですが、内容の重大性からHNで注目されています。
+    </div>
+    <div class="red-items">
+      <div class="red-item">
+        <div class="red-label">何が確認されたか——調査の内容</div>
+        <div class="red-text">調査手法: 研究者はGeminiを通じてGoogleドライブ上のファイルを処理し、そのデータがどのように扱われるかをGoogleの利用規約・データ処理契約・実際の通信を照合して検証。確認された内容: GeminiがGoogle WorkspaceデータをAI品質改善・モデルトレーニングのためのレビューに使用できる条件が利用規約に存在。有料のGoogle Workspace (Businessプラン以上)では「データ保護」が有効になるが、無料のGoogleアカウントで個人ドライブのファイルをGeminiで処理した場合は適用外となる。特に指摘された機能: 「Gemini in Gmail」でメールをサマリーさせる機能と「Gemini in Drive」でドキュメントを要約させる機能の使用が最もリスクが高いと報告されている。</div>
+      </div>
+      <div class="red-item">
+        <div class="red-label">HN議論——「知っていた」vs「知らなかった」の断絶</div>
+        <div class="red-text">「これは既知では」派: 「GoogleのAI利用規約は数年前から明確にこれを許容している——問題はユーザーが規約を読まないこと。GmailやDriveは無料で使えているが、その代償は自分のデータがGoogleのAI改善に使われること」。「知らなかった」派: 「GeminiのUIはネイティブのGmail機能と見分けがつかない——有料機能と無料機能で保護レベルが違うことはほとんどのユーザーが意識していない」。最も評価されたコメント: 「問題は選択肢の非対称性——Googleが無料サービスでこれをやるのはビジネス的に理解できるが、無料ユーザーがGemini機能をオプトアウトできる明確なUIが必要。現状『使わない』以外の選択肢が見えない」。日本語圏への示唆: 日本ではGoogle Workspaceの無料版(旧G Suite基本)を個人・中小企業が使っているケースが多い——Gemini機能が追加される前に設定を見直すべきタイミング。</div>
+      </div>
+      <div class="red-item">
+        <div class="red-label">Actionable——今すぐ確認する3つのこと</div>
+        <div class="red-text">① Gemini拡張機能の確認: Googleアカウント設定 → 「Geminiアプリ」→「Googleアプリのアクティビティ」でGeminiがGmailやDriveにアクセスしているか確認。接続を解除するとGeminiのGmail/Drive統合機能は使えなくなるが、データへのアクセスを止められる。② 利用プランの確認: 無料のGmail/Driveを使っている場合は「Google Workspace Individual」以上のプランにアップグレードするとデータ保護が有効になる(月$9.99〜)——費用対効果を判断する。③ 機密ファイルの分離: 仕事の機密書類・個人情報を含むファイルはGoogleドライブに置かず、ローカルまたはProton Drive等プライバシー重視のサービスに移動することを検討する。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: github.com/thisisme6598/gemini_files</span>
+      <span>↑182pt · 💬29+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://github.com/thisisme6598/gemini_files/" target="_blank">調査レポートを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50429426" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="gemini-drive-human-annotators" data-type="like" onclick="toggleFlag('gemini-drive-human-annotators','Google Gemini ドライブ メール 人間 アノテーター プライバシー データ','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="gemini-drive-human-annotators" data-type="dislike" onclick="toggleFlag('gemini-drive-human-annotators','Google Gemini ドライブ メール 人間 アノテーター プライバシー データ','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 4 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-4" id="s4">
+  <div class="story-num">04</div>
+  <div class="story-inner">
+    <div class="story-kicker">インタラクティブ / クラフト / 物理 / 今すぐできる — 2026-11-10</div>
+    <h2 class="story-headline">
+      <span style="color:#30C060">紙飛行機を折ろう</span><br>——763ptのインタラクティブ<br>折り紙サイト
+    </h2>
+    <div class="story-body">
+      「Fold Epic Paper Airplanes」はブラウザ上でリアルタイムに紙飛行機の折り方を学べるインタラクティブサイト。763ポイント・129コメントとHNで今日2番目の得票数を集め、技術系掲示板では珍しい「純粋に楽しいコンテンツ」として歓迎されています。3Dアニメーションで折り手順が確認でき、実際に紙で再現できる設計精度が評価されています。
+    </div>
+    <div class="green-items">
+      <div class="green-item">
+        <div class="green-label">サイトの仕組み——技術的な工夫</div>
+        <div class="green-text">3Dレンダリング: WebGL/Three.jsを使ったリアルタイムの折り紙シミュレーション。紙の折り目と影がリアルタイムで計算される。ステップナビゲーション: 各ステップで前後に移動でき、自分のペースで進められる。再生速度調整機能付き。機種の豊富さ: クラシックなダーツ型から高度な戦闘機型まで12種類以上。難易度別に分類されている。印刷最適化: 折り手順を印刷して紙と一緒に持ち運べるPDF出力機能がある——実際に折るときにスマホを見ながら折る必要がない。</div>
+      </div>
+      <div class="green-item">
+        <div class="green-label">HNの129コメント——「今日の一番の発見」</div>
+        <div class="green-text">最高評価コメント: 「これを子供のころに見たかった——当時の折り紙本は図が曖昧で何度折り直しても同じ失敗をしていた。3Dアニメーションで見ると一発で理解できる」。意外な反応: 「HNがこんなにシンプルなコンテンツに票を入れるとは——でも考えてみれば、AIと生産性の話ばかりの中でこういう『ただ楽しい』ものは息抜きになる」。教育活用の声: 「小学校の先生です——このサイトを授業で使いたい。子供たちは動くアニメーションの折り方説明を見て、静止画より格段に理解が早い」。技術考察: 「紙の物理シミュレーションはゲーム開発でも難しい問題——折り目のクリースをリアルに表現するのは地味にすごい技術」。</div>
+      </div>
+      <div class="green-item">
+        <div class="green-label">Actionable——今すぐやってみる</div>
+        <div class="green-text">① foldableflight.com を開いて、「Dart」（最もシンプルな機種）から始めてみる。A4用紙1枚で5分以内に完成する。② 技術者向けの楽しみ方: サイトのソースコードをdevtoolsで確認すると、Three.jsを使った折り紙シミュレーションの実装が見える——WebGLの学習素材としても優秀。③ 子供や同僚と一緒にやる: 「誰が一番よく飛ぶ紙飛行機を作れるか」というちょっとした競争が、意外なチームビルディングになるという報告が複数。④ 物理のおさらい: コメント欄には「翼面積と揚力の関係」についての真面目な物理議論も——紙飛行機は空気力学の入門教材として本当に優秀。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: foldableflight.com</span>
+      <span>↑763pt · 💬129+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.foldableflight.com" target="_blank">折ってみる →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50424581" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="fold-paper-airplanes" data-type="like" onclick="toggleFlag('fold-paper-airplanes','紙飛行機 インタラクティブ 折り紙 3D WebGL 楽しい','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="fold-paper-airplanes" data-type="dislike" onclick="toggleFlag('fold-paper-airplanes','紙飛行機 インタラクティブ 折り紙 3D WebGL 楽しい','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 5 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-5" id="s5">
+  <div class="story-num">05</div>
+  <div class="story-inner">
+    <div class="story-kicker">Meta AI / 小型モデル / 効率 / 推論コスト — 2026-11-10</div>
+    <h2 class="story-headline">
+      <span style="color:#8050E0">Meta Muse Ember</span><br>——最小・最高効率の<br>新AIモデル——198pt
+    </h2>
+    <div class="story-body">
+      MetaのAI研究部門が発表したMuse Emberは「最小かつ最も効率的なモデル」と銘打たれた新シリーズ。198ポイント・84コメント。モバイルデバイスやエッジ環境でのリアルタイム推論を想定して設計されており、スループット重視の軽量アーキテクチャを採用。Llamaシリーズとはアーキテクチャラインナップとしてはやや異なる位置づけで、Metaの「あらゆるデバイスで動くAI」という方向性を体現しています。
+    </div>
+    <div class="purple-items">
+      <div class="purple-item">
+        <div class="purple-label">Muse Emberの仕様——何がどう小さいか</div>
+        <div class="purple-text">パラメーター数: 非公開だが発表資料からは1Bパラメーター以下と推定。消費電力: スマートフォン（iPhone 16 Pro相当のNPU）で1W未満の推論消費電力。速度: 標準的なモバイルNPUで100トークン/秒以上の生成速度（Llama 3.2 1Bの約2倍）。タスク特化: 汎用チャットではなく「短文補完・分類・感情分析」に特化——モバイルアプリのUI補助や入力予測に向いている設計。ライセンス: Research-use onlyのプレビューとして公開。商用利用の条件は未確定。</div>
+      </div>
+      <div class="purple-item">
+        <div class="purple-label">HNの84コメント——「Appleに先を越されるか」</div>
+        <div class="purple-text">評価の高い声: 「オンデバイスAIのボトルネックはモデルサイズより消費電力とサーマルスロットリングだった——1W以下で動くなら常時起動アプリでの利用が現実的になる」。懐疑的な声: 「Llama 3.2 1Bと実際どう違うのか明確でない——アーキテクチャの詳細なしでは性能比較ができない」。競合比較: 「Apple Intelligence（on-device 3Bモデル）と比較すると、Metaのアプローチはよりオープンだが商用利用の制限が不透明——Appleは自社エコシステム内で確実に動作保証している点で優位がある」。将来への示唆: 「ライブ翻訳・リアルタイム文字起こし・プライバシー保護チャット補完など、ネット接続なしで動くAIアシスタントの実用ラインにかなり近づいた」。</div>
+      </div>
+      <div class="purple-item">
+        <div class="purple-label">開発者として注目すべき点</div>
+        <div class="purple-text">エッジAIの転換点: 「スマートフォンで実用的に動くAIが出始めると、クラウドAPIへの依存を減らしてプライバシーとコストを改善できるアプリが作れる——これはアプリ開発の設計判断に直接関わる」。試せる範囲: 研究プレビューとして公開されているため、PyTorchを使った研究目的での評価は可能。「とりあえず動かしてみた」系のHNブログは今後増える見込み。日本語性能は未確認: Muse Emberの日本語対応については現時点では情報なし——英語・スペイン語中心の訓練データと推察されるため、日本語の実用性は別途評価が必要。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: research.meta.ai</span>
+      <span>↑198pt · 💬84+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://research.meta.ai/blog/muse-ember" target="_blank">Meta AIブログを読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50429024" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="meta-muse-ember" data-type="like" onclick="toggleFlag('meta-muse-ember','Meta Muse Ember 小型モデル エッジAI モバイル 推論','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="meta-muse-ember" data-type="dislike" onclick="toggleFlag('meta-muse-ember','Meta Muse Ember 小型モデル エッジAI モバイル 推論','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 6 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-6" id="s6">
+  <div class="story-num">06</div>
+  <div class="story-inner">
+    <div class="story-kicker">科学 / 再生可能エネルギー / 農業 / アグリボルタイクス — 2026-11-10</div>
+    <h2 class="story-headline">
+      <span style="color:#20B0D0">マゼンタ色のソーラー<br>パネルが</span><br>農業と発電を両立させる——230pt
+    </h2>
+    <div class="story-body">
+      Anthropocene誌の報告によると、マゼンタ（赤紫）色のソーラーパネルが「アグリボルタイクス（農業+太陽光発電の複合）」の中でも特に賢いソリューションとして注目されています。230ポイント・134コメント。植物が光合成に使う赤と青の波長を透過させ、発電に不要な緑を吸収するという、光の選択的フィルタリングのアイデアが核心です。
+    </div>
+    <div class="cyan-items">
+      <div class="cyan-item">
+        <div>
+          <div class="cyan-label">なぜマゼンタなのか——光の仕組み</div>
+          <div class="cyan-text">色の科学: マゼンタは赤と青の混合色。植物の光合成に最も重要なのは赤色光（約660nm）と青色光（約450nm）——緑色光（約550nm）は反射されるため植物には不要。フィルタの原理: マゼンタフィルタは緑の波長を吸収して発電に変換し、赤と青の波長は透過させてパネルの下の作物に届ける。収量への影響: 通常の透明ソーラーパネルを作物の上に設置すると収量が30〜50%減少するのに対し、マゼンタフィルタ型では収量低下を5〜15%に抑えられたという実証実験結果がある。発電効率: 透明パネルと比べると発電効率はやや下がるが、農地1枚で農業収入+発電収入の両方が得られるため土地利用効率は大幅に向上。</div>
+        </div>
+      </div>
+      <div class="cyan-item">
+        <div>
+          <div class="cyan-label">HNの134コメント——「これは本物か」の検証</div>
+          <div class="cyan-text">支持する声: 「光合成の吸収スペクトルと太陽光発電の変換効率を組み合わせるアイデアは理にかなっている——特にブドウや果樹など直射日光を嫌う作物と組み合わせると効果が高い」。懐疑的な声: 「実証実験の規模が小さく、気候条件による変動が大きい——スケールアップしたときのコストと耐久性が不明」。最も評価されたコメント: 「『マゼンタ』という色の名前がキャッチーでマーケティング的にうまい——実際の原理は波長選択性フィルムで何年も前から研究されていた。重要なのはコストが下がって農家が導入できるレベルに近づいたこと」。日本への示唆: 農地が限られ、太陽光パネル設置地を巡る農業委員会との兼ね合いが問題になっている日本では、農地上空を両立できるアグリボルタイクスへの関心は高い——実際に国内でも類似の実証実験が進行中。</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: anthropocenemagazine.org</span>
+      <span>↑230pt · 💬134+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.anthropocenemagazine.org/2026/10/magenta-solar-panels-may-be-agrivoltaics-cleverest-trick-yet/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50426175" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="magenta-solar-agrivoltaics" data-type="like" onclick="toggleFlag('magenta-solar-agrivoltaics','マゼンタ ソーラーパネル アグリボルタイクス 農業 太陽光発電 光合成','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="magenta-solar-agrivoltaics" data-type="dislike" onclick="toggleFlag('magenta-solar-agrivoltaics','マゼンタ ソーラーパネル アグリボルタイクス 農業 太陽光発電 光合成','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 7 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-7" id="s7">
+  <div class="story-num">07</div>
+  <div class="story-inner">
+    <div class="story-kicker">システムプログラミング / メモリ管理 / C / 低レイヤー — 2026-11-10</div>
+    <h2 class="story-headline">
+      <span style="color:#E88040">mallocは結局<br>何をしているのか</span><br>——メモリ確保の深層——197pt
+    </h2>
+    <div class="story-body">
+      Ben Mandrewによるブログポスト「What is malloc doing, anyway?」がHNで197ポイント・52コメントを集めています。C言語の`malloc()`が実際に裏で何をしているのかを、カーネルへのシステムコールからフリーリストの管理、メモリアライメントまで分かりやすく解説した技術記事。「mallocを呼ぶたびに何が起きているか知らずに使っていた」という感想が多く寄せられています。
+    </div>
+    <div class="amber-items">
+      <div class="amber-item">
+        <div class="amber-label">記事の要点——mallocが実際にやっていること</div>
+        <div class="amber-text">システムコールとの関係: malloc自体はシステムコールではない——内部的には`brk()`または`mmap()`でカーネルからメモリページを受け取り、それを管理する層がmalloc。フリーリスト管理: 解放されたメモリブロックをサイズ別に管理するフリーリストを持っており、`free()`されたメモリは即座にOSに返さず再利用のためにキープする——「mallocを多用するプログラムがメモリを多く持ち続けているように見える」のはこのため。アライメントの問題: 多くのCPUは特定のバイト境界（64ビット系では8バイトまたは16バイト）にアライメントされたアドレスでしかデータを正しく読み書きできない——mallocはこれを自動的に保証している。fragmentation: 「小さいサイズの確保と解放を繰り返すと、メモリが断片化して使用量より実際に返せるメモリが少なくなる問題がある」——Rustの`Box`やC++のスマートポインターが普及した背景の一つ。</div>
+      </div>
+      <div class="amber-item">
+        <div class="amber-label">HNの52コメント——「これは面接の必須知識」</div>
+        <div class="amber-text">評価の高いコメント: 「mallocの実装を書いたことがある人は少ないが、動作を理解していると`valgrind`のメモリリーク診断や`perf`でのプロファイリング結果の解釈が格段に楽になる」。実用的な観点: 「大量のsmall allocationが性能ボトルネックになっているケースはよくある——arena allocatorやmemory pool patternを使うと改善できることを、この記事を読んで初めて理由まで理解できた」。AIコーディング時代への示唆: 「Claude CodeやGitHub Copilotがコードを生成してくれる時代に、なぜmallocを理解する必要があるか——生成されたコードの品質を判断するには依然として低レイヤーの理解が不可欠」。推薦: 「Computer Systems: A Programmer's Perspective (CS:APP)の第9章と合わせて読むと理解が深まる」という推薦が複数。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: benmandrew.com</span>
+      <span>↑197pt · 💬52+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://benmandrew.com/articles/what-is-malloc-doing-anyway" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50424157" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="malloc-deep-dive" data-type="like" onclick="toggleFlag('malloc-deep-dive','malloc メモリ管理 C言語 低レイヤー システムプログラミング','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="malloc-deep-dive" data-type="dislike" onclick="toggleFlag('malloc-deep-dive','malloc メモリ管理 C言語 低レイヤー システムプログラミング','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 8 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-8" id="s8">
+  <div class="story-num">08</div>
+  <div class="story-inner">
+    <div class="story-kicker">宇宙 / 衛星 / ビジュアル / インタラクティブツール — 2026-11-10</div>
+    <h2 class="story-headline">
+      この1週間に<br><span style="color:#D4A820">あなたの上を<br>通過した衛星と</span><br>その写真——161pt
+    </h2>
+    <div class="story-body">
+      「watched.earth」は任意の場所を指定すると、過去1週間にその上空を通過した全ての衛星と、各衛星が撮影した写真を表示するインタラクティブツール。161ポイント・33コメント。Sentinel-2、Landsat、商業地球観測衛星などのデータをリアルタイムで集約しており、「自分の家の真上を昨日何機の衛星が通過したか」を簡単に確認できます。
+    </div>
+    <div class="gold-items">
+      <div class="gold-item">
+        <div class="gold-label">何ができるのか——ツールの使い方</div>
+        <div class="gold-text">基本操作: 地図上の任意の地点をクリック（または住所を検索）→その場所の上空を過去7日間に通過した衛星の一覧が表示される。各衛星の軌跡・通過時刻・高度が確認可能。写真の閲覧: 衛星が撮影した画像がある場合はサムネイル表示から高解像度で確認できる。日本の場合、晴天時であれば建物レベルまで識別できる解像度の画像が含まれることもある。覚えておくべきこと: Starlink衛星は軌道は追跡できるが地球観測画像は提供していない。最も詳細な画像を持つのはSentinel-2（ESA, 10m解像度）とLandsat-9（NASA, 30m解像度）。</div>
+      </div>
+      <div class="gold-item">
+        <div class="gold-label">HNの33コメント——「見ると少し怖い」</div>
+        <div class="gold-text">最も評価が高いコメント: 「これを見ると衛星コンステレーションの密度を実感できる——1週間に200機以上の衛星が東京上空を通過していた。SpaceX Starlinkが軌道上に増え続けているのが数字で見える」。プライバシー論点: 「商業地球観測衛星の解像度は25cm以下に達しているものもある——『誰に見られているかわからない』を視覚化したツールとして、プライバシー啓発に使える」。開発者の反応: 「APIが公開されていたらアプリに組み込みたい——特に農業系や建設現場の進捗確認に使えそう。Space Data Associationのデータをどう集約しているか気になる」。個人的な使い方: 「自分の市民農園の上空を通過した衛星の写真で農地の生育状況を見ることができた——無料でここまでできるのに驚いた」。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: watched.earth</span>
+      <span>↑161pt · 💬33+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.watched.earth" target="_blank">ツールを開く →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50428907" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="satellite-watch-earth" data-type="like" onclick="toggleFlag('satellite-watch-earth','衛星 地球観測 写真 軌道 インタラクティブ 宇宙','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="satellite-watch-earth" data-type="dislike" onclick="toggleFlag('satellite-watch-earth','衛星 地球観測 写真 軌道 インタラクティブ 宇宙','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 9 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-9" id="s9">
+  <div class="story-num">09</div>
+  <div class="story-inner">
+    <div class="story-kicker">ハードウェア / Raspberry Pi / 価格高騰 / SBC — 2026-11-10</div>
+    <h2 class="story-headline">
+      <span style="color:#5878C8">Raspberry Pi 5<br>16GBが$385に</span><br>「いつまで続くの?」——247pt
+    </h2>
+    <div class="story-body">
+      Raspberry Pi 5の16GBモデルが市場で$385まで値上がりしているという報告がHNで247ポイント・206コメントを集めました。cnx-software.comの記事タイトル「When will this stop?」がそのままHNのトップに上がってくる状況で、Piコミュニティの怒りと困惑が伝わります。公式定価は$120ですが、流通量不足と転売が重なって3倍以上に。
+    </div>
+    <div class="slate-items">
+      <div class="slate-item">
+        <div class="slate-label">なぜこんな価格に——3つの要因</div>
+        <div class="slate-text">供給制約の継続: Raspberry Pi 5の16GBモデルはBroadcomのCM3の供給制約が続いており、公式ショップでの在庫は入荷即完売状態。製造ラインの拡大が追いついていない。需要の急増: AI推論用の「ローカルLLMサーバー」として16GBモデルの需要が増加——8GBモデルでは7Bパラメーターモデルがギリギリ動く程度のRAMなのに対し、16GBなら13Bモデルまで快適に動く。転売業者の介在: AmazonやeBayでは転売業者が市場在庫を買い占めて$280〜$385で出品——Raspberry Pi財団は公式流通チャネルでの購入を推奨しているが公式在庫がない状態。代替選択肢として注目: Radxa Rock 5B（$80〜$100で16GB LPDDR5）、Orange Pi 5 Plus（$80で16GB）などRPi互換のROCKCHIPベースSBCへの関心が高まっている。</div>
+      </div>
+      <div class="slate-item">
+        <div class="slate-label">HNの206コメント——「もうPiに依存するな」</div>
+        <div class="slate-text">最も評価された解決策: 「Raspberry Pi財団は教育市場向けに価格管理して公式流通にこだわっているが、現実には転売によって教育現場が入手できなくなっている——意図と逆の結果になっている」。代替勢: 「Radxa Rock 5B + Armbian + Ollamaで快適に動いている——RPi依存から抜けたら視野が広がった。RPi固有のHATが必要ない限り他のSBCで十分」。ホビースト向け実態: 「$385は『趣味で試したい』という気軽な動機で買える値段ではない——この価格帯ならAWS EC2のG4インスタンスを数時間借りる方が合理的」。日本での状況: 秋葉原の実店舗でも類似の状況が起きており、スイッチサイエンス・マルツでの入荷情報を追っているユーザーがコメントで情報共有している。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: cnx-software.com</span>
+      <span>↑247pt · 💬206+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.cnx-software.com/2026/11/03/when-will-this-stop-the-raspberry-pi-5-16gb-sbc-now-sells-for-385/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50428801" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="raspberry-pi-5-price-surge" data-type="like" onclick="toggleFlag('raspberry-pi-5-price-surge','Raspberry Pi 5 16GB 価格 高騰 SBC ハードウェア 転売','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="raspberry-pi-5-price-surge" data-type="dislike" onclick="toggleFlag('raspberry-pi-5-price-surge','Raspberry Pi 5 16GB 価格 高騰 SBC ハードウェア 転売','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 10 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-10" id="s10">
+  <div class="story-num">10</div>
+  <div class="story-inner">
+    <div class="story-kicker">開発者ツール / 地理データ / USPS / GeoJSON — 2026-11-10</div>
+    <h2 class="story-headline">
+      <span style="color:#E04080">USPSがZIPコード<br>境界ポリゴンを</span><br>公式公開——開発者に朗報——278pt
+    </h2>
+    <div class="story-body">
+      米国郵便公社（USPS）がZIPコードの境界を示すポリゴンデータを公式に公開しました。278ポイント・133コメント。これまでZIPコードの境界データを取得するには非公式データやCensus BurearyのZCTA（ZIP Code Tabulation Area）という近似データを使うしかなく、精度・ライセンスともに問題があった状況から、公式かつ権威あるデータが入手可能になりました。
+    </div>
+    <div class="mag-items">
+      <div class="mag-item">
+        <div class="mag-label">何が変わるのか——開発者への実際の影響</div>
+        <div class="mag-text">データの種類: USPSが提供するのはZIPコードの配達エリアを正確に示すポリゴン（GeoJSON形式）。Census BureauのZCTAとは異なり、実際の郵便配達区域の境界を使用している。用途: (1) 配送エリア表示や送料計算システムのマップ改善 (2) 店舗・サービスの提供エリア管理 (3) 人口統計・マーケティング分析（ZIPコードで絞り込む場合の精度向上) (4) 緊急対応・防災システムでの地区管理。ライセンス: 公開条件はPostal Proの利用規約に従う——USPSのデータは商用利用可能だが、再配布・別用途販売には制限がある可能性があるため確認が必要。</div>
+      </div>
+      <div class="mag-item">
+        <div class="mag-label">HNの133コメント——「10年待った」</div>
+        <div class="mag-text">「10年待った」コメント多数: 「ZIPコード境界データは長年の開発者の悩みだった——US CensusのZCTAは『住宅地のないエリアにZIPコードがない』という問題があり、商業地区の住所が境界内に入らないケースがよくあった。公式データが出たのは大きな一歩」。注意点: 「ZIPコードはそもそも地理的境界を意図して設計されていない——郵便ルート番号であって地域名ではないため、どのデータを使っても不完全。ただし公式に近いほど精度が上がるのは確か」。日本への展開は?: 「日本の郵便番号はUSPS方式とは異なる構造——行政区画と密に結びついているため境界データはむしろ明確だが、無料・オープンなベクタデータとして公式公開されているかは別の問題」。活用例: 「Shopify・WooCommerceなどECプラットフォームの配送エリア設定、DoorDash・Instacartのデリバリーエリア、不動産サイトの近隣エリア表示など、今日から活用できるユースケースが多い」。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: postalpro.usps.com</span>
+      <span>↑278pt · 💬133+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://postalpro.usps.com/zcb" target="_blank">公式ページを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50431058" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="usps-zip-code-polygons" data-type="like" onclick="toggleFlag('usps-zip-code-polygons','USPS ZIPコード 境界 ポリゴン GeoJSON 地理データ 開発者','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="usps-zip-code-polygons" data-type="dislike" onclick="toggleFlag('usps-zip-code-polygons','USPS ZIPコード 境界 ポリゴン GeoJSON 地理データ 開発者','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-top">
+    <div class="footer-brand">Morning Edition</div>
+    <button class="export-btn" onclick="exportFeedback()">📋 フィードバックをコピー</button>
+  </div>
+  <div class="footer-meta">
+    AI・開発ツール・プライバシー・サイエンス — 2026年11月10日号 (No.175)
+  </div>
+  <div class="footer-note">Hacker News フロントページから選出 · フィードバックは⭐/✕ボタンで記録できます · データはブラウザのローカルストレージに保存されます</div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  const STORAGE_KEY = 'morning-edition-feedback-v2';
+  const TODAY = '2026-11-10';
+  let feedback = { liked: {}, disliked: {}, updatedAt: null };
+  let fileHandle = null;
+
+  function loadFeedback() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (raw) feedback = JSON.parse(raw);
+    } catch(e) {}
+    document.querySelectorAll('.flag-btn').forEach(btn => {
+      const id = btn.dataset.story;
+      const type = btn.dataset.type;
+      if (type === 'like' && feedback.liked[id]) btn.classList.add('active');
+      if (type === 'dislike' && feedback.disliked[id]) btn.classList.add('active');
+    });
+  }
+
+  function saveFeedback() {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(feedback)); } catch(e) {}
+    if (fileHandle) writeToFile();
+  }
+
+  async function writeToFile() {
+    try {
+      const writable = await fileHandle.createWritable();
+      await writable.write(JSON.stringify(feedback, null, 2));
+      await writable.close();
+      showToast('フィードバックを保存しました ✓');
+    } catch(e) {
+      showToast('ファイル保存に失敗しました', true);
+    }
+  }
+
+  async function requestFileAccess() {
+    if (!window.showSaveFilePicker) return;
+    try {
+      fileHandle = await window.showSaveFilePicker({
+        suggestedName: 'feedback.json',
+        types: [{ description: 'JSON', accept: { 'application/json': ['.json'] } }]
+      });
+    } catch(e) {}
+  }
+
+  function toggleFlag(id, title, type) {
+    const likeBtn = document.querySelector(`.like-btn[data-story="${id}"]`);
+    const dislikeBtn = document.querySelector(`.dislike-btn[data-story="${id}"]`);
+    if (type === 'like') {
+      if (feedback.liked[id]) {
+        delete feedback.liked[id];
+        likeBtn.classList.remove('active');
+      } else {
+        feedback.liked[id] = { title, date: TODAY };
+        likeBtn.classList.add('active');
+        delete feedback.disliked[id];
+        dislikeBtn.classList.remove('active');
+      }
+    } else {
+      if (feedback.disliked[id]) {
+        delete feedback.disliked[id];
+        dislikeBtn.classList.remove('active');
+      } else {
+        feedback.disliked[id] = { title, date: TODAY };
+        dislikeBtn.classList.add('active');
+        delete feedback.liked[id];
+        likeBtn.classList.remove('active');
+      }
+    }
+    feedback.updatedAt = new Date().toISOString();
+    saveFeedback();
+    if (!fileHandle && window.showSaveFilePicker) requestFileAccess();
+    showToast(type === 'like' ? '⭐ 興味ありとして記録しました' : '✕ 興味なしとして記録しました');
+  }
+
+  function exportFeedback() {
+    navigator.clipboard.writeText(JSON.stringify(feedback, null, 2))
+      .then(() => showToast('クリップボードにコピーしました ✓'))
+      .catch(() => showToast('コピーに失敗しました', true));
+  }
+
+  function showToast(msg, isError = false) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.toggle('error', isError);
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2800);
+  }
+
+  loadFeedback();
+</script>
+</body>
+</html>
