@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Morning Edition — 2026年11月12日</title>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --font: 'M PLUS Rounded 1c', 'Hiragino Sans', 'Noto Sans JP', sans-serif; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); background: #111; color: #fff; overflow-x: hidden; }
+
+    .masthead { background: #fff; color: #000; padding: 3rem 4rem 2.5rem; border-bottom: 6px solid #000; position: relative; overflow: hidden; }
+    .masthead::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: repeating-linear-gradient(90deg, #000 0, #000 12px, transparent 12px, transparent 20px); }
+    .masthead-kicker { font-size: 0.85rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: #777; margin-bottom: 0.6rem; }
+    .masthead-title { font-size: clamp(3.5rem, 9vw, 7.5rem); font-weight: 900; line-height: 0.88; letter-spacing: -0.04em; margin-bottom: 1.8rem; }
+    .masthead-meta { display: flex; gap: 3rem; align-items: baseline; flex-wrap: wrap; }
+    .masthead-date { font-size: 1.5rem; font-weight: 700; }
+    .masthead-subtitle { font-size: 1rem; font-weight: 400; color: #555; max-width: 480px; line-height: 1.5; }
+    .masthead-issue { margin-left: auto; text-align: right; }
+    .masthead-issue span { display: block; }
+    .masthead-issue .iss-label { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: #999; }
+    .masthead-issue .iss-num { font-size: 2.2rem; font-weight: 900; color: #000; }
+
+    .toc { background: #1a1a1a; padding: 1.5rem 4rem; display: flex; gap: 1.5rem; flex-wrap: wrap; border-bottom: 1px solid #333; }
+    .toc a { color: #aaa; text-decoration: none; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; transition: color 0.2s; }
+    .toc a:hover { color: #fff; }
+    .toc-num { color: #555; margin-right: 0.3em; }
+
+    .story { position: relative; overflow: hidden; }
+    .story-inner { max-width: 1200px; margin: 0 auto; padding: 5rem 4rem; position: relative; z-index: 1; }
+    .story-num { font-size: clamp(6rem, 18vw, 16rem); font-weight: 900; line-height: 0.8; letter-spacing: -0.06em; opacity: 0.08; position: absolute; top: 1rem; right: 2rem; user-select: none; }
+    .story-badge { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.35em 0.9em; border-radius: 2px; margin-bottom: 1.5rem; }
+    .direct-badge { background: #FFD700; color: #000; }
+    .story-kicker { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; opacity: 0.6; margin-bottom: 0.8rem; }
+    .story-headline { font-size: clamp(2rem, 5vw, 4rem); font-weight: 900; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+    .story-body { font-size: clamp(1rem, 1.5vw, 1.2rem); font-weight: 400; line-height: 1.8; max-width: 680px; opacity: 0.88; margin-bottom: 2rem; }
+    .story-meta { display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center; font-size: 0.8rem; font-weight: 700; opacity: 0.5; }
+    .story-links { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem; }
+    .story-link { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.6em 1.4em; border-radius: 3px; text-decoration: none; transition: opacity 0.2s, transform 0.15s; }
+    .story-link:hover { opacity: 0.75; transform: translateY(-1px); }
+
+    .feedback-buttons { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .flag-btn { background: none; border: 1px solid currentColor; color: inherit; font-family: var(--font); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.5em 1em; border-radius: 3px; cursor: pointer; opacity: 0.32; transition: opacity 0.2s, background 0.2s, color 0.2s, border-color 0.2s, transform 0.15s; }
+    .flag-btn:hover { opacity: 0.72; transform: translateY(-1px); }
+    .flag-btn.like-btn.active { opacity: 1; background: rgba(255,215,0,0.15); border-color: #FFD700; color: #FFD700 !important; }
+    .flag-btn.dislike-btn.active { opacity: 1; background: rgba(255,60,60,0.12); border-color: #FF4444; color: #FF4444 !important; }
+
+    .toast { position: fixed; bottom: 2rem; right: 2rem; background: #1a1a1a; color: #fff; font-family: var(--font); font-size: 0.82rem; font-weight: 700; padding: 0.75em 1.4em; border-radius: 4px; border-left: 3px solid #00C853; z-index: 9999; opacity: 0; transform: translateY(10px); transition: opacity 0.25s, transform 0.25s; pointer-events: none; box-shadow: 0 4px 24px rgba(0,0,0,0.45); }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    .toast.error { border-left-color: #FF5252; }
+
+    /* Story 1 — White */
+    .story-1 { background: #fff; color: #000; min-height: 90vh; display: flex; flex-direction: column; justify-content: center; }
+    .story-1 .story-num { color: #000; opacity: 0.04; }
+    .story-1 .story-kicker { color: #555; opacity: 1; }
+    .story-1 .story-headline { color: #000; }
+    .story-1 .story-body { color: #111; }
+    .story-1 .story-meta { color: #000; }
+    .story-1 .story-link.primary { background: #1a1a1a; color: #fff; }
+    .story-1 .story-link.secondary { background: #f0f0f0; color: #000; }
+    .story-1 .flag-btn { color: #000; }
+    .story-1-accent { position: absolute; bottom: 0; left: 0; width: 100%; height: 8px; background: linear-gradient(90deg, #F5A623 0%, #E87722 50%, #F5A623 100%); }
+    .story-1 .headline-accent { display: inline-block; background: linear-gradient(135deg, #F5A623 0%, #E87722 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .blue-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1.2rem; margin: 2rem 0; max-width: 680px; }
+    .blue-card { border: 2px solid rgba(0,0,0,0.12); background: rgba(0,0,0,0.03); border-radius: 6px; padding: 1.3rem 1.5rem; }
+    .blue-card-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.2em; text-transform: uppercase; color: #333; margin-bottom: 0.4rem; }
+    .blue-card-value { font-size: 1.05rem; font-weight: 900; color: #000; line-height: 1.3; }
+    .blue-card-sub { font-size: 0.75rem; color: #555; margin-top: 0.3rem; line-height: 1.4; }
+
+    /* Story 2 — Dark navy/teal */
+    .story-2 { background: #00080c; color: #b8f0ff; min-height: 80vh; }
+    .story-2::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(0,160,200,0.14) 0%, transparent 65%); }
+    .story-2 .story-num { color: #00A0C8; opacity: 0.07; }
+    .story-2 .story-kicker { color: #20C8E8; opacity: 1; }
+    .story-2 .story-headline { color: #e0f8ff; }
+    .story-2 .story-body { color: #b8f0ff; }
+    .story-2 .story-meta { color: #20C8E8; opacity: 0.5; }
+    .story-2 .story-link.primary { background: #004058; color: #80e8ff; }
+    .story-2 .story-link.secondary { background: rgba(0,160,200,0.08); color: #90d8f0; border: 1px solid rgba(0,160,200,0.22); }
+    .story-2 .flag-btn { color: #b8f0ff; }
+    .teal-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .teal-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(0,160,200,0.07); border-left: 3px solid #00A0C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .teal-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20C8E8; margin-bottom: 0.3rem; }
+    .teal-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 3 — Dark red */
+    .story-3 { background: #0a0000; color: #fff; min-height: 80vh; }
+    .story-3::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(200,20,20,0.16) 0%, transparent 65%); }
+    .story-3 .story-num { color: #C81414; opacity: 0.07; }
+    .story-3 .story-kicker { color: #E84040; opacity: 1; }
+    .story-3 .story-headline { color: #fff; }
+    .story-3 .story-body { color: rgba(255,255,255,0.88); }
+    .story-3 .story-meta { color: #E84040; opacity: 0.5; }
+    .story-3 .story-link.primary { background: #6a0000; color: #fff; }
+    .story-3 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-3 .flag-btn { color: #fff; }
+    .red-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .red-item { background: rgba(200,20,20,0.07); border-left: 3px solid #C81414; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .red-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E84040; margin-bottom: 0.3rem; }
+    .red-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 4 — Dark green */
+    .story-4 { background: #020c04; color: #c8f0d0; min-height: 80vh; }
+    .story-4::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(20,160,70,0.16) 0%, transparent 65%); }
+    .story-4 .story-num { color: #14A046; opacity: 0.07; }
+    .story-4 .story-kicker { color: #30C060; opacity: 1; }
+    .story-4 .story-headline { color: #e0ffe8; }
+    .story-4 .story-body { color: #c8f0d0; }
+    .story-4 .story-meta { color: #30C060; opacity: 0.5; }
+    .story-4 .story-link.primary { background: #063820; color: #80ffb0; }
+    .story-4 .story-link.secondary { background: rgba(20,160,70,0.08); color: #a0e8b0; border: 1px solid rgba(20,160,70,0.22); }
+    .story-4 .flag-btn { color: #c8f0d0; }
+    .green-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .green-item { background: rgba(20,160,70,0.07); border-left: 3px solid #14A046; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .green-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #30C060; margin-bottom: 0.3rem; }
+    .green-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 5 — Dark purple */
+    .story-5 { background: #040010; color: #d8c8ff; min-height: 75vh; }
+    .story-5::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(90,40,200,0.17) 0%, transparent 65%); }
+    .story-5 .story-num { color: #5A28C8; opacity: 0.07; }
+    .story-5 .story-kicker { color: #8050E0; opacity: 1; }
+    .story-5 .story-headline { color: #f0e8ff; }
+    .story-5 .story-body { color: #d8c8ff; }
+    .story-5 .story-meta { color: #8050E0; opacity: 0.5; }
+    .story-5 .story-link.primary { background: #200860; color: #d0a8ff; }
+    .story-5 .story-link.secondary { background: rgba(90,40,200,0.08); color: #c0a0f0; border: 1px solid rgba(90,40,200,0.22); }
+    .story-5 .flag-btn { color: #d8c8ff; }
+    .purple-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .purple-item { background: rgba(90,40,200,0.07); border-left: 3px solid #5A28C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .purple-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #8050E0; margin-bottom: 0.3rem; }
+    .purple-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 6 — Dark cyan */
+    .story-6 { background: #000c10; color: #b8e8f0; min-height: 75vh; }
+    .story-6::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 40%, rgba(0,130,160,0.14) 0%, transparent 65%); }
+    .story-6 .story-num { color: #0080A0; opacity: 0.07; }
+    .story-6 .story-kicker { color: #20B0D0; opacity: 1; }
+    .story-6 .story-headline { color: #e0f4ff; }
+    .story-6 .story-body { color: #b8e8f0; }
+    .story-6 .story-meta { color: #20B0D0; opacity: 0.5; }
+    .story-6 .story-link.primary { background: #003848; color: #80d8f0; }
+    .story-6 .story-link.secondary { background: rgba(0,130,160,0.08); color: #90cce0; border: 1px solid rgba(0,130,160,0.22); }
+    .story-6 .flag-btn { color: #b8e8f0; }
+    .cyan-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .cyan-item { background: rgba(0,130,160,0.07); border-left: 3px solid #0080A0; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .cyan-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20B0D0; margin-bottom: 0.3rem; }
+    .cyan-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 7 — Dark amber */
+    .story-7 { background: #0a0300; color: #ffe0b8; min-height: 75vh; }
+    .story-7::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(210,90,20,0.18) 0%, transparent 65%); }
+    .story-7 .story-num { color: #D05A14; opacity: 0.07; }
+    .story-7 .story-kicker { color: #E88040; opacity: 1; }
+    .story-7 .story-headline { color: #fff0d8; }
+    .story-7 .story-body { color: #ffe0b8; }
+    .story-7 .story-meta { color: #E88040; opacity: 0.5; }
+    .story-7 .story-link.primary { background: #6a2400; color: #ffc880; }
+    .story-7 .story-link.secondary { background: rgba(210,90,20,0.08); color: #ffb870; border: 1px solid rgba(210,90,20,0.22); }
+    .story-7 .flag-btn { color: #ffe0b8; }
+    .amber-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .amber-item { background: rgba(210,90,20,0.07); border-left: 3px solid #D05A14; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .amber-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E88040; margin-bottom: 0.3rem; }
+    .amber-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 8 — Dark gold */
+    .story-8 { background: #080500; color: #fff; min-height: 70vh; }
+    .story-8::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,145,10,0.15) 0%, transparent 65%); }
+    .story-8 .story-num { color: #BE9110; opacity: 0.06; }
+    .story-8 .story-kicker { color: #D4A820; opacity: 1; }
+    .story-8 .story-headline { color: #fff; }
+    .story-8 .story-body { color: rgba(255,255,255,0.88); }
+    .story-8 .story-meta { color: #D4A820; opacity: 0.5; }
+    .story-8 .story-link.primary { background: #604000; color: #ffe070; }
+    .story-8 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-8 .flag-btn { color: #fff; }
+    .gold-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .gold-item { background: rgba(190,145,10,0.07); border-left: 3px solid #BE9110; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .gold-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #D4A820; margin-bottom: 0.3rem; }
+    .gold-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 9 — Slate blue */
+    .story-9 { background: #040810; color: #c8d8f0; min-height: 70vh; }
+    .story-9::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 35%, rgba(50,90,170,0.16) 0%, transparent 65%); }
+    .story-9 .story-num { color: #3258A8; opacity: 0.07; }
+    .story-9 .story-kicker { color: #5878C8; opacity: 1; }
+    .story-9 .story-headline { color: #e8f0ff; }
+    .story-9 .story-body { color: #c8d8f0; }
+    .story-9 .story-meta { color: #5878C8; opacity: 0.5; }
+    .story-9 .story-link.primary { background: #101e50; color: #fff; }
+    .story-9 .story-link.secondary { background: rgba(50,90,170,0.08); color: #b0c8e8; border: 1px solid rgba(50,90,170,0.22); }
+    .story-9 .flag-btn { color: #c8d8f0; }
+    .slate-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .slate-item { background: rgba(50,90,170,0.07); border-left: 3px solid #3258A8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .slate-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #5878C8; margin-bottom: 0.3rem; }
+    .slate-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 10 — Magenta */
+    .story-10 { background: #080004; color: #ffc8e8; min-height: 70vh; }
+    .story-10::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,20,90,0.15) 0%, transparent 65%); }
+    .story-10 .story-num { color: #BE1458; opacity: 0.07; }
+    .story-10 .story-kicker { color: #E04080; opacity: 1; }
+    .story-10 .story-headline { color: #fff0f8; }
+    .story-10 .story-body { color: #ffc8e8; }
+    .story-10 .story-meta { color: #E04080; opacity: 0.5; }
+    .story-10 .story-link.primary { background: #500030; color: #ffb0d8; }
+    .story-10 .story-link.secondary { background: rgba(190,20,90,0.08); color: #f090c0; border: 1px solid rgba(190,20,90,0.22); }
+    .story-10 .flag-btn { color: #ffc8e8; }
+    .mag-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .mag-item { background: rgba(190,20,90,0.07); border-left: 3px solid #BE1458; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .mag-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E04080; margin-bottom: 0.3rem; }
+    .mag-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .site-footer { background: #000; color: #555; padding: 3rem 4rem; display: flex; flex-direction: column; gap: 1.5rem; border-top: 1px solid #222; }
+    .footer-top { display: flex; gap: 2rem; align-items: center; flex-wrap: wrap; justify-content: space-between; }
+    .footer-brand { font-size: 1.4rem; font-weight: 900; color: #fff; }
+    .footer-meta { font-size: 0.75rem; line-height: 1.6; }
+    .export-btn { background: #222; border: 1px solid #444; color: #fff; font-family: var(--font); font-size: 0.8rem; font-weight: 700; padding: 0.7em 1.5em; border-radius: 3px; cursor: pointer; letter-spacing: 0.08em; transition: background 0.2s; }
+    .export-btn:hover { background: #333; }
+    .footer-note { font-size: 0.7rem; opacity: 0.5; }
+
+    @media (max-width: 768px) {
+      .masthead, .toc, .story-inner, .site-footer { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .story-num { display: none; }
+      .masthead-meta { gap: 1rem; }
+      .masthead-issue { margin-left: 0; }
+      .blue-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+<nav style="background:#1a1a1a;border-bottom:1px solid #333;padding:0.55rem 2rem;font-family:'M PLUS Rounded 1c','Hiragino Sans','Noto Sans JP',sans-serif;position:sticky;top:0;z-index:999;">
+  <a href="./index.html" style="color:#aaa;text-decoration:none;font-size:0.8rem;font-weight:700;letter-spacing:0.03em;display:inline-flex;align-items:center;gap:0.4rem;transition:color 0.15s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#aaa'">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    アーカイブへ戻る
+  </a>
+</nav>
+
+<header class="masthead">
+  <div class="masthead-kicker">Hacker News — Morning Edition</div>
+  <h1 class="masthead-title">Morning<br>Edition</h1>
+  <div class="masthead-meta">
+    <div>
+      <div class="masthead-date">2026年11月12日 木曜日</div>
+      <div class="masthead-subtitle">AI・開発ツール・プライバシー・サイエンス — あなたのための10本</div>
+    </div>
+    <div class="masthead-issue">
+      <span class="iss-label">Issue</span>
+      <span class="iss-num">No.177</span>
+    </div>
+  </div>
+</header>
+
+<nav class="toc">
+  <a href="#s1"><span class="toc-num">01</span>AIエージェントが未踏のマヤ遺跡を発見——889pt</a>
+  <a href="#s2"><span class="toc-num">02</span>Timsortの父、Tim Petersが逝去——676pt</a>
+  <a href="#s3"><span class="toc-num">03</span>AWS公式エミュレーターがOSS公開——509pt</a>
+  <a href="#s4"><span class="toc-num">04</span>偽火災警報でJane Streetのデータセンターが危機——348pt</a>
+  <a href="#s5"><span class="toc-num">05</span>WebGL2で超リアルな砂シミュレーション——264pt</a>
+  <a href="#s6"><span class="toc-num">06</span>電圧グリッチングでマイニングカードのA100を解放——240pt</a>
+  <a href="#s7"><span class="toc-num">07</span>線形プログラムはウェイト空間プログラミングができるか——224pt</a>
+  <a href="#s8"><span class="toc-num">08</span>⚡ Atuin Threads——全マシンのAIエージェントセッションを同期——174pt</a>
+  <a href="#s9"><span class="toc-num">09</span>Gemini Decisions API——AIに構造化意思決定を委ねる——160pt</a>
+  <a href="#s10"><span class="toc-num">10</span>Show HN: Yogurt——プライベートなGranola代替——132pt</a>
+</nav>
+
+<!-- ═══ STORY 1 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-1" id="s1">
+  <div class="story-num">01</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / 考古学 / 未踏遺跡 / コンピュータービジョン — 2026-11-12</div>
+    <h2 class="story-headline">
+      <span class="headline-accent">AIエージェントが<br>未踏の<br>マヤ遺跡を発見</span><br>——889pt
+    </h2>
+    <div class="story-body">
+      写真家・AIエンジニアのPietro Miottiが自作のAIエージェントシステムを用いて、メキシコ・ユカタン半島のジャングル内に未登録のマヤ遺跡を特定しました。889ポイント・320コメントとHN本日最多得票。Google Earthの衛星画像をコンピュータビジョンで解析し、既知の遺跡パターンと一致する幾何学的構造を自動検出。現地調査で中規模の未踏遺跡と確認されたという報告です。AIが考古学のフロンティアを押し広げた鮮烈な事例です。
+    </div>
+    <div class="blue-grid">
+      <div class="blue-card">
+        <div class="blue-card-label">エージェントの構成——どう動いたか</div>
+        <div class="blue-card-value">衛星画像解析 + パターンマッチング + 自動優先度付け</div>
+        <div class="blue-card-sub">著者は複数のAIエージェントをパイプライン化。最初のエージェントがGoogle Earth Engine APIから衛星画像タイルを取得し、コンピュータビジョンモデルが既知マヤ遺跡の特徴（方形の段丘・林の中に浮かぶ幾何学的パターン・特定の地形的異常）を学習済みモデルで検出。第二エージェントが候補地をスコアリングして優先度付けし、第三エージェントが学術データベースと照合して未登録かどうかを確認する設計。全体のパイプラインは数百ドルのAPI費用で数百平方キロメートルをスキャンできたとのこと。</div>
+      </div>
+      <div class="blue-card">
+        <div class="blue-card-label">発見プロセス——現地確認まで</div>
+        <div class="blue-card-value">AI検出 → 学術確認 → ドローン撮影 → 地上踏破</div>
+        <div class="blue-card-sub">AIが10箇所の候補地を提示したなかで、最もスコアが高かった一箇所について著者は現地のマヤ考古学者に連絡を取り、ドローンと現地踏破で調査を実施。地表から数メートルの土に埋もれた石積み構造・石碑の断片・排水路の痕跡が確認され、推定8〜12世紀の中規模集落遺跡と判断された。MEXICOのINAH（国立人類学歴史研究所）に正式報告が進んでいる段階。著者は「エージェントがなければ100年かかる調査が数週間で完了した」とコメント。</div>
+      </div>
+      <div class="blue-card">
+        <div class="blue-card-label">HNの反応——考古学×AIの可能性と課題</div>
+        <div class="blue-card-value">考古学者とエンジニアが交差する議論</div>
+        <div class="blue-card-sub">最高評価のコメント: 「これはLiDAR（航空レーザースキャン）でも同様のことが起きていた——新しいのはAPIと自動エージェントで個人が実行できるコストになった点。今後5年で多数の未踏遺跡が発見されると思う」。懸念の声: 「場所が特定されすぎると遺跡が荒らされる——発見情報の公開範囲を現地当局と調整すべき」。技術的関心: 「訓練データにどのマヤ遺跡を使ったか？過学習で似た地形を誤検出するリスクは？」——著者は偽陽性率が約40%だったと開示しており、人間の確認ステップが不可欠と明記している。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: pietromiotti.com</span>
+      <span>↑889pt · 💬320+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://pietromiotti.com/latest/maya-site" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50452455" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="maya-site-ai-agents" data-type="like" onclick="toggleFlag('maya-site-ai-agents','AIエージェント マヤ遺跡 考古学 衛星画像 コンピュータービジョン 未踏','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="maya-site-ai-agents" data-type="dislike" onclick="toggleFlag('maya-site-ai-agents','AIエージェント マヤ遺跡 考古学 衛星画像 コンピュータービジョン 未踏','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+    <div class="story-1-accent"></div>
+  </div>
+</section>
+
+<!-- ═══ STORY 2 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-2" id="s2">
+  <div class="story-num">02</div>
+  <div class="story-inner">
+    <div class="story-kicker">Python / コミュニティ / in memoriam / Timsort — 2026-11-12</div>
+    <h2 class="story-headline">
+      <span style="color:#20d8f0">Timsortの父<br>Tim Petersが<br>逝去</span><br>——676pt
+    </h2>
+    <div class="story-body">
+      Pythonの中核的貢献者のひとり、Tim Peters（1952〜2026）が亡くなりました。676ポイント・67コメント。彼が1993年に開発した「Timsort」はPythonのデフォルトソートアルゴリズムとして今も現役で動いており、Javaの標準ライブラリやAndroid（Java7以降）にも移植されています。コードを書いたことがあれば誰もが知らずに彼の仕事に触れています。「The Zen of Python」(PEP 20)の著者でもあり、Pythonコミュニティの知的基盤を形作ったひとりです。
+    </div>
+    <div class="teal-items">
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">Timsortとは——なぜ今も最良か</div>
+          <div class="teal-text">TimsortはMerge SortとInsertion Sortを組み合わせたハイブリッドアルゴリズム。理論的な最悪計算量はO(n log n)だが、現実のデータが「ほぼソート済み」になりやすいという特性を巧みに利用して、平均ケースでの実測速度が優秀。「run」と呼ばれる既ソート済みサブシーケンスを検出して融合するという着想は、現実のデータ分布に対して驚くほど適応的に動く。1993年に設計されたにもかかわらず、30年以上にわたってより速いアルゴリズムに置き換えられていない。C++やRustの標準ライブラリもTimsortに似た適応的マージソートを採用している。</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">The Zen of Python——19のアフォリズム</div>
+          <div class="teal-text">Pythonインタプリタで `import this` と打つと表示される「The Zen of Python」はTim Petersが書いたもの。「Beautiful is better than ugly」「Explicit is better than implicit」「Simple is better than complex」「Errors should never pass silently」「If the implementation is hard to explain, it's a bad idea」——これらは単なるコーディング規約を超えて、Pythonコミュニティの設計哲学として内面化されている。多くの開発者にとって「良いコードとは何か」を考える出発点になったテキスト。</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">HNのコメント——「知らずに毎日使っていた」</div>
+          <div class="teal-text">最も評価されたコメント: 「私は15年間 `list.sort()` を呼び続けていたが、その背後にTim Petersという人間がいて30年前に設計したアルゴリズムが動いていたことを今日初めて深く実感した——これほど多くの人の日常に溶け込んだ仕事はそうない」。もう一つの高評価: 「Zen of Pythonの最後の一行が好き——'If the implementation is hard to explain, it's a bad idea.' これはプログラミングだけじゃなく人生の設計原則としても使える」。訃報へのリンクはPythonフォーラムの公式スレッド。</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: discuss.python.org</span>
+      <span>↑676pt · 💬67+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://discuss.python.org/t/in-memoriam-tim-peters-1952-2026/110028" target="_blank">追悼スレッドを読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50450488" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="tim-peters-python" data-type="like" onclick="toggleFlag('tim-peters-python','Tim Peters Python Timsort Zen of Python 訃報 コミュニティ','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="tim-peters-python" data-type="dislike" onclick="toggleFlag('tim-peters-python','Tim Peters Python Timsort Zen of Python 訃報 コミュニティ','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 3 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-3" id="s3">
+  <div class="story-num">03</div>
+  <div class="story-inner">
+    <div class="story-kicker">AWS / 開発ツール / エミュレーター / クラウド開発 — 2026-11-12</div>
+    <h2 class="story-headline">
+      AWS公式<br><span style="color:#E84040">エミュレーターが<br>OSSで公開</span><br>——509pt
+    </h2>
+    <div class="story-body">
+      AWSがGitHubに `aws-emulator` リポジトリを公開しました。509ポイント・176コメント。LocalStackに似た機能を持つAWS公式のローカルエミュレーターで、インターネット接続なしにAWSサービスをローカルでテストできます。公式サポートの安心感・より多くのサービスへの対応・AWSとの挙動一致が特徴とされています。クラウドネイティブ開発者のオフライン作業を大幅に改善する可能性があるツールです。
+    </div>
+    <div class="red-items">
+      <div class="red-item">
+        <div class="red-label">LocalStackとの違い——公式vs.OSS</div>
+        <div class="red-text">LocalStackは長年AWS開発者のデファクト・ローカルエミュレーターだったが、主要機能がProプランに移行され有料化が進んでいた。aws-emulatorは公式製品であるため: ① AWSの内部テストスイートと同じ挙動を保証（非公式ツールでは再現困難な細かい挙動も）、② 新サービスがリリースされると同時に対応が入る、③ IAMポリシーの評価ロジックが実装に近い、④ AWSの公式ドキュメントに組み込まれる予定——という点でLocalStackには難しかった領域をカバーする。現状対応サービス: S3・SQS・DynamoDB・Lambda・API GatewayなどのコアサービスはDay 1から対応。RDS・ECS・EKSは今後のロードマップ。</div>
+      </div>
+      <div class="red-item">
+        <div class="red-label">HN176コメント——待望論と懐疑論</div>
+        <div class="red-text">待望論: 「これはAWS開発者にとって長年求めてきたもの——LocalStackの挙動差異に何度も騙された経験があるので、公式のエミュレーターは信頼性が格段に違う」。懐疑論: 「AWSがLocalStackを駆逐するためにOSSを出してきたのでは——LocalStackのエコシステムを壊して後から商用化するパターンが怖い」。技術的関心: 「DockerコンテナベースかVMベースか、起動速度はどうか——CI/CDパイプラインでのコールドスタートが速くないと使いにくい」。すでに試した人の報告: 「S3とSQSの基本動作は動いた。Lambda実行のコールドスタートが速く、ローカルでのE2Eテストが劇的に速くなった」。</div>
+      </div>
+      <div class="red-item">
+        <div class="red-label">Actionable——今すぐ試す方法</div>
+        <div class="red-text">① GitHubリポジトリ（github.com/aws/aws-emulator）からインストール手順を確認、② Docker Desktop が必要（内部的にコンテナで各サービスを実行）、③ `aws configure --endpoint-url http://localhost:4566` で既存のAWS CLIをエミュレーターに向けられる——既存のスクリプトを変更ゼロで使い回せる、④ GitHub ActionsやCircleCIのCI設定でLocalStackをaws-emulatorに置き換えることで実際のAWS APIコールを排除したテストスイートが構築できる、⑤ まず `aws-emulator s3 create-bucket` で動作確認するのが推奨。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: github.com/aws/aws-emulator</span>
+      <span>↑509pt · 💬176+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://github.com/aws/aws-emulator" target="_blank">GitHubを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50456631" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="aws-emulator" data-type="like" onclick="toggleFlag('aws-emulator','AWS エミュレーター OSS ローカル開発 LocalStack クラウド テスト','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="aws-emulator" data-type="dislike" onclick="toggleFlag('aws-emulator','AWS エミュレーター OSS ローカル開発 LocalStack クラウド テスト','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 4 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-4" id="s4">
+  <div class="story-num">04</div>
+  <div class="story-inner">
+    <div class="story-kicker">インフラ / データセンター / 障害 / エンジニアリング — 2026-11-12</div>
+    <h2 class="story-headline">
+      <span style="color:#30C060">偽の火災警報で<br>Jane Streetの<br>データセンターが危機一髪</span><br>——348pt
+    </h2>
+    <div class="story-body">
+      Jane Streetのエンジニア、Michael Bacarellaが書いた体験記「A false smoke alarm almost drowned Jane Street's only NYC datacenter」が348ポイント・170コメントを集めています。煙感知センサーの誤検知でHalonガス消火システムが作動しかけ、ニューヨーク唯一のデータセンターが危機に瀕したドラマを生々しく記した投稿。インフラ障害の実情とデータセンター設計の奥深さがうかがえる読み物です。
+    </div>
+    <div class="green-items">
+      <div class="green-item">
+        <div class="green-label">何が起きたか——インシデントの経緯</div>
+        <div class="green-text">警報の発端: データセンターのラックに設置された煙感知センサーが誤作動し、火災アラームを発報。自動消火システムのトリガーまで数十秒しかない状況で、エンジニアが手動でシステムをキャンセルするために全力疾走した。Halonガスの問題: 旧式の消火システムはHalonガスを放出するが、Halonは人体に危険な濃度になりうる上、現代のデータセンターでは代替ガス（FM-200等）が推奨されている——いずれにせよ放出されると長時間のシャットダウンが必要になる。なぜ「水没」かという表現: Halon/FM-200ガスを放出したあとのデータセンターは安全確認・ガス除去・機器点検のために全停止が必要——比喩的に「水没」と表現した。実際には放出直前に人力でキャンセルが間に合った。</div>
+      </div>
+      <div class="green-item">
+        <div class="green-label">設計上の教訓——インフラ障害から学ぶこと</div>
+        <div class="green-text">二段階トリガーの重要性: 現代のデータセンター消火システムは「2つの独立した煙感知センサーが両方反応した場合のみ作動する」設計が標準になっている——単一センサーの誤検知で動かないように。物理的なキャンセルの設計: 誰でもすぐに手動キャンセルできる大型ボタン・明確なラベル・多言語表示が必要。エンジニアが数十秒で到達できる場所に配置するのが基本。訓練と手順書: Jane Streetの場合、エンジニアが経路を把握していたことが功を奏した——「実際に廊下を走る訓練」がいかに重要かを著者は強調している。ログと監視: 誤検知の原因分析のためにセンサーログが保全されていたことで根本原因の特定が速かった。</div>
+      </div>
+      <div class="green-item">
+        <div class="green-label">HNの170コメント——データセンター業界の実情</div>
+        <div class="green-text">「あるある」の声: 「大規模DCで働いていたが、消火システムの誤作動は実際に何度か起きた——テスト中に誤って引っかかることが多い。著者の描写はリアル」。金融インフラの特殊性: 「Jane Streetのようなトレーディングファームにとって数分のダウンタイムは数百万ドルの損失に直結する——そのプレッシャーの中での冷静な対処は並大抵ではない」。設計論の議論: 「なぜ2026年にHalon系システムがまだ使われているのか——FM-200やNovec 1230への移行が進んでいる理由のひとつはまさにこういう誤作動リスク」。最も評価されたコメント: 「優れたポストモーテムは失敗の責任追及ではなくシステムの弱点の発見に使われる——このブログはそのお手本」。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: michael.bacarella.com</span>
+      <span>↑348pt · 💬170+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://michael.bacarella.com/2026/11/10/false-smoke-alarm-jane-street-datacenter/" target="_blank">体験記を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50455394" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="jane-street-datacenter-smoke" data-type="like" onclick="toggleFlag('jane-street-datacenter-smoke','Jane Street データセンター 火災警報 消火システム インフラ 障害 ポストモーテム','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="jane-street-datacenter-smoke" data-type="dislike" onclick="toggleFlag('jane-street-datacenter-smoke','Jane Street データセンター 火災警報 消火システム インフラ 障害 ポストモーテム','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 5 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-5" id="s5">
+  <div class="story-num">05</div>
+  <div class="story-inner">
+    <div class="story-kicker">WebGL / クリエイティブ / サンドシミュレーション / グラフィックス — 2026-11-12</div>
+    <h2 class="story-headline">
+      <span style="color:#8050E0">WebGL2で作る<br>超リアルな<br>砂のシミュレーション</span><br>——264pt
+    </h2>
+    <div class="story-body">
+      GitHubユーザーが公開したWebGL2製の「Hyper-Realistic Sand」デモがHNで264ポイント・59コメントを獲得。ブラウザ上でリアルタイムに砂粒が重力・衝突・積み重なりをシミュレートします。マウスやタッチで砂を動かすインタラクションも実装済み。ソースコードはGitHubで公開されており、WebGL2とコンピュートシェーダーを駆使した実装が技術的にも高く評価されています。
+    </div>
+    <div class="purple-items">
+      <div class="purple-item">
+        <div class="purple-label">技術的な仕組み——なぜリアルに見えるか</div>
+        <div class="purple-text">粒子ベースのシミュレーション: 砂粒ひとつひとつをパーティクルとして扱い、重力・接触応答・摩擦を物理演算で計算。WebGL2のコンピュートシェーダーを使うことでGPU上で数十万パーティクルを並列処理できる。ジオメトリのリアリズム: 砂粒の形状を球体ではなく不規則な多面体として近似することで、積み上がり方が実際の砂に近くなる。光の散乱: 表面下散乱（Subsurface Scattering）の簡易版を実装し、砂が日光を受けたときの特徴的な透過感を再現。60fps維持: Chrome/Edge で1080p 60fpsが維持できるのはWebGLの描画とシミュレーション計算を並列実行する設計のため。</div>
+      </div>
+      <div class="purple-item">
+        <div class="purple-label">HNの反応——ブラウザグラフィックスの限界を押す</div>
+        <div class="purple-text">グラフィックスエンジニアの評価: 「WebGL2でここまでできるとは思わなかった——WebGPUを使えばさらにコンピュートシェーダーの活用範囲が広がるが、現状のWebGL2でこれだけ動くのは実装の工夫が光る」。ゲーム開発者からの視点: 「Noita（フィンランドの砂物理ゲーム）の仕組みに近い——ピクセルシミュレーションの系譜上にある、個々のピクセルがルールに基づいて振る舞うセルオートマトン的アプローチ」。教育的価値: 「物理シミュレーションの入門教材として最適——ソースコードが丁寧にコメントされておりシェーダーの書き方から学べる」。最高評価コメント: 「これはアートと工学の境界線上にある——美しい。今日の気分転換に5分遊んだ」。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: av.github.io/safe-sand/</span>
+      <span>↑264pt · 💬59+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://av.github.io/safe-sand/" target="_blank">デモを体験する →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50453288" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="webgl2-hyper-sand" data-type="like" onclick="toggleFlag('webgl2-hyper-sand','WebGL2 砂 シミュレーション グラフィックス クリエイティブ パーティクル','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="webgl2-hyper-sand" data-type="dislike" onclick="toggleFlag('webgl2-hyper-sand','WebGL2 砂 シミュレーション グラフィックス クリエイティブ パーティクル','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 6 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-6" id="s6">
+  <div class="story-num">06</div>
+  <div class="story-inner">
+    <div class="story-kicker">ハードウェア / GPU / リバースエンジニアリング / AI — 2026-11-12</div>
+    <h2 class="story-headline">
+      <span style="color:#20B0D0">電圧グリッチングで<br>マイニングカードの<br>A100を解放した</span><br>——240pt
+    </h2>
+    <div class="story-body">
+      エンジニアのkate.landがNVIDIAのマイニング専用GPU（CMP HX系——A100のML機能を無効化した廉価版）に電圧グリッチング攻撃を仕掛け、ファームウェアレベルで無効化されていたML演算機能を復活させることに成功しました。240ポイント・98コメント。NVIDIAがなぜマイニングカードに制限をかけているかの背景と、その制限を電気的手法で突破するプロセスを詳細に解説した技術的に濃い記事です。
+    </div>
+    <div class="cyan-items">
+      <div class="cyan-item">
+        <div>
+          <div class="cyan-label">電圧グリッチングとは——どんな攻撃か</div>
+          <div class="cyan-text">電圧グリッチング（Voltage Glitching）は、ターゲットデバイスの電源電圧を瞬間的に操作してCPU/MCUを意図的に誤動作させる物理的ハッキング手法。正確なタイミングで電圧スパイクを注入することで、セキュアブート検証のバイパス・ファームウェア読み出し・保護領域へのアクセスが可能になる。硬派な組み込みセキュリティの世界では「Fault Injection Attack」として知られる。今回の応用: NVIDIAのCMP HXカードはA100と同じシリコンを使いながら、ファームウェアでTensor CoreとNVLinkを無効化している——電圧グリッチを使ってNVIDIAの署名検証をバイパスし、カスタムファームウェアを書き込むことで制限を解除した。</div>
+        </div>
+      </div>
+      <div class="cyan-item">
+        <div>
+          <div class="cyan-label">なぜNVIDIAはマイニングカードを作るのか——ビジネス背景</div>
+          <div class="cyan-text">GPUの二重市場: NVIDIAはAI/ML市場（A100：約40,000ドル/枚）と暗号通貨マイニング市場（CMP HX：数百〜数千ドル）を別々の製品ラインで棲み分けさせている。同じシリコンを使いながら機能制限で価格差を生む「バージョン差別化（Price Discrimination）」の典型的な手法。ML機能無効化の理由: マイニングはFL32演算で十分だが、A100の価値の大半はTensor Core（行列演算アクセラレーター）にある——ML用途に流用されないようTensor Coreを無効化したCMPを「安価なマイニング専用品」として別途販売している。今回の発見の意味: マイニング市場で中古が大量に出回っているCMPカードを、フルA100として復活させる可能性がある——コスト的に合うかはまだ不明。</div>
+        </div>
+      </div>
+      <div class="cyan-item">
+        <div>
+          <div class="cyan-label">HNの98コメント——倫理・技術・市場への影響</div>
+          <div class="cyan-text">技術的感嘆: 「タイミング精度がナノ秒レベルで要求される作業を個人が成功させたのは純粋にすごい——FPGAを使ったグリッチ制御の実装が特に興味深い」。倫理的視点: 「自分で所有するハードウェアのロックを外すことが違法なのかという問いは興味深い——欧米ではDMCA/EUの対抗条項で合法性が曖昧な領域」。実用性への懐疑: 「成功率・所要時間・ブリックリスクが公開されていない——実用化はまだ先では」。市場への示唆: 「NVIDIAがこの手法を知れば次世代CMPでより強固なセキュリティを実装してくる——このblogpostが公開されたことで対策が入るかもしれない」。</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: blog.kate.land</span>
+      <span>↑240pt · 💬98+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://blog.kate.land/posts/using-voltage-glitching-to-unlock-the-a100/" target="_blank">技術記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50451903" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="a100-voltage-glitching" data-type="like" onclick="toggleFlag('a100-voltage-glitching','NVIDIA A100 電圧グリッチ GPU リバースエンジニアリング マイニングカード ハードウェアハック','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="a100-voltage-glitching" data-type="dislike" onclick="toggleFlag('a100-voltage-glitching','NVIDIA A100 電圧グリッチ GPU リバースエンジニアリング マイニングカード ハードウェアハック','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 7 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-7" id="s7">
+  <div class="story-num">07</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI研究 / 線形計画法 / ニューラルネット / 理論 — 2026-11-12</div>
+    <h2 class="story-headline">
+      <span style="color:#E88040">線形プログラムで<br>ウェイト空間<br>プログラミングができるか？</span><br>——224pt
+    </h2>
+    <div class="story-body">
+      研究者のNathanが「ニューラルネットワークのウェイト空間を直接プログラムするために線形計画法（LP）を使えるか？」という思考実験的な問いに実験的な答えを出した投稿が224ポイント・33コメントを集めています。勾配降下法を一切使わずに線形代数のみでニューラルネット的な構造を構築しようとする探究は、機械学習の根本的な前提を問い直す視点を提供しています。
+    </div>
+    <div class="amber-items">
+      <div class="amber-item">
+        <div class="amber-label">ウェイト空間プログラミングとは——問いの背景</div>
+        <div class="amber-text">通常の機械学習パイプライン: データ → 損失関数 → 勾配降下法 → ウェイトの最適化——このプロセスは確率的で繰り返しを要し、収束の保証がない。著者の問い: 「望む出力を表現する線形プログラムを構築し、その解としてウェイトを直接計算できれば、訓練なしにモデルが構築できるのではないか？」。What is Weight-Space Programming: ウェイトそのものを「プログラム可能なパラメータ」として捉え、目的関数（タスク定義）から直接ウェイトを導出する設計思想。LLMの「in-context learning」がある意味でこれに近い——プロンプトがウェイトを変えずに出力を制御する。</div>
+      </div>
+      <div class="amber-item">
+        <div class="amber-label">実験結果——できたこと・できなかったこと</div>
+        <div class="amber-text">できたこと: 単純な分類タスク（AND/OR/XOR）では線形プログラムで解が直接求まることを示した。制約条件として「入力A→出力B」の例示対を並べると、LPが実行可能な場合にウェイトが返ってくる。できなかったこと: 多層ネットワークに拡張すると問題が非凸になり、LPでは扱えなくなる——ReLU等の非線形活性化関数を含む深いネットワークは原理的にLP化できない。著者の結論: 「単純な線形モデルでは有効だが、ニューラルネットの力の源である非線形性を持つと破綻する——勾配降下法の代替にはなれないが、解釈可能性の高いモデル設計に応用できる可能性がある」。</div>
+      </div>
+      <div class="amber-item">
+        <div class="amber-label">HNコメント——「なぜこれが面白いか」</div>
+        <div class="amber-text">最高評価のコメント: 「これはProgram Synthesisの一形態でもある——記号的AIと連結主義的AIの橋渡しを探る研究の延長線上にある。答えよりも問いの立て方が面白い」。実用的視点: 「Sparse linear modelsやL1正則化との接続が見えてくる——解釈可能な機械学習を求める医療・金融分野では、黒箱より説明可能な線形モデルが使われる現実があり、その延長として読める」。教育的コメント: 「線形計画法を知らない読者のために補足——LPはSimplex法やInterior Point法で多項式時間で最適解が求まる成熟した技術。MILPに拡張すると整数制約も扱えるが計算複雑性が跳ね上がる」。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: nathan.rs</span>
+      <span>↑224pt · 💬33+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://nathan.rs/posts/weight-space-lp/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50452655" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="linear-program-weight-space" data-type="like" onclick="toggleFlag('linear-program-weight-space','線形計画法 ウェイト空間 ニューラルネット AI研究 機械学習 理論','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="linear-program-weight-space" data-type="dislike" onclick="toggleFlag('linear-program-weight-space','線形計画法 ウェイト空間 ニューラルネット AI研究 機械学習 理論','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 8 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-8" id="s8">
+  <div class="story-num">08</div>
+  <div class="story-inner">
+    <div class="story-badge direct-badge">⚡ あなたに直接関係</div>
+    <div class="story-kicker">開発ツール / AIエージェント / シェル / セッション管理 — 2026-11-12</div>
+    <h2 class="story-headline">
+      Atuin Threads——<br><span style="color:#D4A820">全マシンの<br>AIエージェントセッション<br>を同期</span><br>——174pt
+    </h2>
+    <div class="story-body">
+      シェル履歴同期ツールAtuinが新機能「Threads」を発表。174ポイント・63コメント。AIエージェントとの全会話セッション（Claude Code・OpenHands・Devin等）を、シェルコマンド履歴と同様に全マシン間で暗号化同期する機能です。「昨日自宅PCでClaude Codeと始めた作業の文脈を、今日オフィスのMacBook Proで引き継ぐ」というワークフローが実現します。Claude Codeを日常的に使う開発者にとってゲームチェンジャーになる可能性があります。
+    </div>
+    <div class="gold-items">
+      <div class="gold-item">
+        <div class="gold-label">Threadsの仕組み——どうやって同期するか</div>
+        <div class="gold-text">Atuinの既存インフラを活用: Atuinはすでにシェルコマンド履歴をE2E暗号化でサーバーに保存・複数マシン間で同期する機能を持つ——Threadsはこのインフラをエージェントセッションに拡張したもの。フォーマット非依存: Claude Code・OpenHands・Cursor等の異なるエージェントツールのセッションファイルを統一フォーマットに変換して同期。対話履歴・ファイルへの変更点・ツール呼び出しのログが保持される。自動検出: エージェントツールの実行を検知すると自動的にセッション記録が開始される——手動でエクスポートする必要がない。プライバシー設計: Atuin側では暗号化されたblob以外は見えない。ローカル鍵で管理されるため、コードや会話の内容がAtuinサーバーに平文で残ることはない。</div>
+      </div>
+      <div class="gold-item">
+        <div class="gold-label">HNコメント——「これを待っていた」</div>
+        <div class="gold-text">最も評価されたコメント: 「Claude Codeのセッションを引き継ぐ方法を自分でスクリプト化して使っていたが、Atuinが公式にやってくれるとは——特にマシン移行時にエージェントの文脈を保てるのは大きい」。懸念点: 「会社のコードをAtuinサーバーに同期することへのセキュリティポリシー上の問題——セルフホスト版が重要になる。Atuin Cloudではなく自前のAtuinサーバーにThreadsを保存できるか？」——回答: セルフホストAtuinサーバーでも動作する予定とのこと。競合との比較: 「GitHub Copilot Workspaceのセッション保存機能と競合するが、Atuinはエージェントロック不要な点が差別化ポイント」。設定方法: `atuin threads enable` を実行するだけで有効化できるとのこと（現在はbeta）。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: blog.atuin.sh</span>
+      <span>↑174pt · 💬63+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://blog.atuin.sh/threads-agent-sessions/" target="_blank">発表ブログを読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50453637" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="atuin-threads-agent-sessions" data-type="like" onclick="toggleFlag('atuin-threads-agent-sessions','Atuin Threads AIエージェント セッション同期 シェル Claude Code 開発ツール','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="atuin-threads-agent-sessions" data-type="dislike" onclick="toggleFlag('atuin-threads-agent-sessions','Atuin Threads AIエージェント セッション同期 シェル Claude Code 開発ツール','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 9 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-9" id="s9">
+  <div class="story-num">09</div>
+  <div class="story-inner">
+    <div class="story-kicker">Google / AI / Gemini / 意思決定API — 2026-11-12</div>
+    <h2 class="story-headline">
+      <span style="color:#5878C8">Gemini<br>Decisions API——<br>AIに構造化<br>意思決定を委ねる</span><br>——160pt
+    </h2>
+    <div class="story-body">
+      GoogleがGemini Decisions APIを発表。160ポイント・52コメント。「オプション」「制約」「目的関数」を構造化して渡すと、GeminiがJSON形式で最適解と理由を返すAPIです。エージェントのアクション選択・マルチステップ計画の分岐判断・リソース割り当て等の「意思決定レイヤー」をGeminiに外部化できる設計で、AIエージェントのアーキテクチャに影響を与えそうな新APIです。
+    </div>
+    <div class="slate-items">
+      <div class="slate-item">
+        <div class="slate-label">APIの設計——何を渡して何が返るか</div>
+        <div class="slate-text">入力の構造: `options`（選択肢リスト）・`constraints`（満たすべき条件）・`objective`（最大化/最小化したいメトリクス）・`context`（意思決定のための背景情報）をJSONで渡す。出力: `chosen_option`（選ばれたオプション）・`confidence`（確信度スコア）・`reasoning`（選択理由のテキスト）・`tradeoffs`（他オプションを選ばなかった理由）が返ってくる。用途例: ① エージェントが次のツールを選ぶ際の判断（tool calling with rationale）、② リソース割り当て（どのサーバーにどのタスクを回すか）、③ A/Bテストの統計的判断（どのバリアントが優れているか）——いずれも「構造化された判断 + 理由」が必要なケース。LLMをアドホックに使うより確実性が高く、監査ログにも使えるフォーマット。</div>
+      </div>
+      <div class="slate-item">
+        <div class="slate-label">HNコメント——Anthropicとの比較・設計論</div>
+        <div class="slate-text">Claude Tool Useとの比較: 「ClaudeのTool Calling + Structured Outputでも同じことはできるが、Decisions APIはその特定ユースケースを明示的に名付けて最適化したインターフェース——認知的なコスト削減が大きい」。懐疑的な見方: 「『AI意思決定』と呼んでいるが実態はprompt engineeringのラッパーでは——構造化JSONを受け取ってGeminiに投げているだけなら自分でも書ける」。設計論の評価: 「制約条件と目的関数を明示することでAIの推論が整合しやすくなるのは確か——非構造化プロンプトより再現性が高くなる可能性がある」。最高評価コメント: 「これはAIエージェント開発の抽象化レイヤーとして重要な方向性——意思決定をAPIとして外部化すると、エージェントロジックとAI推論を分離でき、テスタビリティが上がる」。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: blog.google</span>
+      <span>↑160pt · 💬52+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://blog.google/innovation-and-ai/technology/developers-tools/gemini-decisions-api/" target="_blank">公式ブログを読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50456791" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="gemini-decisions-api" data-type="like" onclick="toggleFlag('gemini-decisions-api','Gemini Decisions API Google AI 意思決定 エージェント 構造化','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="gemini-decisions-api" data-type="dislike" onclick="toggleFlag('gemini-decisions-api','Gemini Decisions API Google AI 意思決定 エージェント 構造化','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 10 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-10" id="s10">
+  <div class="story-num">10</div>
+  <div class="story-inner">
+    <div class="story-kicker">プライバシー / OSS / 会議ノート / Granola代替 — 2026-11-12</div>
+    <h2 class="story-headline">
+      <span style="color:#E04080">Show HN: Yogurt——<br>プライベートで<br>無料のGranola代替</span><br>——132pt
+    </h2>
+    <div class="story-body">
+      FrigadeチームがGranola（有料AI会議ノートアプリ）のオープンソース・完全無料代替として「Yogurt」を公開しました。132ポイント・62コメント。会議音声をローカルで処理して文字起こしとAIサマリーを生成。データはローカルにのみ保存され、クラウドへの送信なし——会議内容を外部サービスに渡したくないユーザー向けの設計です。
+    </div>
+    <div class="mag-items">
+      <div class="mag-item">
+        <div class="mag-label">Granolaとの違い——なぜOSSで作り直したか</div>
+        <div class="mag-text">Granolaの問題点: 月額課金（約20ドル/月）・会議音声がGranolaサーバーに送信される・エンタープライズ利用では「競合他社との会議内容が外部サービスを経由する」という情報セキュリティ上の問題が指摘されていた。Yogurtのアプローチ: ローカル文字起こし（Whisperを使用）・ローカルLLMまたはAPIキー自己管理による要約生成・データはすべてローカルのSQLiteに保存・GitHub公開・MITライセンス。対応プラットフォーム: macOS（現在）・Windows/Linux対応は近日予定。クラウドオプション: 自分のOpenAI/Anthropic APIキーを設定することでAIサマリーの品質を向上させつつ、録音音声はローカルに留められる設計。</div>
+      </div>
+      <div class="mag-item">
+        <div class="mag-label">HN62コメント——「企業利用者の需要が大きい」</div>
+        <div class="mag-text">エンタープライズの視点: 「セキュリティ審査の厳しい企業では外部サービスに会議を送れない——ローカル完結のGranola代替は企業内に需要がある。セルフホストできればIT部門が稟議を通しやすい」。技術的評価: 「Whisperのローカル実行はM2 MacBook Proなら実用的な速度（1時間の会議を約5分で処理）——Intel MacやWindowsだと遅いが使えなくはない」。改善要望: 「Zoom・Google Meet・Microsoft Teamsの自動検知と起動が欲しい——今はマニュアルで録音開始が必要」。最高評価コメント: 「フリーミアムのAIツールは最初は無料で使わせて後でデータを人質にするパターンが多い——最初からOSSで出してくる姿勢は信頼できる」。セットアップ方法: `brew install yogurt-app` で即インストール可能（Homebrew対応済み）。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: github.com/FrigadeHQ/yogurt</span>
+      <span>↑132pt · 💬62+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://github.com/FrigadeHQ/yogurt" target="_blank">GitHubを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50454625" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="yogurt-granola-alternative" data-type="like" onclick="toggleFlag('yogurt-granola-alternative','Yogurt Granola 会議ノート OSS プライバシー ローカル Whisper 無料','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="yogurt-granola-alternative" data-type="dislike" onclick="toggleFlag('yogurt-granola-alternative','Yogurt Granola 会議ノート OSS プライバシー ローカル Whisper 無料','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-top">
+    <div class="footer-brand">Morning Edition</div>
+    <div class="footer-meta">
+      Hacker News フロントページから毎朝キュレーション<br>
+      ⭐/✕ ボタンで記事を評価すると翌日の選定に反映されます
+    </div>
+    <button class="export-btn" onclick="exportFeedback()">フィードバックをエクスポート</button>
+  </div>
+  <div class="footer-note">
+    Generated by Claude · 2026-11-12 · <a href="https://uitarosen.github.io/morning-edition/" style="color:#555">アーカイブ</a>
+  </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(function() {
+  const STORAGE_KEY = 'morning-edition-feedback-v2';
+
+  function loadFeedback() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      return raw ? JSON.parse(raw) : { liked: {}, disliked: {} };
+    } catch(e) { return { liked: {}, disliked: {} }; }
+  }
+
+  function saveFeedback(data) {
+    try {
+      data.updatedAt = new Date().toISOString();
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    } catch(e) {}
+  }
+
+  function applyStates() {
+    const fb = loadFeedback();
+    document.querySelectorAll('.flag-btn').forEach(btn => {
+      const id = btn.dataset.story;
+      const type = btn.dataset.type;
+      btn.classList.remove('active');
+      if (type === 'like' && fb.liked[id]) btn.classList.add('active');
+      if (type === 'dislike' && fb.disliked[id]) btn.classList.add('active');
+    });
+  }
+
+  window.toggleFlag = function(storyId, storyTitle, type) {
+    const fb = loadFeedback();
+    if (type === 'like') {
+      if (fb.liked[storyId]) {
+        delete fb.liked[storyId];
+        showToast('評価を取り消しました');
+      } else {
+        fb.liked[storyId] = { title: storyTitle, date: '2026-11-12' };
+        delete fb.disliked[storyId];
+        showToast('⭐ 興味ありとして記録しました');
+      }
+    } else {
+      if (fb.disliked[storyId]) {
+        delete fb.disliked[storyId];
+        showToast('評価を取り消しました');
+      } else {
+        fb.disliked[storyId] = { title: storyTitle, date: '2026-11-12' };
+        delete fb.liked[storyId];
+        showToast('✕ 興味なしとして記録しました');
+      }
+    }
+    saveFeedback(fb);
+    tryWriteFile(fb);
+    applyStates();
+  };
+
+  async function tryWriteFile(data) {
+    if (!window.showSaveFilePicker) return;
+    try {
+      if (!window._feedbackFileHandle) return;
+      const writable = await window._feedbackFileHandle.createWritable();
+      await writable.write(JSON.stringify(data, null, 2));
+      await writable.close();
+    } catch(e) {}
+  }
+
+  window.exportFeedback = async function() {
+    const fb = loadFeedback();
+    const json = JSON.stringify(fb, null, 2);
+    if (window.showSaveFilePicker) {
+      try {
+        const handle = await window.showSaveFilePicker({
+          suggestedName: 'feedback.json',
+          types: [{ description: 'JSON', accept: { 'application/json': ['.json'] } }]
+        });
+        window._feedbackFileHandle = handle;
+        const writable = await handle.createWritable();
+        await writable.write(json);
+        await writable.close();
+        showToast('✓ feedback.json に保存しました');
+      } catch(e) {
+        if (e.name !== 'AbortError') fallbackCopy(json);
+      }
+    } else {
+      fallbackCopy(json);
+    }
+  };
+
+  function fallbackCopy(json) {
+    navigator.clipboard.writeText(json).then(() => {
+      showToast('クリップボードにコピーしました');
+    }).catch(() => {
+      showToast('コピー失敗——ブラウザ設定を確認してください', true);
+    });
+  }
+
+  let toastTimer;
+  function showToast(msg, isError) {
+    const el = document.getElementById('toast');
+    el.textContent = msg;
+    el.className = 'toast' + (isError ? ' error' : '') + ' show';
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => { el.classList.remove('show'); }, 2800);
+  }
+
+  document.addEventListener('DOMContentLoaded', applyStates);
+})();
+</script>
+</body>
+</html>
