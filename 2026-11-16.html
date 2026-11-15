@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Morning Edition — 2026年11月16日</title>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --font: 'M PLUS Rounded 1c', 'Hiragino Sans', 'Noto Sans JP', sans-serif; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); background: #111; color: #fff; overflow-x: hidden; }
+
+    .masthead { background: #fff; color: #000; padding: 3rem 4rem 2.5rem; border-bottom: 6px solid #000; position: relative; overflow: hidden; }
+    .masthead::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: repeating-linear-gradient(90deg, #000 0, #000 12px, transparent 12px, transparent 20px); }
+    .masthead-kicker { font-size: 0.85rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: #777; margin-bottom: 0.6rem; }
+    .masthead-title { font-size: clamp(3.5rem, 9vw, 7.5rem); font-weight: 900; line-height: 0.88; letter-spacing: -0.04em; margin-bottom: 1.8rem; }
+    .masthead-meta { display: flex; gap: 3rem; align-items: baseline; flex-wrap: wrap; }
+    .masthead-date { font-size: 1.5rem; font-weight: 700; }
+    .masthead-subtitle { font-size: 1rem; font-weight: 400; color: #555; max-width: 480px; line-height: 1.5; }
+    .masthead-issue { margin-left: auto; text-align: right; }
+    .masthead-issue span { display: block; }
+    .masthead-issue .iss-label { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: #999; }
+    .masthead-issue .iss-num { font-size: 2.2rem; font-weight: 900; color: #000; }
+
+    .toc { background: #1a1a1a; padding: 1.5rem 4rem; display: flex; gap: 1.5rem; flex-wrap: wrap; border-bottom: 1px solid #333; }
+    .toc a { color: #aaa; text-decoration: none; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; transition: color 0.2s; }
+    .toc a:hover { color: #fff; }
+    .toc-num { color: #555; margin-right: 0.3em; }
+
+    .story { position: relative; overflow: hidden; }
+    .story-inner { max-width: 1200px; margin: 0 auto; padding: 5rem 4rem; position: relative; z-index: 1; }
+    .story-num { font-size: clamp(6rem, 18vw, 16rem); font-weight: 900; line-height: 0.8; letter-spacing: -0.06em; opacity: 0.08; position: absolute; top: 1rem; right: 2rem; user-select: none; }
+    .story-badge { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.35em 0.9em; border-radius: 2px; margin-bottom: 1.5rem; }
+    .direct-badge { background: #FFD700; color: #000; }
+    .story-kicker { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; opacity: 0.6; margin-bottom: 0.8rem; }
+    .story-headline { font-size: clamp(2rem, 5vw, 4rem); font-weight: 900; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+    .story-body { font-size: clamp(1rem, 1.5vw, 1.2rem); font-weight: 400; line-height: 1.8; max-width: 680px; opacity: 0.88; margin-bottom: 2rem; }
+    .story-meta { display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center; font-size: 0.8rem; font-weight: 700; opacity: 0.5; }
+    .story-links { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem; }
+    .story-link { display: inline-flex; align-items: center; gap: 0.4em; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.6em 1.4em; border-radius: 3px; text-decoration: none; transition: opacity 0.2s, transform 0.15s; }
+    .story-link:hover { opacity: 0.75; transform: translateY(-1px); }
+
+    .feedback-buttons { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .flag-btn { background: none; border: 1px solid currentColor; color: inherit; font-family: var(--font); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.5em 1em; border-radius: 3px; cursor: pointer; opacity: 0.32; transition: opacity 0.2s, background 0.2s, color 0.2s, border-color 0.2s, transform 0.15s; }
+    .flag-btn:hover { opacity: 0.72; transform: translateY(-1px); }
+    .flag-btn.like-btn.active { opacity: 1; background: rgba(255,215,0,0.15); border-color: #FFD700; color: #FFD700 !important; }
+    .flag-btn.dislike-btn.active { opacity: 1; background: rgba(255,60,60,0.12); border-color: #FF4444; color: #FF4444 !important; }
+
+    .toast { position: fixed; bottom: 2rem; right: 2rem; background: #1a1a1a; color: #fff; font-family: var(--font); font-size: 0.82rem; font-weight: 700; padding: 0.75em 1.4em; border-radius: 4px; border-left: 3px solid #00C853; z-index: 9999; opacity: 0; transform: translateY(10px); transition: opacity 0.25s, transform 0.25s; pointer-events: none; box-shadow: 0 4px 24px rgba(0,0,0,0.45); }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    .toast.error { border-left-color: #FF5252; }
+
+    /* Story 1 — White */
+    .story-1 { background: #fff; color: #000; min-height: 90vh; display: flex; flex-direction: column; justify-content: center; }
+    .story-1 .story-num { color: #000; opacity: 0.04; }
+    .story-1 .story-kicker { color: #555; opacity: 1; }
+    .story-1 .story-headline { color: #000; }
+    .story-1 .story-body { color: #111; }
+    .story-1 .story-meta { color: #000; }
+    .story-1 .story-link.primary { background: #1a1a1a; color: #fff; }
+    .story-1 .story-link.secondary { background: #f0f0f0; color: #000; }
+    .story-1 .flag-btn { color: #000; }
+    .story-1-accent { position: absolute; bottom: 0; left: 0; width: 100%; height: 8px; background: linear-gradient(90deg, #FF8C00 0%, #E65C00 50%, #FF8C00 100%); }
+    .story-1 .headline-accent { display: inline-block; background: linear-gradient(135deg, #FF8C00 0%, #E65C00 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .blue-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1.2rem; margin: 2rem 0; max-width: 680px; }
+    .blue-card { border: 2px solid rgba(0,0,0,0.12); background: rgba(0,0,0,0.03); border-radius: 6px; padding: 1.3rem 1.5rem; }
+    .blue-card-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.2em; text-transform: uppercase; color: #333; margin-bottom: 0.4rem; }
+    .blue-card-value { font-size: 1.05rem; font-weight: 900; color: #000; line-height: 1.3; }
+    .blue-card-sub { font-size: 0.75rem; color: #555; margin-top: 0.3rem; line-height: 1.4; }
+
+    /* Story 2 — Dark navy/teal */
+    .story-2 { background: #00080c; color: #b8f0ff; min-height: 80vh; }
+    .story-2::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(0,160,200,0.14) 0%, transparent 65%); }
+    .story-2 .story-num { color: #00A0C8; opacity: 0.07; }
+    .story-2 .story-kicker { color: #20C8E8; opacity: 1; }
+    .story-2 .story-headline { color: #e0f8ff; }
+    .story-2 .story-body { color: #b8f0ff; }
+    .story-2 .story-meta { color: #20C8E8; opacity: 0.5; }
+    .story-2 .story-link.primary { background: #004058; color: #80e8ff; }
+    .story-2 .story-link.secondary { background: rgba(0,160,200,0.08); color: #90d8f0; border: 1px solid rgba(0,160,200,0.22); }
+    .story-2 .flag-btn { color: #b8f0ff; }
+    .teal-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .teal-item { display: flex; gap: 1rem; align-items: flex-start; background: rgba(0,160,200,0.07); border-left: 3px solid #00A0C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .teal-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20C8E8; margin-bottom: 0.3rem; }
+    .teal-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 3 — Dark red */
+    .story-3 { background: #0a0000; color: #fff; min-height: 80vh; }
+    .story-3::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(200,20,20,0.16) 0%, transparent 65%); }
+    .story-3 .story-num { color: #C81414; opacity: 0.07; }
+    .story-3 .story-kicker { color: #E84040; opacity: 1; }
+    .story-3 .story-headline { color: #fff; }
+    .story-3 .story-body { color: rgba(255,255,255,0.88); }
+    .story-3 .story-meta { color: #E84040; opacity: 0.5; }
+    .story-3 .story-link.primary { background: #6a0000; color: #fff; }
+    .story-3 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-3 .flag-btn { color: #fff; }
+    .red-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .red-item { background: rgba(200,20,20,0.07); border-left: 3px solid #C81414; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .red-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E84040; margin-bottom: 0.3rem; }
+    .red-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 4 — Dark green */
+    .story-4 { background: #020c04; color: #c8f0d0; min-height: 80vh; }
+    .story-4::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 38%, rgba(20,160,70,0.16) 0%, transparent 65%); }
+    .story-4 .story-num { color: #14A046; opacity: 0.07; }
+    .story-4 .story-kicker { color: #30C060; opacity: 1; }
+    .story-4 .story-headline { color: #e0ffe8; }
+    .story-4 .story-body { color: #c8f0d0; }
+    .story-4 .story-meta { color: #30C060; opacity: 0.5; }
+    .story-4 .story-link.primary { background: #063820; color: #80ffb0; }
+    .story-4 .story-link.secondary { background: rgba(20,160,70,0.08); color: #a0e8b0; border: 1px solid rgba(20,160,70,0.22); }
+    .story-4 .flag-btn { color: #c8f0d0; }
+    .green-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .green-item { background: rgba(20,160,70,0.07); border-left: 3px solid #14A046; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .green-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #30C060; margin-bottom: 0.3rem; }
+    .green-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 5 — Dark purple */
+    .story-5 { background: #040010; color: #d8c8ff; min-height: 75vh; }
+    .story-5::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 42% 38%, rgba(90,40,200,0.17) 0%, transparent 65%); }
+    .story-5 .story-num { color: #5A28C8; opacity: 0.07; }
+    .story-5 .story-kicker { color: #8050E0; opacity: 1; }
+    .story-5 .story-headline { color: #f0e8ff; }
+    .story-5 .story-body { color: #d8c8ff; }
+    .story-5 .story-meta { color: #8050E0; opacity: 0.5; }
+    .story-5 .story-link.primary { background: #200860; color: #d0a8ff; }
+    .story-5 .story-link.secondary { background: rgba(90,40,200,0.08); color: #c0a0f0; border: 1px solid rgba(90,40,200,0.22); }
+    .story-5 .flag-btn { color: #d8c8ff; }
+    .purple-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .purple-item { background: rgba(90,40,200,0.07); border-left: 3px solid #5A28C8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .purple-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #8050E0; margin-bottom: 0.3rem; }
+    .purple-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 6 — Dark cyan */
+    .story-6 { background: #000c10; color: #b8e8f0; min-height: 75vh; }
+    .story-6::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 40%, rgba(0,130,160,0.14) 0%, transparent 65%); }
+    .story-6 .story-num { color: #0080A0; opacity: 0.07; }
+    .story-6 .story-kicker { color: #20B0D0; opacity: 1; }
+    .story-6 .story-headline { color: #e0f4ff; }
+    .story-6 .story-body { color: #b8e8f0; }
+    .story-6 .story-meta { color: #20B0D0; opacity: 0.5; }
+    .story-6 .story-link.primary { background: #003848; color: #80d8f0; }
+    .story-6 .story-link.secondary { background: rgba(0,130,160,0.08); color: #90cce0; border: 1px solid rgba(0,130,160,0.22); }
+    .story-6 .flag-btn { color: #b8e8f0; }
+    .cyan-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .cyan-item { background: rgba(0,130,160,0.07); border-left: 3px solid #0080A0; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .cyan-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #20B0D0; margin-bottom: 0.3rem; }
+    .cyan-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 7 — Dark amber */
+    .story-7 { background: #0a0300; color: #ffe0b8; min-height: 75vh; }
+    .story-7::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(210,90,20,0.18) 0%, transparent 65%); }
+    .story-7 .story-num { color: #D05A14; opacity: 0.07; }
+    .story-7 .story-kicker { color: #E88040; opacity: 1; }
+    .story-7 .story-headline { color: #fff0d8; }
+    .story-7 .story-body { color: #ffe0b8; }
+    .story-7 .story-meta { color: #E88040; opacity: 0.5; }
+    .story-7 .story-link.primary { background: #6a2400; color: #ffc880; }
+    .story-7 .story-link.secondary { background: rgba(210,90,20,0.08); color: #ffb870; border: 1px solid rgba(210,90,20,0.22); }
+    .story-7 .flag-btn { color: #ffe0b8; }
+    .amber-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .amber-item { background: rgba(210,90,20,0.07); border-left: 3px solid #D05A14; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .amber-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E88040; margin-bottom: 0.3rem; }
+    .amber-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 8 — Dark gold */
+    .story-8 { background: #080500; color: #fff; min-height: 70vh; }
+    .story-8::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,145,10,0.15) 0%, transparent 65%); }
+    .story-8 .story-num { color: #BE9110; opacity: 0.06; }
+    .story-8 .story-kicker { color: #D4A820; opacity: 1; }
+    .story-8 .story-headline { color: #fff; }
+    .story-8 .story-body { color: rgba(255,255,255,0.88); }
+    .story-8 .story-meta { color: #D4A820; opacity: 0.5; }
+    .story-8 .story-link.primary { background: #604000; color: #ffe070; }
+    .story-8 .story-link.secondary { background: rgba(255,255,255,0.07); color: #ccc; border: 1px solid rgba(255,255,255,0.15); }
+    .story-8 .flag-btn { color: #fff; }
+    .gold-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .gold-item { background: rgba(190,145,10,0.07); border-left: 3px solid #BE9110; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .gold-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #D4A820; margin-bottom: 0.3rem; }
+    .gold-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 9 — Slate blue */
+    .story-9 { background: #040810; color: #c8d8f0; min-height: 70vh; }
+    .story-9::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 45% 35%, rgba(50,90,170,0.16) 0%, transparent 65%); }
+    .story-9 .story-num { color: #3258A8; opacity: 0.07; }
+    .story-9 .story-kicker { color: #5878C8; opacity: 1; }
+    .story-9 .story-headline { color: #e8f0ff; }
+    .story-9 .story-body { color: #c8d8f0; }
+    .story-9 .story-meta { color: #5878C8; opacity: 0.5; }
+    .story-9 .story-link.primary { background: #101e50; color: #fff; }
+    .story-9 .story-link.secondary { background: rgba(50,90,170,0.08); color: #b0c8e8; border: 1px solid rgba(50,90,170,0.22); }
+    .story-9 .flag-btn { color: #c8d8f0; }
+    .slate-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .slate-item { background: rgba(50,90,170,0.07); border-left: 3px solid #3258A8; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .slate-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #5878C8; margin-bottom: 0.3rem; }
+    .slate-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    /* Story 10 — Magenta */
+    .story-10 { background: #080004; color: #ffc8e8; min-height: 70vh; }
+    .story-10::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(190,20,90,0.15) 0%, transparent 65%); }
+    .story-10 .story-num { color: #BE1458; opacity: 0.07; }
+    .story-10 .story-kicker { color: #E04080; opacity: 1; }
+    .story-10 .story-headline { color: #fff0f8; }
+    .story-10 .story-body { color: #ffc8e8; }
+    .story-10 .story-meta { color: #E04080; opacity: 0.5; }
+    .story-10 .story-link.primary { background: #500030; color: #ffb0d8; }
+    .story-10 .story-link.secondary { background: rgba(190,20,90,0.08); color: #f090c0; border: 1px solid rgba(190,20,90,0.22); }
+    .story-10 .flag-btn { color: #ffc8e8; }
+    .mag-items { display: flex; flex-direction: column; gap: 0.8rem; margin: 2rem 0; max-width: 640px; }
+    .mag-item { background: rgba(190,20,90,0.07); border-left: 3px solid #BE1458; border-radius: 0 4px 4px 0; padding: 0.9rem 1.2rem; }
+    .mag-label { font-size: 0.68rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #E04080; margin-bottom: 0.3rem; }
+    .mag-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; }
+
+    .site-footer { background: #000; color: #555; padding: 3rem 4rem; display: flex; flex-direction: column; gap: 1.5rem; border-top: 1px solid #222; }
+    .footer-top { display: flex; gap: 2rem; align-items: center; flex-wrap: wrap; justify-content: space-between; }
+    .footer-brand { font-size: 1.4rem; font-weight: 900; color: #fff; }
+    .footer-meta { font-size: 0.75rem; line-height: 1.6; }
+    .export-btn { background: #222; border: 1px solid #444; color: #fff; font-family: var(--font); font-size: 0.8rem; font-weight: 700; padding: 0.7em 1.5em; border-radius: 3px; cursor: pointer; letter-spacing: 0.08em; transition: background 0.2s; }
+    .export-btn:hover { background: #333; }
+    .footer-note { font-size: 0.7rem; opacity: 0.5; }
+
+    @media (max-width: 768px) {
+      .masthead, .toc, .story-inner, .site-footer { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .story-num { display: none; }
+      .masthead-meta { gap: 1rem; }
+      .masthead-issue { margin-left: 0; }
+      .blue-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+<nav style="background:#1a1a1a;border-bottom:1px solid #333;padding:0.55rem 2rem;font-family:'M PLUS Rounded 1c','Hiragino Sans','Noto Sans JP',sans-serif;position:sticky;top:0;z-index:999;">
+  <a href="./index.html" style="color:#aaa;text-decoration:none;font-size:0.8rem;font-weight:700;letter-spacing:0.03em;display:inline-flex;align-items:center;gap:0.4rem;transition:color 0.15s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#aaa'">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    アーカイブへ戻る
+  </a>
+</nav>
+
+<header class="masthead">
+  <div class="masthead-kicker">Hacker News — Morning Edition</div>
+  <h1 class="masthead-title">Morning<br>Edition</h1>
+  <div class="masthead-meta">
+    <div>
+      <div class="masthead-date">2026年11月16日 月曜日</div>
+      <div class="masthead-subtitle">AI・開発ツール・宇宙・セキュリティ — あなたのための10本</div>
+    </div>
+    <div class="masthead-issue">
+      <span class="iss-label">Issue</span>
+      <span class="iss-num">No.181</span>
+    </div>
+  </div>
+</header>
+
+<nav class="toc">
+  <a href="#s1"><span class="toc-num">01</span>⚡Claude CodeがジープのECUを解析——269pt</a>
+  <a href="#s2"><span class="toc-num">02</span>SpaceX Starship15号機キャッチ成功——1613pt</a>
+  <a href="#s3"><span class="toc-num">03</span>AI生成コードはOSSにすべき論——993pt</a>
+  <a href="#s4"><span class="toc-num">04</span>DRAM価格カルテル訴訟が存続——479pt</a>
+  <a href="#s5"><span class="toc-num">05</span>MacBook Pro OLEDのPWM問題——371pt</a>
+  <a href="#s6"><span class="toc-num">06</span>MS365障害で塩素ガス漏洩・15名中毒——253pt</a>
+  <a href="#s7"><span class="toc-num">07</span>アポロはなぜグレネードランチャーを——208pt</a>
+  <a href="#s8"><span class="toc-num">08</span>LLMの位置エンコーディング徹底解説——180pt</a>
+  <a href="#s9"><span class="toc-num">09</span>カラスの意思決定は人間より速い——107pt</a>
+  <a href="#s10"><span class="toc-num">10</span>エージェントはハック可能なものを選ぶ——38pt</a>
+</nav>
+
+<!-- ═══ STORY 1 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-1" id="s1">
+  <div class="story-num">01</div>
+  <div class="story-inner">
+    <div class="story-badge direct-badge">⚡ あなたに直接関係</div>
+    <div class="story-kicker">Claude Code / AI開発ツール / リバースエンジニアリング / 組み込み — 2026-11-16</div>
+    <h2 class="story-headline">
+      <span class="headline-accent">Claude CodeとCodexが</span><br>$3 Arduinoで30年前のジープのECUを解読
+    </h2>
+    <div class="story-body">
+      開発者がClaude Code（Anthropicのコーディングアシスタント）とOpenAI Codexを使い、わずか3ドルのArduinoで1994年製ジープ・チェロキーのエンジン制御ユニット（ECU）をリバースエンジニアリングした動画がYouTubeで公開された。269ポイント・137コメントを獲得。OBD-II以前の独自シリアルプロトコルを生の16進数ダンプからAIが逆算し、走行データのリアルタイム取得に成功。「AIを使えばハードウェアの深い部分まで誰でも触れる時代が来た」と話題を呼んでいる。
+    </div>
+    <div class="blue-grid">
+      <div class="blue-card">
+        <div class="blue-card-label">何をしたか</div>
+        <div class="blue-card-value">30年前の独自ECUプロトコルをAIで解析</div>
+        <div class="blue-card-sub">1994年製ジープのECUはOBD-II非対応で独自のシリアル通信を使っている。Arduinoでバスをスニッフィングし、取得した16進ダンプをClaude CodeとCodexに渡すことでプロトコル仕様を逆算。エンジン回転数・水温・燃料噴射量をリアルタイム表示することに成功した。</div>
+      </div>
+      <div class="blue-card">
+        <div class="blue-card-label">Claude Codeの役割</div>
+        <div class="blue-card-value">パターン認識とデコードコードの自動生成</div>
+        <div class="blue-card-sub">生の16進ダンプを渡すとバイト列のパターンを推定し、Pythonのデコードスクリプトを即座に生成。「チェックサムはここにあるのでは」「フレーム開始は0xFEでは」という仮説を立てながら実装を繰り返す様子が「ペアプログラミングそのもの」と好評。</div>
+      </div>
+      <div class="blue-card">
+        <div class="blue-card-label">HNコメントの洞察</div>
+        <div class="blue-card-value">「AIがハードウェアの壁を下げた最良の例」</div>
+        <div class="blue-card-sub">「これまでECUの解析は専門知識が必要で敷居が高かった。AIがあれば素人でもプロトコルを解析できる時代になった」という意見が多数。「次は燃料マップのチューニングまでできるのでは」という期待コメントも。コストが$3というのが特に注目された。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: YouTube (envoked)</span>
+      <span>↑269pt · 💬137+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.youtube.com/watch?v=WPj3aQ-xxpI" target="_blank">動画を見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50463399" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="claude-code-jeep-ecu" data-type="like" onclick="toggleFlag('claude-code-jeep-ecu','Claude Code Codex Arduino 1994 Jeep ECU リバースエンジニアリング','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="claude-code-jeep-ecu" data-type="dislike" onclick="toggleFlag('claude-code-jeep-ecu','Claude Code Codex Arduino 1994 Jeep ECU リバースエンジニアリング','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+    <div class="story-1-accent"></div>
+  </div>
+</section>
+
+<!-- ═══ STORY 2 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-2" id="s2">
+  <div class="story-num">02</div>
+  <div class="story-inner">
+    <div class="story-kicker">宇宙 / SpaceX / 再利用ロケット / エンジニアリング — 2026-11-16</div>
+    <h2 class="story-headline">SpaceX、Starship 15号機で<br>Mechazillaキャッチを再び達成</h2>
+    <div class="story-body">
+      SpaceXのStarship第15回飛行試験が完了し、スーパーヘビーブースターが発射台「Mechazilla」の機械アームにキャッチされた。1613ポイント・1185コメントで今日のHN断トツのトップ。Flight 14に続く2回連続キャッチ成功。上段Starship本体の大気圏再突入と太平洋への精度着水にも成功しており、完全再利用ロケットシステムの実現へ着実に前進した。
+    </div>
+    <div class="teal-items">
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">2回連続キャッチが意味すること</div>
+          <div class="teal-text">1回成功は偶然の可能性があるが、2回連続は再現性を示す。ブースターキャッチが安定すれば着地脚を廃止できる——重量削減→ペイロード増加→打ち上げコスト低減というサイクルが実現する。SpaceXは次のマイルストーンとしてStarship本体（上段）のMechazillaキャッチを目指している。両段ともキャッチできれば完全再利用ロケットの完成。</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">NASAのアルテミス計画への影響</div>
+          <div class="teal-text">StarhipはNASAが次の月面着陸ミッション（アルテミス3号）の月面着陸機として採用している。開発が遅れると月面着陸ミッションにも影響するため、2回連続成功はNASAにとっても朗報。SpaceXは2027年の月面着陸を目指しており、今年中にStarship本体のキャッチを実現したい考え。</div>
+        </div>
+      </div>
+      <div class="teal-item">
+        <div>
+          <div class="teal-label">HNコメントの注目ポイント</div>
+          <div class="teal-text">「再飛行ターンアラウンドタイムは何日か」という質問が多い——SpaceXは数週間でブースターを再使用できると主張しているが、まだ実証されていない。「本当の意味でのゲームチェンジャーはブースターをその日のうちに再使用できるようになった時だ」という洞察が上位コメントに。ロケットの完全再利用は航空機並みのターンアラウンドが最終目標。</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: SpaceX</span>
+      <span>↑1613pt · 💬1185+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.spacex.com/launches/starship-flight-15" target="_blank">公式ページを見る →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50500963" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="spacex-starship-flight-15-catch" data-type="like" onclick="toggleFlag('spacex-starship-flight-15-catch','SpaceX Starship Flight 15 Mechazilla キャッチ 再利用ロケット','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="spacex-starship-flight-15-catch" data-type="dislike" onclick="toggleFlag('spacex-starship-flight-15-catch','SpaceX Starship Flight 15 Mechazilla キャッチ 再利用ロケット','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 3 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-3" id="s3">
+  <div class="story-num">03</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / オープンソース / 知的財産 / 開発者コミュニティ — 2026-11-16</div>
+    <h2 class="story-headline">AIが生成したコードは<br>すべてオープンソースにすべきか</h2>
+    <div class="story-body">
+      プログラマーJakub Jankiewiczが「AIが生成したコードはすべてオープンソースライセンスで公開すべきだ」という主張を発表し、993ポイント・550コメントと今日2番目の注目度を集めた。AIはオープンソースコードで訓練されており、AI生成コードをプロプライエタリにするのは倫理的に問題があるという論理。HNでは賛否両論の激しい議論が展開されている。
+    </div>
+    <div class="red-items">
+      <div class="red-item">
+        <div class="red-label">著者の主張の核心</div>
+        <div class="red-text">① AIはオープンソースコードで訓練された（GitHubのパブリックリポジトリ等）② その知識を使って生成されたコードは「オープンソースの蒸留物」③ だから生成コードはオープンソースライセンスで公開すべき——という3段論法。さらに「AIが介在した時点でそのコードに真の著作権者は存在しない」という法的な議論も展開している。</div>
+      </div>
+      <div class="red-item">
+        <div class="red-label">HNの主要な反論</div>
+        <div class="red-text">「訓練データの出所と生成物の権利は別問題」「これを言い出すと人間が学習した全てのコードもOSSにしなければならない」「企業の機密ロジックをAIに渡したくなくなるのでは」という反論が多数。法的観点から「現行著作権法はAI生成物の権利主体を想定していない」という指摘も。賛成派は「そもそもAI生成コードに著作権は発生しない」と主張している。</div>
+      </div>
+      <div class="red-item">
+        <div class="red-label">実務への影響</div>
+        <div class="red-text">この議論は企業のAI利用規約にも関連する。GitHub Copilotの利用規約では「生成物の著作権はユーザーに帰属するが、類似コードの生成リスクはユーザーが負う」とされている。現状は法的グレーゾーンで、各国で訴訟が起きている。日本でもAI生成物の著作権帰属が議論になっており、HNコメントでは「日本の著作権法はAI生成物をどう扱うか」という質問への回答が注目された。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: jakub.jankiewicz.org</span>
+      <span>↑993pt · 💬550+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://jakub.jankiewicz.org/blog/ai-code-open-source/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50507303" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="ai-code-should-be-oss" data-type="like" onclick="toggleFlag('ai-code-should-be-oss','AI生成コード オープンソース 知的財産 著作権 開発者コミュニティ','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="ai-code-should-be-oss" data-type="dislike" onclick="toggleFlag('ai-code-should-be-oss','AI生成コード オープンソース 知的財産 著作権 開発者コミュニティ','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 4 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-4" id="s4">
+  <div class="story-num">04</div>
+  <div class="story-inner">
+    <div class="story-kicker">半導体 / 独禁法 / 価格操作 / Samsung / SK Hynix / Micron — 2026-11-16</div>
+    <h2 class="story-headline">Samsung・SK Hynix・Micronの<br>DRAM価格カルテル訴訟が存続</h2>
+    <div class="story-body">
+      Samsung・SK Hynix・Micronの3社によるDRAM価格操作の共謀を主張する集団訴訟で、裁判所が被告3社の訴訟棄却申立を否認した。479ポイント・210コメント。DRAM市場は実質3社寡占であり、価格協調の疑惑は以前からあった。今後の証拠開示（discovery）フェーズに進むことで、価格操作の実態が明らかになる可能性がある。
+    </div>
+    <div class="green-items">
+      <div class="green-item">
+        <div class="green-label">この訴訟の背景</div>
+        <div class="green-text">世界のDRAM市場はSamsung・SK Hynix・Micronの3社で約95%を占める極端な寡占状態。2016〜2017年にかけてDRAM価格が急騰した際に「3社が協調して意図的に供給を絞り価格を吊り上げた」とする集団訴訟が起きた。訴状では「競合他社への情報提供、価格・生産量の協調が行われた」と主張している。今回、裁判所が「訴訟を棄却するには証拠が不十分」として存続を認めた。</div>
+      </div>
+      <div class="green-item">
+        <div class="green-label">HNコメントの洞察</div>
+        <div class="green-text">「DRAM市場の寡占がここまで進んだのは業界再編と価格競争の結果——悪意ある共謀なのか、それとも自然な市場収束なのか」という議論が活発。「価格協調の証拠を見つけるのは難しい。メールや会議録でも残っていない限り」という懐疑論も。「2016年のDRAM価格急騰でサーバー調達コストが2倍になった企業が多かった」という被害の実態報告も。</div>
+      </div>
+      <div class="green-item">
+        <div class="green-label">業界への示唆</div>
+        <div class="green-text">この訴訟の帰結はDRAM・NAND市場の規制論議にも影響する。もし価格協調が認定されれば、半導体への独禁法適用が強化される可能性がある。長期的には新興プレイヤー（中国CXMT等）の台頭が寡占緩和につながるかもしれないが、先端DRAM製造の技術的障壁は依然高い。日本はDRAM調達コストに直接影響を受けるため注目すべき裁判。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: litnews.ai</span>
+      <span>↑479pt · 💬210+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://litnews.ai/articles/garciaguirre-samsung-sk-hynix-micron-dram-conspiracy-suit-survives-dismissal" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50502988" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="dram-price-fixing-lawsuit" data-type="like" onclick="toggleFlag('dram-price-fixing-lawsuit','DRAM 価格カルテル Samsung SK Hynix Micron 独禁法 半導体','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="dram-price-fixing-lawsuit" data-type="dislike" onclick="toggleFlag('dram-price-fixing-lawsuit','DRAM 価格カルテル Samsung SK Hynix Micron 独禁法 半導体','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 5 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-5" id="s5">
+  <div class="story-num">05</div>
+  <div class="story-inner">
+    <div class="story-kicker">ハードウェア / Apple / MacBook / ディスプレイ / 健康 — 2026-11-16</div>
+    <h2 class="story-headline">MacBook ProのOLEDディスプレイは<br>「より良い」どころか目に悪い可能性</h2>
+    <div class="story-body">
+      macAnorakがMacBook ProのOLEDディスプレイに深刻なPWM（パルス幅変調）ちらつき問題があると報告した。371ポイント・198コメント。OLEDは有機EL発光のため目に優しいと思われがちだが、低輝度時に高頻度のPWMちらつきが発生しており、頭痛・眼精疲労の原因になる可能性が指摘されている。LCDからOLEDへの移行が「アップグレード」どころか一部ユーザーに悪影響をもたらす可能性がある。
+    </div>
+    <div class="purple-items">
+      <div class="purple-item">
+        <div class="purple-label">PWMとは何か、なぜ問題か</div>
+        <div class="purple-text">PWM（パルス幅変調）はディスプレイの輝度を高速オン/オフで制御する技術。200Hz以上の高周波ならほとんど問題ないが、低周波（60〜120Hz程度）だと目に見えないちらつきが発生し、眼精疲労・頭痛・偏頭痛を引き起こす人がいる。LCDはバックライトでPWMを使うが、OLEDは各画素が自発光するため低輝度時のPWM制御が難しくなる。MacBook ProのOLEDは低輝度設定時にPWM周波数が低下するとされる。</div>
+      </div>
+      <div class="purple-item">
+        <div class="purple-label">誰が影響を受けるか</div>
+        <div class="purple-text">PWM感受性は個人差が大きく、全員に問題が起きるわけではない。しかし「OLED MacBook Proに替えてから頭痛が起きるようになった」という報告が多数寄せられており、HNスレッドでも「返品した」というコメントが複数。開発者・デザイナーなど長時間ディスプレイを見る職業の人に特に影響が出やすい。DC調光（PWMを使わない輝度制御）を採用していないディスプレイは今後も問題になりうる。</div>
+      </div>
+      <div class="purple-item">
+        <div class="purple-label">解決策と代替選択肢</div>
+        <div class="purple-text">① 輝度を高めに設定する（低輝度ほどPWM周波数が下がる）② 外付けのDC調光対応モニターを使う。HNコメントでは「ThinkPadのIPSパネルに戻した」「外付けMiniLEDモニターのほうがマシ」という意見も。AppleがDC調光対応OLEDを採用するまでは、PWM敏感な人にとってMacBook Pro OLEDは避けるべき選択肢かもしれない。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: macanorak.com</span>
+      <span>↑371pt · 💬198+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://macanorak.com/the-macbook-pros-oled-pwm-problem-when-a-better-display-becomes-worse-to-use/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50506719" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="macbook-pro-oled-pwm" data-type="like" onclick="toggleFlag('macbook-pro-oled-pwm','MacBook Pro OLED PWM ちらつき 眼精疲労 ディスプレイ Apple','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="macbook-pro-oled-pwm" data-type="dislike" onclick="toggleFlag('macbook-pro-oled-pwm','MacBook Pro OLED PWM ちらつき 眼精疲労 ディスプレイ Apple','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 6 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-6" id="s6">
+  <div class="story-num">06</div>
+  <div class="story-inner">
+    <div class="story-kicker">クラウド障害 / Microsoft / セキュリティ / 物理的影響 — 2026-11-16</div>
+    <h2 class="story-headline">Microsoft 365の障害が<br>塩素ガス漏洩・15名中毒の引き金に</h2>
+    <div class="story-body">
+      ドイツのWDRが報じたところによると、Microsoft 365のクラウド障害が原因でドイツの遊園地「ファンタジーランド」の水処理システムが誤動作し、塩素ガスが漏洩して宿泊客15名が中毒症状を起こした。253ポイント・126コメント。クラウドサービスの障害が物理的な安全問題に直結するという事例として大きな注目を集めている。
+    </div>
+    <div class="cyan-items">
+      <div class="cyan-item">
+        <div>
+          <div class="cyan-label">何が起きたか</div>
+          <div class="cyan-text">Microsoft 365の障害により、水処理システムの制御ソフトウェアが正常に動作しなくなった。塩素注入量の制御が失われ、プールや宿泊施設の水に過剰な塩素が混入した。宿泊客15名が目・呼吸器への刺激症状を訴え病院に搬送された。重症者はいなかったとされるが、クラウド依存の制御システムのリスクを改めて示した。</div>
+        </div>
+      </div>
+      <div class="cyan-item">
+        <div>
+          <div class="cyan-label">なぜこれが重大なのか</div>
+          <div class="cyan-text">水処理・電力・交通制御といった重要インフラが、パブリッククラウドの可用性に依存するようになっているという問題の具体例。「SaaSで動く安全クリティカルシステムはアーキテクチャの失敗だ」というHNコメントが多数。フェイルセーフ設計（障害時に安全な状態に戻る設計）があれば防げた可能性がある。クラウドへの過度な依存を見直す議論が活発化している。</div>
+        </div>
+      </div>
+      <div class="cyan-item">
+        <div>
+          <div class="cyan-label">業界への示唆</div>
+          <div class="cyan-text">「OT（運用技術）とIT（情報技術）の融合が進むほど、このような事例は増える」というHNコメントが支持を集めた。産業制御システム（ICS/SCADA）をクラウド接続する際のリスク管理が問われている。日本でも水道・電力の制御システムのクラウド移行が進んでいるが、このような事例は設計基準の見直しを促す可能性がある。フォールバック機能の必須化を求める声も。</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: WDR (ドイツ)</span>
+      <span>↑253pt · 💬126+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www1.wdr.de/nrw/rheinland/rhein-erft-kreis/technischer-defekt-chlor-phantasialand-100.html" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50509411" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="ms365-outage-chlorine-gas" data-type="like" onclick="toggleFlag('ms365-outage-chlorine-gas','Microsoft 365 クラウド障害 塩素ガス 水処理 物理影響 セキュリティ','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="ms365-outage-chlorine-gas" data-type="dislike" onclick="toggleFlag('ms365-outage-chlorine-gas','Microsoft 365 クラウド障害 塩素ガス 水処理 物理影響 セキュリティ','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 7 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-7" id="s7">
+  <div class="story-num">07</div>
+  <div class="story-inner">
+    <div class="story-kicker">宇宙 / NASA / 歴史 / 変わった雑学 — 2026-11-16</div>
+    <h2 class="story-headline">アポロ宇宙船はなぜ<br>グレネードランチャーを搭載していたのか</h2>
+    <div class="story-body">
+      Space.StackExchangeに2019年に投稿された「アポロ宇宙船がグレネードランチャーを搭載していた理由」という質問への回答が208ポイント・140コメントを集めてHNで大きく話題になった。実際には打ち上げ花火のような信号弾発射装置で、着水後に遭難した場合に地上救助隊に位置を知らせるためのもの。しかしその背景には当時の冷戦下での設計思想が反映されており、興味深い歴史的文脈がある。
+    </div>
+    <div class="amber-items">
+      <div class="amber-item">
+        <div class="amber-label">「グレネードランチャー」の正体</div>
+        <div class="amber-text">アポロ宇宙船に搭載されていたのは「Mk 13 Mod 0 Marine Signal Flare」——軍用の信号弾発射装置。着水後に宇宙飛行士が遭難した場合に空から発見されやすくするためのものだった。ただし設計は実際のグレネードランチャーに基づいており、パーツも軍用規格のものが流用されている。これがHNで「アポロにグレネードランチャーがあった」という驚きをもって語られた。</div>
+      </div>
+      <div class="amber-item">
+        <div class="amber-label">なぜ軍用装備が宇宙船に</div>
+        <div class="amber-text">アポロ計画の宇宙飛行士はほぼ全員が軍パイロット出身で、射出座席・救命装備・通信機器など多くが軍規格だった。着水後の救助シナリオでは「太平洋の広大な海上で宇宙船が発見されない」という最悪ケースを想定した装備が必要で、信号弾は最も確実な手段の一つだった。現代のGPS・衛星通信がなかった時代の設計思想を反映している。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: Space.StackExchange</span>
+      <span>↑208pt · 💬140+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://space.stackexchange.com/questions/37775" target="_blank">Q&Aを読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50505271" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="apollo-grenade-launcher" data-type="like" onclick="toggleFlag('apollo-grenade-launcher','アポロ グレネードランチャー 信号弾 NASA 宇宙 歴史 変わった雑学','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="apollo-grenade-launcher" data-type="dislike" onclick="toggleFlag('apollo-grenade-launcher','アポロ グレネードランチャー 信号弾 NASA 宇宙 歴史 変わった雑学','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 8 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-8" id="s8">
+  <div class="story-num">08</div>
+  <div class="story-inner">
+    <div class="story-kicker">AI / 機械学習 / LLM / 教育 — 2026-11-16</div>
+    <h2 class="story-headline">現代LLMの位置エンコーディングを<br>完全に理解する</h2>
+    <div class="story-body">
+      ML研究者Sebastian Raschkaが現代LLMの位置エンコーディング（Positional Embeddings）を体系的に解説した記事を公開した。180ポイント・22コメント。RoPE・ALiBi・YARN・LongRoPEなど、主要LLMが採用する位置エンコーディング手法の違いと特性を丁寧に説明しており、「これほど整理された解説は珍しい」と高く評価されている。LLMの内側を理解したい開発者・研究者に必読の内容。
+    </div>
+    <div class="gold-items">
+      <div class="gold-item">
+        <div class="gold-label">なぜ位置エンコーディングが重要か</div>
+        <div class="gold-text">TransformerベースのLLMは基本的にはテキストをトークンの「袋」として処理する——つまり語順の情報が失われる。これを補うのが位置エンコーディング。どのトークンが何番目にあるかをモデルに伝える仕組みで、長文理解・コードの順序依存ロジック・長期文脈保持の性能に直結する。RoPE（Rotary PE）はGPT-4・LlamaやClaudeが採用し、長文対応に優れている。</div>
+      </div>
+      <div class="gold-item">
+        <div class="gold-label">各手法の特徴（要点）</div>
+        <div class="gold-text">① Sinusoidal PE（初代Transformer）：シンプルだが長文で劣化。② ALiBi：訓練長を超えたコンテキスト外挿が得意。③ RoPE：相対位置情報をQ/Kベクトルに組み込む——現在の標準。④ YARN：RoPEを長文に拡張、コンテキスト窓を後付けで伸ばせる。⑤ LongRoPE：さらに最適化してより長い文脈を安定して処理。Claude・GPT-4oが長文対応できるのはこれらのおかげ。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: Sebastian Raschka (magazine.sebastianraschka.com)</span>
+      <span>↑180pt · 💬22+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://magazine.sebastianraschka.com/p/understanding-positional-embeddings" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50506376" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="llm-positional-embeddings" data-type="like" onclick="toggleFlag('llm-positional-embeddings','LLM 位置エンコーディング RoPE ALiBi Transformer AI 機械学習','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="llm-positional-embeddings" data-type="dislike" onclick="toggleFlag('llm-positional-embeddings','LLM 位置エンコーディング RoPE ALiBi Transformer AI 機械学習','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 9 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-9" id="s9">
+  <div class="story-num">09</div>
+  <div class="story-inner">
+    <div class="story-kicker">神経科学 / 動物行動学 / 変わった科学 — 2026-11-16</div>
+    <h2 class="story-headline">「鳥頭」は誤解だった——<br>カラスの意思決定は人間より速い</h2>
+    <div class="story-body">
+      New York Timesが報じた最新研究によると、カラスは人間よりも速く複雑な意思決定ができることが判明した。107ポイント・82コメント。鳥の脳は哺乳類の大脳皮質とは全く異なる構造を持つが、機能的には同等かそれ以上の高次認知処理が可能であることが示された。「birdbrain（鳥頭）＝頭が悪い」という英語の慣用表現はいよいよ死語になりそうだ。
+    </div>
+    <div class="slate-items">
+      <div class="slate-item">
+        <div class="slate-label">研究の内容</div>
+        <div class="slate-text">研究者たちはカラスに対して「二択の意思決定課題」を与えた。片方の選択肢に報酬が隠れており、カラスはどちらを選ぶか決定しなければならない。結果：カラスの決定時間は人間よりも一貫して速く、かつ精度も同等かそれ以上だった。さらにカラスは「不確実性を認識し、わからない時には選択を保留する」という高度なメタ認知能力も示した——これは従来、人間や類人猿にしかないとされていた能力。</div>
+      </div>
+      <div class="slate-item">
+        <div class="slate-label">なぜ鳥の脳は「小さいのに賢い」のか</div>
+        <div class="slate-text">鳥の脳は哺乳類と異なり「大脳新皮質」を持たない。しかし「外套（Pallium）」と呼ばれる構造が類似した機能を果たすことが判明している。ニューロンの密度が哺乳類より高く、小さい体積でも膨大な計算が可能。「脳の構造が違っても知性は発達できる」という示唆は、AIアーキテクチャの多様性にも示唆を与えるとHNコメントで議論された。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: New York Times</span>
+      <span>↑107pt · 💬82+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://www.nytimes.com/2026/11/15/science/birdbrain-crows-birds-research-decision.html" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50509023" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="crows-fast-decision-making" data-type="like" onclick="toggleFlag('crows-fast-decision-making','カラス 意思決定 神経科学 動物行動学 変わった科学 鳥頭','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="crows-fast-decision-making" data-type="dislike" onclick="toggleFlag('crows-fast-decision-making','カラス 意思決定 神経科学 動物行動学 変わった科学 鳥頭','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY 10 ══════════════════════════════════════════════════════════════════════════════════ -->
+<section class="story story-10" id="s10">
+  <div class="story-num">10</div>
+  <div class="story-inner">
+    <div class="story-kicker">AIセキュリティ / エージェント / プロンプトインジェクション — 2026-11-16</div>
+    <h2 class="story-headline">AIエージェントは知らずのうちに<br>「ハック可能なもの」を選んでいる</h2>
+    <div class="story-body">
+      セキュリティ研究者Geoff Stearnsが「AIエージェントは複数の選択肢から無意識にハック可能なものを選びやすい」という問題を指摘した記事を公開した。38ポイント・15コメント。エージェントがウェブ検索や外部ツールを呼び出す際、悪意あるコンテンツでプロンプトインジェクションされたページが優先的に返されるよう細工されていれば、エージェントは知らずにそれを選択する可能性がある。AIエージェントのセキュリティ設計において重要な視点を提供している。
+    </div>
+    <div class="mag-items">
+      <div class="mag-item">
+        <div class="mag-label">具体的な攻撃シナリオ</div>
+        <div class="mag-text">① ユーザーがエージェントに「最良のpythonライブラリを探してインストールして」と依頼。② エージェントがウェブ検索を実行。③ 悪意ある攻撃者が検索結果の上位に「見た目は正常だが、裏に隠れたプロンプトインジェクション指示が書かれた」ページを置く。④ エージェントがそのページを「優れたライブラリの推薦」として解釈し、マルウェアをインストールする指示に従ってしまう。これはAIエージェントへのサプライチェーン攻撃の一形態。</div>
+      </div>
+      <div class="mag-item">
+        <div class="mag-label">対策と今後の課題</div>
+        <div class="mag-text">「エージェントが読んだコンテンツは信頼してはならない——コンテンツは常にデータとして扱い、指示として解釈しない」という原則が重要。しかしLLMベースのエージェントはテキストをデータと指示の両方として同時に処理するため、根本的な対策は難しい。サンドボックス化・権限最小化・人間の承認ステップの挿入が現実的な対策。Claude等のAIはこの問題を認識しており、「観察したコンテンツは命令として扱わない」というガードレールを実装している。</div>
+      </div>
+    </div>
+    <div class="story-meta">
+      <span>出典: geoffstearns.com</span>
+      <span>↑38pt · 💬15+</span>
+    </div>
+    <div class="story-links">
+      <a class="story-link primary" href="https://geoffstearns.com/blog/your-agent-will-pick-the-hackable-one/" target="_blank">記事を読む →</a>
+      <a class="story-link secondary" href="https://news.ycombinator.com/item?id=50510799" target="_blank">HN議論を見る</a>
+      <div class="feedback-buttons">
+        <button class="flag-btn like-btn" data-story="agent-picks-hackable" data-type="like" onclick="toggleFlag('agent-picks-hackable','AIエージェント セキュリティ プロンプトインジェクション ハック サプライチェーン','like')">⭐ 興味あり</button>
+        <button class="flag-btn dislike-btn" data-story="agent-picks-hackable" data-type="dislike" onclick="toggleFlag('agent-picks-hackable','AIエージェント セキュリティ プロンプトインジェクション ハック サプライチェーン','dislike')">✕ 興味なし</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-top">
+    <div class="footer-brand">Morning Edition</div>
+    <button class="export-btn" onclick="exportFeedback()">フィードバックをエクスポート</button>
+  </div>
+  <div class="footer-meta">
+    Hacker News フロントページから選出 · 2026年11月16日 · No.181<br>
+    キュレーション: AI · 開発ツール · プライバシー · 変わった科学 · actionableなコンテンツ優先
+  </div>
+  <div class="footer-note">フィードバックはブラウザのlocalStorageに保存されます。「エクスポート」でfeedback.jsonに書き出せます。</div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(function() {
+  const STORAGE_KEY = 'morning-edition-feedback-v2';
+
+  function loadFeedback() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      return raw ? JSON.parse(raw) : { liked: {}, disliked: {} };
+    } catch(e) { return { liked: {}, disliked: {} }; }
+  }
+
+  function saveFeedback(data) {
+    try {
+      data.updatedAt = new Date().toISOString();
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    } catch(e) {}
+  }
+
+  function applyStates() {
+    const fb = loadFeedback();
+    document.querySelectorAll('.flag-btn').forEach(btn => {
+      const id = btn.dataset.story;
+      const type = btn.dataset.type;
+      btn.classList.remove('active');
+      if (type === 'like' && fb.liked[id]) btn.classList.add('active');
+      if (type === 'dislike' && fb.disliked[id]) btn.classList.add('active');
+    });
+  }
+
+  window.toggleFlag = function(storyId, storyTitle, type) {
+    const fb = loadFeedback();
+    if (type === 'like') {
+      if (fb.liked[storyId]) {
+        delete fb.liked[storyId];
+        showToast('評価を取り消しました');
+      } else {
+        fb.liked[storyId] = { title: storyTitle, date: '2026-11-16' };
+        delete fb.disliked[storyId];
+        showToast('⭐ 興味ありとして記録しました');
+      }
+    } else {
+      if (fb.disliked[storyId]) {
+        delete fb.disliked[storyId];
+        showToast('評価を取り消しました');
+      } else {
+        fb.disliked[storyId] = { title: storyTitle, date: '2026-11-16' };
+        delete fb.liked[storyId];
+        showToast('✕ 興味なしとして記録しました');
+      }
+    }
+    saveFeedback(fb);
+    tryWriteFile(fb);
+    applyStates();
+  };
+
+  async function tryWriteFile(data) {
+    if (!window.showSaveFilePicker) return;
+    try {
+      if (!window._feedbackFileHandle) return;
+      const writable = await window._feedbackFileHandle.createWritable();
+      await writable.write(JSON.stringify(data, null, 2));
+      await writable.close();
+    } catch(e) {}
+  }
+
+  window.exportFeedback = async function() {
+    const fb = loadFeedback();
+    const json = JSON.stringify(fb, null, 2);
+    if (window.showSaveFilePicker) {
+      try {
+        const handle = await window.showSaveFilePicker({
+          suggestedName: 'feedback.json',
+          types: [{ description: 'JSON', accept: { 'application/json': ['.json'] } }]
+        });
+        window._feedbackFileHandle = handle;
+        const writable = await handle.createWritable();
+        await writable.write(json);
+        await writable.close();
+        showToast('✓ feedback.json に保存しました');
+      } catch(e) {
+        if (e.name !== 'AbortError') fallbackCopy(json);
+      }
+    } else {
+      fallbackCopy(json);
+    }
+  };
+
+  function fallbackCopy(json) {
+    navigator.clipboard.writeText(json).then(() => {
+      showToast('クリップボードにコピーしました');
+    }).catch(() => {
+      showToast('コピー失敗——ブラウザ設定を確認してください', true);
+    });
+  }
+
+  let toastTimer;
+  function showToast(msg, isError) {
+    const el = document.getElementById('toast');
+    el.textContent = msg;
+    el.className = 'toast' + (isError ? ' error' : '') + ' show';
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => { el.classList.remove('show'); }, 2800);
+  }
+
+  document.addEventListener('DOMContentLoaded', applyStates);
+})();
+</script>
+</body>
+</html>
